@@ -15,37 +15,9 @@
 		<link href="css/style.css" rel="stylesheet" />
 
     <!--     Fonts     -->
-		<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-		<script type="text/javascript">
-
-		// JSONTest = function() {
-
-		//     var resultDiv = $("#resultDivContainer");
-
-		//     $.ajax({
-		//         url: "http://ct-emails.azurewebsites.net/emails/mailing/add",
-		//         type: "POST",
-		//         data: { email: $("#mail") },
-		//         dataType: "json",
-		//         success: function (result) {
-		//             switch (result) {
-		//                 case true:
-		//                     processResponse(result);
-		//                     break;
-		//                 default:
-		//                     processResponse(result);
-		//             }
-		//         },
-		//         error: function (xhr, ajaxOptions, thrownError) {
-		//         alert(xhr.status);
-		//         alert(thrownError);
-		//         }
-		//     });
-		// };
-
-        </script>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+  	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
 </head>
 
@@ -72,7 +44,7 @@
                             <label class="sr-only" for="exampleInputEmail2">Email address</label>
                             <input type="email" class="form-control transparent" placeholder="Your email here..." id="mail">
                           </div>
-                          <button type="button" class="btn btn-info btn-fill" id="boi">Notify Me</button>
+                          <button type="button" class="btn btn-info btn-fill" id="btn">Notify Me</button>
                         </form>
 
                     </div>
@@ -91,7 +63,7 @@
 	<script src="js/bootstrap.min.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-        $('#boi').click(function(){
+        $('#btn').click(function(){
 
             console.log('--');
 
@@ -104,7 +76,8 @@
             };
             xmlhttp.open("POST", "http://ct-emails.azurewebsites.net/emails/mailing/add", true);
             xmlhttp.setRequestHeader("Content-Type", "application/json");
-            xmlhttp.send(JSON.stringify({email: $('mail').val()}));
+            console.log(JSON.stringify({ email: $('#mail').val()}));
+           xmlhttp.send(JSON.stringify({email: $('#mail').val()}));
         });
 
         </script>
