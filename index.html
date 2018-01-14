@@ -1,85 +1,348 @@
-
-<!doctype html>
-<html lang="en">
+  <!DOCTYPE html>
+<html>
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <meta name="viewport" content="width=device-width" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<link rel="shortcut icon" href="img/favcon.png">
 
-    <title>Cointec</title>
-		<link href="images/favicon.png" rel="icon">
+  <title></title>
 
-    <link href="css/bootstrap.css" rel="stylesheet" />
-		<link href="css/style.css" rel="stylesheet" />
-
-    <!--     Fonts     -->
-	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-  	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="css/section-scroll.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
 
 </head>
-
 <body>
 
-<div class="main">
+  <div class="ui ovrly middle aligned center aligned grid" id="sign-up-ovrly" style="display: none;">
 
-    <div class="container">
-        <div class="logo">
-            <img src="images/logo@3x.png">
-        </div>
+    <div class="ui five wide computer seven wide tablet fifteen wide mobile doubling column ovrly-rect">
 
-        <div class="content">
-            <h3 class="motto">Get crypto. Fast.</h3>
-						<h4 class="description">Cointec let’s you buy, sell and exchange over 15<br>cryptocurrencies on a secure, instant platform.</h4>
-            <div class="subscribe">
-                <h5 class="info-text">
-                    Coming soon.
-                </h5>
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4 col-sm6-6 col-sm-offset-3 ">
-                        <form class="form-inline" role="form">
-                          <div class="form-group">
-                            <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                            <input type="email" class="form-control transparent" placeholder="Your email here..." id="mail">
-                          </div>
-                          <button type="button" class="btn btn-info btn-fill" id="btn">Notify Me</button>
-                        </form>
+      <img src="img/close_icon.png" id="close_pop1" style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
 
-                    </div>
-                </div>
-            </div>
-        </div>
+      <img src="img/round-done-button.png" id="close_pop1" style="height: 2.4em; width: 2.4em; margin-top: 1.5em;"/>
+
+      <h3 style="font-size: 1.8em; font-weight: 400; margin-top: 0.5em;">Thanks for signing up</h3>
+
+      <p class="adad" style="margin-bottom: 2.6em; line-height: 22px;">Keep an eye on your email for updates</br>and early access token.</p>
+
     </div>
-    <div class="footer">
-      <div class="container">
-             ©2018 Cointec Ltd. Cointec Ltd is a company registered in England and Wales (No. 11104052)
+
+  </div>
+
+  <div class="ui ovrly middle aligned center aligned grid" id="access-ovrly" style="display: none;">
+
+    <div class="ui six wide computer seven wide tablet sixteen wide mobile doubling column ovrly-rect">
+
+      <img src="img/close_icon.png" id="close_pop2" style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
+
+      <h4 style="margin-top: 1.7em; font-size: 1.5em;">Get early access to our mobile app</h3>
+
+      <p class="adad" style="margin-top: 1.2em; margin-bottom: 0.9em; line-height: 22px;">Be the first to use Cointec’s mobile platform,</br>available for iOS and android.</p>
+
+      <div class="ui action fluid input top-input" id="popup-input" style="margin-bottom: 1.5em;">
+        <input type="text" placeholder="Email" id="popup-input-early-access">
+        <button class="ui green button" id="popup-input-early-access-btn" style="background: #34da8c;">Early access</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="ui secondary fixed inverted menu" id="top-menu">
+    <a class="logo item" href="#">
+      <img src="img/top_logo.png" id="top-logo"/>
+    </a>
+    <div class="right menu">
+      <a class="item active trans" id="home-btn">
+        Home
+      </a>
+      <a class="item trans" id="features-btn">
+        Features
+      </a>
+      <a class="item trans" id="contact-btn" href="contact.html">
+        Contact
+      </a>
+    </div>
+    <div class="right menu">
+      <div class="item">
+        <div class="ui button" id="top-early-access">
+          Early access
+        </div>
       </div>
     </div>
- </div>
+  </div>
+
+<div class="fs-segment scrollable-section">
+
+  <img id="chart-img" class="xdesktop" src="img/1_chart.svg"/>
+  <img id="chart-img" class="xmobile" src="img/2_chart.svg"/>
+
+  <div class="ui center aligned middle aligned grid" id="fs-1-grid">
+
+    <div class="thirteen wide mobile six wide computer column" id="text-column">
+
+      <img id="top-icon" src="img/top_icon.png"/>
+
+      <p id="get-crypto">Get crypto. Fast.</p>
+
+      <p class="tx-desc xdesktop">Cointec lets you buy, sell and exchange over 15</br>cryptocurrencies on a secure, instant platform.</p>
+      <p class="tx-desc xmobile">Cointec lets you buy, sell and exchange</br>over 15 cryptocurrencies on a secure,</br>instant platform.</p>
+
+      <div class="ui action fluid input" id="top-input">
+        <input type="text" placeholder="Email" id="input-early-access">
+        <button class="ui button" id="input-early-access-btn">Early access</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="fs-segment scrollable-section">
+
+  <div class="ui center aligned middle aligned stackable grid" id="fs-2-grid">
+
+    <div class="ui six wide column" id="instant-access-txt">
+
+      <p class="tx-title left-aligned">Instant access.</p>
+
+      <p class="tx-desc left-aligned xdesktop">Take every opportunity with Cointec’s lightning</br>fast delivery. Here for the early birds and the</br>night owls. The market never sleeps, so why</br>should we?</p>
+      <p class="tx-desc xmobile">Take every opportunity with Cointec’s</br>lightning fast delivery. Here for the early</br>birds and the night owls. The market</br>never sleeps, so why should we?</p>
+
+    </div>
+
+    <div class="ui six wide column" id="instant-access-img">
+
+      <img class="ui centered image xdesktop section-img-d" src="img/instant_access.png"/>
+      <img class="ui fluid image xmobile" src="img/instant_access_mobile.png"/>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="fs-segment scrollable-section">
+
+  <div class="ui center aligned middle aligned stackable grid" id="fs-2-grid">
+
+    <div class="ui six wide column xdesktop" id="seamless-payments-img">
+
+      <img class="ui centered image xdesktop section-img-d" src="img/seamless_payments.png"/>
+
+    </div>
+
+    <div class="ui six wide column" id="seamless-payments-txt">
+
+      <p class="tx-title left-aligned">Seamless payments.</p>
+
+      <p class="tx-desc left-aligned xdesktop">Purchase coins with GBP or EUR using your</br>preferred choice of payment including credit</br>card, local bank transfer, SEPA, iDeal, Sofort,</br>Giropay, Trustly and more...</p>
+      <p class="tx-desc xmobile">Purchase coins with GBP or EUR using your</br>preferred choice of payment including credit</br>card, local bank transfer, SEPA, iDeal, Sofort,</br>Giropay, Trustly and more...</p>
+
+    </div>
+
+    <div class="ui six wide column xmobile" id="seamless-payments-img">
+
+      <img class="ui fluid image xmobile" src="img/seamless_payments.png"/>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="fs-segment scrollable-section">
+
+  <div class="ui center aligned middle aligned stackable grid" id="fs-3-grid">
+
+    <div class="ui six wide column" id="no-further-txt">
+
+      <p class="tx-title left-aligned">Look no further.</p>
+
+      <p class="tx-desc left-aligned xdesktop">With over 15 cryptos to choose from, you</br>can access both major and exotic coins all</br>in one place.</p>
+      <p class="tx-desc xmobile">With over 15 cryptos to choose from,</br>you can access both major and exotic</br>coins all in one place.</p>
+
+    </div>
+
+    <div class="ui six wide column" id="no-further-img">
+
+      <img class="ui centered image xdesktop section-img-d" src="img/icons.svg"/>
+      <img class="ui fluid image xmobile" src="img/icons.svg"/>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="fs-segment scrollable-section">
+
+  <div class="ui center aligned middle aligned stackable grid" id="fs-4-grid">
+
+    <div class="ui six wide column xdesktop" id="pocket-profits-img">
+
+      <img class="ui centered image xdesktop section-img-d" src="img/pocket_profits.png"/>
+
+    </div>
+
+    <div class="ui six wide column" id="pocket-profits-txt">
+
+      <p class="tx-title left-aligned">Pocket profits.</p>
+
+      <p class="tx-desc left-aligned xdesktop">Whether you’re at home or on the go, Cointec’s</br>mobile app lets you take the markets with you</br>so you never miss another trade.</p>
+      <p class="tx-desc xmobile">Whether you’re at home or on the go,</br>Cointec’s mobile app lets you take the</br>markets with you so you never miss</br>another trade.</p>
+
+    </div>
+
+    <div class="ui six wide column xmobile" id="pocket-profits-img">
+
+      <img class="ui fluid image xmobile" src="img/pocket_profits.png"/>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="fs-segment scrollable-section">
+
+  <div class="ui center aligned middle aligned stackable grid" id="fs-5-grid">
+
+    <div class="ui six wide column" id="of-mind-txt">
+
+      <p class="tx-title left-aligned">Peace of mind.</p>
+
+      <p class="tx-desc left-aligned xdesktop">No need to setup wallets or store keys. Our</br>platform’s enhanced security takes care of the</br>hard work for you.</p>
+      <p class="tx-desc xmobile">No need to setup wallets or store keys.</br>Our platform’s enhanced security takes</br>care of the hard work for you.</p>
+
+    </div>
+
+    <div class="ui six wide column" id="of-mind-img">
+
+      <img class="ui centered image xdesktop section-img-d" src="img/of_mind.png"/>
+      <img class="ui fluid image xmobile" src="img/of_mind_m.png"/>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="fs-segment scrollable-section">
+
+  <div class="ui center aligned middle aligned grid" id="fs-6-grid">
+
+    <div class="thirteen wide mobile six wide computer column" id="text-column">
+
+      <img id="diamond-icon" src="img/diamond.png"/>
+
+      <p id="exclusive-access">Exclusive access.</p>
+
+      <p class="tx-desc adad xdesktop spaced">Be the first to use Cointec’s mobile platform,</br>available for iOS and android.</p>
+      <p class="tx-desc adad xmobile">Be the first to use Cointec’s</br>mobile platform, available for</br>iOS and android.</p>
+
+      <div class="ui action fluid input" id="bottom-input">
+        <input type="text" placeholder="Email" id="bottom-input-early-access">
+        <button class="ui button" id="bottom-input-early-access-btn">Early access</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="footer">
+
+    <div class="ui middle aligned grid xdesktop" id="footer-grid">
+
+      <div class="ui three wide column">
+
+        <img id="bottom-logo" src="img/bottom_logo.png"/>
+
+      </div>
+
+      <div class="ui ten wide column">
+
+        <div class="ui center aligned grid">
+
+          <div class="ui sixteen wide column nopad" style="padding-top: 0.6em !important;">
+
+            <a href="" class="small-padding"><img src="img/social-twitter.png"/></a>
+            <a href="" class="small-padding"><img src="img/social-insta.png"/></a>
+            <a href="" class="small-padding"><img src="img/social-fb.png"/></a>
+
+          </div>
+
+          <div class="ui sixteen wide column nopad">
+
+            <p id="registered">©2018 Cointec Ltd. Cointec Ltd is a company registered in England and Wales (No. 11104052)</p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="ui three wide right aligned bottom aligned column">
+
+        <a id="privacy-policy" href="privacy-policy.html">Privacy Policy</a></br>
+        <a id="terms-cond" href="terms.html">Terms and Conditions</a>
+
+      </div>
+
+    </div>
+
+    <div class="ui middle aligned grid xmobile" id="footer-grid">
+
+      <div class="ui eight wide column">
+
+        <img id="bottom-logo" src="img/bottom_logo.png"/>
+
+      </div>
+
+      <div class="ui eight wide column" id="flr">
+
+        <div class="ui right aligned grid">
+
+          <div class="ui sixteen wide column nopad" style="padding-top: 0.6em !important;">
+
+            <a href="" class="small-padding"><img src="img/social-twitter.png"/></a>
+            <a href="" class="small-padding"><img src="img/social-insta.png"/></a>
+            <a href="" class="small-padding"><img src="img/social-fb.png"/></a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="ui sixteen wide left aligned column nopad kkr">
+
+        <a id="terms-cond" href="terms.html">T&Cs</a></br>
+        <a id="privacy-policy" href="privacy-policy.html">Privacy Policy</a>
+        <p id="registered">©2018 Cointec Ltd. Cointec Ltd is a company</br>registered in England and Wales (No. 11104052)</p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
 </body>
-    <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
-	<script src="js/bootstrap.min.js" type="text/javascript"></script>
 
-    <script type="text/javascript">
-        $('#btn').click(function(){
+<script
+	src="https://code.jquery.com/jquery-3.1.1.min.js"
+	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	crossorigin="anonymous"></script>
+<script src="semantic/dist/semantic.min.js"></script>
+<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.section-scroll.js"></script>
+<script src="js/jquery.scrollTo.min.js"></script>
+<script src="js/main.js"></script>
 
-            console.log('--');
-
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    //???
-                    console.log(this.responseText);
-                }
-            };
-            xmlhttp.open("POST", "http://ct-emails.azurewebsites.net/emails/mailing/add", true);
-            xmlhttp.setRequestHeader("Content-Type", "application/json");
-            console.log(JSON.stringify({ email: $('#mail').val()}));
-           xmlhttp.send(JSON.stringify({email: $('#mail').val()}));
-        });
-
-        </script>
-    </script>
 </html>
