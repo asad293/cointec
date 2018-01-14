@@ -17,6 +17,8 @@ var jump=function(e)
        location.hash = target;
    });
 
+   // window.history.replaceState({}, document.title, "index.html");
+
 }
 
 $('html, body').hide()
@@ -29,7 +31,7 @@ $(document).ready(function () {
       setTimeout(function(){
           $('html, body').scrollTop(0).show()
           jump()
-          // window.history.replaceState({}, document.title, "index.html");
+
       }, 0);
   }else{
     $('html, body').show()

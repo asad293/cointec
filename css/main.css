@@ -19,6 +19,7 @@ Colors:
 }
 
 html {
+    margin:0;
     overflow: scroll;
     overflow-x: hidden;
 }
@@ -34,7 +35,7 @@ html {
 }
 
 body {
-  position: relative;
+  margin:0;
   -webkit-overflow-scrolling: touch;
   overflow-y:scroll;
   overflow-x:hidden;
@@ -90,6 +91,10 @@ body:hover {overflow-y:scroll;}
 
 #top-menu {
   z-index: 9000;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+   box-sizing: border-box;
   padding-top: 1em;
   padding-bottom: 1em;
   padding-left: 0.5em;
@@ -127,6 +132,7 @@ body:hover {overflow-y:scroll;}
 
 #fs-1-grid, #fs-2-grid, #fs-3-grid, #fs-4-grid, #fs-5-grid {
   height: 100%;
+  margin: 0;
 }
 
 #fs-6-grid {
@@ -282,6 +288,10 @@ body:hover {overflow-y:scroll;}
 
 #instant-access-txt, #no-further-txt, #of-mind-txt {
   padding-left: 3em;
+}
+
+#seamless-payments-txt, #pocket-profits-txt {
+  padding-left: 2em;
 }
 
 .tx-desc {
@@ -475,6 +485,7 @@ body:hover {overflow-y:scroll;}
     }
     #scrollto-section-7 {
       height: 105%;
+      overflow: hidden;
     }
     #footer, #footer-contact {
       height: 14em;
@@ -522,4 +533,16 @@ body:hover {overflow-y:scroll;}
       padding-right: 0.3em;
       border-radius: 0;
     }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+  .ui.fluid.image.xmobile {
+    display: none !important;
+  }
+  .fs-segment {
+    zoom: 85%;
+  }
+  #scrollto-section-7 {
+    height: 200%;
+  }
 }
