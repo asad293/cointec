@@ -1,8 +1,10 @@
 .bullets-container {
     display: table;
     position: fixed;
-    right: 0;
+    /* right: 0; */
     height: 100%;
+    width: 100%;
+    max-width: 1200px;
     z-index: 1049;
     font-weight: normal;
 }
