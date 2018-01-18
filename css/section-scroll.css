@@ -1,12 +1,35 @@
 .bullets-container {
     display: table;
     position: fixed;
-    /* right: 0; */
     height: 100%;
-    width: 100%;
+    width: 60px;
+    margin-left: auto;
+    padding-right: 20px;
+    margin-right: auto;
+    left: 0;
+    right: 30px;
     max-width: 1200px;
     z-index: 1049;
     font-weight: normal;
+}
+
+#table-cell-padding {
+  display: table-cell;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+#px1200-container {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  max-width: 1200px;
+  z-index: 1049;
 }
 
 .section-bullets {

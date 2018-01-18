@@ -45,7 +45,7 @@ html {
 
 * {
  font-size: 100%;
- font-family: Roboto !important;
+ font-family: Roboto, sans-serif !important;
  /* transition-duration: 1s; */
 }
 
@@ -54,6 +54,7 @@ body {
   -webkit-overflow-scrolling: touch;
   overflow-y:scroll;
   overflow-x:hidden;
+      background: transparent;
   /* background: #f4f5f7; */
 }
 
@@ -62,7 +63,7 @@ body:hover {overflow-y:scroll;}
 body {
   height: 100%;
   width: 100%;
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin: 0 auto;
   /* overflow: visible; */
   /* background: linear-gradient(270deg, #022191 0%, #045CC7 100%); */
@@ -88,11 +89,15 @@ body {
   width: 100%;
   max-width: 1200px;
   position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   /*border: 1px solid black;*/
 }
 
 .fs-segment-home {
-  background: linear-gradient(270deg, #022191 0%, #045CC7 100%);
+  /* background: linear-gradient(270deg, #022191 0%, #045CC7 100%); */
 }
 
 .trans:hover {
@@ -101,6 +106,7 @@ body {
 
 #scrollto-section-1 {
   top: 0;
+  max-width: initial !important;
 }
 
 #scrollto-section-2 {
@@ -127,23 +133,34 @@ body {
   top: 600%;
   background: #fff;
   z-index: 2000;
+  max-width: initial !important;
 }
 
 #top-menu {
   z-index: 9000;
-  width: 100%;
   max-width: 1200px;
+  /* max-width: 1200px; */
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
    box-sizing: border-box;
-  padding-top: 1em;
-  padding-bottom: 1em;
+  padding-top: 1.2em;
+  padding-bottom: 1.2em;
   padding-left: 0.5em;
   padding-right: 0.5em;
+
+  opacity: 1;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#menu-container {
   background: linear-gradient(270deg, #022191 0%, #045CC7 100%);
   background-clip: border-box;
-  opacity: 1;
-  left: auto;
+  width: 100%;
+  position: fixed;
+  z-index: 9999;
 }
 
 #top-early-access {
@@ -179,8 +196,8 @@ body {
 
 #fs-6-grid {
   height: 100%;
-  padding-bottom: 6.5em;
-  padding-top: 5%;
+  /* padding-bottom: 6.5em; */
+  /* padding-top: 5%; */
   bottom: 0;
   position: absolute;
   width: 100%;
@@ -368,7 +385,12 @@ body {
 
 #footer-grid {
   height: 100%;
-  margin: 0 !important;
+  margin-top: 0 !important;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;11
 }
 
 .small-padding {
@@ -405,6 +427,7 @@ body {
 
 #sign-up-ovrly, #access-ovrly {
   margin: 0 !important;
+  /* max-width: 1200px; */
 }
 
 .ovrly {
@@ -455,6 +478,14 @@ body {
 }
 
 @media only screen and (max-width: 768px) {
+    #fs-2-grid, #fs-3-grid, #fs-4-grid, #fs-5-grid {
+      height: auto;
+      margin: 0;
+    }
+    * {
+      letter-spacing: normal !important;
+     /* transition-duration: 1s; */
+    }
     .tx-title {
       text-align: center;
       font-weight: 400;
@@ -462,6 +493,9 @@ body {
       margin-bottom: 0.7em;
     }
     .bullets-container {
+      display: none;
+    }
+    #menu-container {
       display: none;
     }
     #top-menu {
@@ -512,6 +546,27 @@ body {
     .xmobile {
       display: block !important;
     }
+    .fs-segment {
+      position: relative;
+      height: auto;
+      margin-top: 5em;
+    }
+    #scrollto-section-2,
+    #scrollto-section-3,
+    #scrollto-section-4,
+    #scrollto-section-5,
+    #scrollto-section-6,
+    #scrollto-section-7 {
+      top: auto;
+    }
+    #scrollto-section-1 {
+        margin-top: 0 !important;
+        height: 100%;
+    }
+    #scrollto-section-3 {
+        margin-top: 0 !important;
+        /* height: 100%; */
+    }
     #chart-img {
       position: absolute;
       bottom: 0em;
@@ -531,32 +586,34 @@ body {
       margin-left: 1.5em !important;
       margin-right: 1.5em !important;
     }
-    #pocket-profits-img {
+    /* #pocket-profits-img {
       top: 4em;
       margin-left: 1em !important;
       margin-right: 1em !important;
-    }
-    #scrollto-section-6 {
+    } */
+    /* #scrollto-section-6 {
       top: 540%;
     }
     #scrollto-section-7 {
       top: 640%;
-    }
-    #instant-access-txt, #seamless-payments-txt, #no-further-txt, #pocket-profits-txt, #of-mind-txt {
+    } */
+    /* #instant-access-txt, #seamless-payments-txt, #no-further-txt, #pocket-profits-txt, #of-mind-txt {
       top: 4em;
-    }
+    } */
     #fs-6-grid {
       height: 100%;
       padding-bottom: 14em;
       padding-top: 0;
       bottom: 0;
-      position: absolute;
+      position: relative;
       width: 100%;
       margin: 0;
     }
     #scrollto-section-7 {
-      height: 105%;
+      /* height: 105%; */
       overflow: hidden;
+      padding-top: 5em;
+      padding-bottom: 5em;
     }
     #footer, #footer-contact {
       height: 14em;
@@ -607,14 +664,14 @@ body {
     }
 }
 
-@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
-  .ui.fluid.image.xmobile {
+@media screen and (max-width: 400px) and (orientation: landscape) {
+  /* .ui.fluid.image.xmobile {
     display: none !important;
-  }
-  .fs-segment {
+  } */
+  /* .fs-segment {
     zoom: 85%;
-  }
-  #scrollto-section-7 {
+  } */
+  /* #scrollto-section-7 {
     height: 200%;
-  }
+  } */
 }
