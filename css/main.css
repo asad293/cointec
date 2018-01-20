@@ -54,7 +54,8 @@ body {
   -webkit-overflow-scrolling: touch;
   overflow-y:scroll;
   overflow-x:hidden;
-      background: transparent;
+  background: transparent;
+  -ms-overflow-style: none;
   /* background: #f4f5f7; */
 }
 
@@ -66,7 +67,7 @@ body {
   /* max-width: 1200px; */
   margin: 0 auto;
   /* overflow: visible; */
-  /* background: linear-gradient(270deg, #022191 0%, #045CC7 100%); */
+  background: linear-gradient(270deg, #022191 0%, #045CC7 100%);
 }
 
 #header-trigger {
@@ -106,7 +107,7 @@ body {
 
 #scrollto-section-1 {
   top: 0;
-  max-width: initial !important;
+  max-width: none !important;
 }
 
 #scrollto-section-2 {
@@ -133,7 +134,7 @@ body {
   top: 600%;
   background: #fff;
   z-index: 2000;
-  max-width: initial !important;
+  max-width: none !important;
 }
 
 #top-menu {
