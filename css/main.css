@@ -33,14 +33,14 @@ Colors:
 
 html {
     margin:0;
-    overflow: scroll;
+    /* overflow: scroll; */
     overflow-x: hidden;
     background: #f4f5f7;
 }
 
 ::-webkit-scrollbar {
-    width: 0px;  /* remove scrollbar space */
-    background: transparent;  /* optional: just make scrollbar invisible */
+    /* width: 0px;  /* remove scrollbar space */ */
+    /* background: transparent;  /* optional: just make scrollbar invisible */ */
 }
 
 * {
@@ -52,22 +52,30 @@ html {
 body {
   margin:0;
   -webkit-overflow-scrolling: touch;
-  overflow-y:scroll;
+  overflow-y:hidden;
   overflow-x:hidden;
   background: transparent;
-  -ms-overflow-style: none;
+  /* -ms-overflow-style: none; */
   /* background: #f4f5f7; */
 }
 
-body:hover {overflow-y:scroll;}
+/* body:hover {overflow-y:scroll;} */
 
 body {
   height: 100%;
   width: 100%;
   /* max-width: 1200px; */
   margin: 0 auto;
-  /* overflow: visible; */
+  overflow: visible !important;
   background: linear-gradient(270deg, #022191 0%, #045CC7 100%);
+}
+
+.no-hover:hover {
+  background: transparent !important;
+}
+
+#contact-segment {
+  position: relative !important; padding-bottom: 7em; padding-top: 6em; overflow: hidden;
 }
 
 #header-trigger {
@@ -304,6 +312,7 @@ body {
 }
 
 #contact-textarea {
+  min-height: 200px;
   resize: none;
   width: 100%;
   -webkit-tap-highlight-color: rgba(255,255,255,0);
@@ -501,6 +510,7 @@ body {
     }
     #top-menu {
       visibility: hidden;
+      display: none;
       opacity: 0;
       transition: visibility 0s, opacity 0.1s linear;
     }
@@ -550,7 +560,11 @@ body {
     .fs-segment {
       position: relative;
       height: auto;
-      margin-top: 5em;
+      margin-top: 10em;
+    }
+    .notop {
+      margin-top: 0 !important;
+      top: auto !important;
     }
     #scrollto-section-2,
     #scrollto-section-3,
@@ -565,7 +579,7 @@ body {
         height: 100%;
     }
     #scrollto-section-3 {
-        margin-top: 0 !important;
+        margin-top: 4em !important;
         /* height: 100%; */
     }
     #chart-img {
@@ -587,11 +601,12 @@ body {
       margin-left: 1.5em !important;
       margin-right: 1.5em !important;
     }
-    /* #pocket-profits-img {
-      top: 4em;
-      margin-left: 1em !important;
-      margin-right: 1em !important;
-    } */
+    #pocket-profits-img {
+      width: 90% !important;
+      height: auto;
+      margin-left: auto;
+      margin-right: auto;
+    }
     /* #scrollto-section-6 {
       top: 540%;
     }
@@ -615,6 +630,7 @@ body {
       overflow: hidden;
       padding-top: 5em;
       padding-bottom: 5em;
+      margin-top: 2em !important;
     }
     #footer, #footer-contact {
       height: 14em;
@@ -662,6 +678,16 @@ body {
       padding-right: 0.3em;
       border-radius: 0;
       max-width: none;
+    }
+    #contact-segment {
+      padding-bottom: 0; padding-top: 0;
+    }
+    #footer-contact {
+      position: relative;
+    }
+    ::-webkit-scrollbar {
+        width: 0px;  /* remove scrollbar space */
+        background: transparent;  /* optional: just make scrollbar invisible */
     }
 }
 

@@ -13,6 +13,12 @@
 <link rel="stylesheet" type="text/css" href="css/section-scroll.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
 
+<style>
+  ::-webkit-scrollbar {
+      width: 0px;  /* remove scrollbar space */
+      background: transparent;  /* optional: just make scrollbar invisible */
+  }
+</style>
 </head>
 <body style="background: #fff; overflow-y: scroll;">
 
@@ -75,9 +81,10 @@
     </div>
   </div>
 
-  <div class="fs-segment scrollable-section">
+  <div id="contact-segment" class="fs-segment scrollable-section notop" style="">
 
-    <div class="ui center aligned middle aligned grid" id="fs-1-grid">
+    <div class="ui center aligned middle aligned grid" id="fs-1-grid" style="overflow-y: scroll;     margin-right: -20px;
+    margin-left: -20px;">
 
       <div class="sixteen wide mobile nine wide computer column" id="privacy-column">
 
@@ -105,7 +112,7 @@
 
   </div>
 
-  <div id="footer-contact">
+  <div id="footer-contact" class="notop">
 
     <div class="ui middle aligned grid xdesktop" id="footer-grid">
 
@@ -122,8 +129,8 @@
           <div class="ui sixteen wide column nopad" style="padding-top: 0.6em !important;">
 
             <a href="" class="small-padding"><img src="img/social-twitter.png"/></a>
-            <a href="" class="small-padding"><img src="img/social-insta.png"/></a>
-            <a href="" class="small-padding"><img src="img/social-fb.png"/></a>
+            <!-- <a href="" class="small-padding"><img src="img/social-insta.png"/></a> -->
+            <!-- <a href="" class="small-padding"><img src="img/social-fb.png"/></a> -->
 
           </div>
 
@@ -161,8 +168,8 @@
           <div class="ui sixteen wide column nopad" style="padding-top: 0.6em !important;">
 
             <a href="" class="small-padding"><img src="img/social-twitter.png"/></a>
-            <a href="" class="small-padding"><img src="img/social-insta.png"/></a>
-            <a href="" class="small-padding"><img src="img/social-fb.png"/></a>
+            <!-- <a href="" class="small-padding"><img src="img/social-insta.png"/></a> -->
+            <!-- <a href="" class="small-padding"><img src="img/social-fb.png"/></a> -->
 
           </div>
 
