@@ -124,21 +124,49 @@ $(document).ready(function () {
   });
 
   $('#popup-input-early-access-btn').click(function(){
-    $('#access-ovrly').fadeOut(300, "linear");
-    $('#sign-up-ovrly').fadeIn(300, "linear");
+    if(isEmail($('#popup-input-early-access').val())){
+      //call
+      $('#popup-input-early-access').val('');
+      $('#popup-input-early-access').removeClass('input-error');
+      $('#access-ovrly').fadeOut(300, "linear");
+      $('#sign-up-ovrly').fadeIn(300, "linear");
+    } else {
+      $('#popup-input-early-access').addClass('input-error');
+    }
   });
 
   $('#input-early-access-btn').click(function(){
-    $('#sign-up-ovrly').fadeIn(300, "linear");
+    if(isEmail($('#input-early-access').val())){
+      //call
+      $('#input-early-access').val('');
+      $('#input-early-access').removeClass('input-error');
+      $('#input-early-access-btn').removeClass('input-button-error');
+      $('#sign-up-ovrly').fadeIn(300, "linear");
+    } else {
+      $('#input-early-access').addClass('input-error');
+      $('#input-early-access-btn').addClass('input-button-error');
+    }
   });
 
   $('#bottom-input-early-access-btn').click(function(){
-    $('#sign-up-ovrly').fadeIn(300, "linear");
+    if(isEmail($('#bottom-input-early-access').val())){
+      //call
+      $('#bottom-input-early-access').val('');
+      $('#bottom-input-early-access').removeClass('input-error');
+      $('#sign-up-ovrly').fadeIn(300, "linear");
+    } else {
+      $('#bottom-input-early-access').addClass('input-error');
+    }
   });
 
   $('#top-early-access').click(function(){
     $('#access-ovrly').fadeIn(300, "linear");
   });
+
+  function isEmail(email) {
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
+  }
 
   // $('#contact-btn').click(function(){
   //     $('body').scrollTo('#scrollto-section-7', 500);
