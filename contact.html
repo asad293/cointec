@@ -28,11 +28,27 @@
 
       <img src="img/close_icon.png" id="close_pop1" style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
 
-      <img src="img/round-done-button.png" id="close_pop1" style="height: 2.4em; width: 2.4em; margin-top: 1.5em;"/>
+      <img src="img/round-done-button.png" style="height: 2.4em; width: 2.4em; margin-top: 1.5em;"/>
 
-      <h3 style="font-size: 1.8em; font-weight: 400; margin-top: 0.5em;">Thanks for signing up</h3>
+      <h3 style="font-size: 1.8em; font-weight: 600; margin-top: 0.5em;">Thanks for signing up</h3>
 
       <p class="adad" style="margin-bottom: 2.6em; line-height: 22px;">Keep an eye on your email for updates</br>and early access token.</p>
+
+    </div>
+
+  </div>
+
+  <div class="ui ovrly middle aligned center aligned grid" id="thanks-ovrly" style="display: none;">
+
+    <div class="ui five wide computer seven wide tablet fifteen wide mobile doubling column ovrly-rect">
+
+      <img src="img/close_icon.png" id="close_pop3" style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
+
+      <img src="img/send.png" style="height: 2em; width: auto; margin-top: 1.5em; margin-bottom: 0.7em;"/>
+
+      <h3 style="font-size: 1.8em; font-weight: 600; margin-top: 0.5em;">Thanks for reaching out</h3>
+
+      <p class="adad" style="margin-bottom: 2.6em; line-height: 22px;">We will be in contact shortly.</p>
 
     </div>
 
@@ -91,11 +107,11 @@
         <p id="privacy-title" style="margin-top: 0; font-size: 2.2em;">Get in touch!</p>
 
         <div class="ui fluid input top-input">
-          <input type="text" placeholder="Name" class="input-early-access">
+          <input id="name-input" type="text" placeholder="Name" class="input-early-access">
         </div>
 
         <div class="ui fluid input top-input" style="margin-top: 1em;">
-          <input type="text" placeholder="Email" class="input-early-access">
+          <input id="email-input" type="text" placeholder="Email" class="input-early-access">
         </div>
 
         <div class="ui fluid input top-input" style="margin-top: 1em;">
@@ -103,7 +119,7 @@
         </div>
 
         <div class="ui fluid input top-input" style="margin-top: 1em;">
-          <button class="ui fluid blue button" style="background: #045CC7; margin-right: 0; margin-left: 0;">Send message</button>
+          <button id="send-button" class="ui fluid blue button" style="background: #045CC7; margin-right: 0; margin-left: 0;">Send message</button>
         </div>
 
       </div>
@@ -208,14 +224,61 @@ crossorigin="anonymous"></script>
     $('#access-ovrly').fadeOut(300, "linear");
   });
 
+  $('#close_pop3').click(function(){
+    $('#thanks-ovrly').fadeOut(300, "linear");
+  });
+
+  $('#send-button').click(function(){
+    var ok = 1;
+    if($('#name-input').val() == ''){
+      ok = 0;
+      $('#name-input').addClass('input-error');
+    } else {
+      $('#name-input').removeClass('input-error');
+    }
+    if(!isEmail($('#email-input').val())){
+      ok = 0;
+      $('#email-input').addClass('input-error');
+    } else {
+      $('#email-input').removeClass('input-error');
+    }
+    if($('#contact-textarea').val() == ''){
+      ok = 0;
+      $('#contact-textarea').addClass('input-error');
+    } else {
+      $('#contact-textarea').removeClass('input-error');
+    }
+
+    if(ok){
+      $('#thanks-ovrly').fadeIn(300, "linear");
+      //call
+      $('#name-input').val('');
+      $('#email-input').val('');
+      $('#contact-textarea').val('');
+      ok = 0;
+    }
+  });
+
   $('#popup-input-early-access-btn').click(function(){
-    $('#access-ovrly').fadeOut(300, "linear");
-    $('#sign-up-ovrly').fadeIn(300, "linear");
+    if(isEmail($('#popup-input-early-access').val())){
+      //call
+      $('#popup-input-early-access').val('');
+      $('#popup-input-early-access').removeClass('input-error');
+      $('#access-ovrly').fadeOut(300, "linear");
+      $('#sign-up-ovrly').fadeIn(300, "linear");
+    } else {
+      $('#popup-input-early-access').addClass('input-error');
+    }
   });
 
   $('#top-early-access').click(function(){
     $('#access-ovrly').fadeIn(300, "linear");
   });
+
+  function isEmail(email) {
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
+  }
 
 </script>
 <script>
