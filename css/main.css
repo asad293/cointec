@@ -234,7 +234,8 @@ body {
   bottom: 0;
 }
 
-#bottom-logo {
+.bottom-logo {
+  cursor: pointer;
   width: 7.5em;
   margin-left: 1.75em;
 }
@@ -814,7 +815,7 @@ body {
     .kkr {
       margin-left: 1em;
     }
-    #bottom-logo {
+    .bottom-logo {
       width: 7.5em;
       margin-left: 0;
     }
