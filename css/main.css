@@ -74,6 +74,8 @@ body {
   background: transparent !important;
 }
 
+#input-early-access:focus { border: none !important; outline: 0 !important; outline: none !important; -webkit-appearance: none; }
+
 #contact-segment {
   position: relative !important; padding-bottom: 7em; padding-top: 6em; overflow: hidden;
 }
@@ -83,6 +85,10 @@ body {
   bottom: 0;
   height: 6.5em;
   width: 100%;
+}
+
+.logo.item {
+  padding-right: 1.58em !important;
 }
 
 .ui.secondary.inverted.menu .active.item {
