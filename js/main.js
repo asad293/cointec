@@ -135,6 +135,10 @@ $(document).ready(function () {
     }
   });
 
+  $('.bottom-logo').click(function(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+  });
+
   $('#input-early-access-btn').click(function(){
     if(isEmail($('#input-early-access').val())){
       //call

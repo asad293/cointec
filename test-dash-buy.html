@@ -5,135 +5,83 @@
     <title>Cointec Test Dashboard</title>
     <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        function clearFields() {
-            document.getElementById("gbpAmount").value = "";
-            document.getElementById("btcAmount").value = "";
-        }
-
-        function toggleInput() {
-            var x = document.getElementById("inputDiv");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-
-        function toggle2FA() {
-            var x = document.getElementById("twofaDiv");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-
-        function togglePaymentPending() {
-            var x = document.getElementById("paymentPendingDiv");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-
-        function getQuote() {
-            console.log('--');
-            toggleInput();
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-
-                    var responseString = this.responseText;
-
-                    console.log("Response: " + responseString);
-
-                    var response = JSON.parse(responseString);
-
-                    document.getElementById("btcAmount").value = response.DestAmount;
-                }
-            };
-
-            var gbpAmount = document.getElementById("gbpAmount").value;
-            var obj = {
-                "amount": gbpAmount
-            }
-
-            var jsonString = JSON.stringify(obj);
-
-            xmlhttp.open("POST", "http://ct-quotes-staging.azurewebsites.net/btc", true);
-            xmlhttp.setRequestHeader("Content-Type", "application/json");
-            console.log(jsonString);
-            xmlhttp.send(jsonString);
-        }
-
-        function makePost() {
-            console.log('--');
-            toggleInput();
-            toggle2FA();
-            togglePaymentPending();
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-
-                    var responseString = this.responseText;
-                    console.log("Response: " + responseString);
-                    clearFields();
-                }
-            };
-
-            var btcAmount = document.getElementById("btcAmount").value;
-            var walletAddress = document.getElementById("walletAddress").value;
-
-            alert("Sending [" + btcAmount + "] BTC to ["+ walletAddress +"]");
-
-            var obj = {
-                "dest": walletAddress, "sourceCurrency": "GBP",
-                "destCurrency": "BTC", "destAmount": btcAmount, "message": "Test USDBTC transaction",
-                "autoConfirm": "false", "callbackUrl": ""
-            }
-
-            var jsonString = JSON.stringify(obj);
-
-            xmlhttp.open("POST", "http://ct-buy-capture-staging.azurewebsites.net/create", true);
-            xmlhttp.setRequestHeader("Content-Type", "application/json");
-            xmlhttp.setRequestHeader("Authorization", "L]s{>#dxE*-n3q%yA$,_+`/3D_]Hd?Jc");
-            console.log(jsonString);
-            xmlhttp.send(jsonString);
-        }
-    </script>
 </head>
 <body>
-<div id="quoteDiv">
-    <label>GBP amount</label>
-    <input type="text" id="gbpAmount" value="" />
-    <br />
-    <button type="button" id="quote" onclick="getQuote();">Get Quote</button>
-</div>
+<table style="width: 100%; table-layout: fixed;">
+    <tr>
+        <td style="width: 50%">
+            <div id="verifyAccountDiv">
+                <u><label>Verify Account Login</label></u>
+                <br />
+                <br />
+                <label>Email</label>
+                <input type="text" id="verifyEmailAddress" value="jonathanho.chs@gmail.com" />
+                <br />
+                <label>Password</label>
+                <input type="text" id="verifyPassword" value="passw0rd1" />
+                <br />
+                <label id="verifyStatusLabel">Status: </label>
+                <br /><br />
+                <button type="button" id="confirm" onclick="verifyAccount();">Verify</button>
+            </div>
 
-<br/>
-<br/>
-<div id="inputDiv" style="display: none">
-    <label>BTC amount</label>
-    <input type="text" id="btcAmount" value=""/>
-    <br/>
-    <label>Wallet Address</label>
-    <input type="text" id="walletAddress" value="2ShKXHpJSF5Kukj7J9JEgpDVpRDZHUZaGw4"/>
-    <br/>
-    <button type="button" id="confirm" onclick="toggle2FA();">Instant Exchange</button>
-</div>
+            <br />
+            <br />
+            <div id="quoteDiv" style="display: none">
+                <label>GBP amount</label>
+                <input type="text" id="gbpAmount" value="" />
+                <br />
+                <button type="button" id="quote" onclick="getQuote();">Get Quote</button>
+            </div>
 
-<br/>
-<br/>
-<div id="twofaDiv" style="display: none">
-    Complete 2FA by Clicking Button: <button type="button" id="2fa" onclick="togglePaymentPending();">I am human</button>
-</div>
+            <br />
+            <br />
+            <div id="inputDiv" style="display: none">
+                <label>BTC amount</label>
+                <input type="text" id="btcAmount" value="" />
+                <br />
+                <label>Wallet Address</label>
+                <input type="text" id="walletAddress" value="2ShKXHpJSF5Kukj7J9JEgpDVpRDZHUZaGw4" />
+                <br/>
+                External Test BTC: 18QnwiQoUZm8Ej28mmf2wjBq2iwuJxhQUv
+                <br />
+                <button type="button" id="confirm" onclick="toggle2FA();">Instant Exchange</button>
+            </div>
 
-<br/>
-<br/>
-<div id="paymentPendingDiv" style="display: none">
-    Submit your payment and confirm: <button type="button" id="paid" onclick="makePost();">I have paid</button>
-</div>
+            <br />
+            <br />
+            <div id="twofaDiv" style="display: none">
+                Complete 2FA by Clicking Button: <button type="button" id="2fa" onclick="createTransfer();">I am human</button>
+                <br/>
+                <label id="createTransferStatusLabel">Status: </label>
+            </div>
+
+            <br />
+            <br />
+            <div id="paymentPendingDiv" style="display: none">
+                <label id="newPendingTransferId" style="display: none"></label>
+                Submit your payment and confirm: <button type="button" id="paid" onclick="confirmTransfer();">I have paid</button>
+            </div>
+        </td>
+        <td style="vertical-align: top;">
+            <div id="pendingBuyOrderDiv" style="text-align:start">
+                <u><label>Pending Buy Orders</label></u> &nbsp;&nbsp;&nbsp; 
+                <button type="button" onclick="loadPendingBuyOrders();">Reload</button>
+                <br/>
+                <label id="pendingBuyOrderStatusLabel">Status: No Account Verified</label>
+                <br/><br/>
+                <label id="pendingBtcCtTransactionId"></label><br/>
+                <label id="pendingBtcWyreTransferId"></label><br />
+                <label id="pendingBtcTransferStatus"></label><br />
+                <label id="pendingBtcDest"></label><br />
+                <label id="pendingBtcAmount"></label><br />
+                <label id="pendingBtcCurrency"></label><br />
+                <br/>
+                <button type="button" onclick="abandonPendingBuyOrder();">Abandon</button>
+            </div>
+        </td>
+    </tr>
+</table>
 </body>
+<script src="js/buy.js"></script>
 </html>
