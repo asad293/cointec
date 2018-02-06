@@ -3,6 +3,7 @@ Colors:
 #0e5cc7 - lt blue
 #022291 - dk blue
 #34da8c - green
+#2DB46F - green button hover
 #f7931b - orange
 #f2f2f2 - lt gray
 */
@@ -184,6 +185,10 @@ body {
   color: #fff;
 }
 
+#top-early-access:hover {
+  background-color:#2DB46F;
+}
+
 #top-logo {
   width: 7.5em;
 }
@@ -356,6 +361,18 @@ body {
   border: 2.5px solid white;
   padding-top: 9px;
   padding-bottom: 9px;
+}
+
+#input-early-access-btn:hover {
+  background: #2DB46F;
+}
+
+#popup-input-early-access-btn:hover {
+  background-color: #2DB46F!important;
+}
+
+#bottom-input-early-access-btn:hover {
+  background: #2DB46F;
 }
 
 #bottom-input-early-access-btn {
