@@ -75,7 +75,10 @@ body {
   background: transparent !important;
 }
 
-#input-early-access:focus { border: none !important; outline: 0 !important; outline: none !important; -webkit-appearance: none; }
+#input-early-access:focus {
+  border: 1px solid rgba(34,36,38,.15);
+  border-right: #ffffff;
+}
 
 #contact-segment {
   position: relative !important; padding-bottom: 7em; padding-top: 6em; overflow: hidden;
@@ -104,7 +107,7 @@ body {
   height: 100%;
   width: 100%;
   max-width: 1200px;
-  position: absolute;
+  /*position: absolute;*/
   left: 0;
   right: 0;
   margin-left: auto;
@@ -147,6 +150,7 @@ body {
 
 #scrollto-section-7 {
   top: 600%;
+  position: relative;
   background: #fff;
   z-index: 2000;
   max-width: none !important;
@@ -207,6 +211,7 @@ body {
   position: absolute;
   bottom: 1.5em;
   width: 100%;
+  left: 0;
 }
 
 #fs-1-grid, #fs-2-grid, #fs-3-grid, #fs-4-grid, #fs-5-grid {
@@ -219,7 +224,7 @@ body {
   /* padding-bottom: 6.5em; */
   /* padding-top: 5%; */
   bottom: 0;
-  position: absolute;
+  /*position: absolute;*/
   width: 100%;
   margin: 0;
 }
@@ -239,7 +244,8 @@ body {
 #footer, #footer-contact {
   position: absolute;
   /* height: 13%; */
-  height: 6.5em;
+  /*height: 6.5em;*/
+  height: 152px;
   width: 100%;
   background: #f2f2f2;
   bottom: 0;
@@ -248,7 +254,14 @@ body {
 .bottom-logo {
   cursor: pointer;
   width: 7.5em;
-  margin-left: 1.75em;
+  margin-left: 11px;
+}
+
+.copy-right-desktop {
+  margin-left: 11px;
+  /*margin-top: 20px;*/
+  margin-top: 16px;
+  line-height: 16px;
 }
 
 #get-crypto {
@@ -363,6 +376,10 @@ body {
   padding-bottom: 9px;
 }
 
+#bottom-input-early-access:focus {
+  border: 1px solid rgba(34,36,38,.15);
+}
+
 #input-early-access-btn:hover {
   background: #2DB46F;
 }
@@ -444,16 +461,18 @@ body {
 #privacy-policy, #terms-cond, #registered {
   text-decoration: none;
   color: #ADADAD;
-  font-size: 0.9em;
+  font-size: 14px;
   font-family: Roboto;
   font-style: normal;
   font-weight: 300;
   line-height: 25px;
 }
 
-#registered {
+p.registered {
   text-align: center;
-  margin-top: 0.5em;
+  /*margin-top: 0.5em;*/
+  line-height: 16px;
+  margin-top: 20px;
 }
 
 #flr {
@@ -889,4 +908,60 @@ body {
   /* #scrollto-section-7 {
     height: 200%;
   } */
+}
+
+/*****************************************
+******************************************
+Styles written by Ali
+******************************************
+******************************************/
+
+/* Override default bullet styling fullpage.min.css */
+#fp-nav ul li a span, .fp-slidesNav ul li a span {
+  background: #203DA0;
+}
+
+#fp-nav ul li a.active span, #fp-nav ul li:hover a.active span, .fp-slidesNav ul li a.active span, .fp-slidesNav ul li:hover a.active span {
+  background: #34da8c;
+}
+
+/* Footer Styling */
+.bottom-logo-container {
+  display: inline-block;
+  height: 36px;
+}
+
+.bottom-logo {
+  height: 36px;
+}
+
+.custom-icon-container {
+  display:inline-block;
+  width: 36px;
+  height: 36px;
+  padding-left: 0!important;
+  padding-right: 0!important;
+  background: #ffffff;
+  border-radius:50%;
+  padding-top: 7px;
+  margin-right: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.04);
+}
+
+.custom-icon-container:last-child {
+  margin-right: 0;
+}
+
+i.custom-icon,
+i.custom-icon:hover,
+i.custom-icon:active {
+  color: rgb(4, 92, 199);
+}
+
+.term-condition-container {
+  padding-top: 55px;
+}
+
+.term-condition-container a:first-child {
+  margin-right: 15px;
 }
