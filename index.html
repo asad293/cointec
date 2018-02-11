@@ -9,14 +9,16 @@
 
     <title></title>
 
+    <script src="https://use.fontawesome.com/ab029c5ce1.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="css/section-scroll.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.6/jquery.fullpage.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
 
 </head>
 <body>
-<!-- <div id="js-container"> -->
 
 <div class="ui ovrly middle aligned center aligned grid" id="sign-up-ovrly" style="display: none;">
 
@@ -43,17 +45,17 @@
         <img src="img/close_icon.png" id="close_pop2"
              style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
 
-        <h4 style="margin-top: 1.7em; font-size: 1.5em;">Early access</h3>
+        <h4 style="margin-top: 1.7em; font-size: 1.5em;">Early access</h4>
 
-            <p class="adad" style="margin-top: 1.2em; margin-bottom: 0.9em; line-height: 22px;">Be the first to use
-                Cointec’s web platform.</p>
+        <p class="adad" style="margin-top: 1.2em; margin-bottom: 0.9em; line-height: 22px;">Be the first to use
+            Cointec’s web platform.</p>
 
-            <div class="ui action fluid input top-input" id="popup-input" style="margin-bottom: 1.5em;">
-                <input type="text" placeholder="Email" id="popup-input-early-access">
-                <button class="ui green button" id="popup-input-early-access-btn" style="background: #34da8c;">Early
-                    access
-                </button>
-            </div>
+        <div class="ui action fluid input top-input" id="popup-input" style="margin-bottom: 1.5em;">
+            <input type="text" placeholder="Email" id="popup-input-early-access">
+            <button class="ui green button" id="popup-input-early-access-btn" style="background: #34da8c;">Early
+                access
+            </button>
+        </div>
 
     </div>
 
@@ -66,10 +68,10 @@
             <img src="img/top_logo.svg" id="top-logo"/>
         </a>
         <div class="right menu">
-            <a class="item active trans" id="home-btn">
+            <a href="index.html#section-1" class="item active trans" id="home-btn">
                 Home
             </a>
-            <a class="item trans" id="features-btn">
+            <a href="index.html#section-2" class="item trans" id="features-btn">
                 Features
             </a>
             <a class="item trans" id="contact-btn" href="#" onClick="return false;">
@@ -86,268 +88,296 @@
     </div>
 </div>
 
-<div class="fs-segment fs-segment-home scrollable-section">
+<div id="fullpage">
 
-    <img id="chart-img" class="xdesktop" src="img/1_chart.svg"/>
-    <img id="chart-img" class="xmobile" src="img/2_chart.svg"/>
+    <div id="scrollto-section-1" class="section fs-segment fs-segment-home scrollify-section">
 
-    <div class="ui center aligned middle aligned grid" id="fs-1-grid">
+        <img id="chart-img" class="xdesktop" src="img/1_chart.svg"/>
+        <img id="chart-img" class="xmobile" src="img/2_chart.svg"/>
 
-        <div class="thirteen wide mobile eight wide computer column" id="text-column">
+        <div class="ui center aligned middle aligned grid" id="fs-1-grid">
 
-            <img id="top-icon" src="img/top_icon.png"/>
+            <div class="thirteen wide mobile eight wide computer column" id="text-column">
 
-            <p id="get-crypto">Get crypto. Fast.</p>
+                <img id="top-icon" src="img/top_icon.png"/>
 
-            <p class="tx-desc xdesktop">We are building everything you need to access the</br>cryptocurrency markets.
-                Take a sneak peak!</p>
-            <p class="tx-desc xmobile">We are building everything you need</br>to access the cryptocurrency markets.</p>
+                <p id="get-crypto">Get crypto. Fast.</p>
 
-            <div class="ui action fluid input" id="top-input">
-                <input type="text" placeholder="Email" id="input-early-access">
-                <button class="ui button" id="input-early-access-btn">Early access</button>
+                <p class="tx-desc xdesktop">We are building everything you need to access the</br>cryptocurrency
+                    markets.
+                    Take a sneak peak!</p>
+                <p class="tx-desc xmobile">We are building everything you need</br>to access the cryptocurrency
+                    markets.</p>
+
+                <div class="ui action fluid input" id="top-input">
+                    <input type="text" placeholder="Email" id="input-early-access">
+                    <button class="ui button submit" id="input-early-access-btn">Early access</button>
+                </div>
+
             </div>
 
         </div>
 
     </div>
 
-</div>
+    <div id="scrollto-section-2" class="section fs-segment fs-segment-home scrollify-section">
 
-<div class="fs-segment fs-segment-home scrollable-section">
+        <div class="ui center aligned middle aligned stackable grid" id="fs-2-grid">
 
-    <div class="ui center aligned middle aligned stackable grid" id="fs-2-grid">
+            <div class="ui seven wide computer eight wide tablet column" id="instant-access-txt">
 
-        <div class="ui seven wide computer eight wide tablet column" id="instant-access-txt">
+                <p class="tx-title left-aligned">Instant access.</p>
 
-            <p class="tx-title left-aligned">Instant access.</p>
+                <p class="tx-desc left-aligned xdesktop">Lightning fast delivery around the clock. We’ll</br>be here for
+                    the
+                    early birds and the night owls.</br>The market never sleeps, so why should we?</p>
+                <p class="tx-desc xmobile">Lightning fast delivery around the clock. We’ll</br>be here for the early
+                    birds
+                    and the night owls.</br>The market never sleeps, so why should we?</p>
 
-            <p class="tx-desc left-aligned xdesktop">Lightning fast delivery around the clock. We’ll</br>be here for the
-                early birds and the night owls.</br>The market never sleeps, so why should we?</p>
-            <p class="tx-desc xmobile">Lightning fast delivery around the clock. We’ll</br>be here for the early birds
-                and the night owls.</br>The market never sleeps, so why should we?</p>
+            </div>
 
-        </div>
+            <div class="ui six wide column" id="instant-access-img">
 
-        <div class="ui six wide column" id="instant-access-img">
+                <img class="ui centered image xdesktop section-img-d" src="img/instant_access.png"/>
+                <img class="ui fluid image xmobile" src="img/instant_access_mobile.png"/>
 
-            <img class="ui centered image xdesktop section-img-d" src="img/instant_access.png"/>
-            <img class="ui fluid image xmobile" src="img/instant_access_mobile.png"/>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="fs-segment fs-segment-home scrollable-section">
-
-    <div class="ui center aligned middle aligned stackable grid" id="fs-2-grid">
-
-        <div class="ui six wide column xdesktop" id="seamless-payments-img">
-
-            <img class="ui centered image xdesktop section-img-d" src="img/seamless_payments.png"/>
-
-        </div>
-
-        <div class="ui seven wide computer eight wide tablet column" id="seamless-payments-txt">
-
-            <p class="tx-title left-aligned">Seamless payments.</p>
-
-            <p class="tx-desc left-aligned xdesktop">Pay with GBP or EUR in your preferred method</br>including credit
-                card, local bank transfer, SEPA,</br> iDeal, Sofort, Giropay, Trustly and more...</p>
-            <p class="tx-desc xmobile">Pay with GBP or EUR in your preferred method</br>including credit card, local
-                bank transfer, SEPA,</br> iDeal, Sofort, Giropay, Trustly and more...</p>
-
-        </div>
-
-        <div class="ui six wide column xmobile" id="seamless-payments-img">
-
-            <img class="ui fluid image xmobile" src="img/seamless_payments.png"/>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="fs-segment fs-segment-home scrollable-section">
-
-    <div class="ui center aligned middle aligned stackable grid" id="fs-3-grid">
-
-        <div class="ui seven wide computer eight wide tablet column" id="no-further-txt">
-
-            <p class="tx-title left-aligned">Look no further.</p>
-
-            <p class="tx-desc left-aligned xdesktop">Majors. Altcoins. Cointec is bringing all</br>your favorite coins
-                to one place.</p>
-            <p class="tx-desc xmobile">Majors. Altcoins. Cointec is bringing all</br>your favorite coins to one
-                place.</p>
-
-        </div>
-
-        <div class="ui six wide column" id="no-further-img">
-
-            <img class="ui centered image xdesktop section-img-d" src="img/icons.svg"/>
-            <img class="ui fluid image xmobile" src="img/icons.svg"/>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="fs-segment fs-segment-home scrollable-section">
-
-    <div class="ui center aligned middle aligned stackable grid" id="fs-4-grid">
-
-        <div class="ui six wide column xdesktop" id="pocket-profits-img">
-
-            <img class="ui centered image xdesktop section-img-d" src="img/pocket_profits.svg"/>
-
-        </div>
-
-        <div class="ui seven wide computer eight wide tablet column" id="pocket-profits-txt">
-
-            <p class="tx-title left-aligned">Pocket profits.</p>
-
-            <p class="tx-desc left-aligned xdesktop">And of course, we’ll let you take the markets with</br>you wherever
-                you go so you never miss another</br>opportunity.</p>
-            <p class="tx-desc xmobile">And of course, we’ll let you take the markets with</br>you wherever you go so you
-                never miss another opportunity.</p>
-
-        </div>
-
-        <div class="ui six wide column xmobile" id="pocket-profits-img">
-
-            <img class="ui fluid image xmobile" src="img/pocket_profits.svg"/>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="fs-segment fs-segment-home scrollable-section">
-
-    <div class="ui center aligned middle aligned stackable grid" id="fs-5-grid">
-
-        <div class="ui seven wide computer eight wide tablet column" id="of-mind-txt">
-
-            <p class="tx-title left-aligned">Peace of mind.</p>
-
-            <p class="tx-desc left-aligned xdesktop">No need to setup wallets or store keys. Our</br>platform’s enhanced
-                security takes care of the</br>hard work for you.</p>
-            <p class="tx-desc xmobile">No need to setup wallets or store keys.</br>Our platform’s enhanced security
-                takes</br>care of the hard work for you.</p>
-
-        </div>
-
-        <div class="ui six wide column" id="of-mind-img">
-
-            <img class="ui centered image xdesktop section-img-d" src="img/of_mind.png"/>
-            <img class="ui fluid image xmobile" src="img/of_mind_m.png"/>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="fs-segment fs-segment-home scrollable-section">
-
-    <div class="ui center aligned middle aligned grid" id="fs-6-grid">
-
-        <div class="thirteen wide mobile six wide computer column" id="text-column">
-
-            <img id="diamond-icon" src="img/diamond.png"/>
-
-            <p id="exclusive-access">Exclusive access.</p>
-
-            <p class="tx-desc adad xdesktop spaced">Sign up to be one of the first to use our</br>web platform.</p>
-            <p class="tx-desc adad xmobile">Sign up to be one of the first to use our</br>web platform.</p>
-
-            <div class="ui action fluid input" id="bottom-input">
-                <input type="text" placeholder="Email" id="bottom-input-early-access">
-                <button class="ui button" id="bottom-input-early-access-btn">Early access</button>
             </div>
 
         </div>
 
     </div>
 
-    <div id="footer" data-appear-top-offset="250">
+    <div id="scrollto-section-3" class="section fs-segment fs-segment-home scrollify-section">
 
-        <div class="ui middle aligned grid xdesktop" id="footer-grid">
+        <div class="ui center aligned middle aligned stackable grid" id="fs-2-grid">
 
-            <div class="ui three wide column">
+            <div class="ui six wide column xdesktop" id="seamless-payments-img">
 
-                <img class="bottom-logo" src="img/bottom_logo.svg"/>
+                <img class="ui centered image xdesktop section-img-d" src="img/seamless_payments.png"/>
 
             </div>
 
-            <div class="ui ten wide column">
+            <div class="ui seven wide computer eight wide tablet column" id="seamless-payments-txt">
 
-                <div class="ui center aligned grid">
+                <p class="tx-title left-aligned">Seamless payments.</p>
 
-                    <div class="ui sixteen wide column nopad" style="padding-top: 0.6em !important;">
+                <p class="tx-desc left-aligned xdesktop">Pay with GBP or EUR in your preferred method</br>including
+                    credit
+                    card, local bank transfer, SEPA,</br> iDeal, Sofort, Giropay, Trustly and more...</p>
+                <p class="tx-desc xmobile">Pay with GBP or EUR in your preferred method</br>including credit card, local
+                    bank transfer, SEPA,</br> iDeal, Sofort, Giropay, Trustly and more...</p>
 
-                        <a href="" class="small-padding"><img src="img/social-twitter.png"/></a>
-                        <!-- <a href="" class="small-padding"><img src="img/social-insta.png"/></a> -->
-                        <!-- <a href="" class="small-padding"><img src="img/social-fb.png"/></a> -->
+            </div>
 
-                    </div>
+            <div class="ui six wide column xmobile" id="seamless-payments-img">
 
-                    <div class="ui sixteen wide column nopad">
+                <img class="ui fluid image xmobile" src="img/seamless_payments.png"/>
 
-                        <p id="registered">©2018 Cointec Ltd. Cointec Ltd is a company registered in England and Wales
-                            (No. 11104052)</p>
+            </div>
 
+        </div>
+
+    </div>
+
+    <div id="scrollto-section-4" class="section fs-segment fs-segment-home scrollify-section">
+
+        <div class="ui center aligned middle aligned stackable grid" id="fs-3-grid">
+
+            <div class="ui seven wide computer eight wide tablet column" id="no-further-txt">
+
+                <p class="tx-title left-aligned">Look no further.</p>
+
+                <p class="tx-desc left-aligned xdesktop">Majors. Altcoins. Cointec is bringing all</br>your favorite
+                    coins
+                    to one place.</p>
+                <p class="tx-desc xmobile">Majors. Altcoins. Cointec is bringing all</br>your favorite coins to one
+                    place.</p>
+
+            </div>
+
+            <div class="ui six wide column" id="no-further-img">
+
+                <img class="ui centered image xdesktop section-img-d" src="img/icons.svg"/>
+                <img class="ui fluid image xmobile" src="img/icons.svg"/>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="scrollto-section-5" class="section fs-segment fs-segment-home scrollify-section">
+
+        <div class="ui center aligned middle aligned stackable grid" id="fs-4-grid">
+
+            <div class="ui six wide column xdesktop" id="pocket-profits-img">
+
+                <img class="ui centered image xdesktop section-img-d" src="img/pocket_profits.svg"/>
+
+            </div>
+
+            <div class="ui seven wide computer eight wide tablet column" id="pocket-profits-txt">
+
+                <p class="tx-title left-aligned">Pocket profits.</p>
+
+                <p class="tx-desc left-aligned xdesktop">And of course, we’ll let you take the markets with</br>you
+                    wherever
+                    you go so you never miss another</br>opportunity.</p>
+                <p class="tx-desc xmobile">And of course, we’ll let you take the markets with</br>you wherever you go so
+                    you
+                    never miss another opportunity.</p>
+
+            </div>
+
+            <div class="ui six wide column xmobile" id="pocket-profits-img">
+
+                <img class="ui fluid image xmobile" src="img/pocket_profits.svg"/>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="scrollto-section-6" class="section fs-segment fs-segment-home scrollify-section">
+
+        <div class="ui center aligned middle aligned stackable grid" id="fs-5-grid">
+
+            <div class="ui seven wide computer eight wide tablet column" id="of-mind-txt">
+
+                <p class="tx-title left-aligned">Peace of mind.</p>
+
+                <p class="tx-desc left-aligned xdesktop">No need to setup wallets or store keys. Our</br>platform’s
+                    enhanced
+                    security takes care of the</br>hard work for you.</p>
+                <p class="tx-desc xmobile">No need to setup wallets or store keys.</br>Our platform’s enhanced security
+                    takes</br>care of the hard work for you.</p>
+
+            </div>
+
+            <div class="ui six wide column" id="of-mind-img">
+
+                <img class="ui centered image xdesktop section-img-d" src="img/of_mind.png"/>
+                <img class="ui fluid image xmobile" src="img/of_mind_m.png"/>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="scrollto-section-7" class="section fs-segment fs-segment-home scrollify-section">
+
+        <div class="ui center aligned middle aligned grid" id="fs-6-grid">
+
+            <div class="thirteen wide mobile six wide computer column" id="text-column">
+
+                <img id="diamond-icon" src="img/diamond.png"/>
+
+                <p id="exclusive-access">Exclusive access.</p>
+
+                <p class="tx-desc adad xdesktop spaced">Sign up to be one of the first to use our</br>web platform.</p>
+                <p class="tx-desc adad xmobile">Sign up to be one of the first to use our</br>web platform.</p>
+
+                <div class="ui action fluid input" id="bottom-input">
+                    <input type="text" placeholder="Email" id="bottom-input-early-access">
+                    <button class="ui button" id="bottom-input-early-access-btn">Early access</button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="footer">
+
+            <div class="ui middle aligned grid xdesktop" id="footer-grid">
+
+                <div class="ui four wide column">
+
+                    <a href="index.html#section-1" class="bottom-logo-container">
+                        <img class="bottom-logo" src="img/bottom_logo.svg"/>
+                    </a>
+                    <p class="copy-right-desktop">© 2018 Cointec Ltd</p>
+
+                </div>
+
+                <div class="ui eight wide column center aligned">
+
+                    <!--<div class="ui center aligned grid">-->
+
+                        <div class="ui sixteen wide column nopad">
+
+                            <a href="" class="small-padding custom-icon-container">
+                                <i class="fa fa-medium custom-icon" aria-hidden="true"></i>
+                            </a>
+                            <a href="" class="small-padding custom-icon-container">
+                                <i class="fa fa-twitter custom-icon" aria-hidden="true"></i>
+                            </a>
+                            <a href="" class="small-padding custom-icon-container">
+                                <i class="fa fa-reddit-alien custom-icon" aria-hidden="true"></i>
+                            </a>
+
+                        </div>
+
+                        <div class="ui sixteen wide column nopad">
+
+                            <p class="registered">Cointec Ltd is a company registered in England and Wales (No. 11104052)</p>
+
+                        </div>
+
+                    <!--</div>-->
+
+                </div>
+
+                <div class="ui four wide right aligned column">
+
+                    <div class="term-condition-container">
+                        <a id="privacy-policy" href="privacy-policy.html">Privacy Policy</a>
+                        <a id="terms-cond" href="terms.html">Terms and Conditions</a>
                     </div>
 
                 </div>
 
             </div>
 
-            <div class="ui three wide right aligned bottom aligned column">
+            <div class="ui middle aligned grid xmobile" id="footer-grid">
 
-                <a id="privacy-policy" href="privacy-policy.html">Privacy Policy</a></br>
-                <a id="terms-cond" href="terms.html">Terms and Conditions</a>
+                <div class="ui eight wide column">
 
-            </div>
+                    <img class="bottom-logo" src="img/bottom_logo.svg"/>
 
-        </div>
+                </div>
 
-        <div class="ui middle aligned grid xmobile" id="footer-grid">
+                <div class="ui eight wide column" id="flr">
 
-            <div class="ui eight wide column">
+                    <div class="ui right aligned grid">
 
-                <img class="bottom-logo" src="img/bottom_logo.svg"/>
+                        <div class="ui sixteen wide column nopad" style="padding-top: 0.6em !important;">
 
-            </div>
+                            <a href="#" class="small-padding">
+                                <i class="fa fa-medium custom-icon" aria-hidden="true"></i>
+                            </a>
+                             <a href="#" class="small-padding">
+                                 <i class="fa fa-twitter custom-icon" aria-hidden="true"></i>
+                             </a>
+                             <a href="#" class="small-padding">
+                                 <i class="fa fa-reddit-alien custom-icon" aria-hidden="true"></i>
+                             </a>
 
-            <div class="ui eight wide column" id="flr">
-
-                <div class="ui right aligned grid">
-
-                    <div class="ui sixteen wide column nopad" style="padding-top: 0.6em !important;">
-
-                        <a href="" class="small-padding"><img src="img/social-twitter.png"/></a>
-                        <!-- <a href="" class="small-padding"><img src="img/social-insta.png"/></a> -->
-                        <!-- <a href="" class="small-padding"><img src="img/social-fb.png"/></a> -->
+                        </div>
 
                     </div>
 
                 </div>
 
-            </div>
+                <div class="ui sixteen wide left aligned column nopad kkr">
 
-            <div class="ui sixteen wide left aligned column nopad kkr">
+                    <a id="terms-cond" href="terms.html">T&Cs</a></br>
+                    <a id="privacy-policy" href="privacy-policy.html">Privacy Policy</a>
+                    <p class="registered">©2018 Cointec Ltd. Cointec Ltd is a company</br>registered in England and Wales (No.11104052)</p>
 
-                <a id="terms-cond" href="terms.html">T&Cs</a></br>
-                <a id="privacy-policy" href="privacy-policy.html">Privacy Policy</a>
-                <p id="registered">©2018 Cointec Ltd. Cointec Ltd is a company</br>registered in England and Wales (No.
-                    11104052)</p>
+                </div>
 
             </div>
 
@@ -355,24 +385,21 @@
 
     </div>
 
+
 </div>
-
-<!-- <div id="header-trigger"></div> -->
-
-<!-- </div> -->
 
 
 </body>
 
-<script
-        src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 <script src="semantic/dist/semantic.min.js"></script>
 <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
-<script src="js/jquery.section-scroll.js"></script>
-<script src="js/jquery.scrollTo.min.js"></script>
+<!--<script src="js/jquery.section-scroll.js"></script>-->
+<!--<script src="js/jquery.scrollTo.min.js"></script>-->
 <script src="js/jquery.appear.js"></script>
+<!--<script src="js/jquery.scrollify.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.6/jquery.fullpage.min.js"></script>
 <script src="js/main.js"></script>
 <script>
     window.intercomSettings = {
