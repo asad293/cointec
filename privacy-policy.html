@@ -2,256 +2,317 @@
 <html>
 <head>
 
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<link rel="shortcut icon" href="img/favicon.ico">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="shortcut icon" href="img/favicon.ico">
 
-<title></title>
+    <title></title>
 
-<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-<link rel="stylesheet" type="text/css" href="css/section-scroll.css">
-<link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="https://use.fontawesome.com/ab029c5ce1.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="css/section-scroll.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 
 </head>
 <body style="background: #fff; overflow-y: scroll;">
 
-  <div class="ui ovrly middle aligned center aligned grid" id="sign-up-ovrly" style="display: none;">
+<div class="ui ovrly middle aligned center aligned grid" id="sign-up-ovrly" style="display: none;">
 
     <div class="ui five wide computer seven wide tablet fifteen wide mobile doubling column ovrly-rect">
 
-      <img src="img/close_icon.png" id="close_pop1" style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
+        <img src="img/close_icon.png" id="close_pop1"
+             style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
 
-      <img src="img/round-done-button.png" id="close_pop1" style="height: 2.4em; width: 2.4em; margin-top: 1.5em;"/>
+        <img src="img/round-done-button.png" id="close_pop1" style="height: 2.4em; width: 2.4em; margin-top: 1.5em;"/>
 
-      <h3 style="font-size: 1.8em; font-weight: 400; margin-top: 0.5em;">Thanks for signing up</h3>
+        <h3 style="font-size: 1.8em; font-weight: 400; margin-top: 0.5em;">Thanks for signing up</h3>
 
-      <p class="adad" style="margin-bottom: 2.6em; line-height: 22px;">Keep an eye on your email for updates</br>and early access token.</p>
+        <p class="adad" style="margin-bottom: 2.6em; line-height: 22px;">Keep an eye on your email for updates</br>and
+            early access token.</p>
 
     </div>
 
-  </div>
+</div>
 
-  <div class="ui ovrly middle aligned center aligned grid" id="access-ovrly" style="display: none;">
+<div class="ui ovrly middle aligned center aligned grid" id="access-ovrly" style="display: none;">
 
     <div class="ui six wide computer seven wide tablet sixteen wide mobile doubling column ovrly-rect">
 
-      <img src="img/close_icon.png" id="close_pop2" style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
+        <img src="img/close_icon.png" id="close_pop2"
+             style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
 
-      <h4 style="margin-top: 1.7em; font-size: 1.5em;">Get early access to our mobile app</h3>
+        <h4 style="margin-top: 1.7em; font-size: 1.5em;">Get early access to our mobile app</h3>
 
-      <p class="adad" style="margin-top: 1.2em; margin-bottom: 0.9em; line-height: 22px;">Be the first to use Cointec’s mobile platform,</br>available for iOS and android.</p>
+            <p class="adad" style="margin-top: 1.2em; margin-bottom: 0.9em; line-height: 22px;">Be the first to use
+                Cointec’s mobile platform,</br>available for iOS and android.</p>
 
-      <div class="ui action fluid input top-input" id="popup-input" style="margin-bottom: 1.5em;">
-        <input type="text" placeholder="Email" id="popup-input-early-access">
-        <button class="ui green button" id="popup-input-early-access-btn" style="background: #34da8c;">Early access</button>
-      </div>
+            <div class="ui action fluid input top-input" id="popup-input" style="margin-bottom: 1.5em;">
+                <input type="text" placeholder="Email" id="popup-input-early-access">
+                <button class="ui green button" id="popup-input-early-access-btn" style="background: #34da8c;">Early
+                    access
+                </button>
+            </div>
 
     </div>
 
-  </div>
+</div>
 
 <div class="ui secondary fixed inverted menu aux-page-menu" id="top-menu" style="background: #fff;">
-  <a class="logo item" href="index.html">
-    <img src="img/bottom_logo.svg" id="top-logo"/>
-  </a>
-  <div class="right menu">
-    <a class="item active trans" id="home-btn" style="color: #949494 !important;" href="index.html">
-      Home
+    <a class="logo item" href="index.html">
+        <img src="img/bottom_logo.svg" id="top-logo"/>
     </a>
-    <a class="item trans" id="features-btn" style="color: #949494 !important;" href="index.html#scrollto-section-2">
-      Features
-    </a>
-    <a class="item trans" id="contact-btn" style="color: #949494 !important;" href="contact.html">
-      Contact
-    </a>
-  </div>
-  <div class="right menu">
-    <div class="item">
-      <div class="ui button" id="top-early-access">
-        Early access
-      </div>
+    <div class="right menu">
+        <a class="item active trans" id="home-btn" style="color: #949494 !important;" href="index.html#section-1">
+            Home
+        </a>
+        <a class="item trans" id="features-btn" style="color: #949494 !important;" href="index.html#section-2">
+            Features
+        </a>
+        <a class="item trans" id="contact-btn" style="color: #949494 !important;" href="contact.html">
+            Contact
+        </a>
     </div>
-  </div>
+    <div class="right menu">
+        <div class="item">
+            <div class="ui button" id="top-early-access">
+                Early access
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="">
 
-  <div class="ui center aligned middle aligned grid" id="fs-1-grid">
+    <div class="ui center aligned middle aligned grid" id="fs-1-grid">
 
-    <div class="sixteen wide mobile nine wide computer column" id="privacy-column">
+        <div class="sixteen wide mobile nine wide computer column" id="privacy-column">
 
-      <p id="privacy-title">Privacy Policy</p>
-      <p id="privacy-subtitle">Last updated: 22nd December, 2017</p>
+            <p id="privacy-title">Privacy Policy</p>
+            <p id="privacy-subtitle">Last updated: 22nd December, 2017</p>
 
-      <div class="ui container" id="policy-container">
+            <div class="ui container" id="policy-container">
 
-        <p>By using our website(s) or other services in any capacity you agree to the terms below, outlining the
-        handling of personal information, as well as to our general terms and condition.</p>
+                <p>By using our website(s) or other services in any capacity you agree to the terms below, outlining the
+                    handling of personal information, as well as to our general terms and condition.</p>
 
-        <p>Cointec Ltd is a registered data controller, registration number ZA304564 with the Information Commissioner’s Office.</p>
+                <p>Cointec Ltd is a registered data controller, registration number ZA304564 with the Information
+                    Commissioner’s Office.</p>
 
-        <p>Cointec Ltd, hereafter referred to as “we”, “the platform” or simply “Cointec”, is legally required to
-        process personal information in accordance with the Data Protection Act 1998 and to also inform
-        parties interacting with the platform of the manner in which their personal information is processed.</p>
+                <p>Cointec Ltd, hereafter referred to as “we”, “the platform” or simply “Cointec”, is legally required
+                    to
+                    process personal information in accordance with the Data Protection Act 1998 and to also inform
+                    parties interacting with the platform of the manner in which their personal information is
+                    processed.</p>
 
-        <h4>Personal information collected</h4>
+                <h4>Personal information collected</h4>
 
-        <p>Cointec intends to collect the minimum information required to provide our services.</p>
+                <p>Cointec intends to collect the minimum information required to provide our services.</p>
 
-        <p><strong>Client information:</strong> Upon visiting our website or other platforms we collect your IP address, information about the type of browser you are using, which pages you visit and your geolocation.</p>
+                <p><strong>Client information:</strong> Upon visiting our website or other platforms we collect your IP
+                    address, information about the type of browser you are using, which pages you visit and your
+                    geolocation.</p>
 
-        <p><strong>Account information:</strong> To open an account we will collect your full name, e-mail address and mobile
-        number. This information may also be used internally to send announcements, surveys, newsletters
-        and marketing material.</p>
+                <p><strong>Account information:</strong> To open an account we will collect your full name, e-mail
+                    address and mobile
+                    number. This information may also be used internally to send announcements, surveys, newsletters
+                    and marketing material.</p>
 
-        <p><strong>Identification information:</strong> In order to verify your identity and comply with AML legislation and KYC
-        regulation we will collect any information contained in IDs or proof of address. This can include, but is
-        not limited to, your address, date of birth and governmental issued verification numbers.</p>
+                <p><strong>Identification information:</strong> In order to verify your identity and comply with AML
+                    legislation and KYC
+                    regulation we will collect any information contained in IDs or proof of address. This can include,
+                    but is
+                    not limited to, your address, date of birth and governmental issued verification numbers.</p>
 
-        <p><strong>Payment information:</strong> We may collect information about debit/credit card numbers and bank
-        accounts used on our platform.</p>
+                <p><strong>Payment information:</strong> We may collect information about debit/credit card numbers and
+                    bank
+                    accounts used on our platform.</p>
 
-        <p><strong>Trade information:</strong> To detect fraud and track platform usage we will collect information about the
-        time, size, price, frequency and type of orders.</p>
+                <p><strong>Trade information:</strong> To detect fraud and track platform usage we will collect
+                    information about the
+                    time, size, price, frequency and type of orders.</p>
 
-        <p><strong>Sensitive information:</strong> Cointec will never collect information on your ethnic origin, race, political opinions, or religious beliefs. In some circumstances, such as when applying for a increase in your trading limit, we may ask for details and or proof of your employment status or means of income.</p>
+                <p><strong>Sensitive information:</strong> Cointec will never collect information on your ethnic origin,
+                    race, political opinions, or religious beliefs. In some circumstances, such as when applying for a
+                    increase in your trading limit, we may ask for details and or proof of your employment status or
+                    means of income.</p>
 
-        <h4>Disclosure of personal information</h4>
+                <h4>Disclosure of personal information</h4>
 
-        <p>Cointec is committed to maintaining the privacy of all users and will only share your personal
-         information with third parties under the following circumstances:</p>
+                <p>Cointec is committed to maintaining the privacy of all users and will only share your personal
+                    information with third parties under the following circumstances:</p>
 
-        <ul class="privacy-ul">
-        <li><p>To fulfil a legal obligation or to comply with other regulatory, governmental or judicial requirements.</p></li>
-        </br>
-        <li><p>To use automated mass e-mail services we may share your first name and e-mail address.</p></li>
-        </br>
-        <li><p>To match orders with brokers and or other counterparties we may share your payment
-        details.</p></li>
-        </br>
-        <li><p>To enable information with identity verification services and credit bureau to verify your
-        identity in line with AML / KYC regulations we may share your identification.</p></li>
-        </br>
-        <li><p>To prevent fraudulent transactions we may share both trade and client information with
-        payment service providers.</p></li>
-        </ul>
+                <ul class="privacy-ul">
+                    <li><p>To fulfil a legal obligation or to comply with other regulatory, governmental or judicial
+                        requirements.</p></li>
+                    </br>
+                    <li><p>To use automated mass e-mail services we may share your first name and e-mail address.</p>
+                    </li>
+                    </br>
+                    <li><p>To match orders with brokers and or other counterparties we may share your payment
+                        details.</p></li>
+                    </br>
+                    <li><p>To enable information with identity verification services and credit bureau to verify your
+                        identity in line with AML / KYC regulations we may share your identification.</p></li>
+                    </br>
+                    <li><p>To prevent fraudulent transactions we may share both trade and client information with
+                        payment service providers.</p></li>
+                </ul>
 
-        <h4>Storage of personal information</h4>
+                <h4>Storage of personal information</h4>
 
-        <p>Data containing personal information is stored securely on our servers in an encrypted state where
-        necessary. Where appropriate, data will only be decrypted offline.</p>
+                <p>Data containing personal information is stored securely on our servers in an encrypted state where
+                    necessary. Where appropriate, data will only be decrypted offline.</p>
 
-        <p>Some of your personal information may be held outside the EEA by our partners whom are deemed to
-        provide to provide an adequate level of data .protection. Said information will be minimal and
-        anonymized.</p>
+                <p>Some of your personal information may be held outside the EEA by our partners whom are deemed to
+                    provide to provide an adequate level of data .protection. Said information will be minimal and
+                    anonymized.</p>
 
-        <p>In accordance with the legislation presented below we are required to keep a record of your personal
-        information for a period of five years from the date of your final transaction or account closure.</p>
+                <p>In accordance with the legislation presented below we are required to keep a record of your personal
+                    information for a period of five years from the date of your final transaction or account
+                    closure.</p>
 
-        <ul class="privacy-ul">
-          <li><p>UK Money Laundering, Terrorist Financing and Transfer of Funds Regulations 2017</p></li>
-          <li><p>Money Laundering Regulations 2007 (SI 2007 No. 2157)</p></li>
-        </ul>
+                <ul class="privacy-ul">
+                    <li><p>UK Money Laundering, Terrorist Financing and Transfer of Funds Regulations 2017</p></li>
+                    <li><p>Money Laundering Regulations 2007 (SI 2007 No. 2157)</p></li>
+                </ul>
 
-        <p>Subject to a small administrative fee, you may request the information held about you by
-        Cointec at any time.</p>
+                <p>Subject to a small administrative fee, you may request the information held about you by
+                    Cointec at any time.</p>
 
-        <h4>Updates to our Privacy Policy</h4>
+                <h4>Updates to our Privacy Policy</h4>
 
-        <p>We may modify this Privacy Policy. The “Last updated” timestamp at the top of this Privacy Policy indicates when this Privacy Policy was last revised. You will be notified by e-mail whenever an updated version of this privacy policy is issued.</p>
+                <p>We may modify this Privacy Policy. The “Last updated” timestamp at the top of this Privacy Policy
+                    indicates when this Privacy Policy was last revised. You will be notified by e-mail whenever an
+                    updated version of this privacy policy is issued.</p>
 
-        <h4>Contact</h4>
+                <h4>Contact</h4>
 
-        <p>For any related enquires please contact us at <a href="mailto:support@cointec.co.uk">support@cointec.co.uk</a> or at:</p>
+                <p>For any related enquires please contact us at <a href="mailto:support@cointec.co.uk">support@cointec.co.uk</a>
+                    or at:</p>
 
-        <p>Kemp House</br>
-        152-160 City Road</br>
-        London</br>
-        EC1V 2NX</p>
+                <p>Kemp House</br>
+                    152-160 City Road</br>
+                    London</br>
+                    EC1V 2NX</p>
 
-      </div>
+            </div>
+
+        </div>
 
     </div>
-
-  </div>
 
 </div>
 
 <div id="footer-privacy">
 
-  <div class="ui middle aligned grid xdesktop" id="footer-grid">
+    <div class="ui middle aligned grid xdesktop" id="footer-grid">
 
-    <div class="ui three wide column">
+        <div class="ui four wide column">
 
-        <a href="index.html"><img class="bottom-logo" src="img/bottom_logo.svg"/></a>
-
-    </div>
-
-    <div class="ui ten wide column">
-
-      <div class="ui center aligned grid">
-
-        <div class="ui sixteen wide column nopad" style="padding-top: 0.6em !important;">
-
-          <a href="" class="small-padding"><img src="img/social-twitter.png"/></a>
-          <!-- <a href="" class="small-padding"><img src="img/social-insta.png"/></a> -->
-          <!-- <a href="" class="small-padding"><img src="img/social-fb.png"/></a> -->
+            <a href="index.html#section-1" class="bottom-logo-container">
+                <img class="bottom-logo" src="img/bottom_logo.svg"/>
+            </a>
+            <p class="copy-right-desktop">© 2018 Cointec Ltd</p>
 
         </div>
 
-        <div class="ui sixteen wide column nopad">
+        <div class="ui eight wide column center aligned">
 
-          <p id="registered">©2018 Cointec Ltd. Cointec Ltd is a company registered in England and Wales (No. 11104052)</p>
+            <!--<div class="ui center aligned grid">-->
 
-        </div>
+            <div class="ui sixteen wide column nopad">
 
-      </div>
+                <a href="" class="small-padding custom-icon-container">
+                    <i class="fa fa-medium custom-icon" aria-hidden="true"></i>
+                </a>
+                <a href="" class="small-padding custom-icon-container">
+                    <i class="fa fa-twitter custom-icon" aria-hidden="true"></i>
+                </a>
+                <a href="" class="small-padding custom-icon-container">
+                    <i class="fa fa-reddit-alien custom-icon" aria-hidden="true"></i>
+                </a>
 
-    </div>
+            </div>
 
-    <div class="ui three wide right aligned bottom aligned column">
+            <div class="ui sixteen wide column nopad">
 
-      <a id="privacy-policy" href="privacy-policy.html">Privacy Policy</a></br>
-      <a id="terms-cond" href="terms.html">Terms and Conditions</a>
+                <p class="registered">Cointec Ltd is a company registered in England and Wales (No. 11104052)</p>
 
-    </div>
+            </div>
 
-  </div>
-
-  <div class="ui middle aligned grid xmobile" id="footer-grid">
-
-    <div class="ui eight wide column">
-
-        <a href="index.html"><img class="bottom-logo" src="img/bottom_logo.svg"/></a>
-
-    </div>
-
-    <div class="ui eight wide column" id="flr">
-
-      <div class="ui right aligned grid">
-
-        <div class="ui sixteen wide column nopad" style="padding-top: 0.6em !important;">
-
-          <a href="" class="small-padding"><img src="img/social-twitter.png"/></a>
-          <!-- <a href="" class="small-padding"><img src="img/social-insta.png"/></a> -->
-          <!-- <a href="" class="small-padding"><img src="img/social-fb.png"/></a> -->
+            <!--</div>-->
 
         </div>
 
-      </div>
+        <div class="ui four wide right aligned column">
+
+            <div class="term-condition-container">
+                <a id="privacy-policy" href="privacy-policy.html">Privacy Policy</a>
+                <a id="terms-cond" href="terms.html">Terms and Conditions</a>
+            </div>
+
+        </div>
 
     </div>
 
-    <div class="ui sixteen wide left aligned column nopad kkr">
+    <div class="ui middle aligned grid xmobile" id="footer-grid">
 
-      <a id="terms-cond" href="terms.html">T&Cs</a></br>
-      <a id="privacy-policy" href="privacy-policy.html">Privacy Policy</a>
-      <p id="registered">©2018 Cointec Ltd. Cointec Ltd is a company</br>registered in England and Wales (No. 11104052)</p>
+        <div class="ui sixteen wide column">
+            <a href="index.html#section-1">
+                <img class="bottom-logo" src="img/bottom_logo.svg"/>
+            </a>
+        </div>
+
+        <div class="ui eight wide column float-left">
+
+                <div class="ui sixteen wide column">
+
+                    <ul class="footer-list">
+                        <li>Information</li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Development</a></li>
+                    </ul>
+
+                </div>
+
+        </div>
+
+        <div class="ui eight wide column">
+
+                <div class="ui sixteen wide column">
+
+                    <ul class="footer-list">
+                        <li>Legal</li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms Of Service</a></li>
+                    </ul>
+
+                    <div class="icon-container-mobile">
+                        <a href="#" class="small-padding">
+                            <i class="fa fa-medium custom-icon" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="small-padding">
+                            <i class="fa fa-twitter custom-icon" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="small-padding">
+                            <i class="fa fa-reddit-alien custom-icon" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+
+        </div>
+
+        <div class="ui sixteen wide column">
+
+            <p class="registered">©2018 Cointec Ltd.<br>Cointec Ltd is a company registered in England and Wales (No.11104052)</p>
+
+        </div>
 
     </div>
-
-  </div>
 
 </div>
 
@@ -260,77 +321,77 @@
 </body>
 
 <script
-src="https://code.jquery.com/jquery-3.1.1.min.js"
-integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-crossorigin="anonymous"></script>
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
 <script src="semantic/dist/semantic.min.js"></script>
 <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
 
 <script>
 
-  $('#close_pop1').click(function(){
-    $('#sign-up-ovrly').fadeOut(300, "linear");
-  });
+    $('#close_pop1').click(function () {
+        $('#sign-up-ovrly').fadeOut(300, "linear");
+    });
 
-  $('#close_pop2').click(function(){
-    $('#access-ovrly').fadeOut(300, "linear");
-  });
+    $('#close_pop2').click(function () {
+        $('#access-ovrly').fadeOut(300, "linear");
+    });
 
-  $('#close_pop3').click(function(){
-    $('#thanks-ovrly').fadeOut(300, "linear");
-  });
+    $('#close_pop3').click(function () {
+        $('#thanks-ovrly').fadeOut(300, "linear");
+    });
 
-  $('#send-button').click(function(){
-    var ok = 1;
-    if($('#name-input').val() == ''){
-      ok = 0;
-      $('#name-input').addClass('input-error');
-    } else {
-      $('#name-input').removeClass('input-error');
+    $('#send-button').click(function () {
+        var ok = 1;
+        if ($('#name-input').val() == '') {
+            ok = 0;
+            $('#name-input').addClass('input-error');
+        } else {
+            $('#name-input').removeClass('input-error');
+        }
+        if (!isEmail($('#email-input').val())) {
+            ok = 0;
+            $('#email-input').addClass('input-error');
+        } else {
+            $('#email-input').removeClass('input-error');
+        }
+        if ($('#contact-textarea').val() == '') {
+            ok = 0;
+            $('#contact-textarea').addClass('input-error');
+        } else {
+            $('#contact-textarea').removeClass('input-error');
+        }
+
+        if (ok) {
+            $('#thanks-ovrly').fadeIn(300, "linear");
+            //call
+            $('#name-input').val('');
+            $('#email-input').val('');
+            $('#contact-textarea').val('');
+            ok = 0;
+        }
+    });
+
+    $('#popup-input-early-access-btn').click(function () {
+        if (isEmail($('#popup-input-early-access').val())) {
+            //call
+            $('#popup-input-early-access').val('');
+            $('#popup-input-early-access').removeClass('input-error');
+            $('#access-ovrly').fadeOut(300, "linear");
+            $('#sign-up-ovrly').fadeIn(300, "linear");
+        } else {
+            $('#popup-input-early-access').addClass('input-error');
+        }
+    });
+
+    $('#top-early-access').click(function () {
+        $('#access-ovrly').fadeIn(300, "linear");
+    });
+
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
     }
-    if(!isEmail($('#email-input').val())){
-      ok = 0;
-      $('#email-input').addClass('input-error');
-    } else {
-      $('#email-input').removeClass('input-error');
-    }
-    if($('#contact-textarea').val() == ''){
-      ok = 0;
-      $('#contact-textarea').addClass('input-error');
-    } else {
-      $('#contact-textarea').removeClass('input-error');
-    }
-
-    if(ok){
-      $('#thanks-ovrly').fadeIn(300, "linear");
-      //call
-      $('#name-input').val('');
-      $('#email-input').val('');
-      $('#contact-textarea').val('');
-      ok = 0;
-    }
-  });
-
-  $('#popup-input-early-access-btn').click(function(){
-    if(isEmail($('#popup-input-early-access').val())){
-      //call
-      $('#popup-input-early-access').val('');
-      $('#popup-input-early-access').removeClass('input-error');
-      $('#access-ovrly').fadeOut(300, "linear");
-      $('#sign-up-ovrly').fadeIn(300, "linear");
-    } else {
-      $('#popup-input-early-access').addClass('input-error');
-    }
-  });
-
-  $('#top-early-access').click(function(){
-    $('#access-ovrly').fadeIn(300, "linear");
-  });
-
-  function isEmail(email) {
-    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    return regex.test(email);
-  }
 
 </script>
 <script>
@@ -338,12 +399,43 @@ crossorigin="anonymous"></script>
         app_id: "n730zdvg"
     };
 </script>
-<script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/n730zdvg';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
+<script>(function () {
+    var w = window;
+    var ic = w.Intercom;
+    if (typeof ic === "function") {
+        ic('reattach_activator');
+        ic('update', intercomSettings);
+    } else {
+        var d = document;
+        var i = function () {
+            i.c(arguments)
+        };
+        i.q = [];
+        i.c = function (args) {
+            i.q.push(args)
+        };
+        w.Intercom = i;
+        function l() {
+            var s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'https://widget.intercom.io/widget/n730zdvg';
+            var x = d.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s, x);
+        }
+
+        if (w.attachEvent) {
+            w.attachEvent('onload', l);
+        } else {
+            w.addEventListener('load', l, false);
+        }
+    }
+})()</script>
 <script>
     var contactBtn = document.getElementById('contact-btn');
     //add event listener
-    contactBtn.addEventListener('click',openIntercomWidget,true);
-    function openIntercomWidget(e){
+    contactBtn.addEventListener('click', openIntercomWidget, true);
+    function openIntercomWidget(e) {
         e.preventDefault();
         Intercom('show');
     }
