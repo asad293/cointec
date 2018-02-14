@@ -24,10 +24,10 @@
 
     <div class="ui five wide computer seven wide tablet fifteen wide mobile doubling column ovrly-rect">
 
-        <img src="img/close_icon.png" id="close_pop1"
+        <img src="img/close_icon.png" class="close_pop1"
              style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
 
-        <img src="img/round-done-button.png" id="close_pop1" style="height: 2.4em; width: 2.4em; margin-top: 1.5em;"/>
+        <img src="img/round-done-button.png" class="close_pop1" style="height: 2.4em; width: 2.4em; margin-top: 1.5em;"/>
 
         <h3 style="font-size: 1.8em; font-weight: 400; margin-top: 0.5em;">Thanks for signing up</h3>
 
@@ -92,12 +92,12 @@
 
     <div id="scrollto-section-1" class="section fs-segment fs-segment-home scrollify-section">
 
-        <img id="chart-img" class="xdesktop" src="img/1_chart.svg"/>
-        <img id="chart-img" class="xmobile" src="img/2_chart.svg"/>
+        <img class="xdesktop chart-img" src="img/1_chart.svg"/>
+        <img class="xmobile chart-img" src="img/2_chart.svg"/>
 
         <div class="ui center aligned middle aligned grid" id="fs-1-grid">
 
-            <div class="thirteen wide mobile eight wide computer column" id="text-column">
+            <div class="thirteen wide mobile eight wide computer column text-column">
 
                 <img id="top-icon" src="img/top_icon.png"/>
 
@@ -122,7 +122,7 @@
 
     <div id="scrollto-section-2" class="section fs-segment fs-segment-home scrollify-section">
 
-        <div class="ui center aligned middle aligned stackable grid" id="fs-2-grid">
+        <div class="ui center aligned middle aligned stackable grid" id="fs-2-grid-duplicate">
 
             <div class="ui seven wide computer eight wide tablet column" id="instant-access-txt">
 
@@ -152,7 +152,7 @@
 
         <div class="ui center aligned middle aligned stackable grid" id="fs-2-grid">
 
-            <div class="ui six wide column xdesktop" id="seamless-payments-img">
+            <div class="ui six wide column xdesktop seamless-payments-img">
 
                 <img class="ui centered image xdesktop section-img-d" src="img/seamless_payments.png"/>
 
@@ -170,7 +170,7 @@
 
             </div>
 
-            <div class="ui six wide column xmobile" id="seamless-payments-img">
+            <div class="ui six wide column xmobile seamless-payments-img">
 
                 <img class="ui fluid image xmobile" src="img/seamless_payments.png"/>
 
@@ -211,7 +211,7 @@
 
         <div class="ui center aligned middle aligned stackable grid" id="fs-4-grid">
 
-            <div class="ui six wide column xdesktop" id="pocket-profits-img">
+            <div class="ui six wide column xdesktop pocket-profits-img">
 
                 <img class="ui centered image xdesktop section-img-d" src="img/pocket_profits.svg"/>
 
@@ -230,7 +230,7 @@
 
             </div>
 
-            <div class="ui six wide column xmobile" id="pocket-profits-img">
+            <div class="ui six wide column xmobile pocket-profits-img">
 
                 <img class="ui fluid image xmobile" src="img/pocket_profits.svg"/>
 
@@ -271,7 +271,7 @@
 
         <div class="ui center aligned middle aligned grid" id="fs-6-grid">
 
-            <div class="thirteen wide mobile six wide computer column" id="text-column">
+            <div class="thirteen wide mobile six wide computer column text-column">
 
                 <img id="diamond-icon" src="img/diamond.png"/>
 
@@ -289,9 +289,11 @@
 
         </div>
 
-        <div id="footer">
+    </div>
 
-        <div class="ui middle aligned grid xdesktop" id="footer-grid">
+    <div id="footer-privacy" class="section fp-auto-height footer-privacy-home">
+
+        <div class="ui middle aligned grid xdesktop footer-grid-desktop footer-grid">
 
             <div class="ui four wide column">
 
@@ -341,81 +343,79 @@
 
         </div>
 
-        <div class="ui middle aligned grid xmobile" id="footer-grid">
+        <div class="ui middle aligned grid xmobile footer-grid">
 
-                <div class="ui sixteen wide column">
-                    <a href="index.html#section-1">
-                        <img class="bottom-logo" src="img/bottom_logo.svg"/>
-                    </a>
-                </div>
+            <div class="ui sixteen wide column">
+                <a href="index.html#section-1">
+                    <img class="bottom-logo" src="img/bottom_logo.svg"/>
+                </a>
+            </div>
 
-                <div class="ui eight wide column float-left">
-
-                    <div class="ui sixteen wide column">
-
-                        <ul class="footer-list">
-                            <li>Information</li>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Support</a></li>
-                            <li><a href="#">Development</a></li>
-                        </ul>
-
-                    </div>
-
-                </div>
-
-                <div class="ui eight wide column">
-
-                    <div class="ui sixteen wide column">
-
-                        <ul class="footer-list">
-                            <li>Legal</li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms Of Service</a></li>
-                        </ul>
-
-                        <div class="icon-container-mobile">
-                            <a href="#" class="small-padding">
-                                <i class="fa fa-medium custom-icon" aria-hidden="true"></i>
-                            </a>
-                            <a href="#" class="small-padding">
-                                <i class="fa fa-twitter custom-icon" aria-hidden="true"></i>
-                            </a>
-                            <a href="#" class="small-padding">
-                                <i class="fa fa-reddit-alien custom-icon" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
+            <div class="ui eight wide column float-left">
 
                 <div class="ui sixteen wide column">
 
-                    <p class="registered">©2018 Cointec Ltd.<br>Cointec Ltd is a company registered in England and Wales (No.11104052)</p>
+                    <ul class="footer-list">
+                        <li>Information</li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Development</a></li>
+                    </ul>
 
                 </div>
 
             </div>
 
-    </div>
+            <div class="ui eight wide column">
+
+                <div class="ui sixteen wide column">
+
+                    <ul class="footer-list">
+                        <li>Legal</li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms Of Service</a></li>
+                    </ul>
+
+                    <div class="icon-container-mobile">
+                        <a href="#" class="small-padding">
+                            <i class="fa fa-medium custom-icon" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="small-padding">
+                            <i class="fa fa-twitter custom-icon" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="small-padding">
+                            <i class="fa fa-reddit-alien custom-icon" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="ui sixteen wide column">
+
+                <p class="registered">©2018 Cointec Ltd.<br>Cointec Ltd is a company registered in England and Wales (No.11104052)</p>
+
+            </div>
+
+        </div>
 
     </div>
-
 
 </div>
 
-
 </body>
 
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-<script src="semantic/dist/semantic.min.js"></script>
-<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
-<!--<script src="js/jquery.section-scroll.js"></script>-->
-<!--<script src="js/jquery.scrollTo.min.js"></script>-->
-<script src="js/jquery.appear.js"></script>
-<!--<script src="js/jquery.scrollify.js"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.6/jquery.fullpage.min.js"></script>
+<script type="text/javascript" src="semantic/dist/semantic.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.appear/0.3.6/jquery.appear.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.6/jquery.fullpage.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+<script type="text/javascript" src="js/DrawSVGPlugin.min.js"></script>
+<script type="text/javascript" src="js/MorphSVGPlugin.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.gsap.min.js"></script>
 <script src="js/main.js"></script>
 <script>
     window.intercomSettings = {
