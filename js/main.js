@@ -25,6 +25,8 @@
 
     $(document).ready(function () {
 
+        //////////jQuery Fullpage plugin Settings//////////
+
         $(document).ready(function () {
             $('#fullpage').fullpage({
                 navigation: true,
@@ -35,10 +37,141 @@
                     'section-4',
                     'section-5',
                     'section-6',
-                    'section-7'
-                ]
+                    'section-7',
+                    'section-8'
+                ],
+                recordHistory: false
             });
         });
+
+        //////////jQuery Fullpage plugin Settings End//////////
+
+        //////////Animations Code//////////
+
+
+        //Line Animation Section 1
+        var blueFill = document.getElementById("blue-fill"),
+            redFill = document.getElementById("red-fill"),
+            greenFill = document.getElementById("green-fill"),
+            orangeFill = document.getElementById("orange-fill");
+
+        var anim1tl = new TimelineMax({repeat:-1});
+        anim1tl.set([blueFill,redFill,greenFill,orangeFill],{attr:{x1:17428.4883,x2:19918.5117}});
+        anim1tl.to(orangeFill,1.5,{attr:{x1:22428.4883}},0)
+            .to(orangeFill,1.5,{attr:{x2:24918.5117}},0)
+            .to(orangeFill,5,{})
+            .to(greenFill,1.5,{attr:{x1:22428.4883}},6.5)
+            .to(greenFill,1.5,{attr:{x2:24918.5117}},6.5)
+            .to(greenFill,5,{})
+            .to(redFill,1.5,{attr:{x1:22428.4883}},13)
+            .to(redFill,1.5,{attr:{x2:24918.5117}},13)
+            .to(redFill,5,{})
+            .to(blueFill,1.5,{attr:{x1:22428.4883}},19.5)
+            .to(blueFill,1.5,{attr:{x2:24918.5117}},19.5)
+            .to(blueFill,5,{});
+
+        var graph1 = document.querySelector("#graph1"),
+            graph2 = document.querySelector("#graph2"),
+            graph3 = document.querySelector("#graph3"),
+            point1 = document.querySelector("#point1"),
+            firstCircle = document.querySelector("#first-circle"),
+            point2 = document.querySelector("#point2"),
+            line1 = document.querySelector("#XMLID_63_"),
+            line2 = document.querySelector("#XMLID_64_"),
+            green1 = document.querySelector("#XMLID_69_"),
+            green2 = document.querySelector("#XMLID_66_"),
+            text = document.querySelector("#text");
+
+        //Graph Animation Section 2
+        var anim2tl = new TimelineMax({repeat:-1});
+        anim2tl.to(graph1,24,{x:-1500,ease:Linear.easeNone});
+
+        var anim2tl2 = new TimelineMax({repeat:-1,delay:12});
+        anim2tl2.to(graph2,24,{x:-1500,ease:Linear.easeNone});
+
+        var anim2tl6 = new TimelineMax({});
+        anim2tl6.to(graph3,24,{x:-1500,ease:Linear.easeNone});
+
+        var anim2tl3 = new TimelineMax({repeat:-1,delay:3.7,repeatDelay:8.5});
+        anim2tl3.set([point1,firstCircle],{opacity:0})
+            .set(line1,{transformOrigin:"bottom center",scaleY:0})
+            .set(green1,{drawSVG:"0%"})
+            .to(point1,0.25,{opacity:1})
+            .to(point1,0.25,{opacity:0})
+            .to(firstCircle,0.25,{opacity:1},0.25)
+            .to(firstCircle,0.25,{opacity:0},0.5)
+            .fromTo(green1,3,{drawSVG:"100% 100%",ease:Linear.easeNone}, {drawSVG:"0% 100%",ease:Linear.easeNone},0)
+            .to(green1,0.25,{opacity:0})
+            .to(green1,0.25,{drawSVG:"0"})
+            .to(line1,0.25,{scaleY:1},0);
+
+        var anim2tl4 = new TimelineMax({repeat:-1,delay:6.6,repeatDelay:11.5});
+        anim2tl4.set(point2,{opacity:0})
+            .set(line2,{transformOrigin:"top center",scaleY:0})
+            .to(point2,0.25,{opacity:1})
+            .to(point2,0.25,{opacity:0})
+            .to(line2,0.25,{scaleY:1},0);
+
+        var anim2tl7 = new TimelineMax({repeat:-1,delay:3.7,repeatDelay:8.5});
+        anim2tl7.set(green2,{drawSVG:"0%"})
+            .fromTo(green2,3,{drawSVG:"100% 100%",ease:Linear.easeNone}, {drawSVG:"0% 100%",ease:Linear.easeNone},0)
+            .to(green2,0.25,{opacity:0})
+            .to(green2,0.25,{drawSVG:"0"});
+
+        var anim2tl5 = new TimelineMax({repeat:-1,delay:6.6,repeatDelay:9});
+        anim2tl5.set(text,{opacity:0})
+            .to(text,0.15,{opacity:1})
+            .to(text,2.85,{opacity:0,y:-65,onComplete:changeValue});
+
+        function changeValue () {
+            var val = Math.floor(Math.random()*(500-50+1)+50);
+            var textNode = document.getElementById("XMLID_67_");
+            textNode.textContent = "£"+val;
+        }
+
+        //Coin Animation Section 4
+        var group1 = document.querySelector("#group1"),
+            group2 = document.querySelector("#group2"),
+            group3 = document.querySelector("#group3");
+
+        var anim3tl = new TimelineMax({repeat:-1});
+        anim3tl.to(group1,2,{y:-10,ease:Power1.easeInOut})
+            .to(group1,2,{y:0,ease:Power1.easeInOut});
+        anim3tl.timeScale(0.3);
+
+        var anim3tl2 = new TimelineMax({repeat:-1,delay:1});
+        anim3tl2.to(group2,2,{y:10,ease:Power1.easeInOut})
+            .to(group2,2,{y:0,ease:Power1.easeInOut});
+        anim3tl2.timeScale(0.3);
+
+        var anim3tl3 = new TimelineMax({repeat:-1,delay:1});
+        anim3tl3.to(group3,2,{y:-10,ease:Power1.easeInOut})
+            .to(group3,2,{y:0,ease:Power1.easeInOut});
+        anim3tl3.timeScale(0.3);
+
+        //Castle Animation Section 6
+        var cloud1 = document.querySelector("#cloud-1"),
+            cloud2 = document.querySelector("#cloud-2"),
+            cloud3 = document.querySelector("#cloud-3"),
+            flag1 = document.querySelector("#flag-1"),
+            flag2 = document.querySelector("#flag-2"),
+            flag4 = document.querySelector("#flag-4");
+
+        var anim4tl = new TimelineMax({repeat:-1});
+        anim4tl.set([cloud1,cloud2,cloud3],{transformOrigin:"center center"})
+            .set(cloud1,{x:500})
+            .set(cloud2,{x:450})
+            .set(cloud3,{x:200})
+            .to([cloud1,cloud2,cloud3],20,{x:-500,ease:Linear.easeNone});
+
+        var anim4tl2 = new TimelineMax({repeat:-1});
+        anim4tl2.to(flag1,1.5,{morphSVG:flag4,ease:Linear.easeNone})
+            .to(flag1,1.5,{morphSVG:flag2,ease:Linear.easeNone})
+            .to(flag1,1.5,{morphSVG:flag1,ease:Linear.easeNone});
+
+        //////////Animations Code End//////////
+
+        //
 
         // $.scrollify({
         //     section : ".scrollify-section"
@@ -135,7 +268,7 @@
         //   $('body').scrollTo('#scrollto-section-2', 500);
         // });
 
-        $('#close_pop1').click(function () {
+        $('.close_pop1').click(function () {
             $('#sign-up-ovrly').fadeOut(300, "linear");
         });
 
