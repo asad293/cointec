@@ -926,6 +926,12 @@ Styles written by Ali
 ******************************************
 ******************************************/
 
+/* CSS needed for properly displaying animations */
+
+#coin-svg {
+  opacity:0;
+}
+
 /* Override default bullet styling fullpage.min.css */
 #fp-nav ul li a span, .fp-slidesNav ul li a span {
   background: #203DA0;
@@ -933,6 +939,20 @@ Styles written by Ali
 
 #fp-nav ul li a.active span, #fp-nav ul li:hover a.active span, .fp-slidesNav ul li a.active span, .fp-slidesNav ul li:hover a.active span {
   background: #34da8c;
+}
+
+.fp-viewing-section-1 #fp-nav,
+.fp-viewing-section-7 #fp-nav,
+.fp-viewing-section-8 #fp-nav {
+  opacity: 0;
+}
+
+#fp-nav {
+  -webkit-transition: opacity 0.5s;
+  -moz-transition: opacity 0.5s;
+  -ms-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
+  transition: opacity 0.5s;
 }
 
 /* Footer Styling */
@@ -1053,5 +1073,32 @@ Styles written by Ali
   
   .float-left {
     float: left;
+  }
+}
+
+/* Sections Styling For mobile */
+@media (max-width:768px) {
+  #scrollto-section-2 {
+    margin-top: 6em;
+  }
+
+  #scrollto-section-4 {
+    margin-top: 2em;
+  }
+
+  #scrollto-section-6 {
+    margin-top: 8em;
+  }
+
+  #scrollto-section-7 {
+    margin-top: 0 !important;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  img.custom-size.xmobile.ui {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
