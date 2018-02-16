@@ -266,11 +266,12 @@ body {
   /*margin-top: 20px;*/
   margin-top: 16px;
   line-height: 16px;
+  color: #C2C4CB;
 }
 
 #get-crypto {
   color: #fff;
-  font-weight: 600;
+  font-weight: 300;
   font-size: 3.3em;
   margin-bottom: 0.3em;
 }
@@ -469,7 +470,7 @@ div.ui.footer-grid {
 
 #privacy-policy, #terms-cond, #registered {
   text-decoration: none;
-  color: #ADADAD;
+  color: #C2C4CB;
   font-size: 14px;
   font-family: Roboto;
   font-style: normal;
@@ -482,6 +483,7 @@ p.registered {
   /*margin-top: 0.5em;*/
   line-height: 16px;
   margin-top: 20px;
+  color: #C2C4CB;
 }
 
 #flr {
