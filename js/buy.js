@@ -202,6 +202,28 @@ function createTransfer() {
     document.getElementById("createTransferStatusLabel").innerText = "Status: Awaiting new Transfer ID";
 }
 
+function paymentMade() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+
+            var responseString = this.responseText;
+            console.log("Response: " + responseString);
+//            toggleConfirm();
+//            toggle2FA();
+//            togglePaymentPending();
+//            clearFields();
+//            clearPendingFields();
+        }
+    };
+
+    var transferId = document.getElementById("newPendingTransferId").innerText;
+
+    xmlhttp.open("GET", "http://ct-buy-staging.azurewebsites.net/paid/" + transferId, true);
+    xmlhttp.setRequestHeader("Authorization", "L]s{>#dxE*-n3q%yA$,_+`/3D_]Hd?Jc");
+    xmlhttp.send();
+}
+
 function confirmTransfer() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
