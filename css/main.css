@@ -955,6 +955,12 @@ Styles written by Ali
   transition: opacity 0.5s;
 }
 
+#fp-nav ul li:first-child,
+#fp-nav ul li:nth-child(7),
+#fp-nav ul li:nth-child(8) {
+  display: none;
+}
+
 /* Footer Styling */
 .bottom-logo-container {
   display: inline-block;
