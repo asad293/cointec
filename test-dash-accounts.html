@@ -2,266 +2,180 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Cointec Test Dashboard</title>
+    <title>Cointec Accounts Test Dashboard</title>
     <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        function clearFields() {
-            document.getElementById("gbpAmount").value = "";
-            document.getElementById("btcAmount").value = "";
-        }
-
-        function showDetails() {
-            var x = document.getElementById("detailsDiv");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            }
-        }
-
-        function hideDetails() {
-            var x = document.getElementById("detailsDiv");
-            if (x.style.display === "block") {
-                x.style.display = "none";
-            }
-        }
-
-        function createAccount() {
-            console.log('--');
-
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("createStatusLabel").innerText = "Status: Account Created";
-                }
-
-                if (this.readyState == 4 && this.status == 422) {
-                    document.getElementById("createStatusLabel").innerText = "Status: Account Already Exists";
-                }
-            };
-
-            var firstName = document.getElementById("createFirstName").value;
-            var lastName = document.getElementById("createLastName").value;
-            var emailAddress = document.getElementById("createEmailAddress").value;
-            var password = document.getElementById("createPassword").value;
-
-            var obj = {
-                "firstName": firstName,
-                "lastName": lastName,
-                "emailAddress": emailAddress,
-                "password": password
-            }
-
-            var jsonString = JSON.stringify(obj);
-
-            xmlhttp.open("POST", "https://ct-accounts-staging.azurewebsites.net/add", true);
-            xmlhttp.setRequestHeader("Content-Type", "application/json");
-            xmlhttp.setRequestHeader("Authorization", "L]s{>#dxE*-n3q%yA$,_+`/3D_]Hd?Jc");
-            console.log(jsonString);
-            xmlhttp.send(jsonString);
-        }
-
-        function verifyAccount() {
-            console.log('--');
-            
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("verifyStatusLabel").innerText = "Status: Account Verified";
-                    getDetails();
-                }
-
-                if (this.readyState == 4 && this.status == 401) {
-                    document.getElementById("verifyStatusLabel").innerText = "Status: Credentials Incorrect";
-                    hideDetails();
-                }
-
-                if (this.readyState == 4 && this.status == 422) {
-                    document.getElementById("verifyStatusLabel").innerText = "Status: User Not Found";
-                    hideDetails();
-                }
-            };
-
-            var emailAddress = document.getElementById("verifyEmailAddress").value;
-            var password = document.getElementById("verifyPassword").value;
-
-            var obj = {
-                "emailAddress": emailAddress,
-                "password": password
-            }
-
-            var jsonString = JSON.stringify(obj);
-
-            xmlhttp.open("POST", "https://ct-accounts-staging.azurewebsites.net/verify", true);
-            xmlhttp.setRequestHeader("Content-Type", "application/json");
-            xmlhttp.setRequestHeader("Authorization", "L]s{>#dxE*-n3q%yA$,_+`/3D_]Hd?Jc");
-            console.log(jsonString);
-            xmlhttp.send(jsonString);
-        }
-
-        function getDetails() {
-            console.log('--');
-
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("detailsStatusLabel").innerText = "Status: Details Loaded";
-
-                    var responseString = this.responseText;
-                    console.log("Response: " + responseString);
-                    var response = JSON.parse(responseString);
-
-                    document.getElementById("detailsMobileNo").value = response.MobileNo;
-                    document.getElementById("detailsAddressLine1").value = response.AddressLine1;
-                    document.getElementById("detailsAddressLine2").value = response.AddressLine2;
-                    document.getElementById("detailsCity").value = response.City;
-                    document.getElementById("detailsCounty").value = response.County;
-                    document.getElementById("detailsCountry").value = response.Country;
-                    document.getElementById("detailsPostcode").value = response.Postcode;
-                    document.getElementById("detailsDob").value = response.DateOfBirth;
-                    document.getElementById("detailsNationality").value = response.Nationality;
-
-                    showDetails();
-                }
-            };
-
-            var emailAddress = document.getElementById("verifyEmailAddress").value;
-            var password = document.getElementById("verifyPassword").value;
-
-            var obj = {
-                "emailAddress": emailAddress,
-                "password": password
-            }
-
-            var jsonString = JSON.stringify(obj);
-
-            xmlhttp.open("POST", "https://ct-accounts-staging.azurewebsites.net/details", true);
-            xmlhttp.setRequestHeader("Content-Type", "application/json");
-            xmlhttp.setRequestHeader("Authorization", "L]s{>#dxE*-n3q%yA$,_+`/3D_]Hd?Jc");
-            console.log(jsonString);
-            xmlhttp.send(jsonString);
-        }
-
-        function updateDetails() {
-            console.log('--');
-
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("detailsStatusLabel").innerText = "Status: Details Updated";
-                }
-            };
-
-            var emailAddress = document.getElementById("verifyEmailAddress").value;
-            var mobileNo = document.getElementById("detailsMobileNo").value;
-            var addressLine1 = document.getElementById("detailsAddressLine1").value;
-            var addressLine2 = document.getElementById("detailsAddressLine2").value;
-            var city = document.getElementById("detailsCity").value;
-            var county = document.getElementById("detailsCounty").value;
-            var country = document.getElementById("detailsCountry").value;
-            var postcode = document.getElementById("detailsPostcode").value;
-            var dateOfBirth = document.getElementById("detailsDob").value;
-            var nationality = document.getElementById("detailsNationality").value;
-
-            var obj = {
-                "EmailAddress": emailAddress,
-                "MobileNo": mobileNo,
-                "AddressLine1": addressLine1,
-                "AddressLine2": addressLine2,
-                "City": city,
-                "County": county,
-                "Country": country,
-                "Postcode": postcode,
-                "DateOfBirth": dateOfBirth,
-                "Nationality": nationality
-            }
-
-            var jsonString = JSON.stringify(obj);
-
-            xmlhttp.open("POST", "https://ct-accounts-staging.azurewebsites.net/update", true);
-            xmlhttp.setRequestHeader("Content-Type", "application/json");
-            xmlhttp.setRequestHeader("Authorization", "L]s{>#dxE*-n3q%yA$,_+`/3D_]Hd?Jc");
-            console.log(jsonString);
-            xmlhttp.send(jsonString);
-        }
-    </script>
 </head>
 <body>
-<div id="createAccountDiv">
-    <u><label>Create Account</label></u>
-    <br />
-    <br />
-    <label>First Name</label>
-    <input type="text" id="createFirstName" value="" />
-    <br />
-    <label>Last Name</label>
-    <input type="text" id="createLastName" value="" />
-    <br />
-    <label>Email Address</label>
-    <input type="text" id="createEmailAddress" value="" />
-    <br />
-    <label>Password</label>
-    <input type="text" id="createPassword" value="" />
-    <br/>
-    <label id="createStatusLabel">Status: </label>
-    <br /><br />
-    <button type="button" onclick="createAccount();">Create Account</button>
-</div>
-<br/>
-<br/>
-<div id="verifyAccountDiv">
-    <u><label>Verify Account Login</label></u>
-    <br/>
-    <br/>
-    <label>Email</label>
-    <input type="text" id="verifyEmailAddress" value=""/>
-    <br/>
-    <label>Password</label>
-    <input type="text" id="verifyPassword" value=""/>
-    <br/>
-    <label id="verifyStatusLabel">Status: </label>
-    <br/><br/>
-    <button type="button" id="confirm" onclick="verifyAccount();">Verify</button>
-</div>
-<br/>
-<br/>
-<!-- Mobile no; Address line 1; Address line 2; City; County/state; Country; Postcode; DOB; Nationality-->
+    <table style="width:100%">
+        <tr>
+            <td style="width: 33%; vertical-align: top">
+                <div id="createAccountDiv">
+                    <u><label>Create Account</label></u>
+                    <br />
+                    <br />
+                    <table style="width:100%">
+                        <tr>
+                            <td><label>First Name</label></td>
+                            <td><input type="text" id="createFirstName" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Last Name</label></td>
+                            <td><input type="text" id="createLastName" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Email Address</label></td>
+                            <td><input type="text" id="createEmailAddress" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Password</label></td>
+                            <td><input type="text" id="createPassword" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <br />
+                                <label id="createStatusLabel">Status: </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button type="button" onclick="createAccount();">Create Account</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br />
+                <br />
+                <div id="verifyAccountDiv">
+                    <u><label>Verify Account Login</label></u>
+                    <br />
+                    <br />
+                    <table style="width:100%">
+                        <tr>
+                            <td><label>Email</label></td>
+                            <td><input type="text" id="verifyEmailAddress" value="jonathanho.chs@gmail.com" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Password</label></td>
+                            <td><input type="text" id="verifyPassword" value="passw0rd1" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <br />
+                                <label id="verifyStatusLabel">Status: </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button type="button" id="confirm" onclick="verifyAccount();">Verify</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td style="width: 33%; vertical-align: top">
+                <div id="detailsDiv" style="display: none">
+                    <u><label>Account Details</label></u>
+                    <table>
+                        <tr>
+                            <td><label>Mobile No</label></td>
+                            <td><input type="text" id="detailsMobileNo" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Address Line 1</label></td>
+                            <td><input type="text" id="detailsAddressLine1" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Address Line 2</label></td>
+                            <td><input type="text" id="detailsAddressLine2" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>City</label></td>
+                            <td><input type="text" id="detailsCity" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>County</label></td>
+                            <td><input type="text" id="detailsCounty" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Country</label></td>
+                            <td><input type="text" id="detailsCountry" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Postcode</label></td>
+                            <td><input type="text" id="detailsPostcode" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Date of Birth</label></td>
+                            <td><input type="text" id="detailsDob" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Nationality</label></td>
+                            <td><input type="text" id="detailsNationality" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <br/>
+                                <label id="detailsStatusLabel">Status: </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><button type="button" onclick="updateDetails();">Update</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td style="width: 33%; vertical-align: top">
+                <div id="userBankAccountsDiv" style="display: none">
+                    <u><label>Bank Accounts</label></u>
+                    <table>
+                        <tr>
+                            <td><label>Account Reference</label></td>
+                            <td><input type="text" id="addBankAccountReference" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Name On Account</label></td>
+                            <td><input type="text" id="addBankAccountName" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Bank</label></td>
+                            <td><input type="text" id="addBankAccountBank" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Sort Code</label></td>
+                            <td><input type="text" id="addBankAccountSortCode" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Account Number</label></td>
+                            <td><input type="text" id="addBankAccountNumber" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <br/>
+                                <label id="addBankAccountStatus">Status: </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><button type="button" onclick="addUserBankAccount();">Add Bank Account</button></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="width: 100%">
+                                <br /><br/>
+                                <table  id="bankAccountsTable">
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    
 
-<div id="detailsDiv" style="display:none">
-    <u><label>Account Details</label></u>
-    <br />
-    <br />
-    <label>Mobile No</label>
-    <input type="text" id="detailsMobileNo" value="" />
-    <br />
-    <label>Address Line 1</label>
-    <input type="text" id="detailsAddressLine1" value="" />
-    <br />
-    <label>Address Line 2</label>
-    <input type="text" id="detailsAddressLine2" value="" />
-    <br />
-    <label>City</label>
-    <input type="text" id="detailsCity" value="" />
-    <br />
-    <label>County</label>
-    <input type="text" id="detailsCounty" value="" />
-    <br />
-    <label>Country</label>
-    <input type="text" id="detailsCountry" value="" />
-    <br />
-    <label>Postcode</label>
-    <input type="text" id="detailsPostcode" value="" />
-    <br />
-    <label>Date of Birth</label>
-    <input type="text" id="detailsDob" value="" />
-    <br />
-    <label>Nationality</label>
-    <input type="text" id="detailsNationality" value="" />
-    <br />
-    <label id="detailsStatusLabel">Status: </label>
-    <br /><br />
-    <button type="button" onclick="updateDetails();">Update</button>
-</div>
-    <br />
-    <br />
+                </div>
+            </td>
+        </tr>
+    </table>
+
+<script src="js/accounts.js"></script>
+<script src="js/jquery-1.6.4.min.js"></script>
 </body>
 </html>

@@ -87,11 +87,56 @@ function getQuote() {
 }
 
 function setConfirmFields() {
+
     document.getElementById("confirmAmountField").innerText = document.getElementById("btcAmount").value;
     document.getElementById("confirmTotalField").innerText = document.getElementById("gbpAmount").value;
     document.getElementById("confirmRateField").innerText = document.getElementById("rateHiddenField").innerText;
-    document.getElementById("confirmPaymentDetailsField").innerText = "Dummy";
     document.getElementById("confirmWalletAddressField").innerText = document.getElementById("walletAddress").value;
+}
+
+function getUserBankAccounts()  {
+    console.log('--');
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var responseString = this.responseText;
+            console.log("Response: " + responseString);
+
+            var userBankAccountsList = JSON.parse(responseString);
+
+            var markup = "<select id=\"bankAccountSelect\">";
+
+            for (var i = 0; i < userBankAccountsList.length; i++) {
+                markup += "<option value=\"" + userBankAccountsList[i].accountNumber + "\">";
+                markup += userBankAccountsList[i].accountReference;
+                markup += " / ";
+                markup += userBankAccountsList[i].accountNumber;
+                markup += " - ";
+                markup += userBankAccountsList[i].sortCode;
+                markup += "</option>";
+            }
+            markup += "</select>";
+            console.log(markup);
+            document.getElementById("confirmPaymentDetailsField").innerHTML = markup;
+
+            return userBankAccountsList;
+        }
+    };
+
+    var emailAddress = document.getElementById("verifyEmailAddress").value;
+
+    var obj = {
+        "emailAddress": emailAddress
+    }
+
+    var jsonString = JSON.stringify(obj);
+
+    xmlhttp.open("POST", "https://ct-accounts-staging.azurewebsites.net/bank/get", true);
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.setRequestHeader("Authorization", "L]s{>#dxE*-n3q%yA$,_+`/3D_]Hd?Jc");
+    console.log(jsonString);
+    xmlhttp.send(jsonString);
 }
 
 function resetConfirmTimer() {
@@ -104,6 +149,7 @@ function resetConfirmTimer() {
 
 function instantExchange() {
     startCountdown = true;
+    toggleQuote();
     toggleConfirm();
 }
 
@@ -142,6 +188,7 @@ function continueToPayment() {
     document.getElementById("confirmTimeLeft").innerText = "LOCKED IN. Please provide payment in the next ten minutes";
     startCountdown = false;
 
+    toggleConfirm();
     toggle2FA();
     document.getElementById("startTimestampField").innerText = new Date().getTime();
 
@@ -152,7 +199,40 @@ function continueToPayment() {
 }
 
 function complete2FA() {
+
+    getActiveBankAccount();
+
     createTransfer();
+}
+
+function getActiveBankAccount() {
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+
+            var responseString = this.responseText;
+            console.log("Response Active Bank Account: " + responseString);
+
+            var cointecAccount = JSON.parse(responseString);
+
+            var accountSelect = document.getElementById("bankAccountSelect");
+            var userAccount = accountSelect.value;
+
+            var reference = userAccount.substring(4) + cointecAccount.accountNumber.substring(4);
+
+            document.getElementById("payBeneficiaryField").innerText = cointecAccount.owner;
+            document.getElementById("payAccountNumberField").innerText = cointecAccount.accountNumber;
+            document.getElementById("paySortCodeField").innerText = cointecAccount.sortCode;
+            document.getElementById("payAmountField").innerText = document.getElementById("confirmTotalField").innerText;
+            document.getElementById("payReferenceField").innerText = reference;
+        }
+    };
+
+    xmlhttp.open("GET", "https://ct-router-api.azurewebsites.net/active", true);
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.setRequestHeader("Authorization", "L]s{>#dxE*-n3q%yA$,_+`/3D_]Hd?Jc");
+    xmlhttp.send();
 }
 
 function createTransfer() {
@@ -273,6 +353,7 @@ function verifyAccount() {
             document.getElementById("verifyStatusLabel").innerText = "Status: Account Verified";
             toggleQuote();
             loadPendingBuyOrders();
+            getUserBankAccounts();
         }
 
         if (this.readyState == 4 && this.status == 401) {

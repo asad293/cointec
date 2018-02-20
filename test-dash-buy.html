@@ -7,97 +7,104 @@
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
 </head>
 <body>
-    <table style="width: 100%; table-layout: fixed;">
-        <tr>
-            <td style="width: 50%">
-                <div id="verifyAccountDiv">
-                    <u><label>Verify Account Login</label></u>
-                    <br />
-                    <br />
-                    <label>Email</label>
-                    <input type="text" id="verifyEmailAddress" value="jonathanho.chs@gmail.com" />
-                    <br />
-                    <label>Password</label>
-                    <input type="text" id="verifyPassword" value="passw0rd1" />
-                    <br />
-                    <label id="verifyStatusLabel">Status: </label>
-                    <br /><br />
-                    <button type="button" id="confirm" onclick="verifyAccount();">Verify</button>
-                </div>
+<table style="width: 100%; table-layout: fixed;">
+    <tr>
+        <td style="width: 50%">
+            <div id="verifyAccountDiv">
+                <u><label>Verify Account Login</label></u>
+                <br />
+                <br />
+                <label>Email</label>
+                <input type="text" id="verifyEmailAddress" value="jonathanho.chs@gmail.com" />
+                <br />
+                <label>Password</label>
+                <input type="text" id="verifyPassword" value="passw0rd1" />
+                <br />
+                <label id="verifyStatusLabel">Status: </label>
+                <br /><br />
+                <button type="button" id="confirm" onclick="verifyAccount();">Verify</button>
+            </div>
 
+            <br />
+            <br />
+            <div id="quoteDiv" style="display: none">
+                <label id="rateHiddenField" style="display: none"></label>
+                <label>GBP amount</label>
+                <input type="text" id="gbpAmount" value="" /><button type="button" onclick="getQuote();">Get Quote</button>
                 <br />
+                <label>BTC amount</label>
+                <input type="text" id="btcAmount" value="" disabled />
                 <br />
-                <div id="quoteDiv" style="display: none">
-                    <label id="rateHiddenField" style="display: none"></label>
-                    <label>GBP amount</label>
-                    <input type="text" id="gbpAmount" value="" /><button type="button" onclick="getQuote();">Get Quote</button>
-                    <br />
-                    <label>BTC amount</label>
-                    <input type="text" id="btcAmount" value="" disabled />
-                    <br />
-                    <label>Wallet Address</label>
-                    <input type="text" id="walletAddress" value="2ShKXHpJSF5Kukj7J9JEgpDVpRDZHUZaGw4" />
-                    <br />
-                    External Test BTC: 18QnwiQoUZm8Ej28mmf2wjBq2iwuJxhQUv
-                    <br />
-                    <button type="button" id="quote" onclick="instantExchange();">Instant Exchange</button>
-                </div>
+                <label>Wallet Address</label>
+                <input type="text" id="walletAddress" value="2ShKXHpJSF5Kukj7J9JEgpDVpRDZHUZaGw4" />
+                <br />
+                External Test BTC: 18QnwiQoUZm8Ej28mmf2wjBq2iwuJxhQUv
+                <br />
+                <button type="button" id="quote" onclick="instantExchange();">Instant Exchange</button>
+            </div>
 
+            <br />
+            <br />
+            <div id="confirmDiv" style="display: none">
+                Please review your order.
+                <br/>
+                Your current rate is
+                <label id="confirmTimeLeft"></label>
                 <br />
                 <br />
-                <div id="confirmDiv" style="display: none">
-                    Please review your order.
-                    <br/>
-                    Your current rate is
-                    <label id="confirmTimeLeft"></label>
-                    <br />
-                    <br />
-                    <label id="confirmAmount">Amount: </label><label id="confirmAmountField"></label> <br />
-                    <label id="confirmTotal">Total to pay: </label><label id="confirmTotalField"></label><br />
-                    <label id="confirmRate">Rate: </label><label id="confirmRateField"></label><br />
-                    <label id="confirmPaymentDetails">Payment Details: </label><label id="confirmPaymentDetailsField"></label><br />
-                    <label id="confirmWalletAddress">Wallet Address: </label><label id="confirmWalletAddressField"></label><br />
+                <label id="confirmAmount">Amount: </label><label id="confirmAmountField"></label> <br />
+                <label id="confirmTotal">Total to pay: </label><label id="confirmTotalField"></label><br />
+                <label id="confirmRate">Rate: </label><label id="confirmRateField"></label><br />
+                <label id="confirmPaymentDetails">Payment Details: </label><label id="confirmPaymentDetailsField"></label><br />
+                <label id="confirmWalletAddress">Wallet Address: </label><label id="confirmWalletAddressField"></label><br />
 
-                    <button type="button" id="continueToPaymentButton" onclick="continueToPayment();">Continue to payment</button>
-                    <button type="button" id="refreshConfirmButton" onclick="refreshConfirm();" disabled>Refresh</button>
-                </div>
-                <br />
-                <div id="twofaDiv" style="display: none">
-                    Started timestamp: <label id="startTimestampField"></label><br/>
-                    10 Min Timer: <div id="clockdiv"></div><br/>
-                    Complete 2FA by Clicking Button: <button type="button" id="2fa" onclick="complete2FA();">I am human</button>
-                    <br/>
-                    <label id="createTransferStatusLabel">Status: </label>
-                </div>
-                <br />
-                <br />
-                <div id="paymentPendingDiv" style="display: none">
-                    <label id="newPendingTransferId" style="display: none"></label>
-                    Submit your payment and confirm: <button type="button" id="paid" onclick="paymentMade();">I have paid</button>
-                </div>
-            </td>
+                <button type="button" id="continueToPaymentButton" onclick="continueToPayment();">Continue to payment</button>
+                <button type="button" id="refreshConfirmButton" onclick="refreshConfirm();" disabled>Refresh</button>
+            </div>
+            <br />
+            <div id="twofaDiv" style="display: none">
+                Started timestamp: <label id="startTimestampField"></label><br/>
+                10 Min Timer: <div id="clockdiv"></div><br/>
+                Complete 2FA by Clicking Button: <button type="button" id="2fa" onclick="complete2FA();">I am human</button>
+                <br/>
+                <label id="createTransferStatusLabel">Status: </label>
+            </div>
+            <br />
+            <br />
+            <div id="paymentPendingDiv" style="display: none">
+                <label id="newPendingTransferId" style="display: none"></label>
+                
+                <label id="payBeneficiary">Beneficiary: </label><label id="payBeneficiaryField"></label> <br />
+                <label id="payAccountNumber">Account Number: </label><label id="payAccountNumberField"></label> <br />
+                <label id="paySortCode">Sort Code: </label><label id="paySortCodeField"></label> <br />
+                <label id="payAmount">Amount: </label><label id="payAmountField"></label> <br />
+                <label id="payReference">Reference: </label><label id="payReferenceField"></label> <br />
+
+                Submit your payment and confirm: <button type="button" id="paid" onclick="paymentMade();">I have paid</button>
+            </div>
+        </td>
             
-            <!-- PENDING -->
+        <!-- PENDING -->
 
-            <td style="vertical-align: top;">
-                <div id="pendingBuyOrderDiv" style="text-align:start">
-                    <u><label>Pending Buy Orders</label></u> &nbsp;&nbsp;&nbsp;
-                    <button type="button" onclick="loadPendingBuyOrders();">Reload</button>
-                    <br />
-                    <label id="pendingBuyOrderStatusLabel">Status: No Account Verified</label>
-                    <br /><br />
-                    <label id="pendingBtcCtTransactionId"></label><br />
-                    <label id="pendingBtcWyreTransferId"></label><br />
-                    <label id="pendingBtcTransferStatus"></label><br />
-                    <label id="pendingBtcDest"></label><br />
-                    <label id="pendingBtcAmount"></label><br />
-                    <label id="pendingBtcCurrency"></label><br />
-                    <br />
-                    <button type="button" onclick="abandonPendingBuyOrder();">Abandon</button>
-                </div>
-            </td>
-        </tr>
-    </table>
-</body>
+        <td style="vertical-align: top;">
+            <div id="pendingBuyOrderDiv" style="text-align:start">
+                <u><label>Pending Buy Orders</label></u> &nbsp;&nbsp;&nbsp;
+                <button type="button" onclick="loadPendingBuyOrders();">Reload</button>
+                <br />
+                <label id="pendingBuyOrderStatusLabel">Status: No Account Verified</label>
+                <br /><br />
+                <label id="pendingBtcCtTransactionId"></label><br />
+                <label id="pendingBtcWyreTransferId"></label><br />
+                <label id="pendingBtcTransferStatus"></label><br />
+                <label id="pendingBtcDest"></label><br />
+                <label id="pendingBtcAmount"></label><br />
+                <label id="pendingBtcCurrency"></label><br />
+                <br />
+                <button type="button" onclick="abandonPendingBuyOrder();">Abandon</button>
+            </div>
+        </td>
+    </tr>
+</table>
 <script src="js/buy.js"></script>
+</body>
 </html>
