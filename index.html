@@ -1,372 +1,1229 @@
-﻿  <!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html style="background: linear-gradient(270deg, #022191 0%, #045CC7 100%);">
 <head>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-	<link rel="shortcut icon" href="img/favcon.png">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="shortcut icon" href="img/favicon.ico">
 
-  <title></title>
+    <title></title>
 
-  <link rel="stylesheet" type="text/css" href="css/normalize.css">
-  <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-  <link rel="stylesheet" type="text/css" href="css/section-scroll.css">
-  <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="https://use.fontawesome.com/ab029c5ce1.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.6/jquery.fullpage.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 
 </head>
 <body>
-<!-- <div id="js-container"> -->
 
-  <div class="ui ovrly middle aligned center aligned grid" id="sign-up-ovrly" style="display: none;">
+<div class="ui ovrly middle aligned center aligned grid" id="sign-up-ovrly" style="display: none;">
 
     <div class="ui five wide computer seven wide tablet fifteen wide mobile doubling column ovrly-rect">
 
-      <img src="img/close_icon.png" id="close_pop1" style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
+        <img src="img/close_icon.png" class="close_pop1"
+             style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
 
-      <img src="img/round-done-button.png" id="close_pop1" style="height: 2.4em; width: 2.4em; margin-top: 1.5em;"/>
+        <img src="img/round-done-button.png" class="close_pop1" style="height: 2.4em; width: 2.4em; margin-top: 1.5em;"/>
 
-      <h3 style="font-size: 1.8em; font-weight: 400; margin-top: 0.5em;">Thanks for signing up</h3>
+        <h3 style="font-size: 1.8em; font-weight: 400; margin-top: 0.5em;">Thanks for signing up</h3>
 
-      <p class="adad" style="margin-bottom: 2.6em; line-height: 22px;">Keep an eye on your email for updates</br>and early access token.</p>
+        <p class="adad" style="margin-bottom: 2.6em; line-height: 22px;">Keep an eye on your email for updates</br>and
+            early access token.</p>
 
     </div>
 
-  </div>
+</div>
 
-  <div class="ui ovrly middle aligned center aligned grid" id="access-ovrly" style="display: none;">
+<div class="ui ovrly middle aligned center aligned grid" id="access-ovrly" style="display: none;">
 
     <div class="ui six wide computer seven wide tablet sixteen wide mobile doubling column ovrly-rect">
 
-      <img src="img/close_icon.png" id="close_pop2" style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
+        <img src="img/close_icon.png" id="close_pop2"
+             style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
 
-      <h4 style="margin-top: 1.7em; font-size: 1.5em;">Early access</h3>
+        <h4 style="margin-top: 1.7em; font-size: 1.5em;">Sign up for early access!</h4>
 
-      <p class="adad" style="margin-top: 1.2em; margin-bottom: 0.9em; line-height: 22px;">Be the first to use Cointec’s web platform.</p>
+        <p class="adad" style="margin-top: 1.2em; margin-bottom: 0.9em; line-height: 22px;">Be the first to use
+            Cointec’s web platform.</p>
 
-      <div class="ui action fluid input top-input" id="popup-input" style="margin-bottom: 1.5em;">
-        <input type="text" placeholder="Email" id="popup-input-early-access">
-        <button class="ui green button" id="popup-input-early-access-btn" style="background: #34da8c;">Early access</button>
-      </div>
+        <div class="ui action fluid input top-input" id="popup-input" style="margin-bottom: 1.5em;">
+            <input type="text" placeholder="Email" id="popup-input-early-access">
+            <button class="ui green button" id="popup-input-early-access-btn" style="background: #34da8c;">Early
+                access
+            </button>
+        </div>
 
     </div>
 
-  </div>
+</div>
 
-  <div id="menu-container">
+<div id="menu-container">
     <div class="ui secondary inverted menu" id="top-menu">
-      <div id="white-top"></div>
-      <a class="logo item no-hover" href="#">
-        <img src="img/top_logo.svg" id="top-logo"/>
-      </a>
-      <div class="right menu">
-        <a class="item active trans" id="home-btn">
-          Home
+        <div id="white-top"></div>
+        <a class="logo item no-hover" href="index.html">
+            <img src="img/top_logo.svg" id="top-logo"/>
         </a>
-        <a class="item trans" id="features-btn">
-          Features
-        </a>
-        <a class="item trans" id="contact-btn" href="#" onClick="return false;">
-          Contact
-        </a>
-      </div>
-      <div class="right menu">
-        <div class="item">
-          <div class="ui button" id="top-early-access">
-            Early access
-          </div>
+        <div class="right menu">
+            <a href="index.html#section-1" class="item active trans" id="home-btn">
+                Home
+            </a>
+            <a href="index.html#section-2" class="item trans" id="features-btn">
+                Features
+            </a>
+            <a class="item trans" id="contact-btn" href="#" onClick="return false;">
+                Contact
+            </a>
         </div>
-      </div>
+        <div class="right menu">
+            <div class="item">
+                <div class="ui button" id="top-early-access">
+                    Early access
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-
-<div class="fs-segment fs-segment-home scrollable-section">
-
-  <img id="chart-img" class="xdesktop" src="img/1_chart.svg"/>
-  <img id="chart-img" class="xmobile" src="img/2_chart.svg"/>
-
-  <div class="ui center aligned middle aligned grid" id="fs-1-grid">
-
-    <div class="thirteen wide mobile eight wide computer column" id="text-column">
-
-      <img id="top-icon" src="img/top_icon.png"/>
-
-      <p id="get-crypto">Get crypto. Fast.</p>
-
-      <p class="tx-desc xdesktop">We are building everything you need to access the</br>cryptocurrency markets. Take a sneak peak!</p>
-      <p class="tx-desc xmobile">We are building everything you need</br>to access the cryptocurrency markets.</p>
-
-      <div class="ui action fluid input" id="top-input">
-        <input type="text" placeholder="Email" id="input-early-access">
-        <button class="ui button" id="input-early-access-btn">Early access</button>
-      </div>
-
-    </div>
-
-  </div>
-
 </div>
 
-<div class="fs-segment fs-segment-home scrollable-section">
-
-  <div class="ui center aligned middle aligned stackable grid" id="fs-2-grid">
-
-    <div class="ui seven wide computer eight wide tablet column" id="instant-access-txt">
-
-      <p class="tx-title left-aligned">Instant access.</p>
-
-      <p class="tx-desc left-aligned xdesktop">Lightning fast delivery around the clock. We’ll</br>be here for the early birds and the night owls.</br>The market never sleeps, so why should we?</p>
-      <p class="tx-desc xmobile">Lightning fast delivery around the clock. We’ll</br>be here for the early birds and the night owls.</br>The market never sleeps, so why should we?</p>
-
-    </div>
-
-    <div class="ui six wide column" id="instant-access-img">
-
-      <img class="ui centered image xdesktop section-img-d" src="img/instant_access.png"/>
-      <img class="ui fluid image xmobile" src="img/instant_access_mobile.png"/>
-
-    </div>
-
-  </div>
-
-</div>
-
-<div class="fs-segment fs-segment-home scrollable-section">
-
-  <div class="ui center aligned middle aligned stackable grid" id="fs-2-grid">
-
-    <div class="ui six wide column xdesktop" id="seamless-payments-img">
-
-      <img class="ui centered image xdesktop section-img-d" src="img/seamless_payments.png"/>
-
-    </div>
-
-    <div class="ui seven wide computer eight wide tablet column" id="seamless-payments-txt">
-
-      <p class="tx-title left-aligned">Seamless payments.</p>
-
-      <p class="tx-desc left-aligned xdesktop">Pay with GBP or EUR in  your preferred method</br>including credit card, local bank transfer, SEPA,</br> iDeal,  Sofort, Giropay, Trustly and more...</p>
-      <p class="tx-desc xmobile">Pay with GBP or EUR in  your preferred method</br>including credit card, local bank transfer, SEPA,</br> iDeal,  Sofort, Giropay, Trustly and more...</p>
-
-    </div>
-
-    <div class="ui six wide column xmobile" id="seamless-payments-img">
-
-      <img class="ui fluid image xmobile" src="img/seamless_payments.png"/>
-
-    </div>
-
-  </div>
-
-</div>
-
-<div class="fs-segment fs-segment-home scrollable-section">
-
-  <div class="ui center aligned middle aligned stackable grid" id="fs-3-grid">
-
-    <div class="ui seven wide computer eight wide tablet column" id="no-further-txt">
-
-      <p class="tx-title left-aligned">Look no further.</p>
-
-	    <p class="tx-desc left-aligned xdesktop">Majors. Altcoins. Cointec is bringing all</br>your favorite coins to one place.</p>
-      <p class="tx-desc xmobile">Majors. Altcoins. Cointec is bringing all</br>your favorite coins to one place.</p>
-
-    </div>
-
-    <div class="ui six wide column" id="no-further-img">
-
-      <img class="ui centered image xdesktop section-img-d" src="img/icons.svg"/>
-      <img class="ui fluid image xmobile" src="img/icons.svg"/>
-
-    </div>
-
-  </div>
-
-</div>
-
-<div class="fs-segment fs-segment-home scrollable-section">
-
-  <div class="ui center aligned middle aligned stackable grid" id="fs-4-grid">
-
-    <div class="ui six wide column xdesktop" id="pocket-profits-img">
-
-      <img class="ui centered image xdesktop section-img-d" src="img/pocket_profits.svg"/>
-
-    </div>
-
-    <div class="ui seven wide computer eight wide tablet column" id="pocket-profits-txt">
-
-      <p class="tx-title left-aligned">Pocket profits.</p>
-
-      <p class="tx-desc left-aligned xdesktop">And of course, we’ll let you take the markets with</br>you wherever you go so you never miss another</br>opportunity.</p>
-      <p class="tx-desc xmobile">And of course, we’ll let you take the markets with</br>you wherever you go so you never miss another opportunity.</p>
-
-    </div>
-
-    <div class="ui six wide column xmobile" id="pocket-profits-img">
-
-      <img class="ui fluid image xmobile" src="img/pocket_profits.svg"/>
-
-    </div>
-
-  </div>
-
-</div>
-
-<div class="fs-segment fs-segment-home scrollable-section">
-
-  <div class="ui center aligned middle aligned stackable grid" id="fs-5-grid">
-
-    <div class="ui seven wide computer eight wide tablet column" id="of-mind-txt">
-
-      <p class="tx-title left-aligned">Peace of mind.</p>
-
-      <p class="tx-desc left-aligned xdesktop">No need to setup wallets or store keys. Our</br>platform’s enhanced security takes care of the</br>hard work for you.</p>
-      <p class="tx-desc xmobile">No need to setup wallets or store keys.</br>Our platform’s enhanced security takes</br>care of the hard work for you.</p>
-
-    </div>
-
-    <div class="ui six wide column" id="of-mind-img">
-
-      <img class="ui centered image xdesktop section-img-d" src="img/of_mind.png"/>
-      <img class="ui fluid image xmobile" src="img/of_mind_m.png"/>
-
-    </div>
-
-  </div>
-
-</div>
-
-<div class="fs-segment fs-segment-home scrollable-section">
-
-  <div class="ui center aligned middle aligned grid" id="fs-6-grid">
-
-    <div class="thirteen wide mobile six wide computer column" id="text-column">
-
-      <img id="diamond-icon" src="img/diamond.png"/>
-
-      <p id="exclusive-access">Exclusive access.</p>
-
-	    <p class="tx-desc adad xdesktop spaced">Sign up to be one of the first to use our</br>web platform.</p>
-      <p class="tx-desc adad xmobile">Sign up to be one of the first to use our</br>web platform.</p>
-
-      <div class="ui action fluid input" id="bottom-input">
-        <input type="text" placeholder="Email" id="bottom-input-early-access">
-        <button class="ui button" id="bottom-input-early-access-btn">Early access</button>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div id="footer" data-appear-top-offset="250">
-
-    <div class="ui middle aligned grid xdesktop" id="footer-grid">
-
-      <div class="ui three wide column">
-
-        <img class="bottom-logo" src="img/bottom_logo.svg"/>
-
-      </div>
-
-      <div class="ui ten wide column">
-
-        <div class="ui center aligned grid">
-
-          <div class="ui sixteen wide column nopad" style="padding-top: 0.6em !important;">
-
-            <a href="" class="small-padding"><img src="img/social-twitter.png"/></a>
-            <!-- <a href="" class="small-padding"><img src="img/social-insta.png"/></a> -->
-            <!-- <a href="" class="small-padding"><img src="img/social-fb.png"/></a> -->
-
-          </div>
-
-          <div class="ui sixteen wide column nopad">
-
-            <p id="registered">©2018 Cointec Ltd. Cointec Ltd is a company registered in England and Wales (No. 11104052)</p>
-
-          </div>
+<div id="fullpage">
+
+    <div id="scrollto-section-1" class="section fs-segment fs-segment-home scrollify-section">
+
+        <!--<img class="xdesktop chart-img" src="img/1_chart.svg"/>-->
+        <img class="xmobile chart-img" src="img/2_chart.svg"/>
+        <?xml version="1.0" encoding="utf-8"?>
+        <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+        <svg width="100%" version="1.1" id="Layer_1" class="chart-img xdesktop" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="660 -104 2280.2 768" style="enable-background:new 660 -104 2280.2 768;" xml:space="preserve">
+<style type="text/css">
+	.animation1-st0{fill:url(#SVGID_1_);}
+    .animation1-st1{fill:url(#path0_fill_5_);}
+    .animation1-st2{fill:none;stroke:url(#blue-fill);stroke-width:3;stroke-miterlimit:10;}
+    .animation1-st3{fill:none;stroke:url(#red-fill);stroke-width:3;stroke-miterlimit:10;}
+    .animation1-st4{fill:none;stroke:url(#green-fill);stroke-width:3;stroke-miterlimit:10;}
+    .animation1-st5{fill:none;stroke:url(#orange-fill);stroke-width:3;stroke-miterlimit:10;}
+</style>
+
+<g id="Canvas_1_" transform="translate(-9462 171)">
+	<linearGradient id="path0_fill_5_" gradientUnits="userSpaceOnUse" x1="19326.373" y1="-1932.2399" x2="19327.373" y2="-1932.2399" gradientTransform="matrix(1.520000e-013 394.65 -2488.24 2.400000e-014 -4796550 -7627219)">
+		<stop offset="0" style="stop-color:#022485;stop-opacity:0.61"/>
+		<stop offset="1" style="stop-color:#03369B;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill" class="animation1-st1" d="M10407.6,296.6c-135.5,21.1-325.4-112.6-325.4-112.6v144.7h2488.2V-65.9
+		c0,0-142.8,157.8-224.8,161.7c-104.7,5.1-154.4-84.2-259.4-84.4c-130.2-0.2-185.5,104.8-315.7,107.6
+		c-104.3,2.2-157.7-38.7-261.8-34c-157.8,7-199.1,122.2-357.3,120.7c-130-1.2-173.7-81.3-303.4-86.7
+		C10653.6,111,10598.1,266.9,10407.6,296.6z"/>
+</g>
+<g id="Canvas_5_" transform="translate(-9462 171)">
+
+		<linearGradient id="blue-fill" gradientUnits="userSpaceOnUse" x1="19428.4863" y1="257.3542" x2="21918.5117" y2="257.3542" gradientTransform="matrix(1 0 0 -1 -9462 389)">
+		<stop  offset="6.546845e-007" style="stop-color:#045BC7;stop-opacity:0"/>
+		<stop  offset="0.2168" style="stop-color:#055DC7;stop-opacity:0.4336"/>
+		<stop  offset="0.2949" style="stop-color:#0764C9;stop-opacity:0.5898"/>
+		<stop  offset="0.3505" style="stop-color:#0B6FCB;stop-opacity:0.7011"/>
+		<stop  offset="0.3956" style="stop-color:#1080CF;stop-opacity:0.7911"/>
+		<stop  offset="0.4341" style="stop-color:#1896D4;stop-opacity:0.8682"/>
+		<stop  offset="0.4676" style="stop-color:#21B1DA;stop-opacity:0.9352"/>
+		<stop  offset="0.4978" style="stop-color:#2BD0E0;stop-opacity:0.9956"/>
+		<stop  offset="0.5" style="stop-color:#2CD3E1"/>
+		<stop  offset="0.5022" style="stop-color:#2BD0E0;stop-opacity:0.9956"/>
+		<stop  offset="0.5324" style="stop-color:#21B1DA;stop-opacity:0.9352"/>
+		<stop  offset="0.5659" style="stop-color:#1896D4;stop-opacity:0.8682"/>
+		<stop  offset="0.6044" style="stop-color:#1080CF;stop-opacity:0.7911"/>
+		<stop  offset="0.6495" style="stop-color:#0B6FCB;stop-opacity:0.7011"/>
+		<stop  offset="0.7051" style="stop-color:#0764C9;stop-opacity:0.5898"/>
+		<stop  offset="0.7832" style="stop-color:#055DC7;stop-opacity:0.4336"/>
+		<stop  offset="1" style="stop-color:#045BC7;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_4_" class="animation1-st2" d="M12455.4-35.1c0,0-142.8,157.8-224.8,161.7c-104.7,5.1-154.4-84.2-259.4-84.4
+		c-130.2-0.2-185.5,104.8-315.7,107.6c-104.3,2.2-157.7-38.7-261.8-34c-157.8,7-199.1,122.2-357.3,120.7
+		c-130-1.2-173.7-81.3-303.4-86.7c-194.5-8-260.8,166.5-475.8,146.5c-136.5-12.7-290.1-81.5-290.1-81.5"/>
+</g>
+<g id="Canvas_4_" transform="translate(-9462 171)">
+
+		<linearGradient id="red-fill" gradientUnits="userSpaceOnUse" x1="19428.4863" y1="257.3542" x2="21918.5117" y2="257.3542" gradientTransform="matrix(1 0 0 -1 -9462 389)">
+		<stop  offset="6.546845e-007" style="stop-color:#045BC7;stop-opacity:0"/>
+		<stop  offset="0.1883" style="stop-color:#065AC6;stop-opacity:0.3766"/>
+		<stop  offset="0.2561" style="stop-color:#0D58C4;stop-opacity:0.5122"/>
+		<stop  offset="0.3045" style="stop-color:#1855BF;stop-opacity:0.6089"/>
+		<stop  offset="0.3436" style="stop-color:#294FB8;stop-opacity:0.6872"/>
+		<stop  offset="0.3771" style="stop-color:#3F49AF;stop-opacity:0.7542"/>
+		<stop  offset="0.4067" style="stop-color:#5B40A5;stop-opacity:0.8135"/>
+		<stop  offset="0.4336" style="stop-color:#7B3698;stop-opacity:0.8672"/>
+		<stop  offset="0.4582" style="stop-color:#A12A89;stop-opacity:0.9165"/>
+		<stop  offset="0.4802" style="stop-color:#CA1E78;stop-opacity:0.9604"/>
+		<stop  offset="0.5" style="stop-color:#F61067"/>
+		<stop  offset="0.5198" style="stop-color:#CA1E78;stop-opacity:0.9604"/>
+		<stop  offset="0.5418" style="stop-color:#A12A89;stop-opacity:0.9165"/>
+		<stop  offset="0.5664" style="stop-color:#7B3698;stop-opacity:0.8672"/>
+		<stop  offset="0.5933" style="stop-color:#5B40A5;stop-opacity:0.8135"/>
+		<stop  offset="0.6229" style="stop-color:#3F49AF;stop-opacity:0.7542"/>
+		<stop  offset="0.6564" style="stop-color:#294FB8;stop-opacity:0.6872"/>
+		<stop  offset="0.6955" style="stop-color:#1855BF;stop-opacity:0.6089"/>
+		<stop  offset="0.7439" style="stop-color:#0D58C4;stop-opacity:0.5122"/>
+		<stop  offset="0.8117" style="stop-color:#065AC6;stop-opacity:0.3766"/>
+		<stop  offset="1" style="stop-color:#045BC7;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_3_" class="animation1-st3" d="M12455.4-35.1c0,0-142.8,157.8-224.8,161.7c-104.7,5.1-154.4-84.2-259.4-84.4
+		c-130.2-0.2-185.5,104.8-315.7,107.6c-104.3,2.2-157.7-38.7-261.8-34c-157.8,7-199.1,122.2-357.3,120.7
+		c-130-1.2-173.7-81.3-303.4-86.7c-194.5-8-260.8,166.5-475.8,146.5c-136.5-12.7-290.1-81.5-290.1-81.5"/>
+</g>
+<g id="Canvas_2_" transform="translate(-9462 171)">
+
+		<linearGradient id="green-fill" gradientUnits="userSpaceOnUse" x1="19428.4863" y1="257.3542" x2="21918.5117" y2="257.3542" gradientTransform="matrix(1 0 0 -1 -9462 389)">
+		<stop  offset="6.546845e-007" style="stop-color:#045BC7;stop-opacity:0"/>
+		<stop  offset="0.2147" style="stop-color:#055DC6;stop-opacity:0.4293"/>
+		<stop  offset="0.292" style="stop-color:#0664C3;stop-opacity:0.584"/>
+		<stop  offset="0.3471" style="stop-color:#0A6FBD;stop-opacity:0.6943"/>
+		<stop  offset="0.3917" style="stop-color:#0E80B5;stop-opacity:0.7834"/>
+		<stop  offset="0.4299" style="stop-color:#1496AB;stop-opacity:0.8597"/>
+		<stop  offset="0.4637" style="stop-color:#1CB29E;stop-opacity:0.9274"/>
+		<stop  offset="0.4935" style="stop-color:#25D190;stop-opacity:0.987"/>
+		<stop  offset="0.5" style="stop-color:#27D98C"/>
+		<stop  offset="0.5065" style="stop-color:#25D190;stop-opacity:0.987"/>
+		<stop  offset="0.5363" style="stop-color:#1CB29E;stop-opacity:0.9274"/>
+		<stop  offset="0.5701" style="stop-color:#1496AB;stop-opacity:0.8597"/>
+		<stop  offset="0.6083" style="stop-color:#0E80B5;stop-opacity:0.7834"/>
+		<stop  offset="0.6529" style="stop-color:#0A6FBD;stop-opacity:0.6943"/>
+		<stop  offset="0.708" style="stop-color:#0664C3;stop-opacity:0.584"/>
+		<stop  offset="0.7853" style="stop-color:#055DC6;stop-opacity:0.4293"/>
+		<stop  offset="1" style="stop-color:#045BC7;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_1_" class="animation1-st4" d="M12455.4-35.1c0,0-142.8,157.8-224.8,161.7c-104.7,5.1-154.4-84.2-259.4-84.4
+		c-130.2-0.2-185.5,104.8-315.7,107.6c-104.3,2.2-157.7-38.7-261.8-34c-157.8,7-199.1,122.2-357.3,120.7
+		c-130-1.2-173.7-81.3-303.4-86.7c-194.5-8-260.8,166.5-475.8,146.5c-136.5-12.7-290.1-81.5-290.1-81.5"/>
+</g>
+<g id="Canvas_3_" transform="translate(-9462 171)">
+
+		<linearGradient id="orange-fill" gradientUnits="userSpaceOnUse" x1="19428.4883" y1="257.3543" x2="21918.5117" y2="257.3543" gradientTransform="matrix(1 0 0 -1 -9462 389)">
+		<stop  offset="6.546845e-007" style="stop-color:#045BC7;stop-opacity:0"/>
+		<stop  offset="0.1881" style="stop-color:#065BC6;stop-opacity:0.3763"/>
+		<stop  offset="0.2559" style="stop-color:#0D5DC1;stop-opacity:0.5118"/>
+		<stop  offset="0.3042" style="stop-color:#1860B8;stop-opacity:0.6084"/>
+		<stop  offset="0.3433" style="stop-color:#2964AC;stop-opacity:0.6866"/>
+		<stop  offset="0.3768" style="stop-color:#3F699D;stop-opacity:0.7536"/>
+		<stop  offset="0.4064" style="stop-color:#5B6F89;stop-opacity:0.8128"/>
+		<stop  offset="0.4332" style="stop-color:#7B7672;stop-opacity:0.8665"/>
+		<stop  offset="0.4579" style="stop-color:#A17F57;stop-opacity:0.9158"/>
+		<stop  offset="0.4798" style="stop-color:#CA893A;stop-opacity:0.9596"/>
+		<stop  offset="0.5" style="stop-color:#F7931A"/>
+		<stop  offset="0.5202" style="stop-color:#CA893A;stop-opacity:0.9596"/>
+		<stop  offset="0.5421" style="stop-color:#A17F57;stop-opacity:0.9158"/>
+		<stop  offset="0.5668" style="stop-color:#7B7672;stop-opacity:0.8665"/>
+		<stop  offset="0.5936" style="stop-color:#5B6F89;stop-opacity:0.8128"/>
+		<stop  offset="0.6232" style="stop-color:#3F699D;stop-opacity:0.7536"/>
+		<stop  offset="0.6567" style="stop-color:#2964AC;stop-opacity:0.6866"/>
+		<stop  offset="0.6958" style="stop-color:#1860B8;stop-opacity:0.6084"/>
+		<stop  offset="0.7441" style="stop-color:#0D5DC1;stop-opacity:0.5118"/>
+		<stop  offset="0.8119" style="stop-color:#065BC6;stop-opacity:0.3763"/>
+		<stop  offset="1" style="stop-color:#045BC7;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_2_" class="animation1-st5" d="M12455.4-35.1c0,0-142.8,157.8-224.8,161.7c-104.7,5.1-154.4-84.2-259.4-84.4
+		c-130.2-0.2-185.5,104.8-315.7,107.6c-104.3,2.2-157.7-38.7-261.8-34c-157.8,7-199.1,122.2-357.3,120.7
+		c-130-1.2-173.7-81.3-303.4-86.7c-194.5-8-260.8,166.5-475.8,146.5c-136.5-12.7-290.1-81.5-290.1-81.5"/>
+</g>
+</svg>
+
+        <div class="ui center aligned middle aligned grid" id="fs-1-grid">
+
+            <div class="thirteen wide mobile eight wide computer column text-column">
+
+                <img id="top-icon" src="img/top_icon.png"/>
+
+                <p id="get-crypto">Get crypto. Fast.</p>
+
+                <p class="tx-desc xdesktop">We are building everything you need to access the</br>cryptocurrency
+                    markets.
+                    Take a sneak peak!</p>
+                <p class="tx-desc xmobile">We are building everything you need</br>to access the cryptocurrency
+                    markets.</p>
+
+                <div class="ui action fluid input" id="top-input">
+                    <input type="text" placeholder="Email" id="input-early-access">
+                    <button class="ui button submit" id="input-early-access-btn">Early access</button>
+                </div>
+
+            </div>
 
         </div>
 
-      </div>
-
-      <div class="ui three wide right aligned bottom aligned column">
-
-        <a id="privacy-policy" href="privacy-policy.html">Privacy Policy</a></br>
-        <a id="terms-cond" href="terms.html">Terms and Conditions</a>
-
-      </div>
-
     </div>
 
-    <div class="ui middle aligned grid xmobile" id="footer-grid">
+    <div id="scrollto-section-2" class="section fs-segment fs-segment-home scrollify-section">
 
-      <div class="ui eight wide column">
+        <div class="ui center aligned middle aligned stackable grid" id="fs-2-grid-duplicate">
 
-        <img class="bottom-logo" src="img/bottom_logo.svg"/>
+            <div class="ui seven wide computer eight wide tablet column" id="instant-access-txt">
 
-      </div>
+                <p class="tx-title left-aligned">Instant access.</p>
 
-      <div class="ui eight wide column" id="flr">
+                <p class="tx-desc left-aligned xdesktop">Lightning fast delivery around the clock. Here</br>for the early birds and the night owls.The</br>market never sleeps, so why should we?</p>
+                <p class="tx-desc xmobile">Lightning fast delivery around the clock. We’ll</br>be here for the early
+                    birds
+                    and the night owls.</br>The market never sleeps, so why should we?</p>
 
-        <div class="ui right aligned grid">
+            </div>
 
-          <div class="ui sixteen wide column nopad" style="padding-top: 0.6em !important;">
+            <div class="ui six wide column" id="instant-access-img">
 
-            <a href="" class="small-padding"><img src="img/social-twitter.png"/></a>
-            <!-- <a href="" class="small-padding"><img src="img/social-insta.png"/></a> -->
-            <!-- <a href="" class="small-padding"><img src="img/social-fb.png"/></a> -->
+                <!--<img class="ui centered image xdesktop section-img-d" src="img/instant_access.png"/>-->
+                <?xml version="1.0" encoding="utf-8"?>
+                <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="xdesktop" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 375.7 452.2" enable-background="new 0 0 375.7 452.2" xml:space="preserve">
+	<style type="text/css">
+	.st0{fill:#FFFFFF;}
+    .st1{font-family:'Open Sans';}
+    .st2{font-size:20px;}
+	</style>
+<g id="text">
+	<text id="XMLID_67_" transform="matrix(1 0 0 1 170.0004 240.4018)" class="st0 st1 st2">£50</text>
+</g>
+<g id="graph3">
 
-          </div>
+		<linearGradient id="path0_fill_17_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="740.8729" x2="-15.585" y2="740.8729" gradientTransform="matrix(-1.510000e-013 131 76.2049 6.050000e-013 -56121.332 2228.5481)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_2_" fill="url(#path0_fill_17_)" d="M375.3,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>
+
+		<linearGradient id="path0_fill_18_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="743.532" x2="-15.585" y2="743.532" gradientTransform="matrix(1.510000e-013 131 -76.2049 6.050000e-013 56325.3125 2228.5481)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_1_" fill="url(#path0_fill_18_)" d="M-374,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5H-374V92.9z"/>
+
+		<linearGradient id="path8_fill_4_" gradientUnits="userSpaceOnUse" x1="-17.3835" y1="736.2349" x2="-16.0985" y2="736.2349" gradientTransform="matrix(-7.120000e-013 166.381 360.029 7.690000e-013 -265180.8125 2865.4028)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path8_fill_1_" fill="url(#path8_fill_4_)" d="M-117.8,123.4c32.1,0,60.7-104.9,92.2-104.9c31.7,0,60.5,74.3,92.7,74.3v94
+		h-364.1V54.4c31.5,0,60.1,84.2,92.2,84.2c15.1,0,28.6-32.5,43.5-32.5C-146.4,106-132.9,123.4-117.8,123.4z"/>
+	<path id="path1_stroke_5_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M376,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>
+	<path id="path1_stroke_1_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M-296.3,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
+	<path id="XMLID_3_" fill="none" stroke="#3DDC97" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M-25,18.6
+		c-4.3,0-8.5,1.8-12.5,4.8c-3.9,2.9-7.9,7.2-11.7,12.1c-7.7,9.9-15.2,23.1-22.8,36.2c-7.5,13.1-15.1,26.1-22.7,35.9
+		c-7.7,9.8-15.1,15.9-22.5,15.9v0c-7.1,0-14-4.1-21.2-8.5c-7-4.3-14.5-8.9-22.3-8.9c-4.2,0-8.1,2.3-11.8,5.4
+		c-3.7,3.1-7.3,7.2-10.8,11.3c-3.6,4.1-7.1,8.1-10.6,11c-3.6,3-6.9,4.8-10.3,4.8"/>
+	<path id="path6_stroke_3_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M-204.1,138.6c-7.5,0-14.9-4.9-22.6-12.8c-7.6-7.8-15.1-18.3-22.7-28.8c-7.5-10.5-15.1-21.1-22.8-29.1
+		c-7.7-7.9-15.7-13.5-24.1-13.5"/>
+	<path id="path7_stroke_3_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M67.8,92.9c-7.6,0-15.1-4.4-22.8-11.3c-7.7-6.9-15.2-16.1-22.8-25.4c-7.6-9.3-15.2-18.7-23-25.7c-7.7-7-15.8-12-24.2-12"/>
+
+		<linearGradient id="path0_fill_19_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="735.7211" x2="-15.585" y2="735.7211" gradientTransform="matrix(1.510000e-013 131 -76.2049 6.050000e-013 56325.3125 2228.5481)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_3_" fill="url(#path0_fill_19_)" d="M221.2,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5h-77.1V92.9z"/>
+	<path id="path1_stroke_33_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M298.9,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
+
+		<linearGradient id="path0_fill_20_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="738.8505" x2="-15.585" y2="738.8505" gradientTransform="matrix(-1.510000e-013 131 76.2049 6.050000e-013 -56121.332 2228.5481)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_6_" fill="url(#path0_fill_20_)" d="M221.2,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>
+	<path id="path1_stroke_36_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M221.9,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>
+
+		<linearGradient id="path0_fill_21_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="737.7434" x2="-15.585" y2="737.7434" gradientTransform="matrix(1.510000e-013 131 -76.2049 6.050000e-013 56325.3125 2228.5481)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_5_" fill="url(#path0_fill_21_)" d="M67.1,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5H67.1V92.9z"/>
+	<path id="path1_stroke_35_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M144.8,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
+	<path id="XMLID_60_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M-25,18.6
+		c-4.3,0-8.5,1.8-12.5,4.8c-3.9,2.9-7.9,7.2-11.7,12.1c-7.7,9.9-15.2,23.1-22.8,36.2c-7.5,13.1-15.1,26.1-22.7,35.9
+		c-7.7,9.8-15.1,15.9-22.5,15.9v0c-7.1,0-14-4.1-21.2-8.5c-7-4.3-14.5-8.9-22.3-8.9c-4.2,0-8.1,2.3-11.8,5.4
+		c-3.7,3.1-7.3,7.2-10.8,11.3c-3.6,4.1-7.1,8.1-10.6,11c-3.6,3-6.9,4.8-10.3,4.8"/>
+</g>
+<g id="graph1">
+
+		<linearGradient id="path0_fill_22_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="750.7103" x2="-15.585" y2="750.7103" gradientTransform="matrix(-1.510000e-013 131 76.2049 6.050000e-013 -56121.332 2228.5481)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_16_" fill="url(#path0_fill_22_)" d="M1125,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>
+
+		<linearGradient id="path0_fill_23_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="733.6946" x2="-15.585" y2="733.6946" gradientTransform="matrix(1.510000e-013 131 -76.2049 6.050000e-013 56325.3125 2228.5481)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_15_" fill="url(#path0_fill_23_)" d="M375.7,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5h-77.1V92.9z"/>
+
+		<linearGradient id="path8_fill_5_" gradientUnits="userSpaceOnUse" x1="-17.3834" y1="738.3171" x2="-16.0985" y2="738.3171" gradientTransform="matrix(-7.120000e-013 166.381 360.029 7.690000e-013 -265180.8125 2865.4028)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path8_fill_3_" fill="url(#path8_fill_5_)" d="M631.9,123.5c32.1,0,60.7-104.9,92.2-104.9c31.7,0,60.5,74.3,92.7,74.3v94
+		H452.7V54.4c31.5,0,60.1,84.2,92.2,84.2c15.1,0,28.6-32.5,43.5-32.5C603.2,106,616.7,123.5,631.9,123.5z"/>
+	<path id="path1_stroke_12_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M1125.7,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>
+	<path id="path1_stroke_11_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M453.4,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
+
+	<path id="path6_stroke_2_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M545.5,138.6c-7.5,0-14.9-4.9-22.6-12.8c-7.6-7.8-15.1-18.3-22.7-28.8c-7.5-10.5-15.1-21.1-22.8-29.1c-7.7-7.9-15.7-13.5-24.1-13.5
+		"/>
+	<path id="path7_stroke_2_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M817.4,92.9c-7.6,0-15.1-4.4-22.8-11.3c-7.7-6.9-15.2-16.1-22.8-25.4c-7.6-9.3-15.2-18.7-23-25.7c-7.7-7-15.8-12-24.2-12"/>
+
+		<linearGradient id="path0_fill_24_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="725.8837" x2="-15.585" y2="725.8837" gradientTransform="matrix(1.510000e-013 131 -76.2049 6.050000e-013 56325.3125 2228.5481)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_14_" fill="url(#path0_fill_24_)" d="M970.9,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5h-77.1V92.9z"/>
+	<path id="path1_stroke_10_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M1048.6,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
+
+		<linearGradient id="path0_fill_25_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="748.6879" x2="-15.585" y2="748.6879" gradientTransform="matrix(-1.510000e-013 131 76.2049 6.050000e-013 -56121.332 2228.5481)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_13_" fill="url(#path0_fill_25_)" d="M970.9,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>
+	<path id="path1_stroke_9_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M971.5,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>
+
+		<linearGradient id="path0_fill_26_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="727.9061" x2="-15.585" y2="727.9061" gradientTransform="matrix(1.510000e-013 131 -76.2049 6.050000e-013 56325.3125 2228.5481)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_12_" fill="url(#path0_fill_26_)" d="M816.8,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5h-77.1V92.9z"/>
+	<path id="path1_stroke_8_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M894.5,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
+	<path id="XMLID_68_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M724.7,18.6
+		c-4.3,0-8.5,1.8-12.5,4.8c-3.9,2.9-7.9,7.2-11.7,12.1c-7.7,9.9-15.2,23.1-22.8,36.2c-7.5,13.1-15.1,26.1-22.7,35.9
+		c-7.7,9.8-15.1,15.9-22.5,15.9v0c-7.1,0-14-4.1-21.2-8.5c-7-4.3-14.5-8.9-22.3-8.9c-4.2,0-8.1,2.3-11.8,5.4
+		c-3.7,3.1-7.3,7.2-10.8,11.3c-3.6,4.1-7.1,8.1-10.6,11c-3.6,3-6.9,4.8-10.3,4.8"/>
+	<path id="XMLID_69_" fill="none" stroke="#3DDC97" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M724.7,18.6
+		c-4.3,0-8.5,1.8-12.5,4.8c-3.9,2.9-7.9,7.2-11.7,12.1c-7.7,9.9-15.2,23.1-22.8,36.2c-7.5,13.1-15.1,26.1-22.7,35.9
+		c-7.7,9.8-15.1,15.9-22.5,15.9v0c-7.1,0-14-4.1-21.2-8.5c-7-4.3-14.5-8.9-22.3-8.9c-4.2,0-8.1,2.3-11.8,5.4
+		c-3.7,3.1-7.3,7.2-10.8,11.3c-3.6,4.1-7.1,8.1-10.6,11c-3.6,3-6.9,4.8-10.3,4.8"/>
+</g>
+<g id="graph2">
+
+		<linearGradient id="path0_fill_27_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="750.7103" x2="-15.585" y2="750.7103" gradientTransform="matrix(-1.510000e-013 131 76.2049 6.050000e-013 -56121.332 2228.5481)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_11_" fill="url(#path0_fill_27_)" d="M1125,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>
+
+		<linearGradient id="path0_fill_28_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="733.6946" x2="-15.585" y2="733.6946" gradientTransform="matrix(1.510000e-013 131 -76.2049 6.050000e-013 56325.3125 2228.5481)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_10_" fill="url(#path0_fill_28_)" d="M375.7,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5h-77.1V92.9z"/>
+
+		<linearGradient id="path8_fill_6_" gradientUnits="userSpaceOnUse" x1="-17.3834" y1="738.3171" x2="-16.0985" y2="738.3171" gradientTransform="matrix(-7.120000e-013 166.381 360.029 7.690000e-013 -265180.8125 2865.4028)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path8_fill_2_" fill="url(#path8_fill_6_)" d="M631.9,123.5c32.1,0,60.7-104.9,92.2-104.9c31.7,0,60.5,74.3,92.7,74.3v94
+		H452.7V54.4c31.5,0,60.1,84.2,92.2,84.2c15.1,0,28.6-32.5,43.5-32.5C603.2,106,616.7,123.5,631.9,123.5z"/>
+	<path id="path1_stroke_7_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M1125.7,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>
+	<path id="path1_stroke_6_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M453.4,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
+
+	<path id="path6_stroke_1_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M545.5,138.6c-7.5,0-14.9-4.9-22.6-12.8c-7.6-7.8-15.1-18.3-22.7-28.8c-7.5-10.5-15.1-21.1-22.8-29.1c-7.7-7.9-15.7-13.5-24.1-13.5
+		"/>
+	<path id="path7_stroke_1_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M817.4,92.9c-7.6,0-15.1-4.4-22.8-11.3c-7.7-6.9-15.2-16.1-22.8-25.4c-7.6-9.3-15.2-18.7-23-25.7c-7.7-7-15.8-12-24.2-12"/>
+
+		<linearGradient id="path0_fill_29_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="725.8837" x2="-15.585" y2="725.8837" gradientTransform="matrix(1.510000e-013 131 -76.2049 6.050000e-013 56325.3125 2228.5481)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_9_" fill="url(#path0_fill_29_)" d="M970.9,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5h-77.1V92.9z"/>
+	<path id="path1_stroke_4_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M1048.6,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
+
+		<linearGradient id="path0_fill_30_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="748.6879" x2="-15.585" y2="748.6879" gradientTransform="matrix(-1.510000e-013 131 76.2049 6.050000e-013 -56121.332 2228.5481)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_8_" fill="url(#path0_fill_30_)" d="M970.9,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>
+	<path id="path1_stroke_3_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M971.5,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>
+
+		<linearGradient id="path0_fill_31_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="727.9061" x2="-15.585" y2="727.9061" gradientTransform="matrix(1.510000e-013 131 -76.2049 6.050000e-013 56325.3125 2228.5481)">
+		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path0_fill_4_" fill="url(#path0_fill_31_)" d="M816.8,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5h-77.1V92.9z"/>
+	<path id="path1_stroke_2_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
+		M894.5,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
+	<path id="XMLID_65_" fill="none" stroke="#1963E2" stroke-width="2" stroke-miterlimit="10" d="M724.7,18.6
+		c-4.3,0-8.5,1.8-12.5,4.8c-3.9,2.9-7.9,7.2-11.7,12.1c-7.7,9.9-15.2,23.1-22.8,36.2c-7.5,13.1-15.1,26.1-22.7,35.9
+		c-7.7,9.8-15.1,15.9-22.5,15.9v0c-7.1,0-14-4.1-21.2-8.5c-7-4.3-14.5-8.9-22.3-8.9c-4.2,0-8.1,2.3-11.8,5.4
+		c-3.7,3.1-7.3,7.2-10.8,11.3c-3.6,4.1-7.1,8.1-10.6,11c-3.6,3-6.9,4.8-10.3,4.8"/>
+	<path id="XMLID_66_" fill="none" stroke="#3DDC97" stroke-width="2" stroke-miterlimit="10" d="M724.7,18.6
+		c-4.3,0-8.5,1.8-12.5,4.8c-3.9,2.9-7.9,7.2-11.7,12.1c-7.7,9.9-15.2,23.1-22.8,36.2c-7.5,13.1-15.1,26.1-22.7,35.9
+		c-7.7,9.8-15.1,15.9-22.5,15.9v0c-7.1,0-14-4.1-21.2-8.5c-7-4.3-14.5-8.9-22.3-8.9c-4.2,0-8.1,2.3-11.8,5.4
+		c-3.7,3.1-7.3,7.2-10.8,11.3c-3.6,4.1-7.1,8.1-10.6,11c-3.6,3-6.9,4.8-10.3,4.8"/>
+</g>
+<g id="point1">
+	<linearGradient id="XMLID_7_" gradientUnits="userSpaceOnUse" x1="293.5" y1="222.8977" x2="293.5" y2="138.8977">
+		<stop  offset="0" style="stop-color:#FFFFFF;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#3DDC97"/>
+	</linearGradient>
+
+	<line id="XMLID_63_" fill="none" stroke="url(#XMLID_7_)" stroke-width="3" stroke-miterlimit="10" x1="293.5" y1="138.9" x2="293.5" y2="222.9"/>
+</g>
+<g id="first-circle">
+	<circle id="XMLID_59_" fill="#045BC7" stroke="#3DDC97" stroke-miterlimit="10" cx="293.4" cy="138.6" r="6.9"/>
+	<circle id="XMLID_19_" fill="#3DDC97" stroke="#3DDC97" stroke-width="2" stroke-miterlimit="10" cx="293.4" cy="138.6" r="3.8"/>
+</g>
+<g id="point2">
+	<linearGradient id="XMLID_8_" gradientUnits="userSpaceOnUse" x1="293.5" y1="222.8977" x2="293.5" y2="19.8977">
+		<stop  offset="0" style="stop-color:#3DDC97"/>
+		<stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0"/>
+	</linearGradient>
+
+		<line id="XMLID_64_" fill="none" stroke="url(#XMLID_8_)" stroke-width="3" stroke-miterlimit="10" x1="293.5" y1="19.9" x2="293.5" y2="222.9"/>
+	<circle id="XMLID_62_" fill="#045BC7" stroke="#3DDC97" stroke-miterlimit="10" cx="293.4" cy="19.6" r="6.9"/>
+	<circle id="XMLID_61_" fill="#3DDC97" stroke="#3DDC97" stroke-width="2" stroke-miterlimit="10" cx="293.4" cy="19.6" r="3.8"/>
+</g>
+<g id="Layer_1">
+	<g id="phone_1_" transform="translate(-4159 -642)">
+		<linearGradient id="path0_fill_32_" gradientUnits="userSpaceOnUse" x1="4489.5391" y1="865.2361" x2="4204.7671" y2="877.3187">
+			<stop  offset="0.192" style="stop-color:#C6DAFD;stop-opacity:0.45"/>
+			<stop  offset="0.2435" style="stop-color:#B8CEF7;stop-opacity:0.485"/>
+			<stop  offset="0.3833" style="stop-color:#97B3E9;stop-opacity:0.5802"/>
+			<stop  offset="0.5272" style="stop-color:#7D9DDD;stop-opacity:0.6782"/>
+			<stop  offset="0.6751" style="stop-color:#6B8ED5;stop-opacity:0.7788"/>
+			<stop  offset="0.8293" style="stop-color:#6085D1;stop-opacity:0.8838"/>
+			<stop  offset="1" style="stop-color:#5C82CF"/>
+		</linearGradient>
+		<path id="path0_fill_7_" fill="url(#path0_fill_32_)" d="M4204.5,871.3c0-3.8,3.1-6.9,6.9-6.9h271.5c3.8,0,6.9,3.1,6.9,6.9
+			c0,3.8-3.1,6.9-6.9,6.9h-271.5C4207.6,878.1,4204.5,875.1,4204.5,871.3z"/>
+		<path id="path1_fill_3_" fill="#C1CEEA" fill-opacity="0.67" d="M4252.8,871.3c0-1.5,1.2-2.6,2.6-2.6h16.4c1.5,0,2.6,1.2,2.6,2.6
+			s-1.2,2.6-2.6,2.6h-16.4C4254,873.9,4252.8,872.7,4252.8,871.3z"/>
+		<path id="path1_fill_2_" fill="#C1CEEA" fill-opacity="0.67" d="M4227.3,871.3c0-1.5,1.2-2.6,2.6-2.6h16.4c1.5,0,2.6,1.2,2.6,2.6
+			s-1.2,2.6-2.6,2.6H4230C4228.5,873.9,4227.3,872.7,4227.3,871.3z"/>
+	</g>
+
+		<linearGradient id="table_2_" gradientUnits="userSpaceOnUse" x1="2.2853" y1="517.4067" x2="3.2853" y2="517.4067" gradientTransform="matrix(2.287030e-014 216.069 -28.7635 7.352920e-015 15070.5801 -257.6363)">
+		<stop  offset="0" style="stop-color:#0064E0"/>
+		<stop  offset="1" style="stop-color:#0333A2;stop-opacity:0"/>
+	</linearGradient>
+	<path id="table_1_" fill="url(#table_2_)" d="M0.7,238.1c0-1.1,0.9-2,2-2h371c1.1,0,2,0.9,2,2v212.1c0,1.1-0.9,2-2,2H2.7
+		c-1.1,0-2-0.9-2-2V238.1z"/>
+</g>
+</svg>
+                <img class="ui fluid image xmobile" src="img/instant_access_mobile.png"/>
+
+            </div>
 
         </div>
 
-      </div>
+    </div>
 
-      <div class="ui sixteen wide left aligned column nopad kkr">
+    <div id="scrollto-section-3" class="section fs-segment fs-segment-home scrollify-section">
 
-        <a id="terms-cond" href="terms.html">T&Cs</a></br>
-        <a id="privacy-policy" href="privacy-policy.html">Privacy Policy</a>
-        <p id="registered">©2018 Cointec Ltd. Cointec Ltd is a company</br>registered in England and Wales (No. 11104052)</p>
+        <div class="ui center aligned middle aligned stackable grid" id="fs-2-grid">
 
-      </div>
+            <div class="ui six wide column xdesktop seamless-payments-img">
+
+                <img class="ui centered image xdesktop section-img-d" src="img/seamless_payments.png"/>
+
+            </div>
+
+            <div class="ui seven wide computer eight wide tablet column" id="seamless-payments-txt">
+
+                <p class="tx-title left-aligned">Seamless payments.</p>
+
+                <p class="tx-desc left-aligned xdesktop">Pay with GBP or EUR in your preferred method</br>including
+                    credit
+                    card, local bank transfer, SEPA,</br> iDeal, Sofort, Giropay, Trustly and more...</p>
+                <p class="tx-desc xmobile">Pay with GBP or EUR in your preferred method</br>including credit card, local
+                    bank transfer, SEPA,</br> iDeal, Sofort, Giropay, Trustly and more...</p>
+
+            </div>
+
+            <div class="ui six wide column xmobile seamless-payments-img">
+
+                <img class="ui fluid image xmobile" src="img/seamless_payments.png"/>
+
+            </div>
+
+        </div>
 
     </div>
 
-  </div>
+    <div id="scrollto-section-4" class="section fs-segment fs-segment-home scrollify-section">
+
+        <div class="ui center aligned middle aligned stackable grid" id="fs-3-grid">
+
+            <div class="ui seven wide computer eight wide tablet column" id="no-further-txt">
+
+                <p class="tx-title left-aligned">Look no further.</p>
+
+                <p class="tx-desc left-aligned xdesktop">Majors. Altcoins. Cointec is bringing all</br>your favorite
+                    coins
+                    to one place.</p>
+                <p class="tx-desc xmobile">Majors. Altcoins. Cointec is bringing all</br>your favorite coins to one
+                    place.</p>
+
+            </div>
+
+            <div class="ui six wide column" id="no-further-img">
+
+                <!--<img class="ui centered image xdesktop section-img-d" src="img/icons.svg"/>-->
+				<svg xmlns:xlink="http://www.w3.org/1999/xlink" class="xdesktop" id="coin-svg" viewBox="0 -20 516 473" version="1.1"
+					 xmlns="http://www.w3.org/2000/svg">
+					<title>icons</title>
+					<desc>Created using Figma</desc>
+					<g id="Canvas" transform="translate(-4048 -1966)">
+						<g id="icons">
+							<g id="group1">
+								<g id="ant">
+									<g id="Group">
+										<g id="Vector">
+											<use xlink:href="#path18_fill" transform="translate(4195.31 1993.64)" fill="#2CD3E1"/>
+										</g>
+										<g id="Vector">
+											<use xlink:href="#path19_fill" transform="translate(4199.48 1998.63)" fill="#FFFFFF"/>
+										</g>
+									</g>
+								</g>
+								<g id="omg">
+									<g id="Group">
+										<g id="Vector">
+											<use xlink:href="#path18_fill" transform="translate(4048.43 2232.34)" fill="#1A53F0"/>
+										</g>
+										<g id="Vector">
+											<use xlink:href="#path20_fill" transform="translate(4054.67 2239.01)" fill="#FFFFFF"/>
+										</g>
+									</g>
+								</g>
+								<g id="xcp">
+									<g id="Group">
+										<g id="Vector">
+											<use xlink:href="#path12_fill" transform="translate(4180.32 2356.73)" fill="#ED1650"/>
+										</g>
+										<g id="Vector">
+											<use xlink:href="#path13_fill" transform="translate(4186.83 2369.74)" fill="#FFFFFF"/>
+										</g>
+									</g>
+								</g>
+								<g id="gnt">
+									<g id="Group">
+										<g id="Vector">
+											<use xlink:href="#path21_fill" transform="translate(4346.96 2181.88)" fill="#001D57"/>
+										</g>
+										<g id="Vector">
+											<use xlink:href="#path22_fill" transform="translate(4358.96 2187.4)" fill="#FFFFFF"/>
+										</g>
+									</g>
+								</g>
+							</g>
+							<g id="group2">
+								<g id="btc">
+									<g id="Group">
+										<g id="Vector">
+											<use xlink:href="#path0_fill_anim_3" transform="translate(4061.75 2054.29)" fill="#F7931A"/>
+										</g>
+										<g id="Vector">
+											<use xlink:href="#path1_fill" transform="translate(4081.49 2068.81)" fill="#FFFFFF"/>
+										</g>
+									</g>
+								</g>
+								<g id="dash">
+									<g id="Group">
+										<g id="Vector">
+											<use xlink:href="#path14_fill" transform="translate(4316.31 1966.99)" fill="#1C75BC"/>
+										</g>
+										<g id="Vector">
+											<use xlink:href="#path15_fill" transform="translate(4325.25 1983.3)" fill="#FFFFFF"/>
+										</g>
+									</g>
+								</g>
+								<g id="xrp">
+									<g id="Group">
+										<g id="Vector">
+											<use xlink:href="#path10_fill" transform="translate(4180.32 2203.14)" fill="#00AAE4"/>
+										</g>
+										<g id="Vector">
+											<use xlink:href="#path16_fill" transform="translate(4191.88 2214.7)" fill="#FFFFFF"/>
+										</g>
+									</g>
+								</g>
+								<g id="ltc">
+									<g id="Group">
+										<g id="Vector">
+											<use xlink:href="#path0_fill_anim_3" transform="translate(4446.54 2181.55)" fill="#CBC6C6"/>
+										</g>
+										<g id="Vector">
+											<use xlink:href="#path17_fill" transform="translate(4468.32 2200.91)" fill="#FFFFFF"/>
+										</g>
+									</g>
+								</g>
+							</g>
+							<g id="group3">
+								<g id="eth">
+									<g id="Group">
+										<g id="Vector">
+											<use xlink:href="#path0_fill_anim_3" transform="translate(4316.31 2310.48)" fill="#627EEA"/>
+										</g>
+										<g id="Group">
+											<g id="Vector">
+												<use xlink:href="#path2_fill" transform="translate(4356.23 2320.16)" fill="#FFFFFF"
+													 fill-opacity="0.602"/>
+											</g>
+											<g id="Vector">
+												<use xlink:href="#path3_fill" transform="translate(4338.09 2320.16)" fill="#FFFFFF"/>
+											</g>
+											<g id="Vector">
+												<use xlink:href="#path4_fill" transform="translate(4356.23 2353.11)" fill="#FFFFFF"
+													 fill-opacity="0.602"/>
+											</g>
+											<g id="Vector">
+												<use xlink:href="#path5_fill" transform="translate(4338.09 2353.11)" fill="#FFFFFF"/>
+											</g>
+											<g id="Vector">
+												<use xlink:href="#path6_fill" transform="translate(4356.23 2341.63)" fill="#FFFFFF"
+													 fill-opacity="0.2"/>
+											</g>
+											<g id="Vector">
+												<use xlink:href="#path7_fill" transform="translate(4338.09 2341.63)" fill="#FFFFFF"
+													 fill-opacity="0.602"/>
+											</g>
+										</g>
+									</g>
+								</g>
+								<g id="neo">
+									<g id="Group">
+										<g id="Vector">
+											<use xlink:href="#path8_fill" transform="translate(4428.35 2050.63)"
+												 fill="url(#paint9_linear)"/>
+										</g>
+										<g id="Vector">
+											<use xlink:href="#path9_fill" transform="translate(4438.34 2058.12)" fill="#FFFFFF"/>
+										</g>
+									</g>
+								</g>
+								<g id="ark">
+									<g id="Group">
+										<g id="Vector">
+											<use xlink:href="#path10_fill" transform="translate(4250.43 2083.1)" fill="#F70000"/>
+										</g>
+										<g id="Vector">
+											<use xlink:href="#path11_fill" transform="translate(4260.06 2096.58)" fill="#FFFFFF"/>
+										</g>
+									</g>
+								</g>
+							</g>
+						</g>
+					</g>
+					<defs>
+						<linearGradient id="paint9_linear" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse"
+										gradientTransform="matrix(0 32466.1 -32466.1 0 37759.9 -1371.81)">
+							<stop offset="0" stop-color="#58BF00"/>
+							<stop offset="0.23" stop-color="#58BF00"/>
+							<stop offset="0.42" stop-color="#58BF00"/>
+							<stop offset="0.61" stop-color="#29B800"/>
+							<stop offset="0.78" stop-color="#00AE1D"/>
+							<stop offset="0.99" stop-color="#00A62C"/>
+						</linearGradient>
+						<path id="path0_fill_anim_3"
+							  d="M 38.722 77.444C 60.1075 77.444 77.444 60.1075 77.444 38.722C 77.444 17.3364 60.1075 0 38.722 0C 17.3364 0 0 17.3364 0 38.722C 0 60.1075 17.3364 77.444 38.722 77.444Z"/>
+						<path id="path1_fill"
+							  d="M 36.3796 19.4098C 37.1385 14.3367 33.2759 11.6094 27.9942 9.7901L 29.7075 2.91785L 25.5243 1.87533L 23.8563 8.56649C 22.7566 8.29246 21.6271 8.03391 20.5048 7.77775L 22.1847 1.04252L 18.0039 0L 16.2894 6.86987C 15.3792 6.66256 14.4856 6.45763 13.6182 6.24198L 13.623 6.22054L 7.85401 4.78008L 6.7412 9.248C 6.7412 9.248 9.84491 9.95929 9.77938 10.0034C 11.4736 10.4263 11.7798 11.5475 11.7286 12.4363L 9.777 20.2653C 9.89376 20.2951 10.0451 20.338 10.2119 20.4047C 10.0725 20.3701 9.92355 20.332 9.76985 20.2951L 7.03429 31.2623C 6.82698 31.777 6.30155 32.5491 5.11726 32.256C 5.15896 32.3168 2.07669 31.497 2.07669 31.497L 7.11478e-07 36.2855L 5.44371 37.6425C 6.45644 37.8963 7.44892 38.162 8.4259 38.4122L 6.69473 45.3631L 10.8731 46.4056L 12.5876 39.5286C 13.729 39.8384 14.8371 40.1243 15.9213 40.3936L 14.2128 47.2384L 18.3959 48.2809L 20.1271 41.3432C 27.2603 42.6931 32.6242 42.1486 34.8819 35.6969C 36.7013 30.5022 34.7914 27.5057 31.0383 25.5517C 33.7715 24.9215 35.8303 23.1236 36.3796 19.4098ZM 26.8218 32.8124C 25.5291 38.0071 16.7827 35.1989 13.9471 34.4947L 16.2442 25.286C 19.0798 25.9938 28.1729 27.3949 26.8218 32.8124ZM 28.1157 19.3348C 26.9362 24.06 19.6565 21.6593 17.295 21.0707L 19.3777 12.7187C 21.7391 13.3073 29.3441 14.4058 28.1157 19.3348Z"/>
+						<path id="path2_fill" d="M 3.50817e-07 0L 3.50817e-07 21.4665L 18.1437 29.5739L 3.50817e-07 0Z"/>
+						<path id="path3_fill" d="M 18.1461 0L 0 29.5739L 18.1461 21.4665L 18.1461 0Z"/>
+						<path id="path4_fill"
+							  d="M 3.50817e-07 10.5324L 3.50817e-07 25.1185L 18.1558 4.24674e-07L 3.50817e-07 10.5324Z"/>
+						<path id="path5_fill" d="M 18.1461 25.1185L 18.1461 10.53L 0 4.24674e-07L 18.1461 25.1185Z"/>
+						<path id="path6_fill"
+							  d="M 3.50817e-07 18.6374L 18.1437 8.10257L 3.50817e-07 -6.27779e-07L 3.50817e-07 18.6374Z"/>
+						<path id="path7_fill" d="M 0 8.10257L 18.1461 18.6374L 18.1461 -6.27779e-07L 0 8.10257Z"/>
+						<path id="path8_fill"
+							  d="M 19.9855 39.9711C 31.0232 39.9711 39.9711 31.0232 39.9711 19.9855C 39.9711 8.94783 31.0232 0 19.9855 0C 8.94783 0 0 8.94783 0 19.9855C 0 31.0232 8.94783 39.9711 19.9855 39.9711Z"/>
+						<path id="path9_fill"
+							  d="M 21.2346 20.709L 12.5027 16.6407L 12.5027 7.62266L 21.2346 4.52427L 21.2346 20.709ZM 8.52269 24.9819L 0 21.011L 0 4.94379L 8.52269 8.91684L 8.52269 24.9819ZM 21.0253 3.94388L 20.8851 3.99364L 12.5027 6.96764L 12.2934 7.04228L 8.7424 8.30171L 0.336948 4.38443L 12.2934 0.142416L 12.398 0.105096L 12.6199 0.0265954L 12.6972 0L 21.1026 3.91686L 21.0253 3.94388Z"/>
+						<path id="path10_fill"
+							  d="M 30.811 61.6221C 47.8275 61.6221 61.6221 47.8275 61.6221 30.811C 61.6221 13.7946 47.8275 0 30.811 0C 13.7946 0 0 13.7946 0 30.811C 0 47.8275 13.7946 61.6221 30.811 61.6221Z"/>
+						<path id="path11_fill"
+							  d="M 21.0801 12.2214L 0 34.4524L 21.1747 0L 42.3652 34.6624L 21.0801 12.2214ZM 24.1388 21.0525L 17.5483 21.0525L 20.9375 17.3232L 24.1388 21.0838L 24.1388 21.0525ZM 11.4308 27.1703L 11.4301 27.1226L 15.1667 23.2963L 15.1667 23.2804L 26.567 23.2312L 30.414 27.1703L 11.4308 27.1703Z"/>
+						<path id="path12_fill"
+							  d="M 20.8183 41.6365C 32.3159 41.6365 41.6365 32.3159 41.6365 20.8183C 41.6365 9.32065 32.3159 0 20.8183 0C 9.32065 0 0 9.32065 0 20.8183C 0 32.3159 9.32065 41.6365 20.8183 41.6365Z"/>
+						<path id="path13_fill" fill-rule="evenodd"
+							  d="M 24.0456 6.0222e-07L 18.783 6.0222e-07C 18.5679 6.0222e-07 18.3617 0.0871706 18.2099 0.242229L 8.6152 10.0378C 8.46335 10.1929 8.25712 10.28 8.04209 10.28L 6.28295 10.28C 6.06826 10.28 5.8623 10.1932 5.71054 10.0386L 4.46622 8.77166C 4.31436 8.61714 4.2291 8.40752 4.2291 8.18893L 4.2291 6.39719C 4.2291 6.17859 4.31436 5.96898 4.46622 5.81436L 5.71054 4.54742C 5.8623 4.39289 6.06826 4.30599 6.28295 4.30599L 8.0427 4.30599C 8.25739 4.30599 8.46326 4.39289 8.61511 4.54742L 9.37918 5.32538C 9.69536 5.64731 10.2079 5.64731 10.524 5.32538L 12.3696 3.44629C 12.6858 3.12435 12.6858 2.60249 12.3696 2.28064L 10.3668 0.241428C 10.215 0.0869036 10.0091 6.0222e-07 9.79442 6.0222e-07L 4.53123 6.0222e-07C 4.31655 6.0222e-07 4.11058 0.0869036 3.95873 0.241428L 0.237117 4.0308C 0.0853516 4.18532 1.20797e-07 4.39494 1.20797e-07 4.61362L 1.20797e-07 9.97249C 1.20797e-07 10.1911 0.0853516 10.4007 0.237117 10.5553L 3.95873 14.3447C 4.11058 14.4992 4.31655 14.5861 4.53123 14.5861L 9.79381 14.5861C 10.0088 14.5861 10.2151 14.4989 10.367 14.3439L 19.9616 4.54822C 20.1134 4.39316 20.3197 4.30599 20.5348 4.30599L 22.2939 4.30599C 22.5086 4.30599 22.7145 4.39289 22.8662 4.54742L 24.1106 5.81427C 24.2624 5.9688 24.3478 6.17851 24.3478 6.3971L 24.3478 8.18893C 24.3478 8.40752 24.2624 8.61714 24.1106 8.77166L 22.8662 10.0386C 22.7145 10.1932 22.5086 10.28 22.2939 10.28L 20.5342 10.28C 20.3195 10.28 20.1135 10.1932 19.9617 10.0386L 19.1912 9.25416C 18.8776 8.93481 18.37 8.93196 18.0528 9.24768L 15.7767 11.5136C 15.6209 11.6686 15.5331 11.8811 15.5331 12.1029L 15.5331 17.361C 15.5331 17.8162 15.8956 18.1853 16.3427 18.1853L 18.9979 18.1853C 19.445 18.1853 19.8075 17.8162 19.8075 17.361L 19.8075 15.4103C 19.8075 14.9551 20.1699 14.5861 20.617 14.5861L 24.0456 14.5861C 24.2603 14.5861 24.4662 14.4992 24.618 14.3447L 28.3397 10.5553C 28.4915 10.4007 28.5768 10.1911 28.5768 9.97249L 28.5768 4.61362C 28.5768 4.39494 28.4915 4.18532 28.3397 4.0308L 24.618 0.241428C 24.4662 0.0869036 24.2603 6.0222e-07 24.0456 6.0222e-07Z"/>
+						<path id="path14_fill"
+							  d="M 26.6474 53.2948C 41.3643 53.2948 53.2948 41.3643 53.2948 26.6474C 53.2948 11.9304 41.3643 0 26.6474 0C 11.9304 0 0 11.9304 0 26.6474C 0 41.3643 11.9304 53.2948 26.6474 53.2948Z"/>
+						<path id="path15_fill" fill-rule="evenodd"
+							  d="M 35.3078 5.29775L 31.9134 15.925C 31.9134 15.925 29.8197 21.2227 24.8392 21.2227C 19.8586 21.2227 0.8248 21.2227 0.8248 21.2227L 2.53785 15.925L 24.2364 15.925L 24.2999 15.925L 27.726 5.29775L 5.99566 5.29775L 7.67698 -5.74023e-07C 7.67698 -5.74023e-07 26.3301 -5.74023e-07 31.5645 -5.74023e-07C 36.7988 -5.74023e-07 35.3078 5.29775 35.3078 5.29775ZM 1.68132 8.15283L 14.5609 8.15283L 12.9113 13.0699L -1.33761e-07 13.0699L 1.68132 8.15283Z"/>
+						<path id="path16_fill"
+							  d="M 30.7354 23.5035C 29.4062 22.7172 27.9093 22.4894 26.4267 22.4363C 25.1827 22.3918 23.3268 21.5752 23.3268 19.257C 23.3268 17.5298 24.6935 16.1398 26.4273 16.0777C 27.9098 16.0247 29.4066 15.7965 30.7354 15.0106C 34.0354 13.0588 35.4912 8.96148 34.1879 5.2933C 32.8845 1.62513 29.1984 -0.55494 25.4458 0.122997C 21.6932 0.800934 18.9574 4.14116 18.9575 8.04476C 18.9575 9.60323 19.4986 11.0374 20.189 12.3676C 20.7697 13.4863 21.0634 15.5628 19.0719 16.7406C 17.5904 17.6168 15.7415 17.062 14.818 15.5479C 14.038 14.2691 13.0963 13.0708 11.7779 12.2909C 8.47791 10.3391 4.28634 11.0963 1.837 14.0866C -0.612334 17.0769 -0.612334 21.437 1.837 24.4273C 4.28634 27.4176 8.47791 28.1748 11.7779 26.223C 13.0959 25.4434 14.0377 24.2459 14.8173 22.9678C 15.4574 21.9183 17.0563 20.5806 19.0718 21.7736C 20.5511 22.6491 21.0083 24.5674 20.1883 26.1474C 19.498 27.4774 18.9576 28.9112 18.9576 30.4694C 18.9576 34.3729 21.6934 37.713 25.446 38.3908C 29.1986 39.0687 32.8845 36.8886 34.1878 33.2205C 35.491 29.5524 34.0353 25.4552 30.7354 23.5035Z"/>
+						<path id="path17_fill" fill-rule="evenodd"
+							  d="M 3.45352 27.1393L 0 28.48L 1.66504 21.8029L 5.1597 20.3992L 10.196 0L 22.6088 0L 18.9326 14.9951L 22.345 13.6132L 20.6993 20.2685L 17.2458 21.6504L 15.1935 30.0797L 33.8817 30.0797L 31.769 38.722L 0.609871 38.722L 3.45352 27.1393Z"/>
+						<path id="path18_fill"
+							  d="M 13.3237 26.6474C 20.6822 26.6474 26.6474 20.6822 26.6474 13.3237C 26.6474 5.96522 20.6822 0 13.3237 0C 5.96522 0 0 5.96522 0 13.3237C 0 20.6822 5.96522 26.6474 13.3237 26.6474Z"/>
+						<path id="path19_fill"
+							  d="M 2.46876 9.65762C 2.46369 9.57295 2.46103 9.4853 2.46103 9.39432C 2.46103 6.46572 4.74382 4.08448 7.60016 3.98291C 7.6683 3.98291 7.74212 3.98291 7.81027 3.98855L 7.12883 3.31142C 7.12883 3.31142 9.8716 2.85435 13.3923 4.97039C 13.3923 4.97039 13.4434 5.0776 13.3923 5.3936C 13.3923 5.3936 15.0505 6.10459 15.1924 7.48706C 15.3344 8.86954 14.4542 9.65953 13.7444 9.77238C 13.7444 9.77238 14.1135 9.20246 13.5457 8.89775C 13.4264 8.83004 13.2844 8.80183 13.1425 8.80747C 12.0579 8.80747 11.9329 10.0376 11.9329 10.0376C 11.9216 10.0997 11.9216 10.1617 11.9216 10.2238C 11.9216 10.2238 11.7637 11.788 14.355 11.9727C 14.9277 11.239 15.4463 10.4213 15.9043 9.52877C 16.3834 8.59406 16.7657 7.63528 17.0618 6.69195C 17.24 6.12401 17.3656 5.63338 17.4472 5.244C 15.938 4.00594 14.1569 2.94505 12.2421 2.05657C 11.5252 1.72389 10.8293 1.43439 10.1713 1.18664C 9.76438 1.03342 9.43204 0.918088 9.15582 0.828722C 8.88731 0.915028 8.54654 1.03307 8.13845 1.18666C 7.48125 1.434 6.78507 1.72366 6.06796 2.05655C 4.15496 2.9446 2.37428 4.00579 0.864642 5.24425C 0.946112 5.63787 1.07042 6.12819 1.24837 6.69788C 1.54341 7.64238 1.92617 8.60264 2.40784 9.54006C 2.42803 9.57939 2.44833 9.61858 2.46876 9.65762ZM 18.3201 4.91459L 18.2787 5.14729C 18.2567 5.32824 18.1093 5.97615 17.9276 6.59652C 17.6109 7.67756 17.1806 8.79484 16.6214 9.88617C 15.8672 11.3564 14.9507 12.6395 13.9001 13.695C 12.603 14.9954 11.1031 15.9553 9.43044 16.5534L 9.33729 16.5861L 9.15992 16.6546L 8.98396 16.5929L 8.88611 16.5586C 7.20995 15.9592 5.70528 14.9972 4.41722 13.7C 3.36157 12.6338 2.4468 11.3545 1.69633 9.89154C 1.13767 8.79877 0.708947 7.68263 0.392389 6.59993C 0.281359 6.22019 0.192211 5.8714 0.122326 5.55885C 0.080465 5.37163 0.0347388 5.13882 0.0430471 5.17184L 0 4.93266L 0.0996516 4.84887L 0.17337 4.78689C 1.70882 3.4943 3.52518 2.38541 5.48628 1.45375C 6.79282 0.833049 7.98724 0.372162 8.88924 0.0828549L 9.15454 0L 9.33494 0.0537761L 9.42462 0.0833838C 10.3249 0.372162 11.5194 0.833049 12.8259 1.45375C 14.784 2.38396 16.5977 3.49084 18.1316 4.78084L 18.3201 4.91459ZM 11.9897 5.51774C 12.0351 5.49517 12.1828 5.42181 12.3531 5.24689C 12.6939 5.29203 13.0289 5.39924 13.0289 5.39924C 12.4099 5.02682 11.5638 4.80675 10.6269 4.81239C 10.6269 4.81239 10.9846 5.32024 11.9784 5.52902C 11.9784 5.52902 11.984 5.52338 11.9897 5.51774Z"/>
+						<path id="path20_fill"
+							  d="M 3.62758 7.73605C 1.62654 7.73605 0.00440438 9.3597 0.00440438 11.3626C 0.00440438 13.3655 1.62675 14.9892 3.62779 14.9892C 5.62905 14.9892 7.25118 13.3655 7.25118 11.3626C 7.25118 9.3597 5.62884 7.73605 3.62758 7.73605ZM 3.62758 13.8921C 2.23258 13.8921 1.10164 12.7602 1.10164 11.3639C 1.10164 9.96756 2.23258 8.83563 3.62758 8.83563C 5.02279 8.83563 6.15373 9.96756 6.15373 11.3639C 6.15137 12.7591 5.02172 13.8898 3.62758 13.8921ZM 11.3658 7.07349e-07C 9.36472 7.07349e-07 7.74237 1.62366 7.74237 3.62655C 7.74237 5.62945 9.36472 7.25311 11.3658 7.25311C 13.367 7.25311 14.9892 5.62945 14.9892 3.62655C 14.9892 1.62366 13.367 7.07349e-07 11.3658 7.07349e-07ZM 11.3658 6.1561C 9.97076 6.1561 8.83982 5.02417 8.83982 3.62784C 8.83982 2.23151 9.97076 1.09958 11.3658 1.09958C 12.761 1.09958 13.8919 2.23151 13.8919 3.62784C 13.8896 5.0231 12.7599 6.15374 11.3658 6.1561ZM 3.62758 7.07349e-07C 1.90262 -0.00107059 0.415734 1.21485 0.072673 2.90707C -0.270173 4.59908 0.625907 6.2988 2.21498 6.97071C 3.80405 7.64242 5.64623 7.10034 6.61895 5.67444C 7.59188 4.24855 7.42615 2.33414 6.22264 1.09701L 7.25011 1.09701L 7.25011 7.07349e-07L 3.62758 7.07349e-07ZM 6.15373 3.62655C 6.15373 5.02288 5.02279 6.15481 3.62758 6.15481C 2.23258 6.15481 1.10164 5.02288 1.10164 3.62655C 1.10164 2.23023 2.23258 1.09829 3.62758 1.09829C 5.02215 1.10001 6.15266 2.23065 6.15502 3.62655L 6.15373 3.62655Z"/>
+						<path id="path21_fill"
+							  d="M 16.6905 33.3809C 25.9084 33.3809 33.3809 25.9084 33.3809 16.6905C 33.3809 7.47258 25.9084 0 16.6905 0C 7.47258 0 0 7.47258 0 16.6905C 0 25.9084 7.47258 33.3809 16.6905 33.3809Z"/>
+						<path id="path22_fill"
+							  d="M 9.38725 1.77376e-07L 10.6424 1.25664L 8.26679 3.69768C 8.76703 4.45923 9.03723 5.35682 9.03723 6.28273C 9.03723 7.52301 8.57314 8.67712 7.72445 9.54915C 7.09087 10.2132 6.28987 10.6527 5.41201 10.8277L 5.41201 12.9547C 6.28055 13.1306 7.08197 13.5722 7.72087 14.2287C 8.57314 15.1045 9.03723 16.2586 9.03723 17.4989C 9.03723 18.7391 8.57314 19.8933 7.72087 20.769C 6.86918 21.6441 5.72663 22.1276 4.51861 22.1276C 3.302 22.1276 2.17132 21.6475 1.31636 20.769C 0.46737 19.8966 0 18.7303 0 17.4989C 0 16.2674 0.467369 15.1011 1.31278 14.2324C 1.94635 13.5684 2.74736 13.1289 3.62522 12.9539L 3.62522 10.8269C 2.75668 10.651 1.95526 10.2094 1.31636 9.55287C 0.46737 8.68049 0 7.51419 0 6.28273C 0 5.05127 0.46737 3.88497 1.31636 3.01259C 2.16804 2.13745 3.3106 1.65403 4.51861 1.65403C 5.41634 1.65403 6.27868 1.92705 7.01762 2.43489L 9.38725 1.77376e-07ZM 4.51861 14.6638C 3.77614 14.6638 3.09216 14.9527 2.58182 15.4884C 2.0631 16.0214 1.77351 16.738 1.77351 17.4989C 1.77351 18.2553 2.06011 18.9615 2.58182 19.5093C 3.09785 20.0396 3.78776 20.3339 4.51861 20.3339C 5.26109 20.3339 5.94506 20.0451 6.45541 19.5093C 6.97413 18.9763 7.26372 18.2597 7.26372 17.4989C 7.26372 16.7424 6.97712 16.0362 6.45152 15.4844C 5.94506 14.9527 5.26109 14.6638 4.51861 14.6638ZM 6.45152 8.31086C 6.97413 7.77382 7.26372 7.05723 7.26372 6.29637C 7.26372 5.52364 6.97946 4.813 6.45541 4.28593C 5.93937 3.75568 5.24946 3.4613 4.51861 3.4613C 3.77614 3.4613 3.09216 3.75017 2.58182 4.28593C 2.0631 4.81893 1.77351 5.53552 1.77351 6.29637C 1.77351 7.05287 2.06011 7.75905 2.58182 8.30682C 3.09785 8.83707 3.78776 9.13145 4.51861 9.13145C 5.26109 9.13145 5.94506 8.84258 6.45152 8.31086Z"/>
+					</defs>
+				</svg>
+                <img class="ui fluid image xmobile" src="img/icons.svg"/>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="scrollto-section-5" class="section fs-segment fs-segment-home scrollify-section">
+
+        <div class="ui center aligned middle aligned stackable grid" id="fs-4-grid">
+
+            <div class="ui six wide column xdesktop pocket-profits-img">
+
+                <img class="ui centered image xdesktop section-img-d" src="img/pocket_profits.svg"/>
+
+            </div>
+
+            <div class="ui seven wide computer eight wide tablet column" id="pocket-profits-txt">
+
+                <p class="tx-title left-aligned">Pocket profits.</p>
+
+                <p class="tx-desc left-aligned xdesktop">And of course, we’ll let you take the markets with</br>you
+                    wherever
+                    you go so you never miss another</br>opportunity.</p>
+                <p class="tx-desc xmobile">And of course, we’ll let you take the markets with</br>you wherever you go so
+                    you
+                    never miss another opportunity.</p>
+
+            </div>
+
+            <div class="ui six wide column xmobile pocket-profits-img">
+
+                <img class="ui fluid image xmobile custom-size" src="img/pocket_profits.svg"/>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="scrollto-section-6" class="section fs-segment fs-segment-home scrollify-section">
+
+        <div class="ui center aligned middle aligned stackable grid" id="fs-5-grid">
+
+            <div class="ui seven wide computer eight wide tablet column" id="of-mind-txt">
+
+                <p class="tx-title left-aligned">Peace of mind.</p>
+
+                <p class="tx-desc left-aligned xdesktop">No need to setup wallets or store keys. Our</br>platform’s
+                    enhanced
+                    security takes care of the</br>hard work for you.</p>
+                <p class="tx-desc xmobile">No need to setup wallets or store keys.</br>Our platform’s enhanced security
+                    takes</br>care of the hard work for you.</p>
+
+            </div>
+
+            <div class="ui six wide column" id="of-mind-img">
+
+                <!--<img class="ui centered image xdesktop section-img-d" src="img/of_mind.png"/>-->
+                <?xml version="1.0" encoding="utf-8"?>
+                <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+                <svg version="1.1" id="Layer_1" class="xdesktop" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="-205 52.7 548.8 457.3" style="enable-background:new -205 52.7 548.8 457.3;" xml:space="preserve">
+<style type="text/css">
+	.animation5-st0{fill:url(#animation5-SVGID_1_);}
+    .animation5-st1{fill:url(#SVGID_2_);}
+    .animation5-st2{fill:url(#SVGID_3_);}
+    .animation5-st3{fill:url(#SVGID_4_);}
+    .animation5-st4{fill:url(#SVGID_5_);}
+    .animation5-st5{fill:#045CC7;}
+    .animation5-st6{fill:#FFFFFF;}
+    .animation5-st7{fill:#191C1E;}
+    .animation5-st8{display:none;fill:url(#flag-2_1_);}
+    .animation5-st9{display:none;fill:url(#flag-3_1_);}
+    .animation5-st10{display:none;fill:url(#flag-4_1_);}
+    .animation5-st11{display:none;fill:url(#flag-5_1_);}
+    .animation5-st12{display:none;fill:url(#flag-6_1_);}
+    .animation5-st13{fill:url(#flag-1_1_);}
+    .animation5-st14{fill:#B9DAFC;}
+    .animation5-st15{fill:#9BC6FB;}
+    .animation5-st16{fill:#F7931A;}
+    .animation5-st17{opacity:6.000000e-002;}
+</style>
+<g id="animation-fix" data-svg-origin="138.19998168945312 116.9000015258789" transform="matrix(1,0,0,1,-205,53)">
+	<path class="animation5-st4" d="M149.7,182.2c0,0.9-0.7,1.6-1.6,1.6h-9.6V181l-0.3-0.4h9.9C149,180.6,149.7,181.3,149.7,182.2z"/>
+	<path class="animation5-st4" d="M339.7,181.6c0,0.9-0.7,1.6-1.6,1.6H324v-2.1l-0.7-1h14.8C339,180.1,339.7,180.8,339.7,181.6z"/>
+	<path class="animation5-st4" d="M214.2,173.1l-2.3,3.2H204c-0.9,0-1.6-0.7-1.6-1.6v0c0-0.9,0.7-1.6,1.6-1.6H214.2z"/>
+	<path class="animation5-st4" d="M394.1,183.6v3.2H388c-0.9,0-1.6-0.7-1.6-1.6c0-0.9,0.7-1.6,1.6-1.6H394.1z"/>
+	<path class="animation5-st4" d="M331.6,175.6c0,0.9-0.7,1.6-1.6,1.6h-8.6l-2.2-3.1H330C330.9,174.1,331.6,174.8,331.6,175.6z"/>
+	<path data-svg-origin="231.20001220703125 123.60000610351562" transform="matrix(1,0,0,1,0,-0.5)" fill="#9bc6fb" d="M241.6,125.5c0,1.1-0.9,1.9-1.9,1.9h-8.4v-3.6l-0.1-0.2h8.5C240.7,123.6,241.6,124.5,241.6,125.5z"/>
+	<path class="animation5-st4" d="M156.3,188.2c0,0.9-0.7,1.6-1.6,1.6h-16.2v-3.3h16.2C155.6,186.6,156.3,187.3,156.3,188.2z"/>
+	<path fill="#9bc6fb" d="M248.1,131.1c0,1-0.8,1.8-1.8,1.8h-15v-3.6h15C247.3,129.3,248.1,130.1,248.1,131.1z"/>
+	<path data-svg-origin="295.6000061035156 116.9000015258789" transform="matrix(1,0,0,1,0,-0.5)" fill="#9bc6fb" d="M306,116.9l-2.4,3.4h-6.3c-0.9,0-1.7-0.8-1.7-1.7c0-0.9,0.8-1.7,1.7-1.7H306z"/>
+</g>
+<linearGradient id="animation5-SVGID_1_" gradientUnits="userSpaceOnUse" x1="61.1" y1="329.3" x2="61.1" y2="423.09" gradientTransform="matrix(1 0 0 -1 0 565.4)">
+	<stop  offset="0" style="stop-color:#73B2FF"/>
+	<stop  offset="1" style="stop-color:#C7E0FF"/>
+</linearGradient>
+<path class="animation5-st0" d="M104,142.7v22.6l-3.2,4.5H93c-0.8,0-1.5,0.7-1.5,1.5c0,0.8,0.7,1.5,1.5,1.5h5.6l-2.7,3.8v59.5H26.2v-50.6h12.4
+	c0.8,0,1.5-0.7,1.5-1.5s-0.7-1.5-1.5-1.5H26.2v-3h6.6c0.8,0,1.5-0.7,1.5-1.5s-0.7-1.5-1.5-1.5h-6.7l-7.9-11.1v-22.7
+	c0-0.3,0.2-0.5,0.5-0.5h23.9c0.3,0,0.5,0.2,0.5,0.5v16.8c0,0.3,0.2,0.5,0.5,0.5h5c0.3,0,0.5-0.2,0.5-0.5v-16.8
+	c0-0.3,0.2-0.5,0.5-0.5h23c0.3,0,0.5,0.2,0.5,0.5v16.8c0,0.3,0.2,0.5,0.5,0.5h5c0.3,0,0.5-0.2,0.5-0.5v-16.8c0-0.3,0.2-0.5,0.5-0.5
+	h23.9C103.8,142.2,104,142.5,104,142.7z"/>
+<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="61.1" y1="240.5" x2="61.1" y2="348.6" gradientTransform="matrix(1 0 0 -1 0 565.4)">
+	<stop  offset="0" style="stop-color:#73B2FF"/>
+	<stop  offset="1" style="stop-color:#C7E0FF"/>
+</linearGradient>
+<path class="animation5-st1" d="M96.1,217.3v16.9c0,0.3-0.2,0.5-0.5,0.5h-5c-0.3,0-0.5-0.2-0.5-0.5v-16.9c0-0.3-0.2-0.5-0.5-0.5h-25
+	c-0.3,0-0.5,0.2-0.5,0.5v16.9c0,0.3-0.2,0.5-0.5,0.5h-5c-0.3,0-0.5-0.2-0.5-0.5v-16.9c0-0.3-0.2-0.5-0.5-0.5h-25
+	c-0.3,0-0.5,0.2-0.5,0.5v16.9c0,0.3-0.2,0.5-0.5,0.5h-5c-0.3,0-0.5-0.2-0.5-0.5v-16.9c0-0.3-0.2-0.5-0.5-0.5H0.7v108.1h120.8V216.8
+	H96.6C96.4,216.8,96.1,217,96.1,217.3z"/>
+<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="64.25" y1="87.3" x2="64.25" y2="240.6" gradientTransform="matrix(1 0 0 -1 0 565.4)">
+	<stop  offset="0" style="stop-color:#033CAA;stop-opacity:0"/>
+	<stop  offset="1" style="stop-color:#0064E0"/>
+</linearGradient>
+<path class="animation5-st2" d="M246.9,478.1h-365.4c-0.6,0-1-0.4-1-1V325.8c0-0.6,0.4-1,1-1H247c0.6,0,1,0.4,1,1v151.3
+	C247.9,477.6,247.5,478.1,246.9,478.1z"/>
+<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="-74.6" y1="303.2" x2="11.2" y2="303.2" gradientTransform="matrix(1 0 0 -1 0 565.4)">
+	<stop  offset="0" style="stop-color:#C9E2FF"/>
+	<stop  offset="1" style="stop-color:#E8F3FF"/>
+</linearGradient>
+<path class="animation5-st3" d="M11.2,200v22.6L8.8,226h-9.5c-0.8,0-1.5,0.7-1.5,1.5l0,0c0,0.8,0.7,1.5,1.5,1.5h7.3l-3.5,4.9v91h-69.7v-82.4h15
+	c0.8,0,1.5-0.7,1.5-1.5s-0.7-1.5-1.5-1.5h-15v-3h9.1c0.8,0,1.5-0.7,1.5-1.5s-0.7-1.5-1.5-1.5h-9.4l-7.7-10.9V200
+	c0-0.3,0.2-0.5,0.5-0.5h23.9c0.3,0,0.5,0.2,0.5,0.5v16.9c0,0.3,0.2,0.5,0.5,0.5h5c0.3,0,0.5-0.2,0.5-0.5V200c0-0.3,0.2-0.5,0.5-0.5
+	h23c0.3,0,0.5,0.2,0.5,0.5v16.9c0,0.3,0.2,0.5,0.5,0.5h5c0.3,0,0.5-0.2,0.5-0.5V200c0-0.3,0.2-0.5,0.5-0.5h23.9
+	C11,199.5,11.2,199.7,11.2,200z"/>
+<linearGradient id="SVGID_5_" gradientUnits="userSpaceOnUse" x1="111.4" y1="303.2" x2="197.1" y2="303.2" gradientTransform="matrix(1 0 0 -1 0 565.4)">
+	<stop  offset="0" style="stop-color:#E8F3FF"/>
+	<stop  offset="1" style="stop-color:#C9E2FF"/>
+</linearGradient>
+<path class="animation5-st4" d="M197.1,200v22.6l-8,11.3v2.6h-5.8c-0.8,0-1.5,0.7-1.5,1.5s0.7,1.5,1.5,1.5h5.8v85.4h-69.7v-89h13.4
+	c0.8,0,1.5-0.7,1.5-1.5s-0.7-1.5-1.5-1.5h-14.1l-2.1-3h8.3c0.8,0,1.5-0.7,1.5-1.5s-0.7-1.5-1.5-1.5h-10.5l-3-4.3V200
+	c0-0.3,0.2-0.5,0.5-0.5h23.9c0.3,0,0.5,0.2,0.5,0.5v16.4c0,0.6,0.5,1,1,1h4.5c0.3,0,0.5-0.2,0.5-0.5V200c0-0.3,0.2-0.5,0.5-0.5h23
+	c0.3,0,0.5,0.2,0.5,0.5v16.9c0,0.3,0.2,0.5,0.5,0.5h5c0.3,0,0.5-0.2,0.5-0.5V200c0-0.3,0.2-0.5,0.5-0.5h23.9
+	C196.9,199.5,197.1,199.7,197.1,200z"/>
+<path class="animation5-st5" d="M61.1,247.6L61.1,247.6c-16.8,0-30.4,13.6-30.4,30.4v46.8h60.8V278C91.5,261.2,77.9,247.6,61.1,247.6z"/>
+<circle class="animation5-st6" cx="61.1" cy="306.4" r="11.8"/>
+<circle class="animation5-st6" cx="61.1" cy="273.3" r="11.8"/>
+<path class="animation5-st7" d="M-31.6,250.2L-31.6,250.2c-1.9,0-3.4,1.5-3.4,3.4v4h6.7v-4C-28.3,251.7-29.8,250.2-31.6,250.2z"/>
+<path class="animation5-st7" d="M-31.6,293.8L-31.6,293.8c-1.9,0-3.4,1.5-3.4,3.4v4h6.7v-4C-28.3,295.3-29.8,293.8-31.6,293.8z"/>
+<path class="animation5-st7" d="M154.2,250.2L154.2,250.2c-1.9,0-3.4,1.5-3.4,3.4v4h6.7v-4C157.6,251.7,156.1,250.2,154.2,250.2z"/>
+<path class="animation5-st7" d="M154.2,293.8L154.2,293.8c-1.9,0-3.4,1.5-3.4,3.4v4h6.7v-4C157.6,295.3,156.1,293.8,154.2,293.8z"/>
+<path class="animation5-st7" d="M18.3,250.2L18.3,250.2c-1.9,0-3.4,1.5-3.4,3.4v4h6.7v-4C21.6,251.7,20.1,250.2,18.3,250.2z"/>
+<path class="animation5-st7" d="M104,250.2L104,250.2c-1.9,0-3.4,1.5-3.4,3.4v4h6.7v-4C107.4,251.7,105.9,250.2,104,250.2z"/>
+<path class="animation5-st7" d="M61.3,187.1L61.3,187.1c-1.9,0-3.4,1.5-3.4,3.4v4h6.7v-4C64.7,188.6,63.2,187.1,61.3,187.1z"/>
+<linearGradient id="flag-2_1_" gradientUnits="userSpaceOnUse" x1="64.7357" y1="452.8044" x2="97.5357" y2="452.8044" gradientTransform="matrix(1 0 0 -1 0 565.4)">
+	<stop  offset="1.000224e-004" style="stop-color:#90BEF5"/>
+	<stop  offset="1" style="stop-color:#C0DAFA"/>
+	<stop  offset="1" style="stop-color:#C0DAFA"/>
+</linearGradient>
+<path id="flag-2" class="animation5-st8" d="M92.3,116c-1.8,0.8-4.5,1.8-8.7,1.4c-3.7-0.3-6.4-3.1-10.9-0.3c-2.2,1.4-4.1,2.3-5.5,2.7
+	c-1.5,0.4-2.4,0.4-2.4,0.4V107c5,0.4,6-0.2,10.7-1.7s9.6,2.4,12.5,3.7c3,1.3,4.2,1,6.1,0c1.7-0.9,2.4-1.9,3.5-3
+	C96.5,110.6,95.6,114.5,92.3,116z"/>
+<linearGradient id="flag-3_1_" gradientUnits="userSpaceOnUse" x1="64.7357" y1="452.4321" x2="99.4798" y2="452.4321" gradientTransform="matrix(1 0 0 -1 0 565.4)">
+	<stop  offset="1.000224e-004" style="stop-color:#90BEF5"/>
+	<stop  offset="1" style="stop-color:#C0DAFA"/>
+	<stop  offset="1" style="stop-color:#C0DAFA"/>
+</linearGradient>
+<path id="flag-3" class="animation5-st9" d="M90.6,116.5c-6.7,0.5-7.8-0.9-9.7-0.5c-3.7,0.9-7.2,4.1-12.1,4.6c-1.5,0.2-4.1-0.4-4.1-0.4V107
+	c7.6,2.1,10.7-1,17.9-1.7c5.2-0.5,8.8,4.6,11,5.4c1.5,0.6,2.3,1,5.9,1.2C98.7,113.2,94.8,116.1,90.6,116.5z"/>
+<linearGradient id="flag-4_1_" gradientUnits="userSpaceOnUse" x1="64.7357" y1="451.6056" x2="100.5356" y2="451.6056" gradientTransform="matrix(1 0 0 -1 0 565.4)">
+	<stop  offset="1.000224e-004" style="stop-color:#90BEF5"/>
+	<stop  offset="1" style="stop-color:#C0DAFA"/>
+	<stop  offset="1" style="stop-color:#C0DAFA"/>
+</linearGradient>
+<path id="flag-4" class="animation5-st10" d="M85.3,115c-2.4-0.2-6.3,5.8-13.9,5.9c-4.1,0.1-6.6-0.7-6.6-0.7V107c6.1-0.5,7.8,2.3,11,1.7
+	c2.6-0.5,6.5-2.8,10.9-1.8c3.8,0.9,4.7,2.2,8,5.2c2.2,1.9,3.8,2.3,5.9,3.3c-2.3,0.6-5.4,0.8-8.9,0.6C87.4,115.7,87.5,115.2,85.3,115
+	z"/>
+<linearGradient id="flag-5_1_" gradientUnits="userSpaceOnUse" x1="64.7" y1="451.384" x2="102.1001" y2="451.384" gradientTransform="matrix(1 0 0 -1 0 565.4)">
+	<stop  offset="1.000224e-004" style="stop-color:#90BEF5"/>
+	<stop  offset="1" style="stop-color:#C0DAFA"/>
+	<stop  offset="1" style="stop-color:#C0DAFA"/>
+</linearGradient>
+<path id="flag-5" class="animation5-st11" d="M83.4,119.6c-2.4,1.9-6.3,2.4-11.5,1.9c-3.3-0.3-7.2-1.3-7.2-1.3V107c13.6-2.5,12.5,2.7,19.1,2.8
+	c1.7,0,5.4-2.8,9.6-1.7c3.1,0.8,7.8,6.7,8.7,7.9c-4.8-1-4.9-1.3-8.3-1.5C89.6,114.4,86.6,117.1,83.4,119.6z"/>
+<linearGradient id="flag-6_1_" gradientUnits="userSpaceOnUse" x1="64.7001" y1="451.9392" x2="100.7639" y2="451.9392" gradientTransform="matrix(1 0 0 -1 0 565.4)">
+	<stop  offset="1.000224e-004" style="stop-color:#90BEF5"/>
+	<stop  offset="1" style="stop-color:#C0DAFA"/>
+	<stop  offset="1" style="stop-color:#C0DAFA"/>
+</linearGradient>
+<path id="flag-6" class="animation5-st12" d="M82.4,120.5c-4.4,0.4-5.9-1.3-10.8-1.2c-4,0.1-6.9,0.9-6.9,0.9V107c14-2.4,13.9,2.4,21.9,2.8
+	c2.6,0.1,8-3.4,14.2,2.1c-3-0.4-6.3-0.7-10.4,2.8C87,117.8,84.7,120.3,82.4,120.5z"/>
+<rect x="59.6" y="106.5" class="animation5-st6" width="3" height="35.7"/>
+<linearGradient id="flag-1_1_" gradientUnits="userSpaceOnUse" x1="64.662" y1="452.4055" x2="98.6669" y2="452.4055" gradientTransform="matrix(1 0 0 -1 0 565.4)">
+	<stop  offset="1.000224e-004" style="stop-color:#90BEF5"/>
+	<stop  offset="1" style="stop-color:#C0DAFA"/>
+	<stop  offset="1" style="stop-color:#C0DAFA"/>
+</linearGradient>
+<path id="flag-1" class="animation5-st13" d="M91.7,113.8c-0.7,1.8-2.4,4.1-5.8,4.9c-6.4,1.7-6.8-1.7-12.2-1.7c-4.1,0-9,3.2-9,3.2V107
+	c2.6-0.7,6.5-1.3,9.1-1.2c6.2,0.1,8.8,4.2,13.8,4.2c2.4,0,4.5-1.3,6.4-2.2c1.6-0.7,2.9-1.1,4.6-1.4C95.5,108.3,93.5,109,91.7,113.8z
+	"/>
+<path class="animation5-st14" d="M-55.9,234.9c0,0.8-0.7,1.5-1.5,1.5h-9.1v-2.6l-0.3-0.4h9.4C-56.6,233.4-55.9,234.1-55.9,234.9z"/>
+<path class="animation5-st14" d="M-50.1,240.9c0,0.8-0.7,1.5-1.5,1.5h-15v-3h15C-50.7,239.4-50.1,240.1-50.1,240.9z"/>
+<path class="animation5-st14" d="M8.8,225.9l-2.1,3h-7.3c-0.8,0-1.5-0.7-1.5-1.5l0,0c0-0.8,0.7-1.5,1.5-1.5H8.8z"/>
+<path class="animation5-st14" d="M126.4,228.3c0,0.8-0.7,1.5-1.5,1.5h-8.3l-2.1-3H125C125.7,226.8,126.4,227.5,126.4,228.3z"/>
+<path class="animation5-st14" d="M134.3,234.3c0,0.8-0.7,1.5-1.5,1.5h-13.4v-2l-0.7-1h14.1C133.6,232.8,134.3,233.5,134.3,234.3z"/>
+<path class="animation5-st15" d="M34.4,177.9c0,0.8-0.7,1.5-1.5,1.5h-6.6v-2.8l-0.1-0.2h6.7C33.7,176.4,34.4,177.1,34.4,177.9z"/>
+<path class="animation5-st15" d="M40.2,183.9c0,0.8-0.7,1.5-1.5,1.5H26.3v-3h12.4C39.5,182.4,40.2,183.1,40.2,183.9z"/>
+<path class="animation5-st15" d="M100.8,169.8l-2.1,3h-5.6c-0.8,0-1.5-0.7-1.5-1.5c0-0.8,0.7-1.5,1.5-1.5H100.8z"/>
+<path class="animation5-st14" d="M189.1,236.4v3h-5.8c-0.8,0-1.5-0.7-1.5-1.5s0.7-1.5,1.5-1.5H189.1z"/>
+<g>
+	<path class="animation5-st16" d="M64.1,273.1c-0.1-0.1-0.2-0.1-0.4-0.1h-0.2v-1c0-0.7-0.2-1.2-0.7-1.7s-1-0.7-1.7-0.7s-1.2,0.2-1.7,0.7
+		s-0.7,1-0.7,1.7v1h-0.2c-0.1,0-0.3,0-0.4,0.1s-0.1,0.2-0.1,0.4v3.1c0,0.1,0,0.3,0.1,0.4c0.1,0.1,0.2,0.1,0.4,0.1h5.1
+		c0.1,0,0.3,0,0.4-0.1s0.1-0.2,0.1-0.4v-3.1C64.2,273.3,64.2,273.2,64.1,273.1z M62.5,272.9h-2.7v-1c0-0.4,0.1-0.7,0.4-1
+		c0.3-0.3,0.6-0.4,1-0.4s0.7,0.1,1,0.4s0.4,0.6,0.4,1L62.5,272.9L62.5,272.9z"/>
+</g>
+<g>
+	<path class="animation5-st16" d="M64.1,306.2c-0.1-0.1-0.2-0.1-0.4-0.1h-0.2v-1c0-0.7-0.2-1.2-0.7-1.7s-1-0.7-1.7-0.7s-1.2,0.2-1.7,0.7
+		s-0.7,1-0.7,1.7v1h-0.2c-0.1,0-0.3,0-0.4,0.1s-0.1,0.2-0.1,0.4v3.1c0,0.1,0,0.3,0.1,0.4s0.2,0.1,0.4,0.1h5.1c0.1,0,0.3,0,0.4-0.1
+		s0.1-0.2,0.1-0.4v-3.1C64.2,306.5,64.2,306.3,64.1,306.2z M62.5,306.1h-2.7v-1c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4s0.7,0.1,1,0.4
+		c0.3,0.3,0.4,0.6,0.4,1L62.5,306.1L62.5,306.1z"/>
+</g>
+<g id="cloud-2" class="animation5-st17">
+	<path class="animation5-st6" d="M-11.6,96.5L-11.6,96.5c0-3.4-2.7-6.1-6.1-6.1h-48.8c-3.4,0-6.1,2.7-6.1,6.1l0,0c0,3.4-2.7,6.1-6.1,6.1h-5
+		c-3.4,0-6.1,2.7-6.1,6.1v3.5c0,3.4,2.7,6.1,6.1,6.1H2.8c3.4,0,6.1-2.7,6.1-6.1v-3.5c0-3.4-2.7-6.1-6.1-6.1h-8.3
+		C-8.9,102.6-11.6,99.8-11.6,96.5z"/>
+</g>
+<g id="cloud-3" class="animation5-st17">
+	<path class="animation5-st6" d="M219.1,165.5L219.1,165.5c0-2.2-1.8-3.9-3.9-3.9h-31.5c-2.2,0-3.9,1.8-3.9,3.9l0,0c0,2.2-1.8,3.9-3.9,3.9h-3.3
+		c-2.2,0-3.9,1.8-3.9,3.9v2.3c0,2.2,1.8,3.9,3.9,3.9h55.8c2.2,0,3.9-1.8,3.9-3.9v-2.3c0-2.2-1.8-3.9-3.9-3.9H223
+		C220.8,169.5,219.1,167.7,219.1,165.5z"/>
+</g>
+<g id="cloud-1" class="animation5-st17">
+	<path class="animation5-st6" d="M-144.2,182.2L-144.2,182.2c0-2.1,1.7-3.8,3.8-3.8h30.1c2.1,0,3.8,1.7,3.8,3.8l0,0c0,2.1,1.7,3.8,3.8,3.8h3.1
+		c2.1,0,3.8,1.7,3.8,3.8v2.2c0,2.1-1.7,3.8-3.8,3.8h-53.5c-2.1,0-3.8-1.7-3.8-3.8v-2.3c0-2.1,1.7-3.8,3.8-3.8h5.1
+		C-145.9,186-144.2,184.3-144.2,182.2z"/>
+</g>
+</svg>
+                <img class="ui fluid image xmobile" src="img/of_mind_m.png"/>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="scrollto-section-7" class="section fs-segment fs-segment-home scrollify-section">
+
+        <div class="ui center aligned middle aligned grid" id="fs-6-grid">
+
+            <div class="thirteen wide mobile six wide computer column text-column">
+
+                <img id="diamond-icon" src="img/diamond.png"/>
+
+                <p id="exclusive-access">Exclusive access.</p>
+
+                <p class="tx-desc adad xdesktop spaced">Sign up to be one of the first to use our</br>web platform.</p>
+                <p class="tx-desc adad xmobile">Sign up to be one of the first to use our</br>web platform.</p>
+
+                <div class="ui action fluid input" id="bottom-input">
+                    <input type="text" placeholder="Email" id="bottom-input-early-access">
+                    <button class="ui button" id="bottom-input-early-access-btn">Early access</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="footer-privacy" class="section fp-auto-height footer-privacy-home">
+
+        <div class="ui middle aligned grid xdesktop footer-grid-desktop footer-grid">
+
+            <div class="ui four wide column">
+
+                <a href="index.html#section-1" class="bottom-logo-container">
+                    <img class="bottom-logo" src="img/bottom_logo.svg"/>
+                </a>
+                <p class="copy-right-desktop">© 2018 Cointec LTD</p>
+
+            </div>
+
+            <div class="ui eight wide column center aligned">
+
+                <!--<div class="ui center aligned grid">-->
+
+                <div class="ui sixteen wide column nopad">
+
+                    <a href="" class="small-padding custom-icon-container">
+                        <i class="fa fa-medium custom-icon" aria-hidden="true"></i>
+                    </a>
+                    <a href="" class="small-padding custom-icon-container">
+                        <i class="fa fa-twitter custom-icon" aria-hidden="true"></i>
+                    </a>
+                    <a href="" class="small-padding custom-icon-container">
+                        <i class="fa fa-reddit-alien custom-icon" aria-hidden="true"></i>
+                    </a>
+
+                </div>
+
+                <div class="ui sixteen wide column nopad">
+
+                    <p class="registered">Cointec LTD is a company registered in England and Wales (No. 11104052)</p>
+
+                </div>
+
+                <!--</div>-->
+
+            </div>
+
+            <div class="ui four wide right aligned column">
+
+                <div class="term-condition-container">
+                    <a id="privacy-policy" href="privacy-policy.html">Privacy Policy</a>
+                    <a id="terms-cond" href="terms.html">Terms and Conditions</a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="ui middle aligned grid xmobile footer-grid">
+
+            <div class="ui sixteen wide column">
+                <a href="index.html#section-1">
+                    <img class="bottom-logo" src="img/bottom_logo.svg"/>
+                </a>
+            </div>
+
+            <div class="ui eight wide column float-left">
+
+                <div class="ui sixteen wide column">
+
+                    <ul class="footer-list">
+                        <li>Information</li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Development</a></li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="ui eight wide column">
+
+                <div class="ui sixteen wide column">
+
+                    <ul class="footer-list">
+                        <li>Legal</li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms Of Service</a></li>
+                    </ul>
+
+                    <div class="icon-container-mobile">
+                        <a href="#" class="small-padding">
+                            <i class="fa fa-medium custom-icon" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="small-padding">
+                            <i class="fa fa-twitter custom-icon" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="small-padding">
+                            <i class="fa fa-reddit-alien custom-icon" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="ui sixteen wide column">
+
+                <p class="registered">©2018 Cointec LTD.<br>Cointec LTD is a company registered in England and Wales (No.11104052)</p>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
-
-<!-- <div id="header-trigger"></div> -->
-
-<!-- </div> -->
-
-
 
 </body>
 
-<script
-	src="https://code.jquery.com/jquery-3.1.1.min.js"
-	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-	crossorigin="anonymous"></script>
-<script src="semantic/dist/semantic.min.js"></script>
-<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
-<script src="js/jquery.section-scroll.js"></script>
-<script src="js/jquery.scrollTo.min.js"></script>
-<script src="js/jquery.appear.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="semantic/dist/semantic.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.6/jquery.fullpage.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+<script type="text/javascript" src="js/DrawSVGPlugin.min.js"></script>
+<script type="text/javascript" src="js/MorphSVGPlugin.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.gsap.min.js"></script>
 <script src="js/main.js"></script>
 <script>
     window.intercomSettings = {
         app_id: "n730zdvg"
     };
 </script>
-<script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/n730zdvg';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
+<script>(function () {
+    var w = window;
+    var ic = w.Intercom;
+    if (typeof ic === "function") {
+        ic('reattach_activator');
+        ic('update', intercomSettings);
+    } else {
+        var d = document;
+        var i = function () {
+            i.c(arguments)
+        };
+        i.q = [];
+        i.c = function (args) {
+            i.q.push(args)
+        };
+        w.Intercom = i;
+        function l() {
+            var s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'https://widget.intercom.io/widget/n730zdvg';
+            var x = d.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s, x);
+        }
+
+        if (w.attachEvent) {
+            w.attachEvent('onload', l);
+        } else {
+            w.addEventListener('load', l, false);
+        }
+    }
+})()</script>
 <script>
     var contactBtn = document.getElementById('contact-btn');
     //add event listener
-    contactBtn.addEventListener('click',openIntercomWidget,true);
-    function openIntercomWidget(e){
+    contactBtn.addEventListener('click', openIntercomWidget, true);
+    function openIntercomWidget(e) {
         e.preventDefault();
         Intercom('show');
     }

@@ -1,268 +1,345 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<link rel="shortcut icon" href="img/favcon.png">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="shortcut icon" href="img/favicon.ico">
 
-<title></title>
+    <title></title>
 
-<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-<link rel="stylesheet" type="text/css" href="css/section-scroll.css">
-<link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="https://use.fontawesome.com/ab029c5ce1.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="css/section-scroll.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 
 </head>
 <body style="background: #fff; overflow-y: scroll;">
 
-  <div class="ui ovrly middle aligned center aligned grid" id="sign-up-ovrly" style="display: none;">
+<div class="ui ovrly middle aligned center aligned grid" id="sign-up-ovrly" style="display: none;">
 
     <div class="ui five wide computer seven wide tablet fifteen wide mobile doubling column ovrly-rect">
 
-      <img src="img/close_icon.png" id="close_pop1" style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
+        <img src="img/close_icon.png" class="close_pop1" style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
 
-      <img src="img/round-done-button.png" id="close_pop1" style="height: 2.4em; width: 2.4em; margin-top: 1.5em;"/>
+        <img src="img/round-done-button.png" class="close_pop1" style="height: 2.4em; width: 2.4em; margin-top: 1.5em;"/>
 
-      <h3 style="font-size: 1.8em; font-weight: 400; margin-top: 0.5em;">Thanks for signing up</h3>
+        <h3 style="font-size: 1.8em; font-weight: 400; margin-top: 0.5em;">Thanks for signing up</h3>
 
-      <p class="adad" style="margin-bottom: 2.6em; line-height: 22px;">Keep an eye on your email for updates</br>and early access token.</p>
+        <p class="adad" style="margin-bottom: 2.6em; line-height: 22px;">Keep an eye on your email for updates</br>and
+            early access token.</p>
 
     </div>
 
-  </div>
+</div>
 
-  <div class="ui ovrly middle aligned center aligned grid" id="access-ovrly" style="display: none;">
+<div class="ui ovrly middle aligned center aligned grid" id="access-ovrly" style="display: none;">
 
     <div class="ui six wide computer seven wide tablet sixteen wide mobile doubling column ovrly-rect">
 
-      <img src="img/close_icon.png" id="close_pop2" style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
+        <img src="img/close_icon.png" id="close_pop2"
+             style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
 
-      <h4 style="margin-top: 1.7em; font-size: 1.5em;">Get early access to our mobile app</h3>
+        <h4 style="margin-top: 1.7em; font-size: 1.5em;">Sign up for early access!</h4>
 
-      <p class="adad" style="margin-top: 1.2em; margin-bottom: 0.9em; line-height: 22px;">Be the first to use Cointec’s mobile platform,</br>available for iOS and android.</p>
+        <p class="adad" style="margin-top: 1.2em; margin-bottom: 0.9em; line-height: 22px;">
+            Be the first to use Cointec’s web platform.
+        </p>
 
-      <div class="ui action fluid input top-input" id="popup-input" style="margin-bottom: 1.5em;">
-        <input type="text" placeholder="Email" id="popup-input-early-access">
-        <button class="ui green button" id="popup-input-early-access-btn" style="background: #34da8c;">Early access</button>
-      </div>
+            <div class="ui action fluid input top-input" id="popup-input" style="margin-bottom: 1.5em;">
+                <input type="text" placeholder="Email" id="popup-input-early-access">
+                <button class="ui green button" id="popup-input-early-access-btn" style="background: #34da8c;">Early
+                    access
+                </button>
+            </div>
 
     </div>
 
-  </div>
+</div>
 
 <div class="ui secondary fixed inverted menu aux-page-menu" id="top-menu" style="background: #fff;">
-  <a class="logo item" href="#">
-    <img src="img/bottom_logo.svg" id="top-logo"/>
-  </a>
-  <div class="right menu">
-    <a class="item active trans" id="home-btn" style="color: #949494 !important;" href="index.html">
-      Home
+    <a class="logo item" href="index.html">
+        <img src="img/bottom_logo.svg" id="top-logo"/>
     </a>
-    <a class="item trans" id="features-btn" style="color: #949494 !important;" href="index.html#scrollto-section-2">
-      Features
-    </a>
-    <a class="item trans" id="contact-btn" style="color: #949494 !important;" href="#" onClick="return false;">
-      Contact
-    </a>
-  </div>
-  <div class="right menu">
-    <div class="item">
-      <div class="ui button" id="top-early-access">
-        Early access
-      </div>
+    <div class="right menu">
+        <a class="item active trans" id="home-btn" style="color: #949494 !important;" href="index.html#section1">
+            Home
+        </a>
+        <a class="item trans" id="features-btn" style="color: #949494 !important;" href="index.html#section-2">
+            Features
+        </a>
+        <a class="item trans" id="contact-btn" style="color: #949494 !important;" href="#" onClick="return false;">
+            Contact
+        </a>
     </div>
-  </div>
+    <div class="right menu">
+        <div class="item">
+            <div class="ui button" id="top-early-access">
+                Early access
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="">
 
-  <div class="ui center aligned middle aligned grid" id="fs-1-grid">
+    <div class="ui center aligned middle aligned grid" id="fs-1-grid">
 
-    <div class="sixteen wide mobile nine wide computer column" id="privacy-column">
+        <div class="sixteen wide mobile nine wide computer column" id="privacy-column">
 
-      <p id="privacy-title">Terms and conditions</p>
-      <p id="privacy-subtitle">Last updated: 22nd December, 2017</p>
+            <p id="privacy-title">Terms and conditions</p>
+            <p id="privacy-subtitle">Last updated: 22nd December, 2017</p>
 
-      <div class="ui container" id="policy-container">
+            <div class="ui container" id="policy-container">
 
-          <p>The following is a contract between Cointec LTD, a company incorporated in England & Wales (reg no. 11104052), hereinafter referred to as “we”, “us” or “the platform” and the contractual party, referred to as “you”, “the user” or collectively as “users”.</p>
+                <p>The following is a contract between Cointec LTD, a company incorporated in England & Wales (reg no.
+                    11104052), hereinafter referred to as “we”, “us” or “the platform” and the contractual party,
+                    referred to as “you”, “the user” or collectively as “users”.</p>
 
-          <p>Cointec offers a service that allows users in the UK to buy bitcoin.</p>
+                <p>Cointec offers a service that allows users in the UK to buy bitcoin.</p>
 
-          <h4 class="break">1.	Contract</h4>
+                <h4 class="break">1. Contract</h4>
 
-          <ul style="list-style: none; padding: 0;">
-          <li class="list-item" id="one1"><span>By using this website, registering an account or using any services offered by the platform you agree that you have read, understood, acknowledged and agreed to all of the terms within this agreement.</span></li>
-          </br>
-          <li class="list-item" id="one2"><span>If you do not agree to the terms of use and, by extension, our privacy policy, you must not use our site or services.</span></li>
-          </ul>
+                <ul style="list-style: none; padding: 0;">
+                    <li class="list-item" id="one1"><span>By using this website, registering an account or using any services offered by the platform you agree that you have read, understood, acknowledged and agreed to all of the terms within this agreement.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="one2"><span>If you do not agree to the terms of use and, by extension, our privacy policy, you must not use our site or services.</span>
+                    </li>
+                </ul>
 
-          <h4 class="break">2.	General</h4>
+                <h4 class="break">2. General</h4>
 
-          <ul style="list-style: none; padding: 0;">
-          <li class="list-item" id="two1"><span>Users must comply with the laws and regulations of the country in which they access our services from.</span></li>
-          </br>
-          <li class="list-item" id="two2"><span>Users agree to never access our website via public computers or networks including wi-fi or otherwise.</span></li>
-          </br>
-          <li class="list-item" id="two3"><span>Users take full responsibility for ensuring any hardware or equipment they use to access our services are free of viruses, keyloggers, malware or other software that could compromise their own security or the platform’s.</span></li>
-          </br>
-          <li class="list-item" id="two4"><span>You will not copy, remove, replicate or download any images, designs, trademarks, logos, data or code hosted on or connected to our platform.</span></li>
-          </br>
-          <li class="list-item" id="two5"><span>You will not misuse our website or the platform by marketing misleadingly, spamming, hacking or attacking.</span></li>
-          </br>
-          <li class="list-item" id="two6"><span>Users have the right to use our services in accordance with the terms outlined in this agreement.</span></li>
-          </ul>
+                <ul style="list-style: none; padding: 0;">
+                    <li class="list-item" id="two1"><span>Users must comply with the laws and regulations of the country in which they access our services from.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="two2"><span>Users agree to never access our website via public computers or networks including wi-fi or otherwise.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="two3"><span>Users take full responsibility for ensuring any hardware or equipment they use to access our services are free of viruses, keyloggers, malware or other software that could compromise their own security or the platform’s.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="two4"><span>You will not copy, remove, replicate or download any images, designs, trademarks, logos, data or code hosted on or connected to our platform.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="two5"><span>You will not misuse our website or the platform by marketing misleadingly, spamming, hacking or attacking.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="two6"><span>Users have the right to use our services in accordance with the terms outlined in this agreement.</span>
+                    </li>
+                </ul>
 
-          <h4 class="break">3.	Registering an account</h4>
+                <h4 class="break">3. Registering an account</h4>
 
-          <ul style="list-style: none; padding: 0;">
-          <li class="list-item" id="three1"><span>To be eligible for an account, users must be over the age of 18 and a UK resident. If the applicant is below the age of 18, Cointec will assess their fitness for an account in other ways and seeking written or verbal permission from guardians.</span></li>
-          </br>
-          <li class="list-item" id="three2"><span>Details provided by the user for the purposes of registering an account, or otherwise, must be real, up to date and accurate. Accounts created using inaccurate details, false identities or under names of third parties who have not authorized the applicant will immediately be terminated and the details passed on to fraud prevention and other relevant authorities.</span></li>
-          </br>
-          <li class="list-item" id="three3"><span>Each user is allowed to create and hold only one account under their name. Discovery of multiple accounts used by the same individual will result in termination of all accounts held.</span></li>
-          </br>
-          <li class="list-item" id="three4"><span>We reserve the right to deny opening of accounts and to close accounts without specifying why.</span></li>
-          </ul>
+                <ul style="list-style: none; padding: 0;">
+                    <li class="list-item" id="three1"><span>To be eligible for an account, users must be over the age of 18 and a UK resident. If the applicant is below the age of 18, Cointec will assess their fitness for an account in other ways and seeking written or verbal permission from guardians.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="three2"><span>Details provided by the user for the purposes of registering an account, or otherwise, must be real, up to date and accurate. Accounts created using inaccurate details, false identities or under names of third parties who have not authorized the applicant will immediately be terminated and the details passed on to fraud prevention and other relevant authorities.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="three3"><span>Each user is allowed to create and hold only one account under their name. Discovery of multiple accounts used by the same individual will result in termination of all accounts held.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="three4"><span>We reserve the right to deny opening of accounts and to close accounts without specifying why.</span>
+                    </li>
+                </ul>
 
 
-          <h4 class="break">4.	Payments</h4>
+                <h4 class="break">4. Payments</h4>
 
-          <ul style="list-style: none; padding: 0;">
-          <li class="list-item" id="four1"><span>Payments must only be made from bank accounts held in the account user’s names. Users who add or pay from bank accounts not under their registered name are in violation of this user agreement.</span></li>
-          </br>
-          <li class="list-item" id="four2"><span>Payments must only be made via faster payments using online-banking. Bank transfers initiated by telephone banking, in-branch or in any other way are considered violation of this user agreement.</span></li>
-          </br>
-          <li class="list-item" id="four3"><span>Users must only add or make payments from bank accounts that are enabled by faster payments. Users must not make payments from “challenger” banks, banks that prohibit cryptocurrency trading, banks that obfuscate the sender’s name or banks that delay or batch payments, even if sent via faster payments.</span></li>
-          </br>
-          <li class="list-item" id="four4"><span>Users must only trade using funds that they solely own. Users must not pay using overdrafts, loans or any form of credit.</span></li>
-          </br>
-          <li class="list-item" id="four5"><span>Bank transfers must be made with the correct reference provided. Transfers made without the correct references will nullify this user agreement and gives us the right to cancel orders.</span></li>
-          </br>
-          <li class="list-item" id="four6"><span>Users must not mention bitcoin or any terms relating to digital currencies as references for bank transfers as this can cause complications with the banks of both counterparties and result in failed transfers	. Any users found doing so will be banned from the platform and their agreement with the platform will be terminated.</span></li>
-          </br>
-          <li class="list-item" id="four7"><span>Any unexpected costs associated with receiving payments via bank transferred must be reimbursed to Cointec by the user.</span></li>
-          </br>
-          <li class="list-item" id="four8"><span>Any losses incurred by Cointec as a result of bank’s recovering unauthorized funds will be passed on to the user.</span></li>
-          </ul>
+                <ul style="list-style: none; padding: 0;">
+                    <li class="list-item" id="four1"><span>Payments must only be made from bank accounts held in the account user’s names. Users who add or pay from bank accounts not under their registered name are in violation of this user agreement.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="four2"><span>Payments must only be made via faster payments using online-banking. Bank transfers initiated by telephone banking, in-branch or in any other way are considered violation of this user agreement.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="four3"><span>Users must only add or make payments from bank accounts that are enabled by faster payments. Users must not make payments from “challenger” banks, banks that prohibit cryptocurrency trading, banks that obfuscate the sender’s name or banks that delay or batch payments, even if sent via faster payments.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="four4"><span>Users must only trade using funds that they solely own. Users must not pay using overdrafts, loans or any form of credit.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="four5"><span>Bank transfers must be made with the correct reference provided. Transfers made without the correct references will nullify this user agreement and gives us the right to cancel orders.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="four6"><span>Users must not mention bitcoin or any terms relating to digital currencies as references for bank transfers as this can cause complications with the banks of both counterparties and result in failed transfers	. Any users found doing so will be banned from the platform and their agreement with the platform will be terminated.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="four7"><span>Any unexpected costs associated with receiving payments via bank transferred must be reimbursed to Cointec by the user.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="four8"><span>Any losses incurred by Cointec as a result of bank’s recovering unauthorized funds will be passed on to the user.</span>
+                    </li>
+                </ul>
 
-          <h4 class="break">5.	Orders</h4>
+                <h4 class="break">5. Orders</h4>
 
-          <ul style="list-style: none; padding: 0;">
-          <li class="list-item" id="five1"><span>Users ordering on the platform understand the financial risk involved in buying bitcoin. The user accepts that he or she is solely responsible for any financial losses incurred during the completion of orders on our platform or outside.</span></li>
-          </br>
-          <li class="list-item" id="five2"><span>Fulfilment of orders is not guaranteed and depends on a number of factors including but not limited to: availability of brokers or trade counterparties, availability of cryptocurrency supply, market conditions and uptime of our systems.</span></li>
-          </br>
-          <li class="list-item" id="five3"><span>Rates displayed in the order preview on the homepage or elsewhere are not guaranteed. The user accepts that there may be small differences between the amount of bitcoin displayed in the confirmation and the amount of bitcoin received.</span></li>
-          </br>
-          <li class="list-item" id="five4"><span>If the user fails to initiate the bank transfer in the first ten-minute allotted window after confirming their order, their order will be cancelled.</span></li>
-          </br>
-          <li class="list-item" id="five5"><span>Users accept that they are obliged to pay any orders they confirm. Abandoning orders after confirmation is considered spam and a violation of the user agreement.</span></li>
-          </br>
-          <li class="list-item" id="five6"><span>Once the user has made the bank transfer they must notify the platform immediately by clicking ‘I have made payment’. If users are found to delay this communication, we reserve the right to cancel the user’s order.</span></li>
-          </br>
-          <li class="list-item" id="five7"><span>Cointec will honour the rate and amount offered for an order if funds from the bank transfer arrive within ten minutes after the user has clicked ‘I have made payment’. After this ten-minute period, we reserve the right to cancel orders and return any funds that arrive late or to withdraw the rate or amount offered and offer an updated rate or amount.</span></li>
-          </br>
-          <li class="list-item" id="five8"><span>Cointec will not be responsible for any incorrect wallet addresses provided by users resulting in misplaced bitcoin.</span></li>
-          </br>
-          <li class="list-item" id="five9"><span>Six blockchain confirmations are considered settlement of a transaction and stand as a receipt for delivery of bitcoins ordered.</span></li>
-          </br>
-          <li class="list-item" id="five10"><span>Filled orders are final and cannot be refunded or reversed in any case.</span></li>
-          </ul>
+                <ul style="list-style: none; padding: 0;">
+                    <li class="list-item" id="five1"><span>Users ordering on the platform understand the financial risk involved in buying bitcoin. The user accepts that he or she is solely responsible for any financial losses incurred during the completion of orders on our platform or outside.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="five2"><span>Fulfilment of orders is not guaranteed and depends on a number of factors including but not limited to: availability of brokers or trade counterparties, availability of cryptocurrency supply, market conditions and uptime of our systems.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="five3"><span>Rates displayed in the order preview on the homepage or elsewhere are not guaranteed. The user accepts that there may be small differences between the amount of bitcoin displayed in the confirmation and the amount of bitcoin received.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="five4"><span>If the user fails to initiate the bank transfer in the first ten-minute allotted window after confirming their order, their order will be cancelled.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="five5"><span>Users accept that they are obliged to pay any orders they confirm. Abandoning orders after confirmation is considered spam and a violation of the user agreement.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="five6"><span>Once the user has made the bank transfer they must notify the platform immediately by clicking ‘I have made payment’. If users are found to delay this communication, we reserve the right to cancel the user’s order.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="five7"><span>Cointec will honour the rate and amount offered for an order if funds from the bank transfer arrive within ten minutes after the user has clicked ‘I have made payment’. After this ten-minute period, we reserve the right to cancel orders and return any funds that arrive late or to withdraw the rate or amount offered and offer an updated rate or amount.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="five8"><span>Cointec will not be responsible for any incorrect wallet addresses provided by users resulting in misplaced bitcoin.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="five9"><span>Six blockchain confirmations are considered settlement of a transaction and stand as a receipt for delivery of bitcoins ordered.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="five10"><span>Filled orders are final and cannot be refunded or reversed in any case.</span>
+                    </li>
+                </ul>
 
-          <h4 class="break">6.	Variations and termination</h4>
+                <h4 class="break">6. Variations and termination</h4>
 
-          <ul style="list-style: none; padding: 0;">
-          <li class="list-item" id="six1"><span>This agreement is legally binding and will continue until termination.</span></li>
-          </br>
-          <li class="list-item" id="six2"><span>This agreement may be terminated at any time by us immediately or by yourself by providing written confirmation to close your account. Any outstanding orders will be honoured within the terms of this agreement.</span></li>
-          </br>
-          <li class="list-item" id="six3"><span>This agreement is subject to changes at any time in which case we will provide a notice and circulate the updated agreement.</span></li>
-          </ul>
+                <ul style="list-style: none; padding: 0;">
+                    <li class="list-item" id="six1"><span>This agreement is legally binding and will continue until termination.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="six2"><span>This agreement may be terminated at any time by us immediately or by yourself by providing written confirmation to close your account. Any outstanding orders will be honoured within the terms of this agreement.</span>
+                    </li>
+                    </br>
+                    <li class="list-item" id="six3"><span>This agreement is subject to changes at any time in which case we will provide a notice and circulate the updated agreement.</span>
+                    </li>
+                </ul>
 
-      </div>
+            </div>
+
+        </div>
 
     </div>
-
-  </div>
 
 </div>
 
 <div id="footer-privacy">
 
-  <div class="ui middle aligned grid xdesktop" id="footer-grid">
+    <div class="ui middle aligned grid xdesktop footer-grid">
 
-    <div class="ui three wide column">
+        <div class="ui four wide column">
 
-      <a href="index.html"><img class="bottom-logo" src="img/bottom_logo.svg"/></a>
-
-    </div>
-
-    <div class="ui ten wide column">
-
-      <div class="ui center aligned grid">
-
-        <div class="ui sixteen wide column nopad" style="padding-top: 0.6em !important;">
-
-          <a href="" class="small-padding"><img src="img/social-twitter.png"/></a>
-          <!-- <a href="" class="small-padding"><img src="img/social-insta.png"/></a> -->
-          <!-- <a href="" class="small-padding"><img src="img/social-fb.png"/></a> -->
+            <a href="index.html#section-1" class="bottom-logo-container">
+                <img class="bottom-logo" src="img/bottom_logo.svg"/>
+            </a>
+            <p class="copy-right-desktop">© 2018 Cointec LTD</p>
 
         </div>
 
-        <div class="ui sixteen wide column nopad">
+        <div class="ui eight wide column center aligned">
 
-          <p id="registered">©2018 Cointec Ltd. Cointec Ltd is a company registered in England and Wales (No. 11104052)</p>
+            <!--<div class="ui center aligned grid">-->
 
-        </div>
+            <div class="ui sixteen wide column nopad">
 
-      </div>
+                <a href="" class="small-padding custom-icon-container">
+                    <i class="fa fa-medium custom-icon" aria-hidden="true"></i>
+                </a>
+                <a href="" class="small-padding custom-icon-container">
+                    <i class="fa fa-twitter custom-icon" aria-hidden="true"></i>
+                </a>
+                <a href="" class="small-padding custom-icon-container">
+                    <i class="fa fa-reddit-alien custom-icon" aria-hidden="true"></i>
+                </a>
 
-    </div>
+            </div>
 
-    <div class="ui three wide right aligned bottom aligned column">
+            <div class="ui sixteen wide column nopad">
 
-      <a id="privacy-policy" href="privacy-policy.html">Privacy Policy</a></br>
-      <a id="terms-cond" href="terms.html">Terms and Conditions</a>
+                <p class="registered">Cointec LTD is a company registered in England and Wales (No. 11104052)</p>
 
-    </div>
+            </div>
 
-  </div>
-
-  <div class="ui middle aligned grid xmobile" id="footer-grid">
-
-    <div class="ui eight wide column">
-
-      <a href="index.html"><img class="bottom-logo" src="img/bottom_logo.svg"/></a>
-
-    </div>
-
-    <div class="ui eight wide column" id="flr">
-
-      <div class="ui right aligned grid">
-
-        <div class="ui sixteen wide column nopad" style="padding-top: 0.6em !important;">
-
-          <a href="" class="small-padding"><img src="img/social-twitter.png"/></a>
-          <!-- <a href="" class="small-padding"><img src="img/social-insta.png"/></a> -->
-          <!-- <a href="" class="small-padding"><img src="img/social-fb.png"/></a> -->
+            <!--</div>-->
 
         </div>
 
-      </div>
+        <div class="ui four wide right aligned column">
+
+            <div class="term-condition-container">
+                <a id="privacy-policy" href="privacy-policy.html">Privacy Policy</a>
+                <a id="terms-cond" href="terms.html">Terms and Conditions</a>
+            </div>
+
+        </div>
 
     </div>
 
-    <div class="ui sixteen wide left aligned column nopad kkr">
+    <div class="ui middle aligned grid xmobile footer-grid">
 
-      <a id="terms-cond" href="terms.html">T&Cs</a></br>
-      <a id="privacy-policy" href="privacy-policy.html">Privacy Policy</a>
-      <p id="registered">©2018 Cointec Ltd. Cointec Ltd is a company</br>registered in England and Wales (No. 11104052)</p>
+        <div class="ui sixteen wide column">
+            <a href="index.html#section-1">
+                <img class="bottom-logo" src="img/bottom_logo.svg"/>
+            </a>
+        </div>
+
+        <div class="ui eight wide column float-left">
+
+            <div class="ui sixteen wide column">
+
+                <ul class="footer-list">
+                    <li>Information</li>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Development</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="ui eight wide column">
+
+            <div class="ui sixteen wide column">
+
+                <ul class="footer-list">
+                    <li>Legal</li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms Of Service</a></li>
+                </ul>
+
+                <div class="icon-container-mobile">
+                    <a href="#" class="small-padding">
+                        <i class="fa fa-medium custom-icon" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" class="small-padding">
+                        <i class="fa fa-twitter custom-icon" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" class="small-padding">
+                        <i class="fa fa-reddit-alien custom-icon" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="ui sixteen wide column">
+
+            <p class="registered">©2018 Cointec LTD.<br>Cointec LTD is a company registered in England and Wales (No.11104052)</p>
+
+        </div>
 
     </div>
-
-  </div>
 
 </div>
 
@@ -271,77 +348,77 @@
 </body>
 
 <script
-src="https://code.jquery.com/jquery-3.1.1.min.js"
-integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-crossorigin="anonymous"></script>
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
 <script src="semantic/dist/semantic.min.js"></script>
 <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
 
 <script>
 
-  $('#close_pop1').click(function(){
-    $('#sign-up-ovrly').fadeOut(300, "linear");
-  });
+    $('#close_pop1').click(function () {
+        $('#sign-up-ovrly').fadeOut(300, "linear");
+    });
 
-  $('#close_pop2').click(function(){
-    $('#access-ovrly').fadeOut(300, "linear");
-  });
+    $('#close_pop2').click(function () {
+        $('#access-ovrly').fadeOut(300, "linear");
+    });
 
-  $('#close_pop3').click(function(){
-    $('#thanks-ovrly').fadeOut(300, "linear");
-  });
+    $('#close_pop3').click(function () {
+        $('#thanks-ovrly').fadeOut(300, "linear");
+    });
 
-  $('#send-button').click(function(){
-    var ok = 1;
-    if($('#name-input').val() == ''){
-      ok = 0;
-      $('#name-input').addClass('input-error');
-    } else {
-      $('#name-input').removeClass('input-error');
+    $('#send-button').click(function () {
+        var ok = 1;
+        if ($('#name-input').val() == '') {
+            ok = 0;
+            $('#name-input').addClass('input-error');
+        } else {
+            $('#name-input').removeClass('input-error');
+        }
+        if (!isEmail($('#email-input').val())) {
+            ok = 0;
+            $('#email-input').addClass('input-error');
+        } else {
+            $('#email-input').removeClass('input-error');
+        }
+        if ($('#contact-textarea').val() == '') {
+            ok = 0;
+            $('#contact-textarea').addClass('input-error');
+        } else {
+            $('#contact-textarea').removeClass('input-error');
+        }
+
+        if (ok) {
+            $('#thanks-ovrly').fadeIn(300, "linear");
+            //call
+            $('#name-input').val('');
+            $('#email-input').val('');
+            $('#contact-textarea').val('');
+            ok = 0;
+        }
+    });
+
+    $('#popup-input-early-access-btn').click(function () {
+        if (isEmail($('#popup-input-early-access').val())) {
+            //call
+            $('#popup-input-early-access').val('');
+            $('#popup-input-early-access').removeClass('input-error');
+            $('#access-ovrly').fadeOut(300, "linear");
+            $('#sign-up-ovrly').fadeIn(300, "linear");
+        } else {
+            $('#popup-input-early-access').addClass('input-error');
+        }
+    });
+
+    $('#top-early-access').click(function () {
+        $('#access-ovrly').fadeIn(300, "linear");
+    });
+
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
     }
-    if(!isEmail($('#email-input').val())){
-      ok = 0;
-      $('#email-input').addClass('input-error');
-    } else {
-      $('#email-input').removeClass('input-error');
-    }
-    if($('#contact-textarea').val() == ''){
-      ok = 0;
-      $('#contact-textarea').addClass('input-error');
-    } else {
-      $('#contact-textarea').removeClass('input-error');
-    }
-
-    if(ok){
-      $('#thanks-ovrly').fadeIn(300, "linear");
-      //call
-      $('#name-input').val('');
-      $('#email-input').val('');
-      $('#contact-textarea').val('');
-      ok = 0;
-    }
-  });
-
-  $('#popup-input-early-access-btn').click(function(){
-    if(isEmail($('#popup-input-early-access').val())){
-      //call
-      $('#popup-input-early-access').val('');
-      $('#popup-input-early-access').removeClass('input-error');
-      $('#access-ovrly').fadeOut(300, "linear");
-      $('#sign-up-ovrly').fadeIn(300, "linear");
-    } else {
-      $('#popup-input-early-access').addClass('input-error');
-    }
-  });
-
-  $('#top-early-access').click(function(){
-    $('#access-ovrly').fadeIn(300, "linear");
-  });
-
-  function isEmail(email) {
-    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    return regex.test(email);
-  }
 
 </script>
 <script>
@@ -349,12 +426,43 @@ crossorigin="anonymous"></script>
         app_id: "n730zdvg"
     };
 </script>
-<script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/n730zdvg';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
+<script>(function () {
+    var w = window;
+    var ic = w.Intercom;
+    if (typeof ic === "function") {
+        ic('reattach_activator');
+        ic('update', intercomSettings);
+    } else {
+        var d = document;
+        var i = function () {
+            i.c(arguments)
+        };
+        i.q = [];
+        i.c = function (args) {
+            i.q.push(args)
+        };
+        w.Intercom = i;
+        function l() {
+            var s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'https://widget.intercom.io/widget/n730zdvg';
+            var x = d.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s, x);
+        }
+
+        if (w.attachEvent) {
+            w.attachEvent('onload', l);
+        } else {
+            w.addEventListener('load', l, false);
+        }
+    }
+})()</script>
 <script>
     var contactBtn = document.getElementById('contact-btn');
     //add event listener
-    contactBtn.addEventListener('click',openIntercomWidget,true);
-    function openIntercomWidget(e){
+    contactBtn.addEventListener('click', openIntercomWidget, true);
+    function openIntercomWidget(e) {
         e.preventDefault();
         Intercom('show');
     }
