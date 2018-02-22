@@ -319,7 +319,6 @@
         $('#input-early-access-btn').click(function () {
             if (isEmail($('#input-early-access').val())) {
                 //call
-                addMailingListSubscription($('#input-early-access').val());
                 $('#input-early-access').val('');
                 $('#input-early-access').removeClass('input-error');
                 $('#input-early-access-btn').removeClass('input-button-error');
@@ -333,7 +332,6 @@
         $('#bottom-input-early-access-btn').click(function () {
             if (isEmail($('#bottom-input-early-access').val())) {
                 //call
-                addMailingListSubscription($('#bottom-input-early-access').val());
                 $('#bottom-input-early-access').val('');
                 $('#bottom-input-early-access').removeClass('input-error');
                 $('#sign-up-ovrly').fadeIn(300, "linear");
@@ -349,27 +347,6 @@
         function isEmail(email) {
             var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
             return regex.test(email);
-        }
-
-        function addMailingListSubscription(emailAddress) {
-
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    console.log("Successfully Added to Mailing List");
-                }
-            };
-
-            var obj = {
-                "email": emailAddress
-            }
-
-            var jsonString = JSON.stringify(obj);
-
-            xmlhttp.open("POST", "http://ct-emails.azurewebsites.net/add", true);
-            xmlhttp.setRequestHeader("Content-Type", "application/json");
-            console.log(jsonString);
-            xmlhttp.send(jsonString);
         }
 
         $('#contact-btn').click(function () {
