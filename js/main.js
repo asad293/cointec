@@ -358,6 +358,10 @@
                 if (this.readyState == 4 && this.status == 200) {
                     console.log("Successfully Added to Mailing List");
                 }
+                
+                if (this.readyState == 4 && this.status == 500) {
+                    console.log(this.responseText);
+                }
             };
 
             var obj = {
@@ -366,7 +370,7 @@
 
             var jsonString = JSON.stringify(obj);
 
-            xmlhttp.open("POST", "http://ct-emails.azurewebsites.net/add", true);
+            xmlhttp.open("POST", "http://ct-emails.azurewebsites.net/subscribe", true);
             xmlhttp.setRequestHeader("Content-Type", "application/json");
             console.log(jsonString);
             xmlhttp.send(jsonString);
