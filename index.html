@@ -20,6 +20,31 @@
 </head>
 <body>
 
+<div class="ui ovrly middle aligned center aligned grid" id="access-ovrly" style="display: none;">
+
+	<div class="ui six wide computer seven wide tablet sixteen wide mobile doubling column ovrly-rect">
+
+		<img src="img/close_icon.png" id="close_pop2"
+			 style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
+
+		<h4 style="margin-top: 1.7em; font-size: 1.5em;">Early access</h4>
+
+		<p class="adad" style="margin-top: 1.2em; margin-bottom: 0.9em; line-height: 22px;">Be the first to use
+			Cointec’s web platform.</p>
+		<form class="ui form top-popup-input" onsubmit="event.preventDefault();">
+			<div class="ui action fluid input top-input" id="popup-input" style="margin-bottom: 1.5em;">
+				<input type="email" placeholder="Email" id="popup-input-early-access">
+				<button type="submit" class="ui green button" id="popup-input-early-access-btn" style="background: #34da8c;">Early
+					access
+				</button>
+			</div>
+		</form>
+		<p id="error-message-popup-input" style="text-align:left;color:#F61067;padding-left:18px;"></p>
+
+	</div>
+
+</div>
+
 <div class="ui ovrly middle aligned center aligned grid" id="sign-up-ovrly" style="display: none;">
 
     <div class="ui five wide computer seven wide tablet fifteen wide mobile doubling column ovrly-rect">
@@ -33,29 +58,6 @@
 
         <p class="adad" style="margin-bottom: 2.6em; line-height: 22px;">Keep an eye on your email for updates</br>and
             early access token.</p>
-
-    </div>
-
-</div>
-
-<div class="ui ovrly middle aligned center aligned grid" id="access-ovrly" style="display: none;">
-
-    <div class="ui six wide computer seven wide tablet sixteen wide mobile doubling column ovrly-rect">
-
-        <img src="img/close_icon.png" id="close_pop2"
-             style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
-
-        <h4 style="margin-top: 1.7em; font-size: 1.5em;">Sign up for early access!</h4>
-
-        <p class="adad" style="margin-top: 1.2em; margin-bottom: 0.9em; line-height: 22px;">Be the first to use
-            Cointec’s web platform.</p>
-
-        <div class="ui action fluid input top-input" id="popup-input" style="margin-bottom: 1.5em;">
-            <input type="text" placeholder="Email" id="popup-input-early-access">
-            <button class="ui green button" id="popup-input-early-access-btn" style="background: #34da8c;">Early
-                access
-            </button>
-        </div>
 
     </div>
 
@@ -233,7 +235,7 @@
 
                 <img id="top-icon" src="img/top_icon.png"/>
 
-                <p id="get-crypto">Get crypto. Fast.</p>
+                <p id="get-crypto">Get crypto.<b>Fast.</b></p>
 
                 <p class="tx-desc xdesktop">We are building everything you need to access the</br>cryptocurrency
                     markets.
@@ -241,10 +243,13 @@
                 <p class="tx-desc xmobile">We are building everything you need</br>to access the cryptocurrency
                     markets.</p>
 
-                <div class="ui action fluid input" id="top-input">
-                    <input type="text" placeholder="Email" id="input-early-access">
-                    <button class="ui button submit" id="input-early-access-btn">Early access</button>
+				<form class="ui form" onsubmit="event.preventDefault();">
+                <div class="ui action fluid input" id="top-input" >
+                    <input type="email" placeholder="Email" id="input-early-access">
+                    <button type="submit" class="ui button submit" id="input-early-access-btn">Early access</button>
                 </div>
+				</form>
+				<p id="error-message-input-early-access" style="max-width:350px;text-align:left;color:#FFF;margin-left:auto;margin-right:auto;margin-top:10px;"></p>
 
             </div>
 
@@ -282,14 +287,14 @@
 <g id="text">
 	<text id="XMLID_67_" transform="matrix(1 0 0 1 170.0004 240.4018)" class="st0 st1 st2">£50</text>
 </g>
-<g id="graph3">
+<g id="graph3" data-svg-origin="-153.10000610351562 102.69999313354492" transform="matrix(0.8504,0,0,0.8504,317.08969601001183,15.36390000000001)" style="transform-origin: 0px 0px 0px;">
 
 		<linearGradient id="path0_fill_17_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="740.8729" x2="-15.585" y2="740.8729" gradientTransform="matrix(-1.510000e-013 131 76.2049 6.050000e-013 -56121.332 2228.5481)">
 		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 	</linearGradient>
-	<path id="path0_fill_2_" fill="url(#path0_fill_17_)" d="M375.3,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>
+	<!--<path id="path0_fill_2_" fill="url(#path0_fill_17_)" d="M375.3,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>-->
 
 		<linearGradient id="path0_fill_18_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="743.532" x2="-15.585" y2="743.532" gradientTransform="matrix(1.510000e-013 131 -76.2049 6.050000e-013 56325.3125 2228.5481)">
 		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
@@ -305,14 +310,14 @@
 	</linearGradient>
 	<path id="path8_fill_1_" fill="url(#path8_fill_4_)" d="M-117.8,123.4c32.1,0,60.7-104.9,92.2-104.9c31.7,0,60.5,74.3,92.7,74.3v94
 		h-364.1V54.4c31.5,0,60.1,84.2,92.2,84.2c15.1,0,28.6-32.5,43.5-32.5C-146.4,106-132.9,123.4-117.8,123.4z"/>
-	<path id="path1_stroke_5_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
-		M376,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>
+	<!--<path id="path1_stroke_5_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="-->
+		<!--M376,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>-->
 	<path id="path1_stroke_1_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
 		M-296.3,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
-	<path id="XMLID_3_" fill="none" stroke="#3DDC97" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M-25,18.6
-		c-4.3,0-8.5,1.8-12.5,4.8c-3.9,2.9-7.9,7.2-11.7,12.1c-7.7,9.9-15.2,23.1-22.8,36.2c-7.5,13.1-15.1,26.1-22.7,35.9
-		c-7.7,9.8-15.1,15.9-22.5,15.9v0c-7.1,0-14-4.1-21.2-8.5c-7-4.3-14.5-8.9-22.3-8.9c-4.2,0-8.1,2.3-11.8,5.4
-		c-3.7,3.1-7.3,7.2-10.8,11.3c-3.6,4.1-7.1,8.1-10.6,11c-3.6,3-6.9,4.8-10.3,4.8"/>
+	<!--<path id="XMLID_3_" fill="none" stroke="#3DDC97" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M-25,18.6-->
+		<!--c-4.3,0-8.5,1.8-12.5,4.8c-3.9,2.9-7.9,7.2-11.7,12.1c-7.7,9.9-15.2,23.1-22.8,36.2c-7.5,13.1-15.1,26.1-22.7,35.9-->
+		<!--c-7.7,9.8-15.1,15.9-22.5,15.9v0c-7.1,0-14-4.1-21.2-8.5c-7-4.3-14.5-8.9-22.3-8.9c-4.2,0-8.1,2.3-11.8,5.4-->
+		<!--c-3.7,3.1-7.3,7.2-10.8,11.3c-3.6,4.1-7.1,8.1-10.6,11c-3.6,3-6.9,4.8-10.3,4.8"/>-->
 	<path id="path6_stroke_3_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
 		M-204.1,138.6c-7.5,0-14.9-4.9-22.6-12.8c-7.6-7.8-15.1-18.3-22.7-28.8c-7.5-10.5-15.1-21.1-22.8-29.1
 		c-7.7-7.9-15.7-13.5-24.1-13.5"/>
@@ -324,40 +329,40 @@
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 	</linearGradient>
-	<path id="path0_fill_3_" fill="url(#path0_fill_19_)" d="M221.2,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5h-77.1V92.9z"/>
-	<path id="path1_stroke_33_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
-		M298.9,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
+	<!--<path id="path0_fill_3_" fill="url(#path0_fill_19_)" d="M221.2,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5h-77.1V92.9z"/>-->
+	<!--<path id="path1_stroke_33_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="-->
+		<!--M298.9,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>-->
 
 		<linearGradient id="path0_fill_20_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="738.8505" x2="-15.585" y2="738.8505" gradientTransform="matrix(-1.510000e-013 131 76.2049 6.050000e-013 -56121.332 2228.5481)">
 		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 	</linearGradient>
-	<path id="path0_fill_6_" fill="url(#path0_fill_20_)" d="M221.2,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>
-	<path id="path1_stroke_36_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
-		M221.9,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>
+	<!--<path id="path0_fill_6_" fill="url(#path0_fill_20_)" d="M221.2,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>-->
+	<!--<path id="path1_stroke_36_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="-->
+		<!--M221.9,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>-->
 
 		<linearGradient id="path0_fill_21_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="737.7434" x2="-15.585" y2="737.7434" gradientTransform="matrix(1.510000e-013 131 -76.2049 6.050000e-013 56325.3125 2228.5481)">
 		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 	</linearGradient>
-	<path id="path0_fill_5_" fill="url(#path0_fill_21_)" d="M67.1,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5H67.1V92.9z"/>
-	<path id="path1_stroke_35_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
-		M144.8,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
+	<!--<path id="path0_fill_5_" fill="url(#path0_fill_21_)" d="M67.1,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5H67.1V92.9z"/>-->
+	<!--<path id="path1_stroke_35_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="-->
+		<!--M144.8,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>-->
 	<path id="XMLID_60_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M-25,18.6
 		c-4.3,0-8.5,1.8-12.5,4.8c-3.9,2.9-7.9,7.2-11.7,12.1c-7.7,9.9-15.2,23.1-22.8,36.2c-7.5,13.1-15.1,26.1-22.7,35.9
 		c-7.7,9.8-15.1,15.9-22.5,15.9v0c-7.1,0-14-4.1-21.2-8.5c-7-4.3-14.5-8.9-22.3-8.9c-4.2,0-8.1,2.3-11.8,5.4
 		c-3.7,3.1-7.3,7.2-10.8,11.3c-3.6,4.1-7.1,8.1-10.6,11c-3.6,3-6.9,4.8-10.3,4.8"/>
 </g>
-<g id="graph1">
+<g id="graph1" data-svg-origin="596.550022702799 102.70003190005046" transform="matrix(0.85058,0,0,0.85058,55.13650439225222,15.3454)" style="transform-origin: 0px 0px 0px;">
 
 		<linearGradient id="path0_fill_22_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="750.7103" x2="-15.585" y2="750.7103" gradientTransform="matrix(-1.510000e-013 131 76.2049 6.050000e-013 -56121.332 2228.5481)">
 		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 	</linearGradient>
-	<path id="path0_fill_16_" fill="url(#path0_fill_22_)" d="M1125,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>
+	<!--<path id="path0_fill_16_" fill="url(#path0_fill_22_)" d="M1125,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>-->
 
 		<linearGradient id="path0_fill_23_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="733.6946" x2="-15.585" y2="733.6946" gradientTransform="matrix(1.510000e-013 131 -76.2049 6.050000e-013 56325.3125 2228.5481)">
 		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
@@ -373,8 +378,8 @@
 	</linearGradient>
 	<path id="path8_fill_3_" fill="url(#path8_fill_5_)" d="M631.9,123.5c32.1,0,60.7-104.9,92.2-104.9c31.7,0,60.5,74.3,92.7,74.3v94
 		H452.7V54.4c31.5,0,60.1,84.2,92.2,84.2c15.1,0,28.6-32.5,43.5-32.5C603.2,106,616.7,123.5,631.9,123.5z"/>
-	<path id="path1_stroke_12_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
-		M1125.7,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>
+	<!--<path id="path1_stroke_12_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="-->
+		<!--M1125.7,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>-->
 	<path id="path1_stroke_11_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
 		M453.4,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
 
@@ -389,27 +394,27 @@
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 	</linearGradient>
-	<path id="path0_fill_14_" fill="url(#path0_fill_24_)" d="M970.9,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5h-77.1V92.9z"/>
-	<path id="path1_stroke_10_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
-		M1048.6,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
+	<!--<path id="path0_fill_14_" fill="url(#path0_fill_24_)" d="M970.9,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5h-77.1V92.9z"/>-->
+	<!--<path id="path1_stroke_10_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="-->
+		<!--M1048.6,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>-->
 
 		<linearGradient id="path0_fill_25_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="748.6879" x2="-15.585" y2="748.6879" gradientTransform="matrix(-1.510000e-013 131 76.2049 6.050000e-013 -56121.332 2228.5481)">
 		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 	</linearGradient>
-	<path id="path0_fill_13_" fill="url(#path0_fill_25_)" d="M970.9,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>
-	<path id="path1_stroke_9_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
-		M971.5,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>
+	<!--<path id="path0_fill_13_" fill="url(#path0_fill_25_)" d="M970.9,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>-->
+	<!--<path id="path1_stroke_9_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="-->
+		<!--M971.5,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>-->
 
 		<linearGradient id="path0_fill_26_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="727.9061" x2="-15.585" y2="727.9061" gradientTransform="matrix(1.510000e-013 131 -76.2049 6.050000e-013 56325.3125 2228.5481)">
 		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 	</linearGradient>
-	<path id="path0_fill_12_" fill="url(#path0_fill_26_)" d="M816.8,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5h-77.1V92.9z"/>
-	<path id="path1_stroke_8_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
-		M894.5,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
+	<!--<path id="path0_fill_12_" fill="url(#path0_fill_26_)" d="M816.8,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5h-77.1V92.9z"/>-->
+	<!--<path id="path1_stroke_8_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="-->
+		<!--M894.5,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>-->
 	<path id="XMLID_68_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M724.7,18.6
 		c-4.3,0-8.5,1.8-12.5,4.8c-3.9,2.9-7.9,7.2-11.7,12.1c-7.7,9.9-15.2,23.1-22.8,36.2c-7.5,13.1-15.1,26.1-22.7,35.9
 		c-7.7,9.8-15.1,15.9-22.5,15.9v0c-7.1,0-14-4.1-21.2-8.5c-7-4.3-14.5-8.9-22.3-8.9c-4.2,0-8.1,2.3-11.8,5.4
@@ -419,14 +424,14 @@
 		c-7.7,9.8-15.1,15.9-22.5,15.9v0c-7.1,0-14-4.1-21.2-8.5c-7-4.3-14.5-8.9-22.3-8.9c-4.2,0-8.1,2.3-11.8,5.4
 		c-3.7,3.1-7.3,7.2-10.8,11.3c-3.6,4.1-7.1,8.1-10.6,11c-3.6,3-6.9,4.8-10.3,4.8"/>
 </g>
-<g id="graph2">
+<g id="graph2" data-svg-origin="596.550022702799 102.70003190005046" transform="matrix(0.85058,0,0,0.85058,55.13650439225222,15.3454)" style="transform-origin: 0px 0px 0px;">
 
 		<linearGradient id="path0_fill_27_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="750.7103" x2="-15.585" y2="750.7103" gradientTransform="matrix(-1.510000e-013 131 76.2049 6.050000e-013 -56121.332 2228.5481)">
 		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 	</linearGradient>
-	<path id="path0_fill_11_" fill="url(#path0_fill_27_)" d="M1125,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>
+	<!--<path id="path0_fill_11_" fill="url(#path0_fill_27_)" d="M1125,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>-->
 
 		<linearGradient id="path0_fill_28_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="733.6946" x2="-15.585" y2="733.6946" gradientTransform="matrix(1.510000e-013 131 -76.2049 6.050000e-013 56325.3125 2228.5481)">
 		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
@@ -442,8 +447,8 @@
 	</linearGradient>
 	<path id="path8_fill_2_" fill="url(#path8_fill_6_)" d="M631.9,123.5c32.1,0,60.7-104.9,92.2-104.9c31.7,0,60.5,74.3,92.7,74.3v94
 		H452.7V54.4c31.5,0,60.1,84.2,92.2,84.2c15.1,0,28.6-32.5,43.5-32.5C603.2,106,616.7,123.5,631.9,123.5z"/>
-	<path id="path1_stroke_7_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
-		M1125.7,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>
+	<!--<path id="path1_stroke_7_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="-->
+		<!--M1125.7,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>-->
 	<path id="path1_stroke_6_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
 		M453.4,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
 
@@ -458,27 +463,27 @@
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 	</linearGradient>
-	<path id="path0_fill_9_" fill="url(#path0_fill_29_)" d="M970.9,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5h-77.1V92.9z"/>
-	<path id="path1_stroke_4_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
-		M1048.6,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
+	<!--<path id="path0_fill_9_" fill="url(#path0_fill_29_)" d="M970.9,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5h-77.1V92.9z"/>-->
+	<!--<path id="path1_stroke_4_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="-->
+		<!--M1048.6,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>-->
 
 		<linearGradient id="path0_fill_30_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="748.6879" x2="-15.585" y2="748.6879" gradientTransform="matrix(-1.510000e-013 131 76.2049 6.050000e-013 -56121.332 2228.5481)">
 		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 	</linearGradient>
-	<path id="path0_fill_8_" fill="url(#path0_fill_30_)" d="M970.9,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>
-	<path id="path1_stroke_3_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
-		M971.5,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>
+	<!--<path id="path0_fill_8_" fill="url(#path0_fill_30_)" d="M970.9,92.9c-26.8,0-50.7-38.5-77.1-38.5v132.5h77.1V92.9z"/>-->
+	<!--<path id="path1_stroke_3_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="-->
+		<!--M971.5,92.9c-6.5,0-12.7-2.3-19-5.9c-6.3-3.6-12.6-8.3-18.9-13.2c-6.3-4.8-12.7-9.7-19.1-13.3c-6.5-3.7-13.2-6.2-20-6.2"/>-->
 
 		<linearGradient id="path0_fill_31_" gradientUnits="userSpaceOnUse" x1="-16.8699" y1="727.9061" x2="-15.585" y2="727.9061" gradientTransform="matrix(1.510000e-013 131 -76.2049 6.050000e-013 56325.3125 2228.5481)">
 		<stop  offset="0" style="stop-color:#0072FF;stop-opacity:6.000000e-002"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 		<stop  offset="1" style="stop-color:#022687;stop-opacity:0"/>
 	</linearGradient>
-	<path id="path0_fill_4_" fill="url(#path0_fill_31_)" d="M816.8,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5h-77.1V92.9z"/>
-	<path id="path1_stroke_2_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="
-		M894.5,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>
+	<!--<path id="path0_fill_4_" fill="url(#path0_fill_31_)" d="M816.8,92.9c26.8,0,50.7-38.5,77.1-38.5v132.5h-77.1V92.9z"/>-->
+	<!--<path id="path1_stroke_2_" fill="none" stroke="#1963E2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="-->
+		<!--M894.5,54.4c-6.8,0-13.6,2.5-20,6.2c-6.4,3.7-12.8,8.5-19.1,13.3c-6.3,4.8-12.6,9.6-18.9,13.2c-6.3,3.6-12.5,5.9-19,5.9"/>-->
 	<path id="XMLID_65_" fill="none" stroke="#1963E2" stroke-width="2" stroke-miterlimit="10" d="M724.7,18.6
 		c-4.3,0-8.5,1.8-12.5,4.8c-3.9,2.9-7.9,7.2-11.7,12.1c-7.7,9.9-15.2,23.1-22.8,36.2c-7.5,13.1-15.1,26.1-22.7,35.9
 		c-7.7,9.8-15.1,15.9-22.5,15.9v0c-7.1,0-14-4.1-21.2-8.5c-7-4.3-14.5-8.9-22.3-8.9c-4.2,0-8.1,2.3-11.8,5.4
@@ -506,9 +511,9 @@
 		<stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0"/>
 	</linearGradient>
 
-		<line id="XMLID_64_" fill="none" stroke="url(#XMLID_8_)" stroke-width="3" stroke-miterlimit="10" x1="293.5" y1="19.9" x2="293.5" y2="222.9"/>
-	<circle id="XMLID_62_" fill="#045BC7" stroke="#3DDC97" stroke-miterlimit="10" cx="293.4" cy="19.6" r="6.9"/>
-	<circle id="XMLID_61_" fill="#3DDC97" stroke="#3DDC97" stroke-width="2" stroke-miterlimit="10" cx="293.4" cy="19.6" r="3.8"/>
+	<line id="XMLID_64_" fill="none" stroke="url(#XMLID_8_)" stroke-width="3" stroke-miterlimit="10" x1="293.5" y1="31" x2="293.5" y2="222.9"/>
+	<circle id="XMLID_62_" fill="#045BC7" stroke="#3DDC97" stroke-miterlimit="10" cx="293.4" cy="31.6" r="6.9"/>
+	<circle id="XMLID_61_" fill="#3DDC97" stroke="#3DDC97" stroke-width="2" stroke-miterlimit="10" cx="293.4" cy="31.6" r="3.8"/>
 </g>
 <g id="Layer_1">
 	<g id="phone_1_" transform="translate(-4159 -642)">
@@ -1046,68 +1051,76 @@
                 <p class="tx-desc adad xdesktop spaced">Sign up to be one of the first to use our</br>web platform.</p>
                 <p class="tx-desc adad xmobile">Sign up to be one of the first to use our</br>web platform.</p>
 
-                <div class="ui action fluid input" id="bottom-input">
-                    <input type="text" placeholder="Email" id="bottom-input-early-access">
-                    <button class="ui button" id="bottom-input-early-access-btn">Early access</button>
-                </div>
+				<form class="ui form" onsubmit="event.preventDefault();">
+					<div class="ui action fluid input" id="bottom-input">
+						<input type="email" placeholder="Email" id="bottom-input-early-access">
+						<button type="submit" class="ui button" id="bottom-input-early-access-btn">Early access</button>
+					</div>
+				</form>
+				<p id="error-message-bottom-input-early-access" style="max-width:350px;text-align:left;color:#F61067;margin-left:auto;margin-right:auto;margin-top:10px;"></p>
 
             </div>
 
         </div>
 
+		<div id="desktop-footer">
+			<div  class="ui middle aligned grid xdesktop footer-grid-desktop footer-grid">
+
+			<div class="ui four wide column">
+
+				<a href="index.html#section-1" class="bottom-logo-container">
+					<img class="bottom-logo" src="img/bottom_logo.svg"/>
+				</a>
+				<p class="copy-right-desktop">© 2018 Cointec LTD</p>
+
+			</div>
+
+			<div class="ui eight wide column center aligned">
+
+				<!--<div class="ui center aligned grid">-->
+
+				<div class="ui sixteen wide column nopad">
+
+					<a href="" class="small-padding custom-icon-container">
+						<i class="fa fa-medium custom-icon" aria-hidden="true"></i>
+					</a>
+					<a href="" class="small-padding custom-icon-container">
+						<i class="fa fa-twitter custom-icon" aria-hidden="true"></i>
+					</a>
+					<a href="" class="small-padding custom-icon-container">
+						<i class="fa fa-reddit-alien custom-icon" aria-hidden="true"></i>
+					</a>
+
+				</div>
+
+				<div class="ui sixteen wide column nopad">
+
+					<p class="registered">Cointec LTD is a company registered in England and Wales (No. 11104052)</p>
+
+				</div>
+
+				<!--</div>-->
+
+			</div>
+
+			<div class="ui four wide right aligned column">
+
+				<div class="term-condition-container">
+					<a id="privacy-policy" href="privacy-policy.html">Privacy Policy</a>
+					<a id="terms-cond" href="terms.html">Terms and Conditions</a>
+				</div>
+
+			</div>
+
+		</div>
+		</div>
     </div>
+
+
 
     <div id="footer-privacy" class="section fp-auto-height footer-privacy-home">
 
-        <div class="ui middle aligned grid xdesktop footer-grid-desktop footer-grid">
 
-            <div class="ui four wide column">
-
-                <a href="index.html#section-1" class="bottom-logo-container">
-                    <img class="bottom-logo" src="img/bottom_logo.svg"/>
-                </a>
-                <p class="copy-right-desktop">© 2018 Cointec LTD</p>
-
-            </div>
-
-            <div class="ui eight wide column center aligned">
-
-                <!--<div class="ui center aligned grid">-->
-
-                <div class="ui sixteen wide column nopad">
-
-                    <a href="" class="small-padding custom-icon-container">
-                        <i class="fa fa-medium custom-icon" aria-hidden="true"></i>
-                    </a>
-                    <a href="" class="small-padding custom-icon-container">
-                        <i class="fa fa-twitter custom-icon" aria-hidden="true"></i>
-                    </a>
-                    <a href="" class="small-padding custom-icon-container">
-                        <i class="fa fa-reddit-alien custom-icon" aria-hidden="true"></i>
-                    </a>
-
-                </div>
-
-                <div class="ui sixteen wide column nopad">
-
-                    <p class="registered">Cointec LTD is a company registered in England and Wales (No. 11104052)</p>
-
-                </div>
-
-                <!--</div>-->
-
-            </div>
-
-            <div class="ui four wide right aligned column">
-
-                <div class="term-condition-container">
-                    <a id="privacy-policy" href="privacy-policy.html">Privacy Policy</a>
-                    <a id="terms-cond" href="terms.html">Terms and Conditions</a>
-                </div>
-
-            </div>
-
-        </div>
 
         <div class="ui middle aligned grid xmobile footer-grid">
 
