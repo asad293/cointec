@@ -126,33 +126,33 @@ body {
 }
 
 #scrollto-section-1 {
-  top: 0;
+  /*top: 0;*/
   max-width: none !important;
 }
 
 #scrollto-section-2 {
-  top: 100%;
+  /*top: 100%;*/
 }
 
 #scrollto-section-3 {
-  top: 200%;
+  /*top: 200%;*/
 }
 
 #scrollto-section-4 {
-  top: 300%;
+  /*top: 300%;*/
 }
 
 #scrollto-section-5 {
-  top: 400%;
+  /*top: 400%;*/
 }
 
 #scrollto-section-6 {
-  top: 500%;
+  /*top: 500%;*/
 }
 
 #scrollto-section-7 {
-  top: 600%;
-  position: relative;
+  /*top: 600%;*/
+  /*position: relative;*/
   background: #fff;
   z-index: 2000;
   max-width: none !important;
@@ -266,7 +266,7 @@ body {
   /*margin-top: 20px;*/
   margin-top: 16px;
   line-height: 16px;
-  color: #C2C4CB;
+  color: #70808D;
 }
 
 #get-crypto {
@@ -459,6 +459,13 @@ div.ui.footer-grid {
   height: 152px!important;
 }
 
+#desktop-footer {
+  position: absolute;
+  bottom: 0;
+  background: #f2f2f2;
+  width: 100%;
+}
+
 .small-padding {
   padding-left: 0.65em !important;
   padding-right: 0.65em !important;
@@ -470,7 +477,7 @@ div.ui.footer-grid {
 
 #privacy-policy, #terms-cond, #registered {
   text-decoration: none;
-  color: #C2C4CB;
+  color: #70808D;
   font-size: 14px;
   font-family: Roboto;
   font-style: normal;
@@ -483,7 +490,7 @@ p.registered {
   /*margin-top: 0.5em;*/
   line-height: 16px;
   margin-top: 20px;
-  color: #C2C4CB;
+  color: #70808D;
 }
 
 #flr {
@@ -755,6 +762,7 @@ p.registered {
       border-radius: .28571429rem !important;
       padding-top: 12px;
       padding-bottom: 12px;
+      border-right-color: rgba(34,36,38,.15)!important;
     }
     #input-early-access-btn, #bottom-input-early-access-btn {
       display: block;
@@ -837,7 +845,7 @@ p.registered {
     } */
     #fs-6-grid {
       height: 100%;
-      padding-bottom: 14em;
+      /*padding-bottom: 14em;*/
       padding-top: 0;
       bottom: 0;
       position: relative;
@@ -1017,7 +1025,7 @@ Styles written by Ali
 
 @media (min-width: 769px) {
   .footer-privacy-home {
-    top: 600%;
+    /*top: 600%;*/
   }
 }
 /* Footer Styling Mobile */
@@ -1095,7 +1103,7 @@ Styles written by Ali
   }
 
   #scrollto-section-6 {
-    margin-top: 8em;
+    margin-top: 6em;
   }
 
   #scrollto-section-7 {
@@ -1109,4 +1117,25 @@ Styles written by Ali
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+/* All styling for popups and forms */
+/* popup top */
+.top-popup-input {
+  /*width: 100%;*/
+  /*height: 38px;*/
+}
+
+form.ui.form.top-popup-input input {
+  /*width: 65%;*/
+  /*height: 100%;*/
+  /*float: left;*/
+  /*border-top-right-radius: 0;*/
+  /*border-bottom-right-radius: 0;*/
+}
+
+form.ui.form.top-popup-input button {
+  /*border-top-left-radius: 0;*/
+  /*border-bottom-left-radius: 0;*/
+  /*height: 100%;*/
 }
