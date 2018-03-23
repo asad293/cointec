@@ -1011,7 +1011,7 @@ Styles written by Ali
 
 .custom-icon-container:hover i.custom-icon,
 .custom-icon-container:active i.custom-icon {
-  color: #034799;
+  color: #61B4FF;
 }
 
 .term-condition-container {
@@ -1100,6 +1100,14 @@ Styles written by Ali
 
   #scrollto-section-4 {
     margin-top: 2em;
+  }
+
+  #scrollto-section-5 {
+    margin-top: 2em;
+  }
+
+  #scrollto-section-5 img.custom-size.xmobile.ui {
+    width: 75%;
   }
 
   #scrollto-section-6 {
