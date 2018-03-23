@@ -102,10 +102,13 @@
                 line2 = document.querySelector("#XMLID_64_"),
                 green1 = document.querySelector("#XMLID_69_"),
                 green2 = document.querySelector("#XMLID_66_"),
-                text = document.querySelector("#text");
+                text = document.querySelector("#text"),
+                laptop = document.querySelector("#laptop");
 
-            // var timeline = new TimelineMax();
-            // timeline.set(graph2,{transformOrigin:"center center",scale:0.85058})
+            var timeline = new TimelineMax();
+            timeline
+                .set(laptop,{transformOrigin:"top left",scale:0.59,y:36})
+                .set([graph1,graph2,graph3],{transformOrigin:"center center",y:40})
 
             var anim2tl = new TimelineMax({repeat: -1});
             anim2tl.to(graph1, 12, {x: -790, ease: Linear.easeNone});
@@ -210,6 +213,34 @@
                 anim3main.pause(0);
             });
 
+            //Phone Animation Section 5
+            var leftScreen = document.querySelector("#Left-screen"),
+                rightScreen = document.querySelector("#Right-screen");
+
+            var anim5tl = new TimelineMax({paused:true});
+            anim5tl.set(leftScreen,{transformOrigin:"center center",x:100})
+                .set(rightScreen,{transformOrigin:"center center",x:-100})
+                .set([leftScreen,rightScreen],{opacity:0});
+
+                anim5tl.to([leftScreen,rightScreen],0.1,{opacity:1});
+                anim5tl.to([leftScreen,rightScreen],1.5,{x:0});
+
+            var startStopAnim5 = new ScrollMagic.Scene({
+                triggerElement: "#scrollto-section-5",
+                duration: "100%"
+            });
+
+            startStopAnim5.addTo(controller);
+
+            startStopAnim5.on("enter", function (event) {
+                anim5tl.play();
+            });
+
+            startStopAnim5.on("leave", function (event) {
+                anim5tl.reverse();
+            });
+
+
             //Castle Animation Section 6
             var cloud1 = document.querySelector("#cloud-1"),
                 cloud2 = document.querySelector("#cloud-2"),
@@ -292,7 +323,11 @@
                         $('#contact-btn').removeClass('active');
                         // $('#white-top').fadeOut(300, "linear");
                         break;
-                    case "scrollto-section-7":
+                    case "scrollto-section-2":
+                        // $('#home-btn').removeClass('active');
+                        // $('#features-btn').addClass('active');
+                        // $('#contact-btn').removeClass('active');
+
                         // $('#top-menu').animate({backgroundColor: '#FF0000'}, 'slow');
                         // $('#white-top').fadeIn(300, "linear");
                         // $('#home-btn').removeClass('active');
@@ -315,10 +350,6 @@
         $('#close_pop2').click(function () {
             $('#access-ovrly').fadeOut(300, "linear");
         });
-
-        // $('.bottom-logo').click(function () {
-        //     $("html, body").animate({scrollTop: 0}, "slow");
-        // });
 
         //Check email format
         function isEmail(email) {
@@ -367,6 +398,7 @@
             } else {
                 $('#input-early-access').addClass('input-error');
                 $('#input-early-access-btn').addClass('input-button-error');
+                $('#error-message-input-early-access').text("Please enter a valid email address!");
             }
         });
 
@@ -379,6 +411,7 @@
                 // $('#sign-up-ovrly').fadeIn(300, "linear");
             } else {
                 $('#bottom-input-early-access').addClass('input-error');
+                $('#error-message-bottom-input-early-access').text("Please enter a valid email address!");
             }
         });
 
@@ -392,6 +425,7 @@
 
             } else {
                 $('#popup-input-early-access').addClass('input-error');
+                $('#error-message-popup-input').text("Please enter a valid email address!");
             }
         });
 
@@ -399,6 +433,13 @@
             $('body').scrollTo('#scrollto-section-7', 500);
         });
 
+        // Internet Explorer 6-11
+        var isIE = /*@cc_on!@*/false || !!document.documentMode;
+        // Edge 20+
+        var isEdge = !isIE && !!window.StyleMedia;
+        if (isIE == true || isEdge == true) {
+            $("#path0_fill").css("visibility","hidden")
+        }
     });
 
 })(jQuery);
