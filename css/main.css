@@ -1147,3 +1147,60 @@ form.ui.form.top-popup-input button {
   /*border-bottom-left-radius: 0;*/
   /*height: 100%;*/
 }
+
+
+.spinner {
+  animation: rotate 1s linear infinite;
+  -webkit-animation: rotate 1s linear infinite;
+  -moz-animation: rotate 1s linear infinite;
+  width:200px;
+  height:200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px; /*half of height*/
+  margin-left: -100px; /*half of width*/
+}
+.loader-img{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -62px;/*half of height*/
+  margin-left: -62px;/*half of width*/
+}
+@keyframes rotate {
+to {
+  transform: rotate(360deg);
+}
+}
+
+@-webkit-keyframes rotate {
+to {
+  -webkit-transform: rotate(360deg);
+}
+}
+
+@-moz-keyframes rotate {
+to {
+  transform: rotate(360deg);
+}
+}
+
+.path {
+stroke-dasharray: 170;
+stroke-dashoffset: 20;
+}
+.preloader{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: #045bc7;
+  background: -moz-linear-gradient(left, #045bc7 0%, #022494 100%);
+  background: -webkit-linear-gradient(left, #045bc7 0%,#022494 100%);
+  background: linear-gradient(to right, #045bc7 0%,#022494 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#045bc7', endColorstr='#022494',GradientType=1 );
+
+  z-index: 99999;
+}
