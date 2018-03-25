@@ -365,7 +365,7 @@
             };
 
             $.ajax({
-                url: "https://ct-emails.azurewebsites.net/subscribe",
+                url: "https://ct-emails-production.azurewebsites.net/subscribe",
                 type: "POST",
                 data: JSON.stringify(obj),
                 contentType: "application/json",
