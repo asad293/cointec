@@ -20,6 +20,19 @@
 </head>
 <body>
 
+<div class="preloader">
+	<svg class="spinner" width="174px" height="174px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+		<circle class="path" fill="transparent" stroke-width="1" cx="33" cy="33" r="30" stroke="url(#gradient)"/>
+		<linearGradient id="gradient">
+			<stop offset="10%" stop-color="#fff" stop-opacity="1"/>
+			<stop offset="35%" stop-color="#fff" stop-opacity=".5"/>
+			<stop offset="80%" stop-color="#fff" stop-opacity="0"/>
+		</linearGradient>
+		</circle>
+	</svg>
+	<img src="img/loader.svg" alt="" class="loader-img">
+</div>
+
 <div class="ui ovrly middle aligned center aligned grid" id="access-ovrly" style="display: none;">
 
 	<div class="ui six wide computer seven wide tablet sixteen wide mobile doubling column ovrly-rect">
@@ -47,21 +60,23 @@
 
 <div class="ui ovrly middle aligned center aligned grid" id="sign-up-ovrly" style="display: none;">
 
-    <div class="ui five wide computer seven wide tablet fifteen wide mobile doubling column ovrly-rect">
+	<div class="ui five wide computer seven wide tablet fifteen wide mobile doubling column ovrly-rect">
 
-        <img src="img/close_icon.png" class="close_pop1"
-             style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
+		<img src="img/close_icon.png" class="close_pop1"
+			 style="cursor: pointer; position: absolute; height: 0.9em; width: 0.9em; top: 1em; right: 1em;"/>
 
-        <img src="img/round-done-button.png" class="close_pop1" style="height: 2.4em; width: 2.4em; margin-top: 1.5em;"/>
+		<img src="img/round-done-button.png" class="close_pop1" style="height: 2.4em; width: 2.4em; margin-top: 1.5em;"/>
 
-        <h3 style="font-size: 1.8em; font-weight: 400; margin-top: 0.5em;">Thanks for signing up</h3>
+		<h3 style="font-size: 1.8em; font-weight: 400; margin-top: 0.5em;">Thanks for signing up</h3>
 
-        <p class="adad" style="margin-bottom: 2.6em; line-height: 22px;">Keep an eye on your email for updates</br>and
-            early access token.</p>
+		<p class="adad" style="margin-bottom: 2.6em; line-height: 22px;">Keep an eye on your email for updates</br>and
+			early access token.</p>
 
-    </div>
+	</div>
 
 </div>
+
+<div id="body-animation">
 
 <div id="menu-container">
     <div class="ui secondary inverted menu" id="top-menu">
@@ -566,7 +581,8 @@
 					<!--c-1.1,0-2-0.9-2-2V238.1z"/>-->
 					<!--</g>-->
 </svg>
-                <img class="ui fluid image xmobile" src="img/instant_access_mobile.png"/>
+
+                <img class="ui fluid image xmobile" src="img/Laptop-2.svg"/>
 
             </div>
 
@@ -2681,6 +2697,8 @@
         </div>
 
     </div>
+
+</div>
 
 </div>
 
