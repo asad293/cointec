@@ -365,7 +365,7 @@
             };
 
             $.ajax({
-                url: "https://ct-emails.azurewebsites.net/subscribe",
+                url: "https://ct-emails-production.azurewebsites.net/subscribe",
                 type: "POST",
                 data: JSON.stringify(obj),
                 contentType: "application/json",
@@ -379,8 +379,6 @@
                     }
                 }
             });
-
-
         }
 
         $('#top-early-access').click(function () {
@@ -433,6 +431,7 @@
             $('body').scrollTo('#scrollto-section-7', 500);
         });
 
+        //Check for Internet Explorer
         // Internet Explorer 6-11
         var isIE = /*@cc_on!@*/false || !!document.documentMode;
         // Edge 20+
@@ -440,6 +439,17 @@
         if (isIE == true || isEdge == true) {
             $("#path0_fill").css("visibility","hidden")
         }
+
+        //Preloader
+        setTimeout(function(){
+            $('.preloader').fadeOut(600);
+        },2000);
+        // $('.preloader').remove();
+
+        //Body Animation
+        TweenMax.set("#body-animation",{y:100,opacity:0});
+        TweenMax.to("#body-animation",3,{y:0,opacity:1});
+        
     });
 
 })(jQuery);
