@@ -430,6 +430,9 @@
         $('#contact-btn').click(function () {
             $('body').scrollTo('#scrollto-section-7', 500);
         });
+        setTimeout(function(){
+            $('.preloader').fadeOut(600);
+        },2000);
 
         //Check for Internet Explorer
         // Internet Explorer 6-11
