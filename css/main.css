@@ -10,30 +10,6 @@ Colors:
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:300');
 
-/* @font-face {
-    font-family: 'Roboto';
-    src: url('../assets/Roboto-Regular-webfont.eot');
-    src: url('../assets/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../assets/Roboto-Regular-webfont.woff2') format('woff2'),
-         url('../assets/Roboto-Regular-webfont.woff') format('woff'),
-         url('../assets/Roboto-Regular-webfont.ttf') format('truetype'),
-         url('../assets/Roboto-Regular-webfont.svg#robotoregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-} */
-
-/*@font-face {*/
-    /*font-family: 'Roboto';*/
-    /*src: url('../assets/Roboto-Light-webfont.eot');*/
-    /*src: url('../assets/Roboto-Light-webfont.eot?#iefix') format('embedded-opentype'),*/
-         /*!* url('../assets/Roboto-Light-webfont.woff2') format('woff2'), *!*/
-         /*url('../assets/Roboto-Light-webfont.woff') format('woff'),*/
-         /*url('../assets/Roboto-Light-webfont.ttf') format('truetype'),*/
-         /*url('../assets/Roboto-Light-webfont.svg#robotolight') format('svg');*/
-    /*font-weight: normal;*/
-    /*font-style: normal;*/
-/*}*/
-
 html {
     margin:0;
     /* overflow: scroll; */
@@ -818,7 +794,7 @@ p.registered {
       padding: 0 !important;
     }
     #instant-access-img {
-      margin-top: 1em !important;
+      margin-top: -12em !important;
     }
     .seamless-payments-img {
       margin: 1em !important;
@@ -1095,7 +1071,7 @@ Styles written by Ali
 /* Sections Styling For mobile */
 @media (max-width:768px) {
   #scrollto-section-2 {
-    margin-top: 6em;
+    margin-top: 1em;
   }
 
   #scrollto-section-4 {
@@ -1148,7 +1124,6 @@ form.ui.form.top-popup-input button {
   /*height: 100%;*/
 }
 
-
 .spinner {
   animation: rotate 1s linear infinite;
   -webkit-animation: rotate 1s linear infinite;
@@ -1169,26 +1144,26 @@ form.ui.form.top-popup-input button {
   margin-left: -62px;/*half of width*/
 }
 @keyframes rotate {
-to {
-  transform: rotate(360deg);
-}
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @-webkit-keyframes rotate {
-to {
-  -webkit-transform: rotate(360deg);
-}
+  to {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @-moz-keyframes rotate {
-to {
-  transform: rotate(360deg);
-}
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .path {
-stroke-dasharray: 170;
-stroke-dashoffset: 20;
+  stroke-dasharray: 170;
+  stroke-dashoffset: 20;
 }
 .preloader{
   position: fixed;
