@@ -1,0 +1,21 @@
+<svg width="54" height="54" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>Competitve_rates_icon</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(690 -991)">
+<g id="Competitve_rates_icon">
+<g id="Rectangle 3.3">
+<use xlink:href="#path0_fill" transform="translate(-690 991)" fill="#2B8BFF" fill-opacity="0.13"/>
+</g>
+<g id="Polygon">
+<use xlink:href="#path1_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 -658 1008)" fill="#2B8BFF" fill-opacity="0.36"/>
+</g>
+<g id="Polygon">
+<use xlink:href="#path1_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 -649 1008)" fill="#2B8BFF"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 0 27C 0 12.0883 12.0883 0 27 0C 41.9117 0 54 12.0883 54 27C 54 41.9117 41.9117 54 27 54C 12.0883 54 0 41.9117 0 27Z"/>
+<path id="path1_fill" d="M 9.63397 1.5C 10.0189 0.833335 10.9811 0.833334 11.366 1.5L 18.7272 14.25C 19.1121 14.9167 18.631 15.75 17.8612 15.75L 3.13878 15.75C 2.36898 15.75 1.88786 14.9167 2.27276 14.25L 9.63397 1.5Z"/>
+</defs>
+</svg>
