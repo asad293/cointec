@@ -1,0 +1,66 @@
+.hero-wrapper {
+    .support-heading {
+        font-weight: 300;
+        line-height: 53px;
+        font-size: 2.25rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        color: #FFFFFF;
+        flex: 1;
+
+        @include media-breakpoint-down(xs) {
+            font-size: 1.125rem;
+            margin-bottom: 0;
+        }
+    }
+
+    @include media-breakpoint-down(xs) {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+    }
+}
+
+.search-bar {
+    input {
+        display: block;
+        height: 4rem;
+        width: 100%;
+        padding: 0.375rem 0.75rem 0.375rem 3.5rem;
+        font-size: 1rem;
+        line-height: 1.9;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        color: #495057;
+
+        @include placeholder {
+            color: #A9B3BB;
+        }
+
+        @include media-breakpoint-down(xs) {
+            height: 3rem;
+            padding-left: 2.75rem;
+            font-size: 0.875rem;
+        }
+    }
+    
+    img {
+        position: absolute;
+        top: 1.5rem;
+        left: 2.5rem;
+
+        @include media-breakpoint-down(xs) {
+            top: 1rem;
+            left: 2rem;
+        }
+    }
+}
+
+.support-content {
+    padding: 3rem 0;
+    
+    @include media-breakpoint-down(xs) {
+        padding: 1rem 0;
+    }
+}

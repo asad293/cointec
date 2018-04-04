@@ -10,8 +10,8 @@
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 
 //  Import Font Awesome
-//$fa-font-path: "~font-awesome/fonts";
-//@import '../node_modules/font-awesome/scss/font-awesome.scss';
+$fa-font-path: "~font-awesome/fonts";
+@import '../node_modules/font-awesome/scss/font-awesome.scss';
 
 //  Import 3rd Party CSS
 //@import '../node_modules/bxslider/dist/jquery.bxslider.css';
@@ -181,6 +181,15 @@ html {
 .hero-wrapper {
     margin-top: 3rem;
     margin-bottom: 3rem;
+
+    .support-heading {
+        font-weight: 300;
+        line-height: 53px;
+        font-size: 36px;
+        text-align: center;
+        color: #FFFFFF;
+        flex: 1;
+    }
 
     @include media-breakpoint-down(md) {
         margin-top: 2rem;
@@ -576,3 +585,17 @@ footer {
 .card-img-top {
     flex-shrink: 0;
 }
+
+@mixin placeholder {
+}
+
+// Helpers
+@import './css/helpers/_mixins.scss';
+
+// Components
+@import './css/components/_accordion.scss';
+
+// Views
+@import './css/views/_home.scss';
+@import './css/views/_support.scss';
+@import './css/views/_legal.scss';

@@ -1,6 +1,7 @@
 ﻿const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const historyApiFallback = require('connect-history-api-fallback');
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
@@ -83,7 +84,10 @@ module.exports = {
             //port: 3000,
             //Addition files to watch that Webpack isn't aware of:
             files: "**/*.ascx,**/*.cshtml,**/*.html",
-            server: true,
+            server: {
+                baseDir: './',
+                middleware: [ historyApiFallback() ]
+            },
             port: 8080
         }),
         new webpack.ProvidePlugin({

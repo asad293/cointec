@@ -2,8 +2,11 @@
 const css = require('./app.scss');
 
 //  Load 3rd Party Javascript Files - From Node Modules
+import jQuery from 'jquery';
+window.$ = window.jQuery = jQuery;
 import 'bootstrap';
-import 'bxslider';
+require('bxslider');
+require('owl.carousel');
 //import '@fancyapps/fancybox';
 
 //  Load Custom "local" Javascript code
@@ -42,3 +45,14 @@ $(document).ready(function () {
 
 
 
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import App from './components/App';
+
+
+ReactDOM.render((
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>
+    ), document.getElementById('root'));
