@@ -92,9 +92,9 @@ module.exports = {
         }),
         new webpack.ProvidePlugin({
             //Assuming jQuery is Provided By DNN...
-            //$: 'jquery',
-            //jQuery: 'jquery',
-            //'window.jQuery': 'jquery',
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery',
             Popper: ['popper.js', 'default']
         })
     ]

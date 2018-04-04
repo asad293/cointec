@@ -2,11 +2,13 @@
 const css = require('./app.scss');
 
 //  Load 3rd Party Javascript Files - From Node Modules
-import jQuery from 'jquery';
-window.$ = window.jQuery = jQuery;
+// import jQuery from 'jquery';
+// window.$ = window.jQuery = jQuery;
 import 'bootstrap';
-require('bxslider');
-require('owl.carousel');
+import 'bxslider';
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel/dist/assets/owl.theme.default.css';
+import 'owl.carousel';
 //import '@fancyapps/fancybox';
 
 //  Load Custom "local" Javascript code
@@ -27,7 +29,6 @@ $(document).ready(function () {
             992:{
                 items:3
             }
-        
         }
     })
 });

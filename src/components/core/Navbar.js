@@ -7,7 +7,7 @@ class Header extends Component {
             <div className="container">
                 <nav className="navbar navbar-custom navbar-expand-lg navbar-dark px-0 py-3 py-md-4">
                     <Link className="navbar-brand" to='/'>
-                        <img src="./img/logo.svg" className="img-fluid mx-auto d-block" alt="Logo" />
+                        <img src="./img/Logo.svg" className="img-fluid mx-auto d-block" alt="Logo" />
                     </Link>
 
                     <button className="navbar-toggler" 
