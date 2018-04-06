@@ -19,7 +19,7 @@ class Legal extends Component {
                         <div className="hero-wrapper">
                             <div className="row">
                                 <div className="col-md-12">
-                                    <h1 className="support-heading">Legal</h1>
+                                    <h1 className="legal-heading">Legal</h1>
                                 </div>
                             </div>
                         </div>
