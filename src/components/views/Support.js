@@ -114,7 +114,7 @@ class Support extends Component {
                             <div className="row">
                                 <div className="col-md-12">
                                     <form className="row d-flex justify-content-center">
-                                        <div className="search-bar mb-2 d-md-block col-md-8">
+                                        <div className="search-bar mb-2 d-md-block col-lg-8 col-md-12">
                                             <input type="text" className="py-2" placeholder="Type your question here" />
                                             <img src="./img/search.svg" alt="search" />
                                         </div>
