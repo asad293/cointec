@@ -62,12 +62,14 @@
             padding: 2.25rem;
 
             p {
-                margin-bottom: 1.25rem;
+                // margin-bottom: 1.25rem;
+                margin-bottom: 0.75rem;
+                line-height: 32px;
             }
 
             ul {
                 list-style-type: none;
-                margin-bottom: 1.25rem;
+                margin-bottom: 0.75rem;
             }
 
             p:last-child, ul:last-child {
