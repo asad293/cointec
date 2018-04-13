@@ -10,8 +10,11 @@
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 
 //  Import Font Awesome
-$fa-font-path: "~font-awesome/fonts";
-@import '../node_modules/font-awesome/scss/font-awesome.scss';
+// $fa-font-path: "~font-awesome/fonts";
+$fa-font-path: "./font-awesome/webfonts";
+// @import '../node_modules/font-awesome/scss/font-awesome.scss';
+@import './font-awesome/scss/fontawesome.scss';
+@import './font-awesome/scss/fa-regular.scss';
 
 //  Import 3rd Party CSS
 //@import '../node_modules/bxslider/dist/jquery.bxslider.css';

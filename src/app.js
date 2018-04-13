@@ -13,7 +13,10 @@ import 'owl.carousel';
 
 //  Load Custom "local" Javascript code
 //require('./js/search.js');
+// import fontawesome from '@fortawesome/fontawesome';
+// import regular from '@fortawesome/fontawesome-pro-regular';
 
+// fontawesome.library.add(regular);
 
 //  jQuery Ready Function
 $(document).ready(function () {
