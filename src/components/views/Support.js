@@ -115,6 +115,10 @@ class Support extends Component {
         this.setState({ search: event.target.value })
     }
 
+    cancelSearch() {
+        this.setState({ search: '' })
+    }
+
     handleSubmit(event) {
         event.preventDefault()
     }
@@ -122,15 +126,21 @@ class Support extends Component {
     filterFaqs(faq) {
         let words = this.state.search.toLowerCase().split(' ')
         for (let index = 0; index < words.length; index++) {
-            const word = words[index];
-            if (!faq.question.toLowerCase().includes(word) && !faq.answer.toLowerCase().includes(word)) {
-                return false;
+            const word = words[index]
+            // if (!faq.question.toLowerCase().includes(word) && !faq.answer.toLowerCase().includes(word)) {
+            if (!faq.question.toLowerCase().includes(word)) {
+                return false
             }
         }
-        return true;
+        return true
     }
     
     render() {
+        let faqs = this.state.faqs
+
+        if (this.state.search)
+            faqs = this.state.faqs.filter(faq => this.filterFaqs(faq))
+
         return (
             <div>
                 <Header>
@@ -151,7 +161,8 @@ class Support extends Component {
                                     <form className="row d-flex justify-content-center" onSubmit={this.handleSubmit.bind(this)}>
                                         <div className="search-bar mb-2 d-md-block col-lg-8 col-md-12">
                                             <input type="text" className="py-2" value={this.state.search} onChange={this.searchFaqs.bind(this)} placeholder="Type your question here" />
-                                            <img src="./img/search.svg" alt="search" />
+                                            <img className="search-icon" src="./img/search.svg" alt="search" />
+                                            { this.state.search ? <a href="javascript:void(0)" className="cancel-search" onClick={this.cancelSearch.bind(this)}><i className="far fa-times"></i></a> : '' }
                                         </div>
                                     </form>
                                 </div>
@@ -166,19 +177,17 @@ class Support extends Component {
                     <div className="container mb-5">
                         <div className="row d-flex justify-content-center">
                             <div className="col-lg-8 col-md-12">
-                                <Accordion>
-                                    {
-                                        this.state.search ? this.state.faqs.filter(faq => this.filterFaqs(faq)).map((faq, index) => <Panel id={index} 
-                                            key={index} 
-                                            heading={faq.question} 
-                                            body={faq.answer} />
-                                        ) : this.state.faqs.map((faq, index) => <Panel id={index} 
-                                            key={index} 
-                                            heading={faq.question} 
-                                            body={faq.answer} />
-                                        )
-                                    }
-                                </Accordion>
+                                {
+                                    faqs.length ? <Accordion>
+                                        {
+                                            faqs.map((faq, index) => <Panel id={index} 
+                                                key={index} 
+                                                heading={faq.question} 
+                                                body={faq.answer} />
+                                            )
+                                        }
+                                    </Accordion> : <p className="no-results">No results for: <span className="search-string">{this.state.search}</span></p>
+                                }
                             </div>
                         </div>
                     </div>
