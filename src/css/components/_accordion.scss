@@ -77,4 +77,10 @@
             }
         }
     }
+
+    .accordion-panel:first-child {
+        h5 {
+            border-top: 0;
+        }
+    }
 }
