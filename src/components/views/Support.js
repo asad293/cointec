@@ -174,7 +174,7 @@ class Support extends Component {
                 </Header>
 
                 <div className="bg-gradient bg-mid-gradient support-content">
-                    <div className="container mb-5">
+                    <div className="container">
                         <div className="row d-flex justify-content-center">
                             <div className="col-lg-8 col-md-12">
                                 {
@@ -186,7 +186,7 @@ class Support extends Component {
                                                 body={faq.answer} />
                                             )
                                         }
-                                    </Accordion> : <p className="no-results">No results for: <span className="search-string">{this.state.search}</span></p>
+                                    </Accordion> : <p className="no-results">No results for<span style={{paddingLeft: '2px'}}>:</span> <span className="search-string">{this.state.search}</span></p>
                                 }
                             </div>
                         </div>
