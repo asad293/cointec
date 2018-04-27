@@ -1,0 +1,17 @@
+.inline-headers {
+    display: inline-block;
+    margin: 0 0 0 15px;
+}
+
+.back:hover {
+    cursor: pointer;
+    color: green;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+}
+.bt-margin {
+    margin: 10px 0 0 0
+}
