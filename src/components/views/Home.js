@@ -10,6 +10,7 @@ import UserReviews from './Home/UserReviews'
 import StartBuying from './Home/StartBuying'
 import CurrentDevelopment from './Home/CurrentDevelopment'
 import Footer from '../core/Footer'
+import SimpleCalculator from '../SimpleCalculator'
 
 class Home extends Component {
     render() {
@@ -59,9 +60,11 @@ class Home extends Component {
                                             </div>
                                             <div className="status-label">Online</div>
                                         </div>
+                                        <SimpleCalculator />
+                                    {/* 
                                         <div className="calculator-body">
-                                            {/* Calculator Here */}
-                                        </div>
+                                            
+                                        </div> 
                                         <div className="calculator-step-indicator">
                                             <ul>
                                                 <li className="active"></li>
@@ -69,6 +72,7 @@ class Home extends Component {
                                                 <li></li>
                                             </ul>
                                         </div>
+                                    */}
                                     </div>
                                 </div>
 
