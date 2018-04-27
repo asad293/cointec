@@ -1,6 +1,7 @@
 ﻿const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const historyApiFallback = require('connect-history-api-fallback');
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
@@ -62,13 +63,12 @@ module.exports = {
                 ]
             },
             {
-                test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+                test: /.(ttf|otf|eot|woff(2)?)(\?[a-z0-9]+)?$/,
                 use: [{
                     loader: 'file-loader',
                     options: {
                         name: '[name].[ext]',
                         outputPath: 'fonts/'   // where the fonts will go
-
                     }
                 }]
             },
@@ -83,14 +83,17 @@ module.exports = {
             //port: 3000,
             //Addition files to watch that Webpack isn't aware of:
             files: "**/*.ascx,**/*.cshtml,**/*.html",
-            server: true,
+            server: {
+                baseDir: './',
+                middleware: [ historyApiFallback() ]
+            },
             port: 8080
         }),
         new webpack.ProvidePlugin({
             //Assuming jQuery is Provided By DNN...
-            //$: 'jquery',
-            //jQuery: 'jquery',
-            //'window.jQuery': 'jquery',
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery',
             Popper: ['popper.js', 'default']
         })
     ]
