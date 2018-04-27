@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-class Header extends Component {
+class Navbar extends Component {
     render() {
         return (
             <div className="container">
@@ -34,10 +34,10 @@ class Header extends Component {
                                 <Link className="nav-link" to='/support'>Support</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Login</a>
+                                <Link className="nav-link" to='/login'>Login</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link btn btn-primary" href="#">Sign up</a>
+                                <Link className="nav-link btn btn-primary" to='/signup'>Sign up</Link>
                             </li>
                         </ul>
                     </div>
@@ -47,4 +47,4 @@ class Header extends Component {
     }
 }
 
-export default Header
+export default Navbar

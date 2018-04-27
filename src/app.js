@@ -1,5 +1,5 @@
 ﻿//  This must be here to be read by Webpack
-const css = require('./app.scss');
+import css from "./app.scss";
 
 //  Load 3rd Party Javascript Files - From Node Modules
 // import jQuery from 'jquery';
@@ -52,11 +52,14 @@ $(document).ready(function () {
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'mobx-react';
+import stores from './stores';
 import App from './components/App';
 
-
 ReactDOM.render((
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>
+    <Provider {...stores}>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </Provider>
     ), document.getElementById('root'));
