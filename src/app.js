@@ -56,10 +56,20 @@ import { Provider } from 'mobx-react';
 import stores from './stores';
 import App from './components/App';
 
+import ReduxThunk from 'redux-thunk'
+import { Provider as ProviderRedux} from "react-redux"
+import { createStore, applyMiddleware } from "redux"
+import reducers from "./Redux/reducers"
+import promise from 'redux-promise'
+
+const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+
 ReactDOM.render((
-    <Provider {...stores}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </Provider>
+    <ProviderRedux store={createStoreWithMiddleware(reducers, {}, applyMiddleware(ReduxThunk))}>
+        <Provider {...stores}>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </Provider>
+    </ProviderRedux>
     ), document.getElementById('root'));
