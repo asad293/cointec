@@ -209,7 +209,7 @@ class SimpleCalculator extends Component {
                         <div className="no-padding col-xs-8 col-sm-8 col-md-8 bg-input">
                             <Field
                                 name="gbp"
-                                label="You receieve"
+                                label="You send"
                                 component={this.renderField}
                                 normalize={this.normalizeGBP}
                                 placeholder={this.state.currencySymbol + ' ' + this.state.placeholder}
@@ -226,7 +226,7 @@ class SimpleCalculator extends Component {
                         <div className="no-padding col-xs-8 col-sm-8 col-md-8 bg-input">
                             <Field
                                 name="btc"
-                                label="You send"
+                                label="You receive"
                                 component={this.renderField}
                                 normalize={this.normalizeBTC}
                                 placeholder={this.convertToBTC(this.state.placeholder).toFixed(8)}
