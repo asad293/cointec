@@ -243,9 +243,9 @@ class SimpleCalculator extends Component {
                   }
                 />
               </div>
-              <div className="no-padding col-xs-4 col-sm-4 col-md-4 bg-text text-center">
+              <div className="no-padding col-xs-4 col-sm-4 col-md-4 text-center">
                 <div>
-                  <label className="text-label">GPB</label>
+                  <label className="text-label">GBP</label>
                 </div>
               </div>
             </div>
@@ -261,7 +261,7 @@ class SimpleCalculator extends Component {
                   ).toFixed(8)}
                 />
               </div>
-              <div className="no-padding col-xs-4 col-sm-4 col-md-4 bg-text text-center">
+              <div className="no-padding col-xs-4 col-sm-4 col-md-4 text-center">
                 <div>
                   <label className="text-label text-center">BTC</label>
                 </div>
