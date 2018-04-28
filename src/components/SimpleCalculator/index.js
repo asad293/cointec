@@ -176,10 +176,10 @@ class SimpleCalculator extends Component {
     }  ${valid === false ? "has-warning" : ""}`;
     return (
       <div className={className}>
-        <label className="field-label">{label}</label>
+        <label className="field-label w-100 text-center text-sm-left">{label}</label>
         <input
           placeholder={placeholder}
-          className="form-control no-border"
+          className="form-control no-border text-center text-sm-left "
           {...field.input}
         />
         <div className="text-help">{touched ? error : ""}</div>
@@ -249,6 +249,7 @@ class SimpleCalculator extends Component {
                 </div>
               </div>
             </div>
+            <hr className="m-1"/>
             <div className="row am row-flex ">
               <div className="no-padding col-xs-8 col-sm-8 col-md-8 bg-input">
                 <Field
@@ -269,7 +270,7 @@ class SimpleCalculator extends Component {
             </div>
           </div>
           <div className="am row">
-            <div className="buffer-top no-padding col-md-12">
+            <div className="mt-4 no-padding col-md-12">
               {this.renderButton()}
             </div>
           </div>

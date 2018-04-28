@@ -182,7 +182,6 @@ html {
     }
 }
 
-
 .hero-text {
     * {
         color: #fff;
@@ -243,41 +242,40 @@ html {
 
 .hero-calculator {
     .calculator-wrapper {
-
         //New
-
-        .calc-input-wrapper{
+        .calc-input-wrapper {
             background-color: #fff;
             padding: 10px;
             border-radius: 4px;
             overflow: hidden;
-
-            input{
+            input {
                 font-size: 24px;
                 color: #040506;
                 line-height: normal;
             }
-
-            .field-label{
+            .field-label {
                 font-size: 15px;
                 font-weight: 500;
                 color: rgba(112, 128, 141, 0.65)
             }
-
-            .text-label{
+            .text-label {
                 color: #000;
                 display: flex;
-
-                img{
+                justify-content: center;
+                img {
                     margin-right: 15px;
                 }
             }
         }
-
-
-
-
-
+        .text-rate {
+            font-weight: 400;
+            line-height: 26px;
+            font-size: 16px;
+        } 
+        .bt-submit{
+            padding: 1rem;
+            border:none;
+        }
         //Old
         .online-indicator {
             display: flex;
@@ -354,12 +352,10 @@ html {
 }
 
 .cta-icon-wrapper {
-
     //Icons not absolutly positioned:
     img {
-     margin-bottom: 2rem;
+        margin-bottom: 2rem;
     }
-
     .icon-wrapper {
         position: relative;
         height: 50px;
