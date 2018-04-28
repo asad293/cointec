@@ -21,7 +21,7 @@ class ReviewForm extends Component {
     render() {
         var titles = {
             0:  {
-                'title': 'You Receieve',
+                'title': 'You Receive',
                 'value': '1.43BTC',
             },
             1:  {
