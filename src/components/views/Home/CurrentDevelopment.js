@@ -15,7 +15,7 @@ class CurrentDevelopment extends Component {
                             </h2>
 
                             <p className="cta-text  mb-4">
-                                Our platform is built with a focus on customer experience, that’s why users love us. Hear what they are saying!
+                            We are working hard in bringing you all the latest and greatest features. If you’d like to see even more, <a href="mailto:contact@cointec.co.uk" target="_blank">contact us.</a>
                             </p>
 
 
@@ -27,11 +27,15 @@ class CurrentDevelopment extends Component {
                         <div className="col-md-4">
 
                             <div className="cta-icon-wrapper py-4 py-md-5 pr-xl-4">
-                                <img src="./img/Competitve_rates_icon.svg" alt="Competitve rates" />
+
+                            <div className="icon-wrapper">
+                            <img src="./img/creditcard.svg" alt="Competitve rates" />
+                            </div>
+                               
 
                                 <h3 className="cta-title">Multiple payment methods</h3>
                                 <p className="cta-text">
-                                    You’ll find it hard to get better rates elsewhere. We operate efficiently to save you costs. Add more text here.
+                                Pay with GBP or EUR in your preferred method including credit card, bank transfer, SEPA, Sofort and more...
                                 </p>
                             </div>
 
@@ -41,11 +45,13 @@ class CurrentDevelopment extends Component {
                         <div className="col-md-4">
 
                             <div className="cta-icon-wrapper py-4 py-md-5 pr-xl-4">
-                                <img src="./img/Competitve_rates_icon.svg" alt="Competitve rates" />
+                            <div className="icon-wrapper">
+                            <img src="./img/eth.svg" alt="Competitve rates" />
+                            </div>
 
                                 <h3 className="cta-title">More cryptocurrencies</h3>
                                 <p className="cta-text">
-                                    You’ll find it hard to get better rates elsewhere. We operate efficiently to save you costs. Add more text here.
+                                Buy all your favorite cryptos in one place. Whether it’s Majors or Alt Coins, we’ll have you covered.
                                 </p>
                             </div>
 
@@ -55,11 +61,13 @@ class CurrentDevelopment extends Component {
                         <div className="col-md-4">
 
                             <div className="cta-icon-wrapper py-4 py-md-5 pr-xl-4">
-                                <img src="./img/Competitve_rates_icon.svg" alt="Competitve rates" />
+                            <div className="icon-wrapper">
+                            <img src="./img/wallet.svg" alt="Competitve rates" />
+                            </div>
 
-                                <h3 className="cta-title">Native mobile application</h3>
+                                <h3 className="cta-title">Secure wallets</h3>
                                 <p className="cta-text">
-                                    You’ll find it hard to get better rates elsewhere. We operate efficiently to save you costs. Add more text here.
+                                With secure integrated wallets, you’ll be able to easily store all your coins on our platform.
                                 </p>
                             </div>
 

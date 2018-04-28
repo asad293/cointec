@@ -12,7 +12,7 @@ class Features extends Component {
 
                             <h3 className="cta-title">Competitive rates</h3>
                             <p className="cta-text">
-                                You’ll find it hard to get better rates elsewhere. We operate efficiently to save you costs. Add more text here.
+                            No extra fees. Ever. We promise.  Just guaranteed exchange rates that you’ll find hard to beat. 
                             </p>
                         </div>
 
@@ -26,7 +26,7 @@ class Features extends Component {
 
                             <h3 className="cta-title">Lightning fast delivery</h3>
                             <p className="cta-text">
-                                You’ll find it hard to get better rates elsewhere. We operate efficiently to save you costs. Add more text here.
+                            Your coins are sent as soon as we receive payment so you can watch them move across the blockchain. 
                             </p>
                         </div>
 
@@ -40,7 +40,7 @@ class Features extends Component {
 
                             <h3 className="cta-title">Reliable support</h3>
                             <p className="cta-text">
-                                You’ll find it hard to get better rates elsewhere. We operate efficiently to save you costs. Add more text here.
+                            Here 24/7 to answer your questions. The markets never sleep, so why should we?
                             </p>
                         </div>
 

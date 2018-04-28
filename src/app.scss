@@ -1,14 +1,12 @@
 ﻿//  Import Custom Fonts
 //  Ensure all imports are defined before any CSS Rules
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
-
 //  Import Boostrap Functions, So that custom variable file below works
 @import '../node_modules/bootstrap/scss/_functions.scss';
 //  Your Custom Bootstrap Variables to be passed throughout the library
 @import './css/bootstrap/_variables.scss';
 //  The Actual Bootstrap Libary
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
-
 //  Import Font Awesome
 // $fa-font-path: "~font-awesome/fonts";
 $fa-font-path: "./font-awesome/webfonts";
@@ -16,35 +14,26 @@ $fa-font-path: "./font-awesome/webfonts";
 @import './font-awesome/scss/fontawesome.scss';
 @import './font-awesome/scss/fa-regular.scss';
 @import './font-awesome/scss/fa-solid.scss';
-
 //  Import 3rd Party CSS
 //@import '../node_modules/bxslider/dist/jquery.bxslider.css';
 //@import '../node_modules/@fancyapps/fancybox/dist/jquery.fancybox.css';
-
-
 //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
 //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
 //  Custom Styles here
 //  @import './css/custom/_news.scss';
-
 $mid-color: #F6F9FC;
 $primary-light: #178CF5;
-
-
 //Fixed with on super wide - Like SendWyre
 html {
     background-color: #F4F7FA;
-
     body {
         max-width: 1920px;
         margin: auto;
         box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.07);
-
         @include media-breakpoint-down(lg) {
             box-shadow: none;
         }
     }
-
     @include media-breakpoint-down(lg) {
         background-color: #fff;
     }
@@ -53,7 +42,6 @@ html {
 .bg-gradient {
     position: relative;
     overflow: hidden;
-
     &:before {
         content: '';
         width: 33%;
@@ -63,114 +51,99 @@ html {
         transform-origin: 100% 0;
         opacity: 0.3;
     }
-
     &.bg-primary-gradient {
-        @include gradient-directional(#045CC7,#022191,45deg);
-
-
+        @include gradient-directional(#045CC7,
+        #022191,
+        45deg);
         @include media-breakpoint-down(md) {
-            @include gradient-directional(#022191 2%,#045CC7 100%,332deg);
+            @include gradient-directional(#022191 2%,
+            #045CC7 100%,
+            332deg);
         }
-
-
         &:before {
             left: 0;
             transform: skewY(30deg);
-
-            @include gradient-directional(#006DDE 0%,rgba(0,0,0,0) 60%,90deg);
+            @include gradient-directional(#006DDE 0%,
+            rgba(0, 0, 0, 0) 60%,
+            90deg);
             opacity: 0.3;
-
             @include media-breakpoint-down(sm) {
                 display: none;
             }
         }
     }
-
-
     &.bg-primary-gradient-up {
-        @include gradient-directional(#045CC7,#022191,45deg);
-
-
+        @include gradient-directional(#045CC7,
+        #022191,
+        45deg);
         &:before {
             left: 0;
             transform: skewY(-30deg);
             transform-origin: 70% 0;
-
-            @include gradient-directional(#006DDE 0%,rgba(0,0,0,0) 60%,90deg);
+            @include gradient-directional(#006DDE 0%,
+            rgba(0, 0, 0, 0) 60%,
+            90deg);
             opacity: 0.3;
-
             @include media-breakpoint-down(xs) {
                 display: none;
             }
         }
     }
-
     &.bg-mid-gradient {
         background-color: $mid-color;
-
-
         &:before {
             right: 0;
             transform: skewY(-30deg);
             width: 20%;
             transform-origin: -130% 0;
-            @include gradient-directional(rgba(0,0,0,0) 60%,#DCE3E8 100%,90deg);
-
+            @include gradient-directional(rgba(0, 0, 0, 0) 60%,
+            #DCE3E8 100%,
+            90deg);
             @include media-breakpoint-down(sm) {
                 display: none;
             }
         }
     }
-
     &.bg-light-gradient {
         background-color: #FCFDFD;
-
-
         &:before {
             opacity: 0.8;
             left: 0;
             transform: skewY(-30deg);
             transform-origin: 130% 0;
-            @include gradient-directional(rgba(232, 235, 237, 0.6)0%,rgba(0,0,0,0)80%,90deg);
-			
-			@include media-breakpoint-down(sm) {
+            @include gradient-directional(rgba(232, 235, 237, 0.6)0%,
+            rgba(0, 0, 0, 0)80%,
+            90deg);
+            @include media-breakpoint-down(sm) {
                 display: none;
             }
         }
     }
 }
 
-
-
 .navbar-custom {
     .nav-link {
         padding-left: 1rem;
         padding-right: 1rem;
         margin-left: 1.5rem;
-
         &.btn {
             color: #fff;
-            @extend .px-3;
-            // @extend .py-1;
+            @extend .px-3; // @extend .py-1;
             padding-top: 0.1rem;
             padding-bottom: 0.1rem;
-
             &.btn-primary {
                 background-color: $primary-light;
-
                 &:hover {
-                    background-color: lighten($primary-light,10%);
+                    background-color: lighten($primary-light, 10%);
                     color: #fff;
                 }
             }
         }
-
         @include media-breakpoint-down(md) {
             padding-left: 0;
             margin-left: 0;
         }
-    }
-    //Responsive / Mobile Button
+    } //Responsive / Mobile Button
     .navbar-toggler {
         border-color: transparent;
     }
@@ -180,10 +153,8 @@ html {
 .mobile-beta-band.hero-text {
     background-color: rgba(2, 33, 145, 0.33);
     font-size: 0.9rem;
-
     .coming-soon .beta-wrapper {
         background: none;
-
         .beta-pill {
             font-size: 0.8rem;
             padding-left: 0.4rem;
@@ -197,7 +168,6 @@ html {
 .hero-wrapper {
     margin-top: 3rem;
     margin-bottom: 3rem;
-
     .support-heading {
         font-weight: 300;
         line-height: 53px;
@@ -206,59 +176,47 @@ html {
         color: #FFFFFF;
         flex: 1;
     }
-
     @include media-breakpoint-down(md) {
         margin-top: 2rem;
         margin-bottom: 2rem;
     }
 }
 
-.hero-text-main { //Musti doesn't want this to be perfectly centered. Bring up
+.hero-text-main {
+    //Musti doesn't want this to be perfectly centered. Bring up
     position: relative;
     top: -26px;
-
-
     @include media-breakpoint-down(sm) {
         top: 0px;
     }
 }
 
 .hero-text {
-
-
-
     * {
         color: #fff;
     }
-
     .hero-title {
         @extend .display-4;
         margin-bottom: 3rem;
         font-weight: 300;
-
         @include media-breakpoint-down(md) {
             font-size: 2rem;
             margin-bottom: 1.2rem;
         }
     }
-
     .hero-intro {
         font-size: 1.4rem;
         margin-bottom: 3rem;
         font-weight: 100;
         color: #a4ceff;
         line-height: 1.6;
-
-
         @include media-breakpoint-down(md) {
             font-size: 1.2rem;
             margin-bottom: 0;
         }
     }
-
     .coming-soon {
         display: flex;
-
         .beta-wrapper {
             display: flex;
             background-color: #033D9D;
@@ -266,18 +224,15 @@ html {
             border-radius: 100px;
             text-decoration: none;
             line-height: 1;
-
             &:hover {
-                background-color: lighten(#033D9D,2%);
+                background-color: lighten(#033D9D, 2%);
             }
-
             .beta-pill {
                 font-size: 0.9rem;
                 display: flex;
                 align-items: center;
                 font-weight: 500;
                 @extend .bg-success;
-
                 @extend .mr-2;
                 text-transform: uppercase;
                 border-radius: 100px;
@@ -286,7 +241,6 @@ html {
                 padding-left: 0.4rem;
                 padding-right: 0.4rem;
             }
-
             .more-features {
                 display: flex;
                 align-items: center;
@@ -296,9 +250,7 @@ html {
 }
 
 .hero-calculator {
-
     .calculator-wrapper {
-
         .online-indicator {
             display: flex;
             justify-content: flex-end;
@@ -306,13 +258,10 @@ html {
             color: #fff;
             padding-top: 1rem;
             padding-bottom: 0.6rem;
-
-
             @include media-breakpoint-down(md) {
                 padding-top: 1.5rem;
                 padding-bottom: 0.3rem;
             }
-
             .status-icon {
                 height: 16px;
                 width: 16px;
@@ -322,55 +271,44 @@ html {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-
                 .dot {
                     height: 8px;
                     width: 8px;
                     border-radius: 100%;
                 }
-
                 &.online {
-                    background-color: rgba($success,0.15);
-
+                    background-color: rgba($success, 0.15);
                     .dot {
-                        background-color: rgba($success,1);
+                        background-color: rgba($success, 1);
                     }
                 }
-
                 &.offline {
-                    background-color: rgba($danger,0.15);
-
+                    background-color: rgba($danger, 0.15);
                     .dot {
-                        background-color: rgba($danger,1);
+                        background-color: rgba($danger, 1);
                     }
                 }
             }
         }
-
         .calculator-body {
             height: 460px;
             background: #fff;
             border-radius: 10px;
-
             @include media-breakpoint-down(md) {
                 height: 390px;
             }
         }
-
         .calculator-step-indicator {
             margin-top: 1.5rem;
             margin-bottom: 1.5rem;
-
             @include media-breakpoint-down(md) {
                 margin-bottom: 0.5rem;
             }
-
             ul {
                 display: flex;
                 justify-content: center;
                 margin: 0;
                 padding: 0;
-
                 li {
                     list-style-type: none;
                     height: 10px;
@@ -378,7 +316,6 @@ html {
                     @extend .mx-2;
                     border-radius: 100%;
                     background: rgba(158, 185, 240, 0.6);
-
                     &.active {
                         background-color: $success;
                     }
@@ -388,33 +325,39 @@ html {
     }
 }
 
-
 .cta-icon-wrapper {
 
-
+    //Icons not absolutly positioned:
     img {
-        margin-bottom: 2rem;
+     margin-bottom: 2rem;
+    }
 
+    .icon-wrapper {
+        position: relative;
+        height: 50px;
+        margin-bottom: 2rem;
         @include media-breakpoint-down(md) {
             margin-bottom: 1.5rem;
         }
+        img {
+            position: absolute;
+            bottom: 0;
+            margin-bottom: 0;
+        }
     }
-
     .cta-title {
         font-size: 1.4rem;
         margin-bottom: 1.4rem;
-
         @include media-breakpoint-down(md) {
             font-size: 1.2rem;
             margin-bottom: 1.2rem;
         }
     }
 }
+
 //Used in a couple of places
 .cta-text {
     font-size: 1.2rem;
-
-
     @include media-breakpoint-down(md) {
         font-size: 1.1rem;
         margin-bottom: 1rem;
@@ -429,12 +372,10 @@ html {
     font-weight: 600;
     padding-top: 0;
     padding-bottom: 0;
-
     &:hover {
         background-color: rgba(43, 139, 255, 0.1);
-        color: lighten(#2B8BFF,10%);
+        color: lighten(#2B8BFF, 10%);
     }
-
     @include media-breakpoint-down(sm) {
         background: none;
         padding-left: 0;
@@ -443,59 +384,48 @@ html {
 
 .brokers-title {
     @include media-breakpoint-down(md) {
-        font-size: 1.6rem;
-        //font-weight: 600;
+        font-size: 1.6rem; //font-weight: 600;
     }
 }
 
 .map-wrapper {
     position: relative;
-
     .lock {
         position: absolute;
-
         &.lock1 {
             top: 30%;
             left: 5%;
         }
-
         &.lock2 {
             top: 30%;
             left: 75%;
         }
-
         &.lock3 {
             top: 80%;
             left: 20%;
         }
     }
 }
+
 //Hear from our users
 .hear-user-wrapper {
     margin-top: 5rem;
     margin-bottom: 3rem;
-
-
     @include media-breakpoint-down(md) {
         margin-top: 3rem;
         margin-bottom: 0;
     }
-
     @include media-breakpoint-down(sm) {
         margin-bottom: 1.8rem;
     }
-
     .users-title {
         @include media-breakpoint-down(md) {
-            font-size: 1.6rem;
-            //font-weight: 600;
+            font-size: 1.6rem; //font-weight: 600;
         }
-    }
-    //Needed for Owl Carousel Fix
+    } //Needed for Owl Carousel Fix
     .item {
         max-width: none;
     }
-
     .cta-card {
         padding: 2rem 3rem;
         border-radius: 10px;
@@ -503,26 +433,20 @@ html {
         border: 1px solid rgba(240, 244, 247, 0.6);
         box-shadow: 0px 4px 8px rgba(112, 128, 141, 0.12);
         margin-bottom: 1rem;
-
         .user-avatar {
             width: auto;
         }
-    }
-    //Owl Carousel
+    } //Owl Carousel
     .owl-theme {
-
         .owl-item {
             touch-action: auto;
         }
-
         .owl-dots {
             margin-top: 2rem !important;
-
             .owl-dot {
                 span {
                     background-color: rgba(158, 185, 240, 0.6);
                 }
-
                 &.active {
                     span {
                         background-color: #2B8BFF;
@@ -532,72 +456,65 @@ html {
         }
     }
 }
+
 //Start buying Bitcoins today
 .start-buying-wrapper {
     margin-top: 5rem;
     margin-bottom: 5rem;
-
     @include media-breakpoint-down(md) {
         margin-top: 3rem;
         margin-bottom: 3rem;
     }
-
     .start-buying-title {
         font-weight: 100;
-
         @include media-breakpoint-down(xs) {
             font-size: 1.6rem;
         }
     }
-
     .btn-success {
         color: #fff;
     }
 }
+
 //Current Development
 .bg-gradient-current-dev {
     @include media-breakpoint-down(sm) {
         position: relative;
         overflow: hidden;
-
         &:before {
             content: '';
             width: 100%;
             height: 50%;
             position: absolute;
             top: 0;
-            transform-origin: -100% 0;
-            //opacity: 0.3;
+            transform-origin: -100% 0; //opacity: 0.3;
             right: 0;
             transform: rotate(-20deg);
-
-            @include gradient-directional(rgba(240, 244, 247, 0) 20%,rgba(225, 232, 237, 0.79) 100%,90deg);
+            @include gradient-directional(rgba(240, 244, 247, 0) 20%,
+            rgba(225, 232, 237, 0.79) 100%,
+            90deg);
         }
     }
 }
 
 .current-dev-title {
     @include media-breakpoint-down(md) {
-        font-size: 1.6rem;
-        //font-weight: 600;
+        font-size: 1.6rem; //font-weight: 600;
     }
 }
 
 footer {
     background-color: $mid-color;
-
     a {
         display: block;
         color: #8898aa;
         text-decoration: none;
-
         &:hover {
             color: #32325d;
             text-decoration: none;
         }
     }
 }
-
 
 //  Bootstrap Card Image IE Fix
 .card-img-top {
@@ -606,40 +523,32 @@ footer {
 
 // Helpers
 @import './css/helpers/_mixins.scss';
-
-
 .container-full {
     height: 100vh;
     display: flex;
     flex-direction: row;
     background: #F6F9FC;
-
-    .form-section, .greetings {
+    .form-section,
+    .greetings {
         width: 50%;
-
         @include media-breakpoint-down(lg) {
             width: 100%
         }
     }
-
     .form-section {
         margin-top: 25px;
-
         .page-title {
             font-family: 'Roboto', sans-serif;
             font-weight: normal;
             line-height: normal;
             font-size: 24px;
             color: #040506;
-
             @include media-breakpoint-up(md) {
                 display: none;
             }
         }
-
         form {
             margin-top: 80px;
-
             .heading-line {
                 font-family: Roboto;
                 font-weight: normal;
@@ -647,14 +556,12 @@ footer {
                 font-size: 22px;
                 color: #040506;
                 margin-bottom: 44px;
-
                 @include media-breakpoint-down(sm) {
                     line-height: 28px;
                     font-size: 17px;
                     color: #70808D;
                 }
             }
-            
             label {
                 font-family: 'Roboto', sans-serif;
                 font-weight: normal;
@@ -663,7 +570,6 @@ footer {
                 color: #040506;
                 margin-top: 12px;
             }
-
             input {
                 height: 48px;
                 background: #FFFFFF;
@@ -672,57 +578,51 @@ footer {
                 padding: 0.75rem;
                 border-radius: 3px;
                 margin-top: 2px;
-
-                &:active, &:focus {
+                &:active,
+                &:focus {
                     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
                     border: 1px solid #045CC7;
                 }
-                
                 @include placeholder {
                     font-family: 'Roboto', sans-serif;
                     font-size: 17px;
                     line-height: normal;
                     color: #A9B3BB;
                 }
-
                 &[type="password"] {
                     letter-spacing: 0.2rem;
                     padding-right: 35px;
                 }
-
                 &[name="password"] {
                     @include placeholder {
                         letter-spacing: 0.2rem;
                     }
                 }
-
-                &:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus {
+                &:-webkit-autofill,
+                &:-webkit-autofill:hover,
+                &:-webkit-autofill:focus {
                     box-shadow: 0 0 0 30px white inset;
                 }
             }
-
             .form-group.invalid {
                 label {
                     color: #F61067;
                 }
-
                 input {
                     border: 1px solid #F61067;
                 }
             }
-
             .show-password {
                 position: absolute;
                 top: 15px;
                 right: 15px;
                 color: #A9B3BB;
                 outline: none;
-
-                &:active, &:focus {
+                &:active,
+                &:focus {
                     color: #70808D;
                 }
             }
-
             .validation-box {
                 display: none;
                 position: absolute;
@@ -732,7 +632,6 @@ footer {
                 padding: 16px 24px;
                 margin-top: 22px;
                 z-index: 1000;
-
                 .validation-heading {
                     font-family: 'Roboto', sans-serif;
                     font-weight: 500;
@@ -742,12 +641,10 @@ footer {
                     border-radius: 5px;
                     margin-bottom: 16px;
                 }
-
                 ul.validation-rules {
                     list-style-type: none;
                     padding-left: 16px;
                     margin: 0;
-
                     li {
                         font-family: 'Roboto', sans-serif;
                         font-weight: normal;
@@ -756,7 +653,6 @@ footer {
                         color: #A9B3BB;
                         border-radius: 5px;
                         margin-bottom: 8px;
-
                         &:before {
                             @extend .fas;
                             content: fa-content($fa-var-circle);
@@ -767,20 +663,16 @@ footer {
                             font-size: 0.5rem;
                         }
                     }
-
                     li.passed {
                         color: #49555F;
-
                         &:before {
                             color: #045CC7;
                         }
                     }
-
                     li:last-child {
                         margin-bottom: 0;
                     }
                 }
-
                 &:before {
                     content: '';
                     background: #FFF;
@@ -792,11 +684,9 @@ footer {
                     transform: rotate(45deg);
                 }
             }
-
-            input:focus + .validation-box {
+            input:focus+.validation-box {
                 display: inline-block;
             }
-
             a {
                 font-family: Roboto;
                 font-weight: normal;
@@ -805,7 +695,6 @@ footer {
                 text-align: right;
                 color: #70808D;
             }
-
             button {
                 height: 48px;
                 width: 100%;
@@ -820,17 +709,15 @@ footer {
                 cursor: pointer;
                 outline: none;
                 margin-top: 35px;
-
-                &:active, &:focus {
+                &:active,
+                &:focus {
                     outline: none;
                     box-shadow: none;
                 }
-
                 &:disabled {
                     cursor: not-allowed;
                 }
             }
-
             .dont-have-account {
                 font-family: 'Roboto', sans-serif;
                 font-weight: normal;
@@ -838,7 +725,6 @@ footer {
                 font-size: 17px;
                 color: #A9B3BB;
                 margin-top: 24px;
-
                 a {
                     font-family: 'Roboto', sans-serif;
                     font-weight: normal;
@@ -847,26 +733,21 @@ footer {
                     color: #2270CE;
                 }
             }
-
             @media (min-width: 1440px) {
                 margin-top: 130px;
             }
-
             @include media-breakpoint-down(sm) {
                 margin-top: 40px;
             }
         }
-
         .als-content {
             margin-top: 130px;
-
             .heading {
                 font-family: 'Roboto', sans-serif;
                 font-weight: normal;
                 line-height: 36px;
                 font-size: 22px;
                 color: #040506;
-
                 @include media-breakpoint-down(sm) {
                     line-height: 28px;
                     font-size: 17px;
@@ -874,14 +755,12 @@ footer {
                     display: inline;
                 }
             }
-
             .desc {
                 font-family: 'Roboto', sans-serif;
                 font-weight: normal;
                 line-height: 26px;
                 font-size: 17px;
                 color: #70808D;
-
                 @include media-breakpoint-down(sm) {
                     line-height: 28px;
                     font-size: 17px;
@@ -889,7 +768,6 @@ footer {
                     display: inline;
                 }
             }
-
             button {
                 height: 48px;
                 background: #045CC7;
@@ -903,38 +781,33 @@ footer {
                 cursor: pointer;
                 outline: none;
                 margin-top: 25px;
-
-                &:active, &:focus {
+                &:active,
+                &:focus {
                     outline: none;
                     box-shadow: none;
                 }
-
                 @include media-breakpoint-down(sm) {
                     margin-top: 40px;
                     width: 100%;
                 }
             }
-
             @include media-breakpoint-down(sm) {
                 margin-top: 40px;
             }
         }
-
         .signup-form {
             margin-top: 40px;
-
             @media (min-width: 1440px) {
                 margin-top: 130px;
             }
         }
     }
-
     .greetings {
         position: relative;
         overflow: hidden;
-
-        @include gradient-directional(#022191, #045CC7, 316deg);
-
+        @include gradient-directional(#022191,
+        #045CC7,
+        316deg);
         &:before {
             content: '';
             width: 65%;
@@ -945,19 +818,17 @@ footer {
             transform-origin: 100% 0;
             opacity: 0.3;
             transform: skewY(-30deg);
-
-            @include gradient-directional(rgba(0,0,0,0) 0%, #006DDE 100%, 90deg);
+            @include gradient-directional(rgba(0, 0, 0, 0) 0%,
+            #006DDE 100%,
+            90deg);
             opacity: 0.3;
-
             @include media-breakpoint-down(sm) {
                 display: none;
             }
         }
-
         .content-wrapper {
             width: 400px;
             margin: 260px auto 0;
-
             .heading {
                 font-family: 'Roboto', sans-serif;
                 font-weight: 300;
@@ -965,7 +836,6 @@ footer {
                 font-size: 42px;
                 color: #FFFFFF;
             }
-
             .message-text {
                 font-family: 'Roboto', sans-serif;
                 font-weight: 300;
@@ -975,16 +845,13 @@ footer {
                 opacity: 0.6;
             }
         }
-
         @include media-breakpoint-down(lg) {
             display: none;
         }
     }
-
     @include media-breakpoint-down(lg) {
         background: #fff;
     }
-
     @include media-breakpoint-down(sm) {
         height: 100%;
     }
@@ -992,7 +859,6 @@ footer {
 
 // Components
 @import './css/components/_accordion.scss';
-
 // Views
 @import './css/views/_home.scss';
 @import './css/views/_support.scss';
