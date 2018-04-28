@@ -54,12 +54,12 @@ class Home extends Component {
 
                                 <div className="col-md-6 col-lg-5 hero-calculator">
                                     <div className="calculator-wrapper">
-                                        <div className="online-indicator">
+                                        {/* <div className="online-indicator">
                                             <div className="status-icon online">
                                                 <div className="dot"></div>
                                             </div>
                                             <div className="status-label">Online</div>
-                                        </div>
+                                        </div> */}
                                         <SimpleCalculator />
                                     {/* 
                                         <div className="calculator-body">

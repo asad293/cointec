@@ -5,7 +5,7 @@ class Navbar extends Component {
     render() {
         return (
             <div className="container">
-                <nav className="navbar navbar-custom navbar-expand-lg navbar-dark px-0 py-3 py-md-4">
+                <nav className="navbar navbar-custom navbar-expand-lg navbar-dark py-3 py-md-4">
                     <Link className="navbar-brand" to='/'>
                         <img src="./img/Logo.svg" className="img-fluid mx-auto d-block" alt="Logo" />
                     </Link>

@@ -203,8 +203,8 @@ class SimpleCalculator extends Component {
     fistScreen() {
         const { handleSubmit } = this.props
         return (
-            <form className="bg" onSubmit={handleSubmit(this.onSubmit)}>
-                <div className="wrapper-320">
+            <form onSubmit={handleSubmit(this.onSubmit)}>
+                <div>
                     <div className="row am row-flex border-bg">
                         <div className="no-padding col-xs-8 col-sm-8 col-md-8 bg-input">
                             <Field

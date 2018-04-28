@@ -166,8 +166,8 @@ html {
 }
 
 .hero-wrapper {
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin-top: 7rem;
+    margin-bottom: 7rem;
     .support-heading {
         font-weight: 300;
         line-height: 53px;
@@ -182,14 +182,6 @@ html {
     }
 }
 
-.hero-text-main {
-    //Musti doesn't want this to be perfectly centered. Bring up
-    position: relative;
-    top: -26px;
-    @include media-breakpoint-down(sm) {
-        top: 0px;
-    }
-}
 
 .hero-text {
     * {
@@ -197,7 +189,7 @@ html {
     }
     .hero-title {
         @extend .display-4;
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
         font-weight: 300;
         @include media-breakpoint-down(md) {
             font-size: 2rem;
