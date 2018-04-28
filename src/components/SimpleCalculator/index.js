@@ -231,7 +231,7 @@ class SimpleCalculator extends Component {
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <div>
           <div className="calc-input-wrapper">
-            <div className="row am row-flex border-bg">
+            <div className="row am row-flex ">
               <div className="no-padding col-xs-8 col-sm-8 col-md-8 bg-input">
                 <Field
                   name="gbp"
@@ -245,11 +245,11 @@ class SimpleCalculator extends Component {
               </div>
               <div className="no-padding col-xs-4 col-sm-4 col-md-4 text-center">
                 <div>
-                  <label className="text-label">GBP</label>
+                  <label className="text-label">  <img src="./img/union-jack.svg" alt="GBP" />GBP</label>
                 </div>
               </div>
             </div>
-            <div className="row am row-flex border-bg">
+            <div className="row am row-flex ">
               <div className="no-padding col-xs-8 col-sm-8 col-md-8 bg-input">
                 <Field
                   name="btc"
@@ -263,7 +263,7 @@ class SimpleCalculator extends Component {
               </div>
               <div className="no-padding col-xs-4 col-sm-4 col-md-4 text-center">
                 <div>
-                  <label className="text-label text-center">BTC</label>
+                  <label className="text-label text-center"><img src="./img/bitcoin.svg" alt="BTC" />BTC</label>
                 </div>
               </div>
             </div>
