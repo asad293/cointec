@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 class Footer extends Component {
     render() {
         return (
-            <footer className="pt-5" style={{backgroundColor: this.props.backgroundColor}}>
+            <footer className="pt-5" style={{ backgroundColor: this.props.backgroundColor }}>
                 <div className="container">
 
                     <div className="row">
@@ -65,10 +65,22 @@ class Footer extends Component {
 
 
                     <div className="row d-md-none">
-                        <div className="col-12 mt-4">
+                        <div className="col-12 mt-4 d-flex flex-row">
+                            <a href="https://twitter.com/cointecuk">
+                                <i className="fab fa-twitter mr-4"></i>
+                            </a>
+                            <a href="https://medium.com/@Cointec">
+                                <i className="fab fa-medium-m mr-4"></i>
+                            </a>
+                            <a href="https://www.reddit.com/user/Cointec">
+                                <i className="fab fa-reddit-alien mr-4"></i>
+                            </a>
+
+                            {/*
                             <img src="./img/twitter.svg" alt="" className="mr-4" />
                             <img src="./img/twitter.svg" alt="" className="mr-4" />
                             <img src="./img/twitter.svg" alt="" className="mr-4" />
+                            */}
                         </div>
                     </div>
 

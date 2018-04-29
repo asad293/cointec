@@ -37,7 +37,7 @@ class Home extends Component {
                                     <h2 className="hero-intro">
                                         Cointec lets you buy Bitcoins instantly using Bank Transfer.
 
-                                        Try our calculator for instant quotes.
+                                        Try our calculator for live exchange rates.
                                     </h2>
 
                                     <div className="coming-soon d-none d-lg-flex">
