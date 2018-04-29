@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { formValueSelector, Field, reduxForm } from "redux-form";
 import { fetchBTC, fetchGBP, fetchAccounts } from "../../Redux/actions/index";
 import { connect } from "react-redux";
-import "./style.css";
+import "./style.scss";
 import cn from "classnames";
 import walletValidator from "wallet-address-validator";
 
@@ -176,10 +176,11 @@ class SimpleCalculator extends Component {
     }  ${valid === false ? "has-warning" : ""}`;
     return (
       <div className={className}>
-        <label className="field-label w-100 text-center text-sm-left">{label}</label>
+        <label className="field-label m-0">{label}</label>
         <input
+        autoComplete="off"
           placeholder={placeholder}
-          className="form-control no-border text-center text-sm-left "
+          className="form-control no-border p-0 "
           {...field.input}
         />
         <div className="text-help">{touched ? error : ""}</div>
@@ -209,7 +210,7 @@ class SimpleCalculator extends Component {
 
   renderButton() {
     let buttonState = "";
-    let buttonClass = "bt-submit";
+    let buttonClass = "btn-success ";
     if (this.state.buttonIsDisabled) {
       buttonState = "disabled";
       buttonClass = "";
@@ -217,7 +218,7 @@ class SimpleCalculator extends Component {
     return (
       <button
         type="submit"
-        className={cn("btn-block btn-lg", buttonClass, buttonState)}
+        className={cn("btn-block btn-lg btn-exchange text-white no-border", buttonClass, buttonState)}
         disabled={buttonState}
       >
         Instant exchange
@@ -232,7 +233,7 @@ class SimpleCalculator extends Component {
         <div>
           <div className="calc-input-wrapper">
             <div className="row am row-flex ">
-              <div className="no-padding col-xs-8 col-sm-8 col-md-8 bg-input">
+              <div className="no-padding col-8  bg-input">
                 <Field
                   name="gbp"
                   label="You send"
@@ -243,15 +244,15 @@ class SimpleCalculator extends Component {
                   }
                 />
               </div>
-              <div className="no-padding col-xs-4 col-sm-4 col-md-4 text-center">
+              <div className="no-padding col-4 d-flex align-items-center justify-content-end">
                 <div>
-                  <label className="text-label">  <img src="./img/union-jack.svg" alt="GBP" />GBP</label>
+                  <label className="text-label currency-label">  <img src="./img/union-jack.svg" alt="GBP" />GBP</label>
                 </div>
               </div>
             </div>
             <hr className="m-1"/>
             <div className="row am row-flex ">
-              <div className="no-padding col-xs-8 col-sm-8 col-md-8 bg-input">
+              <div className="no-padding col-8 bg-input">
                 <Field
                   name="btc"
                   label="You receive"
@@ -262,9 +263,9 @@ class SimpleCalculator extends Component {
                   ).toFixed(8)}
                 />
               </div>
-              <div className="no-padding col-xs-4 col-sm-4 col-md-4 text-center">
+              <div className="no-padding col-4 d-flex align-items-center justify-content-end">
                 <div>
-                  <label className="text-label text-center"><img src="./img/bitcoin.svg" alt="BTC" />BTC</label>
+                  <label className="text-label currency-label"><img src="./img/bitcoin.svg" alt="BTC" />BTC</label>
                 </div>
               </div>
             </div>
@@ -274,13 +275,13 @@ class SimpleCalculator extends Component {
               {this.renderButton()}
             </div>
           </div>
-          <div className="row">
-            <h6 className="buffer-top text-rate">
+          
+            <h6 className="text-white mt-3">
               {this.state.currencySymbol +
                 this.state.rate.toFixed(2) +
                 "/BTC Exchange Rate"}
             </h6>
-          </div>
+          
         </div>
       </form>
     );

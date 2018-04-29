@@ -146,6 +146,7 @@ html {
     } //Responsive / Mobile Button
     .navbar-toggler {
         border-color: transparent;
+        padding: 0;
     }
 }
 
@@ -153,6 +154,7 @@ html {
 .mobile-beta-band.hero-text {
     background-color: rgba(2, 33, 145, 0.33);
     font-size: 0.9rem;
+    position: relative;
     .coming-soon .beta-wrapper {
         background: none;
         .beta-pill {
@@ -218,6 +220,12 @@ html {
             &:hover {
                 background-color: lighten(#033D9D, 2%);
             }
+
+            @include media-breakpoint-down(md) {
+                padding: 0.4rem 0;
+            }
+
+
             .beta-pill {
                 font-size: 0.9rem;
                 display: flex;
@@ -245,7 +253,7 @@ html {
         //New
         .calc-input-wrapper {
             background-color: #fff;
-            padding: 10px;
+            padding: 0.5rem 1rem;
             border-radius: 4px;
             overflow: hidden;
             input {
@@ -263,7 +271,7 @@ html {
                 display: flex;
                 justify-content: center;
                 img {
-                    margin-right: 15px;
+                    margin-right: 10px;
                 }
             }
         }
