@@ -178,7 +178,7 @@ class SimpleCalculator extends Component {
       <div className={className}>
         <label className="field-label m-0">{label}</label>
         <input
-        autoComplete="off"
+          autoComplete="off"
           placeholder={placeholder}
           className="form-control no-border p-0 "
           {...field.input}
@@ -218,7 +218,11 @@ class SimpleCalculator extends Component {
     return (
       <button
         type="submit"
-        className={cn("btn-block btn-lg btn-exchange text-white no-border", buttonClass, buttonState)}
+        className={cn(
+          "btn-block btn-lg btn-exchange text-white no-border",
+          buttonClass,
+          buttonState
+        )}
         disabled={buttonState}
       >
         Instant exchange
@@ -246,11 +250,14 @@ class SimpleCalculator extends Component {
               </div>
               <div className="no-padding col-4 d-flex align-items-center justify-content-end">
                 <div>
-                  <label className="text-label currency-label">  <img src="./img/union-jack.svg" alt="GBP" />GBP</label>
+                  <label className="text-label currency-label">
+                    {" "}
+                    <img src="./img/union-jack.svg" alt="GBP" /><span>GBP</span>
+                  </label>
                 </div>
               </div>
             </div>
-            <hr className="my-2"/>
+            <hr className="my-2" />
             <div className="row am row-flex ">
               <div className="no-padding col-8 bg-input">
                 <Field
@@ -265,7 +272,9 @@ class SimpleCalculator extends Component {
               </div>
               <div className="no-padding col-4 d-flex align-items-center justify-content-end">
                 <div>
-                  <label className="text-label currency-label"><img src="./img/bitcoin.svg" alt="BTC" />BTC</label>
+                  <label className="text-label currency-label">
+                    <img src="./img/bitcoin.svg" alt="BTC" /><span>BTC</span>
+                  </label>
                 </div>
               </div>
             </div>
@@ -275,13 +284,12 @@ class SimpleCalculator extends Component {
               {this.renderButton()}
             </div>
           </div>
-          
-            <h6 className="text-white mt-3">
-              {this.state.currencySymbol +
-                this.state.rate.toFixed(2) +
-                "/BTC Exchange Rate"}
-            </h6>
-          
+
+          <h6 className="text-white mt-3">
+            {this.state.currencySymbol +
+              this.state.rate.toFixed(2) +
+              "/BTC Exchange Rate"}
+          </h6>
         </div>
       </form>
     );
