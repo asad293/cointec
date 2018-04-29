@@ -149,7 +149,7 @@ class Support extends Component {
 
                     {/* Hero Section */}
                     <div className="container">
-                        <div className="hero-wrapper">
+                        <div className="hero-wrapper hero-wrapper-inner">
                             <div className="row">
                                 <div className="col-md-12">
                                     <h1 className="support-heading">FAQ's and support</h1>

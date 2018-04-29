@@ -16,7 +16,7 @@ class Legal extends Component {
 
                     {/* Hero Section */}
                     <div className="container">
-                        <div className="hero-wrapper">
+                        <div className="hero-wrapper hero-wrapper-inner">
                             <div className="row">
                                 <div className="col-md-12">
                                     <h1 className="legal-heading">Legal</h1>
