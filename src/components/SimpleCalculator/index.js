@@ -250,7 +250,7 @@ class SimpleCalculator extends Component {
                 </div>
               </div>
             </div>
-            <hr className="m-1"/>
+            <hr className="my-2"/>
             <div className="row am row-flex ">
               <div className="no-padding col-8 bg-input">
                 <Field
