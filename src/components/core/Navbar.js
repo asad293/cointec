@@ -27,9 +27,9 @@ class Navbar extends Component {
                                     Home<span className="sr-only">(current)</span>
                                 </Link>
                             </li>
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <Link className="nav-link" to='/'>Features</Link>
-                            </li>
+                            </li> */}
                             <li className="nav-item">
                                 <Link className="nav-link" to='/support'>Support</Link>
                             </li>
@@ -37,7 +37,7 @@ class Navbar extends Component {
                                 <Link className="nav-link" to='/login'>Login</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link btn btn-primary" to='/signup'>Sign up</Link>
+                                <Link className="nav-link " to='/signup'>Sign up &nbsp;<img src="./img/arrow-right.svg" alt="Sign up" /></Link>
                             </li>
                         </ul>
                     </div>

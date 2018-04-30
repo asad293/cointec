@@ -1,4 +1,32 @@
-.wrapper {
+/*Restrict styles only to calculator */
+.calculator-wrapper{
+
+    .no-border {
+        border: 0px !important;
+        box-shadow: none !important;
+    }
+
+    .currency-label{
+        font-size: 24px;
+        margin-bottom: 0;
+
+            span{
+                width: 45px;
+                text-align: right;
+            }
+    }
+
+   
+
+    .btn-exchange{
+        padding: 1rem;
+    }
+
+
+}
+
+
+/* .wrapper {
     padding: 20px;
     border-style: solid;
     border-width: 5px;
@@ -15,7 +43,7 @@
 }
 
 .row-flex {
-    display: flex; /* columns are now equal height */
+    display: flex; 
     align-items: center;
 }
 
@@ -80,4 +108,4 @@
 
 .bg {
     padding: 10px;
-}
+} */

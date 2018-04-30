@@ -19,7 +19,7 @@ class TrustInfo extends Component {
                             </p>
 
                             <p>
-                                <a href="#" className="btn badge-primary-light">Wallet setup guide <i className="ml-1 mdi mdi-chevron-right"></i></a>
+                                <a href="#" className="btn btn-outline-primary">Wallet setup guide <i className="ml-1 mdi mdi-chevron-right"></i></a>
                             </p>
                         </div>
 
