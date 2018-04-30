@@ -29,7 +29,7 @@ class Home extends Component {
                         <div className="hero-wrapper">
                             <div className="row">
 
-                                <div className="col-md-6 hero-text-main hero-text text-white d-flex flex-column justify-content-center">
+                                <div className="col-md-6 hero-text-main hero-text text-white d-flex flex-column ">
                                     <h1 className="hero-title">
                                         Get Bitcoins. <strong>Fast.</strong>
                                     </h1>
@@ -37,7 +37,7 @@ class Home extends Component {
                                     <h2 className="hero-intro">
                                         Cointec lets you buy Bitcoins instantly using Bank Transfer.
 
-                                        Try our calculator for instant quotes.
+                                        Try our calculator for live exchange rates.
                                     </h2>
 
                                     <div className="coming-soon d-none d-lg-flex">
@@ -50,16 +50,16 @@ class Home extends Component {
                                     </div>
                                 </div>
 
-                                <div className="d-none d-lg-flex col-1"></div>
+                                <div className="d-none d-lg-flex col-lg-1 col-xl-2"></div>
 
-                                <div className="col-md-6 col-lg-5 hero-calculator">
-                                    <div className="calculator-wrapper">
-                                        <div className="online-indicator">
+                                <div className="col-md-6 col-lg-5 col-xl-4 hero-calculator">
+                                    <div className="calculator-wrapper mt-5 mt-md-0">
+                                        {/* <div className="online-indicator">
                                             <div className="status-icon online">
                                                 <div className="dot"></div>
                                             </div>
                                             <div className="status-label">Online</div>
-                                        </div>
+                                        </div> */}
                                         <SimpleCalculator />
                                     {/* 
                                         <div className="calculator-body">

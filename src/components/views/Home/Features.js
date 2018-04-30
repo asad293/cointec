@@ -8,11 +8,11 @@ class Features extends Component {
                     <div className="col-md-4">
 
                         <div className="cta-icon-wrapper py-4 py-md-5  pr-4">
-                            <img src="./img/Competitve_rates_icon.svg" alt="Competitve rates" />
+                            <img src="./img/chart-down.svg" alt="Competitve rates" />
 
                             <h3 className="cta-title">Competitive rates</h3>
                             <p className="cta-text">
-                                You’ll find it hard to get better rates elsewhere. We operate efficiently to save you costs. Add more text here.
+                            No extra fees. Ever. We promise.  Just guaranteed exchange rates that you’ll find hard to beat. 
                             </p>
                         </div>
 
@@ -22,11 +22,11 @@ class Features extends Component {
                     <div className="col-md-4">
 
                         <div className="cta-icon-wrapper py-4 py-md-5  pr-4">
-                            <img src="./img/Competitve_rates_icon.svg" alt="Competitve rates" />
+                            <img src="./img/stopwatch.svg" alt="Lightning fast delivery" />
 
                             <h3 className="cta-title">Lightning fast delivery</h3>
                             <p className="cta-text">
-                                You’ll find it hard to get better rates elsewhere. We operate efficiently to save you costs. Add more text here.
+                            Your coins are sent as soon as we receive payment so you can watch them move across the blockchain. 
                             </p>
                         </div>
 
@@ -36,11 +36,11 @@ class Features extends Component {
                     <div className="col-md-4">
 
                         <div className="cta-icon-wrapper py-4 py-md-5  pr-4">
-                            <img src="./img/Competitve_rates_icon.svg" alt="Competitve rates" />
+                            <img src="./img/help.svg" alt="Reliable support" />
 
                             <h3 className="cta-title">Reliable support</h3>
                             <p className="cta-text">
-                                You’ll find it hard to get better rates elsewhere. We operate efficiently to save you costs. Add more text here.
+                            Here 24/7 to answer your questions. The markets never sleep, so why should we?
                             </p>
                         </div>
 
