@@ -7,7 +7,7 @@ class Navbar extends Component {
             <div className="container">
                 <nav className="navbar navbar-custom navbar-expand-lg navbar-dark px-0 py-3 py-md-4">
                     <Link className="navbar-brand" to='/'>
-                        <img src="./img/Logo.svg" className="img-fluid mx-auto d-block" alt="Logo" />
+                        <img src="/img/Logo.svg" className="img-fluid mx-auto d-block" alt="Logo" />
                     </Link>
 
                     <button className="navbar-toggler" 
@@ -37,7 +37,7 @@ class Navbar extends Component {
                                 <Link className="nav-link" to='/login'>Login</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link " to='/signup'>Sign up &nbsp;<img src="./img/arrow-right.svg" alt="Sign up" /></Link>
+                                <Link className="nav-link " to='/signup'>Sign up &nbsp;<img src="/img/arrow-right.svg" alt="Sign up" /></Link>
                             </li>
                         </ul>
                     </div>

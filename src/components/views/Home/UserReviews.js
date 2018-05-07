@@ -27,7 +27,7 @@ class UserReviews extends Component {
                                     I’ve used many other websites to buy Bitcoins but Cointec makes it so easy and smooth to purchase. Sample dummy text placed here.
 
                                     <div className="card-user d-flex align-items-center mt-4">
-                                        <img src="./img/avatar.png" alt="" className="user-avatar" />
+                                        <img src="/img/avatar.png" alt="" className="user-avatar" />
                                         <div className="user-full-name text-primary ml-3">
                                             Anna Smith
                                         </div>
@@ -41,7 +41,7 @@ class UserReviews extends Component {
                                     I’ve used many other websites to buy Bitcoins but Cointec makes it so easy and smooth to purchase. Sample dummy text placed here.
 
                                     <div className="card-user d-flex align-items-center mt-4">
-                                        <img src="./img/avatar.png" alt="" className="user-avatar" />
+                                        <img src="/img/avatar.png" alt="" className="user-avatar" />
                                         <div className="user-full-name text-primary ml-3">
                                             Anna Smith
                                         </div>
@@ -55,7 +55,7 @@ class UserReviews extends Component {
                                     I’ve used many other websites to buy Bitcoins but Cointec makes it so easy and smooth to purchase. Sample dummy text placed here.
 
                                     <div className="card-user d-flex align-items-center mt-4">
-                                        <img src="./img/avatar.png" alt="" className="user-avatar" />
+                                        <img src="/img/avatar.png" alt="" className="user-avatar" />
                                         <div className="user-full-name text-primary ml-3">
                                             Anna Smith
                                         </div>

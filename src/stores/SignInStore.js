@@ -14,6 +14,7 @@ const validators = {
 class SignInStore {
     @observable inProgress = false
     @observable passwordVisible = false
+    @observable responseError = false
     @observable form = new Form({
         email: '',
         password: '',
@@ -37,9 +38,18 @@ class SignInStore {
         this.inProgress = true
 
         return api.signIn(this.form.data)
-            .then(({ data }) => authStore.setAuthenticated(data.Success))
-            .catch(action((err) => { throw err }))
+            .then(({ data }) => this.signInSuccess(data))
+            .catch(action((err) => {
+                this.responseError = true
+                throw err
+            }))
             .finally(action(() => { this.inProgress = false }))
+    }
+
+    @action signInSuccess(data) {
+        this.responseError = false
+        this.form.reset()
+        authStore.setAuthenticated(data.Success)
     }
 
     @action togglePassword() {

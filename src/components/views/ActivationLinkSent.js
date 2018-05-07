@@ -16,7 +16,7 @@ class SignIn extends Component {
                         <div className="row justify-content-center">
                             <div className="col-12 col-md-8 col-lg-6">
                                 <Link to='/'>
-                                    <img src="./img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
+                                    <img src="/img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
                                 </Link>
 
                                 <h1 className="page-title">Check your inbox!</h1>

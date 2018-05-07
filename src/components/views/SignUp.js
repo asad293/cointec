@@ -26,10 +26,10 @@ class SignUp extends Component {
     authComplete = () => this.props.history.push('/activation-link-sent')
 
     render() {
-        const { form, passwordVisible } = this.props.signUpStore
+        const { form, passwordVisible, inProgress, responseError } = this.props.signUpStore
 
-        const labelFirstName = form.isValid('firstName') ? 'First name' : 'Invalid first name'
-        const labelLastName = form.isValid('lastName') ? 'Last name' : 'Invalid last name'
+        // const labelFirstName = form.isValid('firstName') ? 'First name' : 'Invalid first name'
+        // const labelLastName = form.isValid('lastName') ? 'Last name' : 'Invalid last name'
         const labelEmail = form.isValid('emailAddress') ? 'Email' : 'Please enter a valid email'
         const labelPassword = form.isValid('password') ? 'Password' : 'Please enter a valid password'
 
@@ -40,13 +40,14 @@ class SignUp extends Component {
                         <div className="row justify-content-center">
                             <div className="col-12 col-md-8 col-lg-6">
                                 <Link to='/'>
-                                    <img src="./img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
+                                    <img src="/img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
                                 </Link>
 
                                 <h1 className="page-title">Sign Up</h1>
+                                <div className="form-error" style={{'visibility': responseError ? 'visible' : 'hidden'}}>Email already exists. Please login</div>
 
                                 <form className="signup-form" onSubmit={this.handleSubmit.bind(this)} noValidate>
-                                    <div className="form-row">
+                                    {/* <div className="form-row">
                                         <div className={'form-group col ' + (!form.isValid('firstName') ? 'invalid' : '')}>
                                             <label htmlFor="firstName">{labelFirstName}</label>
                                             <input 
@@ -72,7 +73,7 @@ class SignUp extends Component {
                                                 onChange={this.handleInputChange.bind(this)}
                                                 autoComplete="family-name" />
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                     <div className={'form-group ' + (!form.isValid('emailAddress') ? 'invalid' : '')}>
                                         <label htmlFor="emailAddress">{labelEmail}</label>
@@ -87,9 +88,9 @@ class SignUp extends Component {
                                             autoComplete="email" />
                                     </div>
 
-                                    <div className={'form-group ' + (!form.isValid('password') ? 'invalid' : '')}>
+                                    <div className={'form-group ' + (!form.isValid('password') ? 'invalid' : '') + ' ' + ((!!form.data['password'] && !form.check('password')) ? 'valid' : '')}>
                                         <label htmlFor="password">{labelPassword}</label>
-                                        <div className="position-relative">
+                                        <div className="password-validation position-relative">
                                             <input
                                                 id="password"
                                                 name="password"
@@ -101,22 +102,31 @@ class SignUp extends Component {
                                                 onChange={this.handleInputChange.bind(this)}
                                                 autoComplete="off" />
 
-                                            <div className="validation-box">
+                                            <PasswordToggle visible={passwordVisible} onToggle={this.togglePassword.bind(this)} />
+
+                                            <div className="typing-validator">8 or more character</div>
+
+                                            {/* <div className="validation-box">
                                                 <h5 className="validation-heading">Password must contain:</h5>
                                                 <ul className="validation-rules">
                                                     <li className={!form.check('password', 'minLength') ? 'passed' : ''}>At least 8 characters</li>
                                                     <li className={!form.check('password', 'containUpper') ? 'passed' : ''}>At least 1 capital letter</li>
                                                     <li className={!form.check('password', 'containNumber') ? 'passed' : ''}>At least 1 number</li>
                                                 </ul>
-                                            </div>
-
-                                            <PasswordToggle visible={passwordVisible} onToggle={this.togglePassword.bind(this)} />
+                                            </div> */}
                                         </div>
                                     </div>
 
-                                    <button type="submit" className="btn btn-primary" disabled={!form.valid}>Sign Up</button>
+                                    <div className="agree-statment">
+                                        <input type="checkbox" value="" name="checkbox" />
+                                        <label htmlFor="checkbox">I agree with the <Link to='/terms'>terms and conditions</Link></label>
+                                    </div>
 
-                                    <p className="dont-have-account">Already have an account? <Link to='/login'>Sign in</Link></p>
+                                    <button type="submit" className="btn btn-primary" disabled={inProgress}>
+                                        {inProgress ? <div><i className="fas fa-spinner fa-spin"></i></div>: <span>Create an account</span>}
+                                    </button>
+
+                                    <p className="have-account">Already have an account? <Link to='/login'>Sign in</Link></p>
                                 </form>
                             </div>
                         </div>

@@ -24,7 +24,7 @@ class Routes extends Component {
                 <Route exact path="/" component={Home} />
                 <Route exact path="/login" component={SignIn} />
                 <Route exact path="/signup" component={SignUp} />
-                <Route exact path="/forgot-password" component={ForgotPassword} />
+                <Route exact path="/forgot-password/:token?" component={ForgotPassword} />
                 <Route exact path="/activation-link-sent" component={ActivationLinkSent} />
                 <Route exact path="/reset-link-sent" component={ResetLinkSent} />
                 <Route exact path="/reset-password" component={ResetPassword} />

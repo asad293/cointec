@@ -118,6 +118,27 @@ class Form {
         }
     }
 
+    reset() {
+        for (let name in this.data) {
+            this.data[name] = ''
+
+            if (this.validators[name]) {
+                if (this.validators[name] instanceof Function) {
+                    this.errors[name] = false
+
+                } else if (this.validators[name] instanceof Object) {
+                    this.errors[name] = {}
+
+                    for (let validator in this.validators[name]) {
+                        (this.errors[name])[validator] = false;
+                    }
+                }
+            } else {
+                this.errors[name] = false
+            }
+        }
+    }
+
 }
 
 export default Form
