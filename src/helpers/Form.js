@@ -23,7 +23,7 @@ class Form {
                     }
                 }
             } else {
-                this.validators[name] = () => true
+                this.validators[name] = () => false
                 this.errors[name] = false
             }
         }

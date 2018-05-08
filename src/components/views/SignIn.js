@@ -57,9 +57,9 @@ class SignIn extends Component {
                                             onChange={this.handleInputChange.bind(this)} />
                                     </div>
 
-                                    <div className={'form-group ' + (!form.isValid('password') ? 'invalid' : '') + ' ' + ((!!form.data['password'] && !form.check('password')) ? 'valid' : '')}>
+                                    <div className={'form-group ' + (!form.isValid('password') ? 'invalid' : '')}>
                                         <label htmlFor="password">{labelPassword}</label>
-                                        <div className="password-validation position-relative">
+                                        <div className="position-relative">
                                             <input
                                                 name="password"
                                                 type={passwordVisible ? 'text' : 'password'}
@@ -72,7 +72,7 @@ class SignIn extends Component {
                                                 
                                             <PasswordToggle visible={passwordVisible} onToggle={this.togglePassword.bind(this)} />
 
-                                            <div className="typing-validator">8 or more character</div>
+                                            {/* <div className="typing-validator">8 or more character</div> */}
                                         </div>
                                     </div>
 

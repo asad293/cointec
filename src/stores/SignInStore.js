@@ -8,7 +8,7 @@ const validators = {
         const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         return !regex.test(value)
     },
-    password: value => value.length < 8
+    // password: value => value.length < 8
 }
 
 class SignInStore {
