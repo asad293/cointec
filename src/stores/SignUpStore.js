@@ -49,13 +49,14 @@ class SignUpStore {
             .then(({ data }) => console.log(data))
             .catch(action((err) => {
                 this.responseError = true
+                this.inProgress = false
                 throw err
             }))
-            .finally(action(() => { this.inProgress = false }))
     }
 
     @action signUpSuccess(data) {
         this.responseError = false
+        this.inProgress = false
         this.form.reset()
     }
 

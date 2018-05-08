@@ -41,13 +41,14 @@ class SignInStore {
             .then(({ data }) => this.signInSuccess(data))
             .catch(action((err) => {
                 this.responseError = true
+                this.inProgress = false
                 throw err
             }))
-            .finally(action(() => { this.inProgress = false }))
     }
 
     @action signInSuccess(data) {
         this.responseError = false
+        this.inProgress = false
         this.form.reset()
         authStore.setAuthenticated(data.Success)
     }
