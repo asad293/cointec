@@ -36,6 +36,10 @@
   },
   "dependencies": {
     "@fancyapps/fancybox": "^3.1.20",
+    "@fortawesome/fontawesome": "^1.1.5",
+    "@fortawesome/fontawesome-free-brands": "^5.0.10",
+    "@fortawesome/fontawesome-free-solid": "^5.0.10",
+    "@fortawesome/react-fontawesome": "0.0.18",
     "axios": "^0.18.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "bootstrap": "^4.0.0-beta",

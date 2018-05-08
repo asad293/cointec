@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faTwitter from '@fortawesome/fontawesome-free-brands/faTwitter'
+import faMedium from '@fortawesome/fontawesome-free-brands/faMedium'
+import faRedditAlien from '@fortawesome/fontawesome-free-brands/faRedditAlien'
 
 class Footer extends Component {
     render() {
@@ -67,13 +71,13 @@ class Footer extends Component {
                     <div className="row d-md-none">
                         <div className="col-12 mt-4 d-flex flex-row">
                             <a href="https://twitter.com/cointecuk">
-                                <i className="fab fa-twitter mr-4"></i>
+                                <FontAwesomeIcon icon={faTwitter} className="mr-4" />
                             </a>
                             <a href="https://medium.com/@Cointec">
-                                <i className="fab fa-medium-m mr-4"></i>
+                                <FontAwesomeIcon icon={faMedium} className="mr-4" />
                             </a>
                             <a href="https://www.reddit.com/user/Cointec">
-                                <i className="fab fa-reddit-alien mr-4"></i>
+                                <FontAwesomeIcon icon={faRedditAlien} className="mr-4" />
                             </a>
 
                             {/*
