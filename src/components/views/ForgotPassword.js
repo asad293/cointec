@@ -25,6 +25,7 @@ class ForgotPassword extends Component {
 
     render() {
         const { form, inProgress } = this.props.forgotPasswordStore
+        const { token } = this.props.match.params
 
         const labelEmail = form.isValid('emailAddress') ? 'Email' : 'Please enter a valid email'
 
@@ -35,13 +36,17 @@ class ForgotPassword extends Component {
                         <div className="row justify-content-center">
                             <div className="col-12 col-md-8 col-lg-6">
                                 <Link to='/'>
-                                    <img src="./img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
+                                    <img src="/img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
                                 </Link>
 
                                 <h1 className="page-title">Reset password</h1>
 
                                 <form className="signin-form" onSubmit={this.handleSubmit.bind(this)} noValidate>
-                                    <h5 className="heading-line">Please enter your email address to begin resetting your password.</h5>
+                                    <h5 className="heading-line">
+                                        {!token ? 
+                                            'Please enter your email address to begin resetting your password.': 
+                                            'To receive another password reset link, please enter your email below.'}
+                                    </h5>
 
                                     <div className={'form-group ' + (!form.isValid('emailAddress') ? 'invalid' : '')}>
                                         <label htmlFor="email">{labelEmail}</label>
@@ -65,8 +70,8 @@ class ForgotPassword extends Component {
                 </div>
 
                 <Greetings
-                    heading="Reset password."
-                    messageText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu lobortis est. Nullam quis augue eu." />
+                    heading={!token ? 'Reset password.' : 'Reset link expired'}
+                    messageText={!token ? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu lobortis est. Nullam quis augue eu.' : 'Your reset link expired after 24 hours or has already been used.'} />
             </div>
         )
     }

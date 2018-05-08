@@ -31,9 +31,8 @@ class ForgotPasswordStore {
         this.inProgress = true
         
         return api.forgotPassword(this.form.data)
-            .then(({ data }) => console.log(data))
-            .catch(action((err) => { console.log(err); throw err }))
-            .finally(action(() => { this.inProgress = false }))
+            .then(({ data }) => { console.log(data); this.inProgress = false })
+            .catch(action((err) => { console.log(err); this.inProgress = false; throw err }))
     }
 }
 

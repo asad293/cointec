@@ -8,12 +8,13 @@ const validators = {
         const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         return !regex.test(value)
     },
-    password: value => value.length < 8
+    // password: value => value.length < 8
 }
 
 class SignInStore {
     @observable inProgress = false
     @observable passwordVisible = false
+    @observable responseError = false
     @observable form = new Form({
         email: '',
         password: '',
@@ -37,9 +38,19 @@ class SignInStore {
         this.inProgress = true
 
         return api.signIn(this.form.data)
-            .then(({ data }) => authStore.setAuthenticated(data.Success))
-            .catch(action((err) => { throw err }))
-            .finally(action(() => { this.inProgress = false }))
+            .then(({ data }) => this.signInSuccess(data))
+            .catch(action((err) => {
+                this.responseError = true
+                this.inProgress = false
+                throw err
+            }))
+    }
+
+    @action signInSuccess(data) {
+        this.responseError = false
+        this.inProgress = false
+        this.form.reset()
+        authStore.setAuthenticated(data.Success)
     }
 
     @action togglePassword() {

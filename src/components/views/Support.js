@@ -161,7 +161,7 @@ class Support extends Component {
                                     <form className="row d-flex justify-content-center" onSubmit={this.handleSubmit.bind(this)}>
                                         <div className="search-bar mb-2 d-md-block col-lg-8 col-md-12">
                                             <input type="text" className="py-2" value={this.state.search} onChange={this.searchFaqs.bind(this)} placeholder="Type your question here" />
-                                            <img className="search-icon" src="./img/search.svg" alt="search" />
+                                            <img className="search-icon" src="/img/search.svg" alt="search" />
                                             { this.state.search ? <a href="javascript:void(0)" className="cancel-search" onClick={this.cancelSearch.bind(this)}><i className="far fa-times"></i></a> : '' }
                                         </div>
                                     </form>

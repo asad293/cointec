@@ -29,7 +29,7 @@ class CurrentDevelopment extends Component {
                             <div className="cta-icon-wrapper py-4 py-md-5 pr-xl-4">
 
                             <div className="icon-wrapper">
-                            <img src="./img/creditcard.svg" alt="Competitve rates" />
+                            <img src="/img/creditcard.svg" alt="Competitve rates" />
                             </div>
                                
 
@@ -46,7 +46,7 @@ class CurrentDevelopment extends Component {
 
                             <div className="cta-icon-wrapper py-4 py-md-5 pr-xl-4">
                             <div className="icon-wrapper">
-                            <img src="./img/eth.svg" alt="Competitve rates" />
+                            <img src="/img/eth.svg" alt="Competitve rates" />
                             </div>
 
                                 <h3 className="cta-title">More cryptocurrencies</h3>
@@ -62,7 +62,7 @@ class CurrentDevelopment extends Component {
 
                             <div className="cta-icon-wrapper py-4 py-md-5 pr-xl-4">
                             <div className="icon-wrapper">
-                            <img src="./img/wallet.svg" alt="Competitve rates" />
+                            <img src="/img/wallet.svg" alt="Competitve rates" />
                             </div>
 
                                 <h3 className="cta-title">Secure wallets</h3>

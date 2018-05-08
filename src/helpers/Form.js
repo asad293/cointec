@@ -23,7 +23,7 @@ class Form {
                     }
                 }
             } else {
-                this.validators[name] = () => true
+                this.validators[name] = () => false
                 this.errors[name] = false
             }
         }
@@ -114,6 +114,27 @@ class Form {
                     validatorValid = validatorValid && !(this.errors[name])[error]
                 }
                 return validatorValid
+            }
+        }
+    }
+
+    reset() {
+        for (let name in this.data) {
+            this.data[name] = ''
+
+            if (this.validators[name]) {
+                if (this.validators[name] instanceof Function) {
+                    this.errors[name] = false
+
+                } else if (this.validators[name] instanceof Object) {
+                    this.errors[name] = {}
+
+                    for (let validator in this.validators[name]) {
+                        (this.errors[name])[validator] = false;
+                    }
+                }
+            } else {
+                this.errors[name] = false
             }
         }
     }

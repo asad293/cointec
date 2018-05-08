@@ -252,7 +252,7 @@ class SimpleCalculator extends Component {
                 <div>
                   <label className="text-label currency-label">
                     {" "}
-                    <img src="./img/union-jack.svg" alt="GBP" /><span>GBP</span>
+                    <img src="/img/union-jack.svg" alt="GBP" /><span>GBP</span>
                   </label>
                 </div>
               </div>
@@ -273,7 +273,7 @@ class SimpleCalculator extends Component {
               <div className="no-padding col-4 d-flex align-items-center justify-content-end">
                 <div>
                   <label className="text-label currency-label">
-                    <img src="./img/bitcoin.svg" alt="BTC" /><span>BTC</span>
+                    <img src="/img/bitcoin.svg" alt="BTC" /><span>BTC</span>
                   </label>
                 </div>
               </div>

@@ -3,25 +3,27 @@ import Form from '../helpers/Form'
 import api from '../api'
 
 const validators = {
-    firstName: value => value.length < 3,
-    lastName: value => value.length < 2,
+    // firstName: value => value.length < 3,
+    // lastName: value => value.length < 2,
     emailAddress: value => {
         const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         return !regex.test(value)
     },
-    password: {
-        minLength: value => value.length < 8,
-        containUpper: value => !/(?=.*[A-Z])/.test(value),
-        containNumber: value => !/(?=.*\d)/.test(value)
-    }
+    password: value => value.length < 8
+    // password: {
+    //     minLength: value => value.length < 8,
+    //     containUpper: value => !/(?=.*[A-Z])/.test(value),
+    //     containNumber: value => !/(?=.*\d)/.test(value)
+    // }
 }
 
 class SignUpStore {
     @observable inProgress = false
     @observable passwordVisible = false
+    @observable responseError = false
     @observable form = new Form({
-        firstName: '',
-        lastName: '',
+        // firstName: '',
+        // lastName: '',
         emailAddress: '',
         password: '',
     }, validators)
@@ -45,8 +47,17 @@ class SignUpStore {
         
         return api.signUp(this.form.data)
             .then(({ data }) => console.log(data))
-            .catch(action((err) => { throw err }))
-            .finally(action(() => { this.inProgress = false }))
+            .catch(action((err) => {
+                this.responseError = true
+                this.inProgress = false
+                throw err
+            }))
+    }
+
+    @action signUpSuccess(data) {
+        this.responseError = false
+        this.inProgress = false
+        this.form.reset()
     }
 
     @action togglePassword() {

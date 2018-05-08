@@ -8,7 +8,7 @@ class Features extends Component {
                     <div className="col-md-4">
 
                         <div className="cta-icon-wrapper py-4 py-md-5  pr-4">
-                            <img src="./img/chart-down.svg" alt="Competitve rates" />
+                            <img src="/img/chart-down.svg" alt="Competitve rates" />
 
                             <h3 className="cta-title">Competitive rates</h3>
                             <p className="cta-text">
@@ -22,7 +22,7 @@ class Features extends Component {
                     <div className="col-md-4">
 
                         <div className="cta-icon-wrapper py-4 py-md-5  pr-4">
-                            <img src="./img/stopwatch.svg" alt="Lightning fast delivery" />
+                            <img src="/img/stopwatch.svg" alt="Lightning fast delivery" />
 
                             <h3 className="cta-title">Lightning fast delivery</h3>
                             <p className="cta-text">
@@ -36,7 +36,7 @@ class Features extends Component {
                     <div className="col-md-4">
 
                         <div className="cta-icon-wrapper py-4 py-md-5  pr-4">
-                            <img src="./img/help.svg" alt="Reliable support" />
+                            <img src="/img/help.svg" alt="Reliable support" />
 
                             <h3 className="cta-title">Reliable support</h3>
                             <p className="cta-text">

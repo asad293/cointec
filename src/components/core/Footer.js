@@ -15,7 +15,7 @@ class Footer extends Component {
                     <div className="row">
 
                         <div className="col-12 col-md-3 col-lg-6">
-                            <img src="./img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
+                            <img src="/img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
                         </div>
 
                         <div className="col-12 col-md-9 col-lg-6">
@@ -81,9 +81,9 @@ class Footer extends Component {
                             </a>
 
                             {/*
-                            <img src="./img/twitter.svg" alt="" className="mr-4" />
-                            <img src="./img/twitter.svg" alt="" className="mr-4" />
-                            <img src="./img/twitter.svg" alt="" className="mr-4" />
+                            <img src="/img/twitter.svg" alt="" className="mr-4" />
+                            <img src="/img/twitter.svg" alt="" className="mr-4" />
+                            <img src="/img/twitter.svg" alt="" className="mr-4" />
                             */}
                         </div>
                     </div>

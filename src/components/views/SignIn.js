@@ -26,7 +26,7 @@ class SignIn extends Component {
     authComplete = () => this.props.history.push('/')
 
     render() {
-        const { form, passwordVisible, inProgress } = this.props.signInStore
+        const { form, passwordVisible, inProgress, responseError } = this.props.signInStore
 
         const labelEmail = form.isValid('email') ? 'Email' : 'Please enter a valid email'
         const labelPassword = form.isValid('password') ? 'Password' : 'Please enter a valid password'
@@ -38,10 +38,11 @@ class SignIn extends Component {
                         <div className="row justify-content-center">
                             <div className="col-12 col-md-8 col-lg-6">
                                 <Link to='/'>
-                                    <img src="./img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
+                                    <img src="/img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
                                 </Link>
 
                                 <h1 className="page-title">Sign In</h1>
+                                <div className="form-error" style={{'visibility': responseError ? 'visible' : 'hidden'}}>Sorry, that email or password didn't work.</div>
 
                                 <form className="signin-form" onSubmit={this.handleSubmit.bind(this)} noValidate>
                                     <div className={'form-group ' + (!form.isValid('email') ? 'invalid' : '')}>
@@ -68,18 +69,20 @@ class SignIn extends Component {
                                                 onBlur={this.validate.bind(this)}
                                                 onChange={this.handleInputChange.bind(this)}
                                                 autoComplete="off" />
-
+                                                
                                             <PasswordToggle visible={passwordVisible} onToggle={this.togglePassword.bind(this)} />
+
+                                            {/* <div className="typing-validator">8 or more character</div> */}
                                         </div>
                                     </div>
 
-                                    <Link to='/forgot-password' className="d-block">Forgot password?</Link>
+                                    <Link to='/forgot-password' className="d-block link-forgot-password">Forgot password?</Link>
 
                                     <button type="submit" className="btn btn-primary" disabled={inProgress}>
-                                        {inProgress ? <i className="fas fa-spinner fa-spin"></i>: 'Sign In'}
+                                        {inProgress ? <div><i className="fas fa-spinner fa-spin"></i></div>: <span>Sign in</span>}
                                     </button>
 
-                                    <p className="dont-have-account">Don’t have an account? <Link to='/signup'>Sign up</Link></p>
+                                    <p className="have-account">Don’t have an account? <Link to='/signup'>Sign up</Link></p>
                                 </form>
                             </div>
                         </div>

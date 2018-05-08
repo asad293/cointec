@@ -26,10 +26,10 @@ class TrustInfo extends Component {
 
                         <div className="col-md-6 d-flex align-items-center justify-content-center">
                             <div className="map-wrapper py-5">
-                                <img src="./img/UK.svg" alt="We connect you to the most trusted brokers" className="img-fluid" />
-                                <img src="./img/lock.svg" alt="" className="lock lock1" />
-                                <img src="./img/lock.svg" alt="" className="lock lock2" />
-                                <img src="./img/lock.svg" alt="" className="lock lock3" />
+                                <img src="/img/UK.svg" alt="We connect you to the most trusted brokers" className="img-fluid" />
+                                <img src="/img/lock.svg" alt="" className="lock lock1" />
+                                <img src="/img/lock.svg" alt="" className="lock lock2" />
+                                <img src="/img/lock.svg" alt="" className="lock lock3" />
                             </div>
 
                         </div>
