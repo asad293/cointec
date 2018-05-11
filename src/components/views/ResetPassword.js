@@ -33,11 +33,11 @@ class ResetPassword extends Component {
         const labelConfirmPassword = form.isValid('confirmPassword') ? 'Confirm New Password' : 'Please enter a valid password'
 
         return (
-            <div className="container-full">
-                <div className="form-section">
-                    <div className="container">
+            <div className="container-fluid p-sm-0">
+                <div className="row full-height">
+                    <div className="col-12 col-xl-6 form-section">
                         <div className="row justify-content-center">
-                            <div className="col-12 col-md-8 col-lg-6">
+                            <div className="col-12 col-sm-8 col-lg-6">
                                 <Link to='/'>
                                     <img src="/img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
                                 </Link>
@@ -95,11 +95,11 @@ class ResetPassword extends Component {
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <Greetings
-                    heading="Reset password."
-                    messageText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu lobortis est. Nullam quis augue eu." />
+                    <Greetings
+                        heading="Reset password."
+                        messageText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu lobortis est. Nullam quis augue eu." />
+                </div>
             </div>
         )
     }

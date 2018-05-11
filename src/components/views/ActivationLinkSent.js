@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-import Form from '../../helpers/Form'
+import Greetings from '../core/Greetings'
 
 class SignIn extends Component {
     constructor() {
@@ -10,11 +10,11 @@ class SignIn extends Component {
 
     render() {
         return (
-            <div className="container-full">
-                <div className="form-section">
-                    <div className="container">
+            <div className="container-fluid p-sm-0">
+                <div className="row full-height">
+                    <div className="col-12 col-xl-6 form-section">
                         <div className="row justify-content-center">
-                            <div className="col-12 col-md-8 col-lg-6">
+                            <div className="col-12 col-sm-8 col-lg-6">
                                 <Link to='/'>
                                     <img src="/img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
                                 </Link>
@@ -29,13 +29,10 @@ class SignIn extends Component {
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="greetings">
-                    <div className="content-wrapper">
-                        <h1 className="heading">Check your inbox!</h1>
-                        <p className="message-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu lobortis est. Nullam quis augue eu.</p>
-                    </div>
+                    <Greetings
+                        heading="Check your inbox!"
+                        messageText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu lobortis est. Nullam quis augue eu." />
                 </div>
             </div>
         )

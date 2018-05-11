@@ -30,11 +30,11 @@ class ForgotPassword extends Component {
         const labelEmail = form.isValid('emailAddress') ? 'Email' : 'Please enter a valid email'
 
         return (
-            <div className="container-full">
-                <div className="form-section">
-                    <div className="container">
+            <div className="container-fluid p-sm-0">
+                <div className="row full-height">
+                    <div className="col-12 col-xl-6 form-section">
                         <div className="row justify-content-center">
-                            <div className="col-12 col-md-8 col-lg-6">
+                            <div className="col-12 col-sm-8 col-lg-6">
                                 <Link to='/'>
                                     <img src="/img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
                                 </Link>
@@ -67,11 +67,11 @@ class ForgotPassword extends Component {
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <Greetings
-                    heading={!token ? 'Reset password.' : 'Reset link expired'}
-                    messageText={!token ? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu lobortis est. Nullam quis augue eu.' : 'Your reset link expired after 24 hours or has already been used.'} />
+                    <Greetings
+                        heading={!token ? 'Reset password.' : 'Reset link expired'}
+                        messageText={!token ? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu lobortis est. Nullam quis augue eu.' : 'Your reset link expired after 24 hours or has already been used.'} />
+                </div>
             </div>
         )
     }

@@ -1,0 +1,41 @@
+.greetings {
+    position: relative;
+    overflow: hidden;
+    @include gradient-directional(#022191,
+        #045CC7,
+        316deg);
+    &:before {
+        content: '';
+        width: 65%;
+        height: 75%;
+        position: absolute;
+        top: -20%;
+        right: 0;
+        transform-origin: 100% 0;
+        opacity: 0.3;
+        transform: skewY(-30deg);
+        @include gradient-directional(rgba(0, 0, 0, 0) 0%,
+            #006DDE 100%,
+            90deg);
+        opacity: 0.3;
+    }
+    .content-wrapper {
+        width: 400px;
+        margin: 260px auto 0;
+        .heading {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            line-height: normal;
+            font-size: 42px;
+            color: #FFFFFF;
+        }
+        .message-text {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            line-height: 28px;
+            font-size: 17px;
+            color: #FFFFFF;
+            opacity: 0.6;
+        }
+    }
+}
