@@ -27,7 +27,7 @@ $primary-light: #178CF5;
 html {
     background-color: #F4F7FA;
     body {
-        max-width: 1920px;
+        // max-width: 1920px;
         margin: auto;
         box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.07);
         @include media-breakpoint-down(lg) {
@@ -598,7 +598,7 @@ footer {
             visibility: hidden;
 
             @include media-breakpoint-down(md) {
-                margin-top: 20px;
+                margin-top: 10px;
             }
         }
         form {
@@ -899,8 +899,6 @@ footer {
                 font-size: 17px;
                 color: #A9B3BB;
                 margin-top: 24px;
-                position: fixed;
-                bottom: 0;
                 a {
                     font-family: 'Roboto', sans-serif;
                     font-weight: normal;
@@ -908,12 +906,16 @@ footer {
                     font-size: 17px;
                     color: #2270CE;
                 }
+                @include media-breakpoint-up(lg) {
+                    position: fixed;
+                    bottom: 0;
+                }
             }
             @media (min-width: 1440px) {
                 margin-top: 30px;
             }
             @include media-breakpoint-down(sm) {
-                margin-top: 40px;
+                margin-top: 20px;
             }
         }
         .als-content {
