@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 
+import FormWrapper from '../core/FormWrapper'
 import Greetings from '../core/Greetings'
 import PasswordToggle from '../core/PasswordToggle'
 
@@ -31,65 +32,61 @@ class SignIn extends Component {
         const labelPassword = form.isValid('password') ? 'Password' : 'Please enter a valid password'
 
         return (
-            <div className="container-fluid p-sm-0">
-                <div className="row full-height">
-                    <div className="col-12 col-xl-6 form-section">
-                        <div className="row justify-content-center">
-                            <div className="col-12 col-sm-8 col-lg-6">
-                                <Link to='/'>
-                                    <img src="/img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
-                                </Link>
+            <FormWrapper>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12 col-xl-4 form-section">
+                            <Link to='/'>
+                                <img src="/img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
+                            </Link>
 
-                                <h1 className="page-title">Sign In</h1>
-                                <div className="form-error" style={{'visibility': responseError ? 'visible' : 'hidden'}}>Sorry, that email or password didn't work.</div>
+                            <h1 className="page-title">Sign In</h1>
+                            <div className="form-error" style={{'visibility': responseError ? 'visible' : 'hidden'}}>Sorry, that email or password didn't work.</div>
 
-                                <form className="signin-form" onSubmit={this.handleSubmit.bind(this)} noValidate>
-                                    <div className={'form-group ' + (!form.isValid('email') ? 'invalid' : '')}>
-                                        <label htmlFor="email">{labelEmail}</label>
+                            <form className="signin-form" onSubmit={this.handleSubmit.bind(this)} noValidate>
+                                <div className={'form-group ' + (!form.isValid('email') ? 'invalid' : '')}>
+                                    <label htmlFor="email">{labelEmail}</label>
+                                    <input
+                                        name="email"
+                                        type="email"
+                                        className="form-control"
+                                        placeholder="email@cointec.co.uk"
+                                        value={form.data.email}
+                                        onChange={this.handleInputChange.bind(this)} />
+                                </div>
+
+                                <div className={'form-group ' + (!form.isValid('password') ? 'invalid' : '')}>
+                                    <label htmlFor="password">{labelPassword}</label>
+                                    <div className="position-relative">
                                         <input
-                                            name="email"
-                                            type="email"
-                                            className="form-control"
-                                            placeholder="email@cointec.co.uk"
-                                            value={form.data.email}
-                                            onChange={this.handleInputChange.bind(this)} />
+                                            name="password"
+                                            type={passwordVisible ? 'text' : 'password'}
+                                            className="form-control password"
+                                            placeholder="••••••••"
+                                            value={form.data.password}
+                                            onChange={this.handleInputChange.bind(this)}
+                                            autoComplete="off" />
+                                            
+                                        <PasswordToggle visible={passwordVisible} onToggle={this.togglePassword.bind(this)} />
                                     </div>
+                                </div>
 
-                                    <div className={'form-group ' + (!form.isValid('password') ? 'invalid' : '')}>
-                                        <label htmlFor="password">{labelPassword}</label>
-                                        <div className="position-relative">
-                                            <input
-                                                name="password"
-                                                type={passwordVisible ? 'text' : 'password'}
-                                                className="form-control password"
-                                                placeholder="••••••••"
-                                                value={form.data.password}
-                                                onChange={this.handleInputChange.bind(this)}
-                                                autoComplete="off" />
-                                                
-                                            <PasswordToggle visible={passwordVisible} onToggle={this.togglePassword.bind(this)} />
+                                <Link to='/forgot-password' className="d-block link-forgot-password">Forgot password?</Link>
 
-                                            {/* <div className="typing-validator">8 or more character</div> */}
-                                        </div>
-                                    </div>
+                                <button type="submit" className="btn btn-primary" disabled={inProgress}>
+                                    {inProgress ? <div><i className="fas fa-spinner fa-spin"></i></div>: <span>Sign in</span>}
+                                </button>
 
-                                    <Link to='/forgot-password' className="d-block link-forgot-password">Forgot password?</Link>
-
-                                    <button type="submit" className="btn btn-primary" disabled={inProgress}>
-                                        {inProgress ? <div><i className="fas fa-spinner fa-spin"></i></div>: <span>Sign in</span>}
-                                    </button>
-
-                                    <p className="have-account">Don’t have an account? <Link to='/signup'>Sign up</Link></p>
-                                </form>
-                            </div>
+                                <p className="have-account">Don’t have an account? <Link to='/signup'>Sign up</Link></p>
+                            </form>
                         </div>
-                    </div>
 
-                    <Greetings
-                        heading="Welcome back!"
-                        messageText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu lobortis est. Nullam quis augue eu." />
+                        <Greetings
+                            heading="Welcome back!"
+                            messageText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu lobortis est. Nullam quis augue eu." />
+                    </div>
                 </div>
-            </div>
+            </FormWrapper>
         )
     }
 }

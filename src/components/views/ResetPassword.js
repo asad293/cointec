@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 
+import FormWrapper from '../core/FormWrapper'
 import Greetings from '../core/Greetings'
 import PasswordToggle from '../core/PasswordToggle'
 
@@ -33,74 +34,72 @@ class ResetPassword extends Component {
         const labelConfirmPassword = form.isValid('confirmPassword') ? 'Confirm New Password' : 'Please enter a valid password'
 
         return (
-            <div className="container-fluid p-sm-0">
-                <div className="row full-height">
-                    <div className="col-12 col-xl-6 form-section">
-                        <div className="row justify-content-center">
-                            <div className="col-12 col-sm-8 col-lg-6">
-                                <Link to='/'>
-                                    <img src="/img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
-                                </Link>
+            <FormWrapper>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12 col-xl-4 form-section">
+                            <Link to='/'>
+                                <img src="/img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
+                            </Link>
 
-                                <h1 className="page-title">Reset password</h1>
+                            <h1 className="page-title">Reset password</h1>
 
-                                <form className="signin-form" onSubmit={this.handleSubmit.bind(this)} noValidate>
-                                    <div className={'form-group ' + (!form.isValid('password') ? 'invalid' : '')}>
-                                        <label htmlFor="password">{labelPassword}</label>
-                                        <div className="position-relative">
-                                            <input type={passwordVisible ? 'text' : 'password'}
-                                                name="password"
-                                                className="form-control password"
-                                                placeholder="••••••••"
-                                                value={form.data.password}
-                                                onBlur={this.validate.bind(this)}
-                                                onChange={this.handleInputChange.bind(this)} />
+                            <form className="signin-form" onSubmit={this.handleSubmit.bind(this)} noValidate>
+                                <div className={'form-group ' + (!form.isValid('password') ? 'invalid' : '')}>
+                                    <label htmlFor="password">{labelPassword}</label>
+                                    <div className="position-relative">
+                                        <input type={passwordVisible ? 'text' : 'password'}
+                                            name="password"
+                                            className="form-control password"
+                                            placeholder="••••••••"
+                                            value={form.data.password}
+                                            onBlur={this.validate.bind(this)}
+                                            onChange={this.handleInputChange.bind(this)} />
 
-                                            <div className="validation-box">
-                                                <h5 className="validation-heading">Password must contain:</h5>
-                                                <ul className="validation-rules">
-                                                    <li className={!form.check('password', 'minLength') ? 'passed' : ''}>At least 8 characters</li>
-                                                    <li className={!form.check('password', 'containUpper') ? 'passed' : ''}>At least 1 capital letter</li>
-                                                    <li className={!form.check('password', 'containNumber') ? 'passed' : ''}>At least 1 number</li>
-                                                </ul>
-                                            </div>
-
-                                            <PasswordToggle visible={passwordVisible} onToggle={this.togglePassword.bind(this)} />
+                                        <div className="validation-box">
+                                            <h5 className="validation-heading">Password must contain:</h5>
+                                            <ul className="validation-rules">
+                                                <li className={!form.check('password', 'minLength') ? 'passed' : ''}>At least 8 characters</li>
+                                                <li className={!form.check('password', 'containUpper') ? 'passed' : ''}>At least 1 capital letter</li>
+                                                <li className={!form.check('password', 'containNumber') ? 'passed' : ''}>At least 1 number</li>
+                                            </ul>
                                         </div>
+
+                                        <PasswordToggle visible={passwordVisible} onToggle={this.togglePassword.bind(this)} />
                                     </div>
+                                </div>
 
-                                    <div className={'form-group ' + (!form.isValid('confirmPassword') ? 'invalid' : '')}>
-                                        <label htmlFor="password">{labelConfirmPassword}</label>
-                                        <div className="position-relative">
-                                            <input type={confirmPasswordVisible ? 'text' : 'password'}
-                                                name="confirmPassword"
-                                                className="form-control password"
-                                                placeholder="••••••••"
-                                                value={form.data.confirmPassword}
-                                                onBlur={this.validate.bind(this)}
-                                                onChange={this.handleInputChange.bind(this)} />
+                                <div className={'form-group ' + (!form.isValid('confirmPassword') ? 'invalid' : '')}>
+                                    <label htmlFor="password">{labelConfirmPassword}</label>
+                                    <div className="position-relative">
+                                        <input type={confirmPasswordVisible ? 'text' : 'password'}
+                                            name="confirmPassword"
+                                            className="form-control password"
+                                            placeholder="••••••••"
+                                            value={form.data.confirmPassword}
+                                            onBlur={this.validate.bind(this)}
+                                            onChange={this.handleInputChange.bind(this)} />
 
-                                            <div className="validation-box">
-                                                <ul className="validation-rules">
-                                                    <li className={!form.check('confirmPassword') ? 'passed' : ''}>Passwords must match</li>
-                                                </ul>
-                                            </div>
-
-                                            <PasswordToggle visible={confirmPasswordVisible} onToggle={this.toggleConfirmPassword.bind(this)} />
+                                        <div className="validation-box">
+                                            <ul className="validation-rules">
+                                                <li className={!form.check('confirmPassword') ? 'passed' : ''}>Passwords must match</li>
+                                            </ul>
                                         </div>
-                                    </div>
 
-                                    <button type="submit" className="btn btn-primary">Confirm</button>
-                                </form>
-                            </div>
+                                        <PasswordToggle visible={confirmPasswordVisible} onToggle={this.toggleConfirmPassword.bind(this)} />
+                                    </div>
+                                </div>
+
+                                <button type="submit" className="btn btn-primary">Confirm</button>
+                            </form>
                         </div>
-                    </div>
 
-                    <Greetings
-                        heading="Reset password."
-                        messageText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu lobortis est. Nullam quis augue eu." />
+                        <Greetings
+                            heading="Reset password."
+                            messageText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu lobortis est. Nullam quis augue eu." />
+                    </div>
                 </div>
-            </div>
+            </FormWrapper>
         )
     }
 }

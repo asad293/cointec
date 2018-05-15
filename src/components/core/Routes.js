@@ -5,8 +5,7 @@ import Home from '../views/Home'
 import SignIn from '../views/SignIn'
 import SignUp from '../views/SignUp'
 import ForgotPassword from '../views/ForgotPassword'
-import ActivationLinkSent from '../views/ActivationLinkSent'
-import ResetLinkSent from '../views/ResetLinkSent'
+import LinkSent from '../views/LinkSent'
 import ResetPassword from '../views/ResetPassword'
 import Support from '../views/Support'
 import Legal from '../views/Legal'
@@ -25,8 +24,7 @@ class Routes extends Component {
                 <Route exact path="/login" component={SignIn} />
                 <Route exact path="/signup" component={SignUp} />
                 <Route exact path="/forgot-password/:token?" component={ForgotPassword} />
-                <Route exact path="/activation-link-sent" component={ActivationLinkSent} />
-                <Route exact path="/reset-link-sent" component={ResetLinkSent} />
+                <Route exact path="/link-sent/:type" component={LinkSent} />
                 <Route exact path="/reset-password" component={ResetPassword} />
                 <Route exact path="/support" component={Support} />
                 <Legal>

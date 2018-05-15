@@ -25,7 +25,7 @@
         }
     }
     form {
-        margin-top: 80px;
+        margin-top: 30px;
         .heading-line {
             font-family: Roboto;
             font-weight: normal;
@@ -396,10 +396,11 @@
             margin-top: 40px;
         }
     }
-    // .signup-form {
-    //     margin-top: 40px;
-    //     @media (min-width: 1440px) {
-    //         margin-top: 130px;
-    //     }
-    // }
+}
+
+.bg-form-section {
+    background: #F6F9FC;
+    @include media-breakpoint-down(lg) {
+        background: transparent;
+    }
 }
