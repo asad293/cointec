@@ -261,11 +261,13 @@ class SimpleCalculator extends Component {
                   >
                     <div className="text-label currency-label">
                       {" "}
-                      <img
-                        className="currency-symbol"
-                        src="/img/union-jack.svg"
-                        alt="GBP"
-                      />
+                      <div className="currency-symbol-wrapper">
+                        <img
+                          className="currency-symbol"
+                          src="/img/union-jack.svg"
+                          alt="GBP"
+                        />
+                      </div>
                       <span>GBP</span>
                       <img
                         className="dropdown-arrow"
@@ -274,45 +276,6 @@ class SimpleCalculator extends Component {
                       />
                     </div>
                   </a>
-
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuLink"
-                  >
-                    <a className="dropdown-item" href="#">
-                      <div className="text-label currency-label">
-                        {" "}
-                        <img
-                          className="currency-symbol"
-                          src="/img/coins/STORJ.svg"
-                          alt="STORJ"
-                        />
-                        <span>STORJ</span>
-                      </div>
-                    </a>
-                    <a className="dropdown-item" href="#">
-                      <div className="text-label currency-label">
-                        {" "}
-                        <img
-                          className="currency-symbol"
-                          src="/img/coins/STORJ.svg"
-                          alt="STORJ"
-                        />
-                        <span>STORJ</span>
-                      </div>
-                    </a>
-                    <a className="dropdown-item" href="#">
-                      <div className="text-label currency-label">
-                        {" "}
-                        <img
-                          className="currency-symbol"
-                          src="/img/coins/STORJ.svg"
-                          alt="STORJ"
-                        />
-                        <span>STORJ</span>
-                      </div>
-                    </a>
-                  </div>
                 </div>
               </div>
             </div>
@@ -342,11 +305,13 @@ class SimpleCalculator extends Component {
                   >
                     <div className="text-label currency-label">
                       {" "}
-                      <img
-                        className="currency-symbol"
-                        src="/img/coins/STORJ.svg"
-                        alt="STORJ"
-                      />
+                      <div className="currency-symbol-wrapper">
+                        <img
+                          className="currency-symbol"
+                          src="/img/coins/STORJ.svg"
+                          alt="STORJ"
+                        />
+                      </div>
                       <span>STORJ</span>
                       <img
                         className="dropdown-arrow"
@@ -360,37 +325,70 @@ class SimpleCalculator extends Component {
                     className="dropdown-menu"
                     aria-labelledby="dropdownMenuLink"
                   >
+                    <div className="search-item">
+                      <img
+                        className="search-symbol"
+                        src="/img/dropdown-search.svg"
+                        alt="Search"
+                      />
+                      <input
+                        className="search-input"
+                        placeholder="Search"
+                        type="search"
+                      />
+                    </div>
+
                     <a className="dropdown-item" href="#">
                       <div className="text-label currency-label">
                         {" "}
-                        <img
-                          className="currency-symbol"
-                          src="/img/coins/STORJ.svg"
-                          alt="STORJ"
-                        />
-                        <span>STORJ</span>
+                        <div className="currency-symbol-wrapper">
+                          <img
+                            className="currency-symbol"
+                            src="/img/coins/BTC.svg"
+                            alt="BTC"
+                          />
+                        </div>
+                        <span>BTC</span>
+                      </div>
+                    </a>
+
+                    <a className="dropdown-item" href="#">
+                      <div className="text-label currency-label">
+                        {" "}
+                        <div className="currency-symbol-wrapper">
+                          <img
+                            className="currency-symbol"
+                            src="/img/coins/ETH.svg"
+                            alt="ETH"
+                          />
+                        </div>
+                        <span>ETH</span>
                       </div>
                     </a>
                     <a className="dropdown-item" href="#">
                       <div className="text-label currency-label">
                         {" "}
-                        <img
-                          className="currency-symbol"
-                          src="/img/coins/STORJ.svg"
-                          alt="STORJ"
-                        />
-                        <span>STORJ</span>
+                        <div className="currency-symbol-wrapper">
+                          <img
+                            className="currency-symbol"
+                            src="/img/coins/EOS.svg"
+                            alt="EOS"
+                          />
+                        </div>
+                        <span>EOS</span>
                       </div>
                     </a>
                     <a className="dropdown-item" href="#">
                       <div className="text-label currency-label">
                         {" "}
-                        <img
-                          className="currency-symbol"
-                          src="/img/coins/STORJ.svg"
-                          alt="STORJ"
-                        />
-                        <span>STORJ</span>
+                        <div className="currency-symbol-wrapper">
+                          <img
+                            className="currency-symbol"
+                            src="/img/coins/BCH.svg"
+                            alt="BCH"
+                          />
+                        </div>
+                        <span>BCH</span>
                       </div>
                     </a>
                   </div>
