@@ -276,6 +276,72 @@ class SimpleCalculator extends Component {
                       />
                     </div>
                   </a>
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuLink"
+                  >
+                    <div className="search-item">
+                      
+                     
+                      <input className="search-input"
+                        placeholder="Coming Soon"
+                         type="text" name="lname" disabled/>
+                    </div>
+
+                    <a className="dropdown-item" href="#">
+                      <div className="text-label currency-label">
+                        {" "}
+                        <div className="currency-symbol-wrapper">
+                          <img
+                            className="currency-symbol"
+                            src="/img/coins/BTC.svg"
+                            alt="BTC"
+                          />
+                        </div>
+                        <span>BTC</span>
+                      </div>
+                    </a>
+
+                    <a className="dropdown-item" href="#">
+                      <div className="text-label currency-label">
+                        {" "}
+                        <div className="currency-symbol-wrapper">
+                          <img
+                            className="currency-symbol"
+                            src="/img/coins/ETH.svg"
+                            alt="ETH"
+                          />
+                        </div>
+                        <span>ETH</span>
+                      </div>
+                    </a>
+                    <a className="dropdown-item" href="#">
+                      <div className="text-label currency-label">
+                        {" "}
+                        <div className="currency-symbol-wrapper">
+                          <img
+                            className="currency-symbol"
+                            src="/img/coins/EOS.svg"
+                            alt="EOS"
+                          />
+                        </div>
+                        <span>EOS</span>
+                      </div>
+                    </a>
+                    <a className="dropdown-item" href="#">
+                      <div className="text-label currency-label">
+                        {" "}
+                        <div className="currency-symbol-wrapper">
+                          <img
+                            className="currency-symbol"
+                            src="/img/coins/BCH.svg"
+                            alt="BCH"
+                          />
+                        </div>
+                        <span>BCH</span>
+                      </div>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
