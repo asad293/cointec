@@ -17,7 +17,12 @@ class Navbar extends Component {
                         aria-controls="navbarSupportedContent"
                         aria-expanded="false" 
                         aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
+                        {/* <span className="navbar-toggler-icon"></span> */}
+                        <img
+                            className="currency-symbol"
+                            src="/img/menu-icon.svg"
+                            alt="Menu Icon"
+                          />
                     </button>
 
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">

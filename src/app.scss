@@ -147,6 +147,10 @@ html {
     .navbar-toggler {
         border-color: transparent;
         padding: 0;
+
+        &:focus{
+            outline:none;
+        }
     }
 }
 

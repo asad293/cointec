@@ -87,7 +87,7 @@ class Home extends Component {
                 
                 <Features />
                 <TrustInfo />
-                <UserReviews />
+                {/* <UserReviews /> */}
                 <StartBuying />
                 <CurrentDevelopment />
 
