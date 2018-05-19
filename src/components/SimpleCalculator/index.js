@@ -237,7 +237,7 @@ class SimpleCalculator extends Component {
         <div>
           <div className="calc-input-wrapper">
             <div className="row am row-flex ">
-              <div className="no-padding col-8  bg-input">
+              <div className="col-8  bg-input">
                 <Field
                   name="gbp"
                   label="You send"
@@ -248,7 +248,7 @@ class SimpleCalculator extends Component {
                   }
                 />
               </div>
-              <div className="no-padding col-4 d-flex align-items-center justify-content-end">
+              <div className="col-4 d-flex align-items-center justify-content-end">
                 <div>
                   <label className="text-label currency-label">
                     {" "}
@@ -259,7 +259,7 @@ class SimpleCalculator extends Component {
             </div>
             <hr className="my-2" />
             <div className="row am row-flex ">
-              <div className="no-padding col-8 bg-input">
+              <div className="col-8 bg-input">
                 <Field
                   name="btc"
                   label="You receive"
@@ -270,7 +270,7 @@ class SimpleCalculator extends Component {
                   ).toFixed(8)}
                 />
               </div>
-              <div className="no-padding col-4 d-flex align-items-center justify-content-end">
+              <div className="col-4 d-flex align-items-center justify-content-end">
                 <div>
                   <label className="text-label currency-label">
                     <img src="/img/bitcoin.svg" alt="BTC" /><span>BTC</span>
@@ -280,7 +280,7 @@ class SimpleCalculator extends Component {
             </div>
           </div>
           <div className="am row">
-            <div className="mt-4 no-padding col-md-12">
+            <div className="mt-4 col-md-12">
               {this.renderButton()}
             </div>
           </div>
