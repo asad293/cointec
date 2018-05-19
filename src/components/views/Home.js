@@ -52,7 +52,7 @@ class Home extends Component {
 
                                 <div className="d-none d-lg-flex col-lg-1 col-xl-2"></div>
 
-                                <div className="col-md-6 col-lg-5 col-xl-4 hero-calculator">
+                                <div className="col-md-6 col-lg-5 col-xl-4 hero-calculator pl-xl-0">
                                     <div className="calculator-wrapper mt-5 mt-md-0">
                                         {/* <div className="online-indicator">
                                             <div className="status-icon online">
