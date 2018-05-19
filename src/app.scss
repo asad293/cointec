@@ -64,7 +64,7 @@ html {
             left: 0;
             transform: skewY(30deg);
             @include gradient-directional(#006dde 0%,
-            rgba(0, 0, 0, 0) 60%,
+            rgba(255, 255, 255, 0) 60%,
             90deg);
             opacity: 0.3;
             @include media-breakpoint-down(sm) {
@@ -81,7 +81,7 @@ html {
             transform: skewY(-30deg);
             transform-origin: 70% 0;
             @include gradient-directional(#006dde 0%,
-            rgba(0, 0, 0, 0) 60%,
+            rgba(255, 255, 255, 0) 60%,
             90deg);
             opacity: 0.3;
             @include media-breakpoint-down(xs) {
@@ -96,7 +96,7 @@ html {
             transform: skewY(-30deg);
             width: 20%;
             transform-origin: -130% 0;
-            @include gradient-directional(rgba(0, 0, 0, 0) 60%,
+            @include gradient-directional(rgba(255, 255, 255, 0) 60%,
             #dce3e8 100%,
             90deg);
             @include media-breakpoint-down(sm) {
@@ -112,7 +112,7 @@ html {
             transform: skewY(-30deg);
             transform-origin: 130% 0;
             @include gradient-directional( rgba(232, 235, 237, 0.6) 0%,
-            rgba(0, 0, 0, 0) 80%,
+            rgba(255, 255, 255, 0) 80%,
             90deg);
             @include media-breakpoint-down(sm) {
                 display: none;
@@ -168,7 +168,7 @@ html {
 }
 
 .hero-wrapper {
-    margin-top: 7rem;
+    margin-top: 5rem;
     margin-bottom: 7rem; // Inner pages should have less space than the homepage
     &.hero-wrapper-inner {
         margin-top: 3rem;

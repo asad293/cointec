@@ -31,7 +31,9 @@ class Home extends Component {
 
                                 <div className="col-md-6 hero-text-main hero-text text-white d-flex flex-column ">
                                     <h1 className="hero-title">
-                                        Get Bitcoins. <strong>Fast.</strong>
+                                        Digital Currency 
+                                        <br/>
+                                         made <strong>simple.</strong>
                                     </h1>
 
                                     <h2 className="hero-intro">
@@ -53,7 +55,7 @@ class Home extends Component {
                                 <div className="d-none d-lg-flex col-lg-1 col-xl-2"></div>
 
                                 <div className="col-md-6 col-lg-5 col-xl-4 hero-calculator pl-xl-0">
-                                    <div className="calculator-wrapper mt-5 mt-md-0">
+                                    <div className="calculator-wrapper mt-4 mt-md-0">
                                         {/* <div className="online-indicator">
                                             <div className="status-icon online">
                                                 <div className="dot"></div>
