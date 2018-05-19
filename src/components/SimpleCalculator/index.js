@@ -248,7 +248,7 @@ class SimpleCalculator extends Component {
                   }
                 />
               </div>
-              <div className="col-6  d-flex align-items-center d-flex align-items-center">
+              <div className="col-6 pl-0  d-flex align-items-center d-flex align-items-center">
                 <div className="dropdown dropdown-currency-select">
                   <a
                     className="btn dropdown-toggle"
@@ -280,13 +280,37 @@ class SimpleCalculator extends Component {
                     aria-labelledby="dropdownMenuLink"
                   >
                     <a className="dropdown-item" href="#">
-                      Action
+                      <div className="text-label currency-label">
+                        {" "}
+                        <img
+                          className="currency-symbol"
+                          src="/img/coins/STORJ.svg"
+                          alt="STORJ"
+                        />
+                        <span>STORJ</span>
+                      </div>
                     </a>
                     <a className="dropdown-item" href="#">
-                      Another action
+                      <div className="text-label currency-label">
+                        {" "}
+                        <img
+                          className="currency-symbol"
+                          src="/img/coins/STORJ.svg"
+                          alt="STORJ"
+                        />
+                        <span>STORJ</span>
+                      </div>
                     </a>
                     <a className="dropdown-item" href="#">
-                      Something else here
+                      <div className="text-label currency-label">
+                        {" "}
+                        <img
+                          className="currency-symbol"
+                          src="/img/coins/STORJ.svg"
+                          alt="STORJ"
+                        />
+                        <span>STORJ</span>
+                      </div>
                     </a>
                   </div>
                 </div>
@@ -305,7 +329,7 @@ class SimpleCalculator extends Component {
                   ).toFixed(8)}
                 />
               </div>
-              <div className="col-6  d-flex align-items-center">
+              <div className="col-6 pl-0 d-flex align-items-center">
                 <div className="dropdown dropdown-currency-select">
                   <a
                     className="btn dropdown-toggle"
@@ -337,13 +361,37 @@ class SimpleCalculator extends Component {
                     aria-labelledby="dropdownMenuLink"
                   >
                     <a className="dropdown-item" href="#">
-                      Action
+                      <div className="text-label currency-label">
+                        {" "}
+                        <img
+                          className="currency-symbol"
+                          src="/img/coins/STORJ.svg"
+                          alt="STORJ"
+                        />
+                        <span>STORJ</span>
+                      </div>
                     </a>
                     <a className="dropdown-item" href="#">
-                      Another action
+                      <div className="text-label currency-label">
+                        {" "}
+                        <img
+                          className="currency-symbol"
+                          src="/img/coins/STORJ.svg"
+                          alt="STORJ"
+                        />
+                        <span>STORJ</span>
+                      </div>
                     </a>
                     <a className="dropdown-item" href="#">
-                      Something else here
+                      <div className="text-label currency-label">
+                        {" "}
+                        <img
+                          className="currency-symbol"
+                          src="/img/coins/STORJ.svg"
+                          alt="STORJ"
+                        />
+                        <span>STORJ</span>
+                      </div>
                     </a>
                   </div>
                 </div>
