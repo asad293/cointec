@@ -237,7 +237,7 @@ class SimpleCalculator extends Component {
         <div>
           <div className="calc-input-wrapper">
             <div className="row am row-flex ">
-              <div className="no-padding col-8  bg-input">
+              <div className="col-6  bg-input">
                 <Field
                   name="gbp"
                   label="You send"
@@ -248,18 +248,106 @@ class SimpleCalculator extends Component {
                   }
                 />
               </div>
-              <div className="no-padding col-4 d-flex align-items-center justify-content-end">
-                <div>
-                  <label className="text-label currency-label">
-                    {" "}
-                    <img src="/img/union-jack.svg" alt="GBP" /><span>GBP</span>
-                  </label>
+              <div className="col-6 pl-0  d-flex align-items-center d-flex align-items-center">
+                <div className="dropdown dropdown-currency-select">
+                  <a
+                    className="btn dropdown-toggle"
+                    href="#"
+                    role="button"
+                    id="dropdownMenuLink"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <div className="text-label currency-label">
+                      {" "}
+                      <div className="currency-symbol-wrapper">
+                        <img
+                          className="currency-symbol"
+                          src="/img/union-jack.svg"
+                          alt="GBP"
+                        />
+                      </div>
+                      <span>GBP</span>
+                      <img
+                        className="dropdown-arrow"
+                        src="/img/arrow-down.svg"
+                        alt="Dropdown"
+                      />
+                    </div>
+                  </a>
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuLink"
+                  >
+                    <div className="search-item">
+                      
+                     
+                      <input className="search-input"
+                        placeholder="Coming Soon"
+                         type="text" name="lname" disabled/>
+                    </div>
+
+                    <a className="dropdown-item" href="#">
+                      <div className="text-label currency-label">
+                        {" "}
+                        <div className="currency-symbol-wrapper">
+                          <img
+                            className="currency-symbol"
+                            src="/img/coins/BTC.svg"
+                            alt="BTC"
+                          />
+                        </div>
+                        <span>BTC</span>
+                      </div>
+                    </a>
+
+                    <a className="dropdown-item" href="#">
+                      <div className="text-label currency-label">
+                        {" "}
+                        <div className="currency-symbol-wrapper">
+                          <img
+                            className="currency-symbol"
+                            src="/img/coins/ETH.svg"
+                            alt="ETH"
+                          />
+                        </div>
+                        <span>ETH</span>
+                      </div>
+                    </a>
+                    <a className="dropdown-item" href="#">
+                      <div className="text-label currency-label">
+                        {" "}
+                        <div className="currency-symbol-wrapper">
+                          <img
+                            className="currency-symbol"
+                            src="/img/coins/EOS.svg"
+                            alt="EOS"
+                          />
+                        </div>
+                        <span>EOS</span>
+                      </div>
+                    </a>
+                    <a className="dropdown-item" href="#">
+                      <div className="text-label currency-label">
+                        {" "}
+                        <div className="currency-symbol-wrapper">
+                          <img
+                            className="currency-symbol"
+                            src="/img/coins/BCH.svg"
+                            alt="BCH"
+                          />
+                        </div>
+                        <span>BCH</span>
+                      </div>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
             <hr className="my-2" />
             <div className="row am row-flex ">
-              <div className="no-padding col-8 bg-input">
+              <div className="col-6 bg-input">
                 <Field
                   name="btc"
                   label="You receive"
@@ -270,19 +358,112 @@ class SimpleCalculator extends Component {
                   ).toFixed(8)}
                 />
               </div>
-              <div className="no-padding col-4 d-flex align-items-center justify-content-end">
-                <div>
-                  <label className="text-label currency-label">
-                    <img src="/img/bitcoin.svg" alt="BTC" /><span>BTC</span>
-                  </label>
+              <div className="col-6 pl-0 d-flex align-items-center">
+                <div className="dropdown dropdown-currency-select">
+                  <a
+                    className="btn dropdown-toggle"
+                    href="#"
+                    role="button"
+                    id="dropdownMenuLink"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <div className="text-label currency-label">
+                      {" "}
+                      <div className="currency-symbol-wrapper">
+                        <img
+                          className="currency-symbol"
+                          src="/img/coins/STORJ.svg"
+                          alt="STORJ"
+                        />
+                      </div>
+                      <span>STORJ</span>
+                      <img
+                        className="dropdown-arrow"
+                        src="/img/arrow-down.svg"
+                        alt="Dropdown"
+                      />
+                    </div>
+                  </a>
+
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuLink"
+                  >
+                    <div className="search-item">
+                      <img
+                        className="search-symbol"
+                        src="/img/dropdown-search.svg"
+                        alt="Search"
+                      />
+                      <input
+                        className="search-input"
+                        placeholder="Search"
+                        type="search"
+                      />
+                    </div>
+
+                    <a className="dropdown-item" href="#">
+                      <div className="text-label currency-label">
+                        {" "}
+                        <div className="currency-symbol-wrapper">
+                          <img
+                            className="currency-symbol"
+                            src="/img/coins/BTC.svg"
+                            alt="BTC"
+                          />
+                        </div>
+                        <span>BTC</span>
+                      </div>
+                    </a>
+
+                    <a className="dropdown-item" href="#">
+                      <div className="text-label currency-label">
+                        {" "}
+                        <div className="currency-symbol-wrapper">
+                          <img
+                            className="currency-symbol"
+                            src="/img/coins/ETH.svg"
+                            alt="ETH"
+                          />
+                        </div>
+                        <span>ETH</span>
+                      </div>
+                    </a>
+                    <a className="dropdown-item" href="#">
+                      <div className="text-label currency-label">
+                        {" "}
+                        <div className="currency-symbol-wrapper">
+                          <img
+                            className="currency-symbol"
+                            src="/img/coins/EOS.svg"
+                            alt="EOS"
+                          />
+                        </div>
+                        <span>EOS</span>
+                      </div>
+                    </a>
+                    <a className="dropdown-item" href="#">
+                      <div className="text-label currency-label">
+                        {" "}
+                        <div className="currency-symbol-wrapper">
+                          <img
+                            className="currency-symbol"
+                            src="/img/coins/BCH.svg"
+                            alt="BCH"
+                          />
+                        </div>
+                        <span>BCH</span>
+                      </div>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="am row">
-            <div className="mt-4 no-padding col-md-12">
-              {this.renderButton()}
-            </div>
+            <div className="mt-4 col-md-12">{this.renderButton()}</div>
           </div>
 
           <h6 className="text-white mt-3">
