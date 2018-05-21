@@ -5,7 +5,7 @@ class Greetings extends Component {
         const { heading, messageText } = this.props
 
         return (
-            <div className="greetings">
+            <div className="col-4 offset-4 greetings d-none d-xl-block">
                 <div className="content-wrapper">
                     <h1 className="heading">{heading}</h1>
                     <p className="message-text">{messageText}</p>

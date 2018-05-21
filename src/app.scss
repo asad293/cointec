@@ -27,7 +27,7 @@ $primary-light: #178cf5;
 html {
     background-color: #f4f7fa;
     body {
-        max-width: 1920px;
+        // max-width: 1920px;
         margin: auto;
         box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.07);
         @include media-breakpoint-down(lg) {
@@ -619,6 +619,10 @@ footer {
     flex-shrink: 0;
 }
 
+.full-height {
+    height: 100vh;;
+}
+
 // Helpers
 @import "./css/helpers/_mixins.scss";
 .container-full {
@@ -1081,6 +1085,10 @@ footer {
 
 // Components
 @import "./css/components/_accordion.scss";
+@import './css/components/_greetings.scss';
+
+@import './css/custom/_authform.scss';
+
 // Views
 @import "./css/views/_home.scss";
 @import "./css/views/_support.scss";
