@@ -41,7 +41,7 @@ class ForgotPassword extends Component {
 
                             <h1 className="page-title">Reset password</h1>
 
-                            <form className="signin-form" onSubmit={this.handleSubmit.bind(this)} noValidate>
+                            <form className="als-content" onSubmit={this.handleSubmit.bind(this)} noValidate>
                                 <h5 className="heading-line">
                                     {!token ? 
                                         'Please enter your email address to begin resetting your password.': 
