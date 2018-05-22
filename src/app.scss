@@ -41,7 +41,7 @@ html {
 
 .bg-gradient {
     position: relative;
-    overflow: hidden;
+    // overflow: visible;
     &:before {
         content: "";
         width: 33%;
@@ -172,6 +172,7 @@ html {
 }
 
 .hero-wrapper {
+    padding-bottom: 2rem;
     margin-top: 5rem;
     margin-bottom: 7rem; // Inner pages should have less space than the homepage
     &.hero-wrapper-inner {
@@ -399,27 +400,46 @@ html {
         box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.27);
         border-radius: 3px;
         padding-top: 0;
+        padding-bottom: 0;
         .search-item {
             display: flex;
             padding: 10px 15px;
             background-color: #e2e6e8;
-            margin-bottom: 5px;
             .search-input {
                 margin-left: 5px;
                 width: 100%;
                 border: 0;
                 font-size: 17px;
                 background: none;
+                outline: none;
             }
         }
-        .dropdown-item {
-            padding: 2px 0;
-            .currency-label {
-                justify-content: flex-start;
+        .dropdown-items-wrapper {
+            padding: 0.5rem 0;
+            max-height: 185px;
+            overflow-y: auto;
+
+            &::-webkit-scrollbar {
+                width: 5px;
             }
 
-            &:active{
-                background: none;
+            &::-webkit-scrollbar-track {
+                background: #BDC5CB; 
+            }
+
+            &::-webkit-scrollbar-thumb, &::-webkit-scrollbar-thumb:hover {
+                background: #2B8BFF; 
+            }
+            .dropdown-item {
+                padding: 2px 0;
+                cursor: pointer;
+                .currency-label {
+                    justify-content: flex-start;
+                }
+    
+                &:active{
+                    background: none;
+                }
             }
         }
     }
@@ -620,7 +640,11 @@ footer {
 }
 
 .full-height {
-    height: 100vh;;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 // Helpers

@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import "./style.scss";
 import cn from "classnames";
 import walletValidator from "wallet-address-validator";
+import { coins, currencies } from './exchangeables';
 
 class SimpleCalculator extends Component {
   constructor() {
@@ -22,7 +23,12 @@ class SimpleCalculator extends Component {
       intervalId: null,
       interval: 10,
       btcLoading: false,
-      gbpLoading: false
+      gbpLoading: false,
+      coins,
+      currencies,
+      coinSearch: '',
+      coinSelected: coins[0],
+      currencySelected: currencies[0]
     };
     this.fistScreen = this.fistScreen.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -36,6 +42,8 @@ class SimpleCalculator extends Component {
     this.convertToGBP = this.convertToGBP.bind(this);
     this.fetchCalls = this.fetchCalls.bind(this);
     this.back = this.back.bind(this);
+    this.onCoinSelected = this.onCoinSelected.bind(this);
+    this.onCurrencySelected = this.onCurrencySelected.bind(this);
   }
 
   back() {
@@ -188,6 +196,19 @@ class SimpleCalculator extends Component {
     );
   }
 
+  onCoinSelected(coin) {
+    this.setState({
+      coinSelected: coin
+    });
+  }
+
+  onCurrencySelected(currency) {
+    this.setState({
+      currencySelected: currency
+    });
+    // updateRate()
+  }
+
   updateBTC(props) {
     if (props.btc.CustomerRate) {
       this.setState({ btc: Number.parseFloat(props.btc.CustomerRate) });
@@ -230,8 +251,42 @@ class SimpleCalculator extends Component {
     );
   }
 
+  searchCoin({ target }) {
+    this.setState({
+      coinSearch: target.value
+    });
+  }
+
+  filterCoins(coin) {
+    let word = this.state.coinSearch.toLowerCase().trim();
+    if (coin.name.toLowerCase().includes(word)) {
+        return true;
+    }
+    
+    if (coin.keywords.includes(word)) {
+      return true;
+    }
+    return false;
+  }
+
   fistScreen() {
     const { handleSubmit } = this.props;
+    let coins = this.state.coins;
+    let currencies = this.state.currencies;
+    if (this.state.coinSearch)
+      coins = this.state.coins.filter(coin => this.filterCoins(coin));
+
+    const ExchangeableItem = ({ exchangeable, onItemSelected }) => (
+      <a className="dropdown-item" onClick={(e) => onItemSelected(exchangeable)}>
+        <div className="text-label currency-label">
+          <div className="currency-symbol-wrapper">
+            <img className="currency-symbol" src={exchangeable.image} alt={exchangeable.name} />
+          </div>
+          <span>{exchangeable.name}</span>
+        </div>
+      </a>
+    );
+
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <div>
@@ -257,29 +312,24 @@ class SimpleCalculator extends Component {
                     id="dropdownMenuLink"
                     data-toggle="dropdown"
                     aria-haspopup="true"
-                    aria-expanded="false"
-                  >
+                    aria-expanded="false">
                     <div className="text-label currency-label">
-                      {" "}
                       <div className="currency-symbol-wrapper">
                         <img
                           className="currency-symbol"
-                          src="/img/union-jack.svg"
-                          alt="GBP"
-                        />
+                          src={this.state.currencySelected.image}
+                          alt={this.state.currencySelected.name} />
                       </div>
-                      <span>GBP</span>
+                      <span>{this.state.currencySelected.name}</span>
                       <img
                         className="dropdown-arrow"
                         src="/img/arrow-down.svg"
-                        alt="Dropdown"
-                      />
+                        alt="Dropdown" />
                     </div>
                   </a>
                   <div
                     className="dropdown-menu"
-                    aria-labelledby="dropdownMenuLink"
-                  >
+                    aria-labelledby="dropdownMenuLink">
                     <div className="search-item">
                       
                      
@@ -288,59 +338,14 @@ class SimpleCalculator extends Component {
                          type="text" name="lname" disabled/>
                     </div>
 
-                    <a className="dropdown-item" href="#">
-                      <div className="text-label currency-label">
-                        {" "}
-                        <div className="currency-symbol-wrapper">
-                          <img
-                            className="currency-symbol"
-                            src="/img/coins/BTC.svg"
-                            alt="BTC"
-                          />
-                        </div>
-                        <span>BTC</span>
-                      </div>
-                    </a>
-
-                    <a className="dropdown-item" href="#">
-                      <div className="text-label currency-label">
-                        {" "}
-                        <div className="currency-symbol-wrapper">
-                          <img
-                            className="currency-symbol"
-                            src="/img/coins/ETH.svg"
-                            alt="ETH"
-                          />
-                        </div>
-                        <span>ETH</span>
-                      </div>
-                    </a>
-                    <a className="dropdown-item" href="#">
-                      <div className="text-label currency-label">
-                        {" "}
-                        <div className="currency-symbol-wrapper">
-                          <img
-                            className="currency-symbol"
-                            src="/img/coins/EOS.svg"
-                            alt="EOS"
-                          />
-                        </div>
-                        <span>EOS</span>
-                      </div>
-                    </a>
-                    <a className="dropdown-item" href="#">
-                      <div className="text-label currency-label">
-                        {" "}
-                        <div className="currency-symbol-wrapper">
-                          <img
-                            className="currency-symbol"
-                            src="/img/coins/BCH.svg"
-                            alt="BCH"
-                          />
-                        </div>
-                        <span>BCH</span>
-                      </div>
-                    </a>
+                    <div className="dropdown-items-wrapper">
+                      {currencies.map((currency) => 
+                        <ExchangeableItem
+                          key={currency.name}
+                          exchangeable={currency}
+                          onItemSelected={this.onCurrencySelected} />
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -367,96 +372,46 @@ class SimpleCalculator extends Component {
                     id="dropdownMenuLink"
                     data-toggle="dropdown"
                     aria-haspopup="true"
-                    aria-expanded="false"
-                  >
+                    aria-expanded="false">
                     <div className="text-label currency-label">
-                      {" "}
                       <div className="currency-symbol-wrapper">
                         <img
                           className="currency-symbol"
-                          src="/img/coins/STORJ.svg"
-                          alt="STORJ"
-                        />
+                          src={this.state.coinSelected.image}
+                          alt={this.state.coinSelected.name} />
                       </div>
-                      <span>STORJ</span>
+                      <span>{this.state.coinSelected.name}</span>
                       <img
                         className="dropdown-arrow"
                         src="/img/arrow-down.svg"
-                        alt="Dropdown"
-                      />
+                        alt="Dropdown" />
                     </div>
                   </a>
 
                   <div
                     className="dropdown-menu"
-                    aria-labelledby="dropdownMenuLink"
-                  >
+                    aria-labelledby="dropdownMenuLink">
                     <div className="search-item">
                       <img
                         className="search-symbol"
                         src="/img/dropdown-search.svg"
-                        alt="Search"
-                      />
+                        alt="Search" />
                       <input
                         className="search-input"
                         placeholder="Search"
                         type="search"
-                      />
+                        value={this.state.coinSearch}
+                        onChange={this.searchCoin.bind(this)} />
                     </div>
 
-                    <a className="dropdown-item" href="#">
-                      <div className="text-label currency-label">
-                        {" "}
-                        <div className="currency-symbol-wrapper">
-                          <img
-                            className="currency-symbol"
-                            src="/img/coins/BTC.svg"
-                            alt="BTC"
-                          />
-                        </div>
-                        <span>BTC</span>
-                      </div>
-                    </a>
-
-                    <a className="dropdown-item" href="#">
-                      <div className="text-label currency-label">
-                        {" "}
-                        <div className="currency-symbol-wrapper">
-                          <img
-                            className="currency-symbol"
-                            src="/img/coins/ETH.svg"
-                            alt="ETH"
-                          />
-                        </div>
-                        <span>ETH</span>
-                      </div>
-                    </a>
-                    <a className="dropdown-item" href="#">
-                      <div className="text-label currency-label">
-                        {" "}
-                        <div className="currency-symbol-wrapper">
-                          <img
-                            className="currency-symbol"
-                            src="/img/coins/EOS.svg"
-                            alt="EOS"
-                          />
-                        </div>
-                        <span>EOS</span>
-                      </div>
-                    </a>
-                    <a className="dropdown-item" href="#">
-                      <div className="text-label currency-label">
-                        {" "}
-                        <div className="currency-symbol-wrapper">
-                          <img
-                            className="currency-symbol"
-                            src="/img/coins/BCH.svg"
-                            alt="BCH"
-                          />
-                        </div>
-                        <span>BCH</span>
-                      </div>
-                    </a>
+                    <div className="dropdown-items-wrapper">
+                      {coins.map((coin) => 
+                        <ExchangeableItem
+                          key={coin.name}
+                          exchangeable={coin}
+                          onItemSelected={this.onCoinSelected} />
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
