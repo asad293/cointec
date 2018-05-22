@@ -41,7 +41,7 @@ html {
 
 .bg-gradient {
     position: relative;
-    // overflow: visible;
+    overflow: hidden;
     &:before {
         content: "";
         width: 33%;
@@ -121,6 +121,10 @@ html {
     }
 }
 
+header.bg-gradient {
+    overflow: visible;
+}
+
 .navbar-custom {
     .nav-link {
         padding-left: 1rem;
@@ -172,12 +176,13 @@ html {
 }
 
 .hero-wrapper {
-    padding-bottom: 2rem;
+    padding-bottom: 7rem;
     margin-top: 5rem;
-    margin-bottom: 7rem; // Inner pages should have less space than the homepage
+    // margin-bottom: 7rem; // Inner pages should have less space than the homepage
     &.hero-wrapper-inner {
+        padding-bottom: 3rem;
         margin-top: 3rem;
-        margin-bottom: 3rem;
+        // margin-bottom: 3rem;
     }
     .support-heading {
         font-weight: 300;
@@ -188,8 +193,9 @@ html {
         flex: 1;
     }
     @include media-breakpoint-down(md) {
+        padding-bottom: 2rem;
         margin-top: 2rem;
-        margin-bottom: 2rem;
+        // margin-bottom: 2rem;
     }
 }
 
