@@ -7,7 +7,7 @@ import BetaBand from './Home/BetaBand'
 import Features from './Home/Features'
 import TrustInfo from './Home/TrustInfo'
 import UserReviews from './Home/UserReviews'
-import StartBuying from './Home/StartBuying'
+import Subscribe from './Home/Subscribe'
 import CurrentDevelopment from './Home/CurrentDevelopment'
 import Footer from '../core/Footer'
 import SimpleCalculator from '../SimpleCalculator'
@@ -88,7 +88,7 @@ class Home extends Component {
                 <Features />
                 <TrustInfo />
                 {/* <UserReviews /> */}
-                <StartBuying />
+                <Subscribe />
                 <CurrentDevelopment />
 
                 <Footer />

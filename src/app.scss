@@ -121,6 +121,10 @@ html {
     }
 }
 
+header.bg-gradient {
+    overflow: visible;
+}
+
 .navbar-custom {
     .nav-link {
         padding-left: 1rem;
@@ -172,11 +176,13 @@ html {
 }
 
 .hero-wrapper {
+    padding-bottom: 7rem;
     margin-top: 5rem;
-    margin-bottom: 7rem; // Inner pages should have less space than the homepage
+    // margin-bottom: 7rem; // Inner pages should have less space than the homepage
     &.hero-wrapper-inner {
+        padding-bottom: 3rem;
         margin-top: 3rem;
-        margin-bottom: 3rem;
+        // margin-bottom: 3rem;
     }
     .support-heading {
         font-weight: 300;
@@ -187,8 +193,9 @@ html {
         flex: 1;
     }
     @include media-breakpoint-down(md) {
+        padding-bottom: 2rem;
         margin-top: 2rem;
-        margin-bottom: 2rem;
+        // margin-bottom: 2rem;
     }
 }
 
@@ -399,27 +406,47 @@ html {
         box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.27);
         border-radius: 3px;
         padding-top: 0;
+        padding-bottom: 0;
+        overflow: hidden;
         .search-item {
             display: flex;
             padding: 10px 15px;
             background-color: #e2e6e8;
-            margin-bottom: 5px;
             .search-input {
                 margin-left: 5px;
                 width: 100%;
                 border: 0;
                 font-size: 17px;
                 background: none;
+                outline: none;
             }
         }
-        .dropdown-item {
-            padding: 2px 0;
-            .currency-label {
-                justify-content: flex-start;
+        .dropdown-items-wrapper {
+            padding: 0.5rem 0;
+            max-height: 185px;
+            overflow-y: auto;
+
+            &::-webkit-scrollbar {
+                width: 5px;
             }
 
-            &:active{
-                background: none;
+            &::-webkit-scrollbar-track {
+                background: #BDC5CB; 
+            }
+
+            &::-webkit-scrollbar-thumb, &::-webkit-scrollbar-thumb:hover {
+                background: #2B8BFF; 
+            }
+            .dropdown-item {
+                padding: 2px 0;
+                cursor: pointer;
+                .currency-label {
+                    justify-content: flex-start;
+                }
+    
+                &:active{
+                    background: none;
+                }
             }
         }
     }
@@ -555,7 +582,7 @@ html {
     }
 }
 
-// Start buying Bitcoins today
+// Subscribe
 .start-buying-wrapper {
     margin-top: 5rem;
     margin-bottom: 5rem;
@@ -569,8 +596,35 @@ html {
             font-size: 1.6rem;
         }
     }
+    .start-buying-email-wrapper {
+        input {
+            @include media-breakpoint-down(xs) {
+                outline: none;
+                box-shadow: none;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+                max-height: 42px;
+                line-height: 1.5;
+            }
+        }
+        @include media-breakpoint-down(xs) {
+            padding: 0;
+        }
+    }
     .btn-success {
         color: #fff;
+        @include media-breakpoint-down(xs) {
+            outline: none;
+            box-shadow: none;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            max-height: 42px;
+            line-height: 1.5;
+        }
+    }
+    .status-message {
+        position: absolute;
+        width: 100%;
     }
 }
 
@@ -620,7 +674,11 @@ footer {
 }
 
 .full-height {
-    height: 100vh;;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 // Helpers
