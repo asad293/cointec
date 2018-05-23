@@ -581,7 +581,7 @@ header.bg-gradient {
     }
 }
 
-// Start buying Bitcoins today
+// Subscribe
 .start-buying-wrapper {
     margin-top: 5rem;
     margin-bottom: 5rem;
@@ -597,6 +597,10 @@ header.bg-gradient {
     }
     .btn-success {
         color: #fff;
+    }
+    .status-message {
+        position: absolute;
+        width: 100%;
     }
 }
 

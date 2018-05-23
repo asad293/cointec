@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-class StartBuying extends Component {
+class Subscribe extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -10,6 +10,12 @@ class StartBuying extends Component {
         }
     }
 
+    componentDidMount() {
+        document.addEventListener('click', this.clearEmail)
+        document.addEventListener('scroll', this.clearEmail)
+    }
+
+    clearEmail = () => { this.setState({ statusMessage: '' }) }
     handleInputChange = ({ target }) => this.setState({staticEmail: target.value})
     validateEmail = () => {
         const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -19,9 +25,7 @@ class StartBuying extends Component {
             })
             return false
         }
-        this.setState({
-            statusMessage: ''
-        })
+        this.clearEmail()
         return true
     }
 
@@ -55,7 +59,7 @@ class StartBuying extends Component {
                         <div className="row">
                             <div className="col-12 col-md-8 col-lg-6 mx-auto text-center">
                                 <h2 className="start-buying-title mb-5 text-white">
-                                    Start buying <strong>Bitcoins</strong> today
+                                    Subscribe for <strong>early access.</strong>
                                 </h2>
 
                                 <div className="start-buying-email-wrapper">
@@ -72,10 +76,10 @@ class StartBuying extends Component {
                                         </div>
                                         
                                         <div className="form-group mb-2">
-                                            <button type="submit" className="btn btn-success py-2 px-4">Get Started</button>
+                                            <button type="submit" className="btn btn-success py-2 px-4">Subscribe</button>
                                         </div>
                                     </form>
-                                    <div className="text-white">{this.state.statusMessage ? this.state.statusMessage : <br />}</div>
+                                    <div className="text-white status-message">{this.state.statusMessage ? this.state.statusMessage : <br />}</div>
                                 </div>
                             </div>
                         </div>
@@ -87,4 +91,4 @@ class StartBuying extends Component {
     }
 }
 
-export default StartBuying
+export default Subscribe
