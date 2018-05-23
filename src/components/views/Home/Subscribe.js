@@ -60,25 +60,23 @@ class Subscribe extends Component {
                                     Subscribe for <strong>early access.</strong>
                                 </h2>
 
-                                <div className="start-buying-email-wrapper">
-                                    <form className="d-flex justify-content-center" onSubmit={this.handleSubmit.bind(this)} noValidate autoComplete="off">
-                                        <div className="form-group mb-2 d-none d-md-block col-md-8">
-                                            <label htmlFor="staticEmail" className="sr-only">Email</label>
-                                            <input
-                                                type="email"
-                                                name="staticEmail"
-                                                className="form-control py-2"
-                                                placeholder="Enter your email"
-                                                value={this.state.staticEmail}
-                                                onChange={this.handleInputChange.bind(this)} />
-                                        </div>
-                                        
-                                        <div className="form-group mb-2">
-                                            <button type="submit" className="btn btn-success py-2 px-4">Subscribe</button>
-                                        </div>
-                                    </form>
-                                    <div className="text-white status-message">{this.state.statusMessage}</div>
-                                </div>
+                                <form className="d-flex justify-content-center" onSubmit={this.handleSubmit.bind(this)} noValidate autoComplete="off">
+                                    <div className="start-buying-email-wrapper form-group mb-2 col-md-8">
+                                        <label htmlFor="staticEmail" className="sr-only">Email</label>
+                                        <input
+                                            type="email"
+                                            name="staticEmail"
+                                            className="form-control py-2"
+                                            placeholder="Enter your email"
+                                            value={this.state.staticEmail}
+                                            onChange={this.handleInputChange.bind(this)} />
+                                    </div>
+                                    
+                                    <div className="form-group mb-2">
+                                        <button type="submit" className="btn btn-success py-2 px-4">Subscribe</button>
+                                    </div>
+                                </form>
+                                <div className="text-white status-message">{this.state.statusMessage}</div>
                             </div>
                         </div>
                     </div>

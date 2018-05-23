@@ -596,8 +596,27 @@ header.bg-gradient {
             font-size: 1.6rem;
         }
     }
+    .start-buying-email-wrapper {
+        input {
+            @include media-breakpoint-down(xs) {
+                outline: none;
+                box-shadow: none;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+        @include media-breakpoint-down(xs) {
+            padding-right: 0;
+        }
+    }
     .btn-success {
         color: #fff;
+        @include media-breakpoint-down(xs) {
+            outline: none;
+            box-shadow: none;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
     }
     .status-message {
         position: absolute;
