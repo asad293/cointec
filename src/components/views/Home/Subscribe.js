@@ -11,11 +11,11 @@ class Subscribe extends Component {
     }
 
     componentDidMount() {
-        document.addEventListener('click', this.clearEmail)
-        document.addEventListener('scroll', this.clearEmail)
+        document.addEventListener('click', this.clearMessage)
+        document.addEventListener('scroll', this.clearMessage)
     }
 
-    clearEmail = () => { this.setState({ statusMessage: '' }) }
+    clearMessage = () => { this.setState({ statusMessage: '' }) }
     handleInputChange = ({ target }) => this.setState({staticEmail: target.value})
     validateEmail = () => {
         const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -25,7 +25,7 @@ class Subscribe extends Component {
             })
             return false
         }
-        this.clearEmail()
+        this.clearMessage()
         return true
     }
 
@@ -37,14 +37,12 @@ class Subscribe extends Component {
             const headers = { 'Content-Type': 'application/json' }
             axios.post('https://ct-emails-production.azurewebsites.net/subscribe', data, { headers })
                 .then(response => {
-                    console.log(response);
                     this.setState({
                         staticEmail: '',
                         statusMessage: 'You’re early access pass is on its way!'
                     })
                 })
                 .catch(error => {
-                    console.log(error);
                     this.setState({ statusMessage: 'You’ve already subscribed!' })
                 })
         }
@@ -79,7 +77,7 @@ class Subscribe extends Component {
                                             <button type="submit" className="btn btn-success py-2 px-4">Subscribe</button>
                                         </div>
                                     </form>
-                                    <div className="text-white status-message">{this.state.statusMessage ? this.state.statusMessage : <br />}</div>
+                                    <div className="text-white status-message">{this.state.statusMessage}</div>
                                 </div>
                             </div>
                         </div>
