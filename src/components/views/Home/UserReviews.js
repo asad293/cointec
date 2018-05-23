@@ -4,7 +4,7 @@ class UserReviews extends Component {
     render() {
         return (
             <div className="bg-gradient bg-light-gradient py-2 py-md-5">
-                <div className="hear-user-wrapper">
+                <div className="hear-user-wrapper ">
                     <div className="container">
 
                         <div className="row">
