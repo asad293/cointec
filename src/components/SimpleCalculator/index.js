@@ -177,7 +177,8 @@ class SimpleCalculator extends Component {
       placeholder,
       valid,
       meta: { touched, error },
-      label
+      label,
+      reference
     } = field;
     const className = `${touched && error ? "has-warning" : ""} ${
       valid === true ? "has-success" : ""
@@ -187,6 +188,7 @@ class SimpleCalculator extends Component {
         <label className="field-label m-0">{label}</label>
         <input
           autoComplete="off"
+          ref={reference}
           placeholder={placeholder}
           className="form-control no-border p-0 "
           {...field.input}
@@ -200,12 +202,14 @@ class SimpleCalculator extends Component {
     this.setState({
       coinSelected: coin
     });
+    this.coinInput.focus();
   }
 
   onCurrencySelected(currency) {
     this.setState({
       currencySelected: currency
     });
+    this.currencyInput.focus();
     // updateRate()
   }
 
@@ -259,11 +263,11 @@ class SimpleCalculator extends Component {
 
   filterCoins(coin) {
     let word = this.state.coinSearch.toLowerCase().trim();
-    if (coin.name.toLowerCase().includes(word)) {
+    if (coin.name.toLowerCase().startsWith(word)) {
         return true;
     }
     
-    if (coin.keywords.includes(word)) {
+    if (coin.keywords.startsWith(word)) {
       return true;
     }
     return false;
@@ -296,6 +300,7 @@ class SimpleCalculator extends Component {
                 <Field
                   name="gbp"
                   label="You send"
+                  reference={(input) => { this.currencyInput = input }}
                   component={this.renderField}
                   normalize={this.normalizeGBP}
                   placeholder={
@@ -356,6 +361,7 @@ class SimpleCalculator extends Component {
                 <Field
                   name="btc"
                   label="You receive"
+                  reference={(input) => { this.coinInput = input }}
                   component={this.renderField}
                   normalize={this.normalizeBTC}
                   placeholder={this.convertToBTC(
