@@ -40,7 +40,9 @@ class SimpleCalculator extends Component {
     this.normalizeBTC = this.normalizeBTC.bind(this);
     this.convertToBTC = this.convertToBTC.bind(this);
     this.convertToGBP = this.convertToGBP.bind(this);
+    this.updateCoins = this.updateCoins.bind(this);
     this.fetchCalls = this.fetchCalls.bind(this);
+    this.getQuote = this.getQuote.bind(this);
     this.back = this.back.bind(this);
     this.onCoinSelected = this.onCoinSelected.bind(this);
     this.onCurrencySelected = this.onCurrencySelected.bind(this);
@@ -68,7 +70,7 @@ class SimpleCalculator extends Component {
     {
         if(gbp.length > 0) {
             if(this.state.debouncedGBP === null) {
-                this.setState( { debouncedGBP: _.debounce((gbp) => { console.log('gbp',gbp), this.props.fetchQuote({'SendAmount': Number.parseFloat(gbp)})}, 500,  { 'trailing': true }) }, () => { 
+                this.setState( { debouncedGBP: _.debounce((gbp) => { this.props.fetchQuote({'ReceiveCurrency': this.state.coinSelected.name, 'SendAmount': Number.parseFloat(gbp)})}, 500,  { 'trailing': true }) }, () => { 
                     this.state.debouncedGBP(gbp)
                 })
             }
@@ -108,7 +110,7 @@ class SimpleCalculator extends Component {
             if(btc.length > 0) {
                 this.setState({active: 'btc'})
                 if(this.state.debouncedBTC === null)
-                    this.setState( { debouncedBTC: _.debounce((btc) => { console.log('btc',btc), this.props.fetchQuote({'ReceiveAmount': Number.parseFloat(btc)})}, 500,  { 'trailing': true }) }, () => {
+                    this.setState( { debouncedBTC: _.debounce((btc) => { this.props.fetchQuote({'ReceiveCurrency': this.state.coinSelected.name, 'ReceiveAmount': Number.parseFloat(btc)})}, 500,  { 'trailing': true }) }, () => {
                         this.state.debouncedBTC(btc) 
                     })
                 
@@ -119,7 +121,7 @@ class SimpleCalculator extends Component {
                 // fetch btc to reset default rate
                 if(this.state.debouncedBTC)
                   this.state.debouncedBTC.cancel();
-                this.props.fetchQuote({'SendAmount': Number.parseFloat(this.state.placeholder)})
+                this.props.fetchQuote({'ReceiveCurrency': this.state.coinSelected.name, 'SendAmount': Number.parseFloat(this.state.placeholder)})
                 this.props.change('gbp', null)
                 this.setState({active: 'gbp'})
             }
@@ -147,21 +149,25 @@ class SimpleCalculator extends Component {
     clearInterval(this.state.intervalId)
   }
 
+  getQuote() {
+    if(this.state.active === 'gbp') {
+        this.props.fetchQuote({'ReceiveCurrency': this.state.coinSelected.name, 'SendAmount': this.props.gbp ? this.props.gbp : this.state.placeholder});
+    }
+    else if(this.state.active === 'btc' && this.props.btc) {
+        this.props.fetchQuote({'ReceiveCurrency': this.state.coinSelected.name, 'ReceiveAmount': this.props.btc });
+    }
+  }
+
   fetchCalls() {
     this.props.fetchAssets();
     this.props.fetchLimit();
     this.props.fetchConsts();
-    if(this.state.active === 'gbp') {
-        this.props.fetchQuote({'SendAmount': this.props.gbp ? this.props.gbp : this.state.placeholder});
-    }
-    else if(this.state.active === 'btc' && this.props.btc) {
-        this.props.fetchQuote({'ReceiveAmount': this.props.btc });
-    }
+    this.getQuote();
   }
 
 
   componentWillReceiveProps(props) {
-    console.log(props);
+    //console.log(props);
     if(props.quote.SendAmount === this.state.placeholder)
         this.setState({ placeholderBTC: props.quote.ReceiveAmount })
     if(props.gbp && this.state.active === 'gbp' && props.quote.ReceiveAmount)
@@ -172,16 +178,34 @@ class SimpleCalculator extends Component {
         
     this.updateLimit(props)
     this.updateRate(props)
-    this.updateDropDown(props)
+    this.updateCoins(props)
     //this.updateButtonState(props)
   }
 
-  updateDropDown(props) {
+  updateCoins(props) {
+    const coins = this.state.coins;
     if(props.limit.assets) {
       props.limit.assets.map((asset) => {
-        console.log(asset);
+        coins.map((coin) => {
+          if(asset.AssetPair.indexOf(coin.name) === 3) {
+            coin.DefaultQuoteAmount = asset.DefaultQuoteAmount;
+            if(asset.Status === 'DISABLED') {
+              coin.disabled = true
+              //console.log(coin,'disabled')
+            }
+            else if(asset.Status === 'UNAVAILABLE') {
+              coin.unavailable = true
+              //console.log(coin,'UNAVAILABLE')
+            }
+            else {
+              coin.available = true;
+            }
+          }
+        })
       })
     }
+    //console.log(coins);
+    this.setState({coins});
   }
 
   onSubmit(values) {
@@ -223,14 +247,14 @@ class SimpleCalculator extends Component {
   onCoinSelected(coin) {
     this.setState({
       coinSelected: coin
-    });
+    }, () => { this.getQuote()});
   }
 
   onCurrencySelected(currency) {
     this.setState({
       currencySelected: currency
     });
-    // updateRate()
+    
   }
 
   updateLimit(props) {
@@ -375,6 +399,8 @@ class SimpleCalculator extends Component {
                         <ExchangeableItem
                           key={currency.name}
                           exchangeable={currency}
+                          disabled={currency.disabled}
+                          unavailable={currency.unavailable}
                           onItemSelected={this.onCurrencySelected} />
                       )}
                     </div>
@@ -439,6 +465,8 @@ class SimpleCalculator extends Component {
                         <ExchangeableItem
                           key={coin.name}
                           exchangeable={coin}
+                          disabled={coin.disabled}
+                          unavailable={coin.unavailable}
                           onItemSelected={this.onCoinSelected} />
                       )}
                     </div>
@@ -454,7 +482,7 @@ class SimpleCalculator extends Component {
           <h6 className="text-white mt-3">
             {this.state.currencySymbol +
               this.state.rate.toFixed(2) +
-              "/BTC Exchange Rate"}
+              "/" + this.state.coinSelected.name + " Exchange Rate"}
           </h6>
         </div>
       </form>

@@ -8,7 +8,7 @@ const ROOT_URL = 'https://api.staging.cointec.co.uk'
 
 export function fetchQuote({ 
     SendCurrency = 'GBP', 
-    ReceiveCurrency = 'BTC',
+    ReceiveCurrency,
     SendAmount,
     ReceiveAmount
 })
