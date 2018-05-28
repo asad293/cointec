@@ -177,8 +177,7 @@ class SimpleCalculator extends Component {
       placeholder,
       valid,
       meta: { touched, error },
-      label,
-      reference
+      label
     } = field;
     const className = `${touched && error ? "has-warning" : ""} ${
       valid === true ? "has-success" : ""
@@ -188,7 +187,6 @@ class SimpleCalculator extends Component {
         <label className="field-label m-0">{label}</label>
         <input
           autoComplete="off"
-          ref={reference}
           placeholder={placeholder}
           className="form-control no-border p-0 "
           {...field.input}
@@ -202,14 +200,12 @@ class SimpleCalculator extends Component {
     this.setState({
       coinSelected: coin
     });
-    this.coinInput.focus();
   }
 
   onCurrencySelected(currency) {
     this.setState({
       currencySelected: currency
     });
-    this.currencyInput.focus();
     // updateRate()
   }
 
@@ -300,7 +296,6 @@ class SimpleCalculator extends Component {
                 <Field
                   name="gbp"
                   label="You send"
-                  reference={(input) => { this.currencyInput = input }}
                   component={this.renderField}
                   normalize={this.normalizeGBP}
                   placeholder={
@@ -361,7 +356,6 @@ class SimpleCalculator extends Component {
                 <Field
                   name="btc"
                   label="You receive"
-                  reference={(input) => { this.coinInput = input }}
                   component={this.renderField}
                   normalize={this.normalizeBTC}
                   placeholder={this.convertToBTC(
@@ -378,7 +372,8 @@ class SimpleCalculator extends Component {
                     id="dropdownMenuLink"
                     data-toggle="dropdown"
                     aria-haspopup="true"
-                    aria-expanded="false">
+                    aria-expanded="false"
+                    onMouseUp={() => { setTimeout(() => { this.coinSearchInput.focus() }, 500) }}>
                     <div className="text-label currency-label">
                       <div className="currency-symbol-wrapper">
                         <img
@@ -406,6 +401,7 @@ class SimpleCalculator extends Component {
                         className="search-input"
                         placeholder="Search"
                         type="search"
+                        ref={(input) => { this.coinSearchInput = input }}
                         value={this.state.coinSearch}
                         onChange={this.searchCoin.bind(this)} />
                     </div>
