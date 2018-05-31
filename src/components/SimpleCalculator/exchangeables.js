@@ -4,6 +4,12 @@ const currencies = [
       symbol: '£',
       image: '/img/union-jack.svg',
       keywords: 'british pound'
+    },
+    {
+      name: 'BTC',
+      symbol: '',
+      image: '/img/coins/BTC.svg',
+      keywords: 'bitcoin'
     }
 ];
   

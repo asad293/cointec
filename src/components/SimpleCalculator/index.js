@@ -30,7 +30,10 @@ class SimpleCalculator extends Component {
       currencies,
       coinSearch: '',
       coinSelected: coins[0],
-      currencySelected: currencies[0]
+      currencySelected: currencies[0],
+      toggleCurrency: false,
+      toggleCoin: false,
+      search: false,
     };
     this.fistScreen = this.fistScreen.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -46,6 +49,8 @@ class SimpleCalculator extends Component {
     this.back = this.back.bind(this);
     this.onCoinSelected = this.onCoinSelected.bind(this);
     this.onCurrencySelected = this.onCurrencySelected.bind(this);
+    this.toggleDropDown = this.toggleDropDown.bind(this);
+    this.toggleSearch = this.toggleSearch.bind(this);
   }
 
   back() {
@@ -70,7 +75,7 @@ class SimpleCalculator extends Component {
     {
         if(gbp.length > 0) {
             if(this.state.debouncedGBP === null) {
-                this.setState( { debouncedGBP: _.debounce((gbp) => { this.props.fetchQuote({'ReceiveCurrency': this.state.coinSelected.name, 'SendAmount': Number.parseFloat(gbp)})}, 500,  { 'trailing': true }) }, () => { 
+                this.setState( { debouncedGBP: _.debounce((gbp) => { this.props.fetchQuote({'SendCurrency': this.state.currencySelected.name,'ReceiveCurrency': this.state.coinSelected.name, 'SendAmount': Number.parseFloat(gbp)})}, 500,  { 'trailing': true }) }, () => { 
                     this.state.debouncedGBP(gbp)
                 })
             }
@@ -110,7 +115,7 @@ class SimpleCalculator extends Component {
             if(btc.length > 0) {
                 this.setState({active: 'btc'})
                 if(this.state.debouncedBTC === null)
-                    this.setState( { debouncedBTC: _.debounce((btc) => { this.props.fetchQuote({'ReceiveCurrency': this.state.coinSelected.name, 'ReceiveAmount': Number.parseFloat(btc)})}, 500,  { 'trailing': true }) }, () => {
+                    this.setState( { debouncedBTC: _.debounce((btc) => { this.props.fetchQuote({'SendCurrency': this.state.currencySelected.name,'ReceiveCurrency': this.state.coinSelected.name, 'ReceiveAmount': Number.parseFloat(btc)})}, 500,  { 'trailing': true }) }, () => {
                         this.state.debouncedBTC(btc) 
                     })
                 
@@ -121,7 +126,7 @@ class SimpleCalculator extends Component {
                 // fetch btc to reset default rate
                 if(this.state.debouncedBTC)
                   this.state.debouncedBTC.cancel();
-                this.props.fetchQuote({'ReceiveCurrency': this.state.coinSelected.name, 'SendAmount': Number.parseFloat(this.state.placeholder)})
+                this.props.fetchQuote({'SendCurrency': this.state.currencySelected.name, 'ReceiveCurrency': this.state.coinSelected.name, 'SendAmount': Number.parseFloat(this.state.placeholder)})
                 this.props.change('gbp', null)
                 this.setState({active: 'gbp'})
             }
@@ -142,6 +147,7 @@ class SimpleCalculator extends Component {
     this.initInterval(this.state.interval)
     // fetch call the first time component mounts
     this.fetchCalls()
+    this.props.fetchAssets();
     //this.props.fetchAccounts(5)
   }
 
@@ -151,15 +157,14 @@ class SimpleCalculator extends Component {
 
   getQuote() {
     if(this.state.active === 'gbp') {
-        this.props.fetchQuote({'ReceiveCurrency': this.state.coinSelected.name, 'SendAmount': this.props.gbp ? this.props.gbp : this.state.placeholder});
+        this.props.fetchQuote({'SendCurrency': this.state.currencySelected.name,'ReceiveCurrency': this.state.coinSelected.name, 'SendAmount': this.props.gbp ? this.props.gbp : this.state.placeholder});
     }
     else if(this.state.active === 'btc' && this.props.btc) {
-        this.props.fetchQuote({'ReceiveCurrency': this.state.coinSelected.name, 'ReceiveAmount': this.props.btc });
+        this.props.fetchQuote({'SendCurrency': this.state.currencySelected.name,'ReceiveCurrency': this.state.coinSelected.name, 'ReceiveAmount': this.props.btc });
     }
   }
 
   fetchCalls() {
-    this.props.fetchAssets();
     this.props.fetchLimit();
     this.props.fetchConsts();
     this.getQuote();
@@ -169,7 +174,7 @@ class SimpleCalculator extends Component {
   componentWillReceiveProps(props) {
     //console.log(props);
     if(props.quote.SendAmount === this.state.placeholder)
-        this.setState({ placeholderBTC: props.quote.ReceiveAmount })
+        this.setState({ placeholderBTC: props.quote.ReceiveAmount.toFixed(8) })
     if(props.gbp && this.state.active === 'gbp' && props.quote.ReceiveAmount)
         this.props.change('btc',Number.parseFloat(props.quote.ReceiveAmount).toFixed(8))
         
@@ -185,7 +190,7 @@ class SimpleCalculator extends Component {
   updateCoins(props) {
     const coins = this.state.coins;
     if(props.limit.assets) {
-      props.limit.assets.map((asset) => {
+      /*props.limit.assets.map((asset) => {
         coins.map((coin) => {
           if(asset.AssetPair.indexOf(coin.name) === 3) {
             coin.DefaultQuoteAmount = asset.DefaultQuoteAmount;
@@ -203,6 +208,8 @@ class SimpleCalculator extends Component {
           }
         })
       })
+      */
+      console.log(coins);
     }
     //console.log(coins);
     this.setState({coins});
@@ -253,7 +260,7 @@ class SimpleCalculator extends Component {
   onCurrencySelected(currency) {
     this.setState({
       currencySelected: currency
-    });
+    }, () => { this.getQuote()});
     
   }
 
@@ -321,6 +328,25 @@ class SimpleCalculator extends Component {
     return false;
   }
 
+  toggleSearch() {
+    this.setState({search : !this.state.search})
+  }
+
+  toggleDropDown(type) {
+
+    if(type === 'currency') {
+      if(!this.state.toggleCurrency)
+        this.props.fetchAssets();
+      this.setState({ toggleCurrency: !this.state.toggleCurrency });
+    }
+    else if(type === 'coin') {
+      if(!this.state.toggleCoin)
+        this.props.fetchAssets();
+      this.setState({ toggleCoin: !this.state.toggleCoin });
+    }
+  }
+  
+
   fistScreen() {
     const { handleSubmit } = this.props;
     let coins = this.state.coins;
@@ -343,6 +369,7 @@ class SimpleCalculator extends Component {
       </div>
     );
 
+
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <div>
@@ -359,16 +386,17 @@ class SimpleCalculator extends Component {
                   }
                 />
               </div>
-              <div className="col-6 pl-0  d-flex align-items-center d-flex align-items-center">
+              <div onClick={() => this.toggleDropDown('currency')} className="col-6 pl-0  d-flex align-items-center d-flex align-items-center">
                 <div className="dropdown dropdown-currency-select">
                   <a
                     className="btn dropdown-toggle"
                     href="#"
                     role="button"
                     id="dropdownMenuLink"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">
+                    //data-toggle="dropdown"
+                    //aria-haspopup="true"
+                    //aria-expanded="false"
+                    >
                     <div className="text-label currency-label">
                       <div className="currency-symbol-wrapper">
                         <img
@@ -383,28 +411,31 @@ class SimpleCalculator extends Component {
                         alt="Dropdown" />
                     </div>
                   </a>
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuLink">
-                    <div className="search-item">
+                  {
+                    this.state.toggleCurrency &&
+                    <div
+                      className="dropdown-menu show"
+                      aria-labelledby="dropdownMenuLink">
+                      <div className="search-item">
+                        
                       
-                     
-                      <input className="search-input"
-                        placeholder="Coming Soon"
-                         type="text" name="lname" disabled/>
-                    </div>
+                        <input className="search-input"
+                          placeholder="Coming Soon"
+                          type="text" name="lname" disabled/>
+                      </div>
 
-                    <div className="dropdown-items-wrapper">
-                      {currencies.map((currency) => 
-                        <ExchangeableItem
-                          key={currency.name}
-                          exchangeable={currency}
-                          disabled={currency.disabled}
-                          unavailable={currency.unavailable}
-                          onItemSelected={this.onCurrencySelected} />
-                      )}
+                      <div className="dropdown-items-wrapper">
+                        {currencies.map((currency) => 
+                          <ExchangeableItem
+                            key={currency.name}
+                            exchangeable={currency}
+                            disabled={currency.disabled}
+                            //unavailable={currency.unavailable}
+                            onItemSelected={this.onCurrencySelected} />
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  }
                 </div>
               </div>
             </div>
@@ -420,15 +451,16 @@ class SimpleCalculator extends Component {
                 />
               </div>
               <div className="col-6 pl-0 d-flex align-items-center">
-                <div className="dropdown dropdown-currency-select">
+                <div onClick={() => this.toggleDropDown('coin')} className="dropdown dropdown-currency-select">
                   <a
                     className="btn dropdown-toggle"
                     href="#"
                     role="button"
                     id="dropdownMenuLink"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">
+                    //data-toggle="dropdown"
+                    //aria-haspopup="true"
+                    //aria-expanded="false"
+                    >
                     <div className="text-label currency-label">
                       <div className="currency-symbol-wrapper">
                         <img
@@ -443,34 +475,37 @@ class SimpleCalculator extends Component {
                         alt="Dropdown" />
                     </div>
                   </a>
+                  {
+                    this.state.toggleCoin &&
+                    <div
+                      className="dropdown-menu show"
+                      aria-labelledby="dropdownMenuLink">
+                      <div className="search-item">
+                        <img
+                          className="search-symbol"
+                          src="/img/dropdown-search.svg"
+                          alt="Search" />
+                        <input
+                          className="search-input"
+                          placeholder="Search"
+                          type="search"
+                          value={this.state.coinSearch}
+                          onClick = {this.toggleSearch}
+                          onChange={this.searchCoin.bind(this)} />
+                      </div>
 
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuLink">
-                    <div className="search-item">
-                      <img
-                        className="search-symbol"
-                        src="/img/dropdown-search.svg"
-                        alt="Search" />
-                      <input
-                        className="search-input"
-                        placeholder="Search"
-                        type="search"
-                        value={this.state.coinSearch}
-                        onChange={this.searchCoin.bind(this)} />
+                      <div className="dropdown-items-wrapper">
+                        {coins.map((coin) => 
+                          <ExchangeableItem
+                            key={coin.name}
+                            exchangeable={coin}
+                            disabled={coin.disabled}
+                            //unavailable={coin.unavailable}
+                            onItemSelected={this.onCoinSelected} />
+                        )}
+                      </div>
                     </div>
-
-                    <div className="dropdown-items-wrapper">
-                      {coins.map((coin) => 
-                        <ExchangeableItem
-                          key={coin.name}
-                          exchangeable={coin}
-                          disabled={coin.disabled}
-                          unavailable={coin.unavailable}
-                          onItemSelected={this.onCoinSelected} />
-                      )}
-                    </div>
-                  </div>
+                  }
                 </div>
               </div>
             </div>
