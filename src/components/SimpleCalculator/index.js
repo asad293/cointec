@@ -407,12 +407,12 @@ class SimpleCalculator extends Component {
                     </div>
 
                     <div className="dropdown-items-wrapper">
-                      {coins.map((coin) => 
+                      {coins.length ? coins.map((coin) => 
                         <ExchangeableItem
                           key={coin.name}
                           exchangeable={coin}
                           onItemSelected={this.onCoinSelected} />
-                      )}
+                      ): <div className="text-center">No results</div>}
                     </div>
                   </div>
                 </div>
