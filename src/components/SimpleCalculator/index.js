@@ -29,7 +29,7 @@ class SimpleCalculator extends Component {
       coins,
       currencies,
       coinSearch: '',
-      coinSelected: coins[0],
+      coinSelected: false,
       currencySelected: currencies[0],
       toggleCurrency: false,
       toggleCoin: false,
@@ -59,7 +59,7 @@ class SimpleCalculator extends Component {
   }
 
   normalizeGBP(value, previousValue) {
-    let decimalPoint = 2;
+    let decimalPoint = this.state.currencySelected.dp;
     let gbp = value.replace(/[^\d.]/g, "");
     let pos = gbp.indexOf(".");
 
@@ -93,7 +93,7 @@ class SimpleCalculator extends Component {
     }
 
     if (gbp.length > 0) 
-      return "£ " + gbp;
+      return this.state.currencySymbol + ' ' + gbp;
     else 
       return gbp;
   }
@@ -167,7 +167,7 @@ class SimpleCalculator extends Component {
   fetchCalls() {
     this.props.fetchLimit();
     this.props.fetchConsts();
-    this.getQuote();
+    //this.getQuote();
   }
 
 
@@ -179,7 +179,7 @@ class SimpleCalculator extends Component {
         this.props.change('btc',Number.parseFloat(props.quote.ReceiveAmount).toFixed(8))
         
     if(props.btc && this.state.active === 'btc' && props.quote.SendAmount)
-        this.props.change('gbp',this.state.currencySymbol + ' ' + Number.parseFloat(props.quote.SendAmount).toFixed(2))
+        this.props.change('gbp',this.state.currencySymbol + ' ' + Number.parseFloat(props.quote.SendAmount).toFixed(this.state.currencySelected.dp))
         
     this.updateLimit(props)
     this.updateRate(props)
@@ -188,31 +188,26 @@ class SimpleCalculator extends Component {
   }
 
   updateCoins(props) {
-    const coins = this.state.coins;
+    let coins = this.state.coins;
+    console.log(coins)
+    let prevPlaceHolder = this.state.placeholder;
     if(props.limit.assets) {
-      /*props.limit.assets.map((asset) => {
-        coins.map((coin) => {
-          if(asset.AssetPair.indexOf(coin.name) === 3) {
-            coin.DefaultQuoteAmount = asset.DefaultQuoteAmount;
-            if(asset.Status === 'DISABLED') {
-              coin.disabled = true
-              //console.log(coin,'disabled')
-            }
-            else if(asset.Status === 'UNAVAILABLE') {
-              coin.unavailable = true
-              //console.log(coin,'UNAVAILABLE')
-            }
-            else {
-              coin.available = true;
-            }
-          }
-        })
+      let associateCoins = _.keyBy(coins, 'name');
+
+      props.limit.assets.map((asset,i) => {
+        let currencyIndex = asset.AssetPair.replace("GBP","");
+        if(associateCoins[currencyIndex]) {
+          _.assign(asset,associateCoins[currencyIndex])
+        }
+        else
+          _.assign(asset,associateCoins['NOASSET'])
       })
-      */
-      console.log(coins);
+      console.log('assets',props.limit.assets);
+      this.setState({ coins: props.limit.assets });
+      if(!this.state.coinSelected) {
+        this.onCoinSelected(props.limit.assets[2]);
+      }
     }
-    //console.log(coins);
-    this.setState({coins});
   }
 
   onSubmit(values) {
@@ -252,15 +247,18 @@ class SimpleCalculator extends Component {
   }
 
   onCoinSelected(coin) {
+    console.log('here',coin);
     this.setState({
-      coinSelected: coin
+      coinSelected: coin,
+      placeholder: coin.DefaultQuoteAmount
     }, () => { this.getQuote()});
   }
 
   onCurrencySelected(currency) {
     this.setState({
-      currencySelected: currency
-    }, () => { this.getQuote()});
+      currencySelected: currency,
+      currencySymbol: currency.symbol,
+    }, () => { this.getQuote(), this.props.change('gbp', null), this.props.change('btc', null)});
     
   }
 
@@ -333,7 +331,6 @@ class SimpleCalculator extends Component {
   }
 
   toggleDropDown(type) {
-
     if(type === 'currency') {
       if(!this.state.toggleCurrency)
         this.props.fetchAssets();
@@ -354,9 +351,9 @@ class SimpleCalculator extends Component {
     if (this.state.coinSearch)
       coins = this.state.coins.filter(coin => this.filterCoins(coin));
 
-    const ExchangeableItem = ({ exchangeable, onItemSelected, disabled = false, unavailable = false }) => (
+    const ExchangeableItem = ({ exchangeable, onItemSelected, status, unavailable }) => (
       <div>
-        { !disabled && 
+        { status !== 'DISABLED' && 
         <a className={cn("dropdown-item", unavailable ? 'unavailable': null)} onClick={ unavailable ? null: (e) => onItemSelected(exchangeable)}>
           <div className="text-label currency-label">
             <div className="currency-symbol-wrapper">
@@ -429,7 +426,7 @@ class SimpleCalculator extends Component {
                           <ExchangeableItem
                             key={currency.name}
                             exchangeable={currency}
-                            disabled={currency.disabled}
+                            status={currency.Status}
                             //unavailable={currency.unavailable}
                             onItemSelected={this.onCurrencySelected} />
                         )}
@@ -461,6 +458,8 @@ class SimpleCalculator extends Component {
                     //aria-haspopup="true"
                     //aria-expanded="false"
                     >
+                    { 
+                      this.state.coinSelected != null &&
                     <div className="text-label currency-label">
                       <div className="currency-symbol-wrapper">
                         <img
@@ -474,6 +473,7 @@ class SimpleCalculator extends Component {
                         src="/img/arrow-down.svg"
                         alt="Dropdown" />
                     </div>
+                    }
                   </a>
                   {
                     this.state.toggleCoin &&
@@ -499,7 +499,7 @@ class SimpleCalculator extends Component {
                           <ExchangeableItem
                             key={coin.name}
                             exchangeable={coin}
-                            disabled={coin.disabled}
+                            status={coin.Status}
                             //unavailable={coin.unavailable}
                             onItemSelected={this.onCoinSelected} />
                         )}
@@ -516,7 +516,7 @@ class SimpleCalculator extends Component {
 
           <h6 className="text-white mt-3">
             {this.state.currencySymbol +
-              this.state.rate.toFixed(2) +
+              this.state.rate.toFixed(this.state.currencySelected.dp) +
               "/" + this.state.coinSelected.name + " Exchange Rate"}
           </h6>
         </div>
