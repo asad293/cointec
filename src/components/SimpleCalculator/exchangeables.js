@@ -2,8 +2,16 @@ const currencies = [
     {
       name: 'GBP',
       symbol: '£',
+      dp: 2,
       image: '/img/union-jack.svg',
       keywords: 'british pound'
+    },
+    {
+      name: 'BTC',
+      symbol: '',
+      dp: 8,
+      image: '/img/coins/BTC.svg',
+      keywords: 'bitcoin'
     }
 ];
   
@@ -107,6 +115,10 @@ const coins = [
       name: 'BAT',
       image: '/img/coins/BAT.svg',
       keywords: 'basic attention token'
+    },
+    {
+      name: 'NOASSET',
+      image: '/img/coins/NONE.svg',
     },
 ];
 
