@@ -412,7 +412,7 @@ class SimpleCalculator extends Component {
                           key={coin.name}
                           exchangeable={coin}
                           onItemSelected={this.onCoinSelected} />
-                      ): <div className="text-center">No results</div>}
+                      ): <div className="px-3">No results</div>}
                     </div>
                   </div>
                 </div>
