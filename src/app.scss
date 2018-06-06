@@ -180,9 +180,16 @@ header.bg-gradient {
     margin-top: 5rem;
     // margin-bottom: 7rem; // Inner pages should have less space than the homepage
     &.hero-wrapper-inner {
-        padding-bottom: 3rem;
-        margin-top: 3rem;
+        padding-bottom: 2rem;
+        margin-top: 2rem;
         // margin-bottom: 3rem;
+
+        @include media-breakpoint-down(md) {
+        padding-bottom: 2rem;
+        margin-top: 1.2rem;
+        margin-bottom: 0;
+        // margin-bottom: 2rem;
+        }
     }
     .support-heading {
         font-weight: 300;
@@ -208,8 +215,8 @@ header.bg-gradient {
         margin-bottom: 2rem;
         font-weight: 300;
         @include media-breakpoint-down(md) {
-            font-size: 2rem;
-            margin-bottom: 1.2rem;
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
         }
     }
     .hero-intro {
@@ -239,7 +246,7 @@ header.bg-gradient {
                 padding: 0.4rem 0;
             }
             .beta-pill {
-                font-size: 0.9rem;
+                font-size: 0.9rem !important;
                 display: flex;
                 align-items: center;
                 font-weight: 500;
@@ -277,8 +284,8 @@ header.bg-gradient {
             }
             .field-label {
                 font-size: 15px;
-                font-weight: 500;
-                color: rgba(112, 128, 141, 0.65);
+                font-weight: 400;
+                color: rgba(112, 128, 141, 0.8);
             }
             .text-label {
                 color: #000;

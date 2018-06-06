@@ -24,9 +24,9 @@ class Features extends Component {
                         <div className="cta-icon-wrapper py-4 py-md-5  pr-4">
                             <img src="/img/stopwatch.svg" alt="Lightning fast delivery" />
 
-                            <h3 className="cta-title">Lightning fast delivery</h3>
+                            <h3 className="cta-title">Instant delivery</h3>
                             <p className="cta-text">
-                            Your coins are sent as soon as we receive payment so you can watch them move across the blockchain. 
+                            Your coins are sent as soon as we receive payment so you can follow the transaction on the blockchain. 
                             </p>
                         </div>
 
@@ -38,9 +38,9 @@ class Features extends Component {
                         <div className="cta-icon-wrapper py-4 py-md-5  pr-4">
                             <img src="/img/help.svg" alt="Reliable support" />
 
-                            <h3 className="cta-title">Reliable support</h3>
+                            <h3 className="cta-title">Live support</h3>
                             <p className="cta-text">
-                            Here 24/7 to answer your questions. The markets never sleep, so why should we?
+                            Available 24/7, with a team member always on hand to provide support via our live chat.
                             </p>
                         </div>
 

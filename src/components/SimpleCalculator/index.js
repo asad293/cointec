@@ -316,11 +316,11 @@ class SimpleCalculator extends Component {
 
   filterCoins(coin) {
     let word = this.state.coinSearch.toLowerCase().trim();
-    if (coin.name.toLowerCase().includes(word)) {
+    if (coin.name.toLowerCase().startsWith(word)) {
         return true;
     }
     
-    if (coin.keywords.includes(word)) {
+    if (coin.keywords.startsWith(word)) {
       return true;
     }
     return false;
@@ -454,12 +454,14 @@ class SimpleCalculator extends Component {
                     href="#"
                     role="button"
                     id="dropdownMenuLink"
+
                     //data-toggle="dropdown"
                     //aria-haspopup="true"
                     //aria-expanded="false"
                     >
                     { 
                       this.state.coinSelected != null &&
+
                     <div className="text-label currency-label">
                       <div className="currency-symbol-wrapper">
                         <img
@@ -493,7 +495,6 @@ class SimpleCalculator extends Component {
                           onClick = {this.toggleSearch}
                           onChange={this.searchCoin.bind(this)} />
                       </div>
-
                       <div className="dropdown-items-wrapper">
                         {coins.map((coin) => 
                           <ExchangeableItem
