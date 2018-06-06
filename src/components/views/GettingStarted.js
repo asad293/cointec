@@ -20,8 +20,10 @@ class GettingStarted extends Component {
 
               <div className="query-container">
                 <div className="query">
-                  <img src="/img/entity.svg" alt="digital currency" />
-                  <h4 className="query-heading">What are digital currencies?</h4>
+                  <div className="d-flex">
+                    <img src="/img/entity.svg" alt="digital currency" />
+                    <h4 className="query-heading">What are digital currencies?</h4>
+                  </div>
                   <p>
                     The Luno Learning Portal is an excellent starting point. Here,
                     we've gathered useful info about the basics of digital currency
@@ -35,8 +37,10 @@ class GettingStarted extends Component {
                 </div>
 
                 <div className="query">
-                  <img src="/img/wallet-gs.svg" alt="wallet" />
-                  <h4 className="query-heading">How to store digital currency</h4>
+                  <div className="d-flex">
+                    <img src="/img/wallet-gs.svg" alt="wallet" />
+                    <h4 className="query-heading">How to store digital currency</h4>
+                  </div>
                   <p>
                     The Luno Learning Portal is an excellent starting point. Here,
                     we've gathered useful info about the basics of digital currency
@@ -50,8 +54,10 @@ class GettingStarted extends Component {
                 </div>
 
                 <div className="query">
-                  <img src="/img/lock-gs.svg" alt="lock" />
-                  <h4 className="query-heading">How to keep your digital currency safe</h4>
+                  <div className="d-flex">
+                    <img src="/img/lock-gs.svg" alt="lock" />
+                    <h4 className="query-heading">How to keep your digital currency safe</h4>
+                  </div>
                   <p>
                     The Luno Learning Portal is an excellent starting point. Here,
                     we've gathered useful info about the basics of digital currency
@@ -65,8 +71,10 @@ class GettingStarted extends Component {
                 </div>
 
                 <div className="query">
-                  <img src="/img/transfer.svg" alt="transfer" />
-                  <h4 className="query-heading">Sending and receiving digital currency</h4>
+                  <div className="d-flex">
+                    <img src="/img/transfer.svg" alt="transfer" />
+                    <h4 className="query-heading">Sending and receiving digital currency</h4>
+                  </div>
                   <p>
                     The Luno Learning Portal is an excellent starting point. Here,
                     we've gathered useful info about the basics of digital currency
@@ -80,8 +88,10 @@ class GettingStarted extends Component {
                 </div>
 
                 <div className="query">
-                  <img src="/img/currency.svg" alt="currency" />
-                  <h4 className="query-heading">How are digital currency prices set?</h4>
+                  <div className="d-flex">
+                    <img src="/img/currency.svg" alt="currency" />
+                    <h4 className="query-heading">How are digital currency prices set?</h4>
+                  </div>
                   <p>
                     The Luno Learning Portal is an excellent starting point. Here,
                     we've gathered useful info about the basics of digital currency

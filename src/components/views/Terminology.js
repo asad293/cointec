@@ -71,7 +71,7 @@ class Terminology extends Component {
                       and analysts who have an outlook that assumes falling prices are likely
                       to occur in the near future. The opposite of bearish is bullish.
                     </p>
-                    <div className="col-2 d-flex">
+                    <div className="d-flex">
                       <img src="/img/coins/BAT.svg" alt="bat" />
                     </div>
                   </div>
@@ -92,7 +92,7 @@ class Terminology extends Component {
                       and analysts who have an outlook that assumes falling prices are likely
                       to occur in the near future. The opposite of bearish is bullish.
                     </p>
-                    <div className="col-2 d-flex">
+                    <div className="d-flex">
                       <img src="/img/coins/BAT.svg" alt="bat" />
                     </div>
                   </div>
@@ -104,7 +104,7 @@ class Terminology extends Component {
                       have since needed to adapt to account for Bitcoin and other cryptocurrency
                       transactions.
                     </p>
-                    <div className="col-2 d-flex">
+                    <div className="d-flex">
                       <img src="/img/coins/BTC.svg" alt="btc" />
                     </div>
                   </div>
