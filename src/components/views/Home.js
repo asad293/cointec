@@ -33,11 +33,11 @@ class Home extends Component {
                                     <h1 className="hero-title">
                                         Digital Currency 
                                         <br/>
-                                         made <strong>simple.</strong>
+                                         made <strong>simple</strong>.
                                     </h1>
 
                                     <h2 className="hero-intro">
-                                        Cointec lets you buy Bitcoins instantly using Bank Transfer.
+                                        Access 20 digital currencies using Bank Transfer or Bitcoin.
 
                                         Try our calculator for live exchange rates.
                                     </h2>

@@ -50,7 +50,7 @@ class Subscribe extends Component {
 
     render() {
         return (
-            <div className="bg-gradient bg-primary-gradient-up py-2 py-md-5">
+            <div className="bg-gradient bg-primary-gradient-up py-2 py-md-2">
 
                 <div className="start-buying-wrapper">
                     <div className="container">

@@ -11,11 +11,11 @@ class CurrentDevelopment extends Component {
                         <div className="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto text-md-center">
                             <a name="currentdev"></a>
                             <h2 className="mb-3 mb-md-5 current-dev-title">
-                                Current development
+                                Current developments
                             </h2>
 
                             <p className="cta-text  mb-4">
-                            We are working hard in bringing you all the latest and greatest features. If you’d like to see even more, <a href="mailto:contact@cointec.co.uk" target="_blank">contact us.</a>
+                            We are working hard in bringing you all the latest features.<br/><a href="mailto:contact@cointec.co.uk" target="_blank">Tell us</a> what you would like to see.
                             </p>
 
 
@@ -35,7 +35,7 @@ class CurrentDevelopment extends Component {
 
                                 <h3 className="cta-title">Multiple payment methods</h3>
                                 <p className="cta-text">
-                                Pay with GBP or EUR in your preferred method including credit card, bank transfer, SEPA, Sofort and more...
+                                Pay with GBP or EUR in your preferred method including credit card, local bank transfer and more.
                                 </p>
                             </div>
 
@@ -49,9 +49,9 @@ class CurrentDevelopment extends Component {
                             <img src="/img/eth.svg" alt="Competitve rates" />
                             </div>
 
-                                <h3 className="cta-title">More cryptocurrencies</h3>
+                                <h3 className="cta-title">Additional currencies</h3>
                                 <p className="cta-text">
-                                Buy all your favorite cryptos in one place. Whether it’s Majors or Alt Coins, we’ll have you covered.
+                                Access a wider range of digital currencies, including exotics and those trending.
                                 </p>
                             </div>
 
@@ -67,7 +67,7 @@ class CurrentDevelopment extends Component {
 
                                 <h3 className="cta-title">Secure wallets</h3>
                                 <p className="cta-text">
-                                With secure integrated wallets, you’ll be able to easily store all your coins on our platform.
+                                With integrated wallets, you’ll be <br/> able to store your digital currencies securely on our platform.
                                 </p>
                             </div>
 
