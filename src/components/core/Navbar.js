@@ -39,6 +39,9 @@ class Navbar extends Component {
                                 <Link className="nav-link" to='/support'>Support</Link>
                             </li>
                             <li className="nav-item">
+                                <Link className="nav-link" to='/getting-started'>Learn</Link>
+                            </li>
+                            <li className="nav-item">
                                 <Link className="nav-link" to='/login'>Login</Link>
                             </li>
                             <li className="nav-item">
