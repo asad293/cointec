@@ -98,7 +98,7 @@ class SubscribeModal extends Component {
                 </div>
 
                 <div className={this.state.acceptedError ? 'invalid' : ''}>
-                  <input type="checkbox" value={this.state.accepted} onChange={this.accept.bind(this)} name="checkbox" />
+                  <input type="checkbox" value={this.state.accepted} checked={this.state.accepted} onChange={this.accept.bind(this)} name="checkbox" />
                   <label htmlFor="checkbox">I have read and accept the <Link to='/privacy'>privacy policy</Link></label>
                 </div>
                 
