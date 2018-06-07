@@ -2,17 +2,25 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
+const initialState = {
+  emailSent: false,
+  staticEmail: '',
+  errorMessage: '',
+  accepted: false,
+  acceptedError: false,
+  inProgress: false
+}
+
 class SubscribeModal extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      emailSent: false,
-      staticEmail: '',
-      errorMessage: '',
-      accepted: false,
-      acceptedError: false,
-      inProgress: false
-    }
+    this.state = initialState
+  }
+
+  componentDidMount() {
+    $('#subscribe-modal').on('hidden.bs.modal', () => {
+      this.setState({ ...initialState })
+    })
   }
 
   clearMessage = () => { this.setState({ errorMessage: '' }) }

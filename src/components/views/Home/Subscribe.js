@@ -73,7 +73,7 @@ class Subscribe extends Component {
                                     </div> */}
                                     
                                     <div className="form-group mb-2">
-                                        <button type="submit" className="btn btn-success py-2 px-4 col-8" data-toggle="modal" data-target="#subscribe-modal">Subscribe</button>
+                                        <button type="submit" className="btn btn-success py-2 px-4 col-sm-4" data-toggle="modal" data-target="#subscribe-modal">Subscribe</button>
                                     </div>
                                 {/* </form> */}
                                 {/* <div className="text-white status-message">{this.state.statusMessage}</div> */}
