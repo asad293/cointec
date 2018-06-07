@@ -244,9 +244,9 @@ class SimpleCalculator extends Component {
           buttonClass,
           buttonState
         )}
-        disabled={buttonState}
-      >
-        Instant exchange
+        data-toggle="modal" data-target="#subscribe-modal"
+        disabled={buttonState}>
+        Subscribe for early access
       </button>
     );
   }

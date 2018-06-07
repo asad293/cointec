@@ -60,8 +60,8 @@ class Subscribe extends Component {
                                     Subscribe for <strong>early access.</strong>
                                 </h2>
 
-                                <form className="d-flex justify-content-center" onSubmit={this.handleSubmit.bind(this)} noValidate autoComplete="off">
-                                    <div className="start-buying-email-wrapper form-group mb-2 col-md-8">
+                                {/* <form className="d-flex justify-content-center" onSubmit={this.handleSubmit.bind(this)} noValidate autoComplete="off"> */}
+                                    {/* <div className="start-buying-email-wrapper form-group mb-2 col-md-8">
                                         <label htmlFor="staticEmail" className="sr-only">Email</label>
                                         <input
                                             type="email"
@@ -70,13 +70,13 @@ class Subscribe extends Component {
                                             placeholder="Enter your email"
                                             value={this.state.staticEmail}
                                             onChange={this.handleInputChange.bind(this)} />
-                                    </div>
+                                    </div> */}
                                     
                                     <div className="form-group mb-2">
-                                        <button type="submit" className="btn btn-success py-2 px-4">Subscribe</button>
+                                        <button type="submit" className="btn btn-success py-2 px-4 col-8" data-toggle="modal" data-target="#subscribe-modal">Subscribe</button>
                                     </div>
-                                </form>
-                                <div className="text-white status-message">{this.state.statusMessage}</div>
+                                {/* </form> */}
+                                {/* <div className="text-white status-message">{this.state.statusMessage}</div> */}
                             </div>
                         </div>
                     </div>
