@@ -4,6 +4,7 @@ import axios from 'axios'
 
 const initialState = {
   emailSent: false,
+  emailResent: false,
   staticEmail: '',
   errorMessage: '',
   accepted: false,
@@ -23,6 +24,7 @@ class SubscribeModal extends Component {
     })
   }
 
+  dismiss = () => { $('#subscribe-modal').modal('toggle') }
   clearMessage = () => { this.setState({ errorMessage: '' }) }
   handleInputChange = ({ target }) => this.setState({ staticEmail: target.value })
   accept = ({ target }) => {
@@ -65,6 +67,22 @@ class SubscribeModal extends Component {
     }
   }
 
+  resendEmail = () => {
+    if (!this.state.inProgress) {
+      // this.setState({ inProgress: true }, () => {
+      //   const data = { email: this.state.staticEmail }
+      //   const headers = { 'Content-Type': 'application/json' }
+      //   axios.post('https://ct-emails-production.azurewebsites.net/subscribe', data, { headers })
+      //     .then(response => {
+            this.setState({ emailSent: true, emailResent: true, inProgress: false })
+      //     })
+      //     .catch(error => {
+      //       this.setState({ inProgress: false })
+      //     })
+      // })
+    }
+  }
+
   render() {
     return (
       <div className="modal fade" id="subscribe-modal" role="dialog" aria-hidden="true">
@@ -76,7 +94,9 @@ class SubscribeModal extends Component {
               </button>
 
               <h5 className="modal-heading">
-                {!this.state.emailSent ? 'Be the first to use our platform!' : 'Early access email sent!'}
+                {!this.state.emailSent
+                  ? 'Be the first to use our platform!'
+                  : 'Early access email ' + (!this.state.emailResent ? 'sent!' : 'resent!')}
               </h5>
               <div className="text-center">
                 <img src={!this.state.emailSent ? '/img/eth.svg' : '/img/eth-green.svg'} alt="logo" />
@@ -99,7 +119,7 @@ class SubscribeModal extends Component {
 
                 <div className={this.state.acceptedError ? 'invalid' : ''}>
                   <input type="checkbox" value={this.state.accepted} checked={this.state.accepted} onChange={this.accept.bind(this)} name="checkbox" />
-                  <label htmlFor="checkbox">I have read and accept the <Link to='/privacy'>privacy policy</Link></label>
+                  <label htmlFor="checkbox">I have read and accept the <Link to='/privacy' onClick={this.dismiss.bind(this)}>privacy policy</Link></label>
                 </div>
                 
                 <div className="form-group mb-2">
@@ -111,7 +131,9 @@ class SubscribeModal extends Component {
               <div className="success-message">
                 <p>Check your inbox to verify your email address and confirm your early access!</p>
                 <p>If you don't see the message in a few minutes check your spam folder.</p>
-                <button type="submit" className="btn btn-link btn-block py-2 px-4 mt-3">Resend email</button>
+                <button type="submit" className="btn btn-link btn-block py-2 px-4 mt-3" onClick={this.resendEmail.bind(this)}>
+                  Resend email {this.state.inProgress ? <i className="fas fa-spinner fa-spin"></i>: ''}
+                </button>
               </div>}
             </div>
           </div>
