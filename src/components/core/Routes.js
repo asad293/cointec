@@ -14,6 +14,10 @@ import Learn from '../views/Learn';
 class Routes extends Component {
     componentWillUpdate() {
         window.scrollTo(0,0)
+
+        if (window.location.hash === '#livechat') {
+            Intercom('show');
+        }
     }
 
     render() {

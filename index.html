@@ -125,12 +125,7 @@
      </script>
      
      <script>
-        var contactBtn = document.getElementById("contact-btn"),
-        contactBtnMobile = document.getElementById("contact-btn-mobile");    //add event listener
-        contactBtn.addEventListener('click', openIntercomWidget, true);
-        contactBtnMobile.addEventListener('click', openIntercomWidget, true);
-        function openIntercomWidget(e) {
-            e.preventDefault();
+        if (window.location.hash === '#livechat') {
             Intercom('show');
         }
      </script>
