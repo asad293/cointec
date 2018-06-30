@@ -8,11 +8,10 @@ class GettingStarted extends Component {
         <div className="container pb-5">
           <div className="row d-flex justify-content-center">
             <div className="col-lg-8 col-md-12 getting-started">
-              <h5 className="heading-top">Learn the essentials</h5>
+              <h5 className="heading-top">Getting started</h5>
 
               <p>
-                (re-word) We've gathered useful info about the basics of digital currency to help Luno newcomers and complete beginners satisfy their curiosity and orientate themselves about the digital currency phenomenon. 
-
+                If you are just getting started in the digital currencie world, our getting started guide is a great place to learn the basics. We’ve put put together the most relevant and insightful questions to get you up to speed and navigate the landscape safely.
               </p>
 
               <div className="query-container">
