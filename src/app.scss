@@ -692,6 +692,107 @@ footer {
     left: 0;
 }
 
+.modal-subscribe {
+    .modal-body {
+        padding: 1.65rem;
+    }
+
+    .modal-heading {
+        font-size: 21px;
+        font-weight: normal;
+        text-align: center;
+        margin-top: 22px;
+        margin-bottom: 37px;
+    }
+
+    img {
+        height: 85px;
+    }
+
+    form {
+        .subscribe-email-label {
+            line-height: 22px;
+            font-size: 15px;
+            margin-bottom: 5px;
+            margin-top: 38px;
+
+            &.invalid {
+                color: #DE2D2D;
+            }
+        }
+
+        input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            z-index: 1;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            margin-top: 4px;
+            &+label {
+                position: relative;
+                padding: 0;
+                margin-bottom: 21px;
+                a {
+                    text-decoration: underline;
+                }
+            }
+            &+label:before {
+                content: "";
+                margin-right: 10px;
+                display: inline-block;
+                vertical-align: text-top;
+                width: 16px;
+                height: 16px;
+                border: 1px solid #a9b3bb;
+                border-radius: 2px;
+                background: white;
+                margin-top: 1px;
+            }
+            &:checked+label:before {
+                border: none;
+                background: #045cc7;
+            }
+            &:checked+label:after {
+                content: "";
+                position: absolute;
+                left: 3px;
+                top: 13px;
+                background: white;
+                width: 2px;
+                height: 2px;
+                box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+                transform: rotate(45deg);
+            }
+        }
+
+        .invalid {
+            input[type="checkbox"] {
+                &+label {
+                    color: #F61010;
+                    a {
+                        color: #F61010;
+                    }
+                }
+                &+label:before {
+                    border: 1px solid #F61010;
+                }
+            }
+        }
+    }
+
+    .success-message {
+        max-width: 305px;
+        text-align: center;
+        margin: 40px auto 0;
+    }
+
+    @include media-breakpoint-up(sm) {
+        max-width: 430px;
+        margin: 6.5rem auto;
+    }
+}
+
 // Helpers
 @import "./css/helpers/_mixins.scss";
 .container-full {
@@ -1162,3 +1263,4 @@ footer {
 @import "./css/views/_home.scss";
 @import "./css/views/_support.scss";
 @import "./css/views/_legal.scss";
+@import "./css/views/_learn.scss";

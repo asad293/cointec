@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faTwitter from '@fortawesome/fontawesome-free-brands/faTwitter'
 import faMedium from '@fortawesome/fontawesome-free-brands/faMedium'
+import faInstagram from '@fortawesome/fontawesome-free-brands/faInstagram'
 import faRedditAlien from '@fortawesome/fontawesome-free-brands/faRedditAlien'
 
 class Footer extends Component {
@@ -38,15 +39,15 @@ class Footer extends Component {
 
                                 <div className="d-none d-sm-block col-sm-4">
                                     <h5 className="mb-4">Follow us</h5>
-                                    <a href="#" className="cta-text mb-2">
+                                    <a href="https://twitter.com/cointec" className="cta-text mb-2">
                                         Twitter
                                     </a>
 
-                                    <a href="#" className="cta-text mb-2">
-                                        Reddit
+                                    <a href="https://www.instagram.com/cointec" className="cta-text mb-2">
+                                        Instagram
                                     </a>
 
-                                    <a href="#" className="cta-text mb-2">
+                                    <a href="https://medium.com/@Cointec" className="cta-text mb-2">
                                         Medium
                                     </a>
                                 </div>
@@ -70,14 +71,14 @@ class Footer extends Component {
 
                     <div className="row d-md-none">
                         <div className="col-12 mt-4 d-flex flex-row">
-                            <a href="https://twitter.com/cointecuk">
+                            <a href="https://twitter.com/cointec">
                                 <FontAwesomeIcon icon={faTwitter} className="mr-4" />
+                            </a>
+                            <a href="https://www.instagram.com/cointec">
+                                <FontAwesomeIcon icon={faInstagram} className="mr-4" />
                             </a>
                             <a href="https://medium.com/@Cointec">
                                 <FontAwesomeIcon icon={faMedium} className="mr-4" />
-                            </a>
-                            <a href="https://www.reddit.com/user/Cointec">
-                                <FontAwesomeIcon icon={faRedditAlien} className="mr-4" />
                             </a>
 
                             {/*

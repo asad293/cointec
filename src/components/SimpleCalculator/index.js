@@ -1,31 +1,29 @@
 import React, { Component } from "react";
 import { formValueSelector, Field, reduxForm } from "redux-form";
-import { fetchAssets, fetchQuote, fetchLimit, fetchConsts, fetchAccounts } from "../../Redux/actions/index";
+
+import { fetchQuote } from "../../Redux/actions/index";
 import { connect } from "react-redux";
 import "./style.scss";
 import cn from "classnames";
-import walletValidator from "wallet-address-validator";
+import walletValidator from 'wallet-address-validator';
 import { coins, currencies } from './exchangeables';
 
 class SimpleCalculator extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      placeholder: 250,
-      placeholderBTC: null,
+      placeholderSendAmount: 250,
+      placeholderReceiveAmount: 0,
       rate: 1200,
       currencySymbol: "£",
       limit: 0,
       limitMin: 15,
-      buttonIsDisabled: false,
-      screen: "first",
-      active: "gbp",
+      // buttonIsDisabled: false,
+      // screen: 'first',
+      action: 'sending',
       intervalId: null,
-      interval: 60,
-      debouncedBTC: null,
-      debouncedGBP: null,
-      btcLoading: false,
-      gbpLoading: false,
+      interval: 10,
+      quoteLoading: false,
       coins,
       currencies,
       coinSearch: '',
@@ -35,104 +33,103 @@ class SimpleCalculator extends Component {
       toggleCoin: false,
       search: false,
     };
+
     this.fistScreen = this.fistScreen.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.updateRate = this.updateRate.bind(this);
+    // this.updateSendAmount = this.updateSendAmount.bind(this);
+    // this.updateReceiveAmount = this.updateReceiveAmount.bind(this);
 
-    this.normalizeGBP = this.normalizeGBP.bind(this);
-    this.normalizeBTC = this.normalizeBTC.bind(this);
-    this.convertToBTC = this.convertToBTC.bind(this);
-    this.convertToGBP = this.convertToGBP.bind(this);
-    this.updateCoins = this.updateCoins.bind(this);
+    this.normalizeSendAmount = this.normalizeSendAmount.bind(this);
+    this.normalizeReceiveAmount = this.normalizeReceiveAmount.bind(this);
+    this.convertToReceiveAmount = this.convertToReceiveAmount.bind(this);
+    this.convertToSendAmount = this.convertToSendAmount.bind(this);
+
+    // this.back = this.back.bind(this);
     this.fetchCalls = this.fetchCalls.bind(this);
-    this.getQuote = this.getQuote.bind(this);
-    this.back = this.back.bind(this);
     this.onCoinSelected = this.onCoinSelected.bind(this);
     this.onCurrencySelected = this.onCurrencySelected.bind(this);
     this.toggleDropDown = this.toggleDropDown.bind(this);
     this.toggleSearch = this.toggleSearch.bind(this);
   }
 
-  back() {
-    let intervalId = setInterval(this.fetchCalls, this.state.interval * 1000);
-    this.setState({ screen: "first", intervalId });
-  }
+  // back() {
+  //   let intervalId = setInterval(this.fetchCalls, this.state.interval * 1000);
+  //   this.setState({ screen: 'first', intervalId });
+  // }
 
-  normalizeGBP(value, previousValue) {
-    let decimalPoint = this.state.currencySelected.dp;
-    let gbp = value.replace(/[^\d.]/g, "");
-    let pos = gbp.indexOf(".");
+  normalizeSendAmount(value, previousValue) {
+    const decimalPoint = 2
 
-    this.setState({ active: "gbp" });
+    let sendAmount = value.replace(/[^\d.]/g, '')
+    let pos = sendAmount.indexOf('.')
+
+    this.setState({ action: 'sending' })
+
     if (pos >= 0) {
       // prevent an extra decimal point
-      if (gbp.indexOf(".", pos + 1) > 0) gbp = gbp.substring(0, pos + 1);
+      if (sendAmount.indexOf('.', pos + 1) > 0) sendAmount = sendAmount.substring(0, pos + 1)
+
       // allow up to 2 dp
-      if (gbp.length - pos > 2) gbp = gbp.substring(0, pos + 1 + decimalPoint);
+      if (sendAmount.length - pos > 2) sendAmount = sendAmount.substring(0, pos + 1 + decimalPoint)
     }
 
-    if(value !== previousValue)
-    {
-        if(gbp.length > 0) {
-            if(this.state.debouncedGBP === null) {
-                this.setState( { debouncedGBP: _.debounce((gbp) => { this.props.fetchQuote({'SendCurrency': this.state.currencySelected.name,'ReceiveCurrency': this.state.coinSelected.name, 'SendAmount': Number.parseFloat(gbp)})}, 500,  { 'trailing': true }) }, () => { 
-                    this.state.debouncedGBP(gbp)
-                })
-            }
-
-            if(this.state.debouncedGBP) {
-                this.state.debouncedGBP(gbp);
-            }
-        }
-        else
-        {
-          if(this.state.debouncedGBP)
-            this.state.debouncedGBP(this.state.placeholder)
-          this.props.change('btc', null)
-        }
+    if (value !== previousValue) {
+      if (sendAmount.length > 0)
+        this.props.fetchQuote({
+          SendCurrency: this.state.currencySelected.name,
+          ReceiveCurrency: this.state.coinSelected.name,
+          SendAmount: Number.parseFloat(sendAmount)
+        })
+      else {
+        this.props.fetchQuote({
+          SendCurrency: this.state.currencySelected.name,
+          ReceiveCurrency: this.state.coinSelected.name,
+          SendAmount: Number.parseFloat(this.state.placeholderSendAmount)
+        })
+        this.props.change('receiveAmount', null);
+      }
     }
 
-    if (gbp.length > 0) 
-      return this.state.currencySymbol + ' ' + gbp;
-    else 
-      return gbp;
+    if (sendAmount.length > 0)
+      return "£ " + sendAmount;
+    else
+      return sendAmount;
   }
 
-  normalizeBTC(value, previousValue) {
+  normalizeReceiveAmount(value, previousValue) {
     let decimalPoint = 8;
-    let btc = value.replace(/[^\d.]/g, "");
-    let pos = btc.indexOf(".");
+    let receiveAmount = value.replace(/[^\d.]/g, '');
+    let pos = receiveAmount.indexOf('.');
 
     if (pos >= 0) {
       // prevent an extra decimal point
-      if (btc.indexOf(".", pos + 1) > 0) btc = btc.substring(0, pos + 1);
+      if (receiveAmount.indexOf('.', pos + 1) > 0) receiveAmount = receiveAmount.substring(0, pos + 1);
       // allow up to 2 dp
-      if (btc.length - pos > 2) btc = btc.substring(0, pos + 1 + decimalPoint);
+      if (receiveAmount.length - pos > 2) receiveAmount = receiveAmount.substring(0, pos + 1 + decimalPoint);
     }
 
-    if(value !== previousValue)
-        {
-            if(btc.length > 0) {
-                this.setState({active: 'btc'})
-                if(this.state.debouncedBTC === null)
-                    this.setState( { debouncedBTC: _.debounce((btc) => { this.props.fetchQuote({'SendCurrency': this.state.currencySelected.name,'ReceiveCurrency': this.state.coinSelected.name, 'ReceiveAmount': Number.parseFloat(btc)})}, 500,  { 'trailing': true }) }, () => {
-                        this.state.debouncedBTC(btc) 
-                    })
-                
-                if(this.state.debouncedBTC)
-                    this.state.debouncedBTC(btc);
-            }
-            else {
-                // fetch btc to reset default rate
-                if(this.state.debouncedBTC)
-                  this.state.debouncedBTC.cancel();
-                this.props.fetchQuote({'SendCurrency': this.state.currencySelected.name, 'ReceiveCurrency': this.state.coinSelected.name, 'SendAmount': Number.parseFloat(this.state.placeholder)})
-                this.props.change('gbp', null)
-                this.setState({active: 'gbp'})
-            }
-        }
-
-    return btc;
+    if (value !== previousValue) {
+      if (receiveAmount.length > 0) {
+        this.setState({ action: 'receiving' })
+        this.props.fetchQuote({
+          SendCurrency: this.state.currencySelected.name,
+          ReceiveCurrency: this.state.coinSelected.name,
+          ReceiveAmount: Number.parseFloat(receiveAmount)
+        })
+      } else {
+        // fetch quote to reset default rate
+        this.props.fetchQuote({
+          SendCurrency: this.state.currencySelected.name,
+          ReceiveCurrency: this.state.coinSelected.name,
+          SendAmount: Number.parseFloat(this.state.placeholderSendAmount)
+        })
+        this.props.change('sendAmount', null);
+        // this.setState({ active: "gbp" });
+        this.setState({ action: 'sending' })
+      }
+    }
+    return receiveAmount;
   }
 
 
@@ -146,21 +143,28 @@ class SimpleCalculator extends Component {
     // set call fetch interval 
     this.initInterval(this.state.interval)
     // fetch call the first time component mounts
-    this.fetchCalls()
-    this.props.fetchAssets();
-    //this.props.fetchAccounts(5)
+    this.fetchCalls();
+    // store intervalId in the state so it can be accessed later to clear it
+    this.setState({ intervalId });
   }
 
   componentWillUnmount() {
     clearInterval(this.state.intervalId)
   }
 
-  getQuote() {
-    if(this.state.active === 'gbp') {
-        this.props.fetchQuote({'SendCurrency': this.state.currencySelected.name,'ReceiveCurrency': this.state.coinSelected.name, 'SendAmount': this.props.gbp ? this.props.gbp : this.state.placeholder});
-    }
-    else if(this.state.active === 'btc' && this.props.btc) {
-        this.props.fetchQuote({'SendCurrency': this.state.currencySelected.name,'ReceiveCurrency': this.state.coinSelected.name, 'ReceiveAmount': this.props.btc });
+  fetchCalls() {
+    if (this.state.action === 'sending') {
+      this.props.fetchQuote({
+        SendCurrency: this.state.currencySelected.name,
+        ReceiveCurrency: this.state.coinSelected.name,
+        SendAmount: this.props.sendAmount ? this.props.sendAmount : this.state.placeholderSendAmount
+      })
+    } else if (this.state.action === 'receiving' && this.props.receiveAmount) {
+      this.props.fetchQuote({
+        SendCurrency: this.state.currencySelected.name,
+        ReceiveCurrency: this.state.coinSelected.name,
+        ReceiveAmount: this.props.receiveAmount
+      })
     }
   }
 
@@ -172,53 +176,31 @@ class SimpleCalculator extends Component {
 
 
   componentWillReceiveProps(props) {
-    //console.log(props);
-    if(props.quote.SendAmount === this.state.placeholder)
-        this.setState({ placeholderBTC: props.quote.ReceiveAmount.toFixed(8) })
-    if(props.gbp && this.state.active === 'gbp' && props.quote.ReceiveAmount)
-        this.props.change('btc',Number.parseFloat(props.quote.ReceiveAmount).toFixed(8))
-        
-    if(props.btc && this.state.active === 'btc' && props.quote.SendAmount)
-        this.props.change('gbp',this.state.currencySymbol + ' ' + Number.parseFloat(props.quote.SendAmount).toFixed(this.state.currencySelected.dp))
-        
-    this.updateLimit(props)
-    this.updateRate(props)
-    this.updateCoins(props)
-    //this.updateButtonState(props)
-  }
+    this.setState({
+      quoteLoading: props.quote.loading
+    })
 
-  updateCoins(props) {
-    let coins = this.state.coins;
-    console.log(coins)
-    let prevPlaceHolder = this.state.placeholder;
-    if(props.limit.assets) {
-      let associateCoins = _.keyBy(coins, 'name');
+    if (props.sendAmount && this.state.action === 'sending' && props.quote.QuoteReceiveAmount)
+      this.props.change('receiveAmount', Number.parseFloat(props.quote.QuoteReceiveAmount).toFixed(8))
+    
+    if (props.receiveAmount && this.state.action === 'receiving' && props.quote.QuoteSendAmount)
+      this.props.change(
+        'sendAmount',
+        `${this.state.currencySymbol} ${Number.parseFloat(props.quote.QuoteSendAmount).toFixed(2)}`
+      )
 
-      props.limit.assets.map((asset,i) => {
-        let currencyIndex = asset.AssetPair.replace("GBP","");
-        if(associateCoins[currencyIndex]) {
-          _.assign(asset,associateCoins[currencyIndex])
-        }
-        else
-          _.assign(asset,associateCoins['NOASSET'])
-      })
-      console.log('assets',props.limit.assets);
-      this.setState({ coins: props.limit.assets });
-      if(!this.state.coinSelected) {
-        this.onCoinSelected(props.limit.assets[2]);
-      }
-    }
+    this.updateRate(props);
   }
 
   onSubmit(values) {
     clearInterval(this.state.intervalId)
   }
 
-  convertToBTC(amount) {
+  convertToReceiveAmount(amount) {
     return amount / this.state.rate;
   }
 
-  convertToGBP(amount) {
+  convertToSendAmount(amount) {
     return amount * this.state.rate;
   }
 
@@ -249,50 +231,41 @@ class SimpleCalculator extends Component {
   onCoinSelected(coin) {
     console.log('here',coin);
     this.setState({
-      coinSelected: coin,
-      placeholder: coin.DefaultQuoteAmount
-    }, () => { this.getQuote()});
+      coinSelected: coin
+    }, () => this.fetchCalls());
   }
 
   onCurrencySelected(currency) {
     this.setState({
-      currencySelected: currency,
-      currencySymbol: currency.symbol,
-    }, () => { this.getQuote(), this.props.change('gbp', null), this.props.change('btc', null)});
-    
+      currencySelected: currency
+    });
   }
 
-  updateLimit(props) {
-        
-    if (props.limit.limit) {
-        this.setState({ limit: props.limit.limit })
-    }
-    if (props.limit.const) {
-        let interval = props.limit.const.Frame1Refresh
-        let refreshTime = props.limit.const.Frame2Refresh
-        if(this.state.interval != interval) {
-            this.initInterval(interval)
-            this.setState({ interval })
-        }
-        if(this.state.reviewRefreshTime != refreshTime) {
-            this.setState({ reviewRefreshTime: refreshTime })
-        }
-    }
-  }
+  // updateReceiveAmount(props) {
+  //   if (props.receiveAmount.ExchangeRate) {
+  //     this.setState({ receiveAmount: Number.parseFloat(props.receiveAmount.ExchangeRate) })
+  //   }
+  // }
+
+  // updateSendAmount(props) {
+  //   if (props.receiveAmount.ExchangeRate) {
+  //     this.setState({ receiveAmount: Number.parseFloat(props.receiveAmount.ExchangeRate) });
+  //   }
+  // }
 
   updateRate(props) {
-    if(props.quote.ExchangeRate) {
-        this.setState({ rate: Number.parseFloat(props.quote.ExchangeRate) })
+    if (props.quote.ExchangeRate) {
+      this.setState({ rate: Number.parseFloat(props.quote.ExchangeRate) })
     }
 }
 
   renderButton() {
     let buttonState = "";
     let buttonClass = "btn-success ";
-    if (this.state.buttonIsDisabled) {
-      buttonState = "disabled";
-      buttonClass = "";
-    }
+    // if (this.state.buttonIsDisabled) {
+    //   buttonState = "disabled";
+    //   buttonClass = "";
+    // }
     return (
       <button
         type="submit"
@@ -301,9 +274,9 @@ class SimpleCalculator extends Component {
           buttonClass,
           buttonState
         )}
-        disabled={buttonState}
-      >
-        Instant exchange
+        data-toggle="modal" data-target="#subscribe-modal"
+        disabled={buttonState}>
+        Subscribe for early access
       </button>
     );
   }
@@ -311,19 +284,19 @@ class SimpleCalculator extends Component {
   searchCoin({ target }) {
     this.setState({
       coinSearch: target.value
-    });
+    })
   }
 
   filterCoins(coin) {
     let word = this.state.coinSearch.toLowerCase().trim();
     if (coin.name.toLowerCase().startsWith(word)) {
-        return true;
+        return true
     }
     
     if (coin.keywords.startsWith(word)) {
-      return true;
+      return true
     }
-    return false;
+    return false
   }
 
   toggleSearch() {
@@ -345,11 +318,11 @@ class SimpleCalculator extends Component {
   
 
   fistScreen() {
-    const { handleSubmit } = this.props;
-    let coins = this.state.coins;
-    let currencies = this.state.currencies;
+    const { handleSubmit } = this.props
+    let coins = this.state.coins
+    let currencies = this.state.currencies
     if (this.state.coinSearch)
-      coins = this.state.coins.filter(coin => this.filterCoins(coin));
+      coins = this.state.coins.filter(coin => this.filterCoins(coin))
 
     const ExchangeableItem = ({ exchangeable, onItemSelected, status, unavailable }) => (
       <div>
@@ -361,11 +334,10 @@ class SimpleCalculator extends Component {
             </div>
             <span>{exchangeable.name}</span>
           </div>
-        </a>
-        }
-      </div>
-    );
-
+          <span>{exchangeable.name}</span>
+        </div>
+      </a>
+    )
 
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
@@ -374,12 +346,12 @@ class SimpleCalculator extends Component {
             <div className="row am row-flex ">
               <div className="col-6  bg-input">
                 <Field
-                  name="gbp"
+                  name="sendAmount"
                   label="You send"
                   component={this.renderField}
-                  normalize={this.normalizeGBP}
+                  normalize={this.normalizeSendAmount}
                   placeholder={
-                    this.state.currencySymbol + " " + this.state.placeholder
+                    this.state.currencySymbol + " " + this.state.placeholderSendAmount
                   }
                 />
               </div>
@@ -440,11 +412,13 @@ class SimpleCalculator extends Component {
             <div className="row am row-flex ">
               <div className="col-6 bg-input">
                 <Field
-                  name="btc"
+                  name="receiveAmount"
                   label="You receive"
                   component={this.renderField}
-                  normalize={this.normalizeBTC}
-                  placeholder={ this.state.placeholderBTC }
+                  normalize={this.normalizeReceiveAmount}
+                  placeholder={this.convertToReceiveAmount(
+                    this.state.placeholderSendAmount
+                  ).toFixed(8)}
                 />
               </div>
               <div className="col-6 pl-0 d-flex align-items-center">
@@ -516,9 +490,12 @@ class SimpleCalculator extends Component {
           </div>
 
           <h6 className="text-white mt-3">
-            {this.state.currencySymbol +
-              this.state.rate.toFixed(this.state.currencySelected.dp) +
-              "/" + this.state.coinSelected.name + " Exchange Rate"}
+            {
+              this.state.currencySymbol + ' ' +
+              this.state.rate.toFixed(2) + '/' + 
+              (this.state.coinSelected ? this.state.coinSelected.name : 'BTC') + 
+              ' Exchange Rate'
+            }
           </h6>
         </div>
       </form>
@@ -526,29 +503,25 @@ class SimpleCalculator extends Component {
   }
 
   render() {
-    return <div>{this.fistScreen()}</div>;
+    return <div>{ this.fistScreen() }</div>
   }
 }
 
 const mapStateToProps = state => {
-  const selector = formValueSelector("SimpleCalcForm");
-  let gbp = '"' + selector(state, "gbp");
-  gbp = Number.parseFloat(gbp.split(" ")[1]);
-  const btc = Number.parseFloat(selector(state, "btc"));
+  const selector = formValueSelector('SimpleCalcForm')
+  let sendAmount = '"' + selector(state, 'sendAmount')
+  sendAmount = Number.parseFloat(sendAmount.split(" ")[1])
+  const receiveAmount = Number.parseFloat(selector(state, 'receiveAmount'))
 
   return {
-    bank: state.bank,
     quote: state.quote,
-    limit: state.limit,
-    gbp,
-    btc
-  };
-};
+    sendAmount,
+    receiveAmount
+  }
+}
 
-export default reduxForm({
-  form: "SimpleCalcForm"
-})(
-  connect(mapStateToProps, { fetchLimit, fetchAssets, fetchQuote,fetchConsts, fetchAccounts })(
+export default reduxForm({ form: 'SimpleCalcForm' }) (
+  connect(mapStateToProps, { fetchQuote }) (
     SimpleCalculator
   )
-);
+)

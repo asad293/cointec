@@ -1,0 +1,78 @@
+.heading-top {
+  font-size: 1.625rem;
+  margin-bottom: 32px;
+}
+
+.getting-started {
+
+  .query-container {
+    border: 1px solid #E4E4E4;
+    border-radius: 3px;
+    padding: 0 40px;
+    margin-top: 45px;
+
+    .query {
+      padding-bottom: 30px;
+      border-bottom: 1px solid #D5D5D5;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      img {
+        padding-top: 15px;
+      }
+
+      .query-heading {
+        font-size: 1.5rem;
+        margin-top: 55px;
+        margin-left: 30px;
+        margin-bottom: 40px;
+        display: inline-block;
+      }
+    }
+  }
+
+  .info-terms {
+    margin-top: 40px;
+    color: #040506;
+    font-size: 19px;
+    text-align: center;
+  }
+
+}
+
+.terminology {
+
+  .terms-group {
+    margin-top: 45px;
+
+    .initial-letter {
+      font-size: 42px;
+      line-height: 69px;
+      color: #0451BD;
+      border-bottom: 1px solid #D5D5D5;
+      margin-bottom: 25px;
+    }
+
+    .term-heading {
+      font-weight: bold;
+      color: #040505;
+    }
+
+    p {
+      margin-bottom: 25px;
+    }
+
+    img {
+      width: 50px;
+      margin: 5px 15px auto auto;
+    }
+
+    .bancor-learn {
+      width: 52px;
+      margin-right: 4px; 
+    }
+  }
+
+}

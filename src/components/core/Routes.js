@@ -9,12 +9,15 @@ import LinkSent from '../views/LinkSent'
 import ResetPassword from '../views/ResetPassword'
 import Support from '../views/Support'
 import Legal from '../views/Legal'
-import PrivacyPolicy from '../views/PrivacyPolicy'
-import Terms from '../views/Terms'
+import Learn from '../views/Learn';
 
 class Routes extends Component {
     componentWillUpdate() {
         window.scrollTo(0,0)
+
+        if (window.location.hash === '#livechat') {
+            Intercom('show');
+        }
     }
 
     render() {
@@ -28,10 +31,10 @@ class Routes extends Component {
                 <Route exact path="/link-sent/:type" component={LinkSent} />
                 <Route exact path="/reset-password" component={ResetPassword} />
                 <Route exact path="/support" component={Support} />
-                <Legal>
-                    <Route path="/privacy" component={PrivacyPolicy} />
-                    <Route path="/terms" component={Terms} />
-                </Legal>
+                <Route exact path="/privacy" component={Legal} />
+                <Route exact path="/terms" component={Legal} />
+                <Route exact path="/getting-started" component={Learn} />
+                <Route exact path="/terminology" component={Learn} />
             </Switch>
         )
     }
