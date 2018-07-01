@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { formValueSelector, Field, reduxForm } from "redux-form";
+
 import { fetchQuote } from "../../Redux/actions/index";
 import { connect } from "react-redux";
 import "./style.scss";
@@ -26,8 +27,11 @@ class SimpleCalculator extends Component {
       coins,
       currencies,
       coinSearch: '',
-      coinSelected: coins[0],
-      currencySelected: currencies[0]
+      coinSelected: false,
+      currencySelected: currencies[0],
+      toggleCurrency: false,
+      toggleCoin: false,
+      search: false,
     };
 
     this.fistScreen = this.fistScreen.bind(this);
@@ -45,6 +49,8 @@ class SimpleCalculator extends Component {
     this.fetchCalls = this.fetchCalls.bind(this);
     this.onCoinSelected = this.onCoinSelected.bind(this);
     this.onCurrencySelected = this.onCurrencySelected.bind(this);
+    this.toggleDropDown = this.toggleDropDown.bind(this);
+    this.toggleSearch = this.toggleSearch.bind(this);
   }
 
   // back() {
@@ -123,12 +129,19 @@ class SimpleCalculator extends Component {
         this.setState({ action: 'sending' })
       }
     }
-
     return receiveAmount;
   }
 
+
+  initInterval(interval) {
+    clearInterval(this.state.intervalId)
+    let intervalId = setInterval(this.fetchCalls, interval * 1000);
+    // store intervalId in the state so it can be accessed later to clear it
+    this.setState({intervalId: intervalId})
+}
   componentDidMount() {
-    let intervalId = setInterval(this.fetchCalls, this.state.interval * 1000);
+    // set call fetch interval 
+    this.initInterval(this.state.interval)
     // fetch call the first time component mounts
     this.fetchCalls();
     // store intervalId in the state so it can be accessed later to clear it
@@ -136,7 +149,7 @@ class SimpleCalculator extends Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.state.intervalId);
+    clearInterval(this.state.intervalId)
   }
 
   fetchCalls() {
@@ -154,6 +167,13 @@ class SimpleCalculator extends Component {
       })
     }
   }
+
+  fetchCalls() {
+    this.props.fetchLimit();
+    this.props.fetchConsts();
+    //this.getQuote();
+  }
+
 
   componentWillReceiveProps(props) {
     this.setState({
@@ -173,7 +193,7 @@ class SimpleCalculator extends Component {
   }
 
   onSubmit(values) {
-    clearInterval(this.state.intervalId);
+    clearInterval(this.state.intervalId)
   }
 
   convertToReceiveAmount(amount) {
@@ -209,6 +229,7 @@ class SimpleCalculator extends Component {
   }
 
   onCoinSelected(coin) {
+    console.log('here',coin);
     this.setState({
       coinSelected: coin
     }, () => this.fetchCalls());
@@ -236,7 +257,7 @@ class SimpleCalculator extends Component {
     if (props.quote.ExchangeRate) {
       this.setState({ rate: Number.parseFloat(props.quote.ExchangeRate) })
     }
-  }
+}
 
   renderButton() {
     let buttonState = "";
@@ -278,6 +299,24 @@ class SimpleCalculator extends Component {
     return false
   }
 
+  toggleSearch() {
+    this.setState({search : !this.state.search})
+  }
+
+  toggleDropDown(type) {
+    if(type === 'currency') {
+      if(!this.state.toggleCurrency)
+        this.props.fetchAssets();
+      this.setState({ toggleCurrency: !this.state.toggleCurrency });
+    }
+    else if(type === 'coin') {
+      if(!this.state.toggleCoin)
+        this.props.fetchAssets();
+      this.setState({ toggleCoin: !this.state.toggleCoin });
+    }
+  }
+  
+
   fistScreen() {
     const { handleSubmit } = this.props
     let coins = this.state.coins
@@ -285,11 +324,15 @@ class SimpleCalculator extends Component {
     if (this.state.coinSearch)
       coins = this.state.coins.filter(coin => this.filterCoins(coin))
 
-    const ExchangeableItem = ({ exchangeable, onItemSelected }) => (
-      <a className="dropdown-item" onClick={(e) => onItemSelected(exchangeable)}>
-        <div className="text-label currency-label">
-          <div className="currency-symbol-wrapper">
-            <img className="currency-symbol" src={exchangeable.image} alt={exchangeable.name} />
+    const ExchangeableItem = ({ exchangeable, onItemSelected, status, unavailable }) => (
+      <div>
+        { status !== 'DISABLED' && 
+        <a className={cn("dropdown-item", unavailable ? 'unavailable': null)} onClick={ unavailable ? null: (e) => onItemSelected(exchangeable)}>
+          <div className="text-label currency-label">
+            <div className="currency-symbol-wrapper">
+              <img className="currency-symbol" src={exchangeable.image} alt={exchangeable.name} />
+            </div>
+            <span>{exchangeable.name}</span>
           </div>
           <span>{exchangeable.name}</span>
         </div>
@@ -312,16 +355,17 @@ class SimpleCalculator extends Component {
                   }
                 />
               </div>
-              <div className="col-6 pl-0  d-flex align-items-center d-flex align-items-center">
+              <div onClick={() => this.toggleDropDown('currency')} className="col-6 pl-0  d-flex align-items-center d-flex align-items-center">
                 <div className="dropdown dropdown-currency-select">
                   <a
                     className="btn dropdown-toggle"
                     href="#"
                     role="button"
                     id="dropdownMenuLink"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">
+                    //data-toggle="dropdown"
+                    //aria-haspopup="true"
+                    //aria-expanded="false"
+                    >
                     <div className="text-label currency-label">
                       <div className="currency-symbol-wrapper">
                         <img
@@ -336,26 +380,31 @@ class SimpleCalculator extends Component {
                         alt="Dropdown" />
                     </div>
                   </a>
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuLink">
-                    <div className="search-item">
+                  {
+                    this.state.toggleCurrency &&
+                    <div
+                      className="dropdown-menu show"
+                      aria-labelledby="dropdownMenuLink">
+                      <div className="search-item">
+                        
                       
-                     
-                      <input className="search-input"
-                        placeholder="Coming Soon"
-                         type="text" name="lname" disabled/>
-                    </div>
+                        <input className="search-input"
+                          placeholder="Coming Soon"
+                          type="text" name="lname" disabled/>
+                      </div>
 
-                    <div className="dropdown-items-wrapper">
-                      {currencies.map((currency) => 
-                        <ExchangeableItem
-                          key={currency.name}
-                          exchangeable={currency}
-                          onItemSelected={this.onCurrencySelected} />
-                      )}
+                      <div className="dropdown-items-wrapper">
+                        {currencies.map((currency) => 
+                          <ExchangeableItem
+                            key={currency.name}
+                            exchangeable={currency}
+                            status={currency.Status}
+                            //unavailable={currency.unavailable}
+                            onItemSelected={this.onCurrencySelected} />
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  }
                 </div>
               </div>
             </div>
@@ -373,16 +422,20 @@ class SimpleCalculator extends Component {
                 />
               </div>
               <div className="col-6 pl-0 d-flex align-items-center">
-                <div className="dropdown dropdown-currency-select">
+                <div onClick={() => this.toggleDropDown('coin')} className="dropdown dropdown-currency-select">
                   <a
                     className="btn dropdown-toggle"
                     href="#"
                     role="button"
                     id="dropdownMenuLink"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    onMouseUp={() => { setTimeout(() => { this.coinSearchInput.focus() }, 500) }}>
+
+                    //data-toggle="dropdown"
+                    //aria-haspopup="true"
+                    //aria-expanded="false"
+                    >
+                    { 
+                      this.state.coinSelected != null &&
+
                     <div className="text-label currency-label">
                       <div className="currency-symbol-wrapper">
                         <img
@@ -396,34 +449,38 @@ class SimpleCalculator extends Component {
                         src="/img/arrow-down.svg"
                         alt="Dropdown" />
                     </div>
+                    }
                   </a>
-
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuLink">
-                    <div className="search-item">
-                      <img
-                        className="search-symbol"
-                        src="/img/dropdown-search.svg"
-                        alt="Search" />
-                      <input
-                        className="search-input"
-                        placeholder="Search"
-                        type="search"
-                        ref={(input) => { this.coinSearchInput = input }}
-                        value={this.state.coinSearch}
-                        onChange={this.searchCoin.bind(this)} />
+                  {
+                    this.state.toggleCoin &&
+                    <div
+                      className="dropdown-menu show"
+                      aria-labelledby="dropdownMenuLink">
+                      <div className="search-item">
+                        <img
+                          className="search-symbol"
+                          src="/img/dropdown-search.svg"
+                          alt="Search" />
+                        <input
+                          className="search-input"
+                          placeholder="Search"
+                          type="search"
+                          value={this.state.coinSearch}
+                          onClick = {this.toggleSearch}
+                          onChange={this.searchCoin.bind(this)} />
+                      </div>
+                      <div className="dropdown-items-wrapper">
+                        {coins.map((coin) => 
+                          <ExchangeableItem
+                            key={coin.name}
+                            exchangeable={coin}
+                            status={coin.Status}
+                            //unavailable={coin.unavailable}
+                            onItemSelected={this.onCoinSelected} />
+                        )}
+                      </div>
                     </div>
-
-                    <div className="dropdown-items-wrapper">
-                      {coins.length ? coins.map((coin) => 
-                        <ExchangeableItem
-                          key={coin.name}
-                          exchangeable={coin}
-                          onItemSelected={this.onCoinSelected} />
-                      ): <div className="px-3">No results</div>}
-                    </div>
-                  </div>
+                  }
                 </div>
               </div>
             </div>

@@ -454,6 +454,10 @@ header.bg-gradient {
                 &:active{
                     background: none;
                 }
+                &.unavailable {
+                    cursor: not-allowed;
+                    background: grey;
+                }
             }
         }
     }
