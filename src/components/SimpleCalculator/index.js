@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { formValueSelector, Field, reduxForm } from "redux-form";
 
-import { fetchQuote } from "../../Redux/actions/index";
+import { fetchQuote, fetchLimit, fetchConsts, fetchAssets } from '../../Redux/actions';
 import { connect } from "react-redux";
 import "./style.scss";
 import cn from "classnames";
@@ -137,15 +137,15 @@ class SimpleCalculator extends Component {
     clearInterval(this.state.intervalId)
     let intervalId = setInterval(this.fetchCalls, interval * 1000);
     // store intervalId in the state so it can be accessed later to clear it
-    this.setState({intervalId: intervalId})
+    this.setState({intervalId})
 }
   componentDidMount() {
     // set call fetch interval 
     this.initInterval(this.state.interval)
     // fetch call the first time component mounts
     this.fetchCalls();
-    // store intervalId in the state so it can be accessed later to clear it
-    this.setState({ intervalId });
+    // // store intervalId in the state so it can be accessed later to clear it
+    // this.setState({ intervalId });
   }
 
   componentWillUnmount() {
@@ -153,6 +153,9 @@ class SimpleCalculator extends Component {
   }
 
   fetchCalls() {
+    this.props.fetchLimit();
+    this.props.fetchConsts();
+
     if (this.state.action === 'sending') {
       this.props.fetchQuote({
         SendCurrency: this.state.currencySelected.name,
@@ -166,12 +169,6 @@ class SimpleCalculator extends Component {
         ReceiveAmount: this.props.receiveAmount
       })
     }
-  }
-
-  fetchCalls() {
-    this.props.fetchLimit();
-    this.props.fetchConsts();
-    //this.getQuote();
   }
 
 
@@ -334,9 +331,9 @@ class SimpleCalculator extends Component {
             </div>
             <span>{exchangeable.name}</span>
           </div>
-          <span>{exchangeable.name}</span>
-        </div>
-      </a>
+          {/* <span>{exchangeable.name}</span> */}
+        </a> }
+      </div>
     )
 
     return (
@@ -521,7 +518,7 @@ const mapStateToProps = state => {
 }
 
 export default reduxForm({ form: 'SimpleCalcForm' }) (
-  connect(mapStateToProps, { fetchQuote }) (
+  connect(mapStateToProps, { fetchQuote, fetchLimit, fetchConsts, fetchAssets }) (
     SimpleCalculator
   )
 )

@@ -69,17 +69,17 @@ class SubscribeModal extends Component {
 
   resendEmail = () => {
     if (!this.state.inProgress) {
-      // this.setState({ inProgress: true }, () => {
-      //   const data = { email: this.state.staticEmail }
-      //   const headers = { 'Content-Type': 'application/json' }
-      //   axios.post('https://ct-emails-production.azurewebsites.net/subscribe', data, { headers })
-      //     .then(response => {
+      this.setState({ inProgress: true }, () => {
+        const data = { EmailList: [ this.state.staticEmail ] }
+        const headers = { 'Content-Type': 'application/json' }
+        axios.post('https://api.staging.cointec.co.uk/messages/welcome/resend', data, { headers })
+          .then(response => {
             this.setState({ emailSent: true, emailResent: true, inProgress: false })
-      //     })
-      //     .catch(error => {
-      //       this.setState({ inProgress: false })
-      //     })
-      // })
+          })
+          .catch(error => {
+            this.setState({ inProgress: false })
+          })
+      })
     }
   }
 
