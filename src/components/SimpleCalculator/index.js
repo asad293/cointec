@@ -188,7 +188,7 @@ class SimpleCalculator extends Component {
     if (props.receiveAmount && this.state.action === 'receiving' && props.quote.QuoteSendAmount)
       this.props.change(
         'sendAmount',
-        `${this.state.currencySymbol} ${Number.parseFloat(props.quote.QuoteSendAmount).toFixed(2)}`
+        `${this.state.currencySymbol} ${Number.parseFloat(props.quote.QuoteSendAmount).toFixed(this.state.currencySelected ? this.state.currencySelected.dp : 2)}`
       )
 
     this.updateLimit(props)
@@ -544,7 +544,7 @@ class SimpleCalculator extends Component {
           <h6 className="text-white mt-3">
             {
               (this.state.currencySelected ? this.state.currencySelected.symbol : this.state.currencySymbol) + ' ' +
-              this.state.rate.toFixed(2) + '/' + 
+              this.state.rate.toFixed(8) + '/' + 
               (this.state.coinSelected ? this.state.coinSelected.name : 'BTC') + 
               ' Exchange Rate'
             }
