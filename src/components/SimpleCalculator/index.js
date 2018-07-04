@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { formValueSelector, Field, reduxForm } from "redux-form";
 
-import { fetchQuote, fetchLimit, fetchConsts, fetchAssets } from '../../Redux/actions';
+import { fetchQuote, fetchLimit, fetchConsts, fetchAssets, fetchAccounts } from '../../Redux/actions';
 import { connect } from "react-redux";
 import "./style.scss";
 import cn from "classnames";
@@ -19,7 +19,7 @@ class SimpleCalculator extends Component {
       limit: 0,
       limitMin: 15,
       // buttonIsDisabled: false,
-      // screen: 'first',
+      screen: 'first',
       action: 'sending',
       intervalId: null,
       interval: 10,
@@ -37,6 +37,7 @@ class SimpleCalculator extends Component {
     this.fistScreen = this.fistScreen.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.updateRate = this.updateRate.bind(this);
+    this.updateCoins = this.updateCoins.bind(this);
     // this.updateSendAmount = this.updateSendAmount.bind(this);
     // this.updateReceiveAmount = this.updateReceiveAmount.bind(this);
 
@@ -45,21 +46,23 @@ class SimpleCalculator extends Component {
     this.convertToReceiveAmount = this.convertToReceiveAmount.bind(this);
     this.convertToSendAmount = this.convertToSendAmount.bind(this);
 
-    // this.back = this.back.bind(this);
+    this.back = this.back.bind(this);
     this.fetchCalls = this.fetchCalls.bind(this);
+    this.getQuote = this.getQuote.bind(this);
     this.onCoinSelected = this.onCoinSelected.bind(this);
     this.onCurrencySelected = this.onCurrencySelected.bind(this);
     this.toggleDropDown = this.toggleDropDown.bind(this);
     this.toggleSearch = this.toggleSearch.bind(this);
   }
 
-  // back() {
-  //   let intervalId = setInterval(this.fetchCalls, this.state.interval * 1000);
-  //   this.setState({ screen: 'first', intervalId });
-  // }
+  back() {
+    let intervalId = setInterval(this.fetchCalls, this.state.interval * 1000);
+    this.setState({ screen: 'first', intervalId });
+  }
 
   normalizeSendAmount(value, previousValue) {
-    const decimalPoint = 2
+    // const decimalPoint = 2
+    const decimalPoint = this.state.currencySelected ? this.state.currencySelected.dp : 2
 
     let sendAmount = value.replace(/[^\d.]/g, '')
     let pos = sendAmount.indexOf('.')
@@ -92,7 +95,7 @@ class SimpleCalculator extends Component {
     }
 
     if (sendAmount.length > 0)
-      return "£ " + sendAmount;
+      return (this.state.currencySelected ? this.state.currencySelected.symbol : '£') + ' ' + sendAmount;
     else
       return sendAmount;
   }
@@ -144,18 +147,13 @@ class SimpleCalculator extends Component {
     this.initInterval(this.state.interval)
     // fetch call the first time component mounts
     this.fetchCalls();
-    // // store intervalId in the state so it can be accessed later to clear it
-    // this.setState({ intervalId });
   }
 
   componentWillUnmount() {
     clearInterval(this.state.intervalId)
   }
 
-  fetchCalls() {
-    this.props.fetchLimit();
-    this.props.fetchConsts();
-
+  getQuote() {
     if (this.state.action === 'sending') {
       this.props.fetchQuote({
         SendCurrency: this.state.currencySelected.name,
@@ -169,6 +167,13 @@ class SimpleCalculator extends Component {
         ReceiveAmount: this.props.receiveAmount
       })
     }
+  }
+
+  fetchCalls() {
+    this.props.fetchAssets();
+    this.props.fetchLimit();
+    this.props.fetchConsts();
+    this.getQuote();
   }
 
 
@@ -186,7 +191,9 @@ class SimpleCalculator extends Component {
         `${this.state.currencySymbol} ${Number.parseFloat(props.quote.QuoteSendAmount).toFixed(2)}`
       )
 
-    this.updateRate(props);
+    this.updateLimit(props)
+    this.updateCoins(props)
+    this.updateRate(props)
   }
 
   onSubmit(values) {
@@ -229,13 +236,14 @@ class SimpleCalculator extends Component {
     console.log('here',coin);
     this.setState({
       coinSelected: coin
-    }, () => this.fetchCalls());
+    }, () => this.fetchCalls())
   }
 
   onCurrencySelected(currency) {
     this.setState({
-      currencySelected: currency
-    });
+      currencySelected: currency,
+      coinSelected: false
+    }, () => this.fetchCalls())
   }
 
   // updateReceiveAmount(props) {
@@ -250,11 +258,54 @@ class SimpleCalculator extends Component {
   //   }
   // }
 
+  updateLimit(props) {
+    if (props.limit.limit) {
+      this.setState({ limit: props.limit.limit })
+    }
+
+    if (props.limit.const) {
+      let interval = props.limit.const.Frame1Refresh
+      let refreshTime = props.limit.const.Frame2Refresh
+      if (this.state.interval != interval) {
+          this.initInterval(interval)
+          this.setState({ interval })
+      }
+      if (this.state.reviewRefreshTime != refreshTime) {
+          this.setState({ reviewRefreshTime: refreshTime })
+      }
+    }
+  }
+
   updateRate(props) {
     if (props.quote.ExchangeRate) {
       this.setState({ rate: Number.parseFloat(props.quote.ExchangeRate) })
     }
-}
+  }
+
+  updateCoins(props) {
+    let coins = []//this.state.coins
+
+    if (props.limit.assets && this.state.currencySelected) {
+      Object.keys(props.limit.assets).forEach((assetPair) => {
+        if (assetPair.startsWith(this.state.currencySelected.name)) {
+          const asset = props.limit.assets[assetPair]
+          const coin = this.state.coins.length ? this.state.coins.find(coin => assetPair.indexOf(coin.name) === 3) : null
+          if (coin) {
+            coin.DefaultQuoteAmount = asset.Send.DefaultQuoteAmount
+            if (asset.Send.Status === 'DISABLED') {
+              coin.disabled = true
+            } else if (asset.Send.Status === 'UNAVAILABLE') {
+              coin.unavailable = true
+            } else  {
+              coin.available = true
+            }
+            coins.push(coin)
+          }
+        }
+      })
+      this.setState({ coins })
+    }
+  }
 
   renderButton() {
     let buttonState = "";
@@ -348,7 +399,7 @@ class SimpleCalculator extends Component {
                   component={this.renderField}
                   normalize={this.normalizeSendAmount}
                   placeholder={
-                    this.state.currencySymbol + " " + this.state.placeholderSendAmount
+                    (this.state.currencySelected ? this.state.currencySelected.symbol : '£') + ' ' + this.state.placeholderSendAmount
                   }
                 />
               </div>
@@ -488,7 +539,7 @@ class SimpleCalculator extends Component {
 
           <h6 className="text-white mt-3">
             {
-              this.state.currencySymbol + ' ' +
+              (this.state.currencySelected ? this.state.currencySelected.symbol : this.state.currencySymbol) + ' ' +
               this.state.rate.toFixed(2) + '/' + 
               (this.state.coinSelected ? this.state.coinSelected.name : 'BTC') + 
               ' Exchange Rate'
@@ -511,14 +562,16 @@ const mapStateToProps = state => {
   const receiveAmount = Number.parseFloat(selector(state, 'receiveAmount'))
 
   return {
+    bank: state.bank,
     quote: state.quote,
+    limit: state.limit,
     sendAmount,
     receiveAmount
   }
 }
 
 export default reduxForm({ form: 'SimpleCalcForm' }) (
-  connect(mapStateToProps, { fetchQuote, fetchLimit, fetchConsts, fetchAssets }) (
+  connect(mapStateToProps, { fetchQuote, fetchLimit, fetchConsts, fetchAssets, fetchAccounts }) (
     SimpleCalculator
   )
 )

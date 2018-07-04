@@ -117,7 +117,7 @@ const coins = [
       keywords: 'basic attention token'
     },
     {
-      name: 'SIA',
+      name: 'SC',
       image: '/img/coins/SC.svg',
       keywords: 'siacoin'
     },
