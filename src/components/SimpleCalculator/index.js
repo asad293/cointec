@@ -305,7 +305,7 @@ class SimpleCalculator extends Component {
       })
       this.setState({
         coins,
-        coinSelected: coins.length ? coins[0] : false,
+        coinSelected: !this.state.coinSelected && coins.length ? coins[0] : this.state.coinSelected,
         placeholderSendAmount: coins.length ? coins[0].DefaultQuoteAmount : this.state.placeholderSendAmount
       })
     }
