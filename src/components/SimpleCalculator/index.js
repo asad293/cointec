@@ -235,14 +235,16 @@ class SimpleCalculator extends Component {
   onCoinSelected(coin) {
     console.log('here',coin);
     this.setState({
-      coinSelected: coin
+      coinSelected: coin,
+      toggleCoin: false
     }, () => this.fetchCalls())
   }
 
   onCurrencySelected(currency) {
     this.setState({
       currencySelected: currency,
-      coinSelected: false
+      coinSelected: false,
+      toggleCurrency: false
     }, () => this.fetchCalls())
   }
 
@@ -303,10 +305,12 @@ class SimpleCalculator extends Component {
           }
         }
       })
+      
+      const coinSelected = !this.state.coinSelected && coins.length ? coins[0] : this.state.coinSelected
       this.setState({
         coins,
-        coinSelected: !this.state.coinSelected && coins.length ? coins[0] : this.state.coinSelected,
-        placeholderSendAmount: coins.length ? coins[0].DefaultQuoteAmount : this.state.placeholderSendAmount
+        coinSelected,
+        placeholderSendAmount: coins.length ? coinSelected.DefaultQuoteAmount : this.state.placeholderSendAmount
       })
     }
   }
@@ -356,6 +360,7 @@ class SimpleCalculator extends Component {
   }
 
   toggleDropDown(type) {
+    console.log(type)
     if(type === 'currency') {
       if(!this.state.toggleCurrency)
         this.props.fetchAssets();
@@ -407,13 +412,14 @@ class SimpleCalculator extends Component {
                   }
                 />
               </div>
-              <div onClick={() => this.toggleDropDown('currency')} className="col-6 pl-0  d-flex align-items-center d-flex align-items-center">
+              <div className="col-6 pl-0  d-flex align-items-center d-flex align-items-center">
                 <div className="dropdown dropdown-currency-select">
                   <a
                     className="btn dropdown-toggle"
                     href="#"
                     role="button"
                     id="dropdownMenuLink"
+                    onClick={() => this.toggleDropDown('currency')}
                     //data-toggle="dropdown"
                     //aria-haspopup="true"
                     //aria-expanded="false"
@@ -474,12 +480,13 @@ class SimpleCalculator extends Component {
                 />
               </div>
               <div className="col-6 pl-0 d-flex align-items-center">
-                <div onClick={() => this.toggleDropDown('coin')} className="dropdown dropdown-currency-select">
+                <div className="dropdown dropdown-currency-select">
                   <a
                     className="btn dropdown-toggle"
                     href="#"
                     role="button"
                     id="dropdownMenuLink"
+                    onClick={() => this.toggleDropDown('coin')}
 
                     //data-toggle="dropdown"
                     //aria-haspopup="true"
