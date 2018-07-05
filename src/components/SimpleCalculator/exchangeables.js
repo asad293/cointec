@@ -8,7 +8,7 @@ const currencies = [
     },
     {
       name: 'BTC',
-      symbol: '',
+      symbol: 'Ƀ',
       dp: 8,
       image: '/img/coins/BTC.svg',
       keywords: 'bitcoin'
@@ -115,6 +115,16 @@ const coins = [
       name: 'BAT',
       image: '/img/coins/BAT.svg',
       keywords: 'basic attention token'
+    },
+    {
+      name: 'SC',
+      image: '/img/coins/SC.svg',
+      keywords: 'siacoin'
+    },
+    {
+      name: 'QTUM',
+      image: '/img/coins/QTUM.svg',
+      keywords: ''
     },
     {
       name: 'NOASSET',
