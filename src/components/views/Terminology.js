@@ -525,7 +525,7 @@ class Terminology extends Component {
                   <div className="row">
                     <p className="col">
                       <span className="term-heading">ZCash (ZEC) </span>
-                      - 0x is an open protocol that is designed to offer any one around the world to run a decentralized exchange as part of the Ethereum blockchain.
+                      - ZCash is a decentralized blockchain and open-source digital currency that provides total anonymity for its users and their transactions. Shielded transactions hide the sender, recipient, and value on the blockchain.
                     </p>
                     <div className="d-flex">
                       <img src="/img/coins/ZEC.svg" alt="ZEC" />
