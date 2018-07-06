@@ -3,13 +3,13 @@ import React, { Component } from 'react'
 class CurrentDevelopment extends Component {
     render() {
         return (
-            <div className="py-5 mt-md-5 mb-md-2 bg-gradient-current-dev">
+            <div id="currentdev" className="py-5 mt-md-5 mb-md-2 bg-gradient-current-dev">
                 <div className="container">
 
 
                     <div className="row">
                         <div className="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto text-md-center">
-                            <a name="currentdev"></a>
+                            {/* <a name="currentdev"></a> */}
                             <h2 className="mb-3 mb-md-5 current-dev-title">
                                 Current developments
                             </h2>
