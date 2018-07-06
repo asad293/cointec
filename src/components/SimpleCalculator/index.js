@@ -81,13 +81,13 @@ class SimpleCalculator extends Component {
       if (sendAmount.length > 0)
         this.props.fetchQuote({
           SendCurrency: this.state.currencySelected.name,
-          ReceiveCurrency: this.state.coinSelected.name,
+          ReceiveCurrency: this.state.coinSelected ? this.state.coinSelected.name : this.state.coins[0].name,
           SendAmount: Number.parseFloat(sendAmount)
         })
       else {
         this.props.fetchQuote({
           SendCurrency: this.state.currencySelected.name,
-          ReceiveCurrency: this.state.coinSelected.name,
+          ReceiveCurrency: this.state.coinSelected ? this.state.coinSelected.name : this.state.coins[0].name,
           SendAmount: Number.parseFloat(this.state.placeholderSendAmount)
         })
         this.props.change('receiveAmount', null);
@@ -117,14 +117,14 @@ class SimpleCalculator extends Component {
         this.setState({ action: 'receiving' })
         this.props.fetchQuote({
           SendCurrency: this.state.currencySelected.name,
-          ReceiveCurrency: this.state.coinSelected.name,
+          ReceiveCurrency: this.state.coinSelected ? this.state.coinSelected.name : this.state.coins[0].name,
           ReceiveAmount: Number.parseFloat(receiveAmount)
         })
       } else {
         // fetch quote to reset default rate
         this.props.fetchQuote({
           SendCurrency: this.state.currencySelected.name,
-          ReceiveCurrency: this.state.coinSelected.name,
+          ReceiveCurrency: this.state.coinSelected ? this.state.coinSelected.name : this.state.coins[0].name,
           SendAmount: Number.parseFloat(this.state.placeholderSendAmount)
         })
         this.props.change('sendAmount', null);
@@ -157,13 +157,13 @@ class SimpleCalculator extends Component {
     if (this.state.action === 'sending') {
       this.props.fetchQuote({
         SendCurrency: this.state.currencySelected.name,
-        ReceiveCurrency: this.state.coinSelected.name,
+        ReceiveCurrency: this.state.coinSelected ? this.state.coinSelected.name : this.state.coins[0].name,
         SendAmount: this.props.sendAmount ? this.props.sendAmount : this.state.placeholderSendAmount
       })
     } else if (this.state.action === 'receiving' && this.props.receiveAmount) {
       this.props.fetchQuote({
         SendCurrency: this.state.currencySelected.name,
-        ReceiveCurrency: this.state.coinSelected.name,
+        ReceiveCurrency: this.state.coinSelected ? this.state.coinSelected.name : this.state.coins[0].name,
         ReceiveAmount: this.props.receiveAmount
       })
     }
@@ -306,11 +306,16 @@ class SimpleCalculator extends Component {
         }
       })
       
+      let prev = this.state.coinSelected ? this.state.coinSelected.name : false
       const coinSelected = !this.state.coinSelected && coins.length ? coins[0] : this.state.coinSelected
       this.setState({
         coins,
         coinSelected,
-        placeholderSendAmount: coins.length ? coinSelected.DefaultQuoteAmount : this.state.placeholderSendAmount
+        placeholderSendAmount: coinSelected ? coinSelected.DefaultQuoteAmount : this.state.placeholderSendAmount,
+      }, () => {
+        if (prev != coinSelected.name) {
+          this.fetchCalls()
+        }
       })
     }
   }
@@ -476,7 +481,7 @@ class SimpleCalculator extends Component {
                   normalize={this.normalizeReceiveAmount}
                   placeholder={this.convertToReceiveAmount(
                     this.state.placeholderSendAmount
-                  ).toFixed(8)}
+                  ).toFixed(this.state.currencySelected ? this.state.currencySelected.dp : 8)}
                 />
               </div>
               <div className="col-6 pl-0 d-flex align-items-center">
@@ -551,7 +556,7 @@ class SimpleCalculator extends Component {
           <h6 className="text-white mt-3">
             {
               (this.state.currencySelected ? this.state.currencySelected.symbol : this.state.currencySymbol) + ' ' +
-              this.state.rate.toFixed(8) + '/' + 
+              (this.state.currencySelected ? this.state.rate.toFixed(this.state.currencySelected.dp) : this.state.rate.toFixed(2)) + '/' + 
               (this.state.coinSelected ? this.state.coinSelected.name : 'BTC') + 
               ' Exchange Rate'
             }
