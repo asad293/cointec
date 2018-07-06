@@ -18,7 +18,7 @@ class PrivacyPolicy extends Component {
                             <h6>Your data</h6>
                             <p>User Privacy is of the utmost importance and we aim to be as transparent as possible. This policy sets out what data we collect from and about you, how we use it and what control your have over your data, with regards to viewing, exporting, updating, and erasing it.</p>
                             <h6>1. Information collected and how we use it</h6>
-                            <p>Cointec intends to collect the minimum information required to provide our services. As you interact with the platform, we may collect personal information from you directly or about you, from third-party sources.</p>
+                            <p>Cointec intends to collect the minimum information required to provide our services. As you interact with the platform we may collect personal information from you directly or about you, from third-party sources.</p>
                             <h6 className="sub-heading">Client information</h6>
                             <p>Upon visiting and using the platform we may collect the following information about you automatically:</p>
                             <ul>
@@ -30,9 +30,9 @@ class PrivacyPolicy extends Component {
                             <h6 className="sub-heading">Account information</h6>
                             <p>To provide account services we collect your e-mail address and may use this along with your mobile number to share Cointec marketing material and updates.</p>
                             <h6 className="sub-heading">Identity information</h6>
-                            <p>We will collect your full name, date of birth, residence and title address and may collect any information contained in IDs or proof of address provided such as governmental issued verification numbers. We share this information with third-party identity verification services to verify your identity in line with AML legislation and KYC regulation.</p>
+                            <p>We will collect your full name, date of birth, residence and address and may collect any information contained in IDs or proof of address provided such as governmental issued verification numbers. We share this information with third-party identity verification services to verify your identity in line with AML legislation and KYC regulation.</p>
                             <h6 className="sub-heading">Payment information</h6>
-                            <p>We collect your name, account number and sort-code and may share these bank details with trade counterparties to fulfil orders and to refund orders. We use your sort-code to identify your banking provider and account type via a third-party service. Our payment service partners may collect debit/credit details on our behalf to process card payments.</p>
+                            <p>We collect your name, account number and sort-code and may share these bank details with trade counterparties to fulfil orders and to refund orders. We use your sort-code to identify your banking provider and account type. Our payment service partners may collect debit/credit details on our behalf to process card payments.</p>
                             <p>To detect fraud and track platform usage we will collect information about the time, size, price, frequency and type of orders. This data is analysed internally and may also be shared with payment service providers for fraud detection purposes.</p>
                             <h6 className="sub-heading">Sensitive information</h6>
                             <p>Cointec will never collect information on your ethnic origin, race, political opinions, or religious beliefs. In some circumstances, such as when applying for an increase in your trading limit, we may ask for details and or proof of your employment status or means of income to carry out due diligence on the source of funds used to trade.</p>
@@ -61,10 +61,10 @@ class PrivacyPolicy extends Component {
                             <p>You may request at any time, via e-mail or our website dashboard to receive an electronic copy of all the personal information held about you. </p>
                                                       
                             <h6 className="sub-heading">Restricting access to your data</h6>
-                            <p>YYou may manage via the website dashboard what we can use your personal information for, such as opting out of receiving specific correspondence and marketing material.</p>
+                            <p>You may manage, via the website dashboard, what we can use your personal information for, such as opting out of receiving specific correspondence and marketing material.</p>
 
                             <h6 className="sub-heading">Erasing your data</h6>
-                            <p>You may withdraw consent to the use of your data and by closing your account, via e-mail or our website dashboard. We will erase all personal information held about you (to the extent that we are permitted by law) within 14 days of your request.</p>
+                            <p>You may withdraw consent to the use of your data by closing your account, via e-mail or our website dashboard. We will erase all personal information held about you (to the extent that we are permitted by law) within 14 days of your request.</p>
 
 
                             <h6>4. Updates to our Privacy Policy</h6>
@@ -87,3 +87,4 @@ class PrivacyPolicy extends Component {
 }
 
 export default PrivacyPolicy
+

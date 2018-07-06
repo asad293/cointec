@@ -16,7 +16,7 @@ class Terms extends Component {
                                 <li>
                                     <h6>Contract</h6>
                                     <ol>
-                                        <li>By using this website, registering an account or using any services offered by the platform you agree that you have read, understood, acknowledged and agreed to all of the terms within this agreement.</li>
+                                        <li>By using this website, registering an account or using any services offered by the platform you agree that you have read, understood, acknowledged and accepted all of the terms within this agreement.</li>
                                         <li>If you do not agree to the terms of use and, by extension, our privacy policy, you must not use our site or services.</li>
                                     </ol>
                                 </li>
@@ -51,7 +51,7 @@ class Terms extends Component {
                                         <li>Bank transfers must only be made via Faster Payments using online-banking. Bank transfers initiated by telephone banking, in-branch or in any other way are considered violation of this user agreement.</li>
                                         <li>Users must only add or make payments from bank accounts that are enabled by Faster Payments. Users must not make payments from banks that prohibit digital currency trading, banks that obfuscate the sender’s name or banks that delay or batch payments, even if payments are sent via Faster Payments.</li>
                                         <li>Users must only trade using funds that they solely own. Users must not pay using overdrafts, loans or any form of credit.</li>
-                                        <li>Bank transfers must be made with the correct reference provided. Transfers made without the correct references will nullify this user agreement and gives us the right to cancel orders.</li>
+                                        <li>Bank transfers must be made with the correct reference provided. Transfers made without the correct references will nullify this user agreement and give us the right to cancel orders.</li>
                                         <li>Users must not mention any terms relating to digital currencies as references for bank transfers as this can cause complications with the banks of both counterparties and result in failed transfers .Any users found doing so will be banned from the platform and their agreement with the platform will be terminated.</li>
                                         <li>Any unexpected costs incurred by Cointec for receiving payments via bank transfer will be recovered from the user.</li>
                                         <li>Any losses incurred by Cointec as a result of bank’s recovering unauthorised funds will be passed on to the user.</li>
