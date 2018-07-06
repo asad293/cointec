@@ -36,17 +36,17 @@ class Navbar extends Component {
                                 <Link className="nav-link" to='/'>Features</Link>
                             </li> */}
                             <li className="nav-item">
-                                <Link className="nav-link" to='/support'>Support</Link>
+                                <Link className="nav-link" to='/#livechat'>Support</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to='/getting-started'>Learn</Link>
                             </li>
-                            <li className="nav-item">
+                            {/*<li className="nav-item">
                                 <Link className="nav-link" to='/login'>Login</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link " to='/signup'>Sign up &nbsp;<img src="/img/arrow-right.svg" alt="Sign up" /></Link>
-                            </li>
+                            </li>*/}
                         </ul>
                     </div>
                 </nav>

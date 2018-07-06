@@ -28,7 +28,7 @@ class Footer extends Component {
                                         Home
                                     </Link>
 
-                                    <Link className="cta-text mb-2" to='/support'>
+                                    <Link className="cta-text mb-2" to='/#livechat'>
                                         Support
                                     </Link>
 
