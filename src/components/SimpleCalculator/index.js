@@ -418,7 +418,7 @@ class SimpleCalculator extends Component {
                   component={this.renderField}
                   normalize={this.normalizeSendAmount}
                   placeholder={
-                    (this.state.currencySelected ? this.state.currencySelected.symbol : '£') + ' ' + this.state.placeholderSendAmount
+                    (this.state.currencySelected ? this.state.currencySelected.symbol : '£') + ' ' + this.state.placeholderSendAmount.toFixed(this.state.currencySelected ? this.state.currencySelected.dp : 2)
                   }
                 />
               </div>
