@@ -17,11 +17,6 @@ const currencies = [
   
 const coins = [
     {
-      name: 'BAT',
-      image: '/img/coins/BAT.svg',
-      keywords: 'basic attention token'
-    },
-    {
       name: 'BTC',
       image: '/img/coins/BTC.svg',
       keywords: 'bitcoin'
@@ -115,6 +110,11 @@ const coins = [
       name: 'STORJ',
       image: '/img/coins/STORJ.svg',
       keywords: ''
+    },
+    {
+      name: 'BAT',
+      image: '/img/coins/BAT.svg',
+      keywords: 'basic attention token'
     },
     {
       name: 'SC',

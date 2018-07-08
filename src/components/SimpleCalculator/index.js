@@ -233,7 +233,6 @@ class SimpleCalculator extends Component {
   }
 
   onCoinSelected(coin) {
-    console.log('here',coin);
     this.setState({
       coinSelected: coin,
       toggleCoin: false
@@ -285,13 +284,13 @@ class SimpleCalculator extends Component {
   }
 
   updateCoins(props) {
-    let coins = []//this.state.coins
+    let updatedCoins = []//this.state.coins
 
     if (props.limit.assets && this.state.currencySelected) {
       Object.keys(props.limit.assets).forEach((assetPair) => {
         if (assetPair.startsWith(this.state.currencySelected.name)) {
           const asset = props.limit.assets[assetPair]
-          const coin = this.state.coins.length ? this.state.coins.find(coin => assetPair.indexOf(coin.name) === 3) : null
+          const coin = coins.find(coin => assetPair.indexOf(coin.name) === 3)
           if (coin) {
             coin.DefaultQuoteAmount = asset.Send.DefaultQuoteAmount
             if (asset.Send.Status === 'DISABLED') {
@@ -301,15 +300,22 @@ class SimpleCalculator extends Component {
             } else  {
               coin.available = true
             }
-            coins.push(coin)
+            updatedCoins.push(coin)
           }
         }
       })
-      
+
+      const defaultCoin = this.state.currencySelected && this.state.currencySelected.name === 'GBP'
+      ? updatedCoins.find(coin => coin.name === 'BTC')
+      : (updatedCoins.length ? updatedCoins[0] : false)
+
       let prev = this.state.coinSelected ? this.state.coinSelected.name : false
-      const coinSelected = !this.state.coinSelected && coins.length ? coins[0] : this.state.coinSelected
+      const coinSelected = !this.state.coinSelected && updatedCoins.length
+      ? defaultCoin
+      : this.state.coinSelected
+
       this.setState({
-        coins,
+        coins: updatedCoins,
         coinSelected,
         placeholderSendAmount: coinSelected ? coinSelected.DefaultQuoteAmount : this.state.placeholderSendAmount,
       }, () => {
@@ -365,16 +371,15 @@ class SimpleCalculator extends Component {
   }
 
   toggleDropDown(type) {
-    console.log(type)
-    if(type === 'currency') {
-      if(!this.state.toggleCurrency)
-        this.props.fetchAssets();
-      this.setState({ toggleCurrency: !this.state.toggleCurrency });
+    if (type === 'currency') {
+      if (!this.state.toggleCurrency)
+        this.props.fetchAssets()
+      this.setState({ toggleCurrency: !this.state.toggleCurrency, toggleCoin: false })
     }
-    else if(type === 'coin') {
-      if(!this.state.toggleCoin)
-        this.props.fetchAssets();
-      this.setState({ toggleCoin: !this.state.toggleCoin });
+    else if (type === 'coin') {
+      if (!this.state.toggleCoin)
+        this.props.fetchAssets()
+      this.setState({ toggleCoin: !this.state.toggleCoin })
     }
   }
   
@@ -413,7 +418,7 @@ class SimpleCalculator extends Component {
                   component={this.renderField}
                   normalize={this.normalizeSendAmount}
                   placeholder={
-                    (this.state.currencySelected ? this.state.currencySelected.symbol : '£') + ' ' + this.state.placeholderSendAmount
+                    (this.state.currencySelected ? this.state.currencySelected.symbol : '£') + ' ' + this.state.placeholderSendAmount.toFixed(this.state.currencySelected ? this.state.currencySelected.dp : 2)
                   }
                 />
               </div>
@@ -481,7 +486,7 @@ class SimpleCalculator extends Component {
                   normalize={this.normalizeReceiveAmount}
                   placeholder={this.convertToReceiveAmount(
                     this.state.placeholderSendAmount
-                  ).toFixed(this.state.currencySelected ? this.state.currencySelected.dp : 8)}
+                  ).toFixed(8)}
                 />
               </div>
               <div className="col-6 pl-0 d-flex align-items-center">
@@ -534,14 +539,14 @@ class SimpleCalculator extends Component {
                           onChange={this.searchCoin.bind(this)} />
                       </div>
                       <div className="dropdown-items-wrapper">
-                        {coins.map((coin) => 
+                        {coins.length ? coins.map((coin) => 
                           <ExchangeableItem
                             key={coin.name}
                             exchangeable={coin}
                             status={coin.Status}
                             //unavailable={coin.unavailable}
                             onItemSelected={this.onCoinSelected} />
-                        )}
+                        ): <div className="px-3">No results</div>}
                       </div>
                     </div>
                   }
