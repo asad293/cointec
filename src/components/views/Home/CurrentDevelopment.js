@@ -67,7 +67,7 @@ class CurrentDevelopment extends Component {
 
                                 <h3 className="cta-title">Secure wallets</h3>
                                 <p className="cta-text">
-                                With integrated wallets, you’ll be <br/> able to store your digital currencies securely on our platform.
+                                With integrated wallets, you’ll be <br/> able to store your digital currency securely on our platform.
                                 </p>
                             </div>
 
