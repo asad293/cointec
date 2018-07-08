@@ -212,10 +212,23 @@ header.bg-gradient {
     }
     .hero-title {
         @extend .display-4;
-        margin-bottom: 2rem;
-        font-weight: 300;
-        @include media-breakpoint-down(md) {
+        margin-bottom: 1.6rem;
+        font-weight: 400;
+        font-size: 3rem;
+        @include media-breakpoint-down(xl) {
             font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+        }
+        @include media-breakpoint-down(md) {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+        @include media-breakpoint-down(sm) {
+            font-size: 2.3rem;
+            margin-bottom: 0.8rem;
+        }
+        @include media-breakpoint-down(xs) {
+            font-size: 1.8rem;
             margin-bottom: 0.8rem;
         }
     }

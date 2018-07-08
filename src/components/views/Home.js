@@ -32,9 +32,9 @@ class Home extends Component {
 
                                 <div className="col-md-6 hero-text-main hero-text text-white d-flex flex-column ">
                                     <h1 className="hero-title">
-                                        Digital Currency 
+                                        The easiest way to invest
                                         <br/>
-                                         made <strong>simple</strong>.
+                                         in digital currencies
                                     </h1>
 
                                     <h2 className="hero-intro">

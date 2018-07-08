@@ -7,7 +7,7 @@ class PrivacyPolicy extends Component {
                 <div className="container pb-5">
                     <div className="row d-flex justify-content-center">
                         <div className="col-lg-8 col-md-12 privacy">
-                            <h5 className="last-updated">Last updated: June 02, 2018</h5>
+                            <h5 className="last-updated">Last updated: July 04, 2018</h5>
                             
                             <h6>Preamble</h6>
                             <p>By using our website(s) or other services in any capacity you agree to the terms below, outlining the handling of personal information, as well as to our general terms and condition.</p>

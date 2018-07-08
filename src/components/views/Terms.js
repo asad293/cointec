@@ -7,7 +7,7 @@ class Terms extends Component {
                 <div className="container pb-5">
                     <div className="row d-flex justify-content-center">
                         <div className="col-lg-8 col-md-12 terms">
-                            <h5 className="last-updated">Last updated: June 02, 2018</h5>
+                            <h5 className="last-updated">Last updated: July 04, 2018</h5>
                             
                             <p>The following is a contract between Cointec LTD, a company incorporated in England & Wales (reg no. 11104052), hereinafter referred to as “we”, “us” or “the platform” and the contractual party, referred to as “you”, “the user” or collectively as “users”.</p>
                             <p>Cointec offers a service that allows users in the UK to buy, sell and exchange digital currencies.</p>
