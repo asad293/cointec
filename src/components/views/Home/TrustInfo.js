@@ -17,10 +17,6 @@ class TrustInfo extends Component {
                             <p className="cta-text pr-4 mb-3 mb-md-5">
                                 We ensure your funds are secure by connecting you to the most trusted UK brokers. As soon as your payment arrives, your digital currency is is sent to your wallet.
                             </p>
-
-                            <p>
-                                <a href="#" className="btn btn-outline-primary">Wallet setup guide <i className="ml-1 mdi mdi-chevron-right"></i></a>
-                            </p>
                         </div>
 
 
