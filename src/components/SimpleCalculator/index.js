@@ -293,13 +293,14 @@ class SimpleCalculator extends Component {
           const coin = coins.find(coin => assetPair.indexOf(coin.name) === 3)
           if (coin) {
             coin.DefaultQuoteAmount = asset.Send.DefaultQuoteAmount
-            if (asset.Send.Status === 'DISABLED') {
-              coin.disabled = true
-            } else if (asset.Send.Status === 'UNAVAILABLE') {
-              coin.unavailable = true
-            } else  {
-              coin.available = true
-            }
+            // if (asset.Send.Status === 'DISABLED') {
+            //   coin.disabled = true
+            // } else if (asset.Send.Status === 'UNAVAILABLE') {
+            //   coin.unavailable = true
+            // } else  {
+            //   coin.available = true
+            // }
+            coin.Status = asset.Send.Status
             updatedCoins.push(coin)
           }
         }
@@ -393,7 +394,7 @@ class SimpleCalculator extends Component {
 
     const ExchangeableItem = ({ exchangeable, onItemSelected, status, unavailable }) => (
       <div>
-        { status !== 'DISABLED' && 
+        { status !== 'DISABLED' ?
         <a className={cn("dropdown-item", unavailable ? 'unavailable': null)} onClick={ unavailable ? null: (e) => onItemSelected(exchangeable)}>
           <div className="text-label currency-label">
             <div className="currency-symbol-wrapper">
@@ -401,8 +402,7 @@ class SimpleCalculator extends Component {
             </div>
             <span>{exchangeable.name}</span>
           </div>
-          {/* <span>{exchangeable.name}</span> */}
-        </a> }
+        </a>: '' }
       </div>
     )
 
