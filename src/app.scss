@@ -130,31 +130,46 @@ header.bg-gradient {
         padding-left: 1rem;
         padding-right: 1rem;
         margin-left: 1.5rem;
+
         &.btn {
             color: #fff;
             @extend .px-3; // @extend .py-1;
             padding-top: 0.1rem;
             padding-bottom: 0.1rem;
+
             &.btn-primary {
                 background-color: $primary-light;
+
                 &:hover {
                     background-color: lighten($primary-light, 10%);
                     color: #fff;
                 }
             }
         }
+
         @include media-breakpoint-down(md) {
             padding-left: 0;
             margin-left: 0;
         }
-    } // Responsive / Mobile Button
+    }
+    // Responsive / Mobile Button
     .navbar-toggler {
         border-color: transparent;
         padding: 0;
 
-        &:focus{
-            outline:none;
+        &:focus {
+            outline: none;
         }
+    }
+}
+
+.early-access-btn {
+    color: white !important;
+    background-color: transparent;
+    border-color: white;
+
+    &:focus {
+        box-shadow: none;
     }
 }
 

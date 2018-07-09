@@ -10,19 +10,19 @@ class Navbar extends Component {
                         <img src="/img/Logo.svg" className="img-fluid mx-auto d-block" alt="Logo" />
                     </Link>
 
-                    <button className="navbar-toggler" 
-                        type="button" 
-                        data-toggle="collapse" 
-                        data-target="#navbarSupportedContent" 
+                    <button className="navbar-toggler"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent"
-                        aria-expanded="false" 
+                        aria-expanded="false"
                         aria-label="Toggle navigation">
                         {/* <span className="navbar-toggler-icon"></span> */}
                         <img
                             className="currency-symbol"
                             src="/img/menu-icon.svg"
                             alt="Menu Icon"
-                          />
+                        />
                     </button>
 
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -39,8 +39,16 @@ class Navbar extends Component {
                                 <Link className="nav-link" to='/#livechat'>Support</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to='/getting-started'>Learn</Link>
+                                <Link className="nav-link pr-md-4" to='/getting-started'>Learn</Link>
                             </li>
+                            { /*
+                            <li className="nav-item">
+                                <a className="nav-link" data-toggle="modal" data-target="#subscribe-modal">Early Access</a>
+                            </li>*/
+                            }
+                            
+                                <button className="nav-link btn btn-outline-success early-access-btn" data-toggle="modal" data-target="#subscribe-modal">Early access</button>
+                            
                             {/*<li className="nav-item">
                                 <Link className="nav-link" to='/login'>Login</Link>
                             </li>

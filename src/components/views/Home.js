@@ -34,7 +34,7 @@ class Home extends Component {
                                     <h1 className="hero-title">
                                         The easiest way to invest
                                         <br/>
-                                         in digital currencies
+                                         in digital currency
                                     </h1>
 
                                     <h2 className="hero-intro">

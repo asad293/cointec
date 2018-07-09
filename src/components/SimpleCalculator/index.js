@@ -344,7 +344,7 @@ class SimpleCalculator extends Component {
         )}
         data-toggle="modal" data-target="#subscribe-modal"
         disabled={buttonState}>
-        Subscribe for early access
+        Instant Exchange
       </button>
     );
   }
