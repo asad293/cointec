@@ -231,19 +231,19 @@ header.bg-gradient {
         font-weight: 400;
         font-size: 3rem;
         @include media-breakpoint-down(xl) {
-            font-size: 2.5rem;
-            margin-bottom: 0.8rem;
+            font-size: 2.9rem;
+            margin-bottom: 1.4rem;
         }
         @include media-breakpoint-down(md) {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             margin-bottom: 0.8rem;
         }
         @include media-breakpoint-down(sm) {
-            font-size: 2.3rem;
+            font-size: 2.4rem;
             margin-bottom: 0.8rem;
         }
         @include media-breakpoint-down(xs) {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             margin-bottom: 0.8rem;
         }
     }
