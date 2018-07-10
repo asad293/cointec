@@ -11,7 +11,7 @@ class GettingStarted extends Component {
               <h5 className="heading-top">Getting started</h5>
 
               <p>
-                If you are just getting started in the digital currency world, our getting guide is a great place to learn the basics. We’ve put together the most relevant and insightful questions to get you up to speed and navigate the landscape safely.
+                If you are just getting started in the digital currency world, our guide is a great place to learn the basics. We’ve put together the most relevant and insightful questions to get you up to speed and navigate the landscape safely.
               </p>
 
               <div className="query-container">
@@ -50,7 +50,7 @@ class GettingStarted extends Component {
                     Digital currency is stored in electronic wallets. A wallet is simply a pair of keys: a public key and a private key. The public key, also referred to as the wallet address, is used to identify a wallet. Think of the public key as your bank account number and sort-code, this is what you would share with others to let them know where to send a payment.
                   </p>
                   <p>
-                    The private key is used to access the wallet and send funds. Think of this as your credit card pin but longer and more complex - you should not share your private key with anyone.
+                    The private key is used to access the wallet and send funds. Think of this as your credit card PIN but longer and more complex - you should not share your private key with anyone.
                   </p>
                 </div>
 
