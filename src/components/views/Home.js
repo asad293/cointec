@@ -32,13 +32,13 @@ class Home extends Component {
 
                                 <div className="col-md-6 hero-text-main hero-text text-white d-flex flex-column ">
                                     <h1 className="hero-title">
-                                        The easiest way to invest
+                                        The easiest way to
                                         <br/>
-                                         in digital currency
+                                           buy digital currency
                                     </h1>
 
                                     <h2 className="hero-intro">
-                                        Access 20 digital currencies using Bank Transfer or Bitcoin.
+                                        Buy 20 digital currencies using Bank Transfer or Bitcoin.
 
                                         Try our calculator for live exchange rates.
                                     </h2>
