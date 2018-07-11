@@ -15,6 +15,7 @@ import SimpleCalculator from '../SimpleCalculator'
 
 class Home extends Component {
     render() {
+        
         return (
             <div>
                 <Header>
@@ -63,7 +64,7 @@ class Home extends Component {
                                             </div>
                                             <div className="status-label">Online</div>
                                         </div> */}
-                                        <SimpleCalculator />
+                                        <SimpleCalculator location={this.props.location}/>
                                     {/* 
                                         <div className="calculator-body">
                                             
