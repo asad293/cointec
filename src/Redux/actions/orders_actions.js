@@ -19,7 +19,7 @@ const ROOT_URL = 'https://api.staging.cointec.co.uk'
 
 export function createOrder({ destAmount, exchangeRate, sourceAmount }) {
     let createdAt = new Date();
-    createdAt = createdAt.getTime();
+    createdAt = createdAt.getTime()/1000.0;
     console.log('date',createdAt)
     let info = {
         ctUser: 5,
