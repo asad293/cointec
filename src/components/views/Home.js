@@ -15,7 +15,7 @@ import SimpleCalculator from '../SimpleCalculator'
 
 class Home extends Component {
     render() {
-        
+        let homeText = this.props.location.pathname === '/buy-augur' ? 'buy Augur' : 'buy digital currency';
         return (
             <div>
                 <Header>
@@ -35,7 +35,7 @@ class Home extends Component {
                                     <h1 className="hero-title">
                                         The easiest way to
                                         <br/>
-                                           buy digital currency
+                                        { homeText }
                                     </h1>
 
                                     <h2 className="hero-intro">
