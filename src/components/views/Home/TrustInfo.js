@@ -15,7 +15,7 @@ class TrustInfo extends Component {
                             </h2>
 
                             <p className="cta-text pr-4 mb-3 mb-md-5">
-                                We ensure your funds are secure by connecting you to the most trusted UK brokers. As soon as your payment arrives, your digital currency is is sent to your wallet.
+                                We ensure your funds are secure by connecting you to the most trusted UK brokers. As soon as your payment arrives, your digital currency is sent to your wallet.
                             </p>
                         </div>
 

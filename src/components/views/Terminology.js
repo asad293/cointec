@@ -236,7 +236,7 @@ class Terminology extends Component {
                   <div className="row">
                     <p className="col">
                       <span className="term-heading">Flippening </span>
-                      - Currently, Bitcoin is the largest digital currency by market capitalization and Ethereum is the second the second. The flippening refers to a point in the future where Ethereum surpasses Bitcoin in this regard.
+                      - Currently, Bitcoin is the largest digital currency by market capitalization and Ethereum is the second. The flippening refers to a point in the future where Ethereum surpasses Bitcoin in this regard.
                     </p>
                   </div>
                   <div className="row">
