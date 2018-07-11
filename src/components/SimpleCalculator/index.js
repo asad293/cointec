@@ -32,8 +32,9 @@ class SimpleCalculator extends Component {
       toggleCurrency: false,
       toggleCoin: false,
       search: false,
+      defaultCoin: this.props.location.pathname === '/buy-augur' ? 'REP' : 'BTC',
     };
-
+    
     this.fistScreen = this.fistScreen.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.updateRate = this.updateRate.bind(this);
@@ -307,7 +308,7 @@ class SimpleCalculator extends Component {
       })
 
       const defaultCoin = this.state.currencySelected && this.state.currencySelected.name === 'GBP'
-      ? updatedCoins.find(coin => coin.name === 'BTC')
+      ? updatedCoins.find(coin => coin.name === this.state.defaultCoin)
       : (updatedCoins.length ? updatedCoins[0] : false)
 
       let prev = this.state.coinSelected ? this.state.coinSelected.name : false
