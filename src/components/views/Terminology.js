@@ -213,7 +213,7 @@ class Terminology extends Component {
                   <div className="row">
                     <p className="col">
                       <span className="term-heading">Faster Payments </span>
-                      - The Faster Payments System is the most common method used by UK banks to transfer funds. Transactions between Faster-Payments-enabled accounts are near instant. most UK bank accounts are faster-payments-enabled. You can check whether your account is faster-payments-enabled <a href="http://www.fasterpayments.org.uk/consumers/sort-code-checker">here</a>.</p>
+                      - The Faster Payments System is the most common method used by U.K. banks to transfer funds. Transactions between Faster-Payments-enabled accounts are near instant. most U.K. bank accounts are faster-payments-enabled. You can check whether your account is faster-payments-enabled <a href="http://www.fasterpayments.org.uk/consumers/sort-code-checker">here</a>.</p>
                   </div>
                   <div className="row">
                     <p className="col">
@@ -242,7 +242,7 @@ class Terminology extends Component {
                   <div className="row">
                     <p className="col">
                       <span className="term-heading">Fork </span>
-                      - A fork is when a blockchain ledger diverges into two new versions, usually due to disagreements by participants over the rules or protocols used to verify new transactions. 
+                      - A fork is when a blockchain ledger splits into two new versions, usually due to disagreements by participants over the rules or protocols used to verify new transactions. 
                     </p>
                   </div>
                 </div>
@@ -354,8 +354,8 @@ class Terminology extends Component {
                   <h4 className="initial-letter">Nn</h4>
                   <div className="row">
                     <p className="col">
-                      <span className="term-heading">Network effect </span>
-                      - A network effect describes the exponential growth in size and therefore value of a network as more people use it. Take for example the social media platform LinkedIn, where you are able to connect with mutual connections of existing connections. If every user you connect with has one hundred new connections, for every connection you unlock one hundred new potential connections. Therefore the size and value of your network grows a hundred-fold for each connection you make. This phenomenon underpins the potential value investors see in a blockchain network. 
+                      <span className="term-heading">Networking </span>
+                      - If every user you connect with has one hundred new connections, for every connection you unlock, you have one hundred new potential connections. 
                     </p>
                   </div>
                   <div className="row">
@@ -472,7 +472,7 @@ class Terminology extends Component {
                   <div className="row">
                     <p className="col">
                       <span className="term-heading">Smart contracts </span>
-                      - Are pre-programmed contract that self-execute when certain conditions are met. An example is a will built on a smart contract that instructs the funds from a digital currency wallet to be sent to the nominated beneficiaries once the holder of the will passes away.
+                      - Are pre-programmed contracts that self-execute when certain conditions are met. An example is a will built on a smart contract that instructs the funds from a digital currency wallet to be sent to the nominated beneficiaries once the holder of the will passes away.
                     </p>
                   </div>
                   <div className="row">
