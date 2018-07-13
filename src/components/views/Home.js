@@ -10,7 +10,6 @@ import UserReviews from './Home/UserReviews'
 import Subscribe from './Home/Subscribe'
 import CurrentDevelopment from './Home/CurrentDevelopment'
 import Footer from '../core/Footer'
-import SubscribeModal from '../modals/SubscribeModal';
 import SimpleCalculator from '../SimpleCalculator'
 
 class Home extends Component {
@@ -94,8 +93,6 @@ class Home extends Component {
                 <CurrentDevelopment />
 
                 <Footer />
-
-                <SubscribeModal />
             </div>
         )
     }
