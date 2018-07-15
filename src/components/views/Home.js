@@ -32,9 +32,9 @@ class Home extends Component {
 
                                 <div className="col-md-6 hero-text-main hero-text text-white d-flex flex-column ">
                                     <h1 className="hero-title">
-                                        The easiest way to
+                                        Say hello to a new
                                         <br/>
-                                        { homeText }
+                                        kind of money.
                                     </h1>
 
                                     <h2 className="hero-intro">
