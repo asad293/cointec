@@ -148,6 +148,28 @@ class SimpleCalculator extends Component {
     this.initInterval(this.state.interval)
     // fetch call the first time component mounts
     this.fetchCalls();
+
+    addEventListener('keyup', event => {
+      if (event.keyCode === 27) {
+        if (this.state.toggleCoin) {
+          this.toggleDropDown('coin')
+        }
+        if (this.state.toggleCurrency) {
+          this.toggleDropDown('currency')
+        }
+      }
+    })
+
+    addEventListener('click', event => {
+      const select = event.path.find(node => node.className === 'dropdown dropdown-currency-select')
+      if (!select) {
+        this.setState({
+          toggleCoin: false,
+          toggleCurrency: false,
+          coinSearch: ''
+        })
+      }
+    })
   }
 
   componentWillUnmount() {
@@ -236,7 +258,8 @@ class SimpleCalculator extends Component {
   onCoinSelected(coin) {
     this.setState({
       coinSelected: coin,
-      toggleCoin: false
+      toggleCoin: false,
+      coinSearch: ''
     }, () => this.fetchCalls())
   }
 
@@ -376,12 +399,12 @@ class SimpleCalculator extends Component {
     if (type === 'currency') {
       if (!this.state.toggleCurrency)
         this.props.fetchAssets()
-      this.setState({ toggleCurrency: !this.state.toggleCurrency, toggleCoin: false })
+      this.setState({ toggleCurrency: !this.state.toggleCurrency, toggleCoin: false, coinSearch: '' })
     }
     else if (type === 'coin') {
       if (!this.state.toggleCoin)
         this.props.fetchAssets()
-      this.setState({ toggleCoin: !this.state.toggleCoin })
+      this.setState({ toggleCoin: !this.state.toggleCoin, coinSearch: '' })
     }
   }
   
