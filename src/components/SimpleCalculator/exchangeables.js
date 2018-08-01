@@ -22,6 +22,11 @@ const coins = [
       keywords: 'bitcoin'
     },
     {
+        name: 'NEO',
+        image: '/img/coins/NEO.svg',
+        keywords: 'neo'
+    },
+    {
       name: 'ETH',
       image: '/img/coins/ETH.svg',
       keywords: 'ethereum'
