@@ -58,6 +58,7 @@ class SignUpStore {
         this.responseError = false
         this.inProgress = false
         this.form.reset()
+        return data
     }
 
     @action togglePassword() {

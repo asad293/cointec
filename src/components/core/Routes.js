@@ -10,6 +10,7 @@ import ResetPassword from '../views/ResetPassword'
 import Support from '../views/Support'
 import Legal from '../views/Legal'
 import Learn from '../views/Learn';
+import Exchange from '../views/Exchange';
 
 class Routes extends Component {
     componentWillUpdate() {
@@ -36,6 +37,7 @@ class Routes extends Component {
                 <Route exact path="/terms" component={Legal} />
                 <Route exact path="/getting-started" component={Learn} />
                 <Route exact path="/terminology" component={Learn} />
+                <Route exact path="/exchange" component={Exchange} />
             </Switch>
         )
     }

@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { formValueSelector, Field, reduxForm } from "redux-form";
-
-import { fetchQuote, fetchLimit, fetchConsts, fetchAssets, fetchAccounts } from '../../Redux/actions';
-import { connect } from "react-redux";
-import "./style.scss";
-import cn from "classnames";
-import { coins, currencies } from './exchangeables';
-import { withRouter } from 'react-router';
+import React, { Component } from 'react'
+import { formValueSelector, Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import walletValidator from 'wallet-address-validator'
+import cn from 'classnames'
+import { coins, currencies } from '../SimpleCalculator/exchangeables'
+import { fetchQuote, fetchLimit, fetchConsts, fetchAssets } from '../../Redux/actions'
 import _ from 'lodash'
 
-class SimpleCalculator extends Component {
+class Calculator extends Component {
+
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       placeholderSendAmount: 250,
       placeholderReceiveAmount: 0,
@@ -29,8 +29,7 @@ class SimpleCalculator extends Component {
           ReceiveCurrency: 0
         }
       },
-      // buttonIsDisabled: false,
-      screen: 'first',
+      buttonIsDisabled: false,
       action: 'sending',
       intervalId: null,
       interval: 10,
@@ -43,33 +42,29 @@ class SimpleCalculator extends Component {
       toggleCurrency: false,
       toggleCoin: false,
       search: false,
-      defaultCoin: this.props.location.pathname === '/buy-augur' ? 'REP' : 'BTC',
-    };
-    
-    this.fistScreen = this.fistScreen.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.updateRate = this.updateRate.bind(this);
-    this.updateCoins = this.updateCoins.bind(this);
-    // this.updateSendAmount = this.updateSendAmount.bind(this);
-    // this.updateReceiveAmount = this.updateReceiveAmount.bind(this);
+      defaultCoin: 'BTC',
+      address: value => {
+        return walletValidator.validate(value, this.state.coinSelected.name || 'bitcoin') ? undefined : 'Invalid wallet address'
+      }
+    }
 
-    this.normalizeSendAmount = this.normalizeSendAmount.bind(this);
-    this.normalizeReceiveAmount = this.normalizeReceiveAmount.bind(this);
-    this.convertToReceiveAmount = this.convertToReceiveAmount.bind(this);
-    this.convertToSendAmount = this.convertToSendAmount.bind(this);
+    this.onSubmit = this.onSubmit.bind(this)
+    this.updateLimit = this.updateLimit.bind(this)
+    this.updateRate = this.updateRate.bind(this)
+    this.updateCoins = this.updateCoins.bind(this)
+    this.updateButtonState = this.updateButtonState.bind(this)
 
-    this.back = this.back.bind(this);
-    this.fetchCalls = this.fetchCalls.bind(this);
-    this.getQuote = this.getQuote.bind(this);
-    this.onCoinSelected = this.onCoinSelected.bind(this);
-    this.onCurrencySelected = this.onCurrencySelected.bind(this);
-    this.toggleDropDown = this.toggleDropDown.bind(this);
-    this.toggleSearch = this.toggleSearch.bind(this);
-  }
+    this.normalizeSendAmount = this.normalizeSendAmount.bind(this)
+    this.normalizeReceiveAmount = this.normalizeReceiveAmount.bind(this)
+    this.convertToReceiveAmount = this.convertToReceiveAmount.bind(this)
+    this.convertToSendAmount = this.convertToSendAmount.bind(this)
 
-  back() {
-    let intervalId = setInterval(this.fetchCalls, this.state.interval * 1000);
-    this.setState({ screen: 'first', intervalId });
+    this.fetchCalls = this.fetchCalls.bind(this)
+    this.getQuote = this.getQuote.bind(this)
+    this.onCoinSelected = this.onCoinSelected.bind(this)
+    this.onCurrencySelected = this.onCurrencySelected.bind(this)
+    this.toggleDropDown = this.toggleDropDown.bind(this)
+    this.toggleSearch = this.toggleSearch.bind(this)
   }
 
   normalizeSendAmount(value, previousValue) {
@@ -111,7 +106,7 @@ class SimpleCalculator extends Component {
 
   normalizeReceiveAmount(value, previousValue) {
     const { currencySelected, coinSelected, placeholderSendAmount, coins, limits } = this.state
-    
+
     let decimalPoint = 8
     let receiveAmount = value.replace(/[^\d.]/g, '')
     receiveAmount = Number(receiveAmount) < limits.Min.ReceiveCurrency ? String(limits.Min.ReceiveCurrency) : receiveAmount
@@ -138,22 +133,22 @@ class SimpleCalculator extends Component {
         this.setState({ action: 'sending' })
       }
     }
-    
+
     return receiveAmount
   }
 
-
   initInterval(interval) {
     clearInterval(this.state.intervalId)
-    let intervalId = setInterval(this.fetchCalls, interval * 1000);
+    let intervalId = setInterval(this.fetchCalls, interval * 1000)
     // store intervalId in the state so it can be accessed later to clear it
-    this.setState({intervalId})
-}
+    this.setState({ intervalId })
+  }
+
   componentDidMount() {
     // set call fetch interval 
     this.initInterval(this.state.interval)
     // fetch call the first time component mounts
-    this.fetchCalls();
+    this.fetchCalls()
 
     addEventListener('keyup', event => {
       if (event.keyCode === 27) {
@@ -199,12 +194,11 @@ class SimpleCalculator extends Component {
   }
 
   fetchCalls() {
-    this.props.fetchAssets();
-    this.props.fetchLimit();
-    this.props.fetchConsts();
-    this.getQuote();
+    this.props.fetchAssets()
+    this.props.fetchLimit()
+    this.props.fetchConsts()
+    this.getQuote()
   }
-
 
   componentWillReceiveProps(props) {
     this.setState({
@@ -213,7 +207,7 @@ class SimpleCalculator extends Component {
 
     if (props.sendAmount && this.state.action === 'sending' && props.quote.QuoteReceiveAmount)
       this.props.change('receiveAmount', Number.parseFloat(props.quote.QuoteReceiveAmount).toFixed(8))
-    
+
     if (props.receiveAmount && this.state.action === 'receiving' && props.quote.QuoteSendAmount)
       this.props.change(
         'sendAmount',
@@ -223,71 +217,51 @@ class SimpleCalculator extends Component {
     this.updateLimit(props)
     this.updateCoins(props)
     this.updateRate(props)
+    this.updateButtonState(props)
   }
 
-  onSubmit(values) {
-    clearInterval(this.state.intervalId)
+  searchCoin({ target }) {
+    this.setState({
+      coinSearch: target.value
+    })
+  }
+
+  filterCoins(coin) {
+    let word = this.state.coinSearch.toLowerCase().trim()
+    if (coin.name.toLowerCase().startsWith(word)) {
+      return true
+    }
+
+    if (coin.keywords.startsWith(word)) {
+      return true
+    }
+    return false
+  }
+
+  toggleSearch() {
+    this.setState({ search: !this.state.search })
+  }
+
+  toggleDropDown(type) {
+    if (type === 'currency') {
+      if (!this.state.toggleCurrency)
+        this.props.fetchAssets()
+      this.setState({ toggleCurrency: !this.state.toggleCurrency, toggleCoin: false, coinSearch: '' })
+    }
+    else if (type === 'coin') {
+      if (!this.state.toggleCoin)
+        this.props.fetchAssets()
+      this.setState({ toggleCoin: !this.state.toggleCoin, coinSearch: '' })
+    }
   }
 
   convertToReceiveAmount(amount) {
-    return amount / this.state.rate;
+    return amount / this.state.rate
   }
 
   convertToSendAmount(amount) {
-    return amount * this.state.rate;
+    return amount * this.state.rate
   }
-
-  renderField(field) {
-    const {
-      placeholder,
-      valid,
-      meta: { touched, error },
-      label
-    } = field;
-    const className = `${touched && error ? "has-warning" : ""} ${
-      valid === true ? "has-success" : ""
-    }  ${valid === false ? "has-warning" : ""}`;
-    return (
-      <div className={className}>
-        <label className="field-label m-0">{label}</label>
-        <input
-          autoComplete="off"
-          placeholder={placeholder}
-          className="form-control no-border p-0 "
-          {...field.input}
-        />
-        <div className="text-help">{touched ? error : ""}</div>
-      </div>
-    );
-  }
-
-  onCoinSelected(coin) {
-    this.setState({
-      coinSelected: coin,
-      toggleCoin: false,
-      coinSearch: ''
-    }, () => this.fetchCalls())
-  }
-
-  onCurrencySelected(currency) {
-    this.setState({
-      currencySelected: currency,
-      coinSelected: false,
-      toggleCurrency: false
-    }, () => this.fetchCalls())
-  }
-
-  // updateReceiveAmount(props) {
-  //   if (props.receiveAmount.ExchangeRate) {
-  //     this.setState({ receiveAmount: Number.parseFloat(props.receiveAmount.ExchangeRate) })
-  //   }
-  // }
-
-  // updateSendAmount(props) {
-  //   if (props.receiveAmount.ExchangeRate) {
-  //     this.setState({ receiveAmount: Number.parseFloat(props.receiveAmount.ExchangeRate) });
-  //   }
-  // }
 
   updateLimit(props) {
     this.setState({
@@ -299,11 +273,11 @@ class SimpleCalculator extends Component {
       let interval = props.limit.const.Frame1Refresh
       let refreshTime = props.limit.const.Frame2Refresh
       if (this.state.interval != interval) {
-          this.initInterval(interval)
-          this.setState({ interval })
+        this.initInterval(interval)
+        this.setState({ interval })
       }
       if (this.state.reviewRefreshTime != refreshTime) {
-          this.setState({ reviewRefreshTime: refreshTime })
+        this.setState({ reviewRefreshTime: refreshTime })
       }
     }
   }
@@ -331,13 +305,13 @@ class SimpleCalculator extends Component {
       })
 
       const defaultCoin = this.state.currencySelected && this.state.currencySelected.name === 'GBP'
-      ? updatedCoins.find(coin => coin.name === this.state.defaultCoin)
-      : (updatedCoins.length ? updatedCoins[0] : false)
+        ? updatedCoins.find(coin => coin.name === this.state.defaultCoin)
+        : (updatedCoins.length ? updatedCoins[0] : false)
 
       let prev = this.state.coinSelected ? this.state.coinSelected.name : false
       const coinSelected = !this.state.coinSelected && updatedCoins.length
-      ? defaultCoin
-      : this.state.coinSelected
+        ? defaultCoin
+        : this.state.coinSelected
 
       this.setState({
         coins: updatedCoins,
@@ -351,67 +325,97 @@ class SimpleCalculator extends Component {
     }
   }
 
-  renderButton() {
-    let buttonState = "";
-    let buttonClass = "btn-success ";
-    // if (this.state.buttonIsDisabled) {
-    //   buttonState = "disabled";
-    //   buttonClass = "";
-    // }
-    return (
-      <button
-        type="submit"
-        className={cn(
-          "btn-block btn-lg btn-exchange text-white no-border",
-          buttonClass,
-          buttonState
-        )}
-        onClick={(e) => { e.preventDefault(); this.props.history.push('/exchange') }}
-        // data-toggle="modal" data-target="#subscribe-modal"
-        disabled={buttonState}>
-        Instant Exchange
-      </button>
-    );
-  }
-
-  searchCoin({ target }) {
+  updateButtonState(props) {
     this.setState({
-      coinSearch: target.value
+      buttonIsDisabled: props.sendAmount ? (
+        // this.state.limit < props.sendAmount ||
+        // this.state.limitMin > props.sendAmount ||
+        this.state.limits.Max.SendCurrency < props.sendAmount ||
+        this.state.limits.Min.SendCurrency > props.sendAmount ||
+        !props.validWallet
+      ) : true
     })
   }
 
-  filterCoins(coin) {
-    let word = this.state.coinSearch.toLowerCase().trim();
-    if (coin.name.toLowerCase().startsWith(word)) {
-        return true
-    }
-    
-    if (coin.keywords.startsWith(word)) {
-      return true
-    }
-    return false
+  renderField(field) {
+    const { placeholder, meta: { touched, valid, error } } = field
+
+    return (
+      <div>
+        <input
+          autoComplete="off"
+          spellCheck={false}
+          placeholder={placeholder}
+          className="form-control no-border p-0"
+          {...field.input} />
+      </div>
+    )
   }
 
-  toggleSearch() {
-    this.setState({search : !this.state.search})
+  renderWalletField(field) {
+    const { placeholder, meta: { touched, valid, error }, label } = field
+
+    return (
+      <div className={cn('calc-input-wrapper', 'text-left', touched && !valid ? 'invalid' : null)}>
+        <label className="field-label m-0">
+          {!touched ? label : valid ? label : error}
+        </label>
+        <div className="calc-field">
+          <div className="col-12">
+            <input
+              id="input-wallet-addr"
+              autoComplete="off"
+              spellCheck={false}
+              placeholder={placeholder}
+              className="form-control no-border p-0"
+              {...field.input} />
+          </div>
+        </div>
+      </div>
+    )
   }
 
-  toggleDropDown(type) {
-    if (type === 'currency') {
-      if (!this.state.toggleCurrency)
-        this.props.fetchAssets()
-      this.setState({ toggleCurrency: !this.state.toggleCurrency, toggleCoin: false, coinSearch: '' })
-    }
-    else if (type === 'coin') {
-      if (!this.state.toggleCoin)
-        this.props.fetchAssets()
-      this.setState({ toggleCoin: !this.state.toggleCoin, coinSearch: '' })
-    }
+  renderButton() {
+    return (
+      <button
+        type="submit"
+        className="btn-block btn-lg btn-exchange no-border"
+        disabled={this.state.buttonIsDisabled}>
+        Instant Exchange
+      </button>
+    )
   }
-  
 
-  fistScreen() {
-    const { handleSubmit } = this.props
+  onCoinSelected(coin) {
+    this.setState({
+      coinSelected: coin,
+      toggleCoin: false,
+      coinSearch: ''
+    }, () => this.fetchCalls())
+  }
+
+  onCurrencySelected(currency) {
+    this.setState({
+      currencySelected: currency,
+      coinSelected: false,
+      toggleCurrency: false
+    }, () => this.fetchCalls())
+  }
+
+  onSubmit(event) {
+    event.preventDefault()
+    this.props.onConfirm({
+      sendAmount: this.props.sendAmount,
+      receiveAmount: this.props.receiveAmount,
+      sendCurrency: this.state.currencySelected.name,
+      receiveCurrency:  _.defaultTo(this.state.coinSelected && this.state.coinSelected.name, 'BTC'),
+      rate: this.state.rate,
+      reviewRefreshTime: this.state.reviewRefreshTime,
+      wallet: this.props.wallet
+    })
+  }
+
+  render() {
     let coins = this.state.coins
     let currencies = this.state.currencies
     if (this.state.coinSearch)
@@ -419,46 +423,40 @@ class SimpleCalculator extends Component {
 
     const ExchangeableItem = ({ exchangeable, onItemSelected, status, unavailable }) => (
       <div>
-        { status !== 'DISABLED' ?
-        <a className={cn("dropdown-item", unavailable ? 'unavailable': null)} onClick={ unavailable ? null: (e) => onItemSelected(exchangeable)}>
-          <div className="text-label currency-label">
-            <div className="currency-symbol-wrapper">
-              <img className="currency-symbol" src={exchangeable.image} alt={exchangeable.name} />
+        {status !== 'DISABLED' ?
+          <a className={cn("dropdown-item", unavailable ? 'unavailable' : null)} onClick={unavailable ? null : (e) => onItemSelected(exchangeable)}>
+            <div className="text-label currency-label">
+              <div className="currency-symbol-wrapper">
+                <img className="currency-symbol" src={exchangeable.image} alt={exchangeable.name} />
+              </div>
+              <span>{exchangeable.name}</span>
             </div>
-            <span>{exchangeable.name}</span>
-          </div>
-        </a>: '' }
+          </a> : ''}
       </div>
     )
 
     return (
-      <form onSubmit={handleSubmit(this.onSubmit)}>
-        <div>
-          <div className="calc-input-wrapper">
-            <div className="row am row-flex ">
-              <div className="col-6  bg-input">
+      <div className="main-calc-wrapper">
+        <form onSubmit={this.onSubmit}>
+          <div className={cn('calc-input-wrapper text-left', this.state.limits.Max.SendCurrency < this.props.sendAmount ? 'invalid' : null)}>
+            <label className="field-label m-0">
+              {this.state.limits.Max.SendCurrency < this.props.sendAmount ? 'Limit exceeded' : 'You send'}
+            </label>
+            <div className="calc-field">
+              <div className="col-6 col-xl-7 pr-0">
                 <Field
                   name="sendAmount"
-                  label="You send"
                   component={this.renderField}
                   normalize={this.normalizeSendAmount}
-                  placeholder={
-                    (this.state.currencySelected ? this.state.currencySelected.symbol : '£') + ' ' + this.state.placeholderSendAmount.toFixed(this.state.currencySelected ? this.state.currencySelected.dp : 2)
-                  }
-                />
+                  placeholder={(this.state.currencySelected ? this.state.currencySelected.symbol : '£') + ' ' + this.state.placeholderSendAmount.toFixed(this.state.currencySelected ? this.state.currencySelected.dp : 2)} />
               </div>
-              <div className="col-6 pl-0  d-flex align-items-center d-flex align-items-center">
+              <div className="col-6 col-xl-5 pr-0 d-flex align-items-center d-flex align-items-center">
                 <div className="dropdown dropdown-currency-select">
                   <a
                     className="btn dropdown-toggle"
-                    href="#"
                     role="button"
                     id="dropdownMenuLink"
-                    onClick={() => this.toggleDropDown('currency')}
-                    //data-toggle="dropdown"
-                    //aria-haspopup="true"
-                    //aria-expanded="false"
-                    >
+                    onClick={() => this.toggleDropDown('currency')}>
                     <div className="text-label currency-label">
                       <div className="currency-symbol-wrapper">
                         <img
@@ -467,10 +465,7 @@ class SimpleCalculator extends Component {
                           alt={this.state.currencySelected.name} />
                       </div>
                       <span>{this.state.currencySelected.name}</span>
-                      <img
-                        className="dropdown-arrow"
-                        src="/img/arrow-down.svg"
-                        alt="Dropdown" />
+                      <img className="dropdown-arrow" src="/img/arrow-down.svg" alt="Dropdown" />
                     </div>
                   </a>
                   {
@@ -479,20 +474,17 @@ class SimpleCalculator extends Component {
                       className="dropdown-menu show"
                       aria-labelledby="dropdownMenuLink">
                       <div className="search-item">
-                        
-                      
                         <input className="search-input"
                           placeholder="Coming Soon"
-                          type="text" name="lname" disabled/>
+                          type="text" name="lname" disabled />
                       </div>
 
                       <div className="dropdown-items-wrapper">
-                        {currencies.map((currency) => 
+                        {currencies.map((currency) =>
                           <ExchangeableItem
                             key={currency.name}
                             exchangeable={currency}
                             status={currency.Status}
-                            //unavailable={currency.unavailable}
                             onItemSelected={this.onCurrencySelected} />
                         )}
                       </div>
@@ -501,48 +493,41 @@ class SimpleCalculator extends Component {
                 </div>
               </div>
             </div>
-            <hr className="my-2" />
-            <div className="row am row-flex ">
-              <div className="col-6 bg-input">
+          </div>
+          <div className={cn('calc-input-wrapper text-left', this.state.limits.Max.ReceiveCurrency < this.props.receiveAmount ? 'invalid' : null)}>
+            <label className="field-label m-0">
+              {this.state.limits.Max.ReceiveCurrency < this.props.receiveAmount ? 'Receive limit exceeded' : 'You receive'}
+            </label>
+            <div className="calc-field">
+              <div className="col-6 col-xl-7 pr-0">
                 <Field
                   name="receiveAmount"
-                  label="You receive"
                   component={this.renderField}
                   normalize={this.normalizeReceiveAmount}
-                  placeholder={this.convertToReceiveAmount(
-                    this.state.placeholderSendAmount
-                  ).toFixed(8)}
-                />
+                  placeholder={this.convertToReceiveAmount(this.state.placeholderSendAmount).toFixed(8)} />
               </div>
-              <div className="col-6 pl-0 d-flex align-items-center">
+              <div className="col-6 col-xl-5 pr-0 d-flex align-items-center">
                 <div className="dropdown dropdown-currency-select">
                   <a
                     className="btn dropdown-toggle"
-                    href="#"
                     role="button"
                     id="dropdownMenuLink"
-                    onClick={() => this.toggleDropDown('coin')}
-
-                    //data-toggle="dropdown"
-                    //aria-haspopup="true"
-                    //aria-expanded="false"
-                    >
-                    { 
+                    onClick={() => this.toggleDropDown('coin')}>
+                    {
                       this.state.coinSelected != null &&
-
-                    <div className="text-label currency-label">
-                      <div className="currency-symbol-wrapper">
+                      <div className="text-label currency-label">
+                        <div className="currency-symbol-wrapper">
+                          <img
+                            className="currency-symbol"
+                            src={this.state.coinSelected.image}
+                            alt={this.state.coinSelected.name} />
+                        </div>
+                        <span>{this.state.coinSelected.name}</span>
                         <img
-                          className="currency-symbol"
-                          src={this.state.coinSelected.image}
-                          alt={this.state.coinSelected.name} />
+                          className="dropdown-arrow"
+                          src="/img/arrow-down.svg"
+                          alt="Dropdown" />
                       </div>
-                      <span>{this.state.coinSelected.name}</span>
-                      <img
-                        className="dropdown-arrow"
-                        src="/img/arrow-down.svg"
-                        alt="Dropdown" />
-                    </div>
                     }
                   </a>
                   {
@@ -560,18 +545,17 @@ class SimpleCalculator extends Component {
                           placeholder="Search"
                           type="search"
                           value={this.state.coinSearch}
-                          onClick = {this.toggleSearch}
+                          onClick={this.toggleSearch}
                           onChange={this.searchCoin.bind(this)} />
                       </div>
                       <div className="dropdown-items-wrapper">
-                        {coins.length ? coins.map((coin) => 
+                        {coins.length ? coins.map((coin) =>
                           <ExchangeableItem
                             key={coin.name}
                             exchangeable={coin}
                             status={coin.Status}
-                            //unavailable={coin.unavailable}
                             onItemSelected={this.onCoinSelected} />
-                        ): <div className="px-3">No results</div>}
+                        ) : <div className="px-3">No results</div>}
                       </div>
                     </div>
                   }
@@ -579,38 +563,44 @@ class SimpleCalculator extends Component {
               </div>
             </div>
           </div>
-          <div className="am row">
-            <div className="mt-4 col-md-12">{this.renderButton()}</div>
-          </div>
-
-          <h6 className="text-white mt-3">
-            {
+          <Field
+            name="wallet"
+            label="Wallet address"
+            component={this.renderWalletField}
+            validate={this.state.address}
+            placeholder="Wallet Address" />
+          <h6 className="exchange-rate mt-3">
+            <b>{
               (this.state.currencySelected ? this.state.currencySelected.symbol : this.state.currencySymbol) + ' ' +
-              (this.state.currencySelected ? this.state.rate.toFixed(this.state.currencySelected.dp) : this.state.rate.toFixed(2)) + '/' + 
-              (this.state.coinSelected ? this.state.coinSelected.name : 'BTC') + 
-              ' Exchange Rate'
+              (this.state.currencySelected ? this.state.rate.toFixed(this.state.currencySelected.dp) : this.state.rate.toFixed(2)) + '/' +
+              (this.state.coinSelected ? this.state.coinSelected.name : 'BTC') + ' '
             }
+            </b>
+            Exchange Rate
           </h6>
-        </div>
-      </form>
-    );
-  }
-
-  render() {
-    return <div>{ this.fistScreen() }</div>
+          <div className="row">
+            <div className="mt-2 col-md-12">{this.renderButton()}</div>
+          </div>
+        </form>
+      </div>
+    )
   }
 }
 
 const mapStateToProps = state => {
-  const selector = formValueSelector('SimpleCalcForm')
+  const selector = formValueSelector('CalcForm')
   let sendAmount = '"' + selector(state, 'sendAmount')
   sendAmount = Number.parseFloat(sendAmount.split(" ")[1])
   const receiveAmount = Number.parseFloat(selector(state, 'receiveAmount'))
+  const wallet = selector(state, 'wallet')
+  const validWallet = walletValidator.validate(wallet, state.quote.QuoteReceiveCurrency || 'bitcoin')
+  // console.log(state.quote.QuoteReceiveCurrency, validWallet)
 
   return {
-    bank: state.bank,
     quote: state.quote,
     limit: state.limit,
+    wallet,
+    validWallet,
     sendAmount,
     receiveAmount
   }
@@ -632,8 +622,14 @@ const debouceReceive = _.debounce((props, receiveAmount, currency, coin) => {
   })
 }, 500, { trailing: true })
 
-export default reduxForm({ form: 'SimpleCalcForm' }) (
-  connect(mapStateToProps, { fetchQuote, fetchLimit, fetchConsts, fetchAssets, fetchAccounts }) (
-    withRouter(SimpleCalculator)
+const address = value => walletValidator.validate(value, 'bitcoin') ? undefined : 'Invalid wallet address'
+
+export default reduxForm({ form: 'CalcForm' })(
+  connect(mapStateToProps, { fetchQuote, fetchLimit, fetchConsts, fetchAssets })(
+    Calculator
   )
 )
+
+Calculator.propTypes = {
+  onConfirm: PropTypes.func
+}

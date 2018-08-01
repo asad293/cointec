@@ -47,12 +47,13 @@ export function createOrder({ destAmount, exchangeRate, sourceAmount }) {
             type: CREATE_ORDER_START,
             payload: null
         });
-        axios.post(`${ROOT_URL}/orders/create/buy`,info)
+        return axios.post(`${ROOT_URL}/orders/create/buy`,info)
         .then((response) => {
             dispatch({
                 type: CREATE_ORDER,
                 payload: response
             })
+            return response
         })
         .catch((error) => {
             dispatch({
