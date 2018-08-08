@@ -78,7 +78,7 @@ class SimpleCalculator extends Component {
     const decimalPoint = _.defaultTo(currencySelected && currencySelected.dp, 2)
 
     let sendAmount = value.replace(/[^\d.]/g, '')
-    sendAmount = Number(sendAmount) < limits.Min.SendCurrency ? String(limits.Min.SendCurrency) : sendAmount
+    // sendAmount = Number(sendAmount) < limits.Min.SendCurrency ? String(limits.Min.SendCurrency) : sendAmount
     let pos = sendAmount.indexOf('.')
 
     this.setState({ action: 'sending' })
@@ -114,7 +114,7 @@ class SimpleCalculator extends Component {
     
     let decimalPoint = 8
     let receiveAmount = value.replace(/[^\d.]/g, '')
-    receiveAmount = Number(receiveAmount) < limits.Min.ReceiveCurrency ? String(limits.Min.ReceiveCurrency) : receiveAmount
+    // receiveAmount = Number(receiveAmount) < limits.Min.ReceiveCurrency ? String(limits.Min.ReceiveCurrency) : receiveAmount
     let pos = receiveAmount.indexOf('.')
 
     if (pos >= 0) {

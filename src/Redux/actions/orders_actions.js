@@ -17,24 +17,24 @@ export const STATUS_ORDER_END = 'STATUS_ORDER_END'
 
 const ROOT_URL = 'https://api.staging.cointec.co.uk'
 
-export function createOrder({ destAmount, exchangeRate, sourceAmount }) {
-    let createdAt = new Date();
-    createdAt = createdAt.getTime()/1000.0;
-    console.log('date',createdAt)
+export function createOrder({ destAmount, sourceAmount, sourceCurrency, destCurrency, exchangeRate, dest, ctUser, createdAt }) {
+    // let createdAt = new Date();
+    // createdAt = createdAt.getTime()/1000.0;
+    // console.log('date',createdAt)
     let info = {
-        ctUser: 5,
+        ctUser,//: 5,
         orderReference: 58852233,
         status: 'PAYMENT',
         paymentAccountId: '2233_NATW_JOHN',
         createdAt,
-        //createdAt: '1519575123',
         source: 'Cointec',
+        //createdAt: '1519575123',
         //dest: 'muPs8ToG7vqMC1UKw9afoHW1hBWkpAAQSN n3k5Yzb3z1KTbBZRAZrjiByUxquX4E2beu',
-        dest: 'mohqDQLPpd6iffiQrXr3arBnMvvpZgjwsZ',
-        sourceCurrency: 'GBP',
+        dest,//: 'mohqDQLPpd6iffiQrXr3arBnMvvpZgjwsZ',
+        sourceCurrency,//: 'GBP',
         sourceAmount,
         //sourceAmount: '125',
-        destCurrency: 'BTC',
+        destCurrency,//: 'BTC',
         destAmount,
         //destAmount: '0.125',
         exchangeRate,

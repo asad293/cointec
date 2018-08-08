@@ -21,8 +21,6 @@ class Exchange extends Component {
       receiveCurrency: 'BTC',
       reviewRefreshTime: 60,
       rate: 1200,
-      // wallet: '1KFzzGtDdnq5hrwxXGjwVnKzRbvf8WVxck',
-      // wallet: '38FFqFaqMitzaY2pZ4XTNi89Rk71fadUzU',
       wallet: null,
       ctUser: null,
       isVerified: true,
@@ -34,12 +32,13 @@ class Exchange extends Component {
 
   componentDidMount() {
     let userData = null
+    let user = null
     const token = localStorage.getItem('user')
     try {
       userData = jwt.decode(token, process.env.APP_SECRET_KEY)
+      user = userData && JSON.parse(userData)
     } catch(e) {
     } finally {
-      const user = userData && JSON.parse(userData)
       if (user && user.CtUserId) {
         this.setState({
           ctUser: user.CtUserId
@@ -103,10 +102,10 @@ class Exchange extends Component {
 
         <div className="container">
           <div className="row mt-4">
-            <div className="col-12 col-md-6 col-xl-5 offset-xl-1 text-center">
+            <div className="col-12 col-lg-7 col-xl-6 text-center">
               {frame}
             </div>
-            <div className="info-column col-12 col-md-6 col-xl-4">
+            <div className="info-column col-12 col-lg-4">
               <div>
                 <h6>Send amount limit</h6>
                 <div className="limit-amount">0 GBP</div>

@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { formValueSelector, Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import walletValidator from 'wallet-address-validator'
 import cn from 'classnames'
 import { coins, currencies } from '../SimpleCalculator/exchangeables'
 import { fetchQuote, fetchLimit, fetchConsts, fetchAssets } from '../../Redux/actions'
+import axios from 'axios'
 import _ from 'lodash'
 
 class Calculator extends Component {
@@ -19,16 +19,6 @@ class Calculator extends Component {
       currencySymbol: "£",
       limit: 0,
       limitMin: 15,
-      limits: {
-        Max: {
-          SendCurrency: 0,
-          ReceiveCurrency: 0
-        },
-        Min: {
-          SendCurrency: 15,
-          ReceiveCurrency: 0
-        }
-      },
       buttonIsDisabled: false,
       action: 'sending',
       intervalId: null,
@@ -43,9 +33,6 @@ class Calculator extends Component {
       toggleCoin: false,
       search: false,
       defaultCoin: 'BTC',
-      address: value => {
-        return walletValidator.validate(value, this.state.coinSelected.name || 'bitcoin') ? undefined : 'Invalid wallet address'
-      }
     }
 
     this.onSubmit = this.onSubmit.bind(this)
@@ -68,12 +55,11 @@ class Calculator extends Component {
   }
 
   normalizeSendAmount(value, previousValue) {
-    const { currencySelected, coinSelected, placeholderSendAmount, coins, limits } = this.state
+    const { currencySelected, coinSelected, placeholderSendAmount, coins } = this.state
 
     const decimalPoint = _.defaultTo(currencySelected && currencySelected.dp, 2)
 
     let sendAmount = value.replace(/[^\d.]/g, '')
-    sendAmount = Number(sendAmount) < limits.Min.SendCurrency ? String(limits.Min.SendCurrency) : sendAmount
     let pos = sendAmount.indexOf('.')
 
     this.setState({ action: 'sending' })
@@ -87,13 +73,12 @@ class Calculator extends Component {
     }
 
     if (value !== previousValue) {
-      const currencyName = currencySelected.name
       const coinName = _.defaultTo(coinSelected && coinSelected.name, coins[0].name)
 
       if (sendAmount.length > 0)
-        debouceSend(this.props, sendAmount, currencyName, coinName)
+        debouceSend(this.props, sendAmount, currencySelected, coinName)
       else {
-        debouceSend(this.props, placeholderSendAmount, currencyName, coinName)
+        debouceSend(this.props, placeholderSendAmount, currencySelected, coinName)
         this.props.change('receiveAmount', null)
       }
     }
@@ -105,11 +90,10 @@ class Calculator extends Component {
   }
 
   normalizeReceiveAmount(value, previousValue) {
-    const { currencySelected, coinSelected, placeholderSendAmount, coins, limits } = this.state
+    const { currencySelected, coinSelected, placeholderSendAmount, coins } = this.state
 
     let decimalPoint = 8
     let receiveAmount = value.replace(/[^\d.]/g, '')
-    receiveAmount = Number(receiveAmount) < limits.Min.ReceiveCurrency ? String(limits.Min.ReceiveCurrency) : receiveAmount
     let pos = receiveAmount.indexOf('.')
 
     if (pos >= 0) {
@@ -120,15 +104,14 @@ class Calculator extends Component {
     }
 
     if (value !== previousValue) {
-      const currencyName = currencySelected.name
       const coinName = _.defaultTo(coinSelected && coinSelected.name, coins[0].name)
 
       if (receiveAmount.length > 0) {
         this.setState({ action: 'receiving' })
-        debouceReceive(this.props, receiveAmount, currencyName, coinName)
+        debouceReceive(this.props, receiveAmount, currencySelected, coinName)
       } else {
         // fetch quote to reset default rate
-        debouceSend(this.props, placeholderSendAmount, currencyName, coinName)
+        debouceSend(this.props, placeholderSendAmount, currencySelected, coinName)
         this.props.change('sendAmount', null)
         this.setState({ action: 'sending' })
       }
@@ -265,8 +248,7 @@ class Calculator extends Component {
 
   updateLimit(props) {
     this.setState({
-      limit: props.limit.limit ? props.limit.limit : this.state.limit,
-      limits: props.quote.Limits ? props.quote.Limits : this.state.limits
+      limit: props.limit.limit ? props.limit.limit : this.state.limit
     })
 
     if (props.limit.const) {
@@ -304,21 +286,18 @@ class Calculator extends Component {
         }
       })
 
-      const defaultCoin = this.state.currencySelected && this.state.currencySelected.name === 'GBP'
-        ? updatedCoins.find(coin => coin.name === this.state.defaultCoin)
-        : (updatedCoins.length ? updatedCoins[0] : false)
-
-      let prev = this.state.coinSelected ? this.state.coinSelected.name : false
-      const coinSelected = !this.state.coinSelected && updatedCoins.length
-        ? defaultCoin
-        : this.state.coinSelected
+      const prev = this.state.coinSelected ? this.state.coinSelected.name : false
+      const coinSelected = this.state.coinSelected
+      ? updatedCoins.find(coin => coin.name === this.state.coinSelected.name)
+      : (updatedCoins.length ? updatedCoins[0] : false)
 
       this.setState({
         coins: updatedCoins,
         coinSelected,
         placeholderSendAmount: coinSelected ? coinSelected.DefaultQuoteAmount : this.state.placeholderSendAmount,
       }, () => {
-        if (prev != coinSelected.name) {
+        this.props.change('receiveCurrency', coinSelected ? coinSelected.name : false)
+        if (coinSelected && prev != coinSelected.name) {
           this.fetchCalls()
         }
       })
@@ -328,11 +307,11 @@ class Calculator extends Component {
   updateButtonState(props) {
     this.setState({
       buttonIsDisabled: props.sendAmount ? (
-        // this.state.limit < props.sendAmount ||
-        // this.state.limitMin > props.sendAmount ||
-        this.state.limits.Max.SendCurrency < props.sendAmount ||
-        this.state.limits.Min.SendCurrency > props.sendAmount ||
-        !props.validWallet
+        (props.quote.Limits && props.quote.Limits.Max.SendCurrency) < props.sendAmount ||
+        (props.quote.Limits && props.quote.Limits.Min.SendCurrency) > props.sendAmount ||
+        !props.wallet ||
+        props.asyncValidating ||
+        !props.valid
       ) : true
     })
   }
@@ -346,6 +325,7 @@ class Calculator extends Component {
           autoComplete="off"
           spellCheck={false}
           placeholder={placeholder}
+          onBlur={field.input.onBlur}
           className="form-control no-border p-0"
           {...field.input} />
       </div>
@@ -353,7 +333,7 @@ class Calculator extends Component {
   }
 
   renderWalletField(field) {
-    const { placeholder, meta: { touched, valid, error }, label } = field
+    const { placeholder, meta: { touched, valid, error, asyncValidating }, label } = field
 
     return (
       <div className={cn('calc-input-wrapper', 'text-left', touched && !valid ? 'invalid' : null)}>
@@ -369,6 +349,7 @@ class Calculator extends Component {
               placeholder={placeholder}
               className="form-control no-border p-0"
               {...field.input} />
+            {asyncValidating ? <i className="fas fa-spinner-third fa-lg fa-spin mr-3"></i>: ''}
           </div>
         </div>
       </div>
@@ -391,13 +372,19 @@ class Calculator extends Component {
       coinSelected: coin,
       toggleCoin: false,
       coinSearch: ''
-    }, () => this.fetchCalls())
+    }, () => {
+      this.fetchCalls()
+      setTimeout(() => { // trigger form validation with delay
+        const addrInput = document.getElementById('input-wallet-addr')
+        addrInput.focus()
+        addrInput.blur()
+      }, 300)
+    })
   }
 
   onCurrencySelected(currency) {
     this.setState({
       currencySelected: currency,
-      coinSelected: false,
       toggleCurrency: false
     }, () => this.fetchCalls())
   }
@@ -420,6 +407,8 @@ class Calculator extends Component {
     let currencies = this.state.currencies
     if (this.state.coinSearch)
       coins = this.state.coins.filter(coin => this.filterCoins(coin))
+    
+    const { sendAmount, receiveAmount, quote } = this.props
 
     const ExchangeableItem = ({ exchangeable, onItemSelected, status, unavailable }) => (
       <div>
@@ -438,9 +427,9 @@ class Calculator extends Component {
     return (
       <div className="main-calc-wrapper">
         <form onSubmit={this.onSubmit}>
-          <div className={cn('calc-input-wrapper text-left', this.state.limits.Max.SendCurrency < this.props.sendAmount ? 'invalid' : null)}>
+          <div className={cn('calc-input-wrapper text-left', quote.Limits && quote.Limits.Max.SendCurrency < sendAmount ? 'invalid' : null)}>
             <label className="field-label m-0">
-              {this.state.limits.Max.SendCurrency < this.props.sendAmount ? 'Limit exceeded' : 'You send'}
+              {quote.Limits && quote.Limits.Max.SendCurrency < sendAmount ? 'Limit exceeded' : 'You send'}
             </label>
             <div className="calc-field">
               <div className="col-6 col-xl-7 pr-0">
@@ -494,9 +483,9 @@ class Calculator extends Component {
               </div>
             </div>
           </div>
-          <div className={cn('calc-input-wrapper text-left', this.state.limits.Max.ReceiveCurrency < this.props.receiveAmount ? 'invalid' : null)}>
+          <div className={cn('calc-input-wrapper text-left', quote.Limits && quote.Limits.Max.ReceiveCurrency < receiveAmount ? 'invalid' : null)}>
             <label className="field-label m-0">
-              {this.state.limits.Max.ReceiveCurrency < this.props.receiveAmount ? 'Receive limit exceeded' : 'You receive'}
+              {quote.Limits && quote.Limits.Max.ReceiveCurrency < receiveAmount ? 'Receive limit exceeded' : 'You receive'}
             </label>
             <div className="calc-field">
               <div className="col-6 col-xl-7 pr-0">
@@ -564,10 +553,13 @@ class Calculator extends Component {
             </div>
           </div>
           <Field
+            name="receiveCurrency"
+            component={field => <input type="hidden" {...field.input} />} />
+          <Field
             name="wallet"
             label="Wallet address"
             component={this.renderWalletField}
-            validate={this.state.address}
+            // validate={this.state.address}
             placeholder="Wallet Address" />
           <h6 className="exchange-rate mt-3">
             <b>{
@@ -593,38 +585,53 @@ const mapStateToProps = state => {
   sendAmount = Number.parseFloat(sendAmount.split(" ")[1])
   const receiveAmount = Number.parseFloat(selector(state, 'receiveAmount'))
   const wallet = selector(state, 'wallet')
-  const validWallet = walletValidator.validate(wallet, state.quote.QuoteReceiveCurrency || 'bitcoin')
-  // console.log(state.quote.QuoteReceiveCurrency, validWallet)
 
   return {
     quote: state.quote,
     limit: state.limit,
     wallet,
-    validWallet,
     sendAmount,
     receiveAmount
   }
 }
 
 const debouceSend = _.debounce((props, sendAmount, currency, coin) => {
+  if (props.quote.Limits && sendAmount < props.quote.Limits.Min.SendCurrency) {
+    sendAmount = props.quote.Limits.Min.SendCurrency
+    props.change('sendAmount', currency.symbol + ' ' +Number.parseFloat(sendAmount).toFixed(currency.dp))
+  }
   props.fetchQuote({
-    SendCurrency: currency,
+    SendCurrency: currency.name,
     ReceiveCurrency: coin,
     SendAmount: Number.parseFloat(sendAmount)
   })
 }, 500, { trailing: true })
 
 const debouceReceive = _.debounce((props, receiveAmount, currency, coin) => {
+  if (props.quote.Limits && receiveAmount < props.quote.Limits.Min.ReceiveCurrency) {
+    receiveAmount = props.quote.Limits.Min.ReceiveCurrency
+    props.change('receiveAmount', Number.parseFloat(receiveAmount).toFixed(8))
+  }
   props.fetchQuote({
-    SendCurrency: currency,
+    SendCurrency: currency.name,
     ReceiveCurrency: coin,
     ReceiveAmount: Number.parseFloat(receiveAmount)
   })
 }, 500, { trailing: true })
 
-const address = value => walletValidator.validate(value, 'bitcoin') ? undefined : 'Invalid wallet address'
+const asyncValidate = ({ wallet, receiveCurrency }) => wallet ? axios
+  .get(`https://shapeshift.io/validateAddress/${wallet}/${receiveCurrency}`)
+  .then(res => {
+    if (!res.data.isvalid)
+      throw { wallet: 'Invalid wallet address' }
+  }) : Promise.reject({ wallet: 'Invalid wallet address' })
 
-export default reduxForm({ form: 'CalcForm' })(
+export default reduxForm({
+  form: 'CalcForm',
+  asyncValidate,
+  asyncChangeFields: [ 'wallet', 'receiveCurrency' ],
+  asyncBlurFields: [ 'wallet' ]
+})(
   connect(mapStateToProps, { fetchQuote, fetchLimit, fetchConsts, fetchAssets })(
     Calculator
   )

@@ -7,7 +7,8 @@ import PropTypes from 'prop-types'
 import Recaptcha from 'react-grecaptcha'
 import Clipboard from 'react-clipboard.js'
 
-const sitekey = '6Ld5nFUUAAAAANRvB37_utUYF0-keXqw_i105cGm'
+// const sitekey = '6Ld5nFUUAAAAANRvB37_utUYF0-keXqw_i105cGm'
+const sitekey = '6LcopGcUAAAAALwksZY5mpplDNxtR8trVNiyMyRY'
 
 class ReviewForm extends Component {
   constructor() {
@@ -115,7 +116,7 @@ class ReviewForm extends Component {
           </div>
           <div className="row">
             <div className="col-md-12 text-left">
-              <label className="field-label m-0">External wallet address</label>
+              <label className="field-label m-0 d-flex">External wallet address</label>
               <Clipboard className="field-value wallet-field text-nowrap" data-clipboard-text={wallet}>
                 <p>{wallet} <i className="ml-2 far fa-copy"></i></p>
               </Clipboard>

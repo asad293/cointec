@@ -471,10 +471,20 @@ header.bg-gradient {
                 color: #040506;
                 line-height: normal;
             }
+            i {
+                position: absolute;
+                right: 0;
+                top: 5px;
+            }
 
             &:active, &:focus-within {
                 border: 1px solid #045CC7;
             }
+        i {
+            position: absolute;
+            right: 0;
+            top: 5px;
+        }
         }
         .dropdown-currency-select {
             height: 23px;
@@ -545,6 +555,13 @@ header.bg-gradient {
         border-radius: 2px;
         i {
             color: #045CC7;
+        }
+    }
+    .transaction-row.sent {
+        background: linear-gradient(270deg, #2B8BFF 0%, #0343BE 100%);
+        color: white;
+        i {
+            color: white;
         }
     }
     .exchange-rate {

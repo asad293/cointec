@@ -12,9 +12,8 @@ class TransactionTracker extends Component {
       timerId: null,
       timer: 0,
       refreshTime: 10,
-      status: null,
+      clear: false,
       pollTime: 30,
-      createdAt: new Date(),
     }
     this.tick = this.tick.bind(this)
   }
@@ -28,6 +27,7 @@ class TransactionTracker extends Component {
   }
 
   componentWillMount() {
+    const createdAt = new Date().getTime() / 1000.0
     this.props.createOrder({
       destAmount: this.props.receiveAmount, 
       sourceAmount: this.props.sendAmount,
@@ -36,14 +36,14 @@ class TransactionTracker extends Component {
       exchangeRate: this.props.rate,
       dest: this.props.wallet,
       ctUser: this.props.ctUser,
-      createdAt: this.state.createdAt
+      createdAt
     })
     .then(response => {
-      console.log(response, this.props.order)
+      // console.log(response, this.props.order)
       if (response && response.status === 200) {
         this.props.clearOrder(this.props.order.create.CtTransactionId)
         let timerId = setInterval(this.tick, 1000)
-        this.setState({ status: 'clear', timerId })
+        this.setState({ clear: true, timerId })
       }
     })
   }
@@ -57,17 +57,29 @@ class TransactionTracker extends Component {
 
     return (
       <div className="main-calc-wrapper">
-        {this.state.status === 'clear' ?
+        {status && status.Status.SETTELED ?
+        <div className={cn('d-flex justify-content-between transaction-row px-4 py-3', this.state.Status.SENT ? 'sent' : '')}>
+          <div>
+            {!status.Status.SENT
+            ? <i className="fas fa-spinner-third fa-lg fa-spin mr-3"></i>
+            : <i className="far fa-check fa-lg mr-3"></i>}
+            Coin Sent
+          </div>
+          {status.Status.SENT ? <div>
+            <Moment format="hh:mm A">{status.Status.SENT}</Moment>
+          </div> : ''}
+        </div>: ''}
+        {status && status.Status.CLEARING ?
         <div className="d-flex justify-content-between transaction-row px-4 py-3">
           <div>
-            {create && loading
+            {!status.Status.SETTELED
             ? <i className="fas fa-spinner-third fa-lg fa-spin mr-3"></i>
             : <i className="far fa-check fa-lg mr-3"></i>}
             Payment received
           </div>
-          <div>
-            <Moment format="hh:mm A">{status.Status.CREATED}</Moment>
-          </div>
+          {status.Status.SETTELED ? <div>
+            <Moment format="hh:mm A">{status.Status.SETTELED}</Moment>
+          </div>: ''}
         </div>: ''}
         <div className="d-flex justify-content-between transaction-row mt-4 px-3 py-2 px-md-4 py-md-3">
           <div>
@@ -77,8 +89,8 @@ class TransactionTracker extends Component {
             <i className="far fa-check fa-lg mr-3"></i>}
             {`${error ? error.response.data.Message : 'You sent payment'}`}
           </div>
-          {!error ? <div className="text-nowrap">
-            <Moment format="hh:mm A">{this.state.createdAt}</Moment>
+          {status && status.Status.CLEARING && !error ? <div className="text-nowrap">
+            <Moment format="hh:mm A">{status.Status.CLEARING}</Moment>
           </div>: ''}
         </div>
         {/* <hr />
