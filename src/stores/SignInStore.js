@@ -2,6 +2,7 @@ import { action, observable } from 'mobx'
 import Form from '../helpers/Form'
 import api from '../api'
 import authStore from './AuthStore'
+import jwt from 'jwt-simple'
 
 const validators = {
     email: value => {
@@ -47,10 +48,17 @@ class SignInStore {
     }
 
     @action signInSuccess(data) {
+        if (data) {
+            const userData = JSON.stringify(data)
+            const token = jwt.encode(userData, process.env.APP_SECRET_KEY)
+            localStorage.setItem('user', token)
+        }
+        
         this.responseError = false
         this.inProgress = false
         this.form.reset()
-        authStore.setAuthenticated(data.Success)
+        authStore.setAuthenticated(true)
+        return data
     }
 
     @action togglePassword() {

@@ -5,8 +5,9 @@ import { fetchQuote, fetchLimit, fetchConsts, fetchAssets, fetchAccounts } from 
 import { connect } from "react-redux";
 import "./style.scss";
 import cn from "classnames";
-import walletValidator from 'wallet-address-validator';
 import { coins, currencies } from './exchangeables';
+import { withRouter } from 'react-router';
+import _ from 'lodash'
 
 class SimpleCalculator extends Component {
   constructor(props) {
@@ -18,6 +19,16 @@ class SimpleCalculator extends Component {
       currencySymbol: "£",
       limit: 0,
       limitMin: 15,
+      limits: {
+        Max: {
+          SendCurrency: 0,
+          ReceiveCurrency: 0
+        },
+        Min: {
+          SendCurrency: 15,
+          ReceiveCurrency: 0
+        }
+      },
       // buttonIsDisabled: false,
       screen: 'first',
       action: 'sending',
@@ -62,10 +73,12 @@ class SimpleCalculator extends Component {
   }
 
   normalizeSendAmount(value, previousValue) {
-    // const decimalPoint = 2
-    const decimalPoint = this.state.currencySelected ? this.state.currencySelected.dp : 2
+    const { currencySelected, coinSelected, placeholderSendAmount, coins, limits } = this.state
+
+    const decimalPoint = _.defaultTo(currencySelected && currencySelected.dp, 2)
 
     let sendAmount = value.replace(/[^\d.]/g, '')
+    // sendAmount = Number(sendAmount) < limits.Min.SendCurrency ? String(limits.Min.SendCurrency) : sendAmount
     let pos = sendAmount.indexOf('.')
 
     this.setState({ action: 'sending' })
@@ -79,61 +92,54 @@ class SimpleCalculator extends Component {
     }
 
     if (value !== previousValue) {
+      const currencyName = currencySelected.name
+      const coinName = _.defaultTo(coinSelected && coinSelected.name, coins[0].name)
+
       if (sendAmount.length > 0)
-        this.props.fetchQuote({
-          SendCurrency: this.state.currencySelected.name,
-          ReceiveCurrency: this.state.coinSelected ? this.state.coinSelected.name : this.state.coins[0].name,
-          SendAmount: Number.parseFloat(sendAmount)
-        })
+        debouceSend(this.props, sendAmount, currencyName, coinName)
       else {
-        this.props.fetchQuote({
-          SendCurrency: this.state.currencySelected.name,
-          ReceiveCurrency: this.state.coinSelected ? this.state.coinSelected.name : this.state.coins[0].name,
-          SendAmount: Number.parseFloat(this.state.placeholderSendAmount)
-        })
-        this.props.change('receiveAmount', null);
+        debouceSend(this.props, placeholderSendAmount, currencyName, coinName)
+        this.props.change('receiveAmount', null)
       }
     }
 
     if (sendAmount.length > 0)
-      return (this.state.currencySelected ? this.state.currencySelected.symbol : '£') + ' ' + sendAmount;
+      return (currencySelected ? currencySelected.symbol : '£') + ' ' + sendAmount
     else
-      return sendAmount;
+      return sendAmount
   }
 
   normalizeReceiveAmount(value, previousValue) {
-    let decimalPoint = 8;
-    let receiveAmount = value.replace(/[^\d.]/g, '');
-    let pos = receiveAmount.indexOf('.');
+    const { currencySelected, coinSelected, placeholderSendAmount, coins, limits } = this.state
+    
+    let decimalPoint = 8
+    let receiveAmount = value.replace(/[^\d.]/g, '')
+    // receiveAmount = Number(receiveAmount) < limits.Min.ReceiveCurrency ? String(limits.Min.ReceiveCurrency) : receiveAmount
+    let pos = receiveAmount.indexOf('.')
 
     if (pos >= 0) {
       // prevent an extra decimal point
-      if (receiveAmount.indexOf('.', pos + 1) > 0) receiveAmount = receiveAmount.substring(0, pos + 1);
+      if (receiveAmount.indexOf('.', pos + 1) > 0) receiveAmount = receiveAmount.substring(0, pos + 1)
       // allow up to 2 dp
-      if (receiveAmount.length - pos > 2) receiveAmount = receiveAmount.substring(0, pos + 1 + decimalPoint);
+      if (receiveAmount.length - pos > 2) receiveAmount = receiveAmount.substring(0, pos + 1 + decimalPoint)
     }
 
     if (value !== previousValue) {
+      const currencyName = currencySelected.name
+      const coinName = _.defaultTo(coinSelected && coinSelected.name, coins[0].name)
+
       if (receiveAmount.length > 0) {
         this.setState({ action: 'receiving' })
-        this.props.fetchQuote({
-          SendCurrency: this.state.currencySelected.name,
-          ReceiveCurrency: this.state.coinSelected ? this.state.coinSelected.name : this.state.coins[0].name,
-          ReceiveAmount: Number.parseFloat(receiveAmount)
-        })
+        debouceReceive(this.props, receiveAmount, currencyName, coinName)
       } else {
         // fetch quote to reset default rate
-        this.props.fetchQuote({
-          SendCurrency: this.state.currencySelected.name,
-          ReceiveCurrency: this.state.coinSelected ? this.state.coinSelected.name : this.state.coins[0].name,
-          SendAmount: Number.parseFloat(this.state.placeholderSendAmount)
-        })
-        this.props.change('sendAmount', null);
-        // this.setState({ active: "gbp" });
+        debouceSend(this.props, placeholderSendAmount, currencyName, coinName)
+        this.props.change('sendAmount', null)
         this.setState({ action: 'sending' })
       }
     }
-    return receiveAmount;
+    
+    return receiveAmount
   }
 
 
@@ -284,9 +290,10 @@ class SimpleCalculator extends Component {
   // }
 
   updateLimit(props) {
-    if (props.limit.limit) {
-      this.setState({ limit: props.limit.limit })
-    }
+    this.setState({
+      limit: props.limit.limit ? props.limit.limit : this.state.limit,
+      limits: props.quote.Limits ? props.quote.Limits : this.state.limits
+    })
 
     if (props.limit.const) {
       let interval = props.limit.const.Frame1Refresh
@@ -308,7 +315,7 @@ class SimpleCalculator extends Component {
   }
 
   updateCoins(props) {
-    let updatedCoins = []//this.state.coins
+    let updatedCoins = []
 
     if (props.limit.assets && this.state.currencySelected) {
       Object.keys(props.limit.assets).forEach((assetPair) => {
@@ -317,13 +324,6 @@ class SimpleCalculator extends Component {
           const coin = coins.find(coin => assetPair.indexOf(coin.name) === 3)
           if (coin) {
             coin.DefaultQuoteAmount = asset.Send.DefaultQuoteAmount
-            // if (asset.Send.Status === 'DISABLED') {
-            //   coin.disabled = true
-            // } else if (asset.Send.Status === 'UNAVAILABLE') {
-            //   coin.unavailable = true
-            // } else  {
-            //   coin.available = true
-            // }
             coin.Status = asset.Send.Status
             updatedCoins.push(coin)
           }
@@ -366,7 +366,8 @@ class SimpleCalculator extends Component {
           buttonClass,
           buttonState
         )}
-        data-toggle="modal" data-target="#subscribe-modal"
+        onClick={(e) => { e.preventDefault(); this.props.history.push('/exchange') }}
+        // data-toggle="modal" data-target="#subscribe-modal"
         disabled={buttonState}>
         Instant Exchange
       </button>
@@ -615,8 +616,24 @@ const mapStateToProps = state => {
   }
 }
 
+const debouceSend = _.debounce((props, sendAmount, currency, coin) => {
+  props.fetchQuote({
+    SendCurrency: currency,
+    ReceiveCurrency: coin,
+    SendAmount: Number.parseFloat(sendAmount)
+  })
+}, 500, { trailing: true })
+
+const debouceReceive = _.debounce((props, receiveAmount, currency, coin) => {
+  props.fetchQuote({
+    SendCurrency: currency,
+    ReceiveCurrency: coin,
+    ReceiveAmount: Number.parseFloat(receiveAmount)
+  })
+}, 500, { trailing: true })
+
 export default reduxForm({ form: 'SimpleCalcForm' }) (
   connect(mapStateToProps, { fetchQuote, fetchLimit, fetchConsts, fetchAssets, fetchAccounts }) (
-    SimpleCalculator
+    withRouter(SimpleCalculator)
   )
 )

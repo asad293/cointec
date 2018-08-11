@@ -3,6 +3,16 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const historyApiFallback = require('connect-history-api-fallback');
 const autoprefixer = require('autoprefixer');
+const dotenv = require('dotenv');
+
+// call dotenv and it will return an Object with a parsed key 
+const env = dotenv.config().parsed;
+  
+// reduce it to a nice object, the same as before
+const envKeys = Object.keys(env).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(env[next]);
+  return prev;
+}, {});
 
 module.exports = {
     entry: './src/app.js',
@@ -95,6 +105,7 @@ module.exports = {
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
             Popper: ['popper.js', 'default']
-        })
+        }),
+        new webpack.DefinePlugin(envKeys)
     ]
 }

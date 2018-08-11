@@ -23,7 +23,11 @@ class SignIn extends Component {
         }
     }
 
-    authComplete = () => this.props.history.push('/')
+    authComplete = response => {
+        const { history } = this.props
+        if (history.location.state && history.location.state.redirectPath)
+            history.push(history.location.state.redirectPath)
+    }
 
     render() {
         const { form, passwordVisible, inProgress, responseError } = this.props.signInStore
