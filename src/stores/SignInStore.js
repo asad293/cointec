@@ -39,7 +39,7 @@ class SignInStore {
         this.inProgress = true
 
         return api.signIn(this.form.data)
-            .then(({ data }) => this.signInSuccess(data))
+            .then((res) => this.signInSuccess(res.data))
             .catch(action((err) => {
                 this.responseError = true
                 this.inProgress = false

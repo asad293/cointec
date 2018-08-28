@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Cookie from 'js-cookie'
 
 export const FETCH_ACCOUNTS = 'FETCH_ACCOUNTS'
 export const FETCH_ACCOUNTS_START = 'FETCH_ACCOUNTS_START'
@@ -10,13 +11,17 @@ export const ADD_ACCOUNT_END = 'ADD_ACCOUNT_END'
 
 const ROOT_URL = 'https://api.staging.cointec.co.uk'
 
-export function fetchAccounts(userID) {
+export function fetchAccounts(ctUser) {
     return (dispatch) => {
         dispatch({
             type: FETCH_ACCOUNTS_START,
             payload: null
         });
-        axios.get(`${ROOT_URL}/accounts/${userID}/bank-accounts`)
+        const headers = {
+            'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+            'CT-ACCOUNT-ID': ctUser
+        }
+        axios.get(`${ROOT_URL}/accounts/${ctUser}/bank-accounts`, { headers })
         .then((response) => {
             dispatch({
                 type: FETCH_ACCOUNTS,
@@ -32,7 +37,7 @@ export function fetchAccounts(userID) {
     }
 }
 
-export function addAccount(userID, values) {
+export function addAccount(ctUser, values) {
 
     const post = {
         AccountOwner: 'Farogh Kohistani',
@@ -45,14 +50,14 @@ export function addAccount(userID, values) {
             type: ADD_ACCOUNT_START,
             payload: null
         });
-        axios.post(`${ROOT_URL}/accounts/${userID}/bank-accounts/add`,post)
+        axios.post(`${ROOT_URL}/accounts/${ctUser}/bank-accounts/add`,post)
         .then((response) => {
             dispatch({
                 type: ADD_ACCOUNT,
                 payload: response
             })
             // fetch newly added accounts
-            dispatch(fetchAccounts(userID))
+            dispatch(fetchAccounts(ctUser))
         })
         .catch((error) => {
             dispatch({

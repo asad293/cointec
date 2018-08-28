@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class Header extends Component {
     render() {
         return (
-            <header className="bg-gradient bg-primary-gradient">
+            <header className={this.props.background === 'gradient' ? 'bg-gradient bg-primary-gradient' : 'bg-solid'}>
                 {this.props.children}
             </header>
         )

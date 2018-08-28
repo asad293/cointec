@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Moment from 'react-moment'
 import cn from 'classnames'
-import { createOrder, clearOrder, abandonOrder, getStatus } from '../../../Redux/actions'
+import { clearOrder, abandonOrder, getStatus } from '../../../Redux/actions'
 
 class TransactionTracker extends Component {
   constructor() {
@@ -19,7 +19,7 @@ class TransactionTracker extends Component {
   }
 
   tick() {
-    console.log(this.props.order)
+    // console.log(this.props.order)
     if (this.props.order.create && this.state.timer % this.state.pollTime === 0)
       this.props.getStatus(this.props.order.create.CtTransactionId)
   
@@ -27,25 +27,25 @@ class TransactionTracker extends Component {
   }
 
   componentWillMount() {
-    const createdAt = new Date().getTime() / 1000.0
-    this.props.createOrder({
-      destAmount: this.props.receiveAmount, 
-      sourceAmount: this.props.sendAmount,
-      destCurrency: this.props.receiveCurrency, 
-      sourceCurrency: this.props.sendCurrency,
-      exchangeRate: this.props.rate,
-      dest: this.props.wallet,
-      ctUser: this.props.ctUser,
-      createdAt
-    })
-    .then(response => {
-      // console.log(response, this.props.order)
-      if (response && response.status === 200) {
-        this.props.clearOrder(this.props.order.create.CtTransactionId)
-        let timerId = setInterval(this.tick, 1000)
-        this.setState({ clear: true, timerId })
-      }
-    })
+    // const createdAt = new Date().getTime() / 1000.0
+    // this.props.createOrder({
+    //   destAmount: this.props.receiveAmount, 
+    //   sourceAmount: this.props.sendAmount,
+    //   destCurrency: this.props.receiveCurrency, 
+    //   sourceCurrency: this.props.sendCurrency,
+    //   exchangeRate: this.props.rate,
+    //   dest: this.props.wallet,
+    //   ctUser: this.props.ctUser,
+    //   createdAt
+    // })
+    // .then(response => {
+    //   // console.log(response, this.props.order)
+    //   if (response && response.status === 200) {
+    //     this.props.clearOrder(this.props.order.create.CtTransactionId)
+    //     let timerId = setInterval(this.tick, 1000)
+    //     this.setState({ clear: true, timerId })
+    //   }
+    // })
   }
 
   componentWillUnmount() {
@@ -57,7 +57,7 @@ class TransactionTracker extends Component {
 
     return (
       <div className="main-calc-wrapper">
-        {status && status.Status.SETTELED ?
+        {status && status.Status.SETTLED ?
         <div className={cn('d-flex justify-content-between transaction-row px-4 py-3', this.state.Status.SENT ? 'sent' : '')}>
           <div>
             {!status.Status.SENT
@@ -72,13 +72,13 @@ class TransactionTracker extends Component {
         {status && status.Status.CLEARING ?
         <div className="d-flex justify-content-between transaction-row px-4 py-3">
           <div>
-            {!status.Status.SETTELED
+            {!status.Status.SETTLED
             ? <i className="fas fa-spinner-third fa-lg fa-spin mr-3"></i>
             : <i className="far fa-check fa-lg mr-3"></i>}
             Payment received
           </div>
-          {status.Status.SETTELED ? <div>
-            <Moment format="hh:mm A">{status.Status.SETTELED}</Moment>
+          {status.Status.SETTLED ? <div>
+            <Moment format="hh:mm A">{status.Status.SETTLED}</Moment>
           </div>: ''}
         </div>: ''}
         <div className="d-flex justify-content-between transaction-row mt-4 px-3 py-2 px-md-4 py-md-3">
@@ -108,19 +108,23 @@ class TransactionTracker extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    order: state.order
+    // order: state.order
   }
 }
 
 TransactionTracker.propTypes = {
-  // txnID: PropTypes.number,
-  sendAmount: PropTypes.number,
-  receiveAmount: PropTypes.number,
-  sendCurrency: PropTypes.string,
-  receiveCurrency: PropTypes.string,
-  rate: PropTypes.number,
-  wallet: PropTypes.string,
-  ctUser: PropTypes.number
+  txnID: PropTypes.number,
+  // sendAmount: PropTypes.number,
+  // receiveAmount: PropTypes.number,
+  // sendCurrency: PropTypes.string,
+  // receiveCurrency: PropTypes.string,
+  // rate: PropTypes.number,
+  // wallet: PropTypes.string,
+  // ctUser: PropTypes.number
 }
 
-export default connect(mapStateToProps, { createOrder, clearOrder, abandonOrder, getStatus })(TransactionTracker)
+export default connect(mapStateToProps, {
+  // clearOrder,
+  abandonOrder,
+  getStatus
+})(TransactionTracker)

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 
 class Subscribe extends Component {
   render() {
@@ -11,15 +12,16 @@ class Subscribe extends Component {
               <div className="col-12 col-md-8 col-lg-6 mx-auto text-center">
 
                 <h2 className="start-buying-title mb-5 text-white">
-                  Subscribe for <strong>early access.</strong>
+                  {/* Subscribe for <strong>early access.</strong> */}
+                  Get started today
                 </h2>
 
                 <div className="form-group mb-2">
                   <button
-                    className="btn btn-success py-2 px-4 col-sm-4"
-                    data-toggle="modal"
-                    data-target="#subscribe-modal">
-                    Subscribe
+                    className="btn btn-outline-success py-2 px-4" onClick={() => this.props.history.push('/signup')}>
+                    {/* data-toggle="modal"
+                    data-target="#subscribe-modal"> */}
+                    Create an account
                   </button>
                 </div>
 
@@ -33,4 +35,4 @@ class Subscribe extends Component {
   }
 }
 
-export default Subscribe
+export default withRouter(Subscribe)

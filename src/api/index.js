@@ -14,7 +14,7 @@ const api = {
             Authorization: 'Basic ' + btoa(data.email + ':' + data.password)
         }
 
-        return axios.get(url.SIGN_IN, { headers })
+        return axios.get(url.SIGN_IN, { headers, withCredentials: true })
     },
 
     signUp: (data) => {

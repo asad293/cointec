@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-class Navbar extends Component {
+class Nav extends Component {
   render() {
     return (
       <div className="container">
@@ -23,12 +23,15 @@ class Navbar extends Component {
               alt="Menu Icon" />
           </button> */}
 
-          <div className="multistep-wrapper">
+          {/* <div className="multistep-wrapper">
             <ul className="multistep-bar">
               <li className="active"><label>Amount</label></li>
               <li><label>Summary</label></li>
               <li><label>Payment</label></li>
             </ul>
+          </div> */}
+          <div className="w-100 text-center d-none d-lg-block">
+            <h5 className="text-white">{this.props.heading}</h5>
           </div>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -46,4 +49,4 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar
+export default Nav

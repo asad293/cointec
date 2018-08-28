@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Cookie from 'js-cookie'
 export const CREATE_ORDER = 'CREATE_ORDER'
 export const CREATE_ORDER_START = 'CREATE_ORDER_START'
 export const CREATE_ORDER_END = 'CREATE_ORDER_END'
@@ -25,7 +26,7 @@ export function createOrder({ destAmount, sourceAmount, sourceCurrency, destCurr
         ctUser,//: 5,
         orderReference: 58852233,
         status: 'PAYMENT',
-        paymentAccountId: '2233_NATW_JOHN',
+        paymentAccountId: '',
         createdAt,
         source: 'Cointec',
         //createdAt: '1519575123',
@@ -41,13 +42,16 @@ export function createOrder({ destAmount, sourceAmount, sourceCurrency, destCurr
         //exchangeRate: '1.34',
     }
     console.log('createOrder',info);
-
+    const headers = {
+        'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+        'CT-ACCOUNT-ID': ctUser
+    }
     return (dispatch) => {
         dispatch({
             type: CREATE_ORDER_START,
             payload: null
         });
-        return axios.post(`${ROOT_URL}/orders/create/buy`,info)
+        return axios.post(`${ROOT_URL}/orders/create/buy`,info, { headers })
         .then((response) => {
             dispatch({
                 type: CREATE_ORDER,
@@ -64,14 +68,18 @@ export function createOrder({ destAmount, sourceAmount, sourceCurrency, destCurr
     }
 }
 
-export function clearOrder(orderId) {
-    console.log('clearing order: ', orderId);
+export function clearOrder({orderId, accountId, ctUser}) {
+    console.log('clearing order: ', orderId, accountId);
     return (dispatch) => {
         dispatch({
             type: CLEAR_ORDER_START,
             payload: null
         });
-        axios.get(`${ROOT_URL}/orders/clearing/${orderId}`)
+        const headers = {
+            'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+            'CT-ACCOUNT-ID': ctUser
+        }
+        axios.get(`${ROOT_URL}/orders/clearing/${orderId}/${accountId}`, { headers })
         .then((response) => {
             dispatch({
                 type: CLEAR_ORDER,
@@ -87,14 +95,20 @@ export function clearOrder(orderId) {
     }
 }
 
-export function abandonOrder(orderId) {
+export function abandonOrder({ orderId, ctUser }) {
     console.log('abandon order: ', orderId);
     return (dispatch) => {
         dispatch({
             type: ABANDON_ORDER_START,
             payload: null
         });
-        axios.get(`${ROOT_URL}/orders/abandon/${orderId}`)
+
+        
+        const headers = {
+            'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+            'CT-ACCOUNT-ID': ctUser
+        }
+        axios.get(`${ROOT_URL}/orders/abandon/${orderId}`, { headers })
         .then((response) => {
             dispatch({
                 type: ABANDON_ORDER,
@@ -110,14 +124,19 @@ export function abandonOrder(orderId) {
     }
 }
 
-export function getStatus(orderId) {
+export function getStatus({ orderId, ctUser }) {
     console.log('status order: ', orderId);
     return (dispatch) => {
         dispatch({
             type: STATUS_ORDER_START,
             payload: null
         });
-        axios.get(`${ROOT_URL}/orders/status/${orderId}`)
+        
+        const headers = {
+            'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+            'CT-ACCOUNT-ID': ctUser
+        }
+        axios.get(`${ROOT_URL}/orders/status/${orderId}`, { headers })
         .then((response) => {
             dispatch({
                 type: STATUS_ORDER,
