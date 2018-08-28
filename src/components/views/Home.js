@@ -3,15 +3,10 @@ import { Link } from 'react-router-dom'
 
 import Header from '../core/Header'
 import Navbar from '../core/Navbar'
-// import BetaBand from './Home/BetaBand'
-// import Features from './Home/Features'
 import HowTo from './Home/HowTo'
 import DigitalCurrencies from './Home/DigitalCurrencies'
-// import TrustInfo from './Home/TrustInfo'
-// import UserReviews from './Home/UserReviews'
 import Security from './Home/Security'
 import Subscribe from './Home/Subscribe'
-// import CurrentDevelopment from './Home/CurrentDevelopment'
 import Tracking from './Home/Tracking'
 import Footer from '../core/Footer'
 import SimpleCalculator from '../SimpleCalculator'
@@ -24,12 +19,7 @@ class Home extends Component {
             <div>
                 <Header background="gradient">
                     <Navbar />
-                    <hr className="m-0" style={{borderTop: '1px solid rgba(255, 255, 255, 0.08)'}} />
-                    
-
-                    {/* Mobile Beta Band */}
-                    {/* <BetaBand /> */}
-                    
+                    <hr className="hr-header m-0" />
 
                     {/* Hero Section */}
                     <div className="container">
@@ -54,7 +44,7 @@ class Home extends Component {
                                     </h2> */}
 
                                     <div className="my-3 my-md-0">
-                                        <Link to='/getting-started'>New to digital currencies? Learn more</Link>
+                                        <Link to='/learn'>New to digital currencies? Learn more</Link>
                                     </div>
                                     {/* <div className="coming-soon d-none d-lg-flex">
                                         <a href="#currentdev" className="beta-wrapper">
@@ -100,10 +90,10 @@ class Home extends Component {
                 </Header>
                 
                 {/* <Features /> */}
-                <CurrencySlider />
-                <HowTo />
                 {/* <TrustInfo /> */}
                 {/* <UserReviews /> */}
+                <CurrencySlider />
+                <HowTo />
                 <DigitalCurrencies />
                 <Tracking />
                 <Security />

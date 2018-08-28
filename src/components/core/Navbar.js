@@ -36,7 +36,7 @@ class Navbar extends Component {
                                 <Link className="nav-link" to='/'>Features</Link>
                             </li> */}
                             <li className="nav-item">
-                                <Link className="nav-link" to='/getting-started'>Learn</Link>
+                                <Link className="nav-link" to='/learn'>Learn</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to='/#livechat'>Support</Link>

@@ -1,3 +1,115 @@
+.learn-page {
+  header {
+    overflow: hidden;
+    .hero-wrapper.hero-wrapper-inner {
+      font-family: 'Open Sans', sans-serif;
+      margin-top: 72px;
+      .learn-heading {
+        font-weight: bold;
+        line-height: 41px;
+        font-size: 32px;
+        text-align: center;
+        color: #FFFFFF;
+        margin-bottom: 16px;
+      }
+      p {
+        line-height: 28px;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 46px;
+      }
+      @include media-breakpoint-down(md) {
+        margin-top: 40px;
+        .learn-heading {
+          line-height: 36px;
+          font-size: 28px;
+          margin-bottom: 10px;
+        }
+        p {
+          margin-bottom: 16px;
+        }
+      }
+      @include media-breakpoint-down(sm) {
+        margin-top: 34px;
+        .learn-heading {
+          line-height: 31px;
+          font-size: 24px;
+        }
+        p {
+          margin-bottom: 3px;
+        }
+      }
+    }
+    @include media-breakpoint-down(md) {
+      &.bg-gradient.bg-primary-gradient::before {
+        left: -900px;
+      }
+      &.bg-gradient.bg-primary-gradient::after {
+        left: -340px;
+        bottom: -20px;
+      }
+    }
+    @include media-breakpoint-down(sm) {
+      &.bg-gradient.bg-primary-gradient::after {
+        left: -360px;
+        bottom: -50px;
+      }
+    }
+  }
+
+  .page-content {
+    padding-top: 15px;
+    padding-bottom: 60px;
+    .learn-card {
+      background: #FFFFFF;
+      border: 1px solid #E8EAEB;
+      border-radius: 2px;
+      margin-top: 35px;
+      padding: 40px;
+      display: block;
+      text-decoration: none;
+      &:hover {
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+      }
+      img {
+          width: 125px;
+          margin-top: 20px;
+          @include media-breakpoint-down(md) {
+              width: 133px;
+          }
+      }
+      h5 {
+          margin-top: 32px;
+          margin-bottom: 17px;
+          font-weight: 600;
+          @include media-breakpoint-down(md) {
+              font-size: 18px;
+          }
+      }
+      p {
+          line-height: 28px;
+          margin-bottom: 4px;
+          color: #76828F;
+      }
+      @include media-breakpoint-down(md) {
+        padding: 40px 30px;
+        margin-top: 24px;
+      }
+      @include media-breakpoint-down(sm) {
+        margin-top: 20px;
+      }
+    }
+    @include media-breakpoint-down(md) {
+      padding-top: 20px;
+      padding-bottom: 44px;
+    }
+    @include media-breakpoint-down(sm) {
+      padding-top: 16px;
+      padding-bottom: 36px;
+    }
+  }
+}
+
 .heading-top {
   font-size: 1.625rem;
   margin-bottom: 32px;

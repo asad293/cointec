@@ -36,8 +36,9 @@ class Routes extends Component {
                 <Route exact path="/support" component={Support} />
                 <Route exact path="/privacy" component={Legal} />
                 <Route exact path="/terms" component={Legal} />
-                <Route exact path="/getting-started" component={Learn} />
-                <Route exact path="/terminology" component={Learn} />
+                <Route exact path="/learn" component={Learn} />
+                {/* <Route exact path="/getting-started" component={Learn} />
+                <Route exact path="/terminology" component={Learn} /> */}
                 <Route exact path="/exchange" component={Exchange} />
                 <Route exact path="/transaction-tracker/:txnID" component={TransactionTracker} />
             </Switch>
