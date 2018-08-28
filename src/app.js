@@ -9,6 +9,9 @@ import 'bxslider';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import 'owl.carousel';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel';
 //import '@fancyapps/fancybox';
 
 //  Load Custom "local" Javascript code
@@ -22,18 +25,18 @@ import 'owl.carousel';
 $(document).ready(function () {
     $('.bxslider').bxSlider();
 
-    $('.owl-carousel').owlCarousel({
-        loop:true,
-        //nav:true,
-        responsive:{
-            0:{
-                items:1
-            },
-            992:{
-                items:3
-            }
-        }
-    })
+    // $('.owl-carousel').owlCarousel({
+    //     loop:true,
+    //     //nav:true,
+    //     responsive:{
+    //         0:{
+    //             items:1
+    //         },
+    //         992:{
+    //             items:3
+    //         }
+    //     }
+    // })
 });
 
 //  General - Example of Global Function

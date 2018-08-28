@@ -48,6 +48,7 @@
     "classnames": "^2.2.5",
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
+    "js-cookie": "^2.2.0",
     "jwt-simple": "^0.5.1",
     "mobx": "^4.2.0",
     "mobx-react": "^5.0.0",
@@ -64,6 +65,7 @@
     "redux-form": "^7.3.0",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0",
+    "slick-carousel": "^1.8.1",
     "wallet-address-validator": "^0.1.7"
   }
 }

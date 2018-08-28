@@ -96,7 +96,18 @@ class AddBankAccount extends Component {
   }
 
   onSubmit(values) {
-    this.props.addAccount(5, values)
+    let userData = null
+    let user = null
+    const token = localStorage.getItem('user')
+    try {
+      userData = jwt.decode(token, process.env.APP_SECRET_KEY)
+      user = userData && JSON.parse(userData)
+    } catch(e) {
+    } finally {
+      if (user && user.CtUserId) {
+        this.props.addAccount(user.CtUserId, values)
+      }
+    }
   }
 
   handleClick() {

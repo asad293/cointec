@@ -5,9 +5,9 @@ class Navbar extends Component {
     render() {
         return (
             <div className="container">
-                <nav className="navbar navbar-custom navbar-expand-lg navbar-dark px-0 py-3 py-md-4">
+                <nav className="navbar navbar-custom navbar-expand-lg navbar-dark px-0">
                     <Link className="navbar-brand" to='/'>
-                        <img src="/img/Logo.svg" className="img-fluid mx-auto d-block" alt="Logo" />
+                        <img src="/img/logo-white.svg" className="img-fluid mx-auto d-block" alt="Logo" />
                     </Link>
 
                     <button className="navbar-toggler"
@@ -28,18 +28,18 @@ class Navbar extends Component {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav w-100 justify-content-end align-items-lg-center">
                             <li className="nav-item">
-                                <Link className="nav-link" to='/'>
-                                    Home<span className="sr-only">(current)</span>
+                                <Link className="nav-link" to='/exchange'>
+                                    Buy<span className="sr-only">(current)</span>
                                 </Link>
                             </li>
                             {/* <li className="nav-item">
                                 <Link className="nav-link" to='/'>Features</Link>
                             </li> */}
                             <li className="nav-item">
-                                <Link className="nav-link" to='/#livechat'>Support</Link>
+                                <Link className="nav-link" to='/getting-started'>Learn</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link pr-md-4" to='/getting-started'>Learn</Link>
+                                <Link className="nav-link" to='/#livechat'>Support</Link>
                             </li>
                             { /*
                             <li className="nav-item">
@@ -47,14 +47,14 @@ class Navbar extends Component {
                             </li>*/
                             }
                             
-                                <button className="nav-link btn btn-outline-success early-access-btn" data-toggle="modal" data-target="#subscribe-modal">Early access</button>
+                                {/* <button className="nav-link btn btn-outline-success early-access-btn" data-toggle="modal" data-target="#subscribe-modal">Early access</button> */}
                             
-                            {/*<li className="nav-item">
-                                <Link className="nav-link" to='/login'>Login</Link>
+                            <li className="nav-item">
+                                <Link className="nav-link" to='/login'>Log in</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link " to='/signup'>Sign up &nbsp;<img src="/img/arrow-right.svg" alt="Sign up" /></Link>
-                            </li>*/}
+                                <Link className="nav-link btn btn-outline-success early-access-btn" to='/signup'>Sign up</Link>
+                            </li>
                         </ul>
                     </div>
                 </nav>

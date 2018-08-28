@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { formValueSelector, Field, reduxForm } from "redux-form";
 
-import { fetchQuote, fetchLimit, fetchConsts, fetchAssets, fetchAccounts } from '../../Redux/actions';
+import { fetchQuote, fetchLimit, fetchConsts, fetchAssets } from '../../Redux/actions';
 import { connect } from "react-redux";
 import "./style.scss";
 import cn from "classnames";
@@ -17,18 +17,6 @@ class SimpleCalculator extends Component {
       placeholderReceiveAmount: 0,
       rate: 1200,
       currencySymbol: "£",
-      limit: 0,
-      limitMin: 15,
-      limits: {
-        Max: {
-          SendCurrency: 0,
-          ReceiveCurrency: 0
-        },
-        Min: {
-          SendCurrency: 15,
-          ReceiveCurrency: 0
-        }
-      },
       // buttonIsDisabled: false,
       screen: 'first',
       action: 'sending',
@@ -73,7 +61,7 @@ class SimpleCalculator extends Component {
   }
 
   normalizeSendAmount(value, previousValue) {
-    const { currencySelected, coinSelected, placeholderSendAmount, coins, limits } = this.state
+    const { currencySelected, coinSelected, placeholderSendAmount, coins } = this.state
 
     const decimalPoint = _.defaultTo(currencySelected && currencySelected.dp, 2)
 
@@ -104,13 +92,14 @@ class SimpleCalculator extends Component {
     }
 
     if (sendAmount.length > 0)
-      return (currencySelected ? currencySelected.symbol : '£') + ' ' + sendAmount
+      // return (currencySelected ? currencySelected.symbol : '£') + ' ' + sendAmount
+      return sendAmount
     else
       return sendAmount
   }
 
   normalizeReceiveAmount(value, previousValue) {
-    const { currencySelected, coinSelected, placeholderSendAmount, coins, limits } = this.state
+    const { currencySelected, coinSelected, placeholderSendAmount, coins } = this.state
     
     let decimalPoint = 8
     let receiveAmount = value.replace(/[^\d.]/g, '')
@@ -217,7 +206,7 @@ class SimpleCalculator extends Component {
     if (props.receiveAmount && this.state.action === 'receiving' && props.quote.QuoteSendAmount)
       this.props.change(
         'sendAmount',
-        `${this.state.currencySymbol} ${Number.parseFloat(props.quote.QuoteSendAmount).toFixed(this.state.currencySelected ? this.state.currencySelected.dp : 2)}`
+        `${Number.parseFloat(props.quote.QuoteSendAmount).toFixed(this.state.currencySelected ? this.state.currencySelected.dp : 2)}`
       )
 
     this.updateLimit(props)
@@ -238,25 +227,21 @@ class SimpleCalculator extends Component {
   }
 
   renderField(field) {
-    const {
-      placeholder,
-      valid,
-      meta: { touched, error },
-      label
-    } = field;
-    const className = `${touched && error ? "has-warning" : ""} ${
-      valid === true ? "has-success" : ""
-    }  ${valid === false ? "has-warning" : ""}`;
+    const { placeholder, valid, meta: { touched, error }, label } = field;
+    // const className = `${touched && error ? "has-warning" : ""} ${
+    //   valid === true ? "has-success" : ""
+    // }  ${valid === false ? "has-warning" : ""}`;
     return (
-      <div className={className}>
-        <label className="field-label m-0">{label}</label>
+      <div>
+        {/* <label className="field-label m-0">{label}</label> */}
         <input
           autoComplete="off"
+          spellCheck={false}
           placeholder={placeholder}
           className="form-control no-border p-0 "
           {...field.input}
         />
-        <div className="text-help">{touched ? error : ""}</div>
+        {/* <div className="text-help">{touched ? error : ""}</div> */}
       </div>
     );
   }
@@ -290,10 +275,10 @@ class SimpleCalculator extends Component {
   // }
 
   updateLimit(props) {
-    this.setState({
-      limit: props.limit.limit ? props.limit.limit : this.state.limit,
-      limits: props.quote.Limits ? props.quote.Limits : this.state.limits
-    })
+    // this.setState({
+    //   limit: props.limit.limit ? props.limit.limit : this.state.limit,
+    //   limits: props.quote.Limits ? props.quote.Limits : this.state.limits
+    // })
 
     if (props.limit.const) {
       let interval = props.limit.const.Frame1Refresh
@@ -422,10 +407,13 @@ class SimpleCalculator extends Component {
         { status !== 'DISABLED' ?
         <a className={cn("dropdown-item", unavailable ? 'unavailable': null)} onClick={ unavailable ? null: (e) => onItemSelected(exchangeable)}>
           <div className="text-label currency-label">
-            <div className="currency-symbol-wrapper">
-              <img className="currency-symbol" src={exchangeable.image} alt={exchangeable.name} />
+            <div className="currency-symbol-wrapper fluid px-2">
+              <div className="col-8 text-left text-truncate currency-fullname p-0">
+                <img className="currency-symbol" src={exchangeable.image} alt={exchangeable.name} />
+                <span>{exchangeable.fullName}</span>
+              </div>
+              <div className="col-4 text-right p-0"><b>{exchangeable.name}</b></div>
             </div>
-            <span>{exchangeable.name}</span>
           </div>
         </a>: '' }
       </div>
@@ -435,30 +423,29 @@ class SimpleCalculator extends Component {
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <div>
           <div className="calc-input-wrapper">
-            <div className="row am row-flex ">
-              <div className="col-6  bg-input">
+            <label className="field-label m-0">
+              You send
+            </label>
+            {/* <div className="row am row-flex "> */}
+            <div className="calc-field">
+              <div className="col-6 bg-input">
                 <Field
                   name="sendAmount"
-                  label="You send"
+                  // label="You send"
                   component={this.renderField}
                   normalize={this.normalizeSendAmount}
                   placeholder={
-                    (this.state.currencySelected ? this.state.currencySelected.symbol : '£') + ' ' + this.state.placeholderSendAmount.toFixed(this.state.currencySelected ? this.state.currencySelected.dp : 2)
-                  }
-                />
+                    this.state.placeholderSendAmount.toFixed(this.state.currencySelected ? this.state.currencySelected.dp : 2)
+                  } />
               </div>
-              <div className="col-6 pl-0  d-flex align-items-center d-flex align-items-center">
+              <div className="col-6 px-0 d-flex align-items-center d-flex align-items-center">
                 <div className="dropdown dropdown-currency-select">
                   <a
                     className="btn dropdown-toggle"
                     href="#"
                     role="button"
                     id="dropdownMenuLink"
-                    onClick={() => this.toggleDropDown('currency')}
-                    //data-toggle="dropdown"
-                    //aria-haspopup="true"
-                    //aria-expanded="false"
-                    >
+                    onClick={() => this.toggleDropDown('currency')}>
                     <div className="text-label currency-label">
                       <div className="currency-symbol-wrapper">
                         <img
@@ -466,7 +453,7 @@ class SimpleCalculator extends Component {
                           src={this.state.currencySelected.image}
                           alt={this.state.currencySelected.name} />
                       </div>
-                      <span>{this.state.currencySelected.name}</span>
+                      <span className="text-left" style={{minWidth: '64px'}}>{this.state.currencySelected.name}</span>
                       <img
                         className="dropdown-arrow"
                         src="/img/arrow-down.svg"
@@ -478,13 +465,11 @@ class SimpleCalculator extends Component {
                     <div
                       className="dropdown-menu show"
                       aria-labelledby="dropdownMenuLink">
-                      <div className="search-item">
-                        
-                      
+                      {/* <div className="search-item">
                         <input className="search-input"
                           placeholder="Coming Soon"
                           type="text" name="lname" disabled/>
-                      </div>
+                      </div> */}
 
                       <div className="dropdown-items-wrapper">
                         {currencies.map((currency) => 
@@ -501,12 +486,16 @@ class SimpleCalculator extends Component {
                 </div>
               </div>
             </div>
-            <hr className="my-2" />
-            <div className="row am row-flex ">
+            {/* <hr className="my-2" /> */}
+            <label className="field-label m-0 mt-4">
+              You receive
+            </label>
+            {/* <div className="row am row-flex "> */}
+            <div className="calc-field">
               <div className="col-6 bg-input">
                 <Field
                   name="receiveAmount"
-                  label="You receive"
+                  // label="You receive"
                   component={this.renderField}
                   normalize={this.normalizeReceiveAmount}
                   placeholder={this.convertToReceiveAmount(
@@ -514,19 +503,14 @@ class SimpleCalculator extends Component {
                   ).toFixed(8)}
                 />
               </div>
-              <div className="col-6 pl-0 d-flex align-items-center">
+              <div className="col-6 px-0 d-flex align-items-center">
                 <div className="dropdown dropdown-currency-select">
                   <a
                     className="btn dropdown-toggle"
                     href="#"
                     role="button"
                     id="dropdownMenuLink"
-                    onClick={() => this.toggleDropDown('coin')}
-
-                    //data-toggle="dropdown"
-                    //aria-haspopup="true"
-                    //aria-expanded="false"
-                    >
+                    onClick={() => this.toggleDropDown('coin')}>
                     { 
                       this.state.coinSelected != null &&
 
@@ -537,7 +521,7 @@ class SimpleCalculator extends Component {
                           src={this.state.coinSelected.image}
                           alt={this.state.coinSelected.name} />
                       </div>
-                      <span>{this.state.coinSelected.name}</span>
+                      <span className="text-left" style={{minWidth: '64px'}}>{this.state.coinSelected.name}</span>
                       <img
                         className="dropdown-arrow"
                         src="/img/arrow-down.svg"
@@ -579,11 +563,7 @@ class SimpleCalculator extends Component {
               </div>
             </div>
           </div>
-          <div className="am row">
-            <div className="mt-4 col-md-12">{this.renderButton()}</div>
-          </div>
-
-          <h6 className="text-white mt-3">
+          <h6 className="exchange-rate-label mt-4">
             {
               (this.state.currencySelected ? this.state.currencySelected.symbol : this.state.currencySymbol) + ' ' +
               (this.state.currencySelected ? this.state.rate.toFixed(this.state.currencySelected.dp) : this.state.rate.toFixed(2)) + '/' + 
@@ -591,6 +571,9 @@ class SimpleCalculator extends Component {
               ' Exchange Rate'
             }
           </h6>
+          <div className="am row">
+            <div className="mt-2 col-md-12">{this.renderButton()}</div>
+          </div>
         </div>
       </form>
     );
@@ -608,7 +591,6 @@ const mapStateToProps = state => {
   const receiveAmount = Number.parseFloat(selector(state, 'receiveAmount'))
 
   return {
-    bank: state.bank,
     quote: state.quote,
     limit: state.limit,
     sendAmount,
@@ -633,7 +615,7 @@ const debouceReceive = _.debounce((props, receiveAmount, currency, coin) => {
 }, 500, { trailing: true })
 
 export default reduxForm({ form: 'SimpleCalcForm' }) (
-  connect(mapStateToProps, { fetchQuote, fetchLimit, fetchConsts, fetchAssets, fetchAccounts }) (
+  connect(mapStateToProps, { fetchQuote, fetchLimit, fetchConsts, fetchAssets }) (
     withRouter(SimpleCalculator)
   )
 )

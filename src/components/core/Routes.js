@@ -9,8 +9,9 @@ import LinkSent from '../views/LinkSent'
 import ResetPassword from '../views/ResetPassword'
 import Support from '../views/Support'
 import Legal from '../views/Legal'
-import Learn from '../views/Learn';
-import Exchange from '../views/Exchange';
+import Learn from '../views/Learn'
+import Exchange from '../views/Exchange'
+import TransactionTracker from '../views/TransactionTracker'
 
 class Routes extends Component {
     componentWillUpdate() {
@@ -38,6 +39,7 @@ class Routes extends Component {
                 <Route exact path="/getting-started" component={Learn} />
                 <Route exact path="/terminology" component={Learn} />
                 <Route exact path="/exchange" component={Exchange} />
+                <Route exact path="/transaction-tracker/:txnID" component={TransactionTracker} />
             </Switch>
         )
     }
