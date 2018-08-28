@@ -45,7 +45,7 @@ class Footer extends Component {
                                         Home
                                     </Link>
 
-                                    <Link className="cta-text mb-2" to='/getting-started'>
+                                    <Link className="cta-text mb-2" to='/learn'>
                                         {/* Support */}
                                         Learn
                                     </Link>

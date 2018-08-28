@@ -1,52 +1,100 @@
 import React, { Component } from 'react'
-import { Route, Switch } from 'react-router'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import Header from '../core/Header'
 import Navbar from '../core/Navbar'
 import Footer from '../core/Footer'
 
-import GettingStarted from "../views/GettingStarted";
-import Terminology from "../views/Terminology";
-
 class Learn extends Component {
-    render() {
-        return (
-            <div>
-                <Header>
-                    <Navbar />
+	render() {
+		return (
+			<div className="learn-page">
+				<Header background="gradient">
+					<Navbar />
+					<hr className="hr-header m-0" />
 
+					{/* Hero Section */}
+					<div className="container">
+						<div className="hero-wrapper hero-wrapper-inner">
+							<div className="row">
+								<div className="col-md-12">
+									<h1 className="learn-heading d-none d-md-block">Learn about digital currency</h1>
+									<h1 className="learn-heading d-block d-md-none">Learning portal</h1>
+									<p>
+										Buy 20 digital currencies using Bank<br className="d-block d-md-none" /> Transfer or Bitcoin.<br className="d-none d-md-block" />
+										<span className="d-none d-md-block">Create an account and get started in minutes.</span>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					{/* Hero Section End */}
+				</Header>
 
-                    {/* Hero Section */}
-                    <div className="container">
-                        <div className="hero-wrapper hero-wrapper-inner">
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <h1 className="legal-heading">Digital currency 101</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* Hero Section End */}
+				<section className="page-content container">
+					<div className="row">
+						<div className="col-sm-12 col-md-6 col-lg-4">
+							<Card
+								title="Digital currency basics"
+								description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
+								image="/img/plc-hd.svg"
+								to='/' />
+						</div>
+						
+						<div className="col-sm-12 col-md-6 col-lg-4">
+							<Card
+								title="Digital wallets"
+								description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
+								image="/img/plc-hd.svg"
+								to='/' />
+						</div>
 
-                </Header>
+						<div className="col-sm-12 col-md-6 col-lg-4">
+							<Card
+								title="Blockchain"
+								description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
+								image="/img/plc-hd.svg"
+								to='/' />
+						</div>
 
-                <div className="tabs-bar">
-                    <div className="tabs d-flex justify-content-center">
-                        <NavLink className="tab" to="/getting-started" activeClassName="active">Getting Started</NavLink>
-                        <NavLink className="tab" to="/terminology" activeClassName="active">Terminology</NavLink>
-                    </div>
-                </div>
+						<div className="col-sm-12 col-md-6 col-lg-4">
+							<Card
+								title="Glossary of terms"
+								description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
+								image="/img/plc-hd.svg"
+								to='/' />
+						</div>
 
-                <Switch>
-                    <Route path="/getting-started" component={GettingStarted} />
-                    <Route path="/terminology" component={Terminology} />
-                </Switch>
+						<div className="col-sm-12 col-md-6 col-lg-4">
+							<Card
+								title="Glossary of tokens"
+								description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
+								image="/img/plc-hd.svg"
+								to='/' />
+						</div>
 
-                <Footer />
-            </div>
-        )
-    }
+						<div className="col-sm-12 col-md-6 col-lg-4">
+							<Card
+								title="FAQ’s and support"
+								description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
+								image="/img/plc-hd.svg"
+								to='/' />
+						</div>
+					</div>
+				</section>
+
+				<Footer />
+			</div>
+		)
+	}
 }
+
+const Card = ({ title, description, image, to }) => (
+  <Link to={to} className="learn-card text-center">
+    <img src={image} alt={title} />
+    <h5>{title}</h5>
+    <p>{description}</p>
+  </Link>
+)
 
 export default Learn
