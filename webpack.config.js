@@ -97,7 +97,8 @@ module.exports = {
                 baseDir: './',
                 middleware: [ historyApiFallback() ]
             },
-            port: 8080
+            https: true,
+            port: 3000
         }),
         new webpack.ProvidePlugin({
             //Assuming jQuery is Provided By DNN...
