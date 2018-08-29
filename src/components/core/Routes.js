@@ -10,6 +10,9 @@ import ResetPassword from '../views/ResetPassword'
 import Support from '../views/Support'
 import Legal from '../views/Legal'
 import Learn from '../views/Learn'
+import DigitalCurrencyBasics from '../views/DigitalCurrencyBasics'
+import DigitalWallets from '../views/DigitalWallets'
+import BlockChain from '../views/BlockChain'
 import Exchange from '../views/Exchange'
 import TransactionTracker from '../views/TransactionTracker'
 
@@ -37,6 +40,9 @@ class Routes extends Component {
                 <Route exact path="/privacy" component={Legal} />
                 <Route exact path="/terms" component={Legal} />
                 <Route exact path="/learn" component={Learn} />
+                <Route exact path="/digital-currency-basics" component={DigitalCurrencyBasics} />
+                <Route exact path="/digital-wallets" component={DigitalWallets} />
+                <Route exact path="/blockChain" component={BlockChain} />
                 {/* <Route exact path="/getting-started" component={Learn} />
                 <Route exact path="/terminology" component={Learn} /> */}
                 <Route exact path="/exchange" component={Exchange} />
