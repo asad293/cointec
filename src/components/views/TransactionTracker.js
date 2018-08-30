@@ -14,16 +14,15 @@ class TransactionTracker extends Component {
     super()
     this.state = {
       timerId: null,
-      timer: 0,
       refreshTime: 10
     }
-    this.tick = this.tick.bind(this)
     this.initInterval = this.initInterval.bind(this)
     this.fetchStatus = this.fetchStatus.bind(this)
   }
 
   componentWillMount() {
     this.fetchStatus()
+    this.initInterval()
   }
 
   componentWillUnmount() {
@@ -32,19 +31,9 @@ class TransactionTracker extends Component {
 
   initInterval() {
 		clearInterval(this.state.timerId)
-    const timerId = setInterval(this.tick, 1000)
+    const timerId = setInterval(this.fetchStatus, this.state.refreshTime * 1000)
 		this.setState({ timerId })
 	}
-
-  tick() {
-    console.log(this.state.timer, this.state.refreshTime)
-    if (this.state.timer < this.state.refreshTime) {
-      this.setState({ timer: this.state.timer + 1 })
-    } else {
-      clearInterval(this.state.timerId)
-      this.fetchStatus()
-    }
-  }
 
   fetchStatus() {
     let userData = null
@@ -61,7 +50,7 @@ class TransactionTracker extends Component {
           orderId: this.props.match.params.txnID,
           ctUser: user.CtUserId
         })
-        this.props.fetchConsts()
+        // this.props.fetchConsts()
 			} else {
 				this.props.history.push('/login', {
 					redirectPath: this.props.history.location.pathname
@@ -71,12 +60,8 @@ class TransactionTracker extends Component {
   }
 
   componentWillReceiveProps(props) {
-    const { limit, status } = props
-    if (limit.const && status) {
-      this.initInterval()
-      const refreshTime = 10
-      this.setState({ refreshTime, timer: 0 })
-    }
+    const { status } = props
+    console.log('status', status)
   }
 
   render() {
@@ -156,10 +141,8 @@ const TransactionStatus = ({
 )
 
 const mapStateToProps = (state) => {
-  console.log(state.order)
   return {
-    order: state.order,
-    limit: state.limit
+    order: state.order
   }
 }
 

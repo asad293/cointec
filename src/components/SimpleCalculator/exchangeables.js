@@ -25,9 +25,10 @@ const coins = [
       keywords: 'bitcoin'
     },
     {
-        name: 'NEO',
-        image: '/img/coins/NEO.svg',
-        keywords: 'neo'
+      name: 'NEO',
+      fullName: 'NEO',
+      image: '/img/coins/NEO.svg',
+      keywords: ''
     },
     {
       name: 'ETH',
@@ -142,12 +143,6 @@ const coins = [
       fullName: 'Basic Attention Token',
       image: '/img/coins/BAT.svg',
       keywords: 'basic attention token'
-    },
-    {
-      name: 'NEO',
-      fullName: 'NEO',
-      image: '/img/coins/NEO.svg',
-      keywords: ''
     },
     {
       name: 'QTUM',
