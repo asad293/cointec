@@ -62,7 +62,7 @@ class Learn extends Component {
 								title="Glossary of terms"
 								description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
 								image="/img/plc-hd.svg"
-								to='/' />
+								to='/glossary-of-terms' />
 						</div>
 
 						<div className="col-sm-12 col-md-6 col-lg-4">
@@ -70,7 +70,7 @@ class Learn extends Component {
 								title="Glossary of tokens"
 								description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
 								image="/img/plc-hd.svg"
-								to='/' />
+								to='/glossary-of-tokens' />
 						</div>
 
 						<div className="col-sm-12 col-md-6 col-lg-4">
