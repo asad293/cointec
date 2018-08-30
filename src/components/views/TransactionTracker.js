@@ -131,8 +131,7 @@ const TransactionStatus = ({
     </div> : ''}
     <div className="d-flex justify-content-between transaction-row mt-4 px-3 py-2 px-md-4 py-md-3">
       <div>
-        {SETTLED && loading ? <i className="fas fa-spinner-third fa-lg fa-spin mr-3"></i>
-          : <i className="far fa-check fa-lg mr-3"></i>}
+        <i className="far fa-check fa-lg mr-3"></i>
         You sent payment
       </div>
       {CLEARING ? <Moment format="hh:mm A">{CLEARING * 1000}</Moment>: ''}
