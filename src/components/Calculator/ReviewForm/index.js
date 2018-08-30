@@ -173,9 +173,11 @@ class ReviewForm extends Component {
 
   updateLimit({ limit }) {
 		if (limit.const) {
-			const refreshTime = limit.const.Frame2Refresh
-      this.initInterval()
-      this.setState({ refreshTime, timer: 0 })
+      const refreshTime = limit.const.Frame2Refresh
+      if (this.state.refreshTime >= this.state.timer) {
+        this.initInterval()
+        this.setState({ refreshTime, timer: 0 })
+      }
 		}
   }
   
