@@ -39,7 +39,7 @@ class CurrencySlider extends Component {
   
   render() {
     return (
-      <div className="bg-gradient bg-mid-gradient">
+      <div className="bg-gradient bg-mid-gradient d-none d-md-block">
         <div className="currency-slider container">
           <div className="row">
             <div className="col px-0">

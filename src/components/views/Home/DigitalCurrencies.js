@@ -18,11 +18,11 @@ const DigitalCurrencies = () => (
           quis nostrud exercitation ullamco laboris.
         </p>
 
-        <Link to='/' className="d-none d-md-inline">See all digital currencies</Link>
+        <Link to='/digital-currency-list' className="d-none d-md-inline">See all digital currencies</Link>
       </div>
       <div className="col-12 col-md-6 text-center mt-4 mt-md-0">
         <img className="currencies-group mb-5 mb-md-0" src="/img/currencies-group.svg" alt="currencies-group"/>
-        <Link to='/' className="d-md-none">See all digital currencies</Link>
+        <Link to='/digital-currency-list' className="d-md-none">See all digital currencies</Link>
       </div>
     </div>
   </div>

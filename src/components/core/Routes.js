@@ -15,8 +15,12 @@ import DigitalWallets from '../views/DigitalWallets'
 import BlockChain from '../views/BlockChain'
 import GlossaryOfTerms from '../views/GlossaryOfTerms'
 import GlossaryOfTokens from '../views/GlossaryOfTokens'
+import PrivacyPolicy from '../views/PrivacyPolicy'
 import Exchange from '../views/Exchange'
 import TransactionTracker from '../views/TransactionTracker'
+import Terms from '../views/Terms'
+import Security from '../views/Security'
+import DigitalCurrencyList from '../views/DigitalCurrencyList'
 
 class Routes extends Component {
     componentWillUpdate() {
@@ -39,9 +43,11 @@ class Routes extends Component {
                 <Route exact path="/link-sent/:type" component={LinkSent} />
                 <Route exact path="/reset-password" component={ResetPassword} />
                 <Route exact path="/support" component={Support} />
-                <Route exact path="/privacy" component={Legal} />
-                <Route exact path="/terms" component={Legal} />
-                <Route exact path="/learn" component={Learn} />
+                <Route exact path="/digital-currency-list" component={DigitalCurrencyList} />
+                <Route exact path="/privacy" component={PrivacyPolicy} />
+                <Route exact path="/terms" component={Terms} />
+                <Route exact path="/learn" component={Learn} />X
+                <Route exact path="/security" component={Security} />X
                 <Route exact path="/digital-currency-basics" component={DigitalCurrencyBasics} />
                 <Route exact path="/digital-wallets" component={DigitalWallets} />
                 <Route exact path="/blockchain" component={BlockChain} />

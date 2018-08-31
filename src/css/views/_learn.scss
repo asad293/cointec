@@ -112,6 +112,7 @@
       border-radius: 0;
       background: none;
       box-shadow: none;
+      padding-bottom: 10px;
       .accordion-panel {
         margin-top: 18px;
         border: 1px solid #E8EAEB;
@@ -173,7 +174,7 @@
         }
       }
     }
-    .glossary-wrapper {
+    .glossary-wrapper, .privacy-policy-wrapper {
       background: #FFFFFF;
       border: 1px solid #E8EAEB;
       box-shadow: 2px -2px 8px rgba(0, 0, 0, 0.04);
@@ -253,6 +254,30 @@
         @include media-breakpoint-down(sm) {
           padding: 0 5px;
         }
+      }
+    }
+    .privacy-policy-wrapper {
+      color: #5E6C78;
+      .last-updated {
+        font-weight: bold;
+        line-height: 34px;
+        font-size: 18px;
+        color: #02182B;
+        margin-bottom: 14px;
+      }
+      h6 {
+        color: #02182B;
+        font-weight: bold;
+        line-height: 31px;
+        font-size: 16px;
+      }
+      p {
+        line-height: 28px;
+        margin-bottom: 0.75rem;
+      }
+      .sub-heading {
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
       }
     }
     @include media-breakpoint-down(md) {

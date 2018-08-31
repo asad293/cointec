@@ -1,0 +1,13 @@
+.chart-wrapper {
+  position: relative;
+  .info-latest {
+    position: absolute;
+    left: 50px;
+    .rate {
+      margin: 0;
+    }
+    .updated-at {
+      margin: 0;
+    }
+  }
+}

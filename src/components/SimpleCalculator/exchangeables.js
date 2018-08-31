@@ -24,11 +24,11 @@ const coins = [
       image: '/img/coins/BTC.svg',
       keywords: 'bitcoin'
     },
-    {
-        name: 'NEO',
-        image: '/img/coins/NEO.svg',
-        keywords: 'neo'
-    },
+    // {
+    //     name: 'NEO',
+    //     image: '/img/coins/NEO.svg',
+    //     keywords: 'neo'
+    // },
     {
       name: 'ETH',
       fullName: 'Ethereum',
