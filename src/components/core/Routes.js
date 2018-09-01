@@ -46,8 +46,8 @@ class Routes extends Component {
                 <Route exact path="/digital-currency-list" component={DigitalCurrencyList} />
                 <Route exact path="/privacy" component={PrivacyPolicy} />
                 <Route exact path="/terms" component={Terms} />
-                <Route exact path="/learn" component={Learn} />X
-                <Route exact path="/security" component={Security} />X
+                <Route exact path="/learn" component={Learn} />
+                <Route exact path="/security" component={Security} />
                 <Route exact path="/digital-currency-basics" component={DigitalCurrencyBasics} />
                 <Route exact path="/digital-wallets" component={DigitalWallets} />
                 <Route exact path="/blockchain" component={BlockChain} />

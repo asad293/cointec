@@ -609,7 +609,8 @@ header.bg-gradient {
 }
 
 .bottom-bar {
-    background: white;
+    // background: white;
+    border-top: 1px solid #E8EAEB;
     padding: 14px 0;
     position: absolute;
     bottom: 0;

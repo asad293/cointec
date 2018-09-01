@@ -190,12 +190,21 @@
           color: #FFFFFF;
           padding: 12px 28px;
           @include media-breakpoint-down(sm) {
+            background: url('/img/terms-heading-small.svg'), #F9F9F9;
+            background-repeat: no-repeat;
             font-size: 28px;
+            padding: 7.5px 17px;
           }
         }
         &:nth-child(2) {
           .initial-letter {
             background: url('/img/terms-heading-2.svg'), #F9F9F9;
+            @include media-breakpoint-down(sm) {
+              background: url('/img/terms-heading-small-2.svg'), #F9F9F9;
+              background-repeat: no-repeat;
+              font-size: 28px;
+              padding: 7.5px 17px;
+            }
           }
         }
         .term-heading {
