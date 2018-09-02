@@ -314,8 +314,10 @@ class Calculator extends Component {
 			const prev = this.state.coinSelected
 				? this.state.coinSelected.name
 				: false
+			const preSelectedCoin = updatedCoins.find(coin => coin.name === props.preSelectedCoin)
 			const coinSelected = this.state.coinSelected
 				? updatedCoins.find(coin => coin.name === this.state.coinSelected.name)
+				: preSelectedCoin ? preSelectedCoin
 				: updatedCoins.length
 					? updatedCoins[0]
 					: false

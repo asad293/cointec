@@ -55,7 +55,7 @@ class Routes extends Component {
                 <Route exact path="/glossary-of-tokens" component={GlossaryOfTokens} />
                 {/* <Route exact path="/getting-started" component={Learn} />
                 <Route exact path="/terminology" component={Learn} /> */}
-                <Route exact path="/exchange" component={Exchange} />
+                <Route exact path="/exchange/:receiveCurrency?" component={Exchange} />
                 <Route exact path="/transaction-tracker/:txnID" component={TransactionTracker} />
             </Switch>
         )

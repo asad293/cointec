@@ -1,13 +1,23 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import cn from 'classnames'
 
 import Header from '../core/Header'
 import Navbar from '../core/Navbar'
 import Footer from '../core/Footer'
 
+import { fetchAssets } from '../../Redux/actions'
 import { coins } from '../SimpleCalculator/exchangeables'
 
 class DigitalCurrencyList extends Component {
+  constructor() {
+    super()
+    this.state = {
+      coins: []
+    }
+  }
+
 	render() {
 		return (
 			<div className="digital-currency-page learn-page">
@@ -32,11 +42,13 @@ class DigitalCurrencyList extends Component {
 
 				<section className="page-content dc-glossary container">
 					<div className="row mb-md-3">
-            {coins.map(coin =>
+            {this.state.coins.map(coin =>
               <Currency
                 key={coin.name}
+                name={coin.name}
+                fullName={coin.fullName}
                 image={coin.image}
-                name={coin.fullName} />
+                disabled={coin.Status === 'DISABLED'} />
             )}
           </div>
           <p className="more-on-currencies">
@@ -49,15 +61,44 @@ class DigitalCurrencyList extends Component {
       </div>
     )
   }
+
+  componentDidMount() {
+    this.props.fetchAssets()
+  }
+
+  componentWillReceiveProps({ limit }) {
+    const updatedCoins = []
+    if (limit.assets) {
+      Object.keys(limit.assets).forEach(assetPair => {
+				if (assetPair.startsWith('GBP')) {
+          const asset = limit.assets[assetPair]
+          const coin = coins.find(coin => assetPair.indexOf(coin.name) === 3)
+          if (coin) {
+            coin.Status = asset.Send.Status
+            updatedCoins.push(coin)
+					}
+        }
+      })
+      this.setState({
+        coins: updatedCoins
+      })
+    }
+  }
 }
 
-const Currency = ({ image, name }) => (
+const Currency = ({ name, fullName, image, disabled }) => (
   <div className="col-12 col-md-6 col-lg-4">
-    <div className="digital-currency">
-      <img src={image} alt={name} />
-      <p>{name}</p>
-    </div>
+    {!disabled
+      ? <Link to={`/exchange/${name}`} className="digital-currency">
+        <img src={image} alt={name} />
+        <p>{fullName}</p>
+      </Link> : <a className="digital-currency disabled">
+        <img src={image} alt={name} />
+        <p>{fullName}</p>
+      </a>}
   </div>
 )
 
-export default DigitalCurrencyList
+const mapStateToProps = state => ({ limit: state.limit })
+
+export default connect(mapStateToProps, { fetchAssets })(DigitalCurrencyList)

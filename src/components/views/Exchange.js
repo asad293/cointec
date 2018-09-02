@@ -76,7 +76,10 @@ class Exchange extends Component {
 		// console.log(this.state.ctUser)
 		let frame = null
 		if (this.state.step === 1)
-			frame = <AmountFrame ctUser={this.state.ctUser} onConfirm={this.next} />
+			frame = <AmountFrame
+				ctUser={this.state.ctUser}
+				preSelectedCoin={this.props.match.params.receiveCurrency}
+				onConfirm={this.next} />
 		else if (this.state.step === 2)
 			frame = <SummaryFrame
 					sendAmount={this.state.sendAmount}

@@ -1880,6 +1880,8 @@ footer {
         padding-bottom: 50px;
         margin-bottom: 31px;
         text-align: center;
+        display: block;
+        text-decoration: none;
         img {
             width: 47px;
             height: 47px;
@@ -1891,6 +1893,19 @@ footer {
             line-height: 34px;
             font-size: 18px;
             color: #000000;
+        }
+        &.disabled {
+            cursor: not-allowed;
+            img {
+                filter: grayscale(100%);
+                opacity: 0.5;
+            }
+            p {
+                color: #8C969E;
+            }
+            &:hover {
+                border: 1px solid #D5D5D5;
+            }
         }
         &:hover {
             border: 1px solid #0459C4;
