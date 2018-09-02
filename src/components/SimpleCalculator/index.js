@@ -351,8 +351,8 @@ class SimpleCalculator extends Component {
           buttonClass,
           buttonState
         )}
-        onClick={(e) => { e.preventDefault(); this.props.history.push('/exchange') }}
-        // data-toggle="modal" data-target="#subscribe-modal"
+        // onClick={(e) => { e.preventDefault(); this.props.history.push('/exchange') }}
+        data-toggle="modal" data-target="#subscribe-modal"
         disabled={buttonState}>
         Instant Exchange
       </button>
