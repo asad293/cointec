@@ -14,16 +14,15 @@ class TransactionTracker extends Component {
     super()
     this.state = {
       timerId: null,
-      timer: 0,
       refreshTime: 10
     }
-    this.tick = this.tick.bind(this)
     this.initInterval = this.initInterval.bind(this)
     this.fetchStatus = this.fetchStatus.bind(this)
   }
 
   componentWillMount() {
     this.fetchStatus()
+    this.initInterval()
   }
 
   componentWillUnmount() {
@@ -32,19 +31,9 @@ class TransactionTracker extends Component {
 
   initInterval() {
 		clearInterval(this.state.timerId)
-    const timerId = setInterval(this.tick, 1000)
+    const timerId = setInterval(this.fetchStatus, this.state.refreshTime * 1000)
 		this.setState({ timerId })
 	}
-
-  tick() {
-    console.log(this.state.timer, this.state.refreshTime)
-    if (this.state.timer < this.state.refreshTime) {
-      this.setState({ timer: this.state.timer + 1 })
-    } else {
-      clearInterval(this.state.timerId)
-      this.fetchStatus()
-    }
-  }
 
   fetchStatus() {
     let userData = null
@@ -57,12 +46,11 @@ class TransactionTracker extends Component {
 		} catch (e) {
 		} finally {
 			if (user && user.CtUserId && sessionId) {
-        console.log(this.props.match.params.txnID)
         this.props.getStatus({
           orderId: this.props.match.params.txnID,
           ctUser: user.CtUserId
         })
-        this.props.fetchConsts()
+        // this.props.fetchConsts()
 			} else {
 				this.props.history.push('/login', {
 					redirectPath: this.props.history.location.pathname
@@ -72,12 +60,8 @@ class TransactionTracker extends Component {
   }
 
   componentWillReceiveProps(props) {
-    const { limit, status } = props
-    if (limit.const && status) {
-      this.initInterval()
-      const refreshTime = 10
-      this.setState({ refreshTime, timer: 0 })
-    }
+    const { status } = props
+    console.log('status', status)
   }
 
   render() {
@@ -92,49 +76,7 @@ class TransactionTracker extends Component {
           <div className="row mt-4">
             <div className="col-12 col-lg-7 col-xl-6 text-center">
               <div className="main-calc-wrapper mt-5">
-                {status && status.Status.SETTLED ?
-                <div className={cn(
-                  'd-flex justify-content-between transaction-row px-4 py-3',
-                  (status.Status.FAILED || status.Status.TERMINATED) ? 'error' : status.Status.SENT ? 'sent' : '')}>
-                  <div>
-                    {(status.Status.FAILED || status.Status.TERMINATED) ? <i className="far fa-exclamation-circle fa-lg text-white mr-3"></i> :
-                    !status.Status.SENT ? <i className="fas fa-spinner-third fa-lg fa-spin mr-3"></i>
-                    : <i className="far fa-check fa-lg mr-3"></i>}
-                    {status.Status.TERMINATED ? 'Transaction error' : 'Coin Sent'}
-                  </div>
-                  {status.Status.TERMINATED ? <div>
-                    <Moment format="hh:mm A">{status.Status.TERMINATED}</Moment>
-                  </div> : status.Status.FAILED ? <div>
-                    <Moment format="hh:mm A">{status.Status.FAILED}</Moment>
-                  </div> : status.Status.SENT ? <div>
-                    <Moment format="hh:mm A">{status.Status.SENT}</Moment>
-                  </div> : ''}
-                </div>: ''}
-                {status && status.Status.CLEARING ?
-                <div className={cn('d-flex justify-content-between transaction-row mt-4 px-4 py-3', status.Status.REVIEW ? 'error' : '')}>
-                  <div>
-                    {status.Status.REVIEW ? <i className="far fa-exclamation-circle fa-lg text-white mr-3"></i> :
-                    !status.Status.SETTLED ? <i className="fas fa-spinner-third fa-lg fa-spin mr-3"></i>
-                    : <i className="far fa-check fa-lg mr-3"></i>}
-                    {status.Status.REVIEW ? 'Payment error' : 'Payment received'}
-                  </div>
-                  {status.Status.REVIEW ? <div>
-                    <Moment format="hh:mm A">{status.Status.REVIEW}</Moment>
-                  </div> : status.Status.SETTLED ? <div>
-                    <Moment format="hh:mm A">{status.Status.SETTLED}</Moment>
-                  </div>: ''}
-                </div>: ''}
-                <div className="d-flex justify-content-between transaction-row mt-4 px-3 py-2 px-md-4 py-md-3">
-                  <div>
-                    {status && status.Status.SETTLED && loading ?
-                    <i className="fas fa-spinner-third fa-lg fa-spin mr-3"></i> :
-                    <i className="far fa-check fa-lg mr-3"></i>}
-                    You sent payment
-                  </div>
-                  {status && status.Status.CLEARING ? <div className="text-nowrap">
-                    <Moment format="hh:mm A">{status.Status.CLEARING}</Moment>
-                  </div>: ''}
-                </div>
+                {status ? <TransactionStatus Status={status.Status} loading={loading} />: ''}
               </div>
             </div>
 						<div className="info-column col-12 col-lg-4"></div>
@@ -145,11 +87,61 @@ class TransactionTracker extends Component {
   }
 }
 
+const TransactionStatus = ({
+  Status: {
+    CLEARING,
+    SETTLED,
+    REVIEW,
+    TERMINATED,
+    SENT,
+    FAILED,
+    ABANDONED
+  },
+  loading
+}) => (
+  <div>
+    {!ABANDONED && SETTLED ?
+    <div className={cn(
+      'd-flex justify-content-between transaction-row px-4 py-3',
+      (FAILED || TERMINATED) ? 'error' : SENT ? 'sent' : '')}>
+      <div>
+        {(FAILED || TERMINATED) ? <i className="far fa-exclamation-circle fa-lg text-white mr-3"></i>
+          : !SENT ? <i className="fas fa-spinner-third fa-lg fa-spin mr-3"></i>
+          : <i className="far fa-check fa-lg mr-3"></i>}
+        {(FAILED || TERMINATED) ? 'Transaction error' : 'Coin Sent'}
+      </div>
+      {TERMINATED ? <Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
+        : FAILED ? <Moment format="hh:mm A">{FAILED * 1000}</Moment>
+        : SENT ? <Moment format="hh:mm A">{SENT * 1000}</Moment>
+        : ''}
+    </div> : ''}
+    {CLEARING ?
+    <div className={cn('d-flex justify-content-between transaction-row mt-4 px-4 py-3', (REVIEW || ABANDONED || (!SETTLED && TERMINATED)) ? 'error' : '')}>
+      <div>
+        {(REVIEW || ABANDONED || (!SETTLED && TERMINATED)) ? <i className="far fa-exclamation-circle fa-lg text-white mr-3"></i>
+          : !SETTLED ? <i className="fas fa-spinner-third fa-lg fa-spin mr-3"></i>
+          : <i className="far fa-check fa-lg mr-3"></i>}
+        {(REVIEW || (!SETTLED && TERMINATED)) ? 'Payment error' : ABANDONED ? 'You cancelled the transaction' : 'Payment received'}
+      </div>
+      {(!SETTLED && TERMINATED) ? <Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
+        : ABANDONED ? <Moment format="hh:mm A">{ABANDONED * 1000}</Moment>
+        : REVIEW ? <Moment format="hh:mm A">{REVIEW * 1000}</Moment>
+        : SETTLED ? <Moment format="hh:mm A">{SETTLED * 1000}</Moment>
+        : ''}
+    </div> : ''}
+    <div className="d-flex justify-content-between transaction-row mt-4 px-3 py-2 px-md-4 py-md-3">
+      <div>
+        <i className="far fa-check fa-lg mr-3"></i>
+        You sent payment
+      </div>
+      {CLEARING ? <Moment format="hh:mm A">{CLEARING * 1000}</Moment>: ''}
+    </div>
+  </div>
+)
+
 const mapStateToProps = (state) => {
-  console.log(state.order)
   return {
-    order: state.order,
-    limit: state.limit
+    order: state.order
   }
 }
 

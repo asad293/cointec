@@ -231,8 +231,10 @@ class CreateOrderForm extends Component {
     } else {
       if (limit.const) {
         const refreshTime = limit.const.PaymentWindow * 60
-        this.initInterval()
-        this.setState({ refreshTime, timer: 0 })
+        if (this.state.refreshTime >= this.state.timer) {
+          this.initInterval()
+          this.setState({ refreshTime, timer: 0 })
+        }
       }
     }
 

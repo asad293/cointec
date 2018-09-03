@@ -189,7 +189,8 @@ class SimpleCalculator extends Component {
 
   fetchCalls() {
     this.props.fetchAssets();
-    this.props.fetchLimit();
+    if (this.props.ctUser)
+      this.props.fetchLimit(this.props.ctUser);
     this.props.fetchConsts();
     this.getQuote();
   }
