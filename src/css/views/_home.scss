@@ -1,0 +1,60 @@
+.chart-wrapper {
+  position: relative;
+  .info-latest {
+    position: absolute;
+    top: -16px;
+    left: 50px;
+    .rate {
+      margin: 0;
+      font-size: 20px;
+      color: #001021;
+      font-weight: 600;
+      span {
+        font-size: 24px;
+      }
+    }
+    time {
+      margin: 0;
+      line-height: 29px;
+      font-size: 15px;
+      color: #5E6C78;
+    }
+  }
+  .info-pointed {
+    position: absolute;
+    background: #fff;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.04);
+    border-radius: 3px;
+    padding: 8px 16px;
+    top: -24px;
+    right: 50px;
+    .rate {
+      margin: 0;
+      font-size: 20px;
+      color: #0459C4;
+      font-weight: 600;
+      span {
+        font-size: 24px;
+      }
+    }
+    time {
+      margin: 0;
+      line-height: 29px;
+      font-size: 15px;
+      color: #5E6C78;
+    }
+  }
+  .axis-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    line-height: 31px;
+    font-size: 16px;
+    color: #76828F;
+  }
+  @include media-breakpoint-up(lg) {
+    min-width: 490px;
+  }
+}

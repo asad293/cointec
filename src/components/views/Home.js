@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Header from '../core/Header'
 import Navbar from '../core/Navbar'
 import HowTo from './Home/HowTo'
+import ExchangeRates from './Home/ExchangeRates'
 import DigitalCurrencies from './Home/DigitalCurrencies'
 import Security from './Home/Security'
 import Subscribe from './Home/Subscribe'
@@ -94,6 +95,7 @@ class Home extends Component {
                 {/* <UserReviews /> */}
                 <CurrencySlider />
                 <HowTo />
+                <ExchangeRates />
                 <DigitalCurrencies />
                 <Tracking />
                 <Security />

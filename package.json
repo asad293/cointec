@@ -46,6 +46,8 @@
     "bootstrap": "^4.0.0-beta",
     "bxslider": "^4.2.13",
     "classnames": "^2.2.5",
+    "echarts": "^4.1.0",
+    "echarts-for-react": "^2.0.14",
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "js-cookie": "^2.2.0",

@@ -609,7 +609,8 @@ header.bg-gradient {
 }
 
 .bottom-bar {
-    background: white;
+    // background: white;
+    border-top: 1px solid #E8EAEB;
     padding: 14px 0;
     position: absolute;
     bottom: 0;
@@ -1278,9 +1279,17 @@ footer {
     hr {
         border-top: 1px solid #E8EAEB;
     }
+    .menu-heading {
+        font-weight: 600;
+        font-size: 18px;
+        margin-bottom: 18px;
+    }
     a {
         display: block;
-        color: #8898aa;
+        // color: #8898aa;
+        color: #76828F;
+        font-size: 16px;
+        line-height: 31px;
         text-decoration: none;
         &:hover {
             color: #32325d;
@@ -1860,6 +1869,71 @@ footer {
     }
     @include media-breakpoint-down(sm) {
         height: 100%;
+    }
+}
+
+.digital-currency-page {
+    .digital-currency {
+        border: 1px solid #D5D5D5;
+        border-radius: 2px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        margin-bottom: 31px;
+        text-align: center;
+        display: block;
+        text-decoration: none;
+        img {
+            width: 47px;
+            height: 47px;
+        }
+        p {
+            margin-top: 17px;
+            margin-bottom: 0;
+            font-weight: 600;
+            line-height: 34px;
+            font-size: 18px;
+            color: #000000;
+        }
+        &.disabled {
+            cursor: not-allowed;
+            img {
+                filter: grayscale(100%);
+                opacity: 0.5;
+            }
+            p {
+                color: #8C969E;
+            }
+            &:hover {
+                border: 1px solid #D5D5D5;
+            }
+        }
+        &:hover {
+            border: 1px solid #0459C4;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+        }
+        @include media-breakpoint-down(md) {
+            margin-bottom: 28px;
+        }
+        @include media-breakpoint-down(sm) {
+            margin-bottom: 22px;
+        }
+    }
+    .more-on-currencies {
+        font-family: 'Open Sans', sans-serif;
+        line-height: 31px;
+        font-size: 16px;
+        text-align: center;
+        color: #70808D;
+        margin-bottom: 0;
+        a {
+            font-weight: 600;
+            color: #0459C4;
+        }
+    }
+    .page-content {
+        @include media-breakpoint-down(sm) {
+            padding-bottom: 30px !important;
+        }
     }
 }
 

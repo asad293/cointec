@@ -37,20 +37,20 @@ class Footer extends Component {
                         </div>
 
                         <div className="col-12 col-md-9 col-lg-6">
-                            <div className="row text-center text-md-left">
+                            <div className="row text-center text-md-left mt-2 mb-3">
 
                                 <div className="col-12 col-md-4 mt-5 mt-md-0">
-                                    <h5 className="mb-4">Information</h5>
-                                    <Link className="cta-text mb-2" to='/'>
+                                    <h5 className="menu-heading">Information</h5>
+                                    <Link to='/'>
                                         Home
                                     </Link>
 
-                                    <Link className="cta-text mb-2" to='/learn'>
+                                    <Link to='/learn'>
                                         {/* Support */}
                                         Learn
                                     </Link>
 
-                                    <Link className="cta-text mb-2" to='/'>
+                                    <Link to='/'>
                                         {/* Development */}
                                         Charts
                                     </Link>
@@ -58,9 +58,9 @@ class Footer extends Component {
 
                                 <div className="col-12 col-md-4 mt-5 mt-md-0">
                                     {/* <h5 className="mb-4">Follow us</h5> */}
-                                    <h5 className="mb-4">Support</h5>
-                                    <a href="#" className="cta-text mb-2">Helpdesk</a>
-                                    <a href="#livechat" className="cta-text mb-2">Live chat</a>
+                                    <h5 className="menu-heading">Support</h5>
+                                    <a href="#">Helpdesk</a>
+                                    <a href="#livechat">Live chat</a>
                                     {/* <a href="https://twitter.com/cointec" className="cta-text mb-2">
                                         Twitter
                                     </a>
@@ -75,12 +75,12 @@ class Footer extends Component {
                                 </div>
 
                                 <div className="col-12 col-md-4 mt-5 mt-md-0">
-                                    <h5 className="mb-4">Legal</h5>
-                                    <Link className="cta-text mb-2" to='/privacy'>
+                                    <h5 className="menu-heading">Legal</h5>
+                                    <Link to='/privacy'>
                                         Privacy Policy
                                     </Link>
 
-                                    <Link className="cta-text mb-2" to='/terms'>
+                                    <Link to='/terms'>
                                         Terms of Service
                                     </Link>
                                 </div>
