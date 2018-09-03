@@ -1,4 +1,5 @@
 export * from './btc_actions.js'
+export * from './chart_actions'
 export * from './limit_actions.js'
 export * from './gbp_actions.js'
 export * from './quote_actions'
