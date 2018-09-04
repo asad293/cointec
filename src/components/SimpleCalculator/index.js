@@ -93,7 +93,7 @@ class SimpleCalculator extends Component {
 
     if (sendAmount.length > 0)
       // return (currencySelected ? currencySelected.symbol : '£') + ' ' + sendAmount
-      return '' + sendAmount
+      return sendAmount
     else
       return sendAmount
   }
@@ -197,26 +197,18 @@ class SimpleCalculator extends Component {
 
 
   componentWillReceiveProps(props) {
-    const {
-			quote: { QuoteSendAmount, QuoteReceiveAmount, loading },
-			sendAmount,
-			receiveAmount
-		} = props
-		const { action, currencySelected } = this.state
-    this.setState({ quoteLoading: loading })
+    this.setState({
+      quoteLoading: props.quote.loading
+    })
 
-    if (sendAmount && action === 'sending')
-      this.props.change(
-        'receiveAmount',
-        Number.parseFloat(QuoteReceiveAmount).toFixed(QuoteReceiveAmount == 0 ? 0 : 8)
-      )
-    if (receiveAmount && action === 'receiving' && currencySelected) {
-      const { dp } = currencySelected
+    if (props.sendAmount && this.state.action === 'sending' && props.quote.QuoteReceiveAmount)
+      this.props.change('receiveAmount', Number.parseFloat(props.quote.QuoteReceiveAmount).toFixed(8))
+    
+    if (props.receiveAmount && this.state.action === 'receiving' && props.quote.QuoteSendAmount)
       this.props.change(
         'sendAmount',
-        `${Number.parseFloat(props.quote.QuoteSendAmount).toFixed(QuoteSendAmount == 0 ? 0 : dp)}`
+        `${Number.parseFloat(props.quote.QuoteSendAmount).toFixed(this.state.currencySelected ? this.state.currencySelected.dp : 2)}`
       )
-    }
 
     this.updateLimit(props)
     this.updateCoins(props)
@@ -303,7 +295,9 @@ class SimpleCalculator extends Component {
   }
 
   updateRate(props) {
-		this.setState({ rate: Number.parseFloat(props.quote.ExchangeRate) })
+    if (props.quote.ExchangeRate) {
+      this.setState({ rate: Number.parseFloat(props.quote.ExchangeRate) })
+    }
   }
 
   updateCoins(props) {
@@ -409,12 +403,6 @@ class SimpleCalculator extends Component {
     if (this.state.coinSearch)
       coins = this.state.coins.filter(coin => this.filterCoins(coin))
 
-      const {
-        sendAmount,
-        receiveAmount,
-        quote: { Limits, Message, Direction }
-      } = this.props
-
     const ExchangeableItem = ({ exchangeable, onItemSelected, status, unavailable }) => (
       <div>
         { status !== 'DISABLED' ?
@@ -436,8 +424,8 @@ class SimpleCalculator extends Component {
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <div>
           <div className="calc-input-wrapper">
-            <label className={cn('field-label m-0 mt-4', (Direction === 'SEND' && Message) ? 'invalid': null)}>
-              {Direction === 'SEND' && Message ? Message : 'You send'}
+            <label className="field-label m-0">
+              You send
             </label>
             {/* <div className="row am row-flex "> */}
             <div className="calc-field">
@@ -500,8 +488,8 @@ class SimpleCalculator extends Component {
               </div>
             </div>
             {/* <hr className="my-2" /> */}
-            <label className={cn('field-label m-0 mt-4', (Direction === 'RECEIVE' && Message) ? 'invalid': '')}>
-              {Direction === 'RECEIVE' && Message ? Message : 'You receive'}
+            <label className="field-label m-0 mt-4">
+              You receive
             </label>
             {/* <div className="row am row-flex "> */}
             <div className="calc-field">
@@ -577,23 +565,12 @@ class SimpleCalculator extends Component {
             </div>
           </div>
           <h6 className="exchange-rate-label mt-4">
-            {/* {
+            {
               (this.state.currencySelected ? this.state.currencySelected.symbol : this.state.currencySymbol) + ' ' +
               (this.state.currencySelected ? this.state.rate.toFixed(this.state.currencySelected.dp) : this.state.rate.toFixed(2)) + '/' + 
               (this.state.coinSelected ? this.state.coinSelected.name : 'BTC') + 
               ' Exchange Rate'
-            } */}
-            Exchange Rate:{' '}
-						<b>
-							{this.state.rate === 0
-								? '-/-'
-								: (this.state.currencySelected ? this.state.currencySelected.symbol : this.state.currencySymbol) +
-								  ' ' +
-								  (this.state.currencySelected ? this.state.rate.toFixed(this.state.currencySelected.dp) : this.state.rate.toFixed(2)) +
-								  '/' +
-								  (this.state.coinSelected ? this.state.coinSelected.name : 'BTC') +
-								  ' '}
-						</b>
+            }
           </h6>
           <div className="am row">
             <div className="mt-2 col-md-12">{this.renderButton()}</div>
@@ -610,9 +587,8 @@ class SimpleCalculator extends Component {
 
 const mapStateToProps = state => {
   const selector = formValueSelector('SimpleCalcForm')
-  // let sendAmount = '"' + selector(state, 'sendAmount')
-  // sendAmount = Number.parseFloat(sendAmount.split(" ")[1])
-  const sendAmount = Number.parseFloat(selector(state, 'sendAmount'))
+  let sendAmount = '"' + selector(state, 'sendAmount')
+  sendAmount = Number.parseFloat(sendAmount.split(" ")[1])
   const receiveAmount = Number.parseFloat(selector(state, 'receiveAmount'))
 
   return {
