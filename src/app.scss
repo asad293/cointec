@@ -485,6 +485,9 @@ header.bg-gradient {
                 font-size: 15px;
                 font-weight: 400;
                 color: #5E6C78;
+                &.invalid {
+                    color: #DB3A34;
+                }
             }
             .text-label {
                 color: #000;
