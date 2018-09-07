@@ -39,7 +39,7 @@ class Navbar extends Component {
                                 <Link className="nav-link" to='/learn'>Learn</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to='/#livechat'>Support</Link>
+                                <a className="nav-link" href="https://intercom.help/cointec-test">Support</a>
                             </li>
                             { /*
                             <li className="nav-item">
