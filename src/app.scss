@@ -184,7 +184,9 @@ header.bg-gradient {
     padding: 12px;
     .nav-item:not(:last-child) {
         padding-right: 0.6rem;
-        margin-bottom: 0.75rem;
+        @include media-breakpoint-down(md) {
+            margin-bottom: 0.75rem;
+        }
     }
     .navbar-nav {
         .nav-link {

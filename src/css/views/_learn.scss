@@ -141,7 +141,7 @@
           }
         }
         .accordion-body {
-          padding: 2px 32px 32px;
+          padding: 2px 32px 24px;
           color: #7D8B96;
           line-height: 31px;
           font-weight: normal;
@@ -320,7 +320,7 @@
       }
       @include media-breakpoint-down(sm) {
         padding-top: 23px;
-        padding-bottom: 65px;
+        padding-bottom: 23px;
       }
     }
   }

@@ -11,6 +11,12 @@
             margin-top: 112px;
             margin-bottom: 117px;
         }
+
+        @include media-breakpoint-down(sm) {
+            img {
+                margin-top: 50px;
+            }
+        }
     }
 }
 
@@ -30,6 +36,9 @@
             line-height: normal;
             color: #061A40;
             margin: 0;
+        }
+        @include media-breakpoint-down(sm) {
+            padding: 24px 24px 22px 24px;
         }
     }
     hr {
@@ -250,6 +259,9 @@
             &:disabled {
                 cursor: not-allowed;
             }
+        }
+        @include media-breakpoint-down(sm) {
+            padding: 24px;
         }
     }
     .als-content {
