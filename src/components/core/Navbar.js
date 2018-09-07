@@ -53,7 +53,7 @@ class Navbar extends Component {
                                 <Link className="nav-link" to='/login'>Log in</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link btn btn-outline-success early-access-btn" to='/signup'>Sign up</Link>
+                                <Link className="nav-link btn btn-outline-success sign-up-btn" to='/signup'>Sign up</Link>
                             </li>
                         </ul>
                     </div>

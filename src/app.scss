@@ -184,6 +184,7 @@ header.bg-gradient {
     padding: 12px;
     .nav-item:not(:last-child) {
         padding-right: 0.6rem;
+        margin-bottom: 0.75rem;
     }
     .navbar-nav {
         .nav-link {
@@ -226,6 +227,24 @@ header.bg-gradient {
 
         &:focus {
             outline: none;
+        }
+    }
+}
+
+.sign-up-btn {
+    color: white !important;
+    background-color: transparent;
+    border-color: white;
+
+    &:focus {
+        box-shadow: none;
+    }
+
+    @include media-breakpoint-down(md) {
+        background: #29BE60;
+        border: none;
+        &:hover {
+            background: #23a753;
         }
     }
 }
@@ -663,6 +682,9 @@ header.bg-gradient {
 .tracking-section {
     .transaction-row {
         width: 461px;
+        @include media-breakpoint-down(sm) {
+            width: 100%;
+        }
     }
 }
 
@@ -1310,6 +1332,9 @@ footer {
             color: #32325d;
             text-decoration: none;
         }
+    }
+    .copyright, .reg-info {
+        color: #76828f;
     }
 }
 
