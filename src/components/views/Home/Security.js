@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 const Security = () => (
-  <div className="home-section container">
+  <div className="home-section security-section container">
     <div className="row">
       <div className="col-12 col-md-6 pr-md-4 text-center text-md-left">
         <h4 className="section-title d-none d-md-block">

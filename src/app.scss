@@ -1069,6 +1069,13 @@ header.bg-gradient {
     }
 }
 
+.home-section.security-section.container {
+    padding: 122px 15px;
+    .section-title {
+        margin-top: 0;
+    }
+}
+
 .cta-icon-wrapper {
     // Icons not absolutly positioned:
     img {
