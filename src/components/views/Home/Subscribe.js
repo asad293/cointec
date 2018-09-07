@@ -11,7 +11,7 @@ class Subscribe extends Component {
             <div className="row">
               <div className="col-12 col-md-8 col-lg-6 mx-auto text-center">
 
-                <h2 className="start-buying-title mb-5 text-white">
+                <h2 className="start-buying-title text-white">
                   {/* Subscribe for <strong>early access.</strong> */}
                   Get started today
                 </h2>
