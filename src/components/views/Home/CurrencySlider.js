@@ -56,6 +56,7 @@ class CurrencySlider extends Component {
             </div>
           </div>
         </div>
+        <hr className="m-0" style={{borderTop: '1px solid #E5E5E5'}} />
       </div>
     )
   }
