@@ -137,6 +137,7 @@ html {
             width: 620px;
             bottom: 0;
             border-radius: 0 200px 0 0;
+            pointer-events: none;
         }
     }
     &.bg-mid-gradient {
@@ -184,6 +185,9 @@ header.bg-gradient {
     padding: 12px;
     .nav-item:not(:last-child) {
         padding-right: 0.6rem;
+        @include media-breakpoint-down(md) {
+            margin-bottom: 0.75rem;
+        }
     }
     .navbar-nav {
         .nav-link {
@@ -226,6 +230,24 @@ header.bg-gradient {
 
         &:focus {
             outline: none;
+        }
+    }
+}
+
+.sign-up-btn {
+    color: white !important;
+    background-color: transparent;
+    border-color: white;
+
+    &:focus {
+        box-shadow: none;
+    }
+
+    @include media-breakpoint-down(md) {
+        background: #29BE60;
+        border: none;
+        &:hover {
+            background: #23a753;
         }
     }
 }
@@ -485,6 +507,9 @@ header.bg-gradient {
                 font-size: 15px;
                 font-weight: 400;
                 color: #5E6C78;
+                &.invalid {
+                    color: #DB3A34;
+                }
             }
             .text-label {
                 color: #000;
@@ -658,6 +683,15 @@ header.bg-gradient {
 .transaction-row.pro {
     background: linear-gradient(270deg, #FFFFFF 0%, #FFFFFF 100%);
     border: 1px solid #E8EAEB;
+}
+
+.tracking-section {
+    .transaction-row {
+        width: 461px;
+        @include media-breakpoint-down(sm) {
+            width: 100%;
+        }
+    }
 }
 
 .btn-back {
@@ -1063,6 +1097,13 @@ header.bg-gradient {
     }
 }
 
+.home-section.security-section.container {
+    padding: 122px 15px;
+    .section-title {
+        margin-top: 0;
+    }
+}
+
 .cta-icon-wrapper {
     // Icons not absolutly positioned:
     img {
@@ -1206,8 +1247,10 @@ header.bg-gradient {
         // font-weight: 100;
         font-weight: 600;
         font-size: 28px;
+        margin-bottom: 3rem;
         @include media-breakpoint-down(xs) {
-            font-size: 1.6rem;
+            font-size: 24px;
+            margin-bottom: 2rem;
         }
     }
     .start-buying-email-wrapper {
@@ -1295,6 +1338,9 @@ footer {
             color: #32325d;
             text-decoration: none;
         }
+    }
+    .copyright, .reg-info {
+        color: #76828f;
     }
 }
 

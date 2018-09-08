@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Tracking = () => (
   <div className="bg-gradient bg-mid-gradient">
-    <div className="home-section container px-4">
+    <div className="home-section tracking-section container px-4">
       <div className="row flex-column-reverse flex-md-row">
         <div className="col-12 col-md-6 pr-md-0 pr-lg-5 mt-4 mt-md-0">
           <div className="d-flex justify-content-between transaction-row px-4 sent">

@@ -59,7 +59,7 @@ class Footer extends Component {
                                 <div className="col-12 col-md-4 mt-5 mt-md-0">
                                     {/* <h5 className="mb-4">Follow us</h5> */}
                                     <h5 className="menu-heading">Support</h5>
-                                    <a href="#">Helpdesk</a>
+                                    <a href="https://intercom.help/cointec-test">Helpdesk</a>
                                     <a href="#livechat">Live chat</a>
                                     {/* <a href="https://twitter.com/cointec" className="cta-text mb-2">
                                         Twitter
@@ -95,12 +95,12 @@ class Footer extends Component {
                 <div className="container text-center text-md-left">
                     <div className="row">
                         <div className="col-12 col-md-4">
-                            <p>
+                            <p className="copyright">
                                 &copy; Cointec ltd 2018
                             </p>
                         </div>
                         <div className="col-12 col-md-8">
-                            <p className="px-2 px-sm-5 px-md-0">
+                            <p className="reg-info px-2 px-sm-5 px-md-0">
                                 Cointec Ltd is a company registered in England and Wales (No. 08804411)
                             </p>
                         </div>
