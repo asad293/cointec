@@ -227,7 +227,7 @@ class SimpleCalculator extends Component {
   }
 
   convertToReceiveAmount(amount) {
-    return amount / this.state.rate;
+    return (!amount || !this.state.rate) ? 0 : (amount / this.state.rate);
   }
 
   convertToSendAmount(amount) {
@@ -265,7 +265,7 @@ class SimpleCalculator extends Component {
   onCurrencySelected(currency) {
     this.setState({
       currencySelected: currency,
-      coinSelected: false,
+      // coinSelected: false,
       toggleCurrency: false
     }, () => this.fetchCalls())
   }
@@ -321,14 +321,22 @@ class SimpleCalculator extends Component {
         }
       })
 
-      const defaultCoin = this.state.currencySelected && this.state.currencySelected.name === 'GBP'
-      ? updatedCoins.find(coin => coin.name === this.state.defaultCoin)
-      : (updatedCoins.length ? updatedCoins[0] : false)
+      const prev = this.state.coinSelected
+				? this.state.coinSelected.name
+				: false
+      // const defaultCoin = this.state.currencySelected && this.state.currencySelected.name === 'GBP'
+      // ? updatedCoins.find(coin => coin.name === this.state.defaultCoin)
+      // : (updatedCoins.length ? updatedCoins[0] : false)
 
-      let prev = this.state.coinSelected ? this.state.coinSelected.name : false
-      const coinSelected = !this.state.coinSelected && updatedCoins.length
-      ? defaultCoin
-      : this.state.coinSelected
+      // let prev = this.state.coinSelected ? this.state.coinSelected.name : false
+      // const coinSelected = !this.state.coinSelected && updatedCoins.length
+      // ? defaultCoin
+      // : this.state.coinSelected
+      const coinSelected = this.state.coinSelected
+				? updatedCoins.find(coin => coin.name === this.state.coinSelected.name)
+				: updatedCoins.length
+					? updatedCoins[0]
+					: false
 
       this.setState({
         coins: updatedCoins,
@@ -436,8 +444,8 @@ class SimpleCalculator extends Component {
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <div>
           <div className="calc-input-wrapper">
-            <label className={cn('field-label m-0 mt-4', (Direction === 'SEND' && Message) ? 'invalid': null)}>
-              {Direction === 'SEND' && Message ? Message : 'You send'}
+            <label className={cn('field-label m-0 mt-4', Message ? 'invalid': null)}>
+              {Message ? Message : 'You send'}
             </label>
             {/* <div className="row am row-flex "> */}
             <div className="calc-field">
@@ -500,8 +508,8 @@ class SimpleCalculator extends Component {
               </div>
             </div>
             {/* <hr className="my-2" /> */}
-            <label className={cn('field-label m-0 mt-4', (Direction === 'RECEIVE' && Message) ? 'invalid': '')}>
-              {Direction === 'RECEIVE' && Message ? Message : 'You receive'}
+            <label className="field-label m-0 mt-4">
+              You receive
             </label>
             {/* <div className="row am row-flex "> */}
             <div className="calc-field">
@@ -587,12 +595,12 @@ class SimpleCalculator extends Component {
 						<b>
 							{this.state.rate === 0
 								? '-/-'
-								: (this.state.currencySelected ? this.state.currencySelected.symbol : this.state.currencySymbol) +
-								  ' ' +
-								  (this.state.currencySelected ? this.state.rate.toFixed(this.state.currencySelected.dp) : this.state.rate.toFixed(2)) +
-								  '/' +
-								  (this.state.coinSelected ? this.state.coinSelected.name : 'BTC') +
-								  ' '}
+								: (this.state.currencySelected ? this.state.rate.toFixed(this.state.currencySelected.dp) : this.state.rate.toFixed(2)) +
+                  ' ' +
+                  (this.state.currencySelected ? this.state.currencySelected.name : 'GBP') +
+                  '/' +
+                  (this.state.coinSelected ? this.state.coinSelected.name : 'BTC') +
+                  ' '}
 						</b>
           </h6>
           <div className="am row">

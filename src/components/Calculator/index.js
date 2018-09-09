@@ -270,7 +270,7 @@ class Calculator extends Component {
 	}
 
 	convertToReceiveAmount(amount) {
-		return amount / this.state.rate
+		return (!amount || !this.state.rate) ? 0 : (amount / this.state.rate)
 	}
 
 	convertToSendAmount(amount) {
