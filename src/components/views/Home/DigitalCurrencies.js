@@ -21,7 +21,17 @@ const DigitalCurrencies = () => (
         <Link to='/digital-currency-list' className="d-none d-md-inline">See all digital currencies</Link>
       </div>
       <div className="col-12 col-md-6 text-center mt-4 mt-md-0">
-        <img className="currencies-group mb-5 mb-md-0" src="/img/currencies-group.svg" alt="currencies-group"/>
+        {/* <img className="currencies-group mb-5 mb-md-0" src="/img/currencies-group.svg" alt="currencies-group"/> */}
+        <div className="currencies-group mb-5 mb-md-0">
+          <img src="/img/cg-image-1.svg" />
+          <img src="/img/cg-image-2.svg" />
+          <img src="/img/cg-image-3.svg" />
+          <img src="/img/cg-image-4.svg" />
+          <img src="/img/cg-image-5.svg" />
+          <img src="/img/cg-image-1.svg" />
+          <img src="/img/cg-image-6.svg" />
+          <img src="/img/cg-image-7.svg" />
+        </div>
         <Link to='/digital-currency-list' className="d-md-none">See all digital currencies</Link>
       </div>
     </div>
