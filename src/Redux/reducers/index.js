@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import AuthReducer from './auth_reducer'
 import GBPReducer from './gbp_reducer'
 import BTCReducer from './btc_reducer'
 import ChartReducer from './chart_reducer'
@@ -9,6 +10,7 @@ import QuoteReducer from './quote_reducer'
 import { reducer as FormReducer} from 'redux-form'
 
 const rootReducer = combineReducers({
+    auth: AuthReducer,
     gbpRate: GBPReducer,
     btcRate: BTCReducer,
     chart: ChartReducer,

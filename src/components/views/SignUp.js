@@ -1,43 +1,51 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { inject, observer } from 'mobx-react'
+import { connect } from 'react-redux'
+import { SubmissionError } from 'redux-form'
 
 import Header from '../core/Header'
-import PasswordToggle from '../core/PasswordToggle'
+import SignUpForm from './SignUp/SignUpForm'
 
-@inject('signUpStore')
-@observer
+import { signUp } from '../../Redux/actions'
+
 class SignUp extends Component {
-	validate = event => this.props.signUpStore.validate(event.target.name)
-	handleInputChange = event => this.props.signUpStore.setData(event.target.name, event.target.value)
-	togglePassword = () => this.props.signUpStore.togglePassword()
-	
-	handleSubmit = event => {
-		event.preventDefault()
-		this.props.signUpStore.validate()
-		if (this.props.signUpStore.form.valid) {
-			this.props.signUpStore.signUp().then(this.authComplete)
+	constructor() {
+		super()
+		this.state = {
+			maskPassword: false
 		}
+		this.authComplete = this.authComplete.bind(this)
+		this.handleSubmit = this.handleSubmit.bind(this)
+		this.toggleMask = this.toggleMask.bind(this)
+	}
+	
+	handleSubmit(values) {
+		return this.props.signUp(values)
+			.then(res => {
+				console.log(res)
+				this.authComplete()
+			})
+			.catch(error => {
+				throw new SubmissionError({
+					emailAddress: 'Email already exists, please sign in'
+				})
+			})
 	}
 
-	authComplete = () => this.props.history.push('/link-sent/activation', {
-		email: this.props.signUpStore.form.data.emailAddress
-	})
+	authComplete() {
+		this.props.history.push('/link-sent/activation', {
+			email: this.props.signUpStore.form.data.emailAddress
+		})
+	}
+
+	toggleMask() {
+		this.setState({
+			maskPassword: !this.state.maskPassword
+		})
+	}
 
 	render() {
-		const {
-			form,
-			passwordVisible,
-			inProgress,
-			responseError
-		} = this.props.signUpStore
-
-		const labelEmail = form.isValid('emailAddress')
-			? 'Email'
-			: 'Please enter a valid email'
-		const labelPassword = form.isValid('password')
-			? 'Password'
-			: 'Please enter a valid password'
+		const { loading } = this.props.auth
 
 		return (
 			<div className="signin-page">
@@ -53,7 +61,14 @@ class SignUp extends Component {
 						<h5 className="form-heading">Create an account</h5>
 					</div>
 					<hr />
-					<form className="signup-form"
+
+					<SignUpForm
+						loading={loading}
+						maskPassword={this.state.maskPassword}
+						toggleMask={this.toggleMask}
+						onSubmit={this.handleSubmit}
+					/>
+					{/* <form className="signup-form"
 						onSubmit={this.handleSubmit.bind(this)}
 						noValidate>
 						<div className={`form-group ${!form.isValid('emailAddress') ? 'invalid' : ''}`}>
@@ -109,7 +124,7 @@ class SignUp extends Component {
 							{inProgress ? <div><i className="fas fa-spinner fa-spin" /></div> : <span>Create an account</span>}
 						</button>
 
-					</form>
+					</form> */}
 				</section>
 				<p className="have-account">
 					Already have an account? <Link to="/login">Sign in</Link>
@@ -133,29 +148,8 @@ class SignUp extends Component {
 					</div>
 				</div>
 			</div>
-				// <div className="container">
-				// 	<div className="row">
-				// 		<div className="col-12 col-xl-4 form-section">
-				// 			<Link to="/">
-				// 				<img
-				// 					src="/img/logo-color.svg"
-				// 					alt="Cointec Logo"
-				// 					className="mb-5"
-				// 				/>
-				// 			</Link>
-
-				// 			<h1 className="page-title">Sign Up</h1>
-				// 			<div
-				// 				className="form-error"
-				// 				style={{ visibility: responseError ? 'visible' : 'hidden' }}>
-				// 				Email already exists. Please login
-				// 			</div>
-
-				// 		</div>
-				// 	</div>
-				// </div>
 		)
 	}
 }
 
-export default SignUp
+export default connect(({auth}) => ({auth}), { signUp })(SignUp)
