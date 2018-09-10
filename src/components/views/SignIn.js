@@ -25,6 +25,8 @@ class SignIn extends Component {
 		const { history } = this.props
 		if (history.location.state && history.location.state.redirectPath)
 			history.push(history.location.state.redirectPath)
+		else
+			history.push('')
 	}
 
 	render() {

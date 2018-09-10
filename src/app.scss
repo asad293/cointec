@@ -238,12 +238,15 @@ header.bg-gradient {
     color: white !important;
     background-color: transparent;
     border-color: white;
+    font-weight: 600;
 
     &:focus {
         box-shadow: none;
     }
 
     @include media-breakpoint-down(md) {
+        padding-top: 0.875rem !important;
+        padding-bottom: 0.875rem !important;
         background: #29BE60;
         border: none;
         &:hover {
@@ -1078,6 +1081,7 @@ header.bg-gradient {
         @include media-breakpoint-down(md) {
             margin-top: 0;
             font-size: 19px;
+            line-height: 28px;
         }
     }
     p {
@@ -1100,7 +1104,7 @@ header.bg-gradient {
 .home-section.security-section.container {
     padding: 122px 15px;
     .section-title {
-        margin-top: 0;
+        margin-top: 12px;
     }
 }
 
@@ -1247,10 +1251,9 @@ header.bg-gradient {
         // font-weight: 100;
         font-weight: 600;
         font-size: 28px;
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
         @include media-breakpoint-down(xs) {
             font-size: 24px;
-            margin-bottom: 2rem;
         }
     }
     .start-buying-email-wrapper {

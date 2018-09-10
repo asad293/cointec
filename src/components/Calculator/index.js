@@ -466,6 +466,7 @@ class Calculator extends Component {
 			receiveAmount: this.props.receiveAmount,
 			sendCurrency: this.state.currencySelected.name,
 			receiveCurrency: _.defaultTo(this.state.coinSelected && this.state.coinSelected.name, 'BTC'),
+			action: this.state.action,
 			rate: this.state.rate,
 			wallet: this.props.wallet
 		})
@@ -512,20 +513,30 @@ class Calculator extends Component {
 		return (
 			<div className="main-calc-wrapper mt-5">
 				<form onSubmit={this.onSubmit}>
+					{/* <div
+						className={cn(
+							'calc-input-wrapper text-left',
+							Message ||
+							(Limits && Limits.Max.SendCurrency < sendAmount)
+								? 'invalid'
+								: null
+						)}> */}
 					<div
 						className={cn(
 							'calc-input-wrapper text-left',
-							(Direction === 'SEND' && Message) ||
-							(Limits && Limits.Max.SendCurrency < sendAmount)
+							Message
 								? 'invalid'
 								: null
 						)}>
 						<label className="field-label m-0">
-							{Direction === 'SEND' && Message
+							{Message
+								? Message
+								: 'You send'}
+							{/* {Message
 								? Message
 								: Limits && Limits.Max.SendCurrency < sendAmount
 									? 'Limit exceeded'
-									: 'You send'}
+									: 'You send'} */}
 						</label>
 						<div className="calc-field">
 							<div className="col-6 col-xl-7 pr-0">
@@ -599,9 +610,11 @@ class Calculator extends Component {
 							</div>
 						</div>
 					</div>
-					<div className={cn('calc-input-wrapper text-left', (Direction === 'RECEIVE' && Message) || (Limits && Limits.Max.ReceiveCurrency < receiveAmount) ? 'invalid' : null)}>
+					{/* <div className={cn('calc-input-wrapper text-left', (Direction === 'RECEIVE' && Message) || (Limits && Limits.Max.ReceiveCurrency < receiveAmount) ? 'invalid' : null)}> */}
+					<div className="calc-input-wrapper text-left">
 						<label className="field-label m-0">
-							{Direction === 'RECEIVE' && Message ? Message : Limits && Limits.Max.ReceiveCurrency < receiveAmount ? 'Receive limit exceeded' : 'You receive'}
+							{/* {Direction === 'RECEIVE' && Message ? Message : Limits && Limits.Max.ReceiveCurrency < receiveAmount ? 'Receive limit exceeded' : 'You receive'} */}
+							You receive
 						</label>
 						<div className="calc-field">
 							<div className="col-6 col-xl-7 pr-0">

@@ -145,6 +145,9 @@
           color: #7D8B96;
           line-height: 31px;
           font-weight: normal;
+          @include media-breakpoint-down(sm) {
+            padding: 2px 22px 24px;
+          }
         }
         @include media-breakpoint-down(sm) {
           margin-top: 16px;
@@ -263,6 +266,7 @@
         }
         @include media-breakpoint-down(sm) {
           padding: 0 5px;
+          margin-bottom: 16px;
         }
       }
     }
