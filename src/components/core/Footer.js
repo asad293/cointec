@@ -58,8 +58,8 @@ class Footer extends Component {
 
                                 <div className="col-12 col-md-4 mt-5 mt-md-0">
                                     {/* <h5 className="mb-4">Follow us</h5> */}
-                                    <h5 className="menu-heading">Support</h5>
-                                    <a href="https://intercom.help/cointec-test">Helpdesk</a>
+                                    <h5 className="menu-heading">Help</h5>
+                                    <a href="https://intercom.help/cointec-test">Support</a>
                                     <a href="#livechat">Live chat</a>
                                     {/* <a href="https://twitter.com/cointec" className="cta-text mb-2">
                                         Twitter

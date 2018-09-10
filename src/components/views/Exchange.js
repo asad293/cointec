@@ -19,6 +19,7 @@ class Exchange extends Component {
 			receiveAmount: 0,
 			sendCurrency: 'GBP',
 			receiveCurrency: 'BTC',
+			action: 'sending',
 			rate: 1200,
 			wallet: null,
 			ctUser: null,
@@ -29,6 +30,7 @@ class Exchange extends Component {
     this.next = this.next.bind(this)
     this.back = this.back.bind(this)
 		this.onConfirm = this.onConfirm.bind(this)
+		this.onRestart = this.onRestart.bind(this)
 	}
 
 	componentDidMount() {
@@ -72,6 +74,12 @@ class Exchange extends Component {
     this.props.history.push(`/transaction-tracker/${txnID}`)
 	}
 
+	onRestart() {
+		this.setState({
+			step: 1
+		})
+	}
+
 	render() {
 		// console.log(this.state.ctUser)
 		let frame = null
@@ -87,6 +95,7 @@ class Exchange extends Component {
 					sendCurrency={this.state.sendCurrency}
 					receiveCurrency={this.state.receiveCurrency}
 					ctUser={this.state.ctUser}
+					action={this.state.action}
 					wallet={this.state.wallet}
 					rate={this.state.rate}
 					onConfirm={this.next} />
@@ -99,7 +108,8 @@ class Exchange extends Component {
 					wallet={this.state.wallet}
 					rate={this.state.rate}
 					ctUser={this.state.ctUser}
-					onConfirm={this.onConfirm} />
+					onConfirm={this.onConfirm}
+					onRestart={this.onRestart} />
 		// else if (this.state.step === 4)
 		// 	frame = <TransactionTrackerFrame txnID={0} />
 		// else if (this.state.step === 4)

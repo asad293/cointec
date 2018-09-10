@@ -238,12 +238,15 @@ header.bg-gradient {
     color: white !important;
     background-color: transparent;
     border-color: white;
+    font-weight: 600;
 
     &:focus {
         box-shadow: none;
     }
 
     @include media-breakpoint-down(md) {
+        padding-top: 0.875rem !important;
+        padding-bottom: 0.875rem !important;
         background: #29BE60;
         border: none;
         &:hover {
@@ -1078,6 +1081,7 @@ header.bg-gradient {
         @include media-breakpoint-down(md) {
             margin-top: 0;
             font-size: 19px;
+            line-height: 28px;
         }
     }
     p {
@@ -1088,10 +1092,53 @@ header.bg-gradient {
         margin-top: 16px;
         font-weight: 600;
     }
-    img.currencies-group {
-        max-height: 280px;
-        max-width: 100%;
+    .currencies-group {
+        position: relative;
+        height: 279px;
+        left: 40px;
+        img {
+            position: absolute;
+        }
+        img:nth-child(1) {
+            top: 0;
+            left: 132px;
+        }
+        img:nth-child(2) {
+            top: 1px;
+            left: 366px;
+        }
+        img:nth-child(3) {
+            top: 67px;
+            left: 0;
+        }
+        img:nth-child(4) {
+            top: 62px;
+            left: 254px;
+        }
+        img:nth-child(5) {
+            top: 145px;
+            left: 132px;
+        }
+        img:nth-child(6) {
+            top: 158px;
+            left: 390px;
+        }
+        img:nth-child(7) {
+            top: 216px;
+            left: 25px;
+        }
+        img:nth-child(8) {
+            top: 216px;
+            left: 253px;
+        }
+        @include media-breakpoint-down(md) {
+            left: initial;
+        }
     }
+    // img.currencies-group {
+    //     max-height: 280px;
+    //     max-width: 100%;
+    // }
     img.security-lock {
         width: 230px;
     }
@@ -1100,7 +1147,7 @@ header.bg-gradient {
 .home-section.security-section.container {
     padding: 122px 15px;
     .section-title {
-        margin-top: 0;
+        margin-top: 12px;
     }
 }
 
@@ -1247,10 +1294,9 @@ header.bg-gradient {
         // font-weight: 100;
         font-weight: 600;
         font-size: 28px;
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
         @include media-breakpoint-down(xs) {
             font-size: 24px;
-            margin-bottom: 2rem;
         }
     }
     .start-buying-email-wrapper {

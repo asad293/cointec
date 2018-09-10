@@ -56,11 +56,19 @@ class ReviewForm extends Component {
   }
 
   fetchCalls() {
-    this.props.fetchQuote({
-      SendCurrency: this.props.sendCurrency,
-      ReceiveCurrency: this.props.receiveCurrency,
-      SendAmount: this.props.sendAmount
-    })
+    if (this.props.action === 'sending') {
+      this.props.fetchQuote({
+        SendCurrency: this.props.sendCurrency,
+        ReceiveCurrency: this.props.receiveCurrency,
+        SendAmount: this.props.sendAmount
+      })
+    } else {
+      this.props.fetchQuote({
+				SendCurrency: this.props.sendCurrency,
+        ReceiveCurrency: this.props.receiveCurrency,
+				ReceiveAmount: this.props.receiveAmount
+			})
+    }
 		this.props.fetchConsts()
   }
 
@@ -205,8 +213,9 @@ ReviewForm.propTypes = {
   receiveAmount: PropTypes.number,
   sendCurrency: PropTypes.string,
   receiveCurrency: PropTypes.string,
+  action: PropTypes.string,
   rate: PropTypes.number,
   wallet: PropTypes.string,
-  ctUser: PropTypes.number,
+  // ctUser: PropTypes.number,
   onConfirm: PropTypes.func
 }

@@ -21,6 +21,7 @@ class CreateOrderForm extends Component {
     this.initInterval = this.initInterval.bind(this)
     this.fetchCalls = this.fetchCalls.bind(this)
     this.startPayment = this.startPayment.bind(this)
+    this.restart = this.restart.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.renderButton = this.renderButton.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
@@ -68,6 +69,10 @@ class CreateOrderForm extends Component {
     this.setState({ expired: false })
     this.initInterval()
     this.fetchCalls()
+  }
+
+  restart() {
+    this.props.onRestart()
   }
 
   handleChange(event) {
@@ -215,7 +220,7 @@ class CreateOrderForm extends Component {
               <h2 className="mt-5">Payement timeout</h2>
               <img className="mt-4" src="/img/error.svg" alt="error" />
               <p className="mt-4">Oops, looks like you ran out of time. Click the link below to restart the transaction.</p>
-              <button className="btn-back" onClick={() => this.startPayment()}><span>Restart</span></button>
+              <button className="btn-back" onClick={() => this.restart()}><span>Restart</span></button>
             </div>
           </div>
         </div>
@@ -288,5 +293,6 @@ CreateOrderForm.propTypes = {
   rate: PropTypes.number,
   wallet: PropTypes.string,
   ctUser: PropTypes.number,
-  onConfirm: PropTypes.func
+  onConfirm: PropTypes.func,
+  onRestart: PropTypes.func,
 }
