@@ -23,7 +23,7 @@ class SignUp extends Component {
 		return this.props.signUp(values)
 			.then(res => {
 				console.log(res)
-				this.authComplete()
+				this.authComplete(values.emailAddress)
 			})
 			.catch(error => {
 				throw new SubmissionError({
@@ -32,10 +32,8 @@ class SignUp extends Component {
 			})
 	}
 
-	authComplete() {
-		this.props.history.push('/link-sent/activation', {
-			email: this.props.signUpStore.form.data.emailAddress
-		})
+	authComplete(email) {
+		this.props.history.push('/link-sent/activation', { email })
 	}
 
 	toggleMask() {
@@ -56,6 +54,7 @@ class SignUp extends Component {
 						</Link>
 					</div>
 				</Header>
+
 				<section className="form-wrapper">
 					<div className="form-heading-wrapper">
 						<h5 className="form-heading">Create an account</h5>
@@ -68,64 +67,8 @@ class SignUp extends Component {
 						toggleMask={this.toggleMask}
 						onSubmit={this.handleSubmit}
 					/>
-					{/* <form className="signup-form"
-						onSubmit={this.handleSubmit.bind(this)}
-						noValidate>
-						<div className={`form-group ${!form.isValid('emailAddress') ? 'invalid' : ''}`}>
-							<label htmlFor="emailAddress">{labelEmail}</label>
-							<input
-								name="emailAddress"
-								type="email"
-								className="form-control"
-								placeholder="email@cointec.co.uk"
-								value={form.data.emailAddress}
-								onBlur={this.validate.bind(this)}
-								onChange={this.handleInputChange.bind(this)}
-								autoComplete="email"
-							/>
-						</div>
-
-						<div className={`form-group ${!form.isValid('password') ? 'invalid' : ''} ${!!form.data['password'] && !form.check('password') ? 'valid' : ''}`}>
-							<label htmlFor="password">{labelPassword}</label>
-							<div className="password-validation position-relative">
-								<input
-									id="password"
-									name="password"
-									type={passwordVisible ? 'text' : 'password'}
-									className="form-control password"
-									placeholder="••••••••"
-									value={form.data.password}
-									onBlur={this.validate.bind(this)}
-									onChange={this.handleInputChange.bind(this)}
-									autoComplete="off"
-								/>
-
-								<PasswordToggle
-									visible={passwordVisible}
-									onToggle={this.togglePassword.bind(this)}
-								/>
-
-								<div className="typing-validator">8 or more character</div>
-							</div>
-						</div>
-
-						<div className="agree-statment">
-							<input type="checkbox" value="" name="checkbox" />
-							<label htmlFor="checkbox">
-								I agree with the{' '}
-								<Link to="/terms">terms and conditions</Link>
-							</label>
-						</div>
-
-						<button
-							type="submit"
-							className="btn btn-primary"
-							disabled={inProgress}>
-							{inProgress ? <div><i className="fas fa-spinner fa-spin" /></div> : <span>Create an account</span>}
-						</button>
-
-					</form> */}
 				</section>
+
 				<p className="have-account">
 					Already have an account? <Link to="/login">Sign in</Link>
 				</p>
