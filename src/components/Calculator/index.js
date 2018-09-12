@@ -461,6 +461,7 @@ class Calculator extends Component {
 
 	onSubmit(event) {
 		event.preventDefault()
+		clearInterval(this.state.intervalId)
 		this.props.onConfirm({
 			sendAmount: this.props.sendAmount,
 			receiveAmount: this.props.receiveAmount,

@@ -31,6 +31,7 @@ class Exchange extends Component {
     this.back = this.back.bind(this)
 		this.onConfirm = this.onConfirm.bind(this)
 		this.onRestart = this.onRestart.bind(this)
+		this.onRateChange = this.onRateChange.bind(this)
 	}
 
 	componentDidMount() {
@@ -70,7 +71,6 @@ class Exchange extends Component {
   }
 
 	onConfirm({ txnID }) {
-    console.log(txnID)
     this.props.history.push(`/transaction-tracker/${txnID}`)
 	}
 
@@ -79,9 +79,12 @@ class Exchange extends Component {
 			step: 1
 		})
 	}
+	
+	onRateChange(state) {
+		this.setState({ ...state })
+	}
 
 	render() {
-		// console.log(this.state.ctUser)
 		let frame = null
 		if (this.state.step === 1)
 			frame = <AmountFrame
@@ -98,6 +101,7 @@ class Exchange extends Component {
 					action={this.state.action}
 					wallet={this.state.wallet}
 					rate={this.state.rate}
+					onRateChange={this.onRateChange}
 					onConfirm={this.next} />
 		else if (this.state.step === 3)
 			frame = <PaymentFrame
@@ -110,17 +114,6 @@ class Exchange extends Component {
 					ctUser={this.state.ctUser}
 					onConfirm={this.onConfirm}
 					onRestart={this.onRestart} />
-		// else if (this.state.step === 4)
-		// 	frame = <TransactionTrackerFrame txnID={0} />
-		// else if (this.state.step === 4)
-		//   frame = <TransactionTrackerFrame
-		//     sendAmount={this.state.sendAmount}
-		//     receiveAmount={this.state.receiveAmount}
-		//     sendCurrency={this.state.sendCurrency}
-		//     receiveCurrency={this.state.receiveCurrency}
-		//     wallet={this.state.wallet}
-		//     rate={this.state.rate}
-		//     ctUser={this.state.ctUser} />
 
 		return (
 			<div className="full-height" style={{ backgroundColor: '#f4f7fa' }}>
@@ -205,7 +198,6 @@ class Exchange extends Component {
 
 const AmountFrame = props => (
 	<div>
-		{/* <h4 className="mt-4 mb-3 text-nowrap">Buy digital currency in minutes.</h4> */}
 		<Calculator {...props} />
 		<p className="text-left mt-3">
 			By continuing you accept our <Link to="/terms">Terms of Use</Link>
@@ -215,24 +207,13 @@ const AmountFrame = props => (
 
 const SummaryFrame = props => (
 	<div>
-		{/* <h4 className="mt-4 mb-3 text-nowrap">Order Summary</h4> */}
 		<ReviewForm {...props} />
 	</div>
 )
 
 const PaymentFrame = props => (
 	<div>
-		{/* <h4 className="mt-4 mb-3 text-nowrap">
-      {`${props.sendCurrency === 'GBP' ? 'Bank Tranfer' : 'Wallet transfer'}`}
-    </h4> */}
 		<CreateOrderForm {...props} />
-	</div>
-)
-
-const TransactionTrackerFrame = props => (
-	<div>
-		{/* <h4 className="mt-4 mb-3 text-nowrap">Transaction tracker</h4> */}
-		<TransactionTracker {...props} />
 	</div>
 )
 

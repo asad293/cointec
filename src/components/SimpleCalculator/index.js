@@ -444,8 +444,8 @@ class SimpleCalculator extends Component {
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <div>
           <div className="calc-input-wrapper">
-            <label className={cn('field-label m-0 mt-4', Message ? 'invalid': null)}>
-              {Message ? Message : 'You send'}
+            <label className={cn('field-label m-0', (sendAmount || receiveAmount) && Message ? 'invalid': null)}>
+              {(sendAmount || receiveAmount) && Message ? Message : 'You send'}
             </label>
             {/* <div className="row am row-flex "> */}
             <div className="calc-field">

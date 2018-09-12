@@ -27,6 +27,7 @@ class ReviewForm extends Component {
     this.fetchCalls = this.fetchCalls.bind(this)
     this.updateLimit = this.updateLimit.bind(this)
     this.updateRate = this.updateRate.bind(this)
+    this.updateSendAmount = this.updateSendAmount.bind(this)
     this.renderButton = this.renderButton.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
   }
@@ -56,19 +57,11 @@ class ReviewForm extends Component {
   }
 
   fetchCalls() {
-    if (this.props.action === 'sending') {
-      this.props.fetchQuote({
-        SendCurrency: this.props.sendCurrency,
-        ReceiveCurrency: this.props.receiveCurrency,
-        SendAmount: this.props.sendAmount
-      })
-    } else {
-      this.props.fetchQuote({
-				SendCurrency: this.props.sendCurrency,
-        ReceiveCurrency: this.props.receiveCurrency,
-				ReceiveAmount: this.props.receiveAmount
-			})
-    }
+    this.props.fetchQuote({
+      SendCurrency: this.props.sendCurrency,
+      ReceiveCurrency: this.props.receiveCurrency,
+      ReceiveAmount: this.props.receiveAmount
+    })
 		this.props.fetchConsts()
   }
 
@@ -94,17 +87,6 @@ class ReviewForm extends Component {
 
   onSubmit(event) {
     event.preventDefault()
-    // const createdAt = new Date().getTime() / 1000.0
-    // this.props.createOrder({
-    //   destAmount: this.props.receiveAmount, 
-    //   sourceAmount: this.props.sendAmount,
-    //   destCurrency: this.props.receiveCurrency, 
-    //   sourceCurrency: this.props.sendCurrency,
-    //   exchangeRate: this.props.rate,
-    //   dest: this.props.wallet,
-    //   ctUser: this.props.ctUser,
-    //   createdAt
-    // })
     this.props.onConfirm({
       rate: this.state.exchangeRate
     })
@@ -177,6 +159,7 @@ class ReviewForm extends Component {
   componentWillReceiveProps(props) {
     this.updateLimit(props)
     this.updateRate(props)
+    this.updateSendAmount(props)
   }
 
   updateLimit({ limit }) {
@@ -189,9 +172,17 @@ class ReviewForm extends Component {
 		}
   }
   
-  updateRate(props) {
-		this.setState({ exchangeRate: Number.parseFloat(props.quote.ExchangeRate) })
-	}
+  updateRate({ quote }) {
+		this.setState({ exchangeRate: Number.parseFloat(quote.ExchangeRate) })
+  }
+  
+  updateSendAmount({ quote }) {
+    this.props.onRateChange({
+      sendAmount: quote.QuoteSendAmount,
+			receiveAmount: quote.QuoteReceiveAmount,
+			rate: quote.ExchangeRate,
+    })
+  }
 
 }
 
@@ -216,6 +207,6 @@ ReviewForm.propTypes = {
   action: PropTypes.string,
   rate: PropTypes.number,
   wallet: PropTypes.string,
-  // ctUser: PropTypes.number,
+  onRateChange: PropTypes.func,
   onConfirm: PropTypes.func
 }
