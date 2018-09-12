@@ -1,107 +1,145 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { inject, observer } from 'mobx-react'
+import { connect } from 'react-redux'
 
-import FormWrapper from '../core/FormWrapper'
-import Greetings from '../core/Greetings'
-import PasswordToggle from '../core/PasswordToggle'
+import Header from '../core/Header'
+import ResetPasswordForm from './ResetPassword/ResetPasswordForm'
 
-@inject('resetPasswordStore')
-@observer
+import { resetPassword } from '../../Redux/actions'
+
 class ResetPassword extends Component {
+	constructor() {
+		super()
+		this.state = {
+			maskPassword: false,
+			maskConfirmPassword: false,
+		}
+		this.handleSubmit = this.handleSubmit.bind(this)
+		this.toggleMask = this.toggleMask.bind(this)
+		this.toggleMaskConfirm = this.toggleMaskConfirm.bind(this)
+	}
 
-    validate = event => this.props.resetPasswordStore.validate(event.target.name)
-    handleInputChange = event => this.props.resetPasswordStore.setData(event.target.name, event.target.value)
-    togglePassword = () => this.props.resetPasswordStore.togglePassword()
-    toggleConfirmPassword = () => this.props.resetPasswordStore.toggleConfirmPassword()
-    handleSubmit = event => {
-        event.preventDefault()
+	handleSubmit(values) {
+		this.props.resetPassword(values)
+	}
 
-        this.props.resetPasswordStore.validate()
+	toggleMask() {
+		this.setState({
+			maskPassword: !this.state.maskPassword
+		})
+	}
 
-        if (this.props.resetPasswordStore.form.valid) {
-            this.props.resetPasswordStore.resetPassword()
-                // .then(this.onComplete)
-        }
-    }
+	toggleMaskConfirm() {
+		this.setState({
+			maskConfirmPassword: !this.state.maskConfirmPassword
+		})
+	}
 
-    onComplete = () => {}
+	render() {
+		const { loading } = this.props.auth
 
-    render() {
-        const { form, passwordVisible, confirmPasswordVisible } = this.props.resetPasswordStore
+		return (
+			<div className="signin-page">
+				<Header background="gradient">
+					<div className="sg-logo text-center position-relative">
+						<Link to='/'>
+							<img src="/img/logo-white.svg" alt="logo" />
+						</Link>
+					</div>
+				</Header>
+				<section className="form-wrapper">
+					<div className="form-heading-wrapper">
+						<h5 className="form-heading">Reset password</h5>
+					</div>
+					<hr />
 
-        const labelPassword = form.isValid('password') ? 'New Password' : 'Please enter a valid password'
-        const labelConfirmPassword = form.isValid('confirmPassword') ? 'Confirm New Password' : 'Please enter a valid password'
+					<ResetPasswordForm
+						loading={loading}
+						maskPassword={this.state.maskPassword}
+						maskConfirmPassword={this.state.maskConfirmPassword}
+						toggleMask={this.toggleMask}
+						toggleMaskConfirm={this.toggleMaskConfirm}
+						onSubmit={this.handleSubmit}
+					/>
+				</section>
+			</div>
+		)
+	}
+	// render() {
+	//     const { form, passwordVisible, confirmPasswordVisible } = this.props.resetPasswordStore
 
-        return (
-            <FormWrapper>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12 col-xl-4 form-section">
-                            <Link to='/'>
-                                <img src="/img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
-                            </Link>
+	//     const labelPassword = form.isValid('password') ? 'New Password' : 'Please enter a valid password'
+	//     const labelConfirmPassword = form.isValid('confirmPassword') ? 'Confirm New Password' : 'Please enter a valid password'
 
-                            <h1 className="page-title">Reset password</h1>
+	//     return (
+	//         <FormWrapper>
+	//             <div className="container">
+	//                 <div className="row">
+	//                     <div className="col-12 col-xl-4 form-section">
+	//                         <Link to='/'>
+	//                             <img src="/img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
+	//                         </Link>
 
-                            <form className="als-content" onSubmit={this.handleSubmit.bind(this)} noValidate>
-                                <div className={'form-group ' + (!form.isValid('password') ? 'invalid' : '')}>
-                                    <label htmlFor="password">{labelPassword}</label>
-                                    <div className="position-relative">
-                                        <input type={passwordVisible ? 'text' : 'password'}
-                                            name="password"
-                                            className="form-control password"
-                                            placeholder="••••••••"
-                                            value={form.data.password}
-                                            onBlur={this.validate.bind(this)}
-                                            onChange={this.handleInputChange.bind(this)} />
+	//                         <h1 className="page-title">Reset password</h1>
 
-                                        <div className="validation-box">
-                                            <h5 className="validation-heading">Password must contain:</h5>
-                                            <ul className="validation-rules">
-                                                <li className={!form.check('password', 'minLength') ? 'passed' : ''}>At least 8 characters</li>
-                                                <li className={!form.check('password', 'containUpper') ? 'passed' : ''}>At least 1 capital letter</li>
-                                                <li className={!form.check('password', 'containNumber') ? 'passed' : ''}>At least 1 number</li>
-                                            </ul>
-                                        </div>
+	//                         <form className="als-content" onSubmit={this.handleSubmit.bind(this)} noValidate>
+	//                             <div className={'form-group ' + (!form.isValid('password') ? 'invalid' : '')}>
+	//                                 <label htmlFor="password">{labelPassword}</label>
+	//                                 <div className="position-relative">
+	//                                     <input type={passwordVisible ? 'text' : 'password'}
+	//                                         name="password"
+	//                                         className="form-control password"
+	//                                         placeholder="••••••••"
+	//                                         value={form.data.password}
+	//                                         onBlur={this.validate.bind(this)}
+	//                                         onChange={this.handleInputChange.bind(this)} />
 
-                                        <PasswordToggle visible={passwordVisible} onToggle={this.togglePassword.bind(this)} />
-                                    </div>
-                                </div>
+	//                                     <div className="validation-box">
+	//                                         <h5 className="validation-heading">Password must contain:</h5>
+	//                                         <ul className="validation-rules">
+	//                                             <li className={!form.check('password', 'minLength') ? 'passed' : ''}>At least 8 characters</li>
+	//                                             <li className={!form.check('password', 'containUpper') ? 'passed' : ''}>At least 1 capital letter</li>
+	//                                             <li className={!form.check('password', 'containNumber') ? 'passed' : ''}>At least 1 number</li>
+	//                                         </ul>
+	//                                     </div>
 
-                                <div className={'form-group ' + (!form.isValid('confirmPassword') ? 'invalid' : '')}>
-                                    <label htmlFor="password">{labelConfirmPassword}</label>
-                                    <div className="position-relative">
-                                        <input type={confirmPasswordVisible ? 'text' : 'password'}
-                                            name="confirmPassword"
-                                            className="form-control password"
-                                            placeholder="••••••••"
-                                            value={form.data.confirmPassword}
-                                            onBlur={this.validate.bind(this)}
-                                            onChange={this.handleInputChange.bind(this)} />
+	//                                     <PasswordToggle visible={passwordVisible} onToggle={this.togglePassword.bind(this)} />
+	//                                 </div>
+	//                             </div>
 
-                                        <div className="validation-box">
-                                            <ul className="validation-rules">
-                                                <li className={!form.check('confirmPassword') ? 'passed' : ''}>Passwords must match</li>
-                                            </ul>
-                                        </div>
+	//                             <div className={'form-group ' + (!form.isValid('confirmPassword') ? 'invalid' : '')}>
+	//                                 <label htmlFor="password">{labelConfirmPassword}</label>
+	//                                 <div className="position-relative">
+	//                                     <input type={confirmPasswordVisible ? 'text' : 'password'}
+	//                                         name="confirmPassword"
+	//                                         className="form-control password"
+	//                                         placeholder="••••••••"
+	//                                         value={form.data.confirmPassword}
+	//                                         onBlur={this.validate.bind(this)}
+	//                                         onChange={this.handleInputChange.bind(this)} />
 
-                                        <PasswordToggle visible={confirmPasswordVisible} onToggle={this.toggleConfirmPassword.bind(this)} />
-                                    </div>
-                                </div>
+	//                                     <div className="validation-box">
+	//                                         <ul className="validation-rules">
+	//                                             <li className={!form.check('confirmPassword') ? 'passed' : ''}>Passwords must match</li>
+	//                                         </ul>
+	//                                     </div>
 
-                                <button type="submit" className="btn btn-primary">Confirm</button>
-                            </form>
-                        </div>
+	//                                     <PasswordToggle visible={confirmPasswordVisible} onToggle={this.toggleConfirmPassword.bind(this)} />
+	//                                 </div>
+	//                             </div>
 
-                        <Greetings
-                            heading="Reset password."
-                            messageText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu lobortis est. Nullam quis augue eu." />
-                    </div>
-                </div>
-            </FormWrapper>
-        )
-    }
+	//                             <button type="submit" className="btn btn-primary">Confirm</button>
+	//                         </form>
+	//                     </div>
+
+	//                     <Greetings
+	//                         heading="Reset password."
+	//                         messageText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu lobortis est. Nullam quis augue eu." />
+	//                 </div>
+	//             </div>
+	//         </FormWrapper>
+	//     )
+	// }
 }
 
-export default ResetPassword
+export default connect(({auth}) => ({auth}), { resetPassword })(ResetPassword)

@@ -267,7 +267,14 @@
     .als-content {
         padding-top: 24px;
         .form-group {
-            margin-bottom: 3px;
+            margin-bottom: 22px;
+            label {
+                font-weight: normal;
+                line-height: normal;
+                font-size: 16px;
+                color: #02182B;
+                margin: 0;
+            }
         }
         .heading {
             margin-bottom: 0;

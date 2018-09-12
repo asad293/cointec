@@ -699,6 +699,9 @@ header.bg-gradient {
     .transaction-row:nth-child(3) {
         margin-bottom: 5px;
     }
+    @include media-breakpoint-down(md) {
+        padding: 42px 15px 30px; 
+    }
 }
 
 .btn-back {
@@ -1144,8 +1147,8 @@ header.bg-gradient {
             width: 245px;
             height: 151px;
             img {
-                width: 34px;
-                height: 34px;
+                width: 40px;
+                height: 40px;
             }
             img:nth-child(1) {
                 top: 0;
@@ -1194,6 +1197,9 @@ header.bg-gradient {
     padding: 122px 15px;
     .section-title {
         margin-top: 12px;
+    }
+    @include media-breakpoint-down(md) {
+        padding: 34px 15px 37px;
     }
 }
 

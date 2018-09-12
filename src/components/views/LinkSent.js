@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import Header from '../core/Header'
 
-class SignIn extends Component {
+class LinkSent extends Component {
 	constructor() {
 		super()
 	}
@@ -40,15 +40,6 @@ class SignIn extends Component {
 					</div>
 				</section>
 			</div>
-			// <FormWrapper>
-			// 	<div className="container">
-			// 		<div className="row">
-			// 			<div className="col-12 col-xl-4 form-section">
-			// 				<h1 className="page-title">Check your inbox!</h1>
-			// 			</div>
-			// 		</div>
-			// 	</div>
-			// </FormWrapper>
 		)
 	}
 	// render() {
@@ -82,4 +73,4 @@ class SignIn extends Component {
 	// }
 }
 
-export default SignIn
+export default LinkSent
