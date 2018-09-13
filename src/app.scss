@@ -1143,8 +1143,8 @@ header.bg-gradient {
             left: initial;
         }
         @include media-breakpoint-down(sm) {
-            margin: 0 auto 49px;
-            width: 245px;
+            margin: 0 0 49px;
+            width: auto;
             height: 151px;
             img {
                 width: 40px;
@@ -1152,11 +1152,13 @@ header.bg-gradient {
             }
             img:nth-child(1) {
                 top: 0;
-                left: 71px;
+                left: 28.98%;
+                // left: 71px;
             }
             img:nth-child(2) {
                 top: 1px;
-                left: 197px;
+                left: 80.41%;
+                // left: 197px;
             }
             img:nth-child(3) {
                 top: 36px;
@@ -1164,23 +1166,28 @@ header.bg-gradient {
             }
             img:nth-child(4) {
                 top: 34px;
-                left: 137px;
+                left: 55.92%;
+                // left: 137px;
             }
             img:nth-child(5) {
                 top: 78px;
-                left: 71px;
+                // left: 71px;
+                left: 28.98%;
             }
             img:nth-child(6) {
                 top: 85px;
-                left: 211px;
+                // left: 211px;
+                left: 86.125%;
             }
             img:nth-child(7) {
                 top: 116px;
-                left: 14px;
+                // left: 14px;
+                left: 5.72%;
             }
             img:nth-child(8) {
                 top: 117px;
-                left: 139px;
+                // left: 139px;
+                left: 56.74%;
             }
         }
     }

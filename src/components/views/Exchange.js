@@ -16,6 +16,7 @@ class Exchange extends Component {
 		super()
 		this.state = {
 			sendAmount: 0,
+			initialSendAmount: 0,
 			receiveAmount: 0,
 			sendCurrency: 'GBP',
 			receiveCurrency: 'BTC',
@@ -94,6 +95,7 @@ class Exchange extends Component {
 		else if (this.state.step === 2)
 			frame = <SummaryFrame
 					sendAmount={this.state.sendAmount}
+					initialSendAmount={this.state.initialSendAmount}
 					receiveAmount={this.state.receiveAmount}
 					sendCurrency={this.state.sendCurrency}
 					receiveCurrency={this.state.receiveCurrency}

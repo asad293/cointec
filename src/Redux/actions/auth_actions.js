@@ -1,4 +1,5 @@
 import axios from 'axios'
+import jwt from 'jwt-simple'
 
 export const SIGN_UP = 'SIGN_UP'
 export const SIGN_UP_START = 'SIGN_UP_START'
@@ -44,6 +45,9 @@ export function signIn({ email, password }) {
           dispatch({ type: SIGN_IN_END, payload: response.data })
           throw { response }
         } else {
+          const userData = JSON.stringify(response.data)
+          const token = jwt.encode(userData, process.env.APP_SECRET_KEY)
+          localStorage.setItem('user', token)
           return dispatch({ type: SIGN_IN, payload: response })
         }
       })
