@@ -27,6 +27,7 @@ class ReviewForm extends Component {
     this.fetchCalls = this.fetchCalls.bind(this)
     this.updateLimit = this.updateLimit.bind(this)
     this.updateRate = this.updateRate.bind(this)
+    this.updateSendAmount = this.updateSendAmount.bind(this)
     this.renderButton = this.renderButton.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
   }
@@ -34,6 +35,13 @@ class ReviewForm extends Component {
   tick() {
     if (this.state.timer < this.state.refreshTime) {
       this.setState({ timer: this.state.timer + 1 })
+      if (this.props.sendAmount === 0) {
+        this.props.fetchQuote({
+          SendCurrency: this.props.sendCurrency,
+          ReceiveCurrency: this.props.receiveCurrency,
+          SendAmount: this.props.initialSendAmount
+        })
+      }
     } else {
       clearInterval(this.state.timerId)
       this.fetchCalls()
@@ -56,19 +64,11 @@ class ReviewForm extends Component {
   }
 
   fetchCalls() {
-    if (this.props.action === 'sending') {
-      this.props.fetchQuote({
-        SendCurrency: this.props.sendCurrency,
-        ReceiveCurrency: this.props.receiveCurrency,
-        SendAmount: this.props.sendAmount
-      })
-    } else {
-      this.props.fetchQuote({
-				SendCurrency: this.props.sendCurrency,
-        ReceiveCurrency: this.props.receiveCurrency,
-				ReceiveAmount: this.props.receiveAmount
-			})
-    }
+    this.props.fetchQuote({
+      SendCurrency: this.props.sendCurrency,
+      ReceiveCurrency: this.props.receiveCurrency,
+      ReceiveAmount: this.props.receiveAmount
+    })
 		this.props.fetchConsts()
   }
 
@@ -94,24 +94,14 @@ class ReviewForm extends Component {
 
   onSubmit(event) {
     event.preventDefault()
-    // const createdAt = new Date().getTime() / 1000.0
-    // this.props.createOrder({
-    //   destAmount: this.props.receiveAmount, 
-    //   sourceAmount: this.props.sendAmount,
-    //   destCurrency: this.props.receiveCurrency, 
-    //   sourceCurrency: this.props.sendCurrency,
-    //   exchangeRate: this.props.rate,
-    //   dest: this.props.wallet,
-    //   ctUser: this.props.ctUser,
-    //   createdAt
-    // })
+    clearInterval(this.state.timerId)
     this.props.onConfirm({
-      rate: this.state.exchangeRate
+      rate: this.props.rate !== 0 ? this.props.rate : this.state.exchangeRate
     })
   }
 
   render() {
-    const { sendAmount, receiveAmount, sendCurrency, receiveCurrency, rate, wallet } = this.props
+    const { sendAmount, initialSendAmount, receiveAmount, sendCurrency, receiveCurrency, rate, wallet } = this.props
 
     return (
       <div>
@@ -120,7 +110,7 @@ class ReviewForm extends Component {
             <div className="row">
               <div className="col-5 text-left text-nowrap">
                 <label className="field-label m-0">You send</label>
-                <p className="field-value">{`${sendAmount.toFixed(8)} ${sendCurrency}`}</p>
+                <p className="field-value">{`${sendAmount !== 0 ? sendAmount.toFixed(8) : initialSendAmount.toFixed(8)} ${sendCurrency}`}</p>
               </div>
               <div className="col-2 text-center"><br /><i className="fas fa-arrow-right"></i></div>
               <div className="col-5 text-left text-nowrap">
@@ -137,7 +127,9 @@ class ReviewForm extends Component {
               <div className="col-md-12 text-left">
                 <label className="field-label m-0">Exchange rate</label>
                 <p className="field-value">
-                  {`${sendCurrency === 'GBP' ? rate.toFixed(2) : rate.toFixed(8)} ${sendCurrency}/${receiveCurrency}`}
+                  {`${rate !== 0
+                    ? (sendCurrency === 'GBP' ? rate.toFixed(2) : rate.toFixed(8))
+                    : (sendCurrency === 'GBP' ? this.state.exchangeRate.toFixed(2) : this.state.exchangeRate.toFixed(8))} ${sendCurrency}/${receiveCurrency}`}
                 </p>
               </div>
             </div>
@@ -177,6 +169,7 @@ class ReviewForm extends Component {
   componentWillReceiveProps(props) {
     this.updateLimit(props)
     this.updateRate(props)
+    this.updateSendAmount(props)
   }
 
   updateLimit({ limit }) {
@@ -189,9 +182,19 @@ class ReviewForm extends Component {
 		}
   }
   
-  updateRate(props) {
-		this.setState({ exchangeRate: Number.parseFloat(props.quote.ExchangeRate) })
-	}
+  updateRate({ quote }) {
+    if (quote.ExchangeRate !== 0) {
+      this.setState({ exchangeRate: Number.parseFloat(quote.ExchangeRate) })
+    }
+  }
+  
+  updateSendAmount({ quote }) {
+    this.props.onRateChange({
+      sendAmount: quote.QuoteSendAmount,
+			receiveAmount: quote.QuoteReceiveAmount,
+			rate: quote.ExchangeRate,
+    })
+  }
 
 }
 
@@ -210,12 +213,13 @@ export default connect(mapStateToProps, {
 
 ReviewForm.propTypes = {
   sendAmount: PropTypes.number,
+  initialSendAmount: PropTypes.number,
   receiveAmount: PropTypes.number,
   sendCurrency: PropTypes.string,
   receiveCurrency: PropTypes.string,
   action: PropTypes.string,
   rate: PropTypes.number,
   wallet: PropTypes.string,
-  // ctUser: PropTypes.number,
+  onRateChange: PropTypes.func,
   onConfirm: PropTypes.func
 }

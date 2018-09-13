@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const DigitalCurrencies = () => (
-  <div className="home-section container">
+  <div className="home-section dc-section container">
     <div className="row">
       <div className="col-12 col-md-6 pr-4 text-center text-md-left">
         <h4 className="section-title d-none d-md-block">
@@ -22,7 +22,7 @@ const DigitalCurrencies = () => (
       </div>
       <div className="col-12 col-md-6 text-center mt-4 mt-md-0">
         {/* <img className="currencies-group mb-5 mb-md-0" src="/img/currencies-group.svg" alt="currencies-group"/> */}
-        <div className="currencies-group mb-5 mb-md-0">
+        <div className="currencies-group">
           <img src="/img/cg-image-1.svg" />
           <img src="/img/cg-image-2.svg" />
           <img src="/img/cg-image-3.svg" />
