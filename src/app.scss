@@ -1568,6 +1568,57 @@ footer {
     }
 }
 
+.modal-abandon {
+    .back {
+        cursor: pointer;
+        i {
+            color: #045CC7;
+            margin-right: 20px;
+        }
+    }
+    .modal-heading {
+        line-height: 28px;
+        font-size: 17px;
+        color: #000000;
+    }
+    hr {
+        margin-left: -16px;
+        margin-right: -16px;
+        margin-bottom: 36px;
+    }
+    .btn.btn-option {
+        border: 1px solid #E8E8E8;
+        border-radius: 2px;
+        background: #FFFFFF;
+        color: rgba(0, 16, 33, 0.7);
+        width: 100%;
+        padding: 15px 22px;
+        margin-bottom: 20px;
+        text-align: left;
+        outline: none;
+        &:focus {
+            box-shadow: none;
+            border: 1px solid #045CC7;
+            color: #000;
+        }
+    }
+    @include media-breakpoint-up(sm) {
+        max-width: 470px;
+        .modal-body {
+            padding-left: 38px;
+            padding-right: 38px;
+        }
+        hr {
+            margin-left: -38px;
+            margin-right: -38px;
+        }
+    }
+}
+
+#abandon-order-modal {
+    background: rgba(0, 0, 0, 0.5);
+}
+
 // Helpers
 @import "./css/helpers/_mixins.scss";
 .container-full {

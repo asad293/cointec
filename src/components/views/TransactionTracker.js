@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import jwt from 'jwt-simple'
 import Cookie from 'js-cookie'
@@ -8,13 +9,16 @@ import PropTypes from 'prop-types'
 import { abandonOrder, getStatus, fetchConsts } from '../../Redux/actions'
 import Header from '../core/Header'
 import Nav from '../core/Nav'
+import AbandonOrder from '../modals/AbandonOrder'
 
 class TransactionTracker extends Component {
   constructor() {
     super()
     this.state = {
       timerId: null,
-      refreshTime: 10
+      refreshTime: 10,
+      abandonOrderModal: false,
+      ctUser: null
     }
     this.initInterval = this.initInterval.bind(this)
     this.fetchStatus = this.fetchStatus.bind(this)
@@ -46,6 +50,7 @@ class TransactionTracker extends Component {
 		} catch (e) {
 		} finally {
 			if (user && user.CtUserId && sessionId) {
+        this.setState({ ctUser: user.CtUserId })
         this.props.getStatus({
           orderId: this.props.match.params.txnID,
           ctUser: user.CtUserId
@@ -60,8 +65,6 @@ class TransactionTracker extends Component {
   }
 
   componentWillReceiveProps(props) {
-    const { status } = props
-    console.log('status', status)
   }
 
   render() {
@@ -76,12 +79,43 @@ class TransactionTracker extends Component {
           <div className="row mt-4">
             <div className="col-12 col-lg-7 col-xl-6 text-center">
               <div className="main-calc-wrapper mt-5">
-                {status ? <TransactionStatus Status={status.Status} loading={loading} />: ''}
+                {status && <TransactionStatus Status={status.Status} ExchangeTransactions={status.ExchangeTransactions} loading={loading} />}
               </div>
             </div>
-						<div className="info-column col-12 col-lg-4"></div>
+						{/* <div className="info-column col-12 col-lg-4">
+              <div>
+                <div>
+                  <h6 className="mb-4">Tracking information</h6>
+                  <p>
+                    Go to go? No worries, you can view the transaction status from your <Link to='\'>dashboard</Link> at any time. 
+                  </p>
+                </div>
+                <hr />
+              </div>
+              <div>
+								<h6 className="mb-4">Cancelling transaction</h6>
+                <p>
+                  Dummy text about cancelling transaction to be
+                  completed at a later stage.
+                </p>
+                <a style={{color: '#D80027'}}
+                  href="javascript:void(0)"
+                  onClick={() => this.setState({ abandonOrderModal: true })}>
+                  Cancel transaction
+                </a>
+							</div>
+            </div> */}
+            {status && <ActionsCol
+              Status={status.Status}
+              cancelOrder={() => this.setState({ abandonOrderModal: true })} />}
           </div>
         </div>
+        
+        {this.state.abandonOrderModal &&
+          <AbandonOrder
+            txnID={this.props.match.params.txnID}
+            ctUser={this.state.ctUser}
+            onClose={() => this.setState({ abandonOrderModal: false })} />}
       </div>
     )
   }
@@ -96,6 +130,10 @@ const TransactionStatus = ({
     SENT,
     FAILED,
     ABANDONED
+  },
+  ExchangeTransactions: {
+    WYREEXECUTED,
+    SSSENT,
   },
   loading
 }) => (
@@ -136,6 +174,48 @@ const TransactionStatus = ({
       </div>
       {CLEARING ? <Moment format="hh:mm A">{CLEARING * 1000}</Moment>: ''}
     </div>
+
+    {(SSSENT || WYREEXECUTED) && <div className="mt-4 px-5">
+      <p>Watch your digital currency move across the blockchain by clicking the link below.</p>
+      <a href={!SSSENT ? WYREEXECUTED.TransactionHash : SSSENT.TransactionHash} target="_blank">Blockchain tracker</a>
+    </div>}
+  </div>
+)
+
+const ActionsCol = ({
+  Status: {
+    SETTLED,
+    REVIEW,
+    TERMINATED,
+    SENT,
+    FAILED,
+    ABANDONED
+  },
+  cancelOrder
+}) => (
+  <div className="info-column col-12 col-lg-4">
+    {!(SETTLED || REVIEW || TERMINATED || SENT || FAILED || ABANDONED) && <div>
+      <div>
+        <h6 className="mb-4">Tracking information</h6>
+        <p>
+          Go to go? No worries, you can view the transaction status from your <Link to='\'>dashboard</Link> at any time. 
+        </p>
+      </div>
+      <hr />
+    </div>}
+
+    {!(SETTLED || REVIEW || TERMINATED || SENT || FAILED || ABANDONED) && <div>
+      <h6 className="mb-4">Cancelling transaction</h6>
+      <p>
+        Dummy text about cancelling transaction to be
+        completed at a later stage.
+      </p>
+      <a style={{color: '#D80027'}}
+        href="javascript:void(0)"
+        onClick={cancelOrder}>
+        Cancel transaction
+      </a>
+    </div>}
   </div>
 )
 

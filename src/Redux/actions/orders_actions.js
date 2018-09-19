@@ -12,6 +12,10 @@ export const ABANDON_ORDER = 'ABANDON_ORDER'
 export const ABANDON_ORDER_START = 'ABANDON_ORDER_START'
 export const ABANDON_ORDER_END = 'ABANDON_ORDER_END'
 
+export const REFUND_PAYMENT = 'REFUND_PAYMENT'
+export const REFUND_PAYMENT_START = 'REFUND_PAYMENT_START'
+export const REFUND_PAYMENT_END = 'REFUND_PAYMENT_END'
+
 export const STATUS_ORDER = 'STATUS_ORDER'
 export const STATUS_ORDER_START = 'STATUS_ORDER_START'
 export const STATUS_ORDER_END = 'STATUS_ORDER_END'
@@ -95,7 +99,7 @@ export function clearOrder({orderId, accountId, ctUser}) {
     }
 }
 
-export function abandonOrder({ orderId, ctUser }) {
+export function abandonOrder({ orderId, ctUser, reason }) {
     console.log('abandon order: ', orderId);
     return (dispatch) => {
         dispatch({
@@ -108,7 +112,10 @@ export function abandonOrder({ orderId, ctUser }) {
             'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
             'CT-ACCOUNT-ID': ctUser
         }
-        axios.get(`${ROOT_URL}/orders/abandon/${orderId}`, { headers })
+        const data = {
+            AbandonReason: reason
+        }
+        return axios.post(`${ROOT_URL}/orders/abandon/${orderId}`, data, { headers })
         .then((response) => {
             dispatch({
                 type: ABANDON_ORDER,
@@ -118,6 +125,38 @@ export function abandonOrder({ orderId, ctUser }) {
         .catch((error) => {
             dispatch({
                 type: ABANDON_ORDER_END,
+                payload: error
+            })
+            throw error
+        });
+    }
+}
+
+export function refundPayment({ orderId, ctUser, dest }) {
+    return (dispatch) => {
+        dispatch({
+            type: REFUND_PAYMENT_START,
+            payload: null
+        });
+
+        
+        const headers = {
+            'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+            'CT-ACCOUNT-ID': ctUser
+        }
+        const data = {
+            RefundDestination: dest
+        }
+        return axios.post(`${ROOT_URL}/orders/refund/${orderId}`, data, { headers })
+        .then((response) => {
+            dispatch({
+                type: REFUND_PAYMENT,
+                payload: response
+            })
+        })
+        .catch((error) => {
+            dispatch({
+                type: REFUND_PAYMENT_END,
                 payload: error
             })
         });
@@ -148,6 +187,7 @@ export function getStatus({ orderId, ctUser }) {
                 type: STATUS_ORDER_END,
                 payload: error
             })
+            throw error
         });
     }
 }
