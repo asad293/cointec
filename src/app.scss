@@ -960,7 +960,7 @@ header.bg-gradient {
                 }
                 &.unavailable {
                     cursor: not-allowed;
-                    background: grey;
+                    opacity: 0.5;
                 }
             }
         }
