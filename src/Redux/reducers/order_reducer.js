@@ -31,7 +31,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case CREATE_ORDER:
-            return { ...state, create: action.payload.data, loading: false, error: null }
+            return { ...state, create: action.payload.data, status: null, loading: false, error: null }
         case CLEAR_ORDER:
             return { ...state, clear: action.payload, loading: false, error: null }
         case ABANDON_ORDER:

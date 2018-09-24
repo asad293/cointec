@@ -124,6 +124,7 @@ class TransactionTracker extends Component {
 const TransactionStatus = ({
   Status: {
     CLEARING,
+    EXPIRED,
     SETTLED,
     REVIEW,
     TERMINATED,
@@ -153,13 +154,13 @@ const TransactionStatus = ({
         : SENT ? <Moment format="hh:mm A">{SENT * 1000}</Moment>
         : ''}
     </div> : ''}
-    {CLEARING ?
-    <div className={cn('d-flex justify-content-between transaction-row mt-4 px-4 py-3', (REVIEW || ABANDONED || (!SETTLED && TERMINATED)) ? 'error' : '')}>
+    {(CLEARING || EXPIRED) ?
+    <div className={cn('d-flex justify-content-between transaction-row mt-4 px-4 py-3', (REVIEW || ABANDONED || EXPIRED || (!SETTLED && TERMINATED)) ? 'error' : '')}>
       <div>
-        {(REVIEW || ABANDONED || (!SETTLED && TERMINATED)) ? <i className="far fa-exclamation-circle fa-lg text-white mr-3"></i>
+        {(REVIEW || ABANDONED || EXPIRED || (!SETTLED && TERMINATED)) ? <i className="far fa-exclamation-circle fa-lg text-white mr-3"></i>
           : !SETTLED ? <i className="fas fa-spinner-third fa-lg fa-spin mr-3"></i>
           : <i className="far fa-check fa-lg mr-3"></i>}
-        {(REVIEW || (!SETTLED && TERMINATED)) ? 'Payment error' : ABANDONED ? 'You cancelled the transaction' : 'Payment received'}
+        {(REVIEW || EXPIRED || (!SETTLED && TERMINATED)) ? 'Payment error' : ABANDONED ? 'You cancelled the transaction' : 'Payment received'}
       </div>
       {(!SETTLED && TERMINATED) ? <Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
         : ABANDONED ? <Moment format="hh:mm A">{ABANDONED * 1000}</Moment>
