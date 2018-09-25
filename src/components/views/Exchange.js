@@ -136,7 +136,7 @@ class Exchange extends Component {
                   <i className="far fa-angle-left"></i> <span>Back to currency selection</span>
                 </button>
               </div>) : ''}
-							{this.state.isVerified ? (
+							{this.state.isVerified ? (this.state.sendCurrency === 'GBP' && (
 								<div>
 									<hr />
 									<h6>Add a bank account</h6>
@@ -152,7 +152,7 @@ class Exchange extends Component {
 										Add bank account
 									</a>
 								</div>
-							) : (
+							)) : (
 								<div>
 									<hr />
 									<h6>You are not verified</h6>

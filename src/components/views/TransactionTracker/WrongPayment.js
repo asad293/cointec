@@ -15,7 +15,9 @@ class WrongPayment extends Component {
 				{this.props.ctUser && (
 					<WrongPaymentForm
 						ctUser={this.props.ctUser}
-            txnID={this.props.txnID}
+						txnID={this.props.txnID}
+						addRefundAccount={this.props.addRefundAccount}
+						handleRefundAccount={this.props.handleRefundAccount}
             onSubmit={this.props.onSubmit}
 					/>
 				)}

@@ -14,7 +14,6 @@ class CreateOrderForm extends Component {
       timer: 0,
       refreshTime: 10,
       expired: false
-      // buttonIsDisabled: true,
     }
 
     this.tick = this.tick.bind(this)
@@ -81,28 +80,45 @@ class CreateOrderForm extends Component {
   }
   
   renderButton() {
-    //if(this.state.timer > this.state.refreshTime)
-    //    return <button onClick={this.rateExpired} className={cn('btn-block btn-lg', 'btn-danger')}>Rate expired - click to refresh</button>
-    //else
-    return <button
-      type="submit"
-      className={cn('btn-block btn-lg btn-exchange no-border', 'btn-primary')}
-      disabled={!this.props.sendFromAccount}>
-        I have made payment
-    </button>
+    if (this.props.sendCurrency === 'GBP')
+      return (
+        <button
+          type="submit"
+          className={cn('btn-block btn-lg btn-exchange no-border', 'btn-primary')}
+          disabled={!this.props.sendFromAccount}>
+            I have made payment
+        </button>
+      )
+    else
+      return (
+        <button
+          type="submit"
+          className={cn('btn-block btn-lg btn-exchange no-border', 'btn-primary')}
+          disabled={!this.props.depositAddress}>
+            I have made payment
+        </button>
+      )
   }
 
   onSubmit(event) {
     event.preventDefault()
-    const { sendFromAccount, order, ctUser } = this.props
-    this.props.clearOrder({
-      orderId: order.create.CtTransactionId,
-      accountId: sendFromAccount.id,
-      ctUser
-    })
-    this.props.onConfirm({
-      txnID: order.create.CtTransactionId
-    })
+    const { sendFromAccount, order, ctUser, sendCurrency, depositAddress } = this.props
+    if (sendCurrency === 'GBP') {
+      this.props.clearOrder({
+        orderId: order.create.CtTransactionId,
+        accountId: sendFromAccount.id,
+        ctUser
+      })
+      this.props.onConfirm({
+        txnID: order.create.CtTransactionId
+      })
+    } else {
+      this.props.clearOrder({
+        orderId: order.create.CtTransactionId,
+        accountId: null,
+        ctUser
+      })
+    }
   }
 
   renderScreen() {
@@ -201,17 +217,62 @@ class CreateOrderForm extends Component {
             </div>
           )
         }
-      } else
-        return (
-          <div className="main-calc-wrapper">
-            <form>
+      } else {
+        if (this.props.order.create) {
+          return (
+            <div className="main-calc-wrapper mt-5">
+              <form onSubmit={this.onSubmit}>
+                <div className="row">
+                  <div className="col-12 text-left">
+                    <label className="field-label m-0">Amount</label>
+                    <p className="field-value">{this.props.sendAmount.toFixed(8) || <br />}</p>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-12">
+                    <hr className="mt-0" />
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-12 text-left">
+                    <Field
+                      name="depositAddress"
+                      label="BTC deposit address"
+                      component={this.renderWalletField}
+                      placeholder="Deposit Address"
+                    />
+                  </div>
+                </div>
+                <div className="row mt-4">
+                  <div className="col-md-12">
+                    {this.renderButton()}
+                  </div>
+                </div>
+              </form>
+            </div>
+          )
+        } else if (this.props.order.loading) {
+          return (
+            <div className="main-calc-wrapper mt-5 d-flex">
+              <div className="h-100 m-auto" style={{color: '#045CC7'}}>
+                  <i className="fas fa-spinner-third fa-lg fa-spin mr-3"></i>
+              </div>
+            </div>
+          )
+        } else {
+          return (
+            <div className="main-calc-wrapper mt-5">
               <div className="row">
                 <div className="col-12">
+                  <h2 className="mt-5">Oops something went wrong</h2>
+                  <img className="mt-4" src="/img/error.svg" alt="error" />
+                  <p className="mt-4">We are working on getting the error fixed.  Please try to refresh the page or restart the process in a few minutes.</p>
                 </div>
               </div>
-            </form>
-          </div>
-        )
+            </div>
+          )
+        }
+      }
     } else {
       return (
         <div className="main-calc-wrapper mt-5">
@@ -228,50 +289,99 @@ class CreateOrderForm extends Component {
     }
   }
 
-  componentWillReceiveProps(props) {
-    const { bank: { accounts, loading }, order, limit, ctUser } = props
+  renderWalletField(field) {
+    const {
+			placeholder,
+			meta: { touched, valid, error, asyncValidating },
+			label
+    } = field
+    
+    return (
+			<div
+				className={cn(
+					'calc-input-wrapper',
+					'text-left',
+					touched && !valid ? 'invalid' : null
+				)}>
+				<label className="field-label m-0">
+					{!touched ? label : valid ? label : error}
+				</label>
+				<div className="calc-field mt-2">
+					<div className="col-12">
+						<input
+							id="input-wallet-addr"
+							autoComplete="off"
+							spellCheck={false}
+							placeholder={placeholder}
+							className="form-control no-border p-0"
+							{...field.input}
+						/>
+						{asyncValidating && <i className="fas fa-spinner-third fa-lg fa-spin mr-3" />}
+					</div>
+				</div>
+			</div>
+		)
+  }
 
-    if (!order.create || !accounts) {
-      clearInterval(this.state.timerId)
+  componentWillReceiveProps(props) {
+    const { bank, order, limit, ctUser, sendCurrency } = props
+
+    if (sendCurrency === 'GBP') {
+      const { accounts, loading } = bank
+      if (!order.create || !accounts) {
+        clearInterval(this.state.timerId)
+      } else {
+        if (limit.const) {
+          const refreshTime = limit.const.PaymentWindow * 60
+          if (this.state.refreshTime >= this.state.timer) {
+            this.initInterval()
+            this.setState({ refreshTime, timer: 0 })
+          }
+        }
+      }
+
+      if (!accounts && !loading)
+        this.props.fetchAccounts(ctUser)
+      
+      if (accounts && !loading && !accounts.length)
+        $('#add-bank-account-modal').modal('toggle')
+
+      if (!this.props.sendFromAccount) {
+        const sendFromAccount = accounts && accounts.length && accounts[0]
+        if (sendFromAccount) {
+          const sendFrom = sendFromAccount.id
+          props.change('sendFrom', sendFrom)
+          props.change('sendFromAccount', sendFromAccount)
+        }
+      }
     } else {
-      if (limit.const) {
-        const refreshTime = limit.const.PaymentWindow * 60
+      if (!order.create) {
+        clearInterval(this.state.timerId)
+      } else {
+        const refreshTime = order.create.PaymentWindow * 60
         if (this.state.refreshTime >= this.state.timer) {
           this.initInterval()
           this.setState({ refreshTime, timer: 0 })
         }
-      }
-    }
-
-    if (!accounts && !loading)
-      this.props.fetchAccounts(ctUser)
-    
-    if (accounts && !loading && !accounts.length)
-      $('#add-bank-account-modal').modal('toggle')
-
-    if (!this.props.sendFromAccount) {
-      const sendFromAccount = accounts && accounts.length && accounts[0]
-      if (sendFromAccount) {
-        const sendFrom = sendFromAccount.id
-        props.change('sendFrom', sendFrom)
-        props.change('sendFromAccount', sendFromAccount)
+        this.props.change('depositAddress', order.create.BrokerAccount.DepositAddress)
       }
     }
   }
-
 }
 
 const mapStateToProps = (state) => {
   const selector = formValueSelector('CreateOrderForm')
   const sendFrom = selector(state, 'sendFrom')
   const sendFromAccount = state.bank.accounts && state.bank.accounts.find(account => account.id == sendFrom)
+  const depositAddress = selector(state, 'depositAddress')
   // console.log(state.bank)
   return {
     order: state.order,
     limit: state.limit,
     bank: state.bank,
     sendFrom,
-    sendFromAccount
+    sendFromAccount,
+    depositAddress
   }
 }
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import WrongPayment from '../views/TransactionTracker/WrongPayment'
+import AddRefundAccount from '../views/TransactionTracker/AddRefundAccount'
 import WrongPayee from '../views/TransactionTracker/WrongPayee'
 import NoPayment from '../views/TransactionTracker/NoPayment'
 
@@ -9,20 +10,45 @@ class AbandonOrder extends Component {
 	constructor() {
 		super()
 		this.state = {
-			reason: null
+			reason: null,
+			addRefundAccount: false
 		}
 		this.reasonSelected = this.reasonSelected.bind(this)
+		this.handleRefundAccount = this.handleRefundAccount.bind(this)
 		this.back = this.back.bind(this)
 		this.onClose = this.onClose.bind(this)
+		this.getTitle = this.getTitle.bind(this)
+	}
+
+	getTitle() {
+		const { reason, addRefundAccount } = this.state
+		let title = 'Select what went wrong'
+		if (reason) {
+			if (reason === 'WRONGAMOUNT') {
+				title = addRefundAccount
+					? 'Add your refund account'
+					: 'I sent the wrong amount of GBP'
+			} else if (reason === 'WRONGPAYEE') {
+				title = 'I sent to the wrong payee'
+			} else if (reason === 'NOPAYMENT') {
+				title = 'I did not make payment'
+			}
+		}
+		return title
 	}
 
 	reasonSelected(reason) {
-		this.setState({ reason })
+		this.setState({ reason, addRefundAccount: false })
+	}
+
+	handleRefundAccount() {
+		this.setState({ addRefundAccount: true })
 	}
 
 	back() {
 		this.setState({
-			reason: null
+			reason: null,
+			addRefundAccount: false
 		})
 	}
 
@@ -47,19 +73,11 @@ class AbandonOrder extends Component {
 
 							<h5 className="modal-heading text-left">
 								{this.state.reason && (
-									<a className="back" onClick={this.back}>
+									<a className="back" onClick={!this.state.addRefundAccount ? this.back : () => this.reasonSelected('WRONGAMOUNT')}>
 										<i className="far fa-arrow-left" />
 									</a>
 								)}
-								{this.state.reason
-									? this.state.reason === 'WRONGAMOUNT'
-										? 'I sent the wrong amount of GBP'
-										: this.state.reason === 'WRONGPAYEE'
-											? 'I sent to the wrong payee'
-											: this.state.reason === 'NOPAYMENT'
-												? 'I did not make payment'
-												: ''
-									: 'Select what went wrong'}
+								{this.getTitle()}
 							</h5>
 							<hr />
 
@@ -67,11 +85,15 @@ class AbandonOrder extends Component {
 								<SelectReason reasonSelected={this.reasonSelected} />
 							)}
 							{this.state.reason === 'WRONGAMOUNT' && (
-								<WrongPayment
-									txnID={this.props.txnID}
-									ctUser={this.props.ctUser}
-                  onSubmit={this.onClose}
-								/>
+								!this.state.addRefundAccount
+									? <WrongPayment
+										txnID={this.props.txnID}
+										ctUser={this.props.ctUser}
+										addRefundAccount={this.state.addRefundAccount}
+										handleRefundAccount={this.handleRefundAccount}
+										onSubmit={this.onClose}
+									/>
+									: <AddRefundAccount />
 							)}
 							{this.state.reason === 'WRONGPAYEE' && (
 								<WrongPayee

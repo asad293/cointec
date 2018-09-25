@@ -75,8 +75,12 @@ class WrongPaymentForm extends Component {
 
   componentWillReceiveProps(props) {
     const { accounts } = props.bank
+
+    if (props.refundTo === 'addBank' && !props.addRefundAccount) {
+      props.handleRefundAccount()
+    }
     
-    if (!props.refundAccount && accounts) {
+    if (!props.refundAccount && props.refundTo !== 'addBank' && accounts) {
       const [ refundAccount ] = accounts
       if (refundAccount) {
         const refundTo = refundAccount.id
@@ -91,8 +95,6 @@ const mapStateToProps = (state) => {
   const selector = formValueSelector('WrongPaymentForm')
   const refundTo = selector(state, 'refundTo')
   const refundAccount = state.bank.accounts && state.bank.accounts.find(account => account.id == refundTo)
-  console.log(state.order.abandon)
-  console.log(refundAccount)
   return {
     order: state.order,
     bank: state.bank,

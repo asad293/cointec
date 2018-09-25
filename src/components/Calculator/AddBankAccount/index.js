@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import { addAccount } from '../../../Redux/actions'
+import jwt from 'jwt-simple'
 import cn from 'classnames'
 
 const errorMap = {
-  default: 'Bank must Faster Payments enabled',
+  default: 'Bank must have Faster Payments enabled',
   400: 'Please check your account details.',
   406: 'Account is not Faster-Payments enabled.',
   409: 'You have already added this account.'
@@ -129,7 +130,7 @@ class AddBankAccount extends Component {
               <h5 className="modal-heading mt-0 mb-4">Add a new bank account</h5>
 
               <form onSubmit={handleSubmit(this.onSubmit)}>
-                <div className="row">
+                {/* <div className="row">
                   <div className="col-12">
                     <label className="subscribe-email-label mt-0">Account Name</label>
                     <Field
@@ -137,18 +138,10 @@ class AddBankAccount extends Component {
                       component={this.renderField}
                       placeholder={'Account 1'} />
                   </div>
-                </div>
+                </div> */}
                 <div className="row">
-                  <div className="col-6">
-                    <label className="subscribe-email-label mt-0">Sort Code</label>
-                    <Field
-                      name="sortCode"
-                      normalize={this.normalizeSortCode}
-                      component={this.renderField}
-                      placeholder='XX-XX-XX' />
-                  </div>
-                  <div className="col-6">
-                    <label className="subscribe-email-label mt-0">Account No.</label>
+                  <div className="col-12">
+                    <label className="subscribe-email-label mt-0">Account number</label>
                     <Field
                       name="accountNo"
                       normalize={this.normalizeAccountNumber}
@@ -158,7 +151,17 @@ class AddBankAccount extends Component {
                 </div>
                 <div className="row">
                   <div className="col-12">
-                    <p className="inline-headers info">{this.state.error.text}</p>
+                    <label className="subscribe-email-label mt-0">Sort code</label>
+                    <Field
+                      name="sortCode"
+                      normalize={this.normalizeSortCode}
+                      component={this.renderField}
+                      placeholder='XX-XX-XX' />
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-12">
+                    <p className={cn('inline-headers info text-center', this.state.error.status ? 'text-danger' : null)}>{this.state.error.text}</p>
                   </div>
                 </div>
                 <div className="row">

@@ -40,17 +40,21 @@ export function fetchAccounts(ctUser) {
 export function addAccount(ctUser, values) {
 
     const post = {
-        AccountOwner: 'Farogh Kohistani',
+        AccountOwner: '',
         SortCode: values.sortCode,
         AccountNumber: values.accountNo,
-        AccountReference: values.accountName
+        AccountReference: ''
     }
     return (dispatch) => {
         dispatch({
             type: ADD_ACCOUNT_START,
             payload: null
-        });
-        axios.post(`${ROOT_URL}/accounts/${ctUser}/bank-accounts/add`,post)
+        })
+        const headers = {
+            'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+            'CT-ACCOUNT-ID': ctUser
+        }
+        axios.post(`${ROOT_URL}/accounts/${ctUser}/bank-accounts/add`, post, { headers })
         .then((response) => {
             dispatch({
                 type: ADD_ACCOUNT,
