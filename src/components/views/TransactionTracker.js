@@ -186,6 +186,7 @@ const TransactionStatus = ({
 const ActionsCol = ({
   Status: {
     SETTLED,
+    EXPIRED,
     REVIEW,
     TERMINATED,
     SENT,
@@ -195,7 +196,7 @@ const ActionsCol = ({
   cancelOrder
 }) => (
   <div className="info-column col-12 col-lg-4">
-    {!(SETTLED || REVIEW || TERMINATED || SENT || FAILED || ABANDONED) && <div>
+    {!(SETTLED || REVIEW || TERMINATED || SENT || FAILED || ABANDONED || EXPIRED) && <div>
       <div>
         <h6 className="mb-4">Tracking information</h6>
         <p>
@@ -205,7 +206,7 @@ const ActionsCol = ({
       <hr />
     </div>}
 
-    {!(SETTLED || REVIEW || TERMINATED || SENT || FAILED || ABANDONED) && <div>
+    {!(SETTLED || REVIEW || TERMINATED || SENT || FAILED || ABANDONED || EXPIRED) && <div>
       <h6 className="mb-4">Cancelling transaction</h6>
       <p>
         Dummy text about cancelling transaction to be
