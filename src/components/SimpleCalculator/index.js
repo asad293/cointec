@@ -382,10 +382,9 @@ class SimpleCalculator extends Component {
     } = this.props
 
 
-    const ExchangeableItem = ({ exchangeable, onItemSelected, status, unavailable }) => (
+    const ExchangeableItem = ({ exchangeable, onItemSelected, unavailable }) => (
       <div>
-        { status !== 'DISABLED' ?
-        <a className={cn("dropdown-item", unavailable ? 'unavailable': null)} onClick={ unavailable ? null: (e) => onItemSelected(exchangeable)}>
+        { <a className={cn("dropdown-item", unavailable ? 'unavailable': null)} onClick={ unavailable ? null: (e) => onItemSelected(exchangeable)}>
           <div className="text-label currency-label">
             <div className="currency-symbol-wrapper fluid px-2">
               <div className="col-8 text-left text-truncate currency-fullname p-0">
@@ -395,7 +394,7 @@ class SimpleCalculator extends Component {
               <div className="col-4 text-right p-0"><b>{exchangeable.name}</b></div>
             </div>
           </div>
-        </a>: '' }
+        </a> }
       </div>
     )
 
@@ -449,7 +448,6 @@ class SimpleCalculator extends Component {
                           <ExchangeableItem
                             key={currency.name}
                             exchangeable={currency}
-                            status={currency.Status}
                             onItemSelected={this.onCurrencySelected} />
                         )}
                       </div>
@@ -517,7 +515,7 @@ class SimpleCalculator extends Component {
                           <ExchangeableItem
                             key={coin.name}
                             exchangeable={coin}
-                            status={coin.Status}
+                            unavailable={coin.Status !== 'AVAILABLE'}
                             onItemSelected={this.onCoinSelected} />
                         ): <div className="px-3">No results</div>}
                       </div>

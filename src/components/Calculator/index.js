@@ -309,7 +309,7 @@ class Calculator extends Component {
 					if (coin) {
 						coin.DefaultQuoteAmount = asset.Send.DefaultQuoteAmount
 						coin.Status = asset.Send.Status
-						if (coin.Status !== 'DISABLED') updatedCoins.push(coin)
+						updatedCoins.push(coin)
 					}
 				}
 			})
@@ -492,12 +492,10 @@ class Calculator extends Component {
 		const ExchangeableItem = ({
 			exchangeable,
 			onItemSelected,
-			status,
 			unavailable
 		}) => (
 			<div>
-				{status !== 'DISABLED' ? (
-					<a
+				{ <a
 						className={cn('dropdown-item', unavailable ? 'unavailable' : null)}
 						onClick={unavailable ? null : e => onItemSelected(exchangeable)}>
 						<div className="text-label currency-label">
@@ -510,22 +508,13 @@ class Calculator extends Component {
 							</div>
 							<span>{exchangeable.name}</span>
 						</div>
-					</a>
-				) : ''}
+					</a> }
 			</div>
 		)
 
 		return (
 			<div className="main-calc-wrapper mt-5">
 				<form onSubmit={this.onSubmit}>
-					{/* <div
-						className={cn(
-							'calc-input-wrapper text-left',
-							Message ||
-							(Limits && Limits.Max.SendCurrency < sendAmount)
-								? 'invalid'
-								: null
-						)}> */}
 					<div
 						className={cn(
 							'calc-input-wrapper text-left',
@@ -537,11 +526,6 @@ class Calculator extends Component {
 							{Message
 								? Message
 								: 'You send'}
-							{/* {Message
-								? Message
-								: Limits && Limits.Max.SendCurrency < sendAmount
-									? 'Limit exceeded'
-									: 'You send'} */}
 						</label>
 						<div className="calc-field">
 							<div className="col-6 col-xl-7 pr-0">
@@ -604,7 +588,6 @@ class Calculator extends Component {
 													<ExchangeableItem
 														key={currency.name}
 														exchangeable={currency}
-														status={currency.Status}
 														onItemSelected={this.onCurrencySelected}
 													/>
 												))}
@@ -615,10 +598,8 @@ class Calculator extends Component {
 							</div>
 						</div>
 					</div>
-					{/* <div className={cn('calc-input-wrapper text-left', (Direction === 'RECEIVE' && Message) || (Limits && Limits.Max.ReceiveCurrency < receiveAmount) ? 'invalid' : null)}> */}
 					<div className="calc-input-wrapper text-left">
 						<label className="field-label m-0">
-							{/* {Direction === 'RECEIVE' && Message ? Message : Limits && Limits.Max.ReceiveCurrency < receiveAmount ? 'Receive limit exceeded' : 'You receive'} */}
 							You receive
 						</label>
 						<div className="calc-field">
@@ -678,7 +659,7 @@ class Calculator extends Component {
 														<ExchangeableItem
 															key={coin.name}
 															exchangeable={coin}
-															status={coin.Status}
+															unavailable={coin.Status !== 'AVAILABLE'}
 															onItemSelected={this.onCoinSelected} />
 													))
 												) : <div className="px-3">No results</div>}
