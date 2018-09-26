@@ -246,11 +246,13 @@ class SimpleCalculator extends Component {
   }
 
   onCoinSelected(coin) {
+    this.props.history.push(`/buy-${_.kebabCase(coin.fullName)}`)
     this.setState({
-      coinSelected: coin,
+      // coinSelected: coin,
       toggleCoin: false,
       coinSearch: ''
-    }, () => this.fetchCalls())
+    })
+    // }, () => this.fetchCalls())
   }
 
   onCurrencySelected(currency) {
@@ -301,9 +303,11 @@ class SimpleCalculator extends Component {
 
       const prev = this.state.coinSelected
 				? this.state.coinSelected.name
-				: false
-      const coinSelected = this.state.coinSelected
-				? updatedCoins.find(coin => coin.name === this.state.coinSelected.name)
+        : false
+      const coinParam = props.match && props.match.params[0]
+      const nextCoin = updatedCoins.find(coin => _.kebabCase(coin.fullName) === coinParam)
+      const coinSelected = nextCoin//this.state.coinSelected
+				? nextCoin
 				: updatedCoins.length
 					? updatedCoins[0]
 					: false
@@ -321,13 +325,19 @@ class SimpleCalculator extends Component {
   }
 
   renderButton() {
+    const { coinSelected } = this.state
+    const available = coinSelected && coinSelected.Status === 'AVAILABLE'
     return (
       <button
         type="submit"
-        className="btn-block btn-lg btn-exchange text-white no-border btn-success"
+        className={cn("btn-block btn-lg btn-exchange text-white no-border btn-success", !available ? 'unavailable' : null)}
         // data-toggle="modal" data-target="#subscribe-modal"
-        onClick={(e) => { e.preventDefault(); this.props.history.push('/login') }}>
-        Instant Exchange
+        onClick={(e) => {
+          e.preventDefault()
+          if (available)
+            this.props.history.push('/login')
+        }}>
+        {available ? 'Instant Exchange' : 'Currently unavailable'}
       </button>
     )
   }
@@ -384,7 +394,7 @@ class SimpleCalculator extends Component {
 
     const ExchangeableItem = ({ exchangeable, onItemSelected, unavailable }) => (
       <div>
-        { <a className={cn("dropdown-item", unavailable ? 'unavailable': null)} onClick={ unavailable ? null: (e) => onItemSelected(exchangeable)}>
+        { <a className={cn("dropdown-item", unavailable ? 'unavailable': null)} onClick={(e) => onItemSelected(exchangeable)}>
           <div className="text-label currency-label">
             <div className="currency-symbol-wrapper fluid px-2">
               <div className="col-8 text-left text-truncate currency-fullname p-0">
@@ -527,9 +537,9 @@ class SimpleCalculator extends Component {
           <h6 className="exchange-rate-label mt-4">
             Exchange Rate:{' '}
 						<b>
-							{this.state.rate === 0
+							{!this.state.rate
 								? '-/-'
-								: (this.state.currencySelected ? this.state.rate.toFixed(this.state.currencySelected.dp) : this.state.rate.toFixed(2)) +
+								: (this.state.rate.toFixed(this.state.currencySelected ? this.state.currencySelected.dp : 2)) +
                   ' ' +
                   (this.state.currencySelected ? this.state.currencySelected.name : 'GBP') +
                   '/' +

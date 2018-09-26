@@ -552,6 +552,9 @@ header.bg-gradient {
             &:hover {
                 background: rgb(35, 167, 83);
             }
+            &.unavailable {
+                background: #c0c6cc;
+            }
         }
         .text-rate {
             font-weight: 400;
@@ -958,10 +961,10 @@ header.bg-gradient {
                 &:active{
                     background: none;
                 }
-                &.unavailable {
-                    cursor: not-allowed;
-                    opacity: 0.5;
-                }
+                // &.unavailable {
+                //     cursor: not-allowed;
+                //     opacity: 0.5;
+                // }
             }
         }
         @include media-breakpoint-down(md) {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import MetaTags, { ReactTitle } from 'react-meta-tags'
 
 import Header from '../core/Header'
 import Navbar from '../core/Navbar'
@@ -12,12 +13,22 @@ import Tracking from './Home/Tracking'
 import Footer from '../core/Footer'
 import SimpleCalculator from '../SimpleCalculator'
 import CurrencySlider from './Home/CurrencySlider'
+import { coins } from '../SimpleCalculator/exchangeables'
+import _ from 'lodash'
 
 class Home extends Component {
     render() {
-        let homeText = this.props.location.pathname === '/buy-augur' ? 'buy Augur' : 'buy digital currency';
+        const coinName = this.props.match.params[0]
+        const coin = coins.find(coin => _.kebabCase(coin.fullName) === coinName)
+        const title = coin
+            ? `Buy ${coin.fullName} | Cointec`
+            : 'Buy Digital Currency | Cointec'
         return (
             <div>
+                <ReactTitle title={title} />
+                <MetaTags>
+                    <meta name="keywords" content={coin ? coin.keywords : 'cointec'} />
+                </MetaTags>
                 <Header background="gradient">
                     <Navbar />
                     <hr className="hr-header m-0" />
