@@ -35,7 +35,7 @@ class Routes extends Component {
         return (
             <Switch>
                 <Route exact path="/" component={Home} />
-                <Route exact path="/buy-augur" component={Home} />
+                <Route exact path="/buy-*" component={Home} />
                 <Route exact path="/login" component={SignIn} />
                 <Route exact path="/signup" component={SignUp} />
                 <Route exact path="/forgot-password" component={ForgotPassword} />

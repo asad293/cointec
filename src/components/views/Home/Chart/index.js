@@ -1,14 +1,17 @@
 import React, { Component }  from 'react'
+import { withRouter } from 'react-router-dom'
 import { Line } from 'react-chartjs-2'
 import Moment from 'react-moment'
 import { fetchRates } from '../../../../Redux/actions'
 import { connect } from 'react-redux'
+import { coins } from '../../../SimpleCalculator/exchangeables'
 import _ from 'lodash'
 
 class Chart extends Component {
 	constructor() {
 		super()
 		this.state = {
+			coinName: 'BTC',
 			currentRate: 3800,
 			latestRate: null,
 			latestTimestamp: null, 
@@ -28,10 +31,10 @@ class Chart extends Component {
   render() {
     return (
       <div className="chart-wrapper">
-        {(this.state.latestRate && this.state.latestTimestamp) ? <div className="info-latest">
-          <h6 className="rate"><span>{this.state.latestRate}</span> GBP/BTC</h6>
+        {(this.state.latestRate && this.state.latestTimestamp) && <div className="info-latest">
+          <h6 className="rate"><span>{this.state.latestRate}</span> GBP/{this.state.coinName}</h6>
           <Moment fromNow>{this.state.updatedOn}</Moment>
-        </div> : ''}
+        </div>}
 				{this.state.options ? <div className="line"><Line options={this.state.options} data={this.state.data} /></div> : ''}
 				{this.state.options ? <p className="axis-name">Past 30 days</p>: ''}
       </div>
@@ -39,7 +42,18 @@ class Chart extends Component {
 	}
 	
 	componentWillReceiveProps(props) {
+		if (props.match.params[0]) {
+			const coinFullName = props.match.params[0]
+			const coin = coins.find(coin => _.kebabCase(coin.fullName) === coinFullName)
+			if (this.state.coinName !== coin.name) {
+				this.setState({
+					coinName: coin.name,
+					updatedOn: new Date().getTime()
+				}, () => this.props.fetchRates(`GBP${coin ? coin.name : 'BTC'}`))
+			}
+		}
 		if (props.chart && props.chart.data.length) {
+			const coin = coins.find(coin => coin.name === this.state.coinName)
 			const chartData = props.chart.data//.filter((_, index) => index % 4 === 0)
 			const timestamps = chartData.map(data => data && data.Timestamp)
 			const rates = chartData.map(data => data && data.Rate)
@@ -61,7 +75,7 @@ class Chart extends Component {
 						backgroundColor: 'white',
 						borderColor: '#E8EAEB',
 						borderWidth: 1,
-						bodyFontColor: '#f7931a',
+						bodyFontColor: coin.primary,//'#f7931a',
 						bodyFontSize: 18,
 						titleFontColor: '#5E6C78',
 						titleFontSize: 14,
@@ -124,7 +138,7 @@ class Chart extends Component {
 						datasets: [
 							{
 								label: '',
-								borderColor: '#f7931a',//'rgb(41, 190, 6)',
+								borderColor: coin.primary,//'#f7931a',//'rgb(41, 190, 6)',
 								borderWidth: 2,
 								data: rates,
 								lineTension: 0.1,
@@ -148,4 +162,8 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { fetchRates })(Chart)
+export default withRouter(
+	connect(mapStateToProps, { fetchRates })(
+		Chart
+	)
+)

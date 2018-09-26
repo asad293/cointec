@@ -46,7 +46,7 @@ class CurrencySlider extends Component {
               <div className="currency-carousel">
                 {
                   this.state.assets.map(asset => (
-                    <Link to={`/#buy-${_.kebabCase(asset.fullName)}`} className="currency-item" key={asset.name}>
+                    <Link to={`/buy-${_.kebabCase(asset.fullName)}`} className="currency-item" key={asset.name}>
                       <img src={asset.image} alt={asset.name} />
                       <label className="m-0">{document.documentElement.clientWidth > 992 ? (asset.fullName.length < 20 ? asset.fullName : asset.name) : asset.name}</label>
                     </Link>
