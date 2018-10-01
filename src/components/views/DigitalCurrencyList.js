@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { ReactTitle } from 'react-meta-tags'
 
 import Header from '../core/Header'
 import Navbar from '../core/Navbar'
@@ -8,16 +9,10 @@ import Footer from '../core/Footer'
 import { coins } from '../SimpleCalculator/exchangeables'
 
 class DigitalCurrencyList extends Component {
-  constructor() {
-    super()
-    // this.state = {
-    //   coins: []
-    // }
-  }
-
 	render() {
 		return (
 			<div className="digital-currency-page learn-page">
+        <ReactTitle title="Digital Currencies | Cointec" />
 				<Header background="gradient">
 					<Navbar />
 					<hr className="hr-header m-0" />
@@ -58,29 +53,6 @@ class DigitalCurrencyList extends Component {
       </div>
     )
   }
-
-  // componentDidMount() {
-  //   this.props.fetchAssets()
-  // }
-
-  // componentWillReceiveProps({ limit }) {
-  //   const updatedCoins = []
-  //   if (limit.assets) {
-  //     Object.keys(limit.assets).forEach(assetPair => {
-	// 			if (assetPair.startsWith('GBP')) {
-  //         const asset = limit.assets[assetPair]
-  //         const coin = coins.find(coin => assetPair.indexOf(coin.name) === 3)
-  //         if (coin) {
-  //           coin.Status = asset.Send.Status
-  //           updatedCoins.push(coin)
-	// 				}
-  //       }
-  //     })
-  //     this.setState({
-  //       coins: updatedCoins
-  //     })
-  //   }
-  // }
 }
 
 const Currency = ({ name, fullName, image }) => (
@@ -92,7 +64,4 @@ const Currency = ({ name, fullName, image }) => (
   </div>
 )
 
-// const mapStateToProps = state => ({ limit: state.limit })
-
-// export default connect(mapStateToProps, { fetchAssets })(DigitalCurrencyList)
 export default DigitalCurrencyList

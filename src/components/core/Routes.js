@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, Switch } from 'react-router'
+import { Route, Switch, withRouter } from 'react-router'
 
 import Home from '../views/Home'
 import SignIn from '../views/SignIn'
@@ -7,8 +7,6 @@ import SignUp from '../views/SignUp'
 import ForgotPassword from '../views/ForgotPassword'
 import LinkSent from '../views/LinkSent'
 import ResetPassword from '../views/ResetPassword'
-import Support from '../views/Support'
-import Legal from '../views/Legal'
 import Learn from '../views/Learn'
 import DigitalCurrencyBasics from '../views/DigitalCurrencyBasics'
 import DigitalWallets from '../views/DigitalWallets'
@@ -23,8 +21,9 @@ import Security from '../views/Security'
 import DigitalCurrencyList from '../views/DigitalCurrencyList'
 
 class Routes extends Component {
-    componentWillUpdate() {
-        window.scrollTo(0,0)
+    componentWillUpdate(props) {
+        if (!(props.location.pathname === '/' || props.location.pathname.startsWith('/buy-')))
+            window.scrollTo(0,0)
 
         if (window.location.hash === '#livechat') {
             Intercom('show');
@@ -42,7 +41,7 @@ class Routes extends Component {
                 <Route exact path="/reset-link-expired/:token?" component={ForgotPassword} />
                 <Route exact path="/link-sent/:type" component={LinkSent} />
                 <Route exact path="/reset-password" component={ResetPassword} />
-                <Route exact path="/support" component={Support} />
+                {/* <Route exact path="/support" component={Support} /> */}
                 <Route exact path="/digital-currency-list" component={DigitalCurrencyList} />
                 <Route exact path="/privacy" component={PrivacyPolicy} />
                 <Route exact path="/terms" component={Terms} />
@@ -62,4 +61,4 @@ class Routes extends Component {
     }
 }
 
-export default Routes
+export default withRouter(Routes)

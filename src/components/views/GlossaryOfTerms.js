@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { ReactTitle } from 'react-meta-tags'
 import _ from 'lodash'
 
 import Header from '../core/Header'
@@ -12,6 +13,7 @@ class GlossaryOfTerms extends Component {
   render() {
 		return (
 			<div className="learn-page">
+        <ReactTitle title="Glossary Of Terms | Cointec" />
 				<Header background="gradient">
 					<Navbar />
 					<hr className="hr-header m-0" />

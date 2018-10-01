@@ -28,6 +28,7 @@ class SimpleCalculator extends Component {
       toggleCurrency: false,
       toggleCoin: false,
       search: false,
+      active: false,
       defaultCoin: this.props.location.pathname === '/buy-augur' ? 'REP' : 'BTC',
     }
     
@@ -41,18 +42,12 @@ class SimpleCalculator extends Component {
     this.convertToReceiveAmount = this.convertToReceiveAmount.bind(this)
     this.convertToSendAmount = this.convertToSendAmount.bind(this)
 
-    this.back = this.back.bind(this)
     this.fetchCalls = this.fetchCalls.bind(this)
     this.getQuote = this.getQuote.bind(this)
     this.onCoinSelected = this.onCoinSelected.bind(this)
     this.onCurrencySelected = this.onCurrencySelected.bind(this)
     this.toggleDropDown = this.toggleDropDown.bind(this)
     this.toggleSearch = this.toggleSearch.bind(this)
-  }
-
-  back() {
-    let intervalId = setInterval(this.fetchCalls, this.state.interval * 1000)
-    this.setState({ intervalId })
   }
 
   normalizeSendAmount(value, previousValue) {
@@ -130,38 +125,46 @@ class SimpleCalculator extends Component {
     let intervalId = setInterval(this.fetchCalls, interval * 1000)
     // store intervalId in the state so it can be accessed later to clear it
     this.setState({intervalId})
-}
+  }
+
   componentDidMount() {
+    this.setState({ active: true })
     // set call fetch interval 
     this.initInterval(this.state.interval)
     // fetch call the first time component mounts
     this.fetchCalls()
 
-    addEventListener('keyup', event => {
-      if (event.keyCode === 27) {
-        if (this.state.toggleCoin) {
-          this.toggleDropDown('coin')
-        }
-        if (this.state.toggleCurrency) {
-          this.toggleDropDown('currency')
-        }
-      }
-    })
-
-    addEventListener('click', event => {
-      const select = event.path.find(node => node.className === 'dropdown dropdown-currency-select')
-      if (!select) {
-        this.setState({
-          toggleCoin: false,
-          toggleCurrency: false,
-          coinSearch: ''
-        })
-      }
-    })
+    addEventListener('keyup', this.onEscape)
+    addEventListener('click', this.onClickOutside)
   }
 
   componentWillUnmount() {
+    this.setState({ active: false })
     clearInterval(this.state.intervalId)
+    removeEventListener('keyup', this.onEscape)
+    removeEventListener('click', this.onClickOutside)
+  }
+
+  onEscape = event => {
+    if (event.keyCode === 27) {
+      if (this.state.toggleCoin) {
+        this.toggleDropDown('coin')
+      }
+      if (this.state.toggleCurrency) {
+        this.toggleDropDown('currency')
+      }
+    }
+  }
+
+  onClickOutside = event => {
+    const select = event.path.find(node => node.className === 'dropdown dropdown-currency-select')
+    if (!select) {
+      this.setState({
+        toggleCoin: false,
+        toggleCurrency: false,
+        coinSearch: ''
+      })
+    }
   }
 
   getQuote() {
@@ -181,11 +184,13 @@ class SimpleCalculator extends Component {
   }
 
   fetchCalls() {
-    this.props.fetchAssets()
-    if (this.props.ctUser)
-      this.props.fetchLimit(this.props.ctUser)
-    this.props.fetchConsts()
-    this.getQuote()
+    if (this.props.match.path !== 'exchange') {
+      this.props.fetchAssets()
+      if (this.props.ctUser)
+        this.props.fetchLimit(this.props.ctUser)
+      this.props.fetchConsts()
+      this.getQuote()
+    }
   }
 
 
@@ -248,11 +253,9 @@ class SimpleCalculator extends Component {
   onCoinSelected(coin) {
     this.props.history.push(`/buy-${_.kebabCase(coin.fullName)}`)
     this.setState({
-      // coinSelected: coin,
       toggleCoin: false,
       coinSearch: ''
     })
-    // }, () => this.fetchCalls())
   }
 
   onCurrencySelected(currency) {
@@ -271,7 +274,7 @@ class SimpleCalculator extends Component {
     if (props.limit.const) {
       let interval = props.limit.const.Frame1Refresh
       let refreshTime = props.limit.const.Frame2Refresh
-      if (this.state.interval != interval) {
+      if (this.state.interval != interval && this.state.active) {
           this.initInterval(interval)
           this.setState({ interval })
       }
@@ -301,9 +304,9 @@ class SimpleCalculator extends Component {
         }
       })
 
-      const prev = this.state.coinSelected
-				? this.state.coinSelected.name
-        : false
+      // const prev = this.state.coinSelected
+			// 	? this.state.coinSelected.name
+      //   : false
       const coinParam = props.match && props.match.params[0]
       const nextCoin = updatedCoins.find(coin => _.kebabCase(coin.fullName) === coinParam)
       const coinSelected = nextCoin//this.state.coinSelected
@@ -315,12 +318,13 @@ class SimpleCalculator extends Component {
       this.setState({
         coins: updatedCoins,
         coinSelected,
-        placeholderSendAmount: coinSelected ? coinSelected.DefaultQuoteAmount : this.state.placeholderSendAmount,
-      }, () => {
-        if (prev != coinSelected.name) {
-          this.fetchCalls()
-        }
+        placeholderSendAmount: coinSelected ? coinSelected.DefaultQuoteAmount : this.state.placeholderSendAmount
       })
+      // }, () => {
+      //   if (prev != coinSelected.name) {
+      //     this.fetchCalls()
+      //   }
+      // })
     }
   }
 

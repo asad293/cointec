@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
+import { ReactTitle } from 'react-meta-tags'
 import jwt from 'jwt-simple'
 import Cookie from 'js-cookie'
 
@@ -9,7 +10,6 @@ import Nav from '../core/Nav'
 import Calculator from '../Calculator'
 import ReviewForm from '../Calculator/ReviewForm'
 import CreateOrderForm from '../Calculator/CreateOrderForm'
-import TransactionTracker from '../Calculator/TransactionTracker'
 
 class Exchange extends Component {
 	constructor() {
@@ -33,6 +33,9 @@ class Exchange extends Component {
 		this.onConfirm = this.onConfirm.bind(this)
 		this.onRestart = this.onRestart.bind(this)
 		this.onRateChange = this.onRateChange.bind(this)
+		this.renderAmountFrame = this.renderAmountFrame.bind(this)
+		this.renderSummaryFrame = this.renderSummaryFrame.bind(this)
+		this.renderPaymentFrame = this.renderPaymentFrame.bind(this)
 	}
 
 	componentDidMount() {
@@ -86,46 +89,24 @@ class Exchange extends Component {
 	}
 
 	render() {
-		let frame = null
-		if (this.state.step === 1)
-			frame = <AmountFrame
-				ctUser={this.state.ctUser}
-				preSelectedCoin={this.props.match.params.receiveCurrency}
-				onConfirm={this.next} />
-		else if (this.state.step === 2)
-			frame = <SummaryFrame
-					sendAmount={this.state.sendAmount}
-					initialSendAmount={this.state.initialSendAmount}
-					receiveAmount={this.state.receiveAmount}
-					sendCurrency={this.state.sendCurrency}
-					receiveCurrency={this.state.receiveCurrency}
-					ctUser={this.state.ctUser}
-					action={this.state.action}
-					wallet={this.state.wallet}
-					rate={this.state.rate}
-					onRateChange={this.onRateChange}
-					onConfirm={this.next} />
-		else if (this.state.step === 3)
-			frame = <PaymentFrame
-					sendAmount={this.state.sendAmount}
-					receiveAmount={this.state.receiveAmount}
-					sendCurrency={this.state.sendCurrency}
-					receiveCurrency={this.state.receiveCurrency}
-					wallet={this.state.wallet}
-					rate={this.state.rate}
-					ctUser={this.state.ctUser}
-					onConfirm={this.onConfirm}
-					onRestart={this.onRestart} />
-
 		return (
 			<div className="full-height" style={{ backgroundColor: '#f4f7fa' }}>
+				<ReactTitle title="Exchange | Cointec" />
 				<Header background="solid">
 					<Nav heading={this.state.step === 1 ? 'Buy digital currency' : this.state.step === 2 ? 'Order summary' : 'Make Bank Transfer'} />
 				</Header>
 
 				<div className="container">
 					<div className="row mt-4">
-						<div className="col-12 col-lg-7 col-xl-6 text-center">{frame}</div>
+						<div className="col-12 col-lg-7 col-xl-6 text-center">
+							{this.state.step === 1
+								? this.renderAmountFrame()
+								: this.state.step === 2
+									? this.renderSummaryFrame()
+									: this.state.step === 3
+										? this.renderPaymentFrame()
+										: null}
+						</div>
 						<div className="info-column col-12 col-lg-4">
 							{this.state.step === 1 ? <div>
 								<h6>Transaction limit</h6>
@@ -196,27 +177,56 @@ class Exchange extends Component {
 			</div>
 		)
 	}
+
+	renderAmountFrame() {
+		return (
+			<div>
+				<Calculator
+					ctUser={this.state.ctUser}
+					preSelectedCoin={this.props.match.params.receiveCurrency}
+					onConfirm={this.next} />
+				<p className="text-left mt-3">
+					By continuing you accept our <Link to="/terms">Terms of Use</Link>
+				</p>
+			</div>
+		)
+	}
+
+	renderSummaryFrame() {
+		return (
+			<div>
+				<ReviewForm
+					sendAmount={this.state.sendAmount}
+					initialSendAmount={this.state.initialSendAmount}
+					receiveAmount={this.state.receiveAmount}
+					sendCurrency={this.state.sendCurrency}
+					receiveCurrency={this.state.receiveCurrency}
+					ctUser={this.state.ctUser}
+					action={this.state.action}
+					wallet={this.state.wallet}
+					rate={this.state.rate}
+					onRateChange={this.onRateChange}
+					onConfirm={this.next} />
+			</div>
+		)
+	}
+
+	renderPaymentFrame() {
+		return (
+			<div>
+				<CreateOrderForm
+					sendAmount={this.state.sendAmount}
+					receiveAmount={this.state.receiveAmount}
+					sendCurrency={this.state.sendCurrency}
+					receiveCurrency={this.state.receiveCurrency}
+					wallet={this.state.wallet}
+					rate={this.state.rate}
+					ctUser={this.state.ctUser}
+					onConfirm={this.onConfirm}
+					onRestart={this.onRestart} />
+			</div>
+		)
+	}
 }
-
-const AmountFrame = props => (
-	<div>
-		<Calculator {...props} />
-		<p className="text-left mt-3">
-			By continuing you accept our <Link to="/terms">Terms of Use</Link>
-		</p>
-	</div>
-)
-
-const SummaryFrame = props => (
-	<div>
-		<ReviewForm {...props} />
-	</div>
-)
-
-const PaymentFrame = props => (
-	<div>
-		<CreateOrderForm {...props} />
-	</div>
-)
 
 export default withRouter(Exchange)
