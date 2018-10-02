@@ -30,7 +30,8 @@ class Calculator extends Component {
 			toggleCurrency: false,
 			toggleCoin: false,
 			search: false,
-			defaultCoin: 'BTC'
+			defaultCoin: 'BTC',
+			active: false
 		}
 
 		this.onSubmit = this.onSubmit.bind(this)
@@ -136,39 +137,44 @@ class Calculator extends Component {
 	}
 
 	componentDidMount() {
+    this.setState({ active: true })
 		// set call fetch interval
 		this.initInterval(this.state.interval)
 		// fetch call the first time component mounts
 		this.fetchCalls()
 
-		addEventListener('keyup', event => {
-			if (event.keyCode === 27) {
-				if (this.state.toggleCoin) {
-					this.toggleDropDown('coin')
-				}
-				if (this.state.toggleCurrency) {
-					this.toggleDropDown('currency')
-				}
-			}
-		})
-
-		addEventListener('click', event => {
-			const select = event.path.find(
-				node => node.className === 'dropdown dropdown-currency-select'
-			)
-			if (!select) {
-				this.setState({
-					toggleCoin: false,
-					toggleCurrency: false,
-					coinSearch: ''
-				})
-			}
-		})
+		addEventListener('keyup', this.onEscape)
+    addEventListener('click', this.onClickOutside)
 	}
 
 	componentWillUnmount() {
+    this.setState({ active: false })
 		clearInterval(this.state.intervalId)
+    removeEventListener('keyup', this.onEscape)
+    removeEventListener('click', this.onClickOutside)
 	}
+
+  onEscape = event => {
+    if (event.keyCode === 27) {
+      if (this.state.toggleCoin) {
+        this.toggleDropDown('coin')
+      }
+      if (this.state.toggleCurrency) {
+        this.toggleDropDown('currency')
+      }
+    }
+  }
+
+  onClickOutside = event => {
+    const select = event.path.find(node => node.className === 'dropdown dropdown-currency-select')
+    if (!select) {
+      this.setState({
+        toggleCoin: false,
+        toggleCurrency: false,
+        coinSearch: ''
+      })
+    }
+  }
 
 	getQuote() {
 		if (this.state.action === 'sending') {
@@ -193,6 +199,7 @@ class Calculator extends Component {
 	}
 
 	fetchCalls() {
+		if (!this.state.active) return
     this.props.fetchAssets()
     if (this.props.ctUser)
       this.props.fetchLimit(this.props.ctUser)
@@ -287,7 +294,7 @@ class Calculator extends Component {
 
 		if (limit.const) {
 			let interval = limit.const.Frame1Refresh
-			if (this.state.interval != interval) {
+			if (this.state.interval != interval && this.state.active) {
 				this.initInterval(interval)
 				this.setState({ interval })
 			}

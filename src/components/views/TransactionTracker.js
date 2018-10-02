@@ -7,6 +7,7 @@ import Cookie from 'js-cookie'
 import cn from 'classnames'
 import PropTypes from 'prop-types'
 import { abandonOrder, getStatus, fetchConsts } from '../../Redux/actions'
+import { ReactTitle } from 'react-meta-tags'
 import Header from '../core/Header'
 import Nav from '../core/Nav'
 import AbandonOrder from '../modals/AbandonOrder'
@@ -71,6 +72,7 @@ class TransactionTracker extends Component {
     const { loading, status } = this.props.order
     return (
       <div className="full-height" style={{ backgroundColor: '#f4f7fa' }}>
+        <ReactTitle title="Transaction Tracker | Cointec" />
 				<Header background="solid">
 					<Nav heading="Track your transaction" />
 				</Header>

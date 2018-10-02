@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { SubmissionError } from 'redux-form'
+import { ReactTitle } from 'react-meta-tags'
 
 import Header from '../core/Header'
 import SignUpForm from './SignUp/SignUpForm'
@@ -47,6 +48,7 @@ class SignUp extends Component {
 
 		return (
 			<div className="signin-page">
+				<ReactTitle title="Sign Up | Cointec" />
 				<Header background="gradient">
 					<div className="sg-logo text-center position-relative">
 						<Link to='/'>

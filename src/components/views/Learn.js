@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { ReactTitle } from 'react-meta-tags'
 
 import Header from '../core/Header'
 import Navbar from '../core/Navbar'
@@ -9,6 +10,7 @@ class Learn extends Component {
 	render() {
 		return (
 			<div className="learn-page">
+				<ReactTitle title="Learn | Cointec" />
 				<Header background="gradient">
 					<Navbar />
 					<hr className="hr-header m-0" />

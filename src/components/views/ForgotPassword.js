@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { ReactTitle } from 'react-meta-tags'
 import { connect } from 'react-redux'
 
 import Header from '../core/Header'
@@ -33,6 +34,7 @@ class ForgotPassword extends Component {
 
 		return (
 			<div className="signin-page">
+				<ReactTitle title="Forgot Password | Cointec" />
 				<Header background="gradient">
 					<div className="sg-logo text-center position-relative">
 						<Link to='/'>
@@ -58,53 +60,6 @@ class ForgotPassword extends Component {
 			</div>
 		)
 	}
-	// render() {
-	// 	const { form, inProgress } = this.props.forgotPasswordStore
-	// 	const { token } = this.props.match.params
-
-	// 	const labelEmail = form.isValid('emailAddress') ? 'Email' : 'Please enter a valid email'
-
-	// 	return (
-	// 		<FormWrapper>
-	// 			<div className="container">
-	// 				<div className="row">
-	// 					<div className="col-12 col-xl-4 form-section">
-	// 						<Link to='/'>
-	// 							<img src="/img/logo-color.svg" alt="Cointec Logo" className="mb-5" />
-	// 						</Link>
-
-	// 						<h1 className="page-title">Reset password</h1>
-
-	// 						<form className="als-content" onSubmit={this.handleSubmit.bind(this)} noValidate>
-	// 							<h5 className="heading-line">
-	// 								{!token ? 
-	// 									'Please enter your email address to begin resetting your password.': 
-	// 									'To receive another password reset link, please enter your email below.'}
-	// 							</h5>
-
-	// 							<div className={'form-group ' + (!form.isValid('emailAddress') ? 'invalid' : '')}>
-	// 								<label htmlFor="email">{labelEmail}</label>
-	// 								<input
-	// 									name="emailAddress"
-	// 									type="email"
-	// 									className="form-control"
-	// 									placeholder="email@cointec.co.uk"
-	// 									value={form.data.emailAddress}
-	// 									onBlur={this.validate.bind(this)}
-	// 									onChange={this.handleInputChange.bind(this)}
-	// 								/>
-	// 							</div>
-
-	// 							<button type="submit" className="btn btn-primary" disabled={inProgress}>
-	// 								{inProgress ? <i className="fas fa-spinner fa-spin"></i>: 'Send reset email'}
-	// 							</button>
-	// 						</form>
-	// 					</div>
-	// 				</div>
-	// 			</div>
-	// 		</FormWrapper>
-	// 	)
-	// }
 }
 
 export default connect(({auth}) => ({auth}), { forgotPassword })(ForgotPassword)
