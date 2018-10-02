@@ -32,7 +32,7 @@ class Chart extends Component {
     return (
       <div className="chart-wrapper">
         {(this.state.latestRate && this.state.latestTimestamp) && <div className="info-latest">
-          <h6 className="rate"><span>{this.state.latestRate}</span> GBP/{this.state.coinName}</h6>
+          <h6 className="rate"><span>{this.state.latestRate.toFixed(2)}</span> GBP/{this.state.coinName}</h6>
           <Moment fromNow>{this.state.updatedOn}</Moment>
         </div>}
 				{this.state.options ? <div className="line"><Line options={this.state.options} data={this.state.data} /></div> : ''}
@@ -56,7 +56,7 @@ class Chart extends Component {
 			const coin = coins.find(coin => coin.name === this.state.coinName)
 			const chartData = props.chart.data//.filter((_, index) => index % 4 === 0)
 			const timestamps = chartData.map(data => data && data.Timestamp)
-			const rates = chartData.map(data => data && data.Rate)
+			const rates = chartData.map(data => data && data.Rate.toFixed(2))
 			const tooltip = chartData.map(data => {
 				const date = String(new Date(data.Timestamp * 1000))
 				return `${date.slice(4, 10)} ${date.slice(16, 21)}`
@@ -131,7 +131,8 @@ class Chart extends Component {
 				data: canvas => {
 					const context = canvas.getContext('2d')
 					const gradient = context.createLinearGradient(0, 0, 0, 500)
-					gradient.addColorStop(0, 'rgba(247, 147, 26, 0.07)')
+					gradient.addColorStop(0, coin.primary + '12')
+					// gradient.addColorStop(0, 'rgba(247, 147, 26, 0.07)')
 					gradient.addColorStop(1, 'rgba(255, 255, 255, 0)')
 					return {
 						labels: timestamps,
