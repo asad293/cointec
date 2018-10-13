@@ -1,0 +1,193 @@
+// Import Custom Fonts
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+
+// The Bootstrap Library
+@import '~bootstrap/scss/bootstrap';
+
+$mid-color: #f6f9fc;
+$primary-light: #178cf5;
+
+html {
+	background-color: #f4f7fa;
+	@include media-breakpoint-down(lg) {
+		background-color: #fff;
+	}
+	body {
+		margin: auto;
+		box-shadow: 0 0 1.875rem rgba(0, 0, 0, 0.07);
+		font-family: 'Open Sans', sans-serif;
+		@include media-breakpoint-down(lg) {
+			box-shadow: none;
+		}
+	}
+}
+
+.bg-gradient {
+	position: relative;
+	overflow: hidden;
+	&:before {
+		content: '';
+		width: 33%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		transform-origin: 100% 0;
+		opacity: 0.3;
+	}
+	&.bg-primary-gradient {
+		@include gradient-directional(#022080, #0575e6, 180deg);
+		overflow-x: hidden;
+		&:before {
+			background: linear-gradient(
+				270deg,
+				rgba(0, 0, 0, 0.5) 0%,
+				rgba(10, 84, 195, 0) 50%
+			);
+			mix-blend-mode: soft-light;
+			transform: rotate(180deg);
+			left: -50rem;
+			top: initial;
+			bottom: -16.875rem;
+			height: 16.875rem;
+			width: 54.0625rem;
+			border-radius: 0 18.75rem 0 0;
+		}
+		&:after {
+			content: '';
+			mix-blend-mode: soft-light;
+			background: linear-gradient(
+				89.97deg,
+				#1497c1 0%,
+				rgba(255, 255, 255, 0.22) 100%
+			);
+			position: absolute;
+			left: 0;
+			height: 6.25rem;
+			width: 38.75rem;
+			bottom: 0;
+			border-radius: 0 12.5rem 0 0;
+		}
+	}
+	&.bg-primary-gradient-up {
+		background: #0575e6;
+		&:before {
+			background: linear-gradient(
+				270deg,
+				rgba(0, 0, 0, 0.5) 0%,
+				rgba(10, 84, 195, 0) 50%
+			);
+			mix-blend-mode: soft-light;
+			transform: rotate(180deg);
+			left: -50rem;
+			top: initial;
+			bottom: -18.125rem;
+			height: 100%;
+			width: 54.0625rem;
+			border-radius: 0 18.75rem 0 0;
+		}
+		&:after {
+			content: '';
+			mix-blend-mode: soft-light;
+			background: linear-gradient(
+				89.97deg,
+				#1497c1 0%,
+				rgba(255, 255, 255, 0.22) 100%
+			);
+			position: absolute;
+			left: 0;
+			height: 6.25rem;
+			width: 38.75rem;
+			bottom: 0;
+			border-radius: 0 12.5rem 0 0;
+			pointer-events: none;
+		}
+	}
+	&.bg-mid-gradient {
+		background-color: $mid-color;
+		&:before {
+			right: 0;
+			transform: skewY(-30deg);
+			width: 20%;
+			transform-origin: -130% 0;
+			@include gradient-directional(
+				rgba(255, 255, 255, 0) 60%,
+				#dce3e8 100%,
+				90deg
+			);
+			@include media-breakpoint-down(sm) {
+				display: none;
+			}
+		}
+	}
+	&.bg-light-gradient {
+		background-color: #fcfdfd;
+		&:before {
+			opacity: 0.8;
+			left: 0;
+			transform: skewY(-30deg);
+			transform-origin: 130% 0;
+			@include gradient-directional(
+				rgba(232, 235, 237, 0.6) 0%,
+				rgba(255, 255, 255, 0) 80%,
+				90deg
+			);
+			@include media-breakpoint-down(sm) {
+				display: none;
+			}
+		}
+	}
+}
+
+.hr-header {
+	@extend .m-0;
+	border-top: 0.0625rem solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-wrapper {
+	padding-bottom: 5.625rem;
+	margin-top: 8.75rem;
+	@include media-breakpoint-down(md) {
+		margin-top: 2rem;
+	}
+}
+
+.hero-text {
+	@extend .d-flex;
+	@extend .flex-column;
+	.hero-title {
+		color: white;
+		margin-bottom: 1.4rem;
+		font-weight: bold;
+		font-size: 3rem;
+		line-height: 3.6875rem;
+		@include media-breakpoint-down(md) {
+			font-size: 2.2rem;
+			margin-bottom: 0.8rem;
+			line-height: 2.5rem;
+		}
+		@include media-breakpoint-down(sm) {
+			font-size: 2.4rem;
+		}
+		@include media-breakpoint-down(xs) {
+			font-size: 2.2rem;
+		}
+	}
+	.hero-intro {
+		font-size: 1rem;
+		margin-bottom: 2rem;
+		font-weight: normal;
+		color: rgba(255, 255, 255, 0.8);
+		line-height: 1.75rem;
+		@include media-breakpoint-down(md) {
+			margin-bottom: 0;
+		}
+	}
+	a {
+		color: white;
+		font-size: 1rem;
+		line-height: 1.9375rem;
+		font-weight: 600;
+	}
+}
+
+@import './nav';
