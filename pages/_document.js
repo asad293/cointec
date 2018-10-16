@@ -46,6 +46,11 @@ export default class MyDocument extends Document {
 					<meta name="twitter:description" content={description} />
 					<meta name="twitter:site" content={URL} />
 					<meta name="twitter:image" content={image} />
+
+					<link rel="stylesheet" type="text/css" href="/static/libs/slick/slick.css"/>
+					<link rel="stylesheet" type="text/css" href="/static/libs/slick/slick-theme.css"/>
+					<script src="/static/libs/jquery/jquery-3.3.1.slim.min.js" />
+					<script type="text/javascript" src="/static/libs/slick/slick.min.js" />
 				</Head>
 				<body>
 					<Main />

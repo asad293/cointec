@@ -1,10 +1,19 @@
 import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import '../styles/app.scss'
+
 import Header from '../components/Header'
 import Nav from '../components/Nav'
-import Calculator from '../components/Calculator'
-import '../styles/app.scss'
+import Calculator from '../components/Landing/Calculator'
+import CurrencySlider from '../components/Landing/CurrencySlider'
+import GetStarted from '../components/Landing/GetStarted'
+import ExchangeRates from '../components/Landing/ExchangeRates'
+import DigitalCurrencies from '../components/Landing/DigitalCurrencies'
+import Tracking from '../components/Landing/Tracking'
+import Security from '../components/Landing/Security'
+import Subscribe from '../components/Landing/Subscribe'
+import Footer from '../components/Footer'
 
 const Home = () => (
 	<div>
@@ -46,6 +55,16 @@ const Home = () => (
 				</div>
 			</div>
 		</Header>
+
+		<CurrencySlider />
+		<GetStarted />
+		<ExchangeRates />
+		<DigitalCurrencies />
+		<Tracking />
+		<Security />
+		<Subscribe />
+
+		<Footer />
 	</div>
 )
 

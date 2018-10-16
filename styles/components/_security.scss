@@ -1,0 +1,12 @@
+.home-section.security-section.container {
+	padding: 7.625rem 0.9375rem;
+	@include media-breakpoint-down(md) {
+		padding: 2.125rem 0.9375rem 2.3125rem;
+	}
+	.section-title {
+		margin-top: 0.75rem;
+	}
+	img.security-lock {
+		width: 14.375rem;
+	}
+}

@@ -11,7 +11,7 @@ const Send = [
 		FullName: 'Pound Sterling',
 		Symbol: '£',
 		Dp: 2,
-		Image: '/img/union-jack.svg',
+		Image: '/static/images/union-jack.svg',
 		Keywords: 'british pound',
 		Primary: null
 	},
@@ -21,7 +21,7 @@ const Send = [
 		FullName: 'Bitcoin',
 		Symbol: 'B',
 		Dp: 8,
-		Image: '/img/coins/BTC.svg',
+		Image: '/static/images/coins/BTC.svg',
 		Keywords: 'bitcoin',
 		Primary: null
 	}
@@ -34,7 +34,7 @@ const Receive = [
 		FullName: 'Basic Attention Token',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/BAT.svg',
+		Image: '/static/images/coins/BAT.svg',
 		Keywords: 'basic attention token,bat',
 		Primary: '#FF5000'
 	},
@@ -44,7 +44,7 @@ const Receive = [
 		FullName: 'Bitcoin Cash',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/BCH.svg',
+		Image: '/static/images/coins/BCH.svg',
 		Keywords: 'bitcoin cash,bch',
 		Primary: '#4BCF51'
 	},
@@ -54,7 +54,7 @@ const Receive = [
 		FullName: 'Bancor',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/BNT.svg',
+		Image: '/static/images/coins/BNT.svg',
 		Keywords: 'bancor,bnt',
 		Primary: '#0B0F2B'
 	},
@@ -64,7 +64,7 @@ const Receive = [
 		FullName: 'Bitcoin',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/BTC.svg',
+		Image: '/static/images/coins/BTC.svg',
 		Keywords: 'bitcoin,btc',
 		Primary: '#F7931A'
 	},
@@ -74,7 +74,7 @@ const Receive = [
 		FullName: 'Dash',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/DASH.svg',
+		Image: '/static/images/coins/DASH.svg',
 		Keywords: 'dash,dsh',
 		Primary: '#2573C2'
 	},
@@ -84,7 +84,7 @@ const Receive = [
 		FullName: 'EOS',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/EOS.svg',
+		Image: '/static/images/coins/EOS.svg',
 		Keywords: 'eos',
 		Primary: '#6D6E70'
 	},
@@ -94,7 +94,7 @@ const Receive = [
 		FullName: 'Ethereum Classic',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/ETC.svg',
+		Image: '/static/images/coins/ETC.svg',
 		Keywords: 'ethereum classic,etc',
 		Primary: '#166816'
 	},
@@ -104,7 +104,7 @@ const Receive = [
 		FullName: 'Ethereum',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/ETH.svg',
+		Image: '/static/images/coins/ETH.svg',
 		Keywords: 'ethereum,eth',
 		Primary: '#62688F'
 	},
@@ -114,7 +114,7 @@ const Receive = [
 		FullName: 'Golem',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/GNT.svg',
+		Image: '/static/images/coins/GNT.svg',
 		Keywords: 'golem,gnt',
 		Primary: '#001D57'
 	},
@@ -124,7 +124,7 @@ const Receive = [
 		FullName: 'Litecoin',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/LTC.svg',
+		Image: '/static/images/coins/LTC.svg',
 		Keywords: 'litecoin,ltc',
 		Primary: '#BEBEBE'
 	},
@@ -134,7 +134,7 @@ const Receive = [
 		FullName: 'NEO',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/NEO.svg',
+		Image: '/static/images/coins/NEO.svg',
 		Keywords: 'neo',
 		Primary: '#54BB01'
 	},
@@ -144,7 +144,7 @@ const Receive = [
 		FullName: 'Omisecoin',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/OMG.svg',
+		Image: '/static/images/coins/OMG.svg',
 		Keywords: 'omisecoin,omg',
 		Primary: '#1A53F0'
 	},
@@ -154,7 +154,7 @@ const Receive = [
 		FullName: 'QTUM',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/QTUM.svg',
+		Image: '/static/images/coins/QTUM.svg',
 		Keywords: 'qtum',
 		Primary: '#4fAAC7'
 	},
@@ -164,7 +164,7 @@ const Receive = [
 		FullName: 'Augur',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/REP.svg',
+		Image: '/static/images/coins/REP.svg',
 		Keywords: 'augur,rep',
 		Primary: '#6b3860'
 	},
@@ -174,7 +174,7 @@ const Receive = [
 		FullName: 'Status',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/SNT.svg',
+		Image: '/static/images/coins/SNT.svg',
 		Keywords: 'status,snt',
 		Primary: '#5b6DEE'
 	},
@@ -184,7 +184,7 @@ const Receive = [
 		FullName: 'STORJ',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/STORJ.svg',
+		Image: '/static/images/coins/STORJ.svg',
 		Keywords: 'storj',
 		Primary: '#2683FF'
 	},
@@ -194,7 +194,7 @@ const Receive = [
 		FullName: 'Monero',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/XMR.svg',
+		Image: '/static/images/coins/XMR.svg',
 		Keywords: 'monero,xmr',
 		Primary: '#FF6B01'
 	},
@@ -204,7 +204,7 @@ const Receive = [
 		FullName: 'Ripple',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/XRP.svg',
+		Image: '/static/images/coins/XRP.svg',
 		Keywords: 'ripple,xrp',
 		Primary: '#1276A7'
 	},
@@ -214,7 +214,7 @@ const Receive = [
 		FullName: 'Zcash',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/ZEC.svg',
+		Image: '/static/images/coins/ZEC.svg',
 		Keywords: 'zcash,zec',
 		Primary: '#D6932C'
 	},
@@ -224,7 +224,7 @@ const Receive = [
 		FullName: '0x',
 		Symbol: null,
 		Dp: 0,
-		Image: '/img/coins/ZRX.svg',
+		Image: '/static/images/coins/ZRX.svg',
 		Keywords: '0x,zrx',
 		Primary: '#302C2C'
 	}

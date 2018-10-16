@@ -7,9 +7,7 @@ export const FETCH_ASSETS_LIST_END = 'FETCH_ASSETS_LIST_END'
 export const fetchAssetsList = () => async dispatch => {
 	dispatch({ type: FETCH_ASSETS_LIST_START })
 
-	const response = await fetch(`${ROOT_URL}/assets/exchangeables`, {
-		mode: 'no-cors'
-	})
+	const response = await fetch(`${ROOT_URL}/assets/exchangeables`)
 	const { ok, statusText, json } = response
 	if (!ok) return dispatch({ type: FETCH_ASSETS_LIST_END, payload: statusText })
 
