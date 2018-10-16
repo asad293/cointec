@@ -54,7 +54,7 @@ class CreateOrderForm extends Component {
   }
 
   startPayment() {
-    const createdAt = new Date().getTime() / 1000.0
+    const createdAt = Math.round(new Date().getTime() / 1000.0)
     this.props.createOrder({
       destAmount: this.props.receiveAmount, 
       sourceAmount: this.props.sendAmount,
