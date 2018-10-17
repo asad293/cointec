@@ -54,7 +54,7 @@ export default class MyDocument extends Document {
 					<link rel="stylesheet" type="text/css" href="/static/libs/fontawesome/css/brands.min.css"/>
 					<link rel="stylesheet" type="text/css" href="/static/libs/fontawesome/css/fontawesome.min.css"/>
 					<script src="/static/libs/jquery/jquery-3.3.1.slim.min.js" />
-					<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossOrigin="anonymous" />
 					<script src="/static/libs/bootstrap/js/bootstrap.min.js" />
 					<script type="text/javascript" src="/static/libs/slick/slick.min.js" />
 				</Head>
