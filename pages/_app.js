@@ -3,6 +3,7 @@ import React from 'react'
 import withReduxStore from '../libs/with-redux-store'
 import loadIntercom from '../libs/load-intercom'
 import { Provider } from 'react-redux'
+import '../styles/app.scss'
 
 class MyApp extends App {
 	componentDidMount() {

@@ -58,7 +58,7 @@ const Footer = props => (
 
 						<div className="col-12 col-md-4 mt-5 mt-md-0">
 							<h5 className="menu-heading">Legal</h5>
-							<Link href="/privacy">
+							<Link href="/privacy-policy">
 								<a>Privacy Policy</a>
 							</Link>
 							<Link href="/terms">

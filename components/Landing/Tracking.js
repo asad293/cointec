@@ -6,19 +6,19 @@ const Tracking = () => (
 		<div className="home-section tracking-section container px-4">
 			<div className="row flex-column-reverse flex-md-row">
 				<div className="col-12 col-md-6 pr-md-0 pr-lg-5 mt-4 mt-md-0">
-					<div className="card-tracking sent">
+					<div className="card-tracking sent d-flex justify-content-between px-4">
 						<div>
 							<i className="far fa-check fa-lg mr-3" /> Digital currency sent
 						</div>
 						<span>17:05PM</span>
 					</div>
-					<div className="card-tracking mt-4 pro">
+					<div className="card-tracking mt-4 pro d-flex justify-content-between px-4">
 						<div>
 							<i className="far fa-check fa-lg mr-3" /> We received payment
 						</div>
 						<span>17:02PM</span>
 					</div>
-					<div className="card-tracking mt-4 pro">
+					<div className="card-tracking mt-4 pro d-flex justify-content-between px-4">
 						<div>
 							<i className="far fa-check fa-lg mr-3" /> You sent payment
 						</div>

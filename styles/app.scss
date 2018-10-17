@@ -1,16 +1,10 @@
 // Import Custom Fonts
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
 
-$fa-font-path: '/static/font-awesome/webfonts';
-
-@import 'static/font-awesome/scss/fontawesome.scss';
-@import 'static/font-awesome/scss/fa-regular.scss';
-@import 'static/font-awesome/scss/fa-solid.scss';
-@import 'static/font-awesome/scss/fa-brands.scss';
-
 // The Bootstrap Library
 @import '~bootstrap/scss/functions';
 @import './variables';
+@import '~bootstrap/scss/mixins';
 @import '~bootstrap/scss/bootstrap';
 
 $mid-color: #f6f9fc;
@@ -76,79 +70,26 @@ html {
 			bottom: 0;
 			border-radius: 0 12.5rem 0 0;
 		}
-	}
-	&.bg-primary-gradient-up {
-		background: #0575e6;
-		&:before {
-			background: linear-gradient(
-				270deg,
-				rgba(0, 0, 0, 0.5) 0%,
-				rgba(10, 84, 195, 0) 50%
-			);
-			mix-blend-mode: soft-light;
-			transform: rotate(180deg);
-			left: -50rem;
-			top: initial;
-			bottom: -18.125rem;
-			height: 100%;
-			width: 54.0625rem;
-			border-radius: 0 18.75rem 0 0;
-		}
-		&:after {
-			content: '';
-			mix-blend-mode: soft-light;
-			background: linear-gradient(
-				89.97deg,
-				#1497c1 0%,
-				rgba(255, 255, 255, 0.22) 100%
-			);
-			position: absolute;
-			left: 0;
-			height: 6.25rem;
-			width: 38.75rem;
-			bottom: 0;
-			border-radius: 0 12.5rem 0 0;
-			pointer-events: none;
+		&.up {
+			background: #0575e6 !important;
+			&:before {
+				background: linear-gradient(
+					270deg,
+					rgba(0, 0, 0, 0.5) 0%,
+					rgba(10, 84, 195, 0) 50%
+				);
+				bottom: -18.125rem;
+				height: 100%;
+			}
 		}
 	}
 	&.bg-mid-gradient {
 		background-color: $mid-color;
-		&:before {
-			right: 0;
-			transform: skewY(-30deg);
-			width: 20%;
-			transform-origin: -130% 0;
-			@include gradient-directional(
-				rgba(255, 255, 255, 0) 60%,
-				#dce3e8 100%,
-				90deg
-			);
-			@include media-breakpoint-down(sm) {
-				display: none;
-			}
-		}
-	}
-	&.bg-light-gradient {
-		background-color: #fcfdfd;
-		&:before {
-			opacity: 0.8;
-			left: 0;
-			transform: skewY(-30deg);
-			transform-origin: 130% 0;
-			@include gradient-directional(
-				rgba(232, 235, 237, 0.6) 0%,
-				rgba(255, 255, 255, 0) 80%,
-				90deg
-			);
-			@include media-breakpoint-down(sm) {
-				display: none;
-			}
-		}
 	}
 }
 
 .hr-header {
-	@extend .m-0;
+	margin: 0;
 	border-top: 0.0625rem solid rgba(255, 255, 255, 0.08);
 }
 
@@ -161,8 +102,10 @@ html {
 }
 
 .hero-text {
-	@extend .d-flex;
-	@extend .flex-column;
+	// @extend .d-flex;
+	// @extend .flex-column;
+	display: flex;
+	flex-direction: column;
 	.hero-title {
 		color: white;
 		margin-bottom: 1.4rem;
@@ -314,6 +257,32 @@ html {
 	padding-bottom: 90px;
 }
 
+.bottom-bar {
+	border-top: 1px solid #e8eaeb;
+	padding: 0.875rem 0;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	color: #868686;
+
+	ul {
+		list-style-type: none;
+		display: flex;
+		justify-content: flex-end;
+		margin: 0;
+		li {
+			padding-left: 1.5625rem;
+			a {
+				color: #868686;
+			}
+		}
+	}
+}
+
+@import 'helper';
 @import 'nav';
 @import 'landing';
+@import 'auth';
+@import 'learn';
 @import 'footer';

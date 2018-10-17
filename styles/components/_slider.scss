@@ -38,14 +38,18 @@
 			}
 		}
 		.slick-prev:before {
-			content: fa-content($fa-var-angle-left);
+			// content: fa-content($fa-var-angle-left);
+			content: '\f104';
 		}
 		.slick-next:before {
-			content: fa-content($fa-var-angle-right);
+			// content: fa-content($fa-var-angle-right);
+			content: '\f105';
 		}
 		.slick-prev:before,
 		.slick-next:before {
-			@extend .fas;
+			// @extend .fas;
+			font-family: 'Font Awesome 5 Free';
+			font-weight: 900;
 			color: #8c969e;
 		}
 	}

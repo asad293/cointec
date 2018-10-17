@@ -1,7 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import '../styles/app.scss'
 
 import Header from '../components/Header'
 import Nav from '../components/Nav'
