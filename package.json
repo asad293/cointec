@@ -3,7 +3,8 @@
 	"scripts": {
 		"dev": "next",
 		"build": "next build",
-		"start": "next start",
+		"start": "next start -p $PORT",
+		"heroku-postbuild": "npm run build",
 		"pm2-start": "next build && pm2 start ./node_modules/next/dist/bin/next-start -p 80"
 	},
 	"dependencies": {
