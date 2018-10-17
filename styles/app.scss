@@ -99,11 +99,18 @@ html {
 	@include media-breakpoint-down(md) {
 		margin-top: 2rem;
 	}
+	&.hero-wrapper-inner {
+		padding-bottom: 2rem;
+		margin-top: 2rem;
+		@include media-breakpoint-down(md) {
+			padding-bottom: 2rem;
+			margin-top: 1.2rem;
+			margin-bottom: 0;
+		}
+	}
 }
 
 .hero-text {
-	// @extend .d-flex;
-	// @extend .flex-column;
 	display: flex;
 	flex-direction: column;
 	.hero-title {

@@ -437,8 +437,10 @@
 			cursor: pointer;
 
 			&::after {
-				font-family: 'Font Awesome 5 Free';
+				font-family: 'Font Awesome 5 Pro';
+				font-weight: 400;
 				content: '\F068';
+				line-height: 1;
 				margin-top: 0.2rem;
 				color: #2b8bff;
 				position: absolute;
