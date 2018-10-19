@@ -25,6 +25,10 @@ html {
 	}
 }
 
+.bg-solid {
+	background: #0857ca;
+}
+
 .bg-gradient {
 	position: relative;
 	overflow: hidden;
@@ -287,9 +291,19 @@ html {
 	}
 }
 
+.full-height {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
 @import 'helper';
 @import 'nav';
 @import 'landing';
 @import 'auth';
 @import 'learn';
+@import 'digital-currency-list';
+@import 'exchange';
 @import 'footer';

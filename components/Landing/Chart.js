@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'next/router'
 import { Line } from 'react-chartjs-2'
 import Moment from 'react-moment'
 import { fetchRates, fetchAssetsList } from '../../store/actions'
@@ -20,7 +21,7 @@ class Chart extends Component {
 	}
 
 	componentDidMount() {
-		// this.props.fetchRates('GBPBTC')
+		this.props.fetchRates('GBPBTC')
 		this.setState({
 			updatedOn: new Date().getTime()
 		})
@@ -52,23 +53,23 @@ class Chart extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		// if (props.match.params[0]) {
-		// 	const coinFullName = props.match.params[0]
-		// 	const coin = this.props.assets.Receive.find(
-		// 		coin => _.kebabCase(coin.FullName) === coinFullName
-		// 	)
-		// 	if (this.state.coinName !== coin.Name) {
-		// 		this.setState(
-		// 			{
-		// 				coinName: coin.Name,
-		// 				updatedOn: new Date().getTime()
-		// 			},
-		// 			() => this.props.fetchRates(`GBP${coin ? coin.Name : 'BTC'}`)
-		// 		)
-		// 	}
-		// }
+		if (props.router.query && props.router.query.buy) {
+			const coinFullName = props.router.query.buy
+			const coin = props.assets.list.Receive.find(
+				coin => _.kebabCase(coin.FullName) === coinFullName
+			)
+			if (coin && this.state.coinName !== coin.Name) {
+				this.setState(
+					{
+						coinName: coin.Name,
+						updatedOn: new Date().getTime()
+					},
+					() => this.props.fetchRates(`GBP${coin ? coin.Name : 'BTC'}`)
+				)
+			}
+		}
 		if (props.chart && props.chart.data.length) {
-			const coin = this.props.assets.Receive.find(
+			const coin = this.props.assets.list.Receive.find(
 				coin => coin.Name === this.state.coinName
 			)
 			const chartData = props.chart.data //.filter((_, index) => index % 4 === 0)
@@ -180,4 +181,4 @@ const withRedux = connect(
 	mapDispatchToProps
 )
 
-export default withRedux(Chart)
+export default withRedux(withRouter(Chart))

@@ -9,6 +9,7 @@
 # production
 /build
 /dist
+/certs
 /.next
 
 # misc

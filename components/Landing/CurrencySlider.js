@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Link from 'next/link'
 import { connect } from 'react-redux'
-import { fetchAssetsList } from '../../store/actions'
+import { fetchAssetsList, setCurrentAsset } from '../../store/actions'
 import _ from 'lodash'
 
 class CurrencySlider extends Component {
@@ -38,11 +38,14 @@ class CurrencySlider extends Component {
 					<div className="row">
 						<div className="col px-0">
 							<div className="currency-carousel">
-								{this.props.assets.Receive.map(asset => (
+								{this.props.assets.list.Receive.map(asset => (
 									<Link
-										href={`/buy-${_.kebabCase(asset.FullName)}`}
+										as={`/buy-${_.kebabCase(asset.FullName)}`}
+										href={`/?buy=${_.kebabCase(asset.FullName)}`}
 										key={asset.Name}>
-										<a className="currency-item">
+										<a
+											className="currency-item"
+											onClick={() => this.props.setCurrentAsset(asset.Name)}>
 											<img src={asset.Image} alt={asset.Name} />
 											<label className="m-0">
 												{// document.documentElement.clientWidth > 992
@@ -68,5 +71,5 @@ class CurrencySlider extends Component {
 
 export default connect(
 	({ assets }) => ({ assets }),
-	{ fetchAssetsList }
+	{ fetchAssetsList, setCurrentAsset }
 )(CurrencySlider)

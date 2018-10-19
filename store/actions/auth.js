@@ -1,3 +1,5 @@
+import axios from 'axios'
+import Cookie from 'js-cookie'
 import { ROOT_URL } from '..'
 
 export const SIGN_UP = 'SIGN_UP'
@@ -12,21 +14,34 @@ export const FORGOT_PASSWORD_END = 'FORGOT_PASSWORD_END'
 export const RESET_PASSWORD = 'RESET_PASSWORD'
 export const RESET_PASSWORD_START = 'RESET_PASSWORD_START'
 export const RESET_PASSWORD_END = 'RESET_PASSWORD_END'
+export const FETCH_LIMIT = 'FETCH_LIMIT'
+export const FETCH_LIMIT_START = 'FETCH_LIMIT_START'
+export const FETCH_LIMIT_END = 'FETCH_LIMIT_END'
 
-export const signUp = body => async dispatch => {
+export const signUp = data => async dispatch => {
 	dispatch({ type: SIGN_UP_START })
 
-	const headers = { 'Content-Type': 'application/json' }
-	const response = await fetch(`${ROOT_URL}/accounts/sign-up`, {
-		method: 'POST',
-		body,
-		headers
-	})
-	const { ok, statusText, json } = response
-	if (!ok) return dispatch({ type: SIGN_UP_END, payload: statusText })
+	try {
+		const headers = { 'Content-Type': 'application/json' }
+		const response = await fetch(`${ROOT_URL}/accounts/sign-up`, {
+			method: 'POST',
+			body: JSON.stringify(data),
+			headers
+		})
 
-	const payload = await json()
-	return dispatch({ type: SIGN_UP, payload })
+		if (!response.ok) throw new Error(response.statusText)
+
+		const payload = await response.json()
+		return dispatch({
+			type: SIGN_UP,
+			payload
+		})
+	} catch (error) {
+		return dispatch({
+			type: SIGN_UP_END,
+			payload: error.message
+		})
+	}
 }
 
 export const signIn = ({ email, password }) => async dispatch => {
@@ -35,45 +50,91 @@ export const signIn = ({ email, password }) => async dispatch => {
 	const headers = {
 		Authorization: 'Basic ' + btoa(email + ':' + password)
 	}
-	const response = await fetch(`${ROOT_URL}/auth/login`, { headers })
-	const { ok, statusText, json } = response
-
-	if (!ok) return dispatch({ type: SIGN_IN_END, payload: statusText })
-
-	const payload = await json()
-	if (!payload.Success)
-		return dispatch({ type: SIGN_IN_END, payload: statusText })
-
-	const userData = JSON.stringify(payload)
-	localStorage.setItem('user', userData)
-	return dispatch({ type: SIGN_IN, payload })
+	const response = await axios
+		.get(`${ROOT_URL}/auth/login`, {
+			headers,
+			withCredentials: true
+		})
+		.then(response => {
+			if (response.data.Success === false) {
+				dispatch({ type: SIGN_IN_END, payload: response.data })
+				throw { response }
+			} else {
+				const userData = JSON.stringify(response.data)
+				localStorage.setItem('user', userData)
+				return dispatch({ type: SIGN_IN, payload: response.data })
+			}
+		})
+		.catch(error => {
+			dispatch({ type: SIGN_IN_END, payload: error.response.data })
+			throw error
+		})
+	return response
 }
 
 export const forgotPassword = body => async dispatch => {
-	dispatch({ type: FORGOT_PASSWORD_START, payload: null })
+	dispatch({ type: FORGOT_PASSWORD_START })
 
-	const headers = { 'Content-Type': 'application/json' }
-	const response = await fetch(`${ROOT_URL}/accounts/forgot-password`, {
-		method: 'POST',
-		body,
-		headers
-	})
-	const { ok, statusText, json } = response
+	try {
+		const headers = { 'Content-Type': 'application/json' }
+		const response = await fetch(`${ROOT_URL}/accounts/forgot-password`, {
+			method: 'POST',
+			body,
+			headers
+		})
 
-	if (!ok) return dispatch({ type: FORGOT_PASSWORD_END, payload: statusText })
+		if (!response.ok) throw new Error(response.statusText)
 
-	const payload = await json()
-	return dispatch({ type: FORGOT_PASSWORD, payload })
+		const payload = await response.json()
+		return dispatch({
+			type: FORGOT_PASSWORD,
+			payload
+		})
+	} catch (error) {
+		return dispatch({
+			type: FORGOT_PASSWORD_END,
+			payload: error.message
+		})
+	}
 }
 
 export const resetPassword = body => async dispatch => {
 	dispatch({ type: RESET_PASSWORD_START, payload: null })
 
-	const response = await Promise.resolve({})
-	const { ok, statusText, json } = response
+	try {
+		const response = await Promise.resolve({}) // fetch()
+		if (!response.ok) throw new Error(response.statusText)
 
-	if (!ok) return dispatch({ type: RESET_PASSWORD_END, payload: statusText })
+		const payload = await Promise.resolve() // response.json()
+		return dispatch({ type: RESET_PASSWORD, payload })
+	} catch (error) {
+		return dispatch({ type: RESET_PASSWORD_END, payload: error.message })
+	}
+}
 
-	const payload = await Promise.resolve() // json()
-	return dispatch({ type: RESET_PASSWORD, payload })
+export const fetchLimit = ctUser => async dispatch => {
+	dispatch({ type: FETCH_LIMIT_START })
+
+	try {
+		const headers = {
+			'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+			'CT-ACCOUNT-ID': ctUser
+		}
+		const response = await fetch(`${ROOT_URL}/accounts/${ctUser}/limit`, {
+			headers
+		})
+
+		if (!response.ok) throw new Error(response.statusText)
+
+		const payload = await response.json()
+		return dispatch({
+			type: FETCH_LIMIT,
+			payload
+		})
+	} catch (error) {
+		return dispatch({
+			type: FETCH_LIMIT_END,
+			payload: error.message
+		})
+	}
 }

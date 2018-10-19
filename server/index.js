@@ -1,8 +1,10 @@
 const express = require('express')
 const next = require('next')
+const createSecureServer = require('./createSecureServer')
 
 const dev = process.env.NODE_ENV !== 'production'
 const port = process.env.PORT || 3000
+const secure = false // set 'true' for development
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
@@ -11,13 +13,24 @@ app
 	.then(() => {
 		const server = express()
 
-		server.get('*', (req, res) => {
-			return handle(req, res)
+		server.get('/transaction-tracker/:txnID', (req, res) => {
+			app.render(req, res, '/transaction-tracker', { txnID: req.params.txnID })
 		})
 
-		server.listen(port, err => {
+		server.get('/buy-*', (req, res) => {
+			const query = {
+				buy: req.params[0]
+			}
+			app.render(req, res, '/', query)
+		})
+
+		server.get('*', handle)
+
+		const appServer = secure ? createSecureServer(server) : server
+		appServer.listen(port, err => {
 			if (err) throw err
-			console.log(`> Ready on http://localhost:${port}`)
+			const prefix = secure ? 'https' : 'http'
+			console.log(`> Ready on ${prefix}://localhost:${port}`)
 		})
 	})
 	.catch(ex => {

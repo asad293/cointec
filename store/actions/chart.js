@@ -7,10 +7,19 @@ export const FETCH_RATES_END = 'FETCH_RATES_END'
 export const fetchRates = pair => async dispatch => {
 	dispatch({ type: FETCH_RATES_START })
 
-	const response = await fetch(`${ROOT_URL}/charts/${pair}`)
-	const { ok, statusText, json } = response
-	if (!ok) return dispatch({ type: FETCH_RATES_END, payload: statusText })
+	try {
+		const response = await fetch(`${ROOT_URL}/charts/${pair}`)
+		if (!response.ok) throw new Error(response.statusText)
 
-	const payload = await json()
-	return dispatch({ type: FETCH_RATES, payload })
+		const payload = await response.json()
+		return dispatch({
+			type: FETCH_RATES,
+			payload
+		})
+	} catch (error) {
+		return dispatch({
+			type: FETCH_RATES_END,
+			payload: statusText
+		})
+	}
 }

@@ -23,6 +23,9 @@
 					height: auto;
 					color: #061a40;
 					line-height: normal;
+					&:focus {
+						box-shadow: none;
+					}
 				}
 				i {
 					position: absolute;

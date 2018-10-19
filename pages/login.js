@@ -28,7 +28,6 @@ class Login extends Component {
 				this.authComplete()
 			})
 			.catch(error => {
-				// throw new SubmissionError({ email: error.response ? error.response.data.Message : 'Sorry, that email or password didn\'t work.' })
 				throw new SubmissionError({
 					email: "Sorry, that email or password didn't work.",
 					password: 'Password'
@@ -37,11 +36,9 @@ class Login extends Component {
 	}
 
 	authComplete() {
-		// const { history } = this.props
-		Router.push('/')
-		// if (history.location.state && history.location.state.redirectPath)
-		// 	history.push(history.location.state.redirectPath)
-		// else history.push('')
+		const { query } = Router.router
+		if (query && query.redirectPath) Router.push(query.redirectPath)
+		else Router.push('/')
 	}
 
 	toggleMask() {

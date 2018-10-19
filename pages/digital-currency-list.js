@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import { connect } from 'react-redux'
 
 import Header from '../components/Header'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
+
+import { fetchAssetsList } from '../store/actions'
 
 class DigitalCurrencyList extends Component {
 	render() {
@@ -32,13 +35,12 @@ class DigitalCurrencyList extends Component {
 
 				<section className="page-content dc-glossary container">
 					<div className="row mb-md-3">
-						{coins.map(coin => (
+						{this.props.assets.list.Receive.map(asset => (
 							<Currency
-								key={coin.name}
-								name={coin.name}
-								fullName={coin.fullName}
-								image={coin.image}
-								disabled={coin.Status === 'DISABLED'}
+								key={asset.Name}
+								name={asset.Name}
+								fullName={asset.FullName}
+								image={asset.Image}
 							/>
 						))}
 					</div>
@@ -59,11 +61,16 @@ class DigitalCurrencyList extends Component {
 
 const Currency = ({ name, fullName, image }) => (
 	<div className="col-12 col-md-6 col-lg-4">
-		<Link href={`/exchange/${name}`} className="digital-currency">
-			<img src={image} alt={name} />
-			<p>{fullName}</p>
+		<Link href={`/exchange/${name}`}>
+			<a className="digital-currency">
+				<img src={image} alt={name} />
+				<p>{fullName}</p>
+			</a>
 		</Link>
 	</div>
 )
 
-export default DigitalCurrencyList
+export default connect(
+	({ assets }) => ({ assets }),
+	{ fetchAssetsList }
+)(DigitalCurrencyList)

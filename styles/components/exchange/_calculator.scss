@@ -1,0 +1,140 @@
+.main-calc-wrapper {
+	background: #ffffff;
+	border: 1px solid #e7e7e7;
+	box-shadow: 0px 12px 32px rgba(0, 16, 33, 0.02);
+	box-sizing: border-box;
+	border-radius: 2px;
+	padding: 35px;
+	min-height: 462px;
+	.calc-input-wrapper {
+		background-color: #fff;
+		padding-bottom: 12px;
+		border-radius: 4px;
+		.field-label {
+			font-size: 16px;
+			font-weight: 400;
+			color: rgba(112, 128, 141, 0.8);
+		}
+		.calc-field {
+			background: #ffffff;
+			border: 1px solid #c1c7cd;
+			box-sizing: border-box;
+			box-shadow: 0px 2px 4px rgba(0, 16, 33, 0.06);
+			border-radius: 2px;
+			padding: 12px 0;
+			display: flex;
+			input {
+				font-size: 20px;
+				color: #040506;
+				line-height: normal;
+				height: auto;
+			}
+			i {
+				position: absolute;
+				right: 0;
+				top: 5px;
+			}
+
+			&:active,
+			&:focus-within {
+				border: 1px solid #045cc7;
+			}
+			i {
+				position: absolute;
+				right: 0;
+				top: 5px;
+			}
+		}
+		.dropdown-currency-select {
+			height: 23px;
+			.dropdown-toggle {
+				vertical-align: initial;
+				.text-label {
+					span {
+						line-height: 23px;
+					}
+				}
+			}
+			.dropdown-menu {
+				.dropdown-items-wrapper {
+					max-height: 150px;
+				}
+			}
+			.text-label {
+				color: #000;
+				display: flex;
+				justify-content: center;
+				padding-left: 15px;
+				.currency-symbol-wrapper {
+					margin-right: 10px;
+					width: 26px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					img.currency-symbol {
+						width: 23px;
+						height: 23px;
+					}
+				}
+			}
+		}
+		&.invalid {
+			.field-label {
+				color: #db3a34;
+			}
+			.calc-field {
+				border: 1px solid #db3a34;
+			}
+		}
+	}
+	.field-value {
+		font-size: 18px;
+		color: #045cc7;
+	}
+	.wallet-field {
+		cursor: pointer;
+		background: none;
+		border: none;
+		padding: 0;
+		outline: none;
+		&:hover {
+			box-shadow: none;
+		}
+	}
+	.accounts-select {
+		box-shadow: 0px 2px 4px rgba(0, 16, 33, 0.06);
+		border-radius: 2px;
+		border: 1px solid #c1c7cd;
+		&:focus,
+		&:focus-within {
+			border: 1px solid #9e00ff;
+		}
+		background: none;
+	}
+	.exchange-rate {
+		text-align: left;
+		color: #045cc7;
+		font-weight: 400;
+	}
+	.btn-exchange {
+		color: white;
+		background: #29be60;
+		border-radius: 2px;
+		font-size: 20px;
+		height: 54px;
+		cursor: pointer;
+		outline: none;
+		&:hover {
+			background: rgb(35, 167, 83);
+		}
+		&:disabled {
+			color: #a0a0a0;
+			background: #e1e5e7;
+			cursor: default;
+		}
+	}
+	.no-border {
+		border: 0px !important;
+		box-shadow: none !important;
+	}
+}

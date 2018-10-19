@@ -1,8 +1,12 @@
 import {
 	FETCH_ASSETS_LIST,
 	FETCH_ASSETS_LIST_START,
-	FETCH_ASSETS_LIST_END
-} from '../actions'
+	FETCH_ASSETS_LIST_END,
+	FETCH_ASSETS_STATUS,
+	FETCH_ASSETS_STATUS_START,
+	FETCH_ASSETS_STATUS_END,
+	SET_CURRENT_ASSET
+} from '../actions/assets'
 
 const Send = [
 	{
@@ -30,36 +34,6 @@ const Send = [
 const Receive = [
 	{
 		Direction: 'RECEIVE',
-		Name: 'BAT',
-		FullName: 'Basic Attention Token',
-		Symbol: null,
-		Dp: 0,
-		Image: '/static/images/coins/BAT.svg',
-		Keywords: 'basic attention token,bat',
-		Primary: '#FF5000'
-	},
-	{
-		Direction: 'RECEIVE',
-		Name: 'BCH',
-		FullName: 'Bitcoin Cash',
-		Symbol: null,
-		Dp: 0,
-		Image: '/static/images/coins/BCH.svg',
-		Keywords: 'bitcoin cash,bch',
-		Primary: '#4BCF51'
-	},
-	{
-		Direction: 'RECEIVE',
-		Name: 'BNT',
-		FullName: 'Bancor',
-		Symbol: null,
-		Dp: 0,
-		Image: '/static/images/coins/BNT.svg',
-		Keywords: 'bancor,bnt',
-		Primary: '#0B0F2B'
-	},
-	{
-		Direction: 'RECEIVE',
 		Name: 'BTC',
 		FullName: 'Bitcoin',
 		Symbol: null,
@@ -67,66 +41,6 @@ const Receive = [
 		Image: '/static/images/coins/BTC.svg',
 		Keywords: 'bitcoin,btc',
 		Primary: '#F7931A'
-	},
-	{
-		Direction: 'RECEIVE',
-		Name: 'DASH',
-		FullName: 'Dash',
-		Symbol: null,
-		Dp: 0,
-		Image: '/static/images/coins/DASH.svg',
-		Keywords: 'dash,dsh',
-		Primary: '#2573C2'
-	},
-	{
-		Direction: 'RECEIVE',
-		Name: 'EOS',
-		FullName: 'EOS',
-		Symbol: null,
-		Dp: 0,
-		Image: '/static/images/coins/EOS.svg',
-		Keywords: 'eos',
-		Primary: '#6D6E70'
-	},
-	{
-		Direction: 'RECEIVE',
-		Name: 'ETC',
-		FullName: 'Ethereum Classic',
-		Symbol: null,
-		Dp: 0,
-		Image: '/static/images/coins/ETC.svg',
-		Keywords: 'ethereum classic,etc',
-		Primary: '#166816'
-	},
-	{
-		Direction: 'RECEIVE',
-		Name: 'ETH',
-		FullName: 'Ethereum',
-		Symbol: null,
-		Dp: 0,
-		Image: '/static/images/coins/ETH.svg',
-		Keywords: 'ethereum,eth',
-		Primary: '#62688F'
-	},
-	{
-		Direction: 'RECEIVE',
-		Name: 'GNT',
-		FullName: 'Golem',
-		Symbol: null,
-		Dp: 0,
-		Image: '/static/images/coins/GNT.svg',
-		Keywords: 'golem,gnt',
-		Primary: '#001D57'
-	},
-	{
-		Direction: 'RECEIVE',
-		Name: 'LTC',
-		FullName: 'Litecoin',
-		Symbol: null,
-		Dp: 0,
-		Image: '/static/images/coins/LTC.svg',
-		Keywords: 'litecoin,ltc',
-		Primary: '#BEBEBE'
 	},
 	{
 		Direction: 'RECEIVE',
@@ -140,63 +54,33 @@ const Receive = [
 	},
 	{
 		Direction: 'RECEIVE',
-		Name: 'OMG',
-		FullName: 'Omisecoin',
+		Name: 'ETH',
+		FullName: 'Ethereum',
 		Symbol: null,
 		Dp: 0,
-		Image: '/static/images/coins/OMG.svg',
-		Keywords: 'omisecoin,omg',
-		Primary: '#1A53F0'
+		Image: '/static/images/coins/ETH.svg',
+		Keywords: 'ethereum,eth',
+		Primary: '#62688F'
 	},
 	{
 		Direction: 'RECEIVE',
-		Name: 'QTUM',
-		FullName: 'QTUM',
+		Name: 'EOS',
+		FullName: 'EOS',
 		Symbol: null,
 		Dp: 0,
-		Image: '/static/images/coins/QTUM.svg',
-		Keywords: 'qtum',
-		Primary: '#4fAAC7'
+		Image: '/static/images/coins/EOS.svg',
+		Keywords: 'eos',
+		Primary: '#6D6E70'
 	},
 	{
 		Direction: 'RECEIVE',
-		Name: 'REP',
-		FullName: 'Augur',
+		Name: 'BCH',
+		FullName: 'Bitcoin Cash',
 		Symbol: null,
 		Dp: 0,
-		Image: '/static/images/coins/REP.svg',
-		Keywords: 'augur,rep',
-		Primary: '#6b3860'
-	},
-	{
-		Direction: 'RECEIVE',
-		Name: 'SNT',
-		FullName: 'Status',
-		Symbol: null,
-		Dp: 0,
-		Image: '/static/images/coins/SNT.svg',
-		Keywords: 'status,snt',
-		Primary: '#5b6DEE'
-	},
-	{
-		Direction: 'RECEIVE',
-		Name: 'STORJ',
-		FullName: 'STORJ',
-		Symbol: null,
-		Dp: 0,
-		Image: '/static/images/coins/STORJ.svg',
-		Keywords: 'storj',
-		Primary: '#2683FF'
-	},
-	{
-		Direction: 'RECEIVE',
-		Name: 'XMR',
-		FullName: 'Monero',
-		Symbol: null,
-		Dp: 0,
-		Image: '/static/images/coins/XMR.svg',
-		Keywords: 'monero,xmr',
-		Primary: '#FF6B01'
+		Image: '/static/images/coins/BCH.svg',
+		Keywords: 'bitcoin cash,bch',
+		Primary: '#4BCF51'
 	},
 	{
 		Direction: 'RECEIVE',
@@ -210,6 +94,46 @@ const Receive = [
 	},
 	{
 		Direction: 'RECEIVE',
+		Name: 'LTC',
+		FullName: 'Litecoin',
+		Symbol: null,
+		Dp: 0,
+		Image: '/static/images/coins/LTC.svg',
+		Keywords: 'litecoin,ltc',
+		Primary: '#BEBEBE'
+	},
+	{
+		Direction: 'RECEIVE',
+		Name: 'ETC',
+		FullName: 'Ethereum Classic',
+		Symbol: null,
+		Dp: 0,
+		Image: '/static/images/coins/ETC.svg',
+		Keywords: 'ethereum classic,etc',
+		Primary: '#166816'
+	},
+	{
+		Direction: 'RECEIVE',
+		Name: 'DASH',
+		FullName: 'Dash',
+		Symbol: null,
+		Dp: 0,
+		Image: '/static/images/coins/DASH.svg',
+		Keywords: 'dash,dsh',
+		Primary: '#2573C2'
+	},
+	{
+		Direction: 'RECEIVE',
+		Name: 'XMR',
+		FullName: 'Monero',
+		Symbol: null,
+		Dp: 0,
+		Image: '/static/images/coins/XMR.svg',
+		Keywords: 'monero,xmr',
+		Primary: '#FF6B01'
+	},
+	{
+		Direction: 'RECEIVE',
 		Name: 'ZEC',
 		FullName: 'Zcash',
 		Symbol: null,
@@ -220,6 +144,36 @@ const Receive = [
 	},
 	{
 		Direction: 'RECEIVE',
+		Name: 'OMG',
+		FullName: 'Omisecoin',
+		Symbol: null,
+		Dp: 0,
+		Image: '/static/images/coins/OMG.svg',
+		Keywords: 'omisecoin,omg',
+		Primary: '#1A53F0'
+	},
+	{
+		Direction: 'RECEIVE',
+		Name: 'GNT',
+		FullName: 'Golem',
+		Symbol: null,
+		Dp: 0,
+		Image: '/static/images/coins/GNT.svg',
+		Keywords: 'golem,gnt',
+		Primary: '#001D57'
+	},
+	{
+		Direction: 'RECEIVE',
+		Name: 'SNT',
+		FullName: 'Status',
+		Symbol: null,
+		Dp: 0,
+		Image: '/static/images/coins/SNT.svg',
+		Keywords: 'status,snt',
+		Primary: '#5b6DEE'
+	},
+	{
+		Direction: 'RECEIVE',
 		Name: 'ZRX',
 		FullName: '0x',
 		Symbol: null,
@@ -227,12 +181,66 @@ const Receive = [
 		Image: '/static/images/coins/ZRX.svg',
 		Keywords: '0x,zrx',
 		Primary: '#302C2C'
+	},
+	{
+		Direction: 'RECEIVE',
+		Name: 'BNT',
+		FullName: 'Bancor',
+		Symbol: null,
+		Dp: 0,
+		Image: '/static/images/coins/BNT.svg',
+		Keywords: 'bancor,bnt',
+		Primary: '#0B0F2B'
+	},
+	{
+		Direction: 'RECEIVE',
+		Name: 'REP',
+		FullName: 'Augur',
+		Symbol: null,
+		Dp: 0,
+		Image: '/static/images/coins/REP.svg',
+		Keywords: 'augur,rep',
+		Primary: '#6b3860'
+	},
+	{
+		Direction: 'RECEIVE',
+		Name: 'STORJ',
+		FullName: 'STORJ',
+		Symbol: null,
+		Dp: 0,
+		Image: '/static/images/coins/STORJ.svg',
+		Keywords: 'storj',
+		Primary: '#2683FF'
+	},
+	{
+		Direction: 'RECEIVE',
+		Name: 'BAT',
+		FullName: 'Basic Attention Token',
+		Symbol: null,
+		Dp: 0,
+		Image: '/static/images/coins/BAT.svg',
+		Keywords: 'basic attention token,bat',
+		Primary: '#FF5000'
+	},
+	{
+		Direction: 'RECEIVE',
+		Name: 'QTUM',
+		FullName: 'QTUM',
+		Symbol: null,
+		Dp: 0,
+		Image: '/static/images/coins/QTUM.svg',
+		Keywords: 'qtum',
+		Primary: '#4fAAC7'
 	}
 ]
 
 const INITIAL_STATE = {
-	Send,
-	Receive,
+	list: {
+		Send,
+		Receive
+	},
+	status: null,
+	currentAsset: null,
 	loading: false,
 	error: null
 }
@@ -242,12 +250,21 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case FETCH_ASSETS_LIST:
 			const Send = payload.Send.reverse()
 			const Receive = payload.Receive
-			return { ...state, Send, Receive, loading: false, error: null }
+			const list = { Send, Receive }
+			return { ...state, list, loading: false, error: null }
+
+		case FETCH_ASSETS_STATUS:
+			return { ...state, status: payload }
+
+		case SET_CURRENT_ASSET:
+			return { ...state, currentAsset: payload }
 
 		case FETCH_ASSETS_LIST_START:
+		case FETCH_ASSETS_STATUS_START:
 			return { ...state, loading: true, error: null }
 
 		case FETCH_ASSETS_LIST_END:
+		case FETCH_ASSETS_STATUS_END:
 			return { ...state, loading: false, error: payload }
 
 		default:
