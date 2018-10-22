@@ -1,0 +1,224 @@
+.hero-calculator {
+	.calculator-wrapper {
+		background: white;
+		box-shadow: 0px 8px 32px rgba(0, 16, 33, 0.09);
+		border-radius: 3px;
+		margin-top: -60px;
+		padding: 29px 32px;
+		@include media-breakpoint-down(md) {
+			margin-top: 20px;
+			padding: 24px;
+		}
+		.calc-input-wrapper {
+			.calc-field {
+				background: white;
+				border: 1px solid #c1c7cd;
+				box-sizing: border-box;
+				border-radius: 2px;
+				padding: 12px 0;
+				display: flex;
+				input {
+					font-size: 20px;
+					border: 0;
+					height: auto;
+					color: #061a40;
+					line-height: normal;
+					&:focus {
+						box-shadow: none;
+					}
+				}
+				i {
+					position: absolute;
+					right: 0;
+					top: 5px;
+				}
+
+				&:active,
+				&:focus-within {
+					border: 1px solid #045cc7;
+					box-shadow: 0px 2px 4px rgba(0, 16, 33, 0.06);
+				}
+				i {
+					position: absolute;
+					right: 0;
+					top: 5px;
+				}
+			}
+			.dropdown-currency-select {
+				font-family: 'Open Sans', sans-serif;
+				height: 23px;
+				width: 100%;
+				.dropdown-toggle {
+					vertical-align: initial;
+					.text-label {
+						span {
+							line-height: 23px;
+							font-weight: 600;
+						}
+					}
+				}
+				.dropdown-menu {
+					.dropdown-items-wrapper {
+						max-height: 175px;
+					}
+				}
+				.currency-label {
+					font-size: 21px;
+					margin-bottom: 0;
+				}
+				.text-label {
+					color: #000;
+					display: flex;
+					justify-content: center;
+					padding-left: 15px;
+					.currency-symbol-wrapper {
+						margin-right: 10px;
+						width: 26px;
+						font-size: 1.2rem;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						img.currency-symbol {
+							width: 23px;
+							height: 23px;
+						}
+						.currency-fullname {
+							max-width: 200px;
+						}
+						&.fluid {
+							width: 100%;
+							img.currency-symbol {
+								margin-right: 20px;
+							}
+						}
+					}
+				}
+			}
+			.field-label {
+				font-size: 15px;
+				font-weight: 400;
+				color: #5e6c78;
+				&.invalid {
+					color: #db3a34;
+				}
+			}
+			.text-label {
+				color: #000;
+				display: flex;
+				justify-content: center;
+				padding-left: 15px;
+				.currency-symbol-wrapper {
+					margin-right: 10px;
+					width: 26px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					img.currency-symbol {
+						width: auto;
+					}
+				}
+				.dropdown-arrow {
+					margin-left: 15px;
+					margin-right: 25px;
+				}
+			}
+		}
+		.exchange-rate-label {
+			font-weight: 600;
+			color: #0459c4;
+		}
+		.btn-exchange {
+			font-size: 18px;
+			font-weight: 600;
+			border: 0;
+			background: $success;
+			padding: 0.75rem 1rem;
+			border-radius: 3px;
+			&:hover {
+				background: rgb(35, 167, 83);
+			}
+			&.unavailable {
+				background: #c0c6cc;
+			}
+		}
+	}
+}
+
+.dropdown-currency-select {
+	width: 100%;
+	.dropdown-toggle {
+		width: 100%;
+		padding: 0;
+		border: 0;
+		box-shadow: none;
+		&:after {
+			display: none;
+		}
+		img.dropdown-arrow {
+			margin-left: auto;
+			margin-right: 25px;
+		}
+	}
+	.dropdown-menu {
+		width: 204%;
+		min-width: 0;
+		border: 0;
+		left: -102%;
+		top: 35px;
+		box-shadow: 0 8px 24px -2px rgba(0, 0, 0, 0.14);
+		border-radius: 3px;
+		padding-top: 0;
+		padding-bottom: 0;
+		overflow: hidden;
+		.search-item {
+			display: flex;
+			padding: 10px 15px;
+			background-color: #e2e6e8;
+			.search-input {
+				margin-left: 5px;
+				width: 100%;
+				border: 0;
+				font-size: 17px;
+				background: none;
+				outline: none;
+			}
+		}
+		.dropdown-items-wrapper {
+			padding: 0.5rem 0;
+			max-height: 185px;
+			overflow-y: auto;
+			&::-webkit-scrollbar {
+				width: 5px;
+			}
+			&::-webkit-scrollbar-track {
+				background: #bdc5cb;
+			}
+			&::-webkit-scrollbar-thumb,
+			&::-webkit-scrollbar-thumb:hover {
+				background: #2b8bff;
+			}
+			.dropdown-item {
+				padding: 2px 0;
+				cursor: pointer;
+				.currency-label {
+					justify-content: flex-start;
+				}
+				&:active {
+					background: none;
+				}
+			}
+		}
+		@include media-breakpoint-down(md) {
+			width: 100%;
+			left: 0;
+		}
+		@include media-breakpoint-down(sm) {
+			width: 150%;
+			left: -50%;
+		}
+		@include media-breakpoint-down(xs) {
+			width: 200%;
+			left: -100%;
+		}
+	}
+}

@@ -1,0 +1,51 @@
+.btn-back {
+	background: none;
+	border: none;
+	color: #045cc7;
+	cursor: pointer;
+	outline: none !important;
+	span {
+		text-decoration: underline;
+	}
+}
+
+.text-timer {
+	color: #045cc7;
+}
+
+.info-column {
+	padding-left: 30px;
+	& > *:first-child {
+		margin-top: 76px;
+	}
+	h6 {
+		font-size: 18px;
+		color: #045cc7;
+	}
+	hr {
+		margin: 1.5rem 0;
+	}
+	p {
+		margin-bottom: 0.5rem;
+	}
+	.limit-amount {
+		font-size: 24px;
+		color: #4e4e4e;
+		font-weight: 500;
+	}
+	.info-link {
+		text-decoration: underline;
+	}
+	.contact-us-link {
+		border: 1px solid #045cc7;
+		border-radius: 2px;
+		padding: 12px 20px;
+		margin-top: 20px;
+		&:hover {
+			border: 1px solid #02397c;
+			text-decoration: none;
+		}
+	}
+}
+
+@import 'components/exchange/calculator';

@@ -1,0 +1,44 @@
+.tracking-section {
+	padding: 112px 15px;
+	@include media-breakpoint-down(md) {
+		padding: 42px 15px 30px;
+	}
+}
+.card-tracking {
+	width: 461px;
+	background: #f2f5f7;
+	@include media-breakpoint-down(sm) {
+		width: 100%;
+	}
+	&:nth-child(3) {
+		margin-bottom: 5px;
+	}
+}
+.card-tracking {
+	// @extend .d-flex;
+	// @extend .justify-content-between;
+	// @extend .px-4;
+	border-radius: 2px;
+	padding-top: 18px;
+	padding-bottom: 18px;
+	i {
+		color: $primary;
+	}
+}
+.card-tracking.error {
+	background: #d80027;
+	box-shadow: 0px 4px 8px rgba(4, 89, 196, 0.23);
+	color: white;
+}
+.card-tracking.sent {
+	background: #0575e6;
+	box-shadow: 0px 4px 8px rgba(4, 89, 196, 0.23);
+	color: white;
+	i {
+		color: white;
+	}
+}
+.card-tracking.pro {
+	background: linear-gradient(270deg, #ffffff 0%, #ffffff 100%);
+	border: 1px solid #e8eaeb;
+}
