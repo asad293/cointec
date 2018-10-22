@@ -4,7 +4,7 @@ const createSecureServer = require('./createSecureServer')
 
 const dev = process.env.NODE_ENV !== 'production'
 const port = process.env.PORT || 3000
-const secure = false // set 'true' in development mode for ssl
+const secure = true // set 'true' in development mode for ssl
 const app = next({ dev })
 const handle = app.getRequestHandler()
 

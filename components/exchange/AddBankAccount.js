@@ -120,6 +120,7 @@ class AddBankAccount extends Component {
 				className="modal fade"
 				id="add-bank-account-modal"
 				role="dialog"
+				data-backdrop="false"
 				aria-hidden="true">
 				<div className="modal-dialog modal-subscribe" role="document">
 					<div className="modal-content">
@@ -133,15 +134,6 @@ class AddBankAccount extends Component {
 							</h5>
 
 							<form onSubmit={handleSubmit(this.onSubmit)}>
-								{/* <div className="row">
-                  <div className="col-12">
-                    <label className="subscribe-email-label mt-0">Account Name</label>
-                    <Field
-                      name="accountName"
-                      component={this.renderField}
-                      placeholder={'Account 1'} />
-                  </div>
-                </div> */}
 								<div className="row">
 									<div className="col-12">
 										<label className="subscribe-email-label mt-0">
