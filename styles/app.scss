@@ -1,0 +1,360 @@
+// Import Custom Fonts
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+
+// The Bootstrap Library
+@import '~bootstrap/scss/functions';
+@import './variables';
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/bootstrap';
+
+$mid-color: #f6f9fc;
+$primary-light: #178cf5;
+
+html {
+	background-color: #f4f7fa;
+	@include media-breakpoint-down(lg) {
+		background-color: #fff;
+	}
+	body {
+		margin: auto;
+		box-shadow: 0 0 1.875rem rgba(0, 0, 0, 0.07);
+		font-family: 'Open Sans', sans-serif;
+		@include media-breakpoint-down(lg) {
+			box-shadow: none;
+		}
+	}
+}
+
+.bg-solid {
+	background: #0857ca;
+}
+
+.bg-gradient {
+	position: relative;
+	overflow: hidden;
+	&:before {
+		content: '';
+		width: 33%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		transform-origin: 100% 0;
+		opacity: 0.3;
+	}
+	&.bg-primary-gradient {
+		@include gradient-directional(#022080, #0575e6, 180deg);
+		overflow-x: hidden;
+		&:before {
+			background: linear-gradient(
+				270deg,
+				rgba(0, 0, 0, 0.5) 0%,
+				rgba(10, 84, 195, 0) 50%
+			);
+			mix-blend-mode: soft-light;
+			transform: rotate(180deg);
+			left: -50rem;
+			top: initial;
+			bottom: -16.875rem;
+			height: 16.875rem;
+			width: 54.0625rem;
+			border-radius: 0 18.75rem 0 0;
+		}
+		&:after {
+			content: '';
+			mix-blend-mode: soft-light;
+			background: linear-gradient(
+				89.97deg,
+				#1497c1 0%,
+				rgba(255, 255, 255, 0.22) 100%
+			);
+			position: absolute;
+			left: 0;
+			height: 6.25rem;
+			width: 38.75rem;
+			bottom: 0;
+			border-radius: 0 12.5rem 0 0;
+		}
+		&.up {
+			background: #0575e6 !important;
+			&:before {
+				background: linear-gradient(
+					270deg,
+					rgba(0, 0, 0, 0.5) 0%,
+					rgba(10, 84, 195, 0) 50%
+				);
+				bottom: -18.125rem;
+				height: 100%;
+			}
+		}
+	}
+	&.bg-mid-gradient {
+		background-color: $mid-color;
+	}
+}
+
+.hr-header {
+	margin: 0;
+	border-top: 0.0625rem solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-wrapper {
+	padding-bottom: 5.625rem;
+	margin-top: 8.75rem;
+	@include media-breakpoint-down(md) {
+		margin-top: 2rem;
+	}
+	&.hero-wrapper-inner {
+		padding-bottom: 2rem;
+		margin-top: 2rem;
+		@include media-breakpoint-down(md) {
+			padding-bottom: 2rem;
+			margin-top: 1.2rem;
+			margin-bottom: 0;
+		}
+	}
+}
+
+.hero-text {
+	display: flex;
+	flex-direction: column;
+	.hero-title {
+		color: white;
+		margin-bottom: 1.4rem;
+		font-weight: bold;
+		font-size: 3rem;
+		line-height: 3.6875rem;
+		@include media-breakpoint-down(md) {
+			font-size: 2.2rem;
+			margin-bottom: 0.8rem;
+			line-height: 2.5rem;
+		}
+		@include media-breakpoint-down(sm) {
+			font-size: 2.4rem;
+		}
+		@include media-breakpoint-down(xs) {
+			font-size: 2.2rem;
+		}
+	}
+	.hero-intro {
+		font-size: 1rem;
+		margin-bottom: 2rem;
+		font-weight: normal;
+		color: rgba(255, 255, 255, 0.8);
+		line-height: 1.75rem;
+		@include media-breakpoint-down(md) {
+			margin-bottom: 0;
+		}
+	}
+	a {
+		color: white;
+		font-size: 1rem;
+		line-height: 1.9375rem;
+		font-weight: 600;
+	}
+}
+
+.home-section.container {
+	padding: 95px 15px;
+	@include media-breakpoint-down(md) {
+		padding: 50px;
+	}
+	.section-title {
+		margin-top: 40px;
+		font-weight: 600;
+		font-size: 28px;
+		@include media-breakpoint-down(md) {
+			margin-top: 0;
+			font-size: 19px;
+			line-height: 28px;
+		}
+	}
+	p {
+		margin-top: 14px;
+		line-height: 28px;
+	}
+	a {
+		margin-top: 16px;
+		font-weight: 600;
+	}
+	.currencies-group {
+		position: relative;
+		height: 279px;
+		left: 40px;
+		margin-bottom: 6px;
+		img {
+			position: absolute;
+		}
+		img:nth-child(1) {
+			top: 0;
+			left: 132px;
+		}
+		img:nth-child(2) {
+			top: 1px;
+			left: 366px;
+		}
+		img:nth-child(3) {
+			top: 67px;
+			left: 0;
+		}
+		img:nth-child(4) {
+			top: 62px;
+			left: 254px;
+		}
+		img:nth-child(5) {
+			top: 145px;
+			left: 132px;
+		}
+		img:nth-child(6) {
+			top: 158px;
+			left: 390px;
+		}
+		img:nth-child(7) {
+			top: 216px;
+			left: 25px;
+		}
+		img:nth-child(8) {
+			top: 216px;
+			left: 253px;
+		}
+		@include media-breakpoint-down(md) {
+			left: initial;
+		}
+		@include media-breakpoint-down(sm) {
+			margin: 0 0 49px;
+			width: auto;
+			height: 151px;
+			img {
+				width: 40px;
+				height: 40px;
+			}
+			img:nth-child(1) {
+				top: 0;
+				left: 28.98%;
+			}
+			img:nth-child(2) {
+				top: 1px;
+				left: 80.41%;
+			}
+			img:nth-child(3) {
+				top: 36px;
+				left: 0;
+			}
+			img:nth-child(4) {
+				top: 34px;
+				left: 55.92%;
+			}
+			img:nth-child(5) {
+				top: 78px;
+				left: 28.98%;
+			}
+			img:nth-child(6) {
+				top: 85px;
+				left: 86.125%;
+			}
+			img:nth-child(7) {
+				top: 116px;
+				left: 5.72%;
+			}
+			img:nth-child(8) {
+				top: 117px;
+				left: 56.74%;
+			}
+		}
+	}
+}
+
+.home-section.chart-section.container {
+	padding-top: 74px;
+	padding-bottom: 90px;
+}
+
+.bottom-bar {
+	border-top: 1px solid #e8eaeb;
+	padding: 0.875rem 0;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	color: #868686;
+
+	ul {
+		list-style-type: none;
+		display: flex;
+		justify-content: flex-end;
+		margin: 0;
+		li {
+			padding-left: 1.5625rem;
+			a {
+				color: #868686;
+			}
+		}
+	}
+}
+
+.modal-abandon {
+	.back {
+		cursor: pointer;
+		i {
+			color: #045cc7;
+			margin-right: 20px;
+		}
+	}
+	.modal-heading {
+		line-height: 28px;
+		font-size: 17px;
+		color: #000000;
+	}
+	hr {
+		margin-left: -16px;
+		margin-right: -16px;
+		margin-bottom: 36px;
+	}
+	.btn.btn-option {
+		border: 1px solid #e8e8e8;
+		border-radius: 2px;
+		background: #ffffff;
+		color: rgba(0, 16, 33, 0.7);
+		width: 100%;
+		padding: 15px 22px;
+		margin-bottom: 20px;
+		text-align: left;
+		outline: none;
+		&:focus {
+			box-shadow: none;
+			border: 1px solid #045cc7;
+			color: #000;
+		}
+	}
+	@include media-breakpoint-up(sm) {
+		max-width: 470px;
+		.modal-body {
+			padding-left: 38px;
+			padding-right: 38px;
+		}
+		hr {
+			margin-left: -38px;
+			margin-right: -38px;
+		}
+	}
+}
+
+#abandon-order-modal {
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.full-height {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+@import 'helper';
+@import 'nav';
+@import 'landing';
+@import 'auth';
+@import 'learn';
+@import 'digital-currency-list';
+@import 'exchange';
+@import 'footer';

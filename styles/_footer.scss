@@ -1,0 +1,26 @@
+footer {
+	background-color: $mid-color;
+	hr {
+		border-top: 1px solid #e8eaeb;
+	}
+	.menu-heading {
+		font-weight: 600;
+		font-size: 1.125rem;
+		margin-bottom: 1.125rem;
+	}
+	a {
+		display: block;
+		color: #76828f;
+		font-size: 1rem;
+		line-height: 1.9375rem;
+		text-decoration: none;
+		&:hover {
+			color: #32325d;
+			text-decoration: none;
+		}
+	}
+	.copyright,
+	.reg-info {
+		color: #76828f;
+	}
+}

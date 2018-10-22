@@ -1,0 +1,59 @@
+.currency-slider.container {
+	padding: 38px 0;
+	.btn-nav {
+		cursor: pointer;
+	}
+	.currency-carousel {
+		.currency-item {
+			white-space: nowrap;
+			text-align: center;
+			color: #8c969e;
+			img {
+				height: 30px;
+				margin-right: 12px;
+				display: initial;
+				width: initial;
+				filter: grayscale(100%);
+				opacity: 0.5;
+				transition: opacity 0.2s;
+			}
+			label {
+				font-family: 'Open Sans', sans-serif;
+				font-size: 18px;
+				font-weight: 600;
+				vertical-align: top;
+				cursor: pointer;
+			}
+			&:hover {
+				img {
+					filter: none;
+					opacity: 1;
+				}
+				label {
+					color: #02182b;
+				}
+			}
+			&:focus {
+				outline: none;
+			}
+		}
+		.slick-prev:before {
+			// content: fa-content($fa-var-angle-left);
+			content: '\f104';
+		}
+		.slick-next:before {
+			// content: fa-content($fa-var-angle-right);
+			content: '\f105';
+		}
+		.slick-prev:before,
+		.slick-next:before {
+			// @extend .fas;
+			font-family: 'Font Awesome 5 Pro';
+			font-weight: 900;
+			color: #8c969e;
+		}
+	}
+	@include media-breakpoint-down(md) {
+		padding: 15px 0;
+	}
+}
