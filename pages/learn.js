@@ -96,6 +96,7 @@ class Learn extends Component {
 								description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
 								image="/static/images/plc-hd.svg"
 								href="/"
+								noPrefix={true}
 							/>
 						</div>
 					</div>
@@ -107,8 +108,8 @@ class Learn extends Component {
 	}
 }
 
-const Card = ({ title, description, image, href }) => (
-	<Link href={href}>
+const Card = ({ title, description, image, href, noPrefix }) => (
+	<Link href={href} as={noPrefix ? undefined : `/learn${href}`}>
 		<a className="learn-card text-center">
 			<img src={image} alt={title} />
 			<h5>{title}</h5>

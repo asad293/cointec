@@ -4,7 +4,7 @@ const createSecureServer = require('./createSecureServer')
 
 const dev = process.env.NODE_ENV !== 'production'
 const port = process.env.PORT || 3000
-const secure = false // set 'true' for development
+const secure = false // set 'true' in development mode for ssl
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
@@ -13,15 +13,19 @@ app
 	.then(() => {
 		const server = express()
 
-		server.get('/transaction-tracker/:txnID', (req, res) => {
-			app.render(req, res, '/transaction-tracker', { txnID: req.params.txnID })
-		})
-
 		server.get('/buy-*', (req, res) => {
 			const query = {
 				buy: req.params[0]
 			}
 			app.render(req, res, '/', query)
+		})
+
+		server.get('/transaction-tracker/:txnID', (req, res) => {
+			app.render(req, res, '/transaction-tracker', { txnID: req.params.txnID })
+		})
+
+		server.get('/learn/:pathname', (req, res) => {
+			app.render(req, res, `/${req.params.pathname}`)
 		})
 
 		server.get('*', handle)

@@ -8,6 +8,8 @@ export const fetchQuote = data => async dispatch => {
 	dispatch({ type: FETCH_QUOTE_START })
 
 	try {
+		if (data.SendCurrency === data.ReceiveCurrency) throw new Error()
+
 		const response = await fetch(`${ROOT_URL}/quotes`, {
 			method: 'POST',
 			body: JSON.stringify(data)

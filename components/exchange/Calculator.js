@@ -539,7 +539,8 @@ class Calculator extends Component {
 				{
 					<a
 						className={cn('dropdown-item', unavailable ? 'unavailable' : null)}
-						onClick={unavailable ? null : () => onItemSelected(exchangeable)}>
+						// onClick={unavailable ? null : () => onItemSelected(exchangeable)}
+						onClick={() => onItemSelected(exchangeable)}>
 						<div className="text-label currency-label">
 							<div className="currency-symbol-wrapper">
 								<img

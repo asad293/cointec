@@ -590,7 +590,7 @@ class Calculator extends Component {
 						<h6 className="exchange-rate-label mt-4">
 							Exchange Rate:{' '}
 							<b>
-								{!this.state.rate
+								{!this.state.rate || Message
 									? '-/-'
 									: this.state.rate.toFixed(
 											this.state.currencySelected

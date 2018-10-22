@@ -9,7 +9,7 @@ import cn from 'classnames'
 import PropTypes from 'prop-types'
 import { abandonOrder, getStatus, fetchConsts } from '../store/actions'
 import Header from '../components/Header'
-// import AbandonOrder from '../modals/AbandonOrder'
+import AbandonOrder from '../components/transaction-tracker/AbandonOrder'
 
 class TransactionTracker extends Component {
 	constructor() {
@@ -40,27 +40,21 @@ class TransactionTracker extends Component {
 	}
 
 	fetchStatus() {
-		let user = null
 		const userData = localStorage.getItem('user')
+		const user = userData && JSON.parse(userData)
 		const sessionId = Cookie.get('CT-SESSION-ID')
-		try {
-			user = userData && JSON.parse(userData)
-		} catch (e) {
-		} finally {
-			if (user && user.CtUserId && sessionId) {
-				this.setState({ ctUser: user.CtUserId })
-				this.props.getStatus({
-					orderId: this.props.router.query.txnID,
-					ctUser: user.CtUserId
-				})
-				// this.props.fetchConsts()
-			} else {
-				Router.push(`/login?redirectPath=${this.props.router.pathname}`)
-			}
+		if (user && user.CtUserId && sessionId) {
+			this.setState({ ctUser: user.CtUserId })
+			this.props.getStatus({
+				orderId: this.props.router.query.txnID,
+				ctUser: user.CtUserId
+			})
+		} else {
+			const redirectPath =
+				this.props.router.pathname + '/' + this.props.router.query.txnID
+			Router.push(`/login?redirectPath=${redirectPath}`)
 		}
 	}
-
-	componentWillReceiveProps(props) {}
 
 	render() {
 		const { loading, status } = this.props.order
@@ -95,13 +89,13 @@ class TransactionTracker extends Component {
 					</div>
 				</div>
 
-				{/* {this.state.abandonOrderModal && (
+				{this.state.abandonOrderModal && (
 					<AbandonOrder
-						txnID={this.props.match.params.txnID}
+						txnID={this.props.router.query.txnID}
 						ctUser={this.state.ctUser}
 						onClose={() => this.setState({ abandonOrderModal: false })}
 					/>
-				)} */}
+				)}
 			</div>
 		)
 	}
@@ -118,99 +112,101 @@ const TransactionStatus = ({
 		FAILED,
 		ABANDONED
 	},
-	ExchangeTransactions: { WYREEXECUTED, SSSENT },
+	ExchangeTransactions,
 	loading
-}) => (
-	<div>
-		{!ABANDONED && SETTLED ? (
-			<div
-				className={cn(
-					'd-flex justify-content-between card-tracking px-4 py-3',
-					FAILED || TERMINATED ? 'error' : SENT ? 'sent' : ''
-				)}>
-				<div>
-					{FAILED || TERMINATED ? (
-						<i className="far fa-exclamation-circle fa-lg text-white mr-3" />
-					) : !SENT ? (
-						<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
+}) => {
+	const Exchange =
+		ExchangeTransactions &&
+		Object.keys(ExchangeTransactions).length &&
+		ExchangeTransactions[Object.keys(ExchangeTransactions).reverse()[0]]
+	return (
+		<div>
+			{!ABANDONED && SETTLED ? (
+				<div
+					className={cn(
+						'd-flex justify-content-between card-tracking px-4 py-3',
+						FAILED || TERMINATED ? 'error' : SENT ? 'sent' : ''
+					)}>
+					<div>
+						{FAILED || TERMINATED ? (
+							<i className="far fa-exclamation-circle fa-lg text-white mr-3" />
+						) : !SENT ? (
+							<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
+						) : (
+							<i className="far fa-check fa-lg mr-3" />
+						)}
+						{FAILED || TERMINATED ? 'Transaction error' : 'Coin Sent'}
+					</div>
+					{TERMINATED ? (
+						<Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
+					) : FAILED ? (
+						<Moment format="hh:mm A">{FAILED * 1000}</Moment>
+					) : SENT ? (
+						<Moment format="hh:mm A">{SENT * 1000}</Moment>
 					) : (
-						<i className="far fa-check fa-lg mr-3" />
+						''
 					)}
-					{FAILED || TERMINATED ? 'Transaction error' : 'Coin Sent'}
 				</div>
-				{TERMINATED ? (
-					<Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
-				) : FAILED ? (
-					<Moment format="hh:mm A">{FAILED * 1000}</Moment>
-				) : SENT ? (
-					<Moment format="hh:mm A">{SENT * 1000}</Moment>
-				) : (
-					''
-				)}
-			</div>
-		) : (
-			''
-		)}
-		{CLEARING || EXPIRED ? (
-			<div
-				className={cn(
-					'd-flex justify-content-between card-tracking mt-4 px-4 py-3',
-					REVIEW || ABANDONED || EXPIRED || (!SETTLED && TERMINATED)
-						? 'error'
-						: ''
-				)}>
-				<div>
-					{REVIEW || ABANDONED || EXPIRED || (!SETTLED && TERMINATED) ? (
-						<i className="far fa-exclamation-circle fa-lg text-white mr-3" />
-					) : !SETTLED ? (
-						<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
+			) : (
+				''
+			)}
+			{(CLEARING || EXPIRED) && (
+				<div
+					className={cn(
+						'd-flex justify-content-between card-tracking mt-4 px-4 py-3',
+						REVIEW || ABANDONED || EXPIRED || (!SETTLED && TERMINATED)
+							? 'error'
+							: ''
+					)}>
+					<div>
+						{REVIEW || ABANDONED || EXPIRED || (!SETTLED && TERMINATED) ? (
+							<i className="far fa-exclamation-circle fa-lg text-white mr-3" />
+						) : !SETTLED ? (
+							<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
+						) : (
+							<i className="far fa-check fa-lg mr-3" />
+						)}
+						{REVIEW || EXPIRED || (!SETTLED && TERMINATED)
+							? 'Payment error'
+							: ABANDONED
+								? 'You cancelled the transaction'
+								: 'Payment received'}
+					</div>
+					{!SETTLED && TERMINATED ? (
+						<Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
+					) : ABANDONED ? (
+						<Moment format="hh:mm A">{ABANDONED * 1000}</Moment>
+					) : REVIEW ? (
+						<Moment format="hh:mm A">{REVIEW * 1000}</Moment>
+					) : SETTLED ? (
+						<Moment format="hh:mm A">{SETTLED * 1000}</Moment>
 					) : (
-						<i className="far fa-check fa-lg mr-3" />
+						''
 					)}
-					{REVIEW || EXPIRED || (!SETTLED && TERMINATED)
-						? 'Payment error'
-						: ABANDONED
-							? 'You cancelled the transaction'
-							: 'Payment received'}
 				</div>
-				{!SETTLED && TERMINATED ? (
-					<Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
-				) : ABANDONED ? (
-					<Moment format="hh:mm A">{ABANDONED * 1000}</Moment>
-				) : REVIEW ? (
-					<Moment format="hh:mm A">{REVIEW * 1000}</Moment>
-				) : SETTLED ? (
-					<Moment format="hh:mm A">{SETTLED * 1000}</Moment>
-				) : (
-					''
-				)}
+			)}
+			<div className="d-flex justify-content-between card-tracking mt-4 px-3 py-2 px-md-4 py-md-3">
+				<div>
+					<i className="far fa-check fa-lg mr-3" />
+					You sent payment
+				</div>
+				{CLEARING ? <Moment format="hh:mm A">{CLEARING * 1000}</Moment> : ''}
 			</div>
-		) : (
-			''
-		)}
-		<div className="d-flex justify-content-between card-tracking mt-4 px-3 py-2 px-md-4 py-md-3">
-			<div>
-				<i className="far fa-check fa-lg mr-3" />
-				You sent payment
-			</div>
-			{CLEARING ? <Moment format="hh:mm A">{CLEARING * 1000}</Moment> : ''}
-		</div>
 
-		{(SSSENT || WYREEXECUTED) && (
-			<div className="mt-4 px-5">
-				<p>
-					Watch your digital currency move across the blockchain by clicking the
-					link below.
-				</p>
-				<a
-					href={!SSSENT ? WYREEXECUTED.TransactionHash : SSSENT.TransactionHash}
-					target="_blank">
-					Blockchain tracker
-				</a>
-			</div>
-		)}
-	</div>
-)
+			{Exchange && (
+				<div className="mt-4 px-5">
+					<p>
+						Watch your digital currency move across the blockchain by clicking
+						the link below.
+					</p>
+					<a href={Exchange.TransactionHash} target="_blank">
+						Blockchain tracker
+					</a>
+				</div>
+			)}
+		</div>
+	)
+}
 
 const ActionsCol = ({
 	Status: { SETTLED, EXPIRED, REVIEW, TERMINATED, SENT, FAILED, ABANDONED },
@@ -231,7 +227,10 @@ const ActionsCol = ({
 					<h6 className="mb-4">Tracking information</h6>
 					<p>
 						Go to go? No worries, you can view the transaction status from your{' '}
-						<Link to="\">dashboard</Link> at any time.
+						<Link href="\">
+							<a>dashboard</a>
+						</Link>{' '}
+						at any time.
 					</p>
 				</div>
 				<hr />

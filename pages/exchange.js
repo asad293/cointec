@@ -8,6 +8,7 @@ import Header from '../components/Header'
 import Calculator from '../components/exchange/Calculator'
 import OrderSummary from '../components/exchange/OrderSummary'
 import BankTransfer from '../components/exchange/BankTransfer'
+import AddBankAccount from '../components/exchange/AddBankAccount'
 
 class Exchange extends Component {
 	constructor() {
@@ -37,22 +38,16 @@ class Exchange extends Component {
 	}
 
 	componentDidMount() {
-		let user = null
 		const userData = localStorage.getItem('user')
+		const user = userData && JSON.parse(userData)
 		const sessionId = Cookie.get('CT-SESSION-ID')
-		console.log(sessionId)
-		try {
-			user = userData && JSON.parse(userData)
-		} catch (e) {
-		} finally {
-			if (user && user.CtUserId && sessionId) {
-				this.setState({
-					ctUser: user.CtUserId
-					// isVerified: user.isVerified
-				})
-			} else {
-				Router.push(`/login?redirectPath=${this.props.router.pathname}`)
-			}
+		if (user && user.CtUserId && sessionId) {
+			this.setState({
+				ctUser: user.CtUserId
+				// isVerified: user.isVerified
+			})
+		} else {
+			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
 	}
 
@@ -168,6 +163,8 @@ class Exchange extends Component {
 						</div>
 					</div>
 				</div>
+
+				<AddBankAccount />
 			</div>
 		)
 	}

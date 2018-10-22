@@ -22,7 +22,7 @@ class ForgotPassword extends Component {
 	}
 
 	resetEmailSent(email) {
-		this.props.history.push('/link-sent/reset', { email })
+		// Router.push('/link-sent/reset', { email })
 	}
 
 	render() {
