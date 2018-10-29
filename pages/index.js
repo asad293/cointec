@@ -31,6 +31,11 @@ class Home extends Component {
 		return (
 			<div>
 				<Head>
+					<meta name="twitter:card" content="summary" />
+					<meta name="twitter:site" content="@Cointec" />
+					<meta name="twitter:title" content="Say hello to a new kind of money." />
+					<meta name="twitter:description" content="Buy 30 digital currencies using Bank Transfer or GBP." />
+					<meta name="twitter:image" content="../static/images/twitterCard.png" />
 					<title>{title}</title>
 				</Head>
 				<Header background="gradient">
