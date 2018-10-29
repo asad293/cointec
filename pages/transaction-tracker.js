@@ -269,7 +269,7 @@ const Nav = ({ heading }) => (
 			<Link href="/">
 				<a className="navbar-brand">
 					<img
-						src="/static/images/Logo.svg"
+						src="/static/images/footer-logo.svg"
 						className="img-fluid mx-auto d-block"
 						alt="Logo"
 					/>

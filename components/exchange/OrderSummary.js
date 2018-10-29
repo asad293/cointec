@@ -18,7 +18,8 @@ class OrderSummary extends Component {
 			buttonIsDisabled: true,
 			refreshTime: 60,
 			showCaptcha: false,
-			exchangeRate: null
+			exchangeRate: null,
+			fetchQuote: null
 		}
 
 		this.tick = this.tick.bind(this)
@@ -60,14 +61,16 @@ class OrderSummary extends Component {
 
 	componentWillUnmount() {
 		clearInterval(this.state.timerId)
+		if (this.state.fetchQuote) this.state.fetchQuote.cancel()
 	}
 
 	fetchCalls() {
-		this.props.fetchQuote({
+		const fetchQuote = this.props.fetchQuote({
 			SendCurrency: this.props.sendCurrency,
 			ReceiveCurrency: this.props.receiveCurrency,
 			ReceiveAmount: this.props.receiveAmount
 		})
+		this.setState({ fetchQuote })
 		this.props.fetchConsts()
 	}
 
@@ -86,7 +89,7 @@ class OrderSummary extends Component {
 				type="submit"
 				className="btn-block btn-lg btn-exchange no-border btn-primary"
 				disabled={this.state.buttonIsDisabled}>
-				Continue to payment
+				Proceed to payment
 			</button>
 		)
 	}
@@ -112,36 +115,27 @@ class OrderSummary extends Component {
 
 		return (
 			<div>
-				<div className="main-calc-wrapper mt-5">
+				<div className="main-calc-wrapper order-summary-wrapper">
 					<form onSubmit={this.onSubmit}>
 						<div className="row">
-							<div className="col-5 text-left text-nowrap">
-								<label className="field-label m-0">You send</label>
+							<div className="col-12 text-left text-nowrap">
+								<label className="field-label">You send</label>
 								<p className="field-value">{`${
 									sendAmount !== 0
 										? sendAmount.toFixed(8)
 										: initialSendAmount.toFixed(8)
 								} ${sendCurrency}`}</p>
 							</div>
-							<div className="col-2 text-center">
-								<br />
-								<i className="fas fa-arrow-right" />
-							</div>
-							<div className="col-5 text-left text-nowrap">
-								<label className="field-label m-0">You receive</label>
+							<div className="col-12 text-left text-nowrap">
+								<label className="field-label">You receive</label>
 								<p className="field-value">{`${receiveAmount.toFixed(
 									8
 								)} ${receiveCurrency}`}</p>
 							</div>
 						</div>
 						<div className="row">
-							<div className="col-12">
-								<hr className="mt-0" />
-							</div>
-						</div>
-						<div className="row">
 							<div className="col-md-12 text-left">
-								<label className="field-label m-0">Exchange rate</label>
+								<label className="field-label">Exchange rate</label>
 								<p className="field-value">
 									{`${
 										rate !== 0
@@ -157,20 +151,26 @@ class OrderSummary extends Component {
 						</div>
 						<div className="row">
 							<div className="col-md-12 text-left">
-								<label className="field-label m-0 d-flex">
+								<label className="field-label d-flex">
 									External wallet address
 								</label>
 								<Clipboard
 									className="field-value wallet-field text-nowrap"
 									data-clipboard-text={wallet}>
-									<p>
-										{wallet} <i className="ml-2 far fa-copy" />
-									</p>
+									<div>
+										<p>{wallet} </p>
+										<i className="ml-2 far fa-clone" />
+									</div>
 								</Clipboard>
 							</div>
 						</div>
 						<div className="row">
-							<div className="mt-2 col-md-12">
+							<div className="col">
+								<hr />
+							</div>
+						</div>
+						<div className="row">
+							<div className="col-md-12 recaptcha-wrapper">
 								<Recaptcha
 									sitekey={sitekey}
 									callback={this.onVerify}

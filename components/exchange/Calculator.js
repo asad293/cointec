@@ -7,8 +7,7 @@ import {
 	fetchQuote,
 	fetchConsts,
 	fetchAssetsList,
-	fetchAssetsStatus,
-	fetchLimit
+	fetchAssetsStatus
 } from '../../store/actions'
 import _ from 'lodash'
 
@@ -36,6 +35,7 @@ class Calculator extends Component {
 			search: false,
 			defaultCoin: 'BTC',
 			active: false
+			// fetchQuote: null
 		}
 
 		this.onSubmit = this.onSubmit.bind(this)
@@ -88,9 +88,10 @@ class Calculator extends Component {
 				coins[0].Name
 			)
 
-			if (sendAmount.length > 0)
+			// let fetchQuote
+			if (sendAmount.length > 0) {
 				debouceSend(this.props, sendAmount, currencySelected, coinName)
-			else {
+			} else {
 				debouceSend(
 					this.props,
 					placeholderSendAmount,
@@ -99,6 +100,7 @@ class Calculator extends Component {
 				)
 				this.props.change('receiveAmount', null)
 			}
+			// this.setState({ fetchQuote })
 		}
 
 		if (sendAmount.length > 0)
@@ -162,18 +164,19 @@ class Calculator extends Component {
 	}
 
 	componentDidMount() {
-		this.setState({ active: true })
-		// set call fetch interval
-		this.initInterval(this.state.interval)
-		// fetch call the first time component mounts
-		this.fetchCalls()
-
+		this.setState({ active: true }, () => {
+			// set call fetch interval
+			this.initInterval(this.state.interval)
+			// fetch call the first time component mounts
+			this.fetchCalls()
+		})
 		addEventListener('keyup', this.onEscape)
 		addEventListener('click', this.onClickOutside)
 	}
 
 	componentWillUnmount() {
 		this.setState({ active: false })
+		// if (this.state.fetchQuote) this.state.fetchQuote.cancel()
 		clearInterval(this.state.intervalId)
 		removeEventListener('keyup', this.onEscape)
 		removeEventListener('click', this.onClickOutside)
@@ -205,7 +208,7 @@ class Calculator extends Component {
 
 	getQuote() {
 		if (this.state.action === 'sending') {
-			this.props.fetchQuote({
+			return this.props.fetchQuote({
 				SendCurrency: this.state.currencySelected.Name,
 				ReceiveCurrency: this.state.coinSelected
 					? this.state.coinSelected.Name
@@ -215,7 +218,7 @@ class Calculator extends Component {
 					: this.state.placeholderSendAmount
 			})
 		} else if (this.state.action === 'receiving' && this.props.receiveAmount) {
-			this.props.fetchQuote({
+			return this.props.fetchQuote({
 				SendCurrency: this.state.currencySelected.Name,
 				ReceiveCurrency: this.state.coinSelected
 					? this.state.coinSelected.Name
@@ -228,9 +231,11 @@ class Calculator extends Component {
 	fetchCalls() {
 		if (!this.state.active) return
 		this.props.fetchAssetsStatus()
-		if (this.props.ctUser) this.props.fetchLimit(this.props.ctUser)
-		this.props.fetchConsts()
+		// this.props.fetchConsts()
+		// if (this.state.fetchQuote) this.state.fetchQuote.cancel()
+		// const fetchQuote =
 		this.getQuote()
+		// this.setState({ fetchQuote })
 	}
 
 	componentWillReceiveProps(props) {
@@ -310,9 +315,7 @@ class Calculator extends Component {
 		return amount * this.state.rate
 	}
 
-	updateLimit({ auth, constants }) {
-		if (auth.limit) this.setState({ limit: auth.limit })
-
+	updateLimit({ constants }) {
 		if (constants) {
 			let interval = constants.Frame1Refresh
 			if (this.state.interval != interval && this.state.active) {
@@ -427,7 +430,7 @@ class Calculator extends Component {
 					'text-left',
 					touched && !valid ? 'invalid' : null
 				)}>
-				<label className="field-label m-0">
+				<label className="field-label">
 					{!touched ? label : valid ? label : error}
 				</label>
 				<div className="calc-field">
@@ -457,7 +460,7 @@ class Calculator extends Component {
 				type="submit"
 				className="btn-block btn-lg btn-exchange no-border"
 				disabled={this.state.buttonIsDisabled}>
-				Instant Exchange
+				Instant exchange
 			</button>
 		)
 	}
@@ -557,14 +560,14 @@ class Calculator extends Component {
 		)
 
 		return (
-			<div className="main-calc-wrapper mt-5">
+			<div className="main-calc-wrapper">
 				<form onSubmit={this.onSubmit}>
 					<div
 						className={cn(
 							'calc-input-wrapper text-left',
 							Message ? 'invalid' : null
 						)}>
-						<label className="field-label m-0">
+						<label className="field-label">
 							{Message ? Message : 'You send'}
 						</label>
 						<div className="calc-field">
@@ -639,7 +642,7 @@ class Calculator extends Component {
 						</div>
 					</div>
 					<div className="calc-input-wrapper text-left">
-						<label className="field-label m-0">You receive</label>
+						<label className="field-label">You receive</label>
 						<div className="calc-field">
 							<div className="col-6 col-xl-7 pr-0">
 								<Field
@@ -658,7 +661,7 @@ class Calculator extends Component {
 										role="button"
 										id="dropdownMenuLink"
 										onClick={() => this.toggleDropDown('coin')}>
-										{this.state.coinSelected != null && (
+										{this.state.coinSelected && (
 											<div className="text-label currency-label">
 												<div className="currency-symbol-wrapper">
 													<img
@@ -725,9 +728,9 @@ class Calculator extends Component {
 						component={this.renderWalletField}
 						placeholder="Wallet Address"
 					/>
-					<h6 className="exchange-rate mt-3">
-						Exchange Rate:{' '}
+					<h6 className="exchange-rate">
 						<b>
+							Exchange Rate:{' '}
 							{!this.state.rate
 								? '-/-'
 								: (this.state.currencySelected
@@ -745,7 +748,7 @@ class Calculator extends Component {
 						</b>
 					</h6>
 					<div className="row">
-						<div className="mt-2 col-md-12">{this.renderButton()}</div>
+						<div className="col-md-12">{this.renderButton()}</div>
 					</div>
 				</form>
 			</div>
@@ -762,7 +765,6 @@ const mapStateToProps = state => {
 
 	return {
 		quote: state.quote,
-		auth: state.auth,
 		assets: state.assets,
 		constants: state.constants,
 		wallet,
@@ -772,13 +774,12 @@ const mapStateToProps = state => {
 }
 
 const debouceSend = _.debounce(
-	(props, sendAmount, currency, coin) => {
+	(props, sendAmount, currency, coin) =>
 		props.fetchQuote({
 			SendCurrency: currency.Name,
 			ReceiveCurrency: coin,
 			SendAmount: Number.parseFloat(sendAmount)
-		})
-	},
+		}),
 	500,
 	{ trailing: true }
 )
@@ -810,13 +811,19 @@ const asyncValidate = ({ wallet, receiveCurrency }) => {
 
 export default reduxForm({
 	form: 'CalcForm',
+	destroyOnUnmount: false,
 	asyncValidate,
 	asyncChangeFields: ['wallet', 'receiveCurrency'],
 	asyncBlurFields: ['wallet']
 })(
 	connect(
 		mapStateToProps,
-		{ fetchQuote, fetchConsts, fetchAssetsStatus, fetchAssetsList, fetchLimit }
+		{
+			fetchQuote,
+			fetchConsts,
+			fetchAssetsStatus,
+			fetchAssetsList
+		}
 	)(Calculator)
 )
 

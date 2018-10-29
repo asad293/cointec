@@ -146,42 +146,48 @@ class BankTransfer extends Component {
 
 		return (
 			<div>
-				<div className="main-calc-wrapper mt-5">
+				<div className="main-calc-wrapper make-payment-wrapper">
 					<form onSubmit={this.onSubmit}>
 						<div className="row">
-							<div className="col-12 text-left">
-								<label className="field-label m-0">Beneficiary</label>
+							<div className="col-6 text-left text-nowrap">
+								<label className="field-label">Beneficiary</label>
 								<p className="field-value">{AccountOwner || <br />}</p>
 							</div>
-						</div>
-						<div className="row">
-							<div className="col-12">
-								<hr className="mt-0" />
+							<div className="col-6 text-left text-nowrap">
+								<label className="field-label">Payment type</label>
+								<p className="field-value">Bank Transfer</p>
 							</div>
 						</div>
 						<div className="row">
 							<div className="col-6 text-left text-nowrap">
-								<label className="field-label m-0">Account number</label>
+								<label className="field-label">Account number</label>
 								<p className="field-value">{AccountNumber || 'XXXXXXXX'}</p>
 							</div>
 							<div className="col-6 text-left text-nowrap">
-								<label className="field-label m-0">Sort code</label>
+								<label className="field-label">Sort code</label>
 								<p className="field-value">{SortCode || 'XX-XX-XX'}</p>
 							</div>
 						</div>
 						<div className="row">
 							<div className="col-6 text-left text-nowrap">
-								<label className="field-label m-0">Reference</label>
-								<p className="field-value">{AccountReference || 'XXXXXXXX'}</p>
+								<label className="field-label">Reference</label>
+								<p className="field-value m-0">
+									{AccountReference || 'XXXXXXXX'}
+								</p>
 							</div>
 							<div className="col-6 text-left text-nowrap">
-								<label className="field-label m-0">Amount</label>
-								<p className="field-value">£{sendAmount}</p>
+								<label className="field-label">Amount</label>
+								<p className="field-value m-0">{sendAmount} GBP</p>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col-12">
+								<hr />
 							</div>
 						</div>
 						<div className="row">
 							<div className="col-12 text-left">
-								<label className="field-label m-0">Send from</label>
+								<label className="field-label">Send from</label>
 								<Field
 									name="sendFrom"
 									component="select"
@@ -217,7 +223,7 @@ class BankTransfer extends Component {
 					return this.renderScreen()
 				} else if (this.props.order.loading || this.props.accounts.loading) {
 					return (
-						<div className="main-calc-wrapper mt-5 d-flex">
+						<div className="main-calc-wrappe d-flex">
 							<div className="h-100 m-auto" style={{ color: '#045CC7' }}>
 								<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
 							</div>
@@ -225,7 +231,7 @@ class BankTransfer extends Component {
 					)
 				} else {
 					return (
-						<div className="main-calc-wrapper mt-5">
+						<div className="main-calc-wrapper">
 							<div className="row">
 								<div className="col-12">
 									<h2 className="mt-5">Oops something went wrong</h2>
@@ -279,7 +285,7 @@ class BankTransfer extends Component {
 					)
 				} else if (this.props.order.loading) {
 					return (
-						<div className="main-calc-wrapper mt-5 d-flex">
+						<div className="main-calc-wrapper d-flex">
 							<div className="h-100 m-auto" style={{ color: '#045CC7' }}>
 								<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
 							</div>
@@ -287,11 +293,15 @@ class BankTransfer extends Component {
 					)
 				} else {
 					return (
-						<div className="main-calc-wrapper mt-5">
+						<div className="main-calc-wrapper">
 							<div className="row">
 								<div className="col-12">
 									<h2 className="mt-5">Oops something went wrong</h2>
-									<img className="mt-4" src="/img/error.svg" alt="error" />
+									<img
+										className="mt-4"
+										src="/static/images/error.svg"
+										alt="error"
+									/>
 									<p className="mt-4">
 										We are working on getting the error fixed. Please try to
 										refresh the page or restart the process in a few minutes.
@@ -304,11 +314,15 @@ class BankTransfer extends Component {
 			}
 		} else {
 			return (
-				<div className="main-calc-wrapper mt-5">
+				<div className="main-calc-wrapper">
 					<div className="row">
 						<div className="col-12">
 							<h2 className="mt-5">Payement timeout</h2>
-							<img className="mt-4" src="/img/error.svg" alt="error" />
+							<img
+								className="mt-4"
+								src="/static/images/error.svg"
+								alt="error"
+							/>
 							<p className="mt-4">
 								Oops, looks like you ran out of time. Click the link below to
 								restart the transaction.
@@ -425,7 +439,7 @@ const mapStateToProps = state => {
 	}
 }
 
-export default reduxForm({ form: 'BankTransfer' })(
+export default reduxForm({ form: 'ExchangeForm' })(
 	connect(
 		mapStateToProps,
 		{
