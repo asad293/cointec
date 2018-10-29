@@ -43,7 +43,9 @@ const Nav = () => (
 					</li>
 					<li className="nav-item">
 						<Link href="https://intercom.help/cointec-test">
-							<a className="nav-link">Support</a>
+							<a className="nav-link" target="_blank">
+								Support
+							</a>
 						</Link>
 					</li>
 					<li className="nav-item">

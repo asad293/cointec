@@ -26,7 +26,8 @@ html {
 }
 
 .bg-solid {
-	background: #0857ca;
+	background: #ffffff;
+	border-bottom: 1px solid #d5dce0;
 }
 
 .bg-gradient {
@@ -270,12 +271,23 @@ html {
 
 .bottom-bar {
 	border-top: 1px solid #e8eaeb;
-	padding: 0.875rem 0;
+	padding: 0.5rem 0;
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	color: #868686;
+	@include media-breakpoint-down(md) {
+		padding: 0.875rem 0;
+	}
+
+	.copyright {
+		font-size: 14px;
+		line-height: 20px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
 
 	ul {
 		list-style-type: none;
@@ -283,9 +295,20 @@ html {
 		justify-content: flex-end;
 		margin: 0;
 		li {
-			padding-left: 1.5625rem;
+			padding-left: 1.3125rem;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
 			a {
 				color: #868686;
+				font-size: 14px;
+				line-height: 20px;
+			}
+			.btn-link {
+				color: #0459c4;
+				border: 1px solid #0459c4;
+				border-radius: 3px;
+				padding: 6px 9px;
 			}
 		}
 	}
