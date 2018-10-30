@@ -9,16 +9,28 @@
 		color: #1a1d1f;
 		padding: 21px 24px;
 		width: 100%;
-		&.sent {
+		margin-bottom: 0;
+		&.sent,
+		&.in-progress {
 			border: 1px solid #0459c4;
+			box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12),
+				0px 1px 2px rgba(0, 0, 0, 0.24);
 			i {
 				color: #045cc7;
 			}
 		}
 		&.error {
 			border: 1px solid #d7263d;
+			box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12),
+				0px 1px 2px rgba(0, 0, 0, 0.24);
 			i {
 				color: #d7263d;
+			}
+		}
+		&.disabled {
+			color: #b0b9bd;
+			i {
+				color: #b0b9bd;
 			}
 		}
 		.transaction-time {
@@ -75,6 +87,21 @@
 		}
 		&.disabled {
 			box-shadow: none;
+			i {
+				color: #b0b9bd;
+			}
+		}
+		&.in-progress {
+			border: 1px solid #0459c4;
+			box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12),
+				0px 1px 2px rgba(0, 0, 0, 0.24);
+		}
+	}
+	.cancel-transaction-link {
+		color: #667075;
+		a {
+			color: #d80027;
+			font-weight: 600;
 		}
 	}
 }

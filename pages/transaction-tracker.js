@@ -79,17 +79,14 @@ class TransactionTracker extends Component {
 									<TransactionStatus
 										Status={status.Status}
 										ExchangeTransactions={status.ExchangeTransactions}
+										cancelOrder={() =>
+											this.setState({ abandonOrderModal: true })
+										}
 										loading={loading}
 									/>
 								)}
 							</div>
 						</div>
-						{/* {status && (
-							<ActionsCol
-								Status={status.Status}
-								cancelOrder={() => this.setState({ abandonOrderModal: true })}
-							/>
-						)} */}
 					</div>
 				</div>
 
@@ -117,132 +114,229 @@ const TransactionStatus = ({
 		ABANDONED
 	},
 	ExchangeTransactions,
-	loading
+	cancelOrder
 }) => {
 	const Exchange =
 		ExchangeTransactions &&
 		Object.keys(ExchangeTransactions).length &&
 		ExchangeTransactions[Object.keys(ExchangeTransactions).reverse()[0]]
+	const cancelled = ABANDONED || EXPIRED
 	return (
 		<div>
-			<div className="d-flex justify-content-between card-tracking">
-				<div>
-					<i className="far fa-check fa-lg mr-3" />
-					You sent payment
-				</div>
-				<span className="transaction-time">
-					{CLEARING && <Moment format="hh:mm A">{CLEARING * 1000}</Moment>}
-				</span>
-			</div>
-			{(CLEARING || EXPIRED) && (
-				<div
-					className={cn(
-						'd-flex justify-content-between card-tracking mt-4',
-						REVIEW || ABANDONED || EXPIRED || (!SETTLED && TERMINATED)
-							? 'error'
-							: ''
-					)}>
-					<div>
-						{REVIEW || ABANDONED || EXPIRED || (!SETTLED && TERMINATED) ? (
-							<i className="far fa-times fa-lg text-white mr-3" />
-						) : !SETTLED ? (
-							<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
-						) : (
-							<i className="far fa-check fa-lg mr-3" />
-						)}
-						{REVIEW || EXPIRED || (!SETTLED && TERMINATED)
-							? 'Payment error'
-							: ABANDONED
-								? 'You cancelled the transaction'
-								: 'Payment received'}
-					</div>
-					<span className="transaction-time">
-						{!SETTLED && TERMINATED ? (
-							<Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
-						) : ABANDONED ? (
-							<Moment format="hh:mm A">{ABANDONED * 1000}</Moment>
-						) : REVIEW ? (
-							<Moment format="hh:mm A">{REVIEW * 1000}</Moment>
-						) : (
-							SETTLED && <Moment format="hh:mm A">{SETTLED * 1000}</Moment>
-						)}
-					</span>
-				</div>
+			{cancelled && (
+				<TransactionCancelled ABANDONED={ABANDONED} EXPIRED={EXPIRED} />
 			)}
-			{
-				<div
-					className={cn(
-						'coin-sent-wrapper mt-4',
-						!ABANDONED && SETTLED ? 'disabled' : '',
-						FAILED || TERMINATED ? 'error' : SENT ? 'sent' : ''
-					)}>
-					<div className="d-flex justify-content-between card-tracking">
-						<div>
-							{FAILED || TERMINATED ? (
-								<i className="far fa-times fa-lg mr-3" />
-							) : !SENT ? (
-								<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
-							) : (
-								<i className="far fa-check fa-lg mr-3" />
-							)}
-							{FAILED || TERMINATED ? 'Transaction error' : 'Coin Sent'}
-						</div>
-						<span className="transaction-time">
-							{TERMINATED ? (
-								<Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
-							) : FAILED ? (
-								<Moment format="hh:mm A">{FAILED * 1000}</Moment>
-							) : (
-								SENT && <Moment format="hh:mm A">{SENT * 1000}</Moment>
-							)}
-						</span>
-					</div>
-					{FAILED || TERMINATED ? (
-						<div className="description">
-							Sorry, we were unable to fulfill your order. Any payments received
-							from your account will be refunded within 2 business days.
-						</div>
-					) : (
-						<div className="description">
-							<b>0.53453456 BTC</b> was sent to your external wallet. Your coins
-							are on the blockahin on the way to your wallet.
-						</div>
-					)}
-					{Exchange ? (
-						<a
-							href={Exchange.TransactionHash}
-							className="btn-follow-blockchain"
-							target="_blank">
-							<i className="fas fa-paper-plane" />
-							Follow on the blockchain
-						</a>
-					) : (
-						''
-					)}
-					{FAILED || TERMINATED ? (
-						<Link href="/">
-							<a className="btn-follow-blockchain">
-								<i className="fas fa-paper-plane" />
-								Return to dashboard
-							</a>
-						</Link>
-					) : (
-						''
-					)}
-				</div>
-			}
-
-			{/* {Exchange && (
-				<div className="mt-4 px-5">
-					<p>
-						Watch your digital currency move across the blockchain by clicking
-						the link below.
-					</p>
-					<a href={Exchange.TransactionHash} target="_blank">
-						Blockchain tracker
+			{!cancelled && <PaymentSent CLEARING={CLEARING} />}
+			{!cancelled && (
+				<PaymentReceived
+					CLEARING={CLEARING}
+					REVIEW={REVIEW}
+					TERMINATED={TERMINATED}
+					SETTLED={SETTLED}
+				/>
+			)}
+			{!cancelled && (
+				<CoinSent
+					Exchange={Exchange}
+					SETTLED={SETTLED}
+					FAILED={FAILED}
+					TERMINATED={TERMINATED}
+					SENT={SENT}
+				/>
+			)}
+			{!(
+				SETTLED ||
+				REVIEW ||
+				TERMINATED ||
+				SENT ||
+				FAILED ||
+				ABANDONED ||
+				EXPIRED
+			) ? (
+				<div className="cancel-transaction-link mt-3 text-left">
+					Changed your mind?{' '}
+					<a href="javascript:void(0)" onClick={cancelOrder}>
+						Cancel the transaction
 					</a>
 				</div>
-			)} */}
+			) : (
+				''
+			)}
+		</div>
+	)
+}
+
+const TransactionCancelled = ({ ABANDONED, EXPIRED }) => (
+	<div className="coin-sent-wrapper error mt-3">
+		<div className="d-flex justify-content-between card-tracking">
+			<div>
+				<i className="far fa-times fa-lg mr-3" />
+				{ABANDONED ? 'Transaction cancelled' : 'Transaction expired'}
+			</div>
+			<span className="transaction-time">
+				{ABANDONED ? (
+					<Moment format="hh:mm A">{ABANDONED * 1000}</Moment>
+				) : (
+					<Moment format="hh:mm A">{EXPIRED * 1000}</Moment>
+				)}
+			</span>
+		</div>
+		{ABANDONED && (
+			<div className="description">
+				We have recieved your refund request. We will be in touch within 24
+				hours to arrange payment.
+			</div>
+		)}
+		<Link href="/">
+			<a className="btn-follow-blockchain">
+				<i className="fas fa-paper-plane" />
+				Return to dashboard
+			</a>
+		</Link>
+	</div>
+)
+
+const PaymentSent = ({ CLEARING }) => {
+	const iconClass = cn(
+		'far',
+		'fa-lg mr-3',
+		CLEARING ? 'fa-check' : 'fa-spinner-third fa-spin'
+	)
+	return (
+		<div className="d-flex justify-content-between card-tracking">
+			<div>
+				<i className={iconClass} />
+				You sent payment
+			</div>
+			<span className="transaction-time">
+				{CLEARING && <Moment format="hh:mm A">{CLEARING * 1000}</Moment>}
+			</span>
+		</div>
+	)
+}
+
+const PaymentReceived = ({ CLEARING, REVIEW, TERMINATED, SETTLED }) => {
+	return CLEARING ? (
+		<div
+			className={cn(
+				'd-flex justify-content-between card-tracking mt-3',
+				(REVIEW || TERMINATED) && !SETTLED
+					? 'error'
+					: !SETTLED
+						? 'in-progress'
+						: ''
+			)}>
+			<div>
+				{(REVIEW || TERMINATED) && !SETTLED ? (
+					<i className="far fa-times fa-lg mr-3" />
+				) : !SETTLED ? (
+					<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
+				) : (
+					<i className="far fa-check fa-lg mr-3" />
+				)}
+				{(REVIEW || TERMINATED) && !SETTLED
+					? 'Payment error'
+					: 'We received payment'}
+			</div>
+			<span className="transaction-time">
+				{SETTLED ? (
+					<Moment format="hh:mm A">{SETTLED * 1000}</Moment>
+				) : TERMINATED ? (
+					<Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
+				) : REVIEW ? (
+					<Moment format="hh:mm A">{REVIEW * 1000}</Moment>
+				) : (
+					''
+				)}
+			</span>
+		</div>
+	) : (
+		<div className="d-flex justify-content-between card-tracking disabled mt-3">
+			<div>
+				<i className="far fa-minus fa-lg mr-3" />
+				We received payment
+			</div>
+		</div>
+	)
+}
+
+const CoinSent = ({ Exchange, SETTLED, FAILED, TERMINATED, SENT }) => {
+	return SETTLED ? (
+		<div
+			className={cn(
+				'coin-sent-wrapper mt-3',
+				FAILED || TERMINATED
+					? 'error'
+					: !SENT
+						? 'in-progress'
+						: SENT
+							? 'sent'
+							: ''
+			)}>
+			<div className="d-flex justify-content-between card-tracking">
+				<div>
+					{!(FAILED || TERMINATED) && !SETTLED ? (
+						<i className="far fa-minus fa-lg mr-3" />
+					) : FAILED || TERMINATED ? (
+						<i className="far fa-times fa-lg mr-3" />
+					) : !SENT ? (
+						<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
+					) : (
+						<i className="far fa-check fa-lg mr-3" />
+					)}
+					{FAILED || TERMINATED ? 'Transaction error' : 'Coin Sent'}
+				</div>
+				<span className="transaction-time">
+					{TERMINATED ? (
+						<Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
+					) : FAILED ? (
+						<Moment format="hh:mm A">{FAILED * 1000}</Moment>
+					) : (
+						SENT && <Moment format="hh:mm A">{SENT * 1000}</Moment>
+					)}
+				</span>
+			</div>
+			{FAILED || TERMINATED ? (
+				<div className="description">
+					Sorry, we were unable to fulfill your order. Any payments received
+					from your account will be refunded within 2 business days.
+				</div>
+			) : SENT ? (
+				<div className="description">
+					<b>0.53453456 BTC</b> was sent to your external wallet. Your coins are
+					on the blockahin on the way to your wallet.
+				</div>
+			) : (
+				''
+			)}
+			{Exchange ? (
+				<a
+					href={Exchange.TransactionHash}
+					className="btn-follow-blockchain"
+					target="_blank">
+					<i className="fas fa-paper-plane" />
+					Follow on the blockchain
+				</a>
+			) : (
+				''
+			)}
+			{FAILED || TERMINATED ? (
+				<Link href="/">
+					<a className="btn-follow-blockchain">
+						<i className="fas fa-paper-plane" />
+						Return to dashboard
+					</a>
+				</Link>
+			) : (
+				''
+			)}
+		</div>
+	) : (
+		<div className="d-flex justify-content-between card-tracking disabled mt-3">
+			<div>
+				<i className="far fa-minus fa-lg mr-3" />
+				Coin Sent
+			</div>
 		</div>
 	)
 }
