@@ -209,7 +209,7 @@ class BankTransfer extends Component {
 					</form>
 				</div>
 				<p className="text-left mt-3">
-					Make payement in:{' '}
+					Transaction will expire in{' '}
 					<MinutesFormat seconds={this.state.refreshTime - this.state.timer} />
 				</p>
 			</div>

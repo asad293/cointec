@@ -25,8 +25,7 @@ class Exchange extends Component {
 			rate: 1200,
 			wallet: null,
 			ctUser: null,
-			isVerified: true,
-			step: 1 ////////
+			step: 1
 		}
 
 		this.next = this.next.bind(this)
@@ -92,8 +91,12 @@ class Exchange extends Component {
 				</Header>
 
 				<div className="container">
-					<div className="row justify-content-center mt-4">
+					<div className="row justify-content-center">
 						<div className="col-12 col-md-8 col-lg-6 col-xl-5 px-lg-4 text-center">
+							<InnerNav
+								step={this.state.step}
+								setStep={step => this.setState({ step })}
+							/>
 							{this.state.step === 1 && this.renderAmountFrame()}
 							{this.state.step === 2 && this.renderSummaryFrame()}
 							{this.state.step === 3 && this.renderPaymentFrame()}
@@ -174,7 +177,7 @@ class Exchange extends Component {
 
 const Nav = props => (
 	<div className="container">
-		<nav className="navbar navbar-custom navbar-expand-lg px-0 py-3 py-md-3">
+		<nav className="navbar navbar-custom navbar-expand-lg navbar-exchange">
 			<div className="col-3 d-none d-md-flex">
 				<Link href="/">
 					<a className="navbar-brand">
@@ -211,7 +214,11 @@ const Nav = props => (
 			</div>
 
 			<div className="col-6 d-block d-md-none">
-				<h5 className="exchange-heading">Enter amount</h5>
+				<h5 className="exchange-heading">
+					{props.step === 1 && 'Enter amount'}
+					{props.step === 2 && 'Order summary'}
+					{props.step === 3 && 'Make payment'}
+				</h5>
 			</div>
 
 			<ul className="col-6 col-md-3 navbar-nav justify-content-end align-items-lg-center text-right">
@@ -224,6 +231,30 @@ const Nav = props => (
 				</li>
 			</ul>
 		</nav>
+	</div>
+)
+
+const InnerNav = props => (
+	<div
+		className={cn(
+			'exchange-nav inner d-block d-md-none',
+			props.step === 2 ? 'step-2' : props.step === 3 ? 'step-3' : ''
+		)}>
+		<ul>
+			<li
+				className={cn(
+					props.step === 1 ? 'active' : props.step > 1 ? 'passed' : ''
+				)}
+				onClick={props.step >= 2 ? () => props.setStep(1) : null}
+			/>
+			<li
+				className={cn(
+					props.step === 2 ? 'active' : props.step > 2 ? 'passed' : ''
+				)}
+				onClick={props.step === 3 ? () => props.setStep(2) : null}
+			/>
+			<li className={cn(props.step === 3 ? 'active' : '')} />
+		</ul>
 	</div>
 )
 

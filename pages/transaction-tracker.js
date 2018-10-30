@@ -68,9 +68,13 @@ class TransactionTracker extends Component {
 				</Header>
 
 				<div className="container">
-					<div className="row mt-4">
-						<div className="col-12 col-lg-7 col-xl-6 text-center">
-							<div className="main-calc-wrapper mt-5">
+					<div className="row justify-content-center">
+						<div className="col-12 col-md-8 col-lg-6 col-xl-5 px-lg-4 text-center">
+							<div className="form-title-wrapper d-none d-md-flex">
+								<img src="/static/images/science.svg" alt="form-icon" />
+								<h4 className="form-title">Transaction tracker</h4>
+							</div>
+							<div className="transaction-tracker-wrapper">
 								{status && (
 									<TransactionStatus
 										Status={status.Status}
@@ -80,12 +84,12 @@ class TransactionTracker extends Component {
 								)}
 							</div>
 						</div>
-						{status && (
+						{/* {status && (
 							<ActionsCol
 								Status={status.Status}
 								cancelOrder={() => this.setState({ abandonOrderModal: true })}
 							/>
-						)}
+						)} */}
 					</div>
 				</div>
 
@@ -121,46 +125,26 @@ const TransactionStatus = ({
 		ExchangeTransactions[Object.keys(ExchangeTransactions).reverse()[0]]
 	return (
 		<div>
-			{!ABANDONED && SETTLED ? (
-				<div
-					className={cn(
-						'd-flex justify-content-between card-tracking px-4 py-3',
-						FAILED || TERMINATED ? 'error' : SENT ? 'sent' : ''
-					)}>
-					<div>
-						{FAILED || TERMINATED ? (
-							<i className="far fa-exclamation-circle fa-lg text-white mr-3" />
-						) : !SENT ? (
-							<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
-						) : (
-							<i className="far fa-check fa-lg mr-3" />
-						)}
-						{FAILED || TERMINATED ? 'Transaction error' : 'Coin Sent'}
-					</div>
-					{TERMINATED ? (
-						<Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
-					) : FAILED ? (
-						<Moment format="hh:mm A">{FAILED * 1000}</Moment>
-					) : SENT ? (
-						<Moment format="hh:mm A">{SENT * 1000}</Moment>
-					) : (
-						''
-					)}
+			<div className="d-flex justify-content-between card-tracking">
+				<div>
+					<i className="far fa-check fa-lg mr-3" />
+					You sent payment
 				</div>
-			) : (
-				''
-			)}
+				<span className="transaction-time">
+					{CLEARING && <Moment format="hh:mm A">{CLEARING * 1000}</Moment>}
+				</span>
+			</div>
 			{(CLEARING || EXPIRED) && (
 				<div
 					className={cn(
-						'd-flex justify-content-between card-tracking mt-4 px-4 py-3',
+						'd-flex justify-content-between card-tracking mt-4',
 						REVIEW || ABANDONED || EXPIRED || (!SETTLED && TERMINATED)
 							? 'error'
 							: ''
 					)}>
 					<div>
 						{REVIEW || ABANDONED || EXPIRED || (!SETTLED && TERMINATED) ? (
-							<i className="far fa-exclamation-circle fa-lg text-white mr-3" />
+							<i className="far fa-times fa-lg text-white mr-3" />
 						) : !SETTLED ? (
 							<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
 						) : (
@@ -172,28 +156,83 @@ const TransactionStatus = ({
 								? 'You cancelled the transaction'
 								: 'Payment received'}
 					</div>
-					{!SETTLED && TERMINATED ? (
-						<Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
-					) : ABANDONED ? (
-						<Moment format="hh:mm A">{ABANDONED * 1000}</Moment>
-					) : REVIEW ? (
-						<Moment format="hh:mm A">{REVIEW * 1000}</Moment>
-					) : SETTLED ? (
-						<Moment format="hh:mm A">{SETTLED * 1000}</Moment>
+					<span className="transaction-time">
+						{!SETTLED && TERMINATED ? (
+							<Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
+						) : ABANDONED ? (
+							<Moment format="hh:mm A">{ABANDONED * 1000}</Moment>
+						) : REVIEW ? (
+							<Moment format="hh:mm A">{REVIEW * 1000}</Moment>
+						) : (
+							SETTLED && <Moment format="hh:mm A">{SETTLED * 1000}</Moment>
+						)}
+					</span>
+				</div>
+			)}
+			{
+				<div
+					className={cn(
+						'coin-sent-wrapper mt-4',
+						!ABANDONED && SETTLED ? 'disabled' : '',
+						FAILED || TERMINATED ? 'error' : SENT ? 'sent' : ''
+					)}>
+					<div className="d-flex justify-content-between card-tracking">
+						<div>
+							{FAILED || TERMINATED ? (
+								<i className="far fa-times fa-lg mr-3" />
+							) : !SENT ? (
+								<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
+							) : (
+								<i className="far fa-check fa-lg mr-3" />
+							)}
+							{FAILED || TERMINATED ? 'Transaction error' : 'Coin Sent'}
+						</div>
+						<span className="transaction-time">
+							{TERMINATED ? (
+								<Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
+							) : FAILED ? (
+								<Moment format="hh:mm A">{FAILED * 1000}</Moment>
+							) : (
+								SENT && <Moment format="hh:mm A">{SENT * 1000}</Moment>
+							)}
+						</span>
+					</div>
+					{FAILED || TERMINATED ? (
+						<div className="description">
+							Sorry, we were unable to fulfill your order. Any payments received
+							from your account will be refunded within 2 business days.
+						</div>
+					) : (
+						<div className="description">
+							<b>0.53453456 BTC</b> was sent to your external wallet. Your coins
+							are on the blockahin on the way to your wallet.
+						</div>
+					)}
+					{Exchange ? (
+						<a
+							href={Exchange.TransactionHash}
+							className="btn-follow-blockchain"
+							target="_blank">
+							<i className="fas fa-paper-plane" />
+							Follow on the blockchain
+						</a>
+					) : (
+						''
+					)}
+					{FAILED || TERMINATED ? (
+						<Link href="/">
+							<a className="btn-follow-blockchain">
+								<i className="fas fa-paper-plane" />
+								Return to dashboard
+							</a>
+						</Link>
 					) : (
 						''
 					)}
 				</div>
-			)}
-			<div className="d-flex justify-content-between card-tracking mt-4 px-3 py-2 px-md-4 py-md-3">
-				<div>
-					<i className="far fa-check fa-lg mr-3" />
-					You sent payment
-				</div>
-				{CLEARING ? <Moment format="hh:mm A">{CLEARING * 1000}</Moment> : ''}
-			</div>
+			}
 
-			{Exchange && (
+			{/* {Exchange && (
 				<div className="mt-4 px-5">
 					<p>
 						Watch your digital currency move across the blockchain by clicking
@@ -203,7 +242,7 @@ const TransactionStatus = ({
 						Blockchain tracker
 					</a>
 				</div>
-			)}
+			)} */}
 		</div>
 	)
 }

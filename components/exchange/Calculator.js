@@ -207,22 +207,23 @@ class Calculator extends Component {
 	}
 
 	getQuote() {
+		const SendCurrency = this.state.currencySelected.Name
+		const ReceiveCurrency = this.state.coinSelected
+			? this.state.coinSelected.Name
+			: this.state.coins[0].Name
+
 		if (this.state.action === 'sending') {
 			return this.props.fetchQuote({
-				SendCurrency: this.state.currencySelected.Name,
-				ReceiveCurrency: this.state.coinSelected
-					? this.state.coinSelected.Name
-					: this.state.coins[0].Name,
+				SendCurrency,
+				ReceiveCurrency,
 				SendAmount: this.props.sendAmount
 					? this.props.sendAmount
 					: this.state.placeholderSendAmount
 			})
 		} else if (this.state.action === 'receiving' && this.props.receiveAmount) {
 			return this.props.fetchQuote({
-				SendCurrency: this.state.currencySelected.Name,
-				ReceiveCurrency: this.state.coinSelected
-					? this.state.coinSelected.Name
-					: this.state.coins[0].Name,
+				SendCurrency,
+				ReceiveCurrency,
 				ReceiveAmount: this.props.receiveAmount
 			})
 		}
@@ -230,6 +231,7 @@ class Calculator extends Component {
 
 	fetchCalls() {
 		if (!this.state.active) return
+		console.log(this.state.intervalId)
 		this.props.fetchAssetsStatus()
 		// this.props.fetchConsts()
 		// if (this.state.fetchQuote) this.state.fetchQuote.cancel()
