@@ -64,7 +64,7 @@ class TransactionTracker extends Component {
 					<title>Transaction Tracker | Cointec</title>
 				</Head>
 				<Header background="solid">
-					<Nav heading="Track your transaction" />
+					<Nav heading="Transaction tracker" />
 				</Header>
 
 				<div className="container">
@@ -341,88 +341,33 @@ const CoinSent = ({ Exchange, SETTLED, FAILED, TERMINATED, SENT }) => {
 	)
 }
 
-const ActionsCol = ({
-	Status: { SETTLED, EXPIRED, REVIEW, TERMINATED, SENT, FAILED, ABANDONED },
-	cancelOrder
-}) => (
-	<div className="info-column col-12 col-lg-4">
-		{!(
-			SETTLED ||
-			REVIEW ||
-			TERMINATED ||
-			SENT ||
-			FAILED ||
-			ABANDONED ||
-			EXPIRED
-		) && (
-			<div>
-				<div>
-					<h6 className="mb-4">Tracking information</h6>
-					<p>
-						Go to go? No worries, you can view the transaction status from your{' '}
-						<Link href="\">
-							<a>dashboard</a>
-						</Link>{' '}
-						at any time.
-					</p>
-				</div>
-				<hr />
-			</div>
-		)}
-
-		{!(
-			SETTLED ||
-			REVIEW ||
-			TERMINATED ||
-			SENT ||
-			FAILED ||
-			ABANDONED ||
-			EXPIRED
-		) && (
-			<div>
-				<h6 className="mb-4">Cancelling transaction</h6>
-				<p>
-					Dummy text about cancelling transaction to be completed at a later
-					stage.
-				</p>
-				<a
-					style={{ color: '#D80027' }}
-					href="javascript:void(0)"
-					onClick={cancelOrder}>
-					Cancel transaction
-				</a>
-			</div>
-		)}
-	</div>
-)
-
 const Nav = ({ heading }) => (
 	<div className="container">
 		<nav className="navbar navbar-custom navbar-expand-lg navbar-dark px-0 py-3 py-md-3">
-			<Link href="/">
-				<a className="navbar-brand">
-					<img
-						src="/static/images/footer-logo.svg"
-						className="img-fluid mx-auto d-block"
-						alt="Logo"
-					/>
-				</a>
-			</Link>
-			<div className="w-100 text-center d-none d-lg-block">
-				<h5 className="text-white">{heading}</h5>
+			<div className="col-8 d-none d-md-flex">
+				<Link href="/">
+					<a className="navbar-brand">
+						<img
+							src="/static/images/footer-logo.svg"
+							className="img-fluid mx-auto d-block"
+							alt="Logo"
+						/>
+					</a>
+				</Link>
+			</div>
+			<div className="col-8 d-block d-md-none">
+				<h5 className="exchange-heading">{heading}</h5>
 			</div>
 
-			<div className="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul className="navbar-nav w-100 justify-content-end align-items-lg-center">
-					<li className="nav-item">
-						<Link href="/">
-							<a className="nav-link">
-								<i className="far fa-times" />
-							</a>
-						</Link>
-					</li>
-				</ul>
-			</div>
+			<ul className="col-4 navbar-nav justify-content-end align-items-lg-center text-right">
+				<li className="nav-item">
+					<Link href="/">
+						<a className="nav-link">
+							<i className="far fa-times" />
+						</a>
+					</Link>
+				</li>
+			</ul>
 		</nav>
 	</div>
 )
