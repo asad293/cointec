@@ -19,7 +19,7 @@ export const fetchRates = pair => async dispatch => {
 	} catch (error) {
 		return dispatch({
 			type: FETCH_RATES_END,
-			payload: statusText
+			payload: error.message
 		})
 	}
 }

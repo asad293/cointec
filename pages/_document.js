@@ -29,7 +29,6 @@ export default class MyDocument extends Document {
           <link rel="shortcut icon" href="/static/favicon/favicon.ico?v=WGLKXP2GJR" />
           <meta name="msapplication-TileColor" content="#045cc7" />
           <meta name="theme-color" content="#045cc7" />
-					<meta name="google-site-verification" content="n5DeDV4KdP8015hlfoFLhAvQu9a6528sdFu8Ci4ux8g" />
           
 					<meta name="description" content={description} />
           <meta itemProp="name" content={title} />

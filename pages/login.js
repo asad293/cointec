@@ -7,6 +7,7 @@ import { SubmissionError } from 'redux-form'
 
 import Header from '../components/Header'
 import SignInForm from '../components/SignInForm'
+import StickyFooter from '../components/StickyFooter'
 
 import { signIn } from '../store/actions'
 
@@ -84,27 +85,7 @@ class Login extends Component {
 					</Link>
 				</p>
 
-				<div className="bottom-bar d-none d-lg-block">
-					<div className="container">
-						<div className="row">
-							<div className="col-6">@cointec ltd 2018</div>
-							<div className="col-6 text-nowrap">
-								<ul>
-									<li>
-										<Link href="/privacy">
-											<a>Privacy Policy</a>
-										</Link>
-									</li>
-									<li>
-										<Link href="/terms">
-											<a>Terms and conditions</a>
-										</Link>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
+				<StickyFooter className="d-none d-lg-block" />
 			</div>
 		)
 	}

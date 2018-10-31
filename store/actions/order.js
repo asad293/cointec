@@ -183,6 +183,14 @@ export function getStatus({ orderId, ctUser }) {
 				dispatch({
 					type: STATUS_ORDER,
 					payload: response.data
+					// payload: {
+					// 	Status: {
+					// 		CREATED: 1533471818,
+					// 		PAYMENT: 1533471819
+					// 		// CLEARING: 1533471838
+					// 		// SETTLED: 1533471839
+					// 	}
+					// }
 				})
 			})
 			.catch(error => {

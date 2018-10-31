@@ -3,12 +3,14 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import Cookie from 'js-cookie'
+import cn from 'classnames'
 
 import Header from '../components/Header'
 import Calculator from '../components/exchange/Calculator'
 import OrderSummary from '../components/exchange/OrderSummary'
 import BankTransfer from '../components/exchange/BankTransfer'
 import AddBankAccount from '../components/exchange/AddBankAccount'
+import StickyFooter from '../components/StickyFooter'
 
 class Exchange extends Component {
 	constructor() {
@@ -23,7 +25,6 @@ class Exchange extends Component {
 			rate: 1200,
 			wallet: null,
 			ctUser: null,
-			isVerified: true,
 			step: 1
 		}
 
@@ -38,17 +39,14 @@ class Exchange extends Component {
 	}
 
 	componentDidMount() {
-		const userData = localStorage.getItem('user')
-		const user = userData && JSON.parse(userData)
-		const sessionId = Cookie.get('CT-SESSION-ID')
-		if (user && user.CtUserId && sessionId) {
-			this.setState({
-				ctUser: user.CtUserId
-				// isVerified: user.isVerified
-			})
-		} else {
-			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
-		}
+		// const userData = localStorage.getItem('user')
+		// const user = userData && JSON.parse(userData)
+		// const sessionId = Cookie.get('CT-SESSION-ID')
+		// if (user && user.CtUserId && sessionId) {
+		// 	this.setState({ ctUser: user.CtUserId })
+		// } else {
+		// 	Router.push(`/login?redirectPath=${this.props.router.pathname}`)
+		// }
 	}
 
 	next(state) {
@@ -80,90 +78,32 @@ class Exchange extends Component {
 
 	render() {
 		return (
-			<div className="full-height" style={{ backgroundColor: '#f4f7fa' }}>
+			<div className="full-height" style={{ backgroundColor: '#F7F9FA' }}>
 				<Head>
 					<title>Exchange | Cointec</title>
 				</Head>
 				<Header background="solid">
 					<Nav
-						heading={
-							this.state.step === 1
-								? 'Buy digital currency'
-								: this.state.step === 2
-									? 'Order summary'
-									: 'Make Bank Transfer'
-						}
+						step={this.state.step}
+						setStep={step => this.setState({ step })}
 					/>
 				</Header>
 
 				<div className="container">
-					<div className="row mt-4">
-						<div className="col-12 col-lg-7 col-xl-6 text-center">
-							{this.state.step === 1
-								? this.renderAmountFrame()
-								: this.state.step === 2
-									? this.renderSummaryFrame()
-									: this.state.step === 3
-										? this.renderPaymentFrame()
-										: null}
-						</div>
-						<div className="info-column col-12 col-lg-4">
-							{this.state.step === 1 && (
-								<div>
-									<h6>Transaction limit</h6>
-									<div className="limit-amount">0 GBP</div>
-								</div>
-							)}
-							{this.state.step === 2 && (
-								<div>
-									<button className="btn-back" onClick={() => this.back()}>
-										<i className="far fa-angle-left" />{' '}
-										<span>Back to currency selection</span>
-									</button>
-								</div>
-							)}
-							{this.state.isVerified ? (
-								this.state.sendCurrency === 'GBP' && (
-									<div>
-										<hr />
-										<h6>Add a bank account</h6>
-										<p>
-											You can add the bank account you wish to make a bank
-											transfer from. This will speed up GBP transactions.
-										</p>
-										<a
-											href="#"
-											className="info-link"
-											data-toggle="modal"
-											data-target="#add-bank-account-modal">
-											Add bank account
-										</a>
-									</div>
-								)
-							) : (
-								<div>
-									<hr />
-									<h6>You are not verified</h6>
-									<p>
-										You must be verified to increase your limit and make GBP
-										transactions.
-									</p>
-									<Link href="/">
-										<a className="info-link">Complete verification</a>
-									</Link>
-								</div>
-							)}
-							<div>
-								<hr />
-								<h6 className="mb-4">Need help?</h6>
-								<Link href="/">
-									<a className="contact-us-link">Contact us</a>
-								</Link>
-							</div>
+					<div className="row justify-content-center">
+						<div className="col-12 col-md-8 col-lg-6 col-xl-5 px-lg-4 text-center">
+							<InnerNav
+								step={this.state.step}
+								setStep={step => this.setState({ step })}
+							/>
+							{this.state.step === 1 && this.renderAmountFrame()}
+							{this.state.step === 2 && this.renderSummaryFrame()}
+							{this.state.step === 3 && this.renderPaymentFrame()}
 						</div>
 					</div>
 				</div>
 
+				<StickyFooter className="bg-white" />
 				<AddBankAccount />
 			</div>
 		)
@@ -172,12 +112,12 @@ class Exchange extends Component {
 	renderAmountFrame() {
 		return (
 			<div>
-				<Calculator
-					ctUser={this.state.ctUser}
-					// preSelectedCoin={this.props.match.params.receiveCurrency}
-					onConfirm={this.next}
-				/>
-				<p className="text-left mt-3">
+				<div className="form-title-wrapper d-none d-md-flex">
+					<img src="/static/images/science.svg" alt="form-icon" />
+					<h4 className="form-title">Instant exchange</h4>
+				</div>
+				<Calculator ctUser={this.state.ctUser} onConfirm={this.next} />
+				<p className="terms-statment text-left">
 					By continuing you accept our{' '}
 					<Link href="/terms">
 						<a>Terms of Use</a>
@@ -190,6 +130,10 @@ class Exchange extends Component {
 	renderSummaryFrame() {
 		return (
 			<div>
+				<div className="form-title-wrapper d-none d-md-flex">
+					<img src="/static/images/science.svg" alt="form-icon" />
+					<h4 className="form-title">Order summary</h4>
+				</div>
 				<OrderSummary
 					sendAmount={this.state.sendAmount}
 					initialSendAmount={this.state.initialSendAmount}
@@ -210,6 +154,10 @@ class Exchange extends Component {
 	renderPaymentFrame() {
 		return (
 			<div>
+				<div className="form-title-wrapper d-none d-md-flex">
+					<img src="/static/images/science.svg" alt="form-icon" />
+					<h4 className="form-title">Make payment</h4>
+				</div>
 				<BankTransfer
 					sendAmount={this.state.sendAmount}
 					receiveAmount={this.state.receiveAmount}
@@ -226,34 +174,86 @@ class Exchange extends Component {
 	}
 }
 
-const Nav = ({ heading }) => (
+const Nav = props => (
 	<div className="container">
-		<nav className="navbar navbar-custom navbar-expand-lg navbar-dark px-0 py-3 py-md-3">
-			<Link href="/">
-				<a className="navbar-brand">
-					<img
-						src="/static/images/Logo.svg"
-						className="img-fluid mx-auto d-block"
-						alt="Logo"
-					/>
-				</a>
-			</Link>
-			<div className="w-100 text-center d-none d-lg-block">
-				<h5 className="text-white">{heading}</h5>
+		<nav className="navbar navbar-custom navbar-expand-lg navbar-exchange">
+			<div className="col-3 d-none d-md-flex">
+				<Link href="/">
+					<a className="navbar-brand">
+						<img
+							src="/static/images/footer-logo.svg"
+							className="img-fluid mx-auto d-block"
+							alt="Logo"
+						/>
+					</a>
+				</Link>
 			</div>
-
-			<div className="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul className="navbar-nav w-100 justify-content-end align-items-lg-center">
-					<li className="nav-item">
-						<Link href="/">
-							<a className="nav-link">
-								<i className="far fa-times" />
-							</a>
-						</Link>
+			<div
+				className={cn(
+					'col-6 exchange-nav d-none d-md-block',
+					props.step === 2 ? 'step-2' : props.step === 3 ? 'step-3' : ''
+				)}>
+				<ul>
+					<li
+						className={cn(
+							props.step === 1 ? 'active' : props.step > 1 ? 'passed' : ''
+						)}
+						onClick={props.step >= 2 ? () => props.setStep(1) : null}>
+						Amount
 					</li>
+					<li
+						className={cn(
+							props.step === 2 ? 'active' : props.step > 2 ? 'passed' : ''
+						)}
+						onClick={props.step === 3 ? () => props.setStep(2) : null}>
+						Summary
+					</li>
+					<li className={cn(props.step === 3 ? 'active' : '')}>Payment</li>
 				</ul>
 			</div>
+
+			<div className="col-6 d-block d-md-none">
+				<h5 className="exchange-heading">
+					{props.step === 1 && 'Enter amount'}
+					{props.step === 2 && 'Order summary'}
+					{props.step === 3 && 'Make payment'}
+				</h5>
+			</div>
+
+			<ul className="col-6 col-md-3 navbar-nav justify-content-end align-items-lg-center text-right">
+				<li className="nav-item">
+					<Link href="/">
+						<a className="nav-link">
+							<i className="far fa-times" />
+						</a>
+					</Link>
+				</li>
+			</ul>
 		</nav>
+	</div>
+)
+
+const InnerNav = props => (
+	<div
+		className={cn(
+			'exchange-nav inner d-block d-md-none',
+			props.step === 2 ? 'step-2' : props.step === 3 ? 'step-3' : ''
+		)}>
+		<ul>
+			<li
+				className={cn(
+					props.step === 1 ? 'active' : props.step > 1 ? 'passed' : ''
+				)}
+				onClick={props.step >= 2 ? () => props.setStep(1) : null}
+			/>
+			<li
+				className={cn(
+					props.step === 2 ? 'active' : props.step > 2 ? 'passed' : ''
+				)}
+				onClick={props.step === 3 ? () => props.setStep(2) : null}
+			/>
+			<li className={cn(props.step === 3 ? 'active' : '')} />
+		</ul>
 	</div>
 )
 
