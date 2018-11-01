@@ -270,10 +270,16 @@ class Calculator extends Component {
 	}
 
 	onCoinSelected(coin) {
-		Router.push(
-			`/?buy=${_.kebabCase(coin.FullName)}`,
-			`/buy-${_.kebabCase(coin.FullName)}`
-		)
+		const pathname = this.props.router.pathname
+		if (pathname === '/')
+			Router.push(
+				`${pathname === '/' ? pathname : pathname + '/'}?buy=${_.kebabCase(
+					coin.FullName
+				)}`,
+				`${pathname === '/' ? pathname : pathname + '/'}buy-${_.kebabCase(
+					coin.FullName
+				)}`
+			)
 		this.props.setCurrentAsset(coin.Name)
 		this.setState({
 			toggleCoin: false,
