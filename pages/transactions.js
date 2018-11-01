@@ -25,7 +25,12 @@ class Transactions extends Component {
 
 		this.state = {
 			currentPage: 1,
-			totalPages: 0,
+			totalPages: props.order.orders
+				? Math.ceil(
+						props.order.orders.TransactionHistory.length /
+							props.order.orders.TransactionsDisplayLimit
+				  )
+				: 0,
 			showAlert: true,
 			assetsImages
 		}
