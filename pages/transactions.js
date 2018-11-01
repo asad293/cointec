@@ -14,11 +14,20 @@ import Pagination from '../components/Pagination'
 class Transactions extends Component {
 	constructor(props) {
 		super(props)
+
+		const assetsImages = {}
+		props.assets.list.Receive.forEach(asset => {
+			assetsImages[asset.Name] = asset.Image
+		})
+		props.assets.list.Send.forEach(asset => {
+			assetsImages[asset.Name] = asset.Image
+		})
+
 		this.state = {
 			currentPage: 1,
 			totalPages: 0,
 			showAlert: true,
-			assetsImages: null
+			assetsImages
 		}
 	}
 

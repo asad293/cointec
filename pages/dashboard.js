@@ -15,8 +15,17 @@ import StickyFooter from '../components/StickyFooter'
 class Dashboard extends Component {
 	constructor(props) {
 		super(props)
+
+		const assetsImages = {}
+		props.assets.list.Receive.forEach(asset => {
+			assetsImages[asset.Name] = asset.Image
+		})
+		props.assets.list.Send.forEach(asset => {
+			assetsImages[asset.Name] = asset.Image
+		})
+
 		this.state = {
-			assetsImages: null,
+			assetsImages,
 			showAlert: true
 		}
 	}
@@ -25,7 +34,6 @@ class Dashboard extends Component {
 		// const userData = localStorage.getItem('user')
 		// const user = userData && JSON.parse(userData)
 		// const sessionId = Cookie.get('CT-SESSION-ID')
-
 		// if (user && user.CtUserId && sessionId) {
 		// 	this.props.fetchOrders({ ctUser: user.CtUserId })
 		// } else {
