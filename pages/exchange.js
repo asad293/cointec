@@ -43,6 +43,7 @@ class Exchange extends Component {
 		const user = userData && JSON.parse(userData)
 		const sessionId = Cookie.get('CT-SESSION-ID')
 
+		// console.log(sessionId)
 		if (user && user.CtUserId && sessionId) {
 			this.setState({ ctUser: user.CtUserId })
 		} else {
@@ -79,7 +80,9 @@ class Exchange extends Component {
 
 	render() {
 		return (
-			<div className="full-height" style={{ backgroundColor: '#F7F9FA' }}>
+			<div
+				className="exchange-page full-height"
+				style={{ backgroundColor: '#F7F9FA' }}>
 				<Head>
 					<title>Exchange | Cointec</title>
 				</Head>
@@ -92,7 +95,8 @@ class Exchange extends Component {
 
 				<div className="container">
 					<div className="row justify-content-center">
-						<div className="col-12 col-md-8 col-lg-6 col-xl-5 px-lg-4 text-center">
+						<div className="main-wrapper">
+							{/* <div className="col-12 col-md-8 col-lg-6 col-xl-5 px-lg-4 text-center"> */}
 							<InnerNav
 								step={this.state.step}
 								setStep={step => this.setState({ step })}
