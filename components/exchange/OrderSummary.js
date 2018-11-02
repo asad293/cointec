@@ -65,7 +65,8 @@ class OrderSummary extends Component {
 	}
 
 	fetchCalls() {
-		const fetchQuote = this.props.fetchQuote({
+		// const fetchQuote =
+		this.props.fetchQuote({
 			SendCurrency: this.props.sendCurrency,
 			ReceiveCurrency: this.props.receiveCurrency,
 			ReceiveAmount: this.props.receiveAmount

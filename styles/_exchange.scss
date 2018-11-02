@@ -182,6 +182,9 @@
 @import 'components/exchange/calculator';
 
 .order-summary-wrapper {
+	.field-label {
+		margin-bottom: 14px;
+	}
 	.field-value {
 		font-weight: normal;
 		line-height: 12px;
@@ -195,7 +198,9 @@
 		border: none;
 		padding: 0;
 		outline: none;
-		margin-bottom: 17px;
+		margin-bottom: 33px;
+		display: block;
+		height: 12px;
 		&:hover {
 			box-shadow: none;
 		}
@@ -215,7 +220,7 @@
 		i {
 			position: absolute;
 			right: 15px;
-			top: 29px;
+			top: 21px;
 		}
 	}
 	hr {

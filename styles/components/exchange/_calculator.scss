@@ -71,9 +71,6 @@
 			.dropdown-menu {
 				width: 370px;
 				left: -229px;
-				// @include media-breakpoint-down(lg) {
-				// 	left: -200px;
-				// }
 				@include media-breakpoint-down(xs) {
 					width: 222%;
 					left: -121%;
