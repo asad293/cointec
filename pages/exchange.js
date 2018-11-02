@@ -39,16 +39,16 @@ class Exchange extends Component {
 	}
 
 	componentDidMount() {
-		const userData = localStorage.getItem('user')
-		const user = userData && JSON.parse(userData)
-		const sessionId = Cookie.get('CT-SESSION-ID')
+		// const userData = localStorage.getItem('user')
+		// const user = userData && JSON.parse(userData)
+		// const sessionId = Cookie.get('CT-SESSION-ID')
 
-		// console.log(sessionId)
-		if (user && user.CtUserId && sessionId) {
-			this.setState({ ctUser: user.CtUserId })
-		} else {
-			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
-		}
+		// // console.log(sessionId)
+		// if (user && user.CtUserId && sessionId) {
+		// 	this.setState({ ctUser: user.CtUserId })
+		// } else {
+		// 	Router.push(`/login?redirectPath=${this.props.router.pathname}`)
+		// }
 	}
 
 	next(state) {
