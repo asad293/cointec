@@ -258,11 +258,11 @@ class Calculator extends Component {
 		}
 
 		if (receiveAmount && action === 'receiving' && currencySelected) {
-			const { symbol, dp } = currencySelected
+			const { dp } = currencySelected
 			if (receiveAmount === QuoteReceiveAmount)
 				this.props.change(
 					'sendAmount',
-					`${symbol} ${Number.parseFloat(QuoteSendAmount).toFixed(
+					`${Number.parseFloat(QuoteSendAmount).toFixed(
 						QuoteSendAmount == 0 ? 0 : dp
 					)}`
 				)
@@ -497,9 +497,9 @@ class Calculator extends Component {
 				if (this.props.sendAmount)
 					this.props.change(
 						'sendAmount',
-						currency.Symbol +
-							' ' +
-							Number.parseFloat(this.props.sendAmount).toFixed(currency.Dp)
+						// currency.Symbol +
+						// 	' ' +
+						Number.parseFloat(this.props.sendAmount).toFixed(currency.Dp)
 					)
 				this.fetchCalls()
 			}
