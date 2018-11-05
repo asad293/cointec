@@ -128,7 +128,7 @@ const TransactionTable = ({ orders, assets }) => (
 							<td className="d-none d-md-table-cell">
 								<Moment format="DD MMM hh:mmA">{order.createdAt * 1000}</Moment>
 							</td>
-							<td className="transaction-status">Processing</td>
+							<td className="transaction-status">{order.status}</td>
 						</tr>
 					)
 				)
