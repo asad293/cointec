@@ -159,7 +159,7 @@ class Calculator extends Component {
 
 	initInterval(interval) {
 		clearInterval(this.state.intervalId)
-		let intervalId = setInterval(this.fetchCalls, interval * 100 * 1000)
+		let intervalId = setInterval(this.fetchCalls, interval * 1000)
 		// store intervalId in the state so it can be accessed later to clear it
 		this.setState({ intervalId })
 	}
