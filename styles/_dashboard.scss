@@ -1,0 +1,247 @@
+.dashboard-page {
+	header {
+		background: linear-gradient(180deg, #0459c4 0%, #0575e6 100%);
+	}
+	&.full-height {
+		position: absolute;
+	}
+	.bottom-bar {
+		position: sticky;
+	}
+	.dash-nav-link {
+		color: white;
+		font-size: 16px;
+		padding-left: 16px;
+		padding-right: 8px;
+		opacity: 0.72;
+		&:hover {
+			text-decoration: none;
+			color: white;
+			opacity: 1;
+		}
+		&.active {
+			opacity: 1;
+		}
+		@include media-breakpoint-down(md) {
+			padding: 0;
+		}
+	}
+
+	.dashboard-heading {
+		color: white;
+		text-align: center;
+		font-weight: bold;
+		padding: 48px 0;
+		margin: 0;
+	}
+
+	.dashboard-menu {
+		.btn-dropdown {
+			background: none;
+			color: white;
+			padding: 0;
+			opacity: 0.72;
+			border: none;
+			&:hover {
+				opacity: 1;
+			}
+			&:focus {
+				box-shadow: none;
+			}
+			img {
+				padding-right: 10px;
+				padding-left: 16px;
+			}
+			i {
+				vertical-align: middle;
+			}
+		}
+		&.show {
+			.btn-dropdown {
+				opacity: 1;
+			}
+		}
+		.dropdown-menu {
+			box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.13);
+			border: none;
+			border-radius: 3px;
+			padding: 8px 0 0;
+			margin-top: 8px;
+			.dropdown-item {
+				width: 220px;
+				padding: 8px 16px;
+				border-radius: 3px;
+				outline: none;
+				&:hover,
+				&:active {
+					color: #1a1d1f;
+					background: #f0f3f5;
+				}
+				i {
+					padding-right: 8px;
+					color: #0459c4;
+				}
+				&:last-child {
+					background: #e7ecee;
+				}
+			}
+		}
+	}
+
+	.alert-message {
+		background: #0459c4;
+		font-size: 14px;
+		line-height: 19px;
+		padding: 18px 0;
+		color: white;
+		p {
+			margin: 0;
+		}
+		i {
+			margin: 0 8px;
+		}
+		a {
+			color: white;
+			font-weight: 600;
+			&:hover {
+				text-decoration: none;
+			}
+		}
+		.btn-hide-alert {
+			position: absolute;
+			right: 15px;
+			cursor: pointer;
+		}
+	}
+
+	.dashboard-container {
+		margin-top: 40px;
+		margin-bottom: 40px;
+		@include media-breakpoint-down(md) {
+			margin-bottom: 24px;
+		}
+		[class*='col-'] {
+			padding-right: 12px;
+			padding-left: 12px;
+		}
+		.content-wrapper {
+			background: #fff;
+			box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12),
+				0px 1px 2px rgba(0, 0, 0, 0.24);
+			border-radius: 3px;
+			padding: 32px;
+			height: 346px;
+		}
+		.chart-wrapper {
+			.info-latest {
+				display: flex;
+				justify-content: space-between;
+				margin-bottom: 32px;
+				.rate {
+					font-weight: bold;
+					line-height: 12px;
+					font-size: 16px;
+					color: #1a1d1f;
+				}
+				time {
+					line-height: 12px;
+					font-size: 14px;
+					color: #667075;
+				}
+			}
+		}
+		.hero-calculator {
+			.calculator-wrapper {
+				margin-top: 0;
+				.exchange-rate-label {
+					white-space: nowrap;
+				}
+			}
+		}
+		.table {
+			thead {
+				th {
+					font-weight: 600;
+					line-height: 10px;
+					font-size: 14px;
+					color: #1a1d1f;
+					padding: 22px 32px;
+					border-bottom: 1px solid #d5dce0;
+					white-space: nowrap;
+				}
+			}
+			tbody {
+				tr {
+					&:hover {
+						background: #f0f3f5;
+					}
+					&.no-result {
+						text-align: center;
+						&:hover {
+							background: none;
+						}
+					}
+				}
+				td {
+					color: #1a1d1f;
+					padding: 16px 32px;
+					line-height: 22px;
+					font-size: 16px;
+					white-space: nowrap;
+					img {
+						height: 24px;
+					}
+					i {
+						color: #8c969e;
+						vertical-align: middle;
+						margin-left: 16px;
+						margin-right: 16px;
+					}
+					&.transaction-status {
+						font-weight: 600;
+						&::before {
+							content: '';
+							width: 7px;
+							height: 7px;
+							background: #0459c4;
+							border-radius: 50%;
+							display: inline-block;
+							margin-right: 8px;
+							margin-bottom: 2px;
+						}
+					}
+				}
+			}
+		}
+	}
+	.pagination {
+		li {
+			padding: 0 5px;
+			a {
+				width: 32px;
+				height: 32px;
+				font-weight: 600;
+				color: #515c61;
+				line-height: 12px;
+				font-size: 16px;
+				padding: 10px 0;
+				text-align: center;
+				border: none;
+				background: none;
+				border-radius: 3px;
+				&:hover {
+					color: #515c61;
+					background: rgba(0, 0, 0, 0.04);
+				}
+			}
+			&.active {
+				a {
+					background: #0575e6;
+					&:hover {
+						color: white;
+					}
+				}
+			}
+		}
+	}
+}
