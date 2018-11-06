@@ -270,10 +270,16 @@ class Calculator extends Component {
 	}
 
 	onCoinSelected(coin) {
-		Router.push(
-			`/?buy=${_.kebabCase(coin.FullName)}`,
-			`/buy-${_.kebabCase(coin.FullName)}`
-		)
+		const pathname = this.props.router.pathname
+		if (pathname === '/')
+			Router.push(
+				`${pathname === '/' ? pathname : pathname + '/'}?buy=${_.kebabCase(
+					coin.FullName
+				)}`,
+				`${pathname === '/' ? pathname : pathname + '/'}buy-${_.kebabCase(
+					coin.FullName
+				)}`
+			)
 		this.props.setCurrentAsset(coin.Name)
 		this.setState({
 			toggleCoin: false,
@@ -395,7 +401,7 @@ class Calculator extends Component {
 			return true
 		}
 
-		if (coin.keywords.startsWith(word)) {
+		if (coin.Keywords.startsWith(word)) {
 			return true
 		}
 		return false
@@ -475,7 +481,7 @@ class Calculator extends Component {
 												</div>
 												<span
 													className="text-left"
-													style={{ minWidth: '64px' }}>
+													style={{ minWidth: '46px' }}>
 													{this.state.currencySelected.Name}
 												</span>
 												<img
@@ -504,7 +510,7 @@ class Calculator extends Component {
 								</div>
 							</div>
 						</div>
-						<label className="field-label m-0 mt-4">You receive</label>
+						<label className="field-label">You receive</label>
 						<div className="calc-field">
 							<div className="col-6 bg-input">
 								<Field
@@ -539,7 +545,7 @@ class Calculator extends Component {
 												</div>
 												<span
 													className="text-left"
-													style={{ minWidth: '64px' }}>
+													style={{ minWidth: '46px' }}>
 													{this.state.coinSelected.Name}
 												</span>
 												<img
@@ -587,29 +593,28 @@ class Calculator extends Component {
 								</div>
 							</div>
 						</div>
-						<h6 className="exchange-rate-label mt-4">
-							Exchange Rate:{' '}
-							<b>
-								{!this.state.rate || Message
-									? '-/-'
-									: this.state.rate.toFixed(
-											this.state.currencySelected
-												? this.state.currencySelected.Dp
-												: 2
-									  ) +
-									  ' ' +
-									  (this.state.currencySelected
-											? this.state.currencySelected.Name
-											: 'GBP') +
-									  '/' +
-									  (this.state.coinSelected
-											? this.state.coinSelected.Name
-											: 'BTC') +
-									  ' '}
-							</b>
+						<h6 className="exchange-rate-label">
+							Exchange Rate: {/* <b> */}
+							{!this.state.rate || Message
+								? '-/-'
+								: this.state.rate.toFixed(
+										this.state.currencySelected
+											? this.state.currencySelected.Dp
+											: 2
+								  ) +
+								  ' ' +
+								  (this.state.currencySelected
+										? this.state.currencySelected.Name
+										: 'GBP') +
+								  '/' +
+								  (this.state.coinSelected
+										? this.state.coinSelected.Name
+										: 'BTC') +
+								  ' '}
+							{/* </b> */}
 						</h6>
 						<div className="am row">
-							<div className="mt-2 col-md-12">{this.renderButton()}</div>
+							<div className="col-md-12">{this.renderButton()}</div>
 						</div>
 					</div>
 				</form>

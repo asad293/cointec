@@ -13,7 +13,10 @@ import {
 	REFUND_PAYMENT_END,
 	STATUS_ORDER,
 	STATUS_ORDER_START,
-	STATUS_ORDER_END
+	STATUS_ORDER_END,
+	FETCH_ORDERS,
+	FETCH_ORDERS_START,
+	FETCH_ORDERS_END
 } from '../actions'
 
 import _ from 'lodash'
@@ -25,7 +28,8 @@ const INITIAL_STATE = {
 	abandon: null,
 	refund: null,
 	clear: null,
-	status: null
+	status: null,
+	orders: null
 }
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -61,11 +65,20 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 				error: null
 			}
 
+		case FETCH_ORDERS:
+			return {
+				...state,
+				orders: payload,
+				loading: false,
+				error: null
+			}
+
 		case CREATE_ORDER_START:
 		case CLEAR_ORDER_START:
 		case ABANDON_ORDER_START:
 		case REFUND_PAYMENT_START:
 		case STATUS_ORDER_START:
+		case FETCH_ORDERS_START:
 			return { ...state, loading: true, error: null }
 
 		case CREATE_ORDER_END:
@@ -73,6 +86,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case ABANDON_ORDER_END:
 		case REFUND_PAYMENT_END:
 		case STATUS_ORDER_END:
+		case FETCH_ORDERS_END:
 			return { ...state, loading: false, error: payload }
 
 		default:

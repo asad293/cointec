@@ -21,6 +21,10 @@ export const STATUS_ORDER = 'STATUS_ORDER'
 export const STATUS_ORDER_START = 'STATUS_ORDER_START'
 export const STATUS_ORDER_END = 'STATUS_ORDER_END'
 
+export const FETCH_ORDERS = 'FETCH_ORDERS'
+export const FETCH_ORDERS_START = 'FETCH_ORDERS_START'
+export const FETCH_ORDERS_END = 'FETCH_ORDERS_END'
+
 export function createOrder({
 	destAmount,
 	sourceAmount,
@@ -161,6 +165,34 @@ export function refundPayment({ orderId, ctUser, dest }) {
 					type: REFUND_PAYMENT_END,
 					payload: error
 				})
+			})
+	}
+}
+
+export function fetchOrders({ ctUser }) {
+	return dispatch => {
+		dispatch({
+			type: FETCH_ORDERS_START,
+			payload: null
+		})
+		const headers = {
+			'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+			'CT-ACCOUNT-ID': ctUser
+		}
+		axios
+			.get(`${ROOT_URL}/orders`, { headers })
+			.then(response => {
+				dispatch({
+					type: FETCH_ORDERS,
+					payload: response.data
+				})
+			})
+			.catch(error => {
+				dispatch({
+					type: FETCH_ORDERS_END,
+					payload: error
+				})
+				throw error
 			})
 	}
 }
