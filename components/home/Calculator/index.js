@@ -350,8 +350,8 @@ class Calculator extends Component {
 			const coinSelected = nextCoin
 				? nextCoin
 				: updatedCoins.length
-					? updatedCoins[0]
-					: false
+				? updatedCoins[0]
+				: false
 
 			this.setState(
 				{
@@ -593,7 +593,7 @@ class Calculator extends Component {
 								</div>
 							</div>
 						</div>
-						<h6 className="exchange-rate-label mt-4">
+						<h6 className="exchange-rate-label">
 							Exchange Rate:{' '}
 							{!this.state.rate || Message
 								? '-/-'
