@@ -510,7 +510,7 @@ class Calculator extends Component {
 								</div>
 							</div>
 						</div>
-						<label className="field-label m-0 mt-4">You receive</label>
+						<label className="field-label">You receive</label>
 						<div className="calc-field">
 							<div className="col-6 bg-input">
 								<Field
