@@ -22,7 +22,7 @@ import {
 import _ from 'lodash'
 
 const orders = {
-	HomepageDisplayLimit: 4,
+	HomepageDisplayLimit: 5,
 	TransactionsDisplayLimit: 10,
 	TransactionHistory: [
 		{

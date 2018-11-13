@@ -112,6 +112,9 @@ const TransactionTable = ({ orders, assets }) => (
 			</tr>
 		</thead>
 		<tbody>
+			<tr>
+				<td />
+			</tr>
 			{orders ? (
 				orders.TransactionHistory.slice(0, orders.HomepageDisplayLimit).map(
 					order => (
@@ -145,21 +148,9 @@ const TransactionTable = ({ orders, assets }) => (
 					<td colSpan="5">No results</td>
 				</tr>
 			)}
-			{/* <tr>
-				<td>
-					<img src="/static/images/union-jack.svg" />
-					<i className="far fa-long-arrow-right fa-lg d-none d-md-inline" />
-					<img
-						className="d-none d-md-inline"
-						src="/static/images/coins/ETC.svg"
-					/>
-					<span className="d-inline d-md-none pl-3">+0.25458745 BTC</span>
-				</td>
-				<td className="d-none d-md-table-cell">0.25458745 BTC</td>
-				<td className="d-none d-lg-table-cell">200 GBP</td>
-				<td className="d-none d-md-table-cell">12 Nov 14:00PM</td>
-				<td className="transaction-status">Processing</td>
-			</tr> */}
+			<tr>
+				<td />
+			</tr>
 		</tbody>
 	</table>
 )
