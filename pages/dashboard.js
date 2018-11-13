@@ -104,6 +104,9 @@ const TransactionTable = ({ orders, assets }) => (
 			</tr>
 		</thead>
 		<tbody>
+			<tr>
+				<td />
+			</tr>
 			{orders ? (
 				orders.TransactionHistory.slice(0, orders.HomepageDisplayLimit).map(
 					order => (
@@ -137,6 +140,9 @@ const TransactionTable = ({ orders, assets }) => (
 					<td colSpan="5">No results</td>
 				</tr>
 			)}
+			<tr>
+				<td />
+			</tr>
 			{/* <tr>
 				<td>
 					<img src="/static/images/union-jack.svg" />

@@ -175,6 +175,22 @@
 					&:hover {
 						background: #f0f3f5;
 					}
+					&:first-child {
+						td {
+							padding: 4px;
+						}
+					}
+					&:last-child {
+						td {
+							padding: 4px;
+							border: none;
+						}
+					}
+					&:nth-child(2) {
+						td {
+							border: none;
+						}
+					}
 					&.no-result {
 						text-align: center;
 						&:hover {
