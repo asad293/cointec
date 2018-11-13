@@ -121,6 +121,9 @@ const TransactionTable = ({ orders, assets, currentPage }) => (
 			</tr>
 		</thead>
 		<tbody>
+			<tr>
+				<td />
+			</tr>
 			{orders ? (
 				orders.TransactionHistory.slice(
 					(currentPage - 1) * orders.TransactionsDisplayLimit,
@@ -156,6 +159,9 @@ const TransactionTable = ({ orders, assets, currentPage }) => (
 					<td colSpan="5">No results</td>
 				</tr>
 			)}
+			<tr>
+				<td />
+			</tr>
 		</tbody>
 	</table>
 )
