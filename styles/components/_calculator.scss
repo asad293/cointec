@@ -15,9 +15,15 @@
 				border: 1px solid #c1c7cd;
 				box-sizing: border-box;
 				border-radius: 2px;
-				padding: 12px 0;
+				padding: 13px 0;
 				height: 48px;
 				display: flex;
+				.bg-input {
+					height: 20px;
+					& + div {
+						height: 20px;
+					}
+				}
 				input {
 					font-size: 16px;
 					border: 0;
@@ -47,20 +53,20 @@
 			}
 			.dropdown-currency-select {
 				font-family: 'Open Sans', sans-serif;
-				height: 23px;
+				height: 20px;
 				width: 100%;
 				.dropdown-toggle {
 					vertical-align: initial;
 					.text-label {
 						span {
-							line-height: 23px;
+							line-height: 20px;
 							font-weight: 600;
 						}
 					}
 				}
 				.dropdown-menu {
 					.dropdown-items-wrapper {
-						max-height: 175px;
+						max-height: 192px;
 					}
 				}
 				.currency-label {
@@ -89,7 +95,7 @@
 						&.fluid {
 							width: 100%;
 							img.currency-symbol {
-								margin-right: 20px;
+								margin-right: 8px;
 							}
 						}
 					}
@@ -181,36 +187,63 @@
 		overflow: hidden;
 		.search-item {
 			display: flex;
-			padding: 10px 15px;
-			background-color: #e2e6e8;
+			padding: 12px 16px 12px 12px;
+			background-color: #e7ecee;
 			.search-input {
 				margin-left: 5px;
 				width: 100%;
 				border: 0;
-				font-size: 17px;
+				font-size: 16px;
 				background: none;
 				outline: none;
+				@include placeholder {
+					color: #515c61;
+				}
+			}
+			.search-symbol {
+				color: #515c61;
 			}
 		}
 		.dropdown-items-wrapper {
-			padding: 0.5rem 0;
+			// padding: 0.5rem 0;
 			max-height: 185px;
 			overflow-y: auto;
 			&::-webkit-scrollbar {
 				width: 5px;
 			}
 			&::-webkit-scrollbar-track {
-				background: #bdc5cb;
+				background: #e7ecee;
 			}
 			&::-webkit-scrollbar-thumb,
 			&::-webkit-scrollbar-thumb:hover {
-				background: #2b8bff;
+				background: #0459c4;
 			}
 			.dropdown-item {
-				padding: 2px 0;
+				padding: 16px;
 				cursor: pointer;
+				.text-label {
+					padding: 0;
+					.currency-symbol-wrapper {
+						margin: 0 !important;
+						padding: 0;
+						img.currency-symbol {
+							width: 16px;
+							height: 16px;
+						}
+						color: #1a1d1f;
+						line-height: 11px;
+						font-size: 16px;
+						b {
+							font-weight: 600;
+							font-size: 14px;
+						}
+					}
+				}
 				.currency-label {
 					justify-content: flex-start;
+				}
+				&:hover {
+					background-color: #f0f3f5;
 				}
 				&:active {
 					background: none;
