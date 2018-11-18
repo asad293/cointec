@@ -4,7 +4,7 @@
 	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12);
 	border-radius: 3px;
 	padding: 32px;
-	min-height: 462px;
+	min-height: 446px;
 	* {
 		font-weight: 600;
 	}
@@ -176,12 +176,98 @@
 	.accounts-select {
 		box-shadow: 0px 2px 4px rgba(0, 16, 33, 0.06);
 		border-radius: 2px;
-		border: 1px solid #c1c7cd;
-		&:focus,
-		&:focus-within {
-			border: 1px solid #9e00ff;
-		}
+		border: 1px solid #b0b9bd;
+		height: 48px;
+		color: #b0b9bd;
+		// &:focus,
+		// &:focus-within {
+		// 	border: 1px solid #9e00ff;
+		// }
 		background: none;
+	}
+	.accounts-dropdown {
+		border: 1px solid #b0b9bd;
+		border-radius: 3px;
+		font-weight: 600;
+		line-height: 12px;
+		font-size: 16px;
+		padding: 12px;
+		color: #b0b9bd;
+		.dropdown-toggle {
+			width: 100%;
+			display: block;
+			padding: 5px 0;
+			.account-source {
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				display: inline-block;
+				width: 265px;
+				overflow: hidden;
+			}
+			i {
+				position: absolute;
+				right: 13px;
+			}
+			&::after {
+				content: none;
+			}
+		}
+		.dropdown-menu {
+			width: 100%;
+			background: #ffffff;
+			box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.13);
+			border-radius: 3px;
+			left: -12px !important;
+			top: 12px !important;
+			padding: 0;
+			.accounts-list {
+				overflow-y: scroll;
+				max-height: 192px;
+				&::-webkit-scrollbar {
+					width: 5px;
+				}
+				&::-webkit-scrollbar-track {
+					background: #e7ecee;
+				}
+				&::-webkit-scrollbar-thumb,
+				&::-webkit-scrollbar-thumb:hover {
+					background: #0459c4;
+				}
+			}
+			.add-bank-account {
+				background: #e7ecee;
+				padding: 18px 16px;
+				color: #1a1d1f;
+				font-weight: normal;
+				cursor: pointer;
+				.add-account-icon {
+					position: absolute;
+					right: 13px;
+					bottom: 14px;
+				}
+			}
+			.dropdown-item {
+				padding: 14px 16px;
+				&:hover {
+					background: #f0f3f5;
+				}
+				.bank-account-name {
+					max-width: 200px;
+					font-size: 16px;
+					line-height: 20px;
+					font-weight: normal;
+					color: #1a1d1f;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					text-align: left;
+				}
+				.bank-account-sortcode {
+					font-size: 14px;
+					line-height: 20px;
+					color: #1a1d1f;
+				}
+			}
+		}
 	}
 	.exchange-rate {
 		text-align: left;
@@ -204,7 +290,8 @@
 		&:disabled {
 			// color: #a0a0a0;
 			color: #fff;
-			background: #e1e5e7;
+			background: #b0b9bd;
+			// background: #e1e5e7;
 			cursor: default;
 		}
 	}
@@ -212,4 +299,9 @@
 		border: 0px !important;
 		box-shadow: none !important;
 	}
+}
+.restart-link {
+	color: #db3a34 !important;
+	font-weight: 600;
+	cursor: pointer;
 }
