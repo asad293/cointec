@@ -85,12 +85,7 @@
 						display: flex;
 						align-items: center;
 						justify-content: center;
-						@include media-breakpoint-down(md) {
-							margin-left: 188px;
-						}
-						@include media-breakpoint-down(sm) {
-							margin-left: 36%;
-						}
+						margin-left: auto;
 						img.currency-symbol {
 							width: 20px;
 							height: 20px;
@@ -256,14 +251,14 @@
 				}
 			}
 		}
-		@include media-breakpoint-down(md) {
-			width: 100%;
-			left: 0;
-		}
-		@include media-breakpoint-down(sm) {
-			width: 150%;
-			left: -50%;
-		}
+		// @include media-breakpoint-down(md) {
+		// 	width: 100%;
+		// 	left: 0;
+		// }
+		// @include media-breakpoint-down(sm) {
+		// 	width: 150%;
+		// 	left: -50%;
+		// }
 		@include media-breakpoint-down(xs) {
 			width: 200%;
 			left: -100%;

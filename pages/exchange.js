@@ -80,7 +80,9 @@ class Exchange extends Component {
 
 	render() {
 		return (
-			<div className="full-height" style={{ backgroundColor: '#F7F9FA' }}>
+			<div
+				className="exchange-page full-height"
+				style={{ backgroundColor: '#F7F9FA', position: 'absolute' }}>
 				<Head>
 					<title>Exchange | Cointec</title>
 				</Head>
@@ -92,7 +94,7 @@ class Exchange extends Component {
 				</Header>
 
 				<div className="container">
-					<div className="row justify-content-center mt-4">
+					<div className="row justify-content-center mt-4 mt-md-0 mb-5">
 						<div className="col-12 col-md-8 col-lg-6 col-xl-5 px-lg-4 text-center">
 							{this.state.step === 1 && this.renderAmountFrame()}
 							{this.state.step === 2 && this.renderSummaryFrame()}

@@ -30,22 +30,25 @@ class Chart extends Component {
 	render() {
 		return (
 			<div className="chart-wrapper">
-				{this.state.latestRate &&
-					this.state.latestTimestamp && (
-						<div className="info-latest">
-							<h6 className="rate">
-								<span>{this.state.latestRate.toFixed(2)}</span> GBP/
-								{this.state.coinName}
-							</h6>
-							<Moment fromNow>{this.state.updatedOn}</Moment>
-						</div>
-					)}
+				{this.state.latestRate && this.state.latestTimestamp && (
+					<div className="info-latest">
+						<h6 className="rate">
+							<span>{this.state.latestRate.toFixed(2)}</span> GBP/
+							{this.state.coinName}
+						</h6>
+						<Moment fromNow>{this.state.updatedOn}</Moment>
+					</div>
+				)}
 				{this.state.options && (
 					<div className="line">
 						<Line
 							options={this.state.options}
 							data={this.state.data}
-							height={230}
+							height={
+								document && document.documentElement.clientWidth > 768
+									? 230
+									: 144
+							}
 						/>
 					</div>
 				)}
@@ -123,7 +126,10 @@ class Chart extends Component {
 									color: '#B0B9BD'
 								},
 								ticks: {
-									maxTicksLimit: 5
+									maxTicksLimit:
+										document && document.documentElement.clientWidth > 768
+											? 5
+											: 3
 								}
 							}
 						],

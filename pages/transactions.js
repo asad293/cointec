@@ -52,10 +52,10 @@ class Transactions extends Component {
 				{this.state.showAlert && (
 					<AlertMessage onHide={() => this.setState({ showAlert: false })} />
 				)}
-				<div className="container dashboard-container">
+				<div className="container dashboard-container mb-5">
 					<div className="row">
 						<div className="col">
-							<div className="content-wrapper mt-4 p-0 h-auto">
+							<div className="content-wrapper mb-4 p-0 h-auto">
 								<TransactionTable
 									currentPage={this.state.currentPage}
 									orders={this.props.order.orders}
