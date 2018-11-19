@@ -42,7 +42,6 @@ class Exchange extends Component {
 		// const userData = localStorage.getItem('user')
 		// const user = userData && JSON.parse(userData)
 		// const sessionId = Cookie.get('CT-SESSION-ID')
-
 		// // console.log(sessionId)
 		// if (user && user.CtUserId && sessionId) {
 		// 	this.setState({ ctUser: user.CtUserId })
@@ -82,7 +81,7 @@ class Exchange extends Component {
 		return (
 			<div
 				className="exchange-page full-height"
-				style={{ backgroundColor: '#F7F9FA' }}>
+				style={{ backgroundColor: '#F7F9FA', position: 'absolute' }}>
 				<Head>
 					<title>Exchange | Cointec</title>
 				</Head>
@@ -94,13 +93,8 @@ class Exchange extends Component {
 				</Header>
 
 				<div className="container">
-					<div className="row justify-content-center">
-						<div className="main-wrapper">
-							{/* <div className="col-12 col-md-8 col-lg-6 col-xl-5 px-lg-4 text-center"> */}
-							<InnerNav
-								step={this.state.step}
-								setStep={step => this.setState({ step })}
-							/>
+					<div className="row justify-content-center mt-4 mt-md-0 mb-5">
+						<div className="col-12 col-md-8 col-lg-6 col-xl-5 px-lg-4 text-center">
 							{this.state.step === 1 && this.renderAmountFrame()}
 							{this.state.step === 2 && this.renderSummaryFrame()}
 							{this.state.step === 3 && this.renderPaymentFrame()}

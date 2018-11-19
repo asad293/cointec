@@ -7,6 +7,9 @@
 	}
 	.bottom-bar {
 		position: fixed;
+		@include media-breakpoint-down(sm) {
+			position: initial;
+		}
 	}
 	.dash-nav-link {
 		color: white;
@@ -31,8 +34,14 @@
 		color: white;
 		text-align: center;
 		font-weight: bold;
+		line-height: 24px;
 		padding: 48px 0;
 		margin: 0;
+		@include media-breakpoint-down(sm) {
+			padding: 32px 0 33px 0;
+			line-height: 17px;
+			font-size: 24px;
+		}
 	}
 
 	.dashboard-menu {
@@ -118,11 +127,18 @@
 		margin-top: 40px;
 		margin-bottom: 87px;
 		@include media-breakpoint-down(md) {
-			margin-bottom: 71px;
+			margin-top: 24px;
+			margin-bottom: 24px;
 		}
-		[class*='col-'] {
+		& > [class*='col-'] {
 			padding-right: 12px;
 			padding-left: 12px;
+			@include media-breakpoint-down(md) {
+				padding: 0;
+			}
+			@include media-breakpoint-down(sm) {
+				padding: 20px;
+			}
 		}
 		.content-wrapper {
 			background: #fff;
@@ -130,7 +146,12 @@
 				0px 1px 2px rgba(0, 0, 0, 0.24);
 			border-radius: 3px;
 			padding: 32px;
-			height: 346px;
+			@include media-breakpoint-up(md) {
+				height: 346px;
+			}
+			@include media-breakpoint-down(sm) {
+				padding: 24px;
+			}
 		}
 		.chart-wrapper {
 			.info-latest {
@@ -149,6 +170,10 @@
 					color: #667075;
 				}
 			}
+			.line {
+				margin: 0 -5px;
+				width: 103%;
+			}
 		}
 		.hero-calculator {
 			.calculator-wrapper {
@@ -159,6 +184,7 @@
 			}
 		}
 		.table {
+			margin-bottom: 0;
 			thead {
 				th {
 					font-weight: 600;
@@ -179,11 +205,17 @@
 						td {
 							padding: 4px;
 						}
+						&:hover {
+							background: none;
+						}
 					}
 					&:last-child {
 						td {
 							padding: 4px;
 							border: none;
+						}
+						&:hover {
+							background: none;
 						}
 					}
 					&:nth-child(2) {
@@ -204,6 +236,9 @@
 					line-height: 22px;
 					font-size: 16px;
 					white-space: nowrap;
+					@include media-breakpoint-down(sm) {
+						padding: 16px 24px;
+					}
 					img {
 						height: 24px;
 					}
