@@ -251,14 +251,14 @@
 				}
 			}
 		}
-		@include media-breakpoint-down(md) {
-			width: 100%;
-			left: 0;
-		}
-		@include media-breakpoint-down(sm) {
-			width: 150%;
-			left: -50%;
-		}
+		// @include media-breakpoint-down(md) {
+		// 	width: 100%;
+		// 	left: 0;
+		// }
+		// @include media-breakpoint-down(sm) {
+		// 	width: 150%;
+		// 	left: -50%;
+		// }
 		@include media-breakpoint-down(xs) {
 			width: 200%;
 			left: -100%;

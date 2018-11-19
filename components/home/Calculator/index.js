@@ -633,7 +633,7 @@ const ExchangeableItem = ({ exchangeable, onItemSelected, unavailable }) => (
 				className={cn('dropdown-item', unavailable ? 'unavailable' : null)}
 				onClick={() => onItemSelected(exchangeable)}>
 				<div className="text-label currency-label">
-					<div className="currency-symbol-wrapper fluid">
+					<div className="currency-symbol-wrapper fluid justify-content-between">
 						<div className="col-8 text-left text-truncate currency-fullname p-0">
 							<img
 								className="currency-symbol"
