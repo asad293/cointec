@@ -96,7 +96,7 @@ class AccountVerification extends Component {
 				<div className="container">
 					<div className="row justify-content-center">
 						<div
-							className="main-wrapper"
+							className="main-wrapper text-center"
 							style={{
 								width: this.state.completed
 									? 456
