@@ -28,6 +28,10 @@ app
 			app.render(req, res, `/${req.params.pathname}`)
 		})
 
+		server.get('/account-settings/:pathname', (req, res) => {
+			app.render(req, res, `/${req.params.pathname}`)
+		})
+
 		server.get('*', handle)
 
 		const appServer = secure ? createSecureServer(server) : server

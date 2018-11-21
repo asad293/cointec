@@ -42,6 +42,41 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 			return { ...state, loading: true, error: null }
 
 		case FETCH_ACCOUNTS_END:
+			return {
+				...state,
+				list: [
+					{
+						AccountId: '1',
+						AccountNumber: '33456546',
+						AccountOwner: 'Primary account',
+						AccountReference: 'TA',
+						BankName: 'YORKSHIRE BANK',
+						SortCode: '11-22-33',
+						id: 1
+					},
+					{
+						AccountId: '2',
+						AccountNumber: '33456546',
+						AccountOwner: 'Primary account',
+						AccountReference: 'TA',
+						BankName: 'YORKSHIRE BANK',
+						SortCode: '11-22-33',
+						id: 2
+					},
+					{
+						AccountId: '3',
+						AccountNumber: '33456546',
+						AccountOwner: 'Primary account',
+						AccountReference: 'TA',
+						BankName: 'YORKSHIRE BANK',
+						SortCode: '11-22-33',
+						id: 3
+					}
+				],
+				loading: false,
+				error: payload
+			}
+
 		case ADD_ACCOUNT_END:
 			return { ...state, loading: false, error: payload }
 
