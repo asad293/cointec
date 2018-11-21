@@ -104,7 +104,9 @@ class AccountVerification extends Component {
 									? 444
 									: this.state.step === 2
 									? 568
-									: 434
+									: document && document.documentElement.clientWidth > 768
+									? 434
+									: 'auto'
 							}}>
 							<InnerNav
 								step={this.state.step}
