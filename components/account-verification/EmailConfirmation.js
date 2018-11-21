@@ -19,8 +19,8 @@ class EmailConfirmation extends Component {
 			})
 			setTimeout(() => {
 				this.props.onConfirm()
-			}, 1000)
-		}, 750)
+			}, 1500)
+		}, 1000)
 	}
 
 	render() {

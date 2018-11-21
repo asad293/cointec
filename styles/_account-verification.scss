@@ -1,7 +1,9 @@
 .account-verification-page {
 	.main-wrapper {
 		width: 100%;
-		padding: 0 20px;
+		@include media-breakpoint-down(sm) {
+			padding: 0 20px;
+		}
 	}
 	.alert-submitted {
 		background: #0459c4;
