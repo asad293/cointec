@@ -42,6 +42,7 @@ class BankAccounts extends Component {
 		// } else {
 		// 	Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		// }
+		this.props.fetchAccounts(5)
 	}
 
 	render() {
