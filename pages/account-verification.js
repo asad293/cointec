@@ -99,7 +99,9 @@ class AccountVerification extends Component {
 							className="main-wrapper text-center"
 							style={{
 								width:
-									document && document.documentElement.clientWidth > 768
+									process.browser &&
+									document &&
+									document.documentElement.clientWidth > 768
 										? this.state.completed
 											? 456
 											: this.state.step === 1
