@@ -98,15 +98,16 @@ class AccountVerification extends Component {
 						<div
 							className="main-wrapper text-center"
 							style={{
-								width: this.state.completed
-									? 456
-									: this.state.step === 1
-									? 444
-									: this.state.step === 2
-									? 568
-									: document && document.documentElement.clientWidth > 768
-									? 434
-									: 'auto'
+								width:
+									document && document.documentElement.clientWidth > 768
+										? this.state.completed
+											? 456
+											: this.state.step === 1
+											? 444
+											: this.state.step === 2
+											? 568
+											: 434
+										: 434
 							}}>
 							<InnerNav
 								step={this.state.step}
