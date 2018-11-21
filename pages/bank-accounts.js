@@ -84,7 +84,7 @@ class BankAccounts extends Component {
 										{this.props.accounts.list &&
 											this.props.accounts.list.map((account, index) => (
 												<div
-													className="col-12 col-lg-4 col-md-6"
+													className="col-12 col-xl-4 col-md-6"
 													key={account.id}>
 													<AccountCard
 														AccountOwner={account.AccountOwner}
