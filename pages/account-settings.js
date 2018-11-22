@@ -30,14 +30,14 @@ class AccountSettings extends Component {
 	}
 
 	componentDidMount() {
-		const userData = localStorage.getItem('user')
-		const user = userData && JSON.parse(userData)
-		const sessionId = Cookie.get('CT-SESSION-ID')
-		if (user && user.email && sessionId) {
-			this.setState({ email: user.email })
-		} else {
-			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
-		}
+		// const userData = localStorage.getItem('user')
+		// const user = userData && JSON.parse(userData)
+		// const sessionId = Cookie.get('CT-SESSION-ID')
+		// if (user && user.email && sessionId) {
+		// 	this.setState({ email: user.email })
+		// } else {
+		// 	Router.push(`/login?redirectPath=${this.props.router.pathname}`)
+		// }
 	}
 
 	render() {
