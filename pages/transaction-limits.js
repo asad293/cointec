@@ -37,7 +37,7 @@ class TransactionLimits extends Component {
 				className="settings-page dashboard-page full-height"
 				style={{ background: '#F7F9FA', overflowY: 'auto' }}>
 				<Head>
-					<title>Dashboard | Cointec</title>
+					<title>Transaction Limits | Cointec</title>
 				</Head>
 				<header>
 					<Nav />

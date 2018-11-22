@@ -10,6 +10,7 @@ import Nav from '../components/dashboard/Nav'
 import AlertMessage from '../components/dashboard/AlertMessage'
 import TabsGroup from '../components/account-settings/TabsGroup'
 import SettingsMenu from '../components/account-settings/SettingsMenu'
+import RequestData from '../components/account-settings/RequestData'
 import StickyFooter from '../components/StickyFooter'
 
 class Privacy extends Component {
@@ -18,6 +19,7 @@ class Privacy extends Component {
 		this.state = {
 			showAlert: true,
 			saved: false,
+			requestDataModal: false,
 			notificationSettings: [
 				{
 					id: 1,
@@ -77,7 +79,7 @@ class Privacy extends Component {
 				className="settings-page dashboard-page full-height"
 				style={{ background: '#F7F9FA', overflowY: 'auto' }}>
 				<Head>
-					<title>Dashboard | Cointec</title>
+					<title>Privacy | Cointec</title>
 				</Head>
 				<header>
 					<Nav />
@@ -164,9 +166,13 @@ class Privacy extends Component {
 												</p>
 											</div>
 											<div className="ml-md-auto">
-												<Link href="/account-settings">
-													<a className="btn-setting">Data access request</a>
-												</Link>
+												<a
+													className="btn-setting"
+													onClick={() =>
+														this.setState({ requestDataModal: true })
+													}>
+													Data access request
+												</a>
 											</div>
 										</div>
 									</div>
@@ -176,6 +182,11 @@ class Privacy extends Component {
 					</div>
 				</div>
 				<StickyFooter className="bg-white" />
+				{this.state.requestDataModal && (
+					<RequestData
+						onClose={() => this.setState({ requestDataModal: false })}
+					/>
+				)}
 			</div>
 		)
 	}

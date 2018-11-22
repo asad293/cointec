@@ -10,6 +10,7 @@ import Nav from '../components/dashboard/Nav'
 import AlertMessage from '../components/dashboard/AlertMessage'
 import TabsGroup from '../components/account-settings/TabsGroup'
 import SettingsMenu from '../components/account-settings/SettingsMenu'
+import AddBankAccount from '../components/account-settings/AddBankAccount'
 import StickyFooter from '../components/StickyFooter'
 
 const colors = [
@@ -29,7 +30,9 @@ class BankAccounts extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			showAlert: true
+			showAlert: true,
+			addBankAccountModal: false,
+			editAccount: null
 		}
 	}
 
@@ -51,7 +54,7 @@ class BankAccounts extends Component {
 				className="settings-page dashboard-page full-height"
 				style={{ background: '#F7F9FA', overflowY: 'auto' }}>
 				<Head>
-					<title>Dashboard | Cointec</title>
+					<title>Bank Accounts | Cointec</title>
 				</Head>
 				<header>
 					<Nav />
@@ -75,7 +78,11 @@ class BankAccounts extends Component {
 											Saved bank accounts
 										</h6>
 										<h6 className="heading d-flex d-md-none">Bank accounts</h6>
-										<a className="add-account-link">
+										<a
+											className="add-account-link"
+											onClick={() =>
+												this.setState({ addBankAccountModal: true })
+											}>
 											Add bank account
 											<i className="fas fa-plus-circle" />
 										</a>
@@ -91,6 +98,12 @@ class BankAccounts extends Component {
 														AccountNumber={account.AccountNumber}
 														SortCode={account.SortCode}
 														color={colors[index % colors.length]}
+														onEdit={() =>
+															this.setState({
+																addBankAccountModal: true,
+																editAccount: account
+															})
+														}
 													/>
 												</div>
 											))}
@@ -101,12 +114,26 @@ class BankAccounts extends Component {
 					</div>
 				</div>
 				<StickyFooter className="bg-white" />
+				{this.state.addBankAccountModal && (
+					<AddBankAccount
+						editAccount={this.state.editAccount}
+						onClose={() =>
+							this.setState({ addBankAccountModal: false, editAccount: null })
+						}
+					/>
+				)}
 			</div>
 		)
 	}
 }
 
-const AccountCard = ({ AccountOwner, AccountNumber, SortCode, color }) => (
+const AccountCard = ({
+	AccountOwner,
+	AccountNumber,
+	SortCode,
+	color,
+	onEdit
+}) => (
 	<div className="account-card" style={{ background: color }}>
 		<div className="row">
 			<div className="col">
@@ -115,7 +142,9 @@ const AccountCard = ({ AccountOwner, AccountNumber, SortCode, color }) => (
 				{/* <p className="field-value">Primary account</p> */}
 			</div>
 			<div className="col-3 text-right">
-				<a className="edit-account-link">Edit</a>
+				<a className="edit-account-link" onClick={onEdit}>
+					Edit
+				</a>
 			</div>
 		</div>
 		<br />

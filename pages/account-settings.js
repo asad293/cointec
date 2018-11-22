@@ -10,25 +10,34 @@ import Nav from '../components/dashboard/Nav'
 import AlertMessage from '../components/dashboard/AlertMessage'
 import TabsGroup from '../components/account-settings/TabsGroup'
 import SettingsMenu from '../components/account-settings/SettingsMenu'
+import ConfirmEmail from '../components/account-settings/ConfirmEmail'
+import ChangeEmail from '../components/account-settings/ChangeEmail'
+import UpdatePassword from '../components/account-settings/UpdatePassword'
+import CloseAccount from '../components/account-settings/CloseAccount'
 import StickyFooter from '../components/StickyFooter'
 
 class AccountSettings extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			showAlert: true
+			showAlert: true,
+			confirmEmailModal: false,
+			changeEmailModal: false,
+			updatePasswordModal: false,
+			closeAccountModal: false,
+			email: null
 		}
 	}
 
 	componentDidMount() {
-		// const userData = localStorage.getItem('user')
-		// const user = userData && JSON.parse(userData)
-		// const sessionId = Cookie.get('CT-SESSION-ID')
-		// if (user && user.CtUserId && sessionId) {
-		// 	this.props.fetchOrders({ ctUser: user.CtUserId })
-		// } else {
-		// 	Router.push(`/login?redirectPath=${this.props.router.pathname}`)
-		// }
+		const userData = localStorage.getItem('user')
+		const user = userData && JSON.parse(userData)
+		const sessionId = Cookie.get('CT-SESSION-ID')
+		if (user && user.email && sessionId) {
+			this.setState({ email: user.email })
+		} else {
+			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
+		}
 	}
 
 	render() {
@@ -37,7 +46,7 @@ class AccountSettings extends Component {
 				className="settings-page dashboard-page full-height"
 				style={{ background: '#F7F9FA', overflowY: 'auto' }}>
 				<Head>
-					<title>Dashboard | Cointec</title>
+					<title>Account settings | Cointec</title>
 				</Head>
 				<header>
 					<Nav />
@@ -85,16 +94,24 @@ class AccountSettings extends Component {
 													<img src="/static/images/check.svg" alt="verified" />
 												</h6>
 												<p className="mb-4 mb-md-0">
-													nuurspace@gmail.com |
-													<Link href="/account-settings">
-														<a className="link-setting">update</a>
-													</Link>
+													{this.state.email || 'nuurspace@gmail.com'} |
+													<a
+														className="link-setting"
+														onClick={() =>
+															this.setState({ changeEmailModal: true })
+														}>
+														update
+													</a>
 												</p>
 											</div>
 											<div className="ml-md-auto">
-												<Link href="/account-settings">
-													<a className="btn-setting">Confirm email address</a>
-												</Link>
+												<a
+													className="btn-setting"
+													onClick={() =>
+														this.setState({ confirmEmailModal: true })
+													}>
+													Confirm email address
+												</a>
 											</div>
 										</div>
 									</div>
@@ -104,9 +121,13 @@ class AccountSettings extends Component {
 												<h6 className="setting-name">Password</h6>
 												<p>
 													************ |
-													<Link href="/account-settings">
-														<a className="link-setting">update</a>
-													</Link>
+													<a
+														className="link-setting"
+														onClick={() =>
+															this.setState({ updatePasswordModal: true })
+														}>
+														update
+													</a>
 												</p>
 											</div>
 										</div>
@@ -124,11 +145,13 @@ class AccountSettings extends Component {
 												</p>
 											</div>
 											<div className="ml-md-auto">
-												<Link href="/account-settings">
-													<a className="btn-setting text-danger">
-														Close your account
-													</a>
-												</Link>
+												<a
+													className="btn-setting text-danger"
+													onClick={() =>
+														this.setState({ closeAccountModal: true })
+													}>
+													Close your account
+												</a>
 											</div>
 										</div>
 									</div>
@@ -138,14 +161,32 @@ class AccountSettings extends Component {
 					</div>
 				</div>
 				<StickyFooter className="bg-white" />
+				{this.state.confirmEmailModal && (
+					<ConfirmEmail
+						onClose={() => this.setState({ confirmEmailModal: false })}
+					/>
+				)}
+				{this.state.changeEmailModal && (
+					<ChangeEmail
+						onClose={() => this.setState({ changeEmailModal: false })}
+					/>
+				)}
+				{this.state.updatePasswordModal && (
+					<UpdatePassword
+						onClose={() => this.setState({ updatePasswordModal: false })}
+					/>
+				)}
+				{this.state.closeAccountModal && (
+					<CloseAccount
+						onClose={() => this.setState({ closeAccountModal: false })}
+					/>
+				)}
 			</div>
 		)
 	}
-
-	componentWillReceiveProps(props) {}
 }
 
 export default connect(
-	({ order, assets }) => ({ order, assets }),
+	({ auth }) => ({ auth }),
 	{ fetchOrders, fetchAssetsList }
 )(withRouter(AccountSettings))
