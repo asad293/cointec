@@ -82,7 +82,7 @@ class Exchange extends Component {
 		return (
 			<div
 				className="exchange-page full-height"
-				style={{ backgroundColor: '#F7F9FA' }}>
+				style={{ backgroundColor: '#F7F9FA', position: 'absolute' }}>
 				<Head>
 					<title>Exchange | Cointec</title>
 				</Head>
@@ -94,9 +94,8 @@ class Exchange extends Component {
 				</Header>
 
 				<div className="container">
-					<div className="row justify-content-center">
+					<div className="row justify-content-center mb-5">
 						<div className="main-wrapper">
-							{/* <div className="col-12 col-md-8 col-lg-6 col-xl-5 px-lg-4 text-center"> */}
 							<InnerNav
 								step={this.state.step}
 								setStep={step => this.setState({ step })}
