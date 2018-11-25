@@ -60,9 +60,10 @@ export const signIn = ({ email, password }) => async dispatch => {
 				dispatch({ type: SIGN_IN_END, payload: response.data })
 				throw { response }
 			} else {
-				const userData = JSON.stringify(response.data)
+				const data = { ...response.data, email }
+				const userData = JSON.stringify(data)
 				localStorage.setItem('user', userData)
-				return dispatch({ type: SIGN_IN, payload: response.data })
+				return dispatch({ type: SIGN_IN, payload: data })
 			}
 		})
 		.catch(error => {

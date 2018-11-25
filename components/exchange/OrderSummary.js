@@ -18,8 +18,7 @@ class OrderSummary extends Component {
 			buttonIsDisabled: true,
 			refreshTime: 60,
 			showCaptcha: false,
-			exchangeRate: null,
-			fetchQuote: null
+			exchangeRate: null
 		}
 
 		this.tick = this.tick.bind(this)
@@ -61,16 +60,14 @@ class OrderSummary extends Component {
 
 	componentWillUnmount() {
 		clearInterval(this.state.timerId)
-		if (this.state.fetchQuote) this.state.fetchQuote.cancel()
 	}
 
 	fetchCalls() {
-		const fetchQuote = this.props.fetchQuote({
+		this.props.fetchQuote({
 			SendCurrency: this.props.sendCurrency,
 			ReceiveCurrency: this.props.receiveCurrency,
 			ReceiveAmount: this.props.receiveAmount
 		})
-		this.setState({ fetchQuote })
 		this.props.fetchConsts()
 	}
 
@@ -143,8 +140,8 @@ class OrderSummary extends Component {
 												? rate.toFixed(2)
 												: rate.toFixed(8)
 											: sendCurrency === 'GBP'
-												? this.state.exchangeRate.toFixed(2)
-												: this.state.exchangeRate.toFixed(8)
+											? this.state.exchangeRate.toFixed(2)
+											: this.state.exchangeRate.toFixed(8)
 									} ${sendCurrency}/${receiveCurrency}`}
 								</p>
 							</div>
@@ -187,7 +184,7 @@ class OrderSummary extends Component {
 					</form>
 				</div>
 				<p className="text-left mt-3">
-					Exchange rate will update in:{' '}
+					Exchange rate will update in{' '}
 					<MinutesFormat seconds={this.state.refreshTime - this.state.timer} />
 				</p>
 			</div>

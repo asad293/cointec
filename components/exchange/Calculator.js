@@ -103,11 +103,12 @@ class Calculator extends Component {
 			// this.setState({ fetchQuote })
 		}
 
-		if (sendAmount.length > 0)
-			return (
-				(currencySelected ? currencySelected.Symbol : '£') + ' ' + sendAmount
-			)
-		else return sendAmount
+		// if (sendAmount.length > 0)
+		// 	return (
+		// 		(currencySelected ? currencySelected.Symbol : '£') + ' ' + sendAmount
+		// 	)
+		// else
+		return sendAmount
 	}
 
 	normalizeReceiveAmount(value, previousValue) {
@@ -158,7 +159,7 @@ class Calculator extends Component {
 
 	initInterval(interval) {
 		clearInterval(this.state.intervalId)
-		let intervalId = setInterval(this.fetchCalls, interval * 1000)
+		let intervalId = setInterval(this.fetchCalls, interval * 100 * 1000)
 		// store intervalId in the state so it can be accessed later to clear it
 		this.setState({ intervalId })
 	}
@@ -207,22 +208,23 @@ class Calculator extends Component {
 	}
 
 	getQuote() {
+		const SendCurrency = this.state.currencySelected.Name
+		const ReceiveCurrency = this.state.coinSelected
+			? this.state.coinSelected.Name
+			: this.state.coins[0].Name
+
 		if (this.state.action === 'sending') {
 			return this.props.fetchQuote({
-				SendCurrency: this.state.currencySelected.Name,
-				ReceiveCurrency: this.state.coinSelected
-					? this.state.coinSelected.Name
-					: this.state.coins[0].Name,
+				SendCurrency,
+				ReceiveCurrency,
 				SendAmount: this.props.sendAmount
 					? this.props.sendAmount
 					: this.state.placeholderSendAmount
 			})
 		} else if (this.state.action === 'receiving' && this.props.receiveAmount) {
 			return this.props.fetchQuote({
-				SendCurrency: this.state.currencySelected.Name,
-				ReceiveCurrency: this.state.coinSelected
-					? this.state.coinSelected.Name
-					: this.state.coins[0].Name,
+				SendCurrency,
+				ReceiveCurrency,
 				ReceiveAmount: this.props.receiveAmount
 			})
 		}
@@ -230,6 +232,7 @@ class Calculator extends Component {
 
 	fetchCalls() {
 		if (!this.state.active) return
+		console.log(this.state.intervalId)
 		this.props.fetchAssetsStatus()
 		// this.props.fetchConsts()
 		// if (this.state.fetchQuote) this.state.fetchQuote.cancel()
@@ -255,11 +258,11 @@ class Calculator extends Component {
 		}
 
 		if (receiveAmount && action === 'receiving' && currencySelected) {
-			const { symbol, dp } = currencySelected
+			const { dp } = currencySelected
 			if (receiveAmount === QuoteReceiveAmount)
 				this.props.change(
 					'sendAmount',
-					`${symbol} ${Number.parseFloat(QuoteSendAmount).toFixed(
+					`${Number.parseFloat(QuoteSendAmount).toFixed(
 						QuoteSendAmount == 0 ? 0 : dp
 					)}`
 				)
@@ -283,7 +286,7 @@ class Calculator extends Component {
 			return true
 		}
 
-		if (coin.keywords.startsWith(word)) {
+		if (coin.Keywords.startsWith(word)) {
 			return true
 		}
 		return false
@@ -494,9 +497,9 @@ class Calculator extends Component {
 				if (this.props.sendAmount)
 					this.props.change(
 						'sendAmount',
-						currency.Symbol +
-							' ' +
-							Number.parseFloat(this.props.sendAmount).toFixed(currency.Dp)
+						// currency.Symbol +
+						// 	' ' +
+						Number.parseFloat(this.props.sendAmount).toFixed(currency.Dp)
 					)
 				this.fetchCalls()
 			}
@@ -552,7 +555,8 @@ class Calculator extends Component {
 									alt={exchangeable.Name}
 								/>
 							</div>
-							<span>{exchangeable.Name}</span>
+							<span>{exchangeable.FullName}</span>
+							<span className="name">{exchangeable.Name}</span>
 						</div>
 					</a>
 				}
@@ -571,25 +575,19 @@ class Calculator extends Component {
 							{Message ? Message : 'You send'}
 						</label>
 						<div className="calc-field">
-							<div className="col-6 col-xl-7 pr-0">
+							<div className="col-6 col-sm-7 pr-0">
 								<Field
 									name="sendAmount"
 									component={this.renderField}
 									normalize={this.normalizeSendAmount}
-									placeholder={
-										(this.state.currencySelected
-											? this.state.currencySelected.Symbol
-											: '£') +
-										' ' +
-										this.state.placeholderSendAmount.toFixed(
-											this.state.currencySelected
-												? this.state.currencySelected.Dp
-												: 2
-										)
-									}
+									placeholder={this.state.placeholderSendAmount.toFixed(
+										this.state.currencySelected
+											? this.state.currencySelected.Dp
+											: 2
+									)}
 								/>
 							</div>
-							<div className="col-6 col-xl-5 pr-0 d-flex align-items-center d-flex align-items-center">
+							<div className="col-6 col-sm-5 pr-0 d-flex align-items-center d-flex align-items-center">
 								<div className="dropdown dropdown-currency-select">
 									<a
 										className="btn dropdown-toggle"
@@ -644,7 +642,7 @@ class Calculator extends Component {
 					<div className="calc-input-wrapper text-left">
 						<label className="field-label">You receive</label>
 						<div className="calc-field">
-							<div className="col-6 col-xl-7 pr-0">
+							<div className="col-6 col-sm-7 pr-0">
 								<Field
 									name="receiveAmount"
 									component={this.renderField}
@@ -654,7 +652,7 @@ class Calculator extends Component {
 									).toFixed(8)}
 								/>
 							</div>
-							<div className="col-6 col-xl-5 pr-0 d-flex align-items-center">
+							<div className="col-6 col-sm-5 pr-0 d-flex align-items-center">
 								<div className="dropdown dropdown-currency-select">
 									<a
 										className="btn dropdown-toggle"
@@ -684,11 +682,6 @@ class Calculator extends Component {
 											className="dropdown-menu show"
 											aria-labelledby="dropdownMenuLink">
 											<div className="search-item">
-												<img
-													className="search-symbol"
-													src="/static/images/dropdown-search.svg"
-													alt="Search"
-												/>
 												<input
 													className="search-input"
 													placeholder="Search"
@@ -696,6 +689,11 @@ class Calculator extends Component {
 													value={this.state.coinSearch}
 													onClick={this.toggleSearch}
 													onChange={this.searchCoin.bind(this)}
+												/>
+												<img
+													className="search-symbol"
+													src="/static/images/dropdown-search.svg"
+													alt="Search"
 												/>
 											</div>
 											<div className="dropdown-items-wrapper">
@@ -758,8 +756,9 @@ class Calculator extends Component {
 
 const mapStateToProps = state => {
 	const selector = formValueSelector('CalcForm')
-	let sendAmount = '"' + selector(state, 'sendAmount')
-	sendAmount = Number.parseFloat(sendAmount.split(' ')[1])
+	// let sendAmount = '"' + selector(state, 'sendAmount')
+	// sendAmount = Number.parseFloat(sendAmount.split(' ')[1])
+	const sendAmount = Number.parseFloat(selector(state, 'sendAmount'))
 	const receiveAmount = Number.parseFloat(selector(state, 'receiveAmount'))
 	const wallet = selector(state, 'wallet')
 

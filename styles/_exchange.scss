@@ -1,6 +1,20 @@
+.exchange-page {
+	@include media-breakpoint-down(xs) {
+		overflow-y: scroll;
+		.bottom-bar {
+			position: relative;
+		}
+		@media screen and (min-height: 699px) {
+			.bottom-bar {
+				position: fixed;
+			}
+		}
+	}
+}
+
 .form-title-wrapper {
 	margin-top: 72px;
-	margin-bottom: 35px;
+	margin-bottom: 32px;
 	justify-content: center;
 	img {
 		width: 16px;
@@ -12,6 +26,7 @@
 		font-size: 20px;
 		padding-left: 8px;
 		line-height: 15px;
+		margin: 0;
 	}
 }
 
@@ -129,51 +144,52 @@
 			}
 		}
 	}
+	&.inner {
+		margin-top: 40px;
+		margin-bottom: 32px;
+		ul {
+			width: 269px;
+			margin: 0 auto;
+			&::before,
+			&::after {
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+			}
+			li::before {
+				bottom: -5px;
+			}
+		}
+	}
+}
+.navbar-exchange {
+	padding: 18px 0;
+	@include media-breakpoint-down(xs) {
+		padding: 13px 0;
+	}
 }
 
-// .info-column {
-// 	padding-left: 30px;
-// 	& > *:first-child {
-// 		margin-top: 76px;
-// 	}
-// 	h6 {
-// 		font-size: 18px;
-// 		color: #045cc7;
-// 	}
-// 	hr {
-// 		margin: 1.5rem 0;
-// 	}
-// 	p {
-// 		margin-bottom: 0.5rem;
-// 	}
-// 	.limit-amount {
-// 		font-size: 24px;
-// 		color: #4e4e4e;
-// 		font-weight: 500;
-// 	}
-// 	.info-link {
-// 		text-decoration: underline;
-// 	}
-// 	.contact-us-link {
-// 		border: 1px solid #045cc7;
-// 		border-radius: 2px;
-// 		padding: 12px 20px;
-// 		margin-top: 20px;
-// 		&:hover {
-// 			border: 1px solid #02397c;
-// 			text-decoration: none;
-// 		}
-// 	}
-// }
 .exchange-page {
 	.bottom-bar {
 		position: fixed;
+  }
+}
+.main-wrapper {
+	width: 434px;
+	text-align: center;
+	@include media-breakpoint-down(xs) {
+		width: 100%;
+		padding: 0 15px;
 	}
 }
 
 @import 'components/exchange/calculator';
 
 .order-summary-wrapper {
+	.field-label {
+		margin-bottom: 14px;
+	}
 	.field-value {
 		font-weight: normal;
 		line-height: 12px;
@@ -187,7 +203,9 @@
 		border: none;
 		padding: 0;
 		outline: none;
-		margin-bottom: 17px;
+		margin-bottom: 33px;
+		display: block;
+		height: 12px;
 		&:hover {
 			box-shadow: none;
 		}
@@ -196,15 +214,25 @@
 			line-height: 12px;
 			font-size: 16px;
 			color: #515c61;
+			max-width: 355px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			text-align: left;
+			@include media-breakpoint-down(xs) {
+				max-width: 270px;
+			}
 		}
 		i {
 			position: absolute;
 			right: 15px;
-			top: 29px;
+			top: 21px;
 		}
 	}
 	hr {
 		margin: 0 -32px;
+		@include media-breakpoint-down(xs) {
+			margin: 0 -24px;
+		}
 	}
 	.recaptcha-wrapper {
 		margin-top: 31px;
