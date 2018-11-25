@@ -3,7 +3,9 @@ import Link from 'next/link'
 import cn from 'classnames'
 
 const StickyFooter = props => (
-	<div className={cn('bottom-bar', props.className)}>
+	<div
+		className={cn('bottom-bar', props.className)}
+		style={{ position: props.fixed ? 'fixed' : '' }}>
 		<div className="container">
 			<div className="row">
 				<div className="col-6 copyright">@ Cointec LTD 2018</div>

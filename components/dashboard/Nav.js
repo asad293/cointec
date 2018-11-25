@@ -59,22 +59,34 @@ const Nav = () => (
 								<i className="far fa-angle-down" />
 							</button>
 							<div className="dropdown-menu dropdown-menu-right">
-								<button className="dropdown-item" type="button">
-									<i className="far fa-cog" />
-									Account settings
-								</button>
-								<button className="dropdown-item" type="button">
-									<i className="far fa-cog" />
-									Account settings
-								</button>
-								<button className="dropdown-item" type="button">
-									<i className="far fa-cog" />
-									Account settings
-								</button>
-								<button className="dropdown-item" type="button">
-									<i className="far fa-cog" />
-									Account settings
-								</button>
+								<Link href="/account-settings">
+									<a className="dropdown-item">
+										<i className="far fa-cog" />
+										Account settings
+									</a>
+								</Link>
+								<Link
+									href="/transaction-limits"
+									as="/account-settings/transaction-limits">
+									<a className="dropdown-item">
+										<i className="far fa-cog" />
+										Transaction limits
+									</a>
+								</Link>
+								<Link
+									href="/bank-accounts"
+									as="/account-settings/bank-accounts">
+									<a className="dropdown-item">
+										<i className="far fa-cog" />
+										Bank accounts
+									</a>
+								</Link>
+								<Link href="/privacy" as="/account-settings/privacy">
+									<a className="dropdown-item">
+										<i className="far fa-cog" />
+										Privacy
+									</a>
+								</Link>
 								<button className="dropdown-item" type="button">
 									<i className="far fa-cog" />
 									Sign out
