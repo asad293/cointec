@@ -10,7 +10,6 @@ class BasicDetails extends Component {
 		this.state = {
 			manualAddress: false
 		}
-		DAF
 		this.onSubmit = this.onSubmit.bind(this)
 		this.toggleManual = this.toggleManual.bind(this)
 	}
