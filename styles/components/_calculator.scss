@@ -92,6 +92,7 @@
 						}
 						.currency-fullname {
 							max-width: 200px;
+							line-height: 20px;
 						}
 						&.fluid {
 							width: 100%;
@@ -220,7 +221,7 @@
 				background: #0459c4;
 			}
 			.dropdown-item {
-				padding: 16px;
+				padding: 14px 16px;
 				cursor: pointer;
 				.text-label {
 					padding: 0;

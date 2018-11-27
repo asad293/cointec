@@ -6,7 +6,8 @@
 		position: absolute;
 	}
 	.bottom-bar {
-		position: fixed;
+		// position: fixed;
+		position: initial;
 		@include media-breakpoint-down(sm) {
 			position: initial;
 		}
@@ -28,6 +29,10 @@
 		@include media-breakpoint-down(md) {
 			padding: 0;
 		}
+	}
+
+	.nav-link {
+		cursor: pointer;
 	}
 
 	.dashboard-heading {
@@ -81,6 +86,9 @@
 				padding: 8px 16px;
 				border-radius: 3px;
 				outline: none;
+				@include media-breakpoint-down(md) {
+					width: 100%;
+				}
 				&:hover,
 				&:active {
 					color: #1a1d1f;
@@ -125,19 +133,20 @@
 
 	.dashboard-container {
 		margin-top: 40px;
-		margin-bottom: 87px;
+		margin-bottom: 40px;
 		@include media-breakpoint-down(md) {
 			margin-top: 24px;
 			margin-bottom: 24px;
 		}
-		& > [class*='col-'] {
+		& > .row > [class*='col-'] {
 			padding-right: 12px;
 			padding-left: 12px;
 			@include media-breakpoint-down(md) {
 				padding: 0;
 			}
 			@include media-breakpoint-down(sm) {
-				padding: 20px;
+				padding-left: 20px;
+				padding-right: 20px;
 			}
 		}
 		.content-wrapper {
@@ -164,8 +173,8 @@
 					font-size: 16px;
 					color: #1a1d1f;
 				}
-				time {
-					line-height: 12px;
+				.updated-at {
+					line-height: 19px;
 					font-size: 14px;
 					color: #667075;
 				}
@@ -201,15 +210,8 @@
 					&:hover {
 						background: #f0f3f5;
 					}
-					&:first-child {
-						td {
-							padding: 4px;
-						}
-						&:hover {
-							background: none;
-						}
-					}
-					&:last-child {
+					// &:first-child {
+					&.tr-empty {
 						td {
 							padding: 4px;
 							border: none;
@@ -218,10 +220,27 @@
 							background: none;
 						}
 					}
-					&:nth-child(2) {
+					// &:last-child {
+					// 	td {
+					// 		padding: 4px;
+					// 		border: none;
+					// 	}
+					// 	&:hover {
+					// 		background: none;
+					// 	}
+					// }
+					// &:nth-child(2) {
+					// 	td {
+					// 		border: none;
+					// 	}
+					// }
+					&.no-border {
 						td {
 							border: none;
 						}
+					}
+					&.tr-date {
+						background: #e7ecee;
 					}
 					&.no-result {
 						text-align: center;

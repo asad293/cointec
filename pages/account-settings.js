@@ -61,7 +61,7 @@ class AccountSettings extends Component {
 				<div className="container dashboard-container">
 					<div className="row">
 						<div className="col">
-							<div className="content-wrapper p-0 h-auto">
+							<div className="content-wrapper p-0 h-auto position-relative">
 								<TabsGroup />
 								<SettingsMenu title="Your account" />
 								<div className="settings-list">
