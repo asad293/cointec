@@ -256,7 +256,7 @@
 					font-size: 16px;
 					white-space: nowrap;
 					@include media-breakpoint-down(sm) {
-						padding: 16px 24px;
+						padding: 16px 0 16px 24px;
 					}
 					img {
 						height: 24px;
