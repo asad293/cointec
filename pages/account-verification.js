@@ -18,7 +18,7 @@ class AccountVerification extends Component {
 		this.state = {
 			ctUser: null,
 			completed: false,
-			step: 3
+			step: 1
 		}
 
 		this.next = this.next.bind(this)

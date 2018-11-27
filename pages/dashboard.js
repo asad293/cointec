@@ -104,13 +104,15 @@ const TransactionTable = ({ orders, assets }) => (
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
+			<tr className="tr-empty">
 				<td />
 			</tr>
 			{orders ? (
 				orders.TransactionHistory.slice(0, orders.HomepageDisplayLimit).map(
-					order => (
-						<tr key={order.ctTransactionId}>
+					(order, index) => (
+						<tr
+							key={order.ctTransactionId}
+							className={index === 0 ? 'no-border' : ''}>
 							{assets && (
 								<td>
 									<img src={assets[order.sourceCurrency]} />
@@ -140,7 +142,7 @@ const TransactionTable = ({ orders, assets }) => (
 					<td colSpan="5">No results</td>
 				</tr>
 			)}
-			<tr>
+			<tr className="tr-empty">
 				<td />
 			</tr>
 			{/* <tr>

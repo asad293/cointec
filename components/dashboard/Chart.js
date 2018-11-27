@@ -36,7 +36,10 @@ class Chart extends Component {
 							<span>{this.state.latestRate.toFixed(2)}</span> GBP/
 							{this.state.coinName}
 						</h6>
-						<Moment fromNow>{this.state.updatedOn}</Moment>
+						<span className="updated-at">
+							Updated 20s ago
+							{/* <Moment fromNow>{this.state.updatedOn}</Moment> */}
+						</span>
 					</div>
 				)}
 				{this.state.options && (
@@ -77,10 +80,10 @@ class Chart extends Component {
 			)
 			const chartData = props.chart.data //.filter((_, index) => index % 4 === 0)
 			const timestamps = chartData.map(data => data && data.Timestamp)
-			const rates = chartData.map(data => data && data.Rate.toFixed(2))
+			const rates = chartData.map(data => data && data.Rate.toFixed(0))
 			const tooltip = chartData.map(data => {
 				const date = String(new Date(data.Timestamp * 1000))
-				return `${date.slice(4, 10)} ${date.slice(16, 21)}`
+				return `${date.slice(8, 10)} ${date.slice(4, 7)} ${date.slice(16, 21)}`
 			})
 			const { Rate, Timestamp } = chartData[chartData.length - 1]
 			this.setState({
@@ -88,24 +91,29 @@ class Chart extends Component {
 					scaleBegingAtZero: false,
 					tooltips: {
 						shadowOffsetX: 0,
-						shadowOffsetY: 4,
-						shadowBlur: 20,
-						shadowColor: 'rgba(0, 0, 0, 0.04)',
+						shadowOffsetY: 6,
+						shadowBlur: 8,
+						shadowColor: 'rgba(0, 0, 0, 0.13)',
 						mode: 'index',
 						intersect: false,
 						backgroundColor: 'white',
 						borderColor: '#E8EAEB',
 						borderWidth: 1,
-						bodyFontColor: coin.Primary, //'#f7931a',
-						bodyFontSize: 18,
-						titleFontColor: '#5E6C78',
+						cornerRadius: 3,
+						bodyFontColor: '#667075',
+						bodyFontSize: 14,
+						bodyFontStyle: 'bold',
+						titleFontColor: '#1A1D1F',
 						titleFontSize: 14,
+						titleFontStyle: 'bold',
 						footerFontColor: 'red',
 						displayColors: false,
 						xPadding: 12,
 						yPadding: 12,
 						callbacks: {
-							title: ([tooltipItem], data) => tooltip[tooltipItem.index]
+							title: ([tooltipItem], data) => tooltip[tooltipItem.index],
+							label: (tooltipItem, data) =>
+								rates[tooltipItem.index] + ` GBP/${coin.Name}`
 						}
 					},
 					hover: {

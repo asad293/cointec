@@ -163,6 +163,11 @@
 		}
 	}
 }
+.navbar-brand {
+	img {
+		max-width: 104px;
+	}
+}
 .navbar-exchange {
 	padding: 18px 0;
 	@include media-breakpoint-down(xs) {
@@ -173,7 +178,7 @@
 .exchange-page {
 	.bottom-bar {
 		position: fixed;
-  }
+	}
 }
 .main-wrapper {
 	width: 434px;

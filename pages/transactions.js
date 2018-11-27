@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { fetchOrders, fetchAssetsList } from '../store/actions'
 import Cookie from 'js-cookie'
 import Moment from 'react-moment'
+import _ from 'lodash'
 
 import Nav from '../components/dashboard/Nav'
 import AlertMessage from '../components/dashboard/AlertMessage'
@@ -52,10 +53,10 @@ class Transactions extends Component {
 				{this.state.showAlert && (
 					<AlertMessage onHide={() => this.setState({ showAlert: false })} />
 				)}
-				<div className="container dashboard-container mb-5">
+				<div className="container dashboard-container mb-md-5">
 					<div className="row">
 						<div className="col">
-							<div className="content-wrapper mb-4 p-0 h-auto">
+							<div className="content-wrapper mb-md-4 p-0 h-auto">
 								<TransactionTable
 									currentPage={this.state.currentPage}
 									orders={this.props.order.orders}
@@ -65,7 +66,7 @@ class Transactions extends Component {
 							<Pagination
 								currentPage={this.state.currentPage}
 								totalPages={this.state.totalPages}
-								// className="d-none d-md-block"
+								className="d-none d-md-block"
 								onChange={page => this.setState({ currentPage: page })}
 							/>
 						</div>
@@ -96,62 +97,127 @@ class Transactions extends Component {
 	}
 }
 
-const TransactionTable = ({ orders, assets, currentPage }) => (
-	<table className="table">
-		<thead>
-			<tr>
-				<th>Recent activity</th>
-				<th className="d-none d-md-table-cell">Receive amount</th>
-				<th className="d-none d-lg-table-cell">Send amount</th>
-				<th className="d-none d-md-table-cell">Timestamp</th>
-				<th>Status</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td />
-			</tr>
-			{orders ? (
-				orders.TransactionHistory.slice(
-					(currentPage - 1) * orders.TransactionsDisplayLimit,
-					(currentPage - 1) * orders.TransactionsDisplayLimit +
-						orders.TransactionsDisplayLimit
-				).map(order => (
-					<tr key={order.ctTransactionId}>
-						{assets && (
-							<td>
-								<img src={assets[order.sourceCurrency]} />
-								<i className="far fa-long-arrow-right fa-lg d-none d-md-inline" />
-								<img
-									className="d-none d-md-inline"
-									src={assets[order.destCurrency]}
-								/>
-								<span className="d-inline d-md-none pl-3">
-									+{order.destAmount}
-								</span>
-							</td>
-						)}
-						<td className="d-none d-md-table-cell">{order.destAmount}</td>
-						<td className="d-none d-lg-table-cell">
-							{order.sourceAmount} {order.sourceCurrency}
-						</td>
-						<td className="d-none d-md-table-cell">
-							<Moment format="DD MMM hh:mmA">{order.createdAt * 1000}</Moment>
-						</td>
-						<td className="transaction-status">{order.status}</td>
+const TransactionTable = ({ orders, assets, currentPage }) => {
+	const transactionHistoryGroups = orders
+		? _.groupBy(orders.TransactionHistory, order =>
+				new Date(order.createdAt * 1000).setHours(0, 0, 0, 0)
+		  )
+		: null
+	return (
+		<div>
+			<table className="table d-none d-md-table">
+				<thead>
+					<tr>
+						<th>Recent activity</th>
+						<th className="d-none d-md-table-cell">Receive amount</th>
+						<th className="d-none d-lg-table-cell">Send amount</th>
+						<th className="d-none d-md-table-cell">Timestamp</th>
+						<th>Status</th>
 					</tr>
-				))
-			) : (
-				<tr className="no-result">
-					<td colSpan="5">No results</td>
-				</tr>
-			)}
-			<tr>
-				<td />
-			</tr>
-		</tbody>
-	</table>
-)
+				</thead>
+				<tbody>
+					<tr className="tr-empty">
+						<td />
+					</tr>
+					{orders ? (
+						orders.TransactionHistory.slice(
+							(currentPage - 1) * orders.TransactionsDisplayLimit,
+							(currentPage - 1) * orders.TransactionsDisplayLimit +
+								orders.TransactionsDisplayLimit
+						).map((order, index) => (
+							<tr
+								key={order.ctTransactionId}
+								className={index === 0 ? 'no-border' : ''}>
+								{assets && (
+									<td>
+										<img src={assets[order.sourceCurrency]} />
+										<i className="far fa-long-arrow-right fa-lg d-none d-md-inline" />
+										<img
+											className="d-none d-md-inline"
+											src={assets[order.destCurrency]}
+										/>
+										<span className="d-inline d-md-none pl-3">
+											+{order.destAmount}
+										</span>
+									</td>
+								)}
+								<td className="d-none d-md-table-cell">{order.destAmount}</td>
+								<td className="d-none d-lg-table-cell">
+									{order.sourceAmount} {order.sourceCurrency}
+								</td>
+								<td className="d-none d-md-table-cell">
+									<Moment format="DD MMM hh:mmA">
+										{order.createdAt * 1000}
+									</Moment>
+								</td>
+								<td className="transaction-status">{order.status}</td>
+							</tr>
+						))
+					) : (
+						<tr className="no-result">
+							<td colSpan="5">No results</td>
+						</tr>
+					)}
+					<tr className="tr-empty">
+						<td />
+					</tr>
+				</tbody>
+			</table>
+			<table className="table d-table d-md-none">
+				<tbody>
+					{transactionHistoryGroups ? (
+						Object.keys(transactionHistoryGroups).map(
+							group => [
+								<tr className="tr-date" key={group}>
+									<td colSpan="2">
+										<Moment format="DD MMM YYYY">
+											{Number.parseInt(group)}
+										</Moment>
+									</td>
+								</tr>,
+								transactionHistoryGroups[group].map(order => (
+									<tr key={order.ctTransactionId}>
+										{assets && (
+											<td>
+												<img src={assets[order.sourceCurrency]} />
+												<i className="far fa-long-arrow-right fa-lg d-none d-md-inline" />
+												<img
+													className="d-none d-md-inline"
+													src={assets[order.destCurrency]}
+												/>
+												<span className="d-inline d-md-none pl-3">
+													+{order.destAmount}
+												</span>
+											</td>
+										)}
+										<td className="d-none d-md-table-cell">
+											{order.destAmount}
+										</td>
+										<td className="d-none d-lg-table-cell">
+											{order.sourceAmount} {order.sourceCurrency}
+										</td>
+										<td className="d-none d-md-table-cell">
+											<Moment format="DD MMM hh:mmA">
+												{order.createdAt * 1000}
+											</Moment>
+										</td>
+										<td className="transaction-status">{order.status}</td>
+									</tr>
+								))
+							]
+							// 	order => (
+							// )
+						)
+					) : (
+						<tr className="no-result">
+							<td colSpan="5">No results</td>
+						</tr>
+					)}
+				</tbody>
+			</table>
+		</div>
+	)
+}
 
 export default connect(
 	({ order, assets }) => ({ order, assets }),

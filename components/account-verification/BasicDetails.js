@@ -56,8 +56,10 @@ class BasicDetails extends Component {
 							<Field
 								name="birthdate"
 								label="Date of bith"
-								type="date"
+								// type="date"
 								component={this.renderField}
+								placeholder="01/01/1999"
+								normalize={this.normalizeBirthDate}
 							/>
 						</div>
 					</div>
@@ -181,6 +183,24 @@ class BasicDetails extends Component {
 				/>
 			</div>
 		)
+	}
+
+	normalizeBirthDate(value) {
+		if (!value) {
+			return value
+		}
+		const onlyNums = value.replace(/[^\d]/g, '')
+
+		if (onlyNums.length <= 2) {
+			return onlyNums
+		}
+		if (onlyNums.length <= 4) {
+			return `${onlyNums.slice(0, 2)}/${onlyNums.slice(2, 4)}`
+		}
+		return `${onlyNums.slice(0, 2)}/${onlyNums.slice(2, 4)}/${onlyNums.slice(
+			4,
+			8
+		)}`
 	}
 }
 

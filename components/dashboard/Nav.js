@@ -48,16 +48,23 @@ const Nav = () => (
 						</Link>
 					</li>
 					<li className="nav-item">
-						<div className="btn-group dashboard-menu">
+						<div className="btn-group dashboard-menu d-block d-lg-inline-flex">
 							<button
 								type="button"
-								className="btn btn-dropdown"
+								className="btn btn-dropdown d-none d-lg-inline-block"
 								data-toggle="dropdown"
 								aria-haspopup="true"
 								aria-expanded="false">
 								<img src="/static/images/user-circle.svg" alt="user-menu" />
 								<i className="far fa-angle-down" />
 							</button>
+							<a
+								className="nav-link d-inline-block d-lg-none"
+								data-toggle="dropdown"
+								aria-haspopup="true"
+								aria-expanded="false">
+								Your account
+							</a>
 							<div className="dropdown-menu dropdown-menu-right">
 								<Link href="/account-settings">
 									<a className="dropdown-item">
@@ -87,12 +94,17 @@ const Nav = () => (
 										Privacy
 									</a>
 								</Link>
-								<button className="dropdown-item" type="button">
+								<button
+									className="dropdown-item d-none d-lg-block"
+									type="button">
 									<i className="far fa-cog" />
 									Sign out
 								</button>
 							</div>
 						</div>
+					</li>
+					<li className="nav-item d-lg-none">
+						<a className="nav-link">Sign out</a>
 					</li>
 				</ul>
 			</div>
