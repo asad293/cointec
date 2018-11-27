@@ -33,7 +33,7 @@ class Home extends Component {
 				<Head>
 					<title>{title}</title>
 				</Head>
-				<Header background="gradient">
+				<Header background="gradient" style={{ overflow: 'initial' }}>
 					<Nav />
 					<hr className="hr-header" />
 					<div className="container">

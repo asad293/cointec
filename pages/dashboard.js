@@ -8,9 +8,12 @@ import Moment from 'react-moment'
 
 import Nav from '../components/dashboard/Nav'
 import AlertMessage from '../components/dashboard/AlertMessage'
+import TransactionDetail from '../components/dashboard/TransactionDetail'
 import Chart from '../components/dashboard/Chart'
 import Calculator from '../components/home/Calculator'
 import StickyFooter from '../components/StickyFooter'
+
+const dev = process.env.NODE_ENV !== 'production'
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -26,11 +29,14 @@ class Dashboard extends Component {
 
 		this.state = {
 			assetsImages,
-			showAlert: true
+			showAlert: true,
+			transactionDetailModal: false,
+			activeTransaction: null
 		}
 	}
 
 	componentDidMount() {
+		// if (!dev) {
 		// const userData = localStorage.getItem('user')
 		// const user = userData && JSON.parse(userData)
 		// const sessionId = Cookie.get('CT-SESSION-ID')
@@ -38,6 +44,7 @@ class Dashboard extends Component {
 		// 	this.props.fetchOrders({ ctUser: user.CtUserId })
 		// } else {
 		// 	Router.push(`/login?redirectPath=${this.props.router.pathname}`)
+		// }
 		// }
 	}
 
@@ -61,12 +68,12 @@ class Dashboard extends Component {
 				)}
 				<div className="container dashboard-container">
 					<div className="row flex-column-reverse flex-lg-row">
-						<div className="col-12 col-lg-8 mt-4 mt-lg-0">
+						<div className="col-12 col-lg-chart mt-4 mt-lg-0">
 							<div className="content-wrapper">
 								<Chart />
 							</div>
 						</div>
-						<div className="col-12 col-lg-4 hero-calculator">
+						<div className="col-12 col-lg-calc hero-calculator">
 							<div className="content-wrapper calculator-wrapper">
 								<Calculator />
 							</div>
@@ -78,12 +85,29 @@ class Dashboard extends Component {
 								<TransactionTable
 									orders={this.props.order.orders}
 									assets={this.state.assetsImages}
+									onSelect={transaction =>
+										this.setState({
+											activeTransaction: transaction,
+											transactionDetailModal: true
+										})
+									}
 								/>
 							</div>
 						</div>
 					</div>
 				</div>
 				<StickyFooter className="bg-white" />
+				{this.state.transactionDetailModal && (
+					<TransactionDetail
+						transaction={this.state.activeTransaction}
+						onClose={() =>
+							this.setState({
+								activeTransaction: null,
+								transactionDetailModal: false
+							})
+						}
+					/>
+				)}
 			</div>
 		)
 	}
@@ -100,7 +124,7 @@ class Dashboard extends Component {
 	}
 }
 
-const TransactionTable = ({ orders, assets }) => (
+const TransactionTable = ({ orders, assets, onSelect }) => (
 	<table className="table">
 		<thead>
 			<tr>
@@ -120,7 +144,8 @@ const TransactionTable = ({ orders, assets }) => (
 					(order, index) => (
 						<tr
 							key={order.ctTransactionId}
-							className={index === 0 ? 'no-border' : ''}>
+							className={index === 0 ? 'no-border' : ''}
+							onClick={() => onSelect(order)}>
 							{assets && (
 								<td>
 									<img src={assets[order.sourceCurrency]} />
@@ -153,6 +178,21 @@ const TransactionTable = ({ orders, assets }) => (
 			<tr className="tr-empty">
 				<td />
 			</tr>
+			{/* <tr>
+				<td>
+					<img src="/static/images/union-jack.svg" />
+					<i className="far fa-long-arrow-right fa-lg d-none d-md-inline" />
+					<img
+						className="d-none d-md-inline"
+						src="/static/images/coins/ETC.svg"
+					/>
+					<span className="d-inline d-md-none pl-3">+0.25458745 BTC</span>
+				</td>
+				<td className="d-none d-md-table-cell">0.25458745 BTC</td>
+				<td className="d-none d-lg-table-cell">200 GBP</td>
+				<td className="d-none d-md-table-cell">12 Nov 14:00PM</td>
+				<td className="transaction-status">Processing</td>
+			</tr> */}
 		</tbody>
 	</table>
 )
