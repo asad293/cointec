@@ -177,7 +177,8 @@
 
 .exchange-page {
 	.bottom-bar {
-		position: fixed;
+		position: initial;
+		// position: fixed;
 	}
 }
 .main-wrapper {
@@ -219,12 +220,13 @@
 			line-height: 12px;
 			font-size: 16px;
 			color: #515c61;
-			max-width: 355px;
+			max-width: 305px;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			text-align: left;
 			@include media-breakpoint-down(xs) {
-				max-width: 270px;
+				max-width: 63vw;
+				// max-width: 270px;
 			}
 		}
 		i {

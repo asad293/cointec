@@ -389,117 +389,117 @@
 			margin-bottom: 20px;
 		}
 	}
-	.modal-account-settings {
-		@include media-breakpoint-up(md) {
-			max-width: 434px;
-		}
-		.modal-content {
-			border-radius: 3px;
-			.modal-body {
-				padding: 25px 30px 32px;
-				.close {
-					color: #0459c4;
-					opacity: 1;
-					line-height: 14px;
-				}
-				hr {
-					margin: 0 -30px;
-				}
-				.modal-heading {
-					font-weight: 600;
-					line-height: 14px;
-					font-size: 18px;
-					color: #1a1d1f;
-					margin-bottom: 25px;
-				}
-				.modal-message {
-					font-weight: normal;
-					line-height: 31px;
-					font-size: 16px;
-					color: #667075;
-					margin-bottom: 14px;
-					margin-top: 26px;
-					.semi {
-						font-weight: 600;
-						color: #1a1d1f;
-					}
-				}
-				form {
-					.field-wrapper {
-						margin-top: 32px;
-						.field-label {
-							display: block;
-							font-weight: 600;
-							line-height: 10px;
-							font-size: 14px;
-							color: #1a1d1f;
-							margin-bottom: 13px;
-						}
-						input {
-							border: 1px solid #b0b9bd;
-							border-radius: 3px;
-							font-weight: 600;
-							line-height: 12px;
-							font-size: 16px;
-							color: #1a1d1f;
-							@include placeholder {
-								color: #b0b9bd;
-							}
-							&:active,
-							&:focus-within {
-								border: 1px solid #0459c4;
-								box-shadow: none;
-							}
-							&:disabled {
-								color: #515c61;
-								background: #f0f3f5;
-								border: none;
-							}
-						}
-						&.invalid {
-							.field-label {
-								color: #d7263d;
-							}
-							input {
-								border: 1px solid #d7263d;
-							}
-						}
-						&.edit {
-							position: relative;
-							&::after {
-								content: 'edit';
-								position: absolute;
-								top: 30px;
-								right: 12px;
-							}
-						}
-					}
-					.btn {
-						font-weight: 600;
-						line-height: 12px;
-						font-size: 16px;
-						padding-top: 17px;
-						padding-bottom: 17px;
-						border-radius: 3px;
-						&:hover,
-						&:focus,
-						&:active {
-							box-shadow: none;
-						}
-						&:disabled {
-							background: #b0b9bd;
-							border: none;
-						}
-					}
-				}
-			}
-		}
-	}
 	.bottom-bar {
 		// position: fixed;
 		position: initial;
 		@include media-breakpoint-down(sm) {
 			position: initial;
+		}
+	}
+}
+.modal-account-settings {
+	@include media-breakpoint-up(md) {
+		max-width: 434px;
+	}
+	.modal-content {
+		border-radius: 3px;
+		.modal-body {
+			padding: 25px 30px 32px;
+			.close {
+				color: #0459c4;
+				opacity: 1;
+				line-height: 14px;
+			}
+			hr {
+				margin: 0 -30px;
+			}
+			.modal-heading {
+				font-weight: 600;
+				line-height: 14px;
+				font-size: 18px;
+				color: #1a1d1f;
+				margin-bottom: 25px;
+			}
+			.modal-message {
+				font-weight: normal;
+				line-height: 31px;
+				font-size: 16px;
+				color: #667075;
+				margin-bottom: 14px;
+				margin-top: 26px;
+				.semi {
+					font-weight: 600;
+					color: #1a1d1f;
+				}
+			}
+			form {
+				.field-wrapper {
+					margin-top: 32px;
+					.field-label {
+						display: block;
+						font-weight: 600;
+						line-height: 10px;
+						font-size: 14px;
+						color: #1a1d1f;
+						margin-bottom: 13px;
+					}
+					input {
+						border: 1px solid #b0b9bd;
+						border-radius: 3px;
+						font-weight: 600;
+						line-height: 12px;
+						font-size: 16px;
+						color: #1a1d1f;
+						@include placeholder {
+							color: #b0b9bd;
+						}
+						&:active,
+						&:focus-within {
+							border: 1px solid #0459c4;
+							box-shadow: none;
+						}
+						&:disabled {
+							color: #515c61;
+							background: #f0f3f5;
+							border: none;
+						}
+					}
+					&.invalid {
+						.field-label {
+							color: #d7263d;
+						}
+						input {
+							border: 1px solid #d7263d;
+						}
+					}
+					&.edit {
+						position: relative;
+						&::after {
+							content: 'edit';
+							position: absolute;
+							top: 30px;
+							right: 12px;
+						}
+					}
+				}
+				.btn {
+					font-weight: 600;
+					line-height: 12px;
+					font-size: 16px;
+					padding-top: 17px;
+					padding-bottom: 17px;
+					border-radius: 3px;
+					&:hover,
+					&:focus,
+					&:active {
+						box-shadow: none;
+					}
+					&:disabled {
+						background: #b0b9bd;
+						border: none;
+					}
+				}
+			}
 		}
 	}
 }

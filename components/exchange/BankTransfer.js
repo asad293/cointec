@@ -85,8 +85,6 @@ class BankTransfer extends Component {
 
 	handleChange(account) {
 		this.setState({ sourceAccount: account })
-		// if (event.target.value === 'addBank')
-		// 	$('#add-bank-account-modal').modal('toggle')
 	}
 
 	renderButton() {
@@ -181,7 +179,7 @@ class BankTransfer extends Component {
 							</div>
 							<div className="col-6 text-left text-nowrap">
 								<label className="field-label">Amount</label>
-								<p className="field-value m-0">{sendAmount} GBP</p>
+								<p className="field-value m-0">{sendAmount.toFixed(8)} GBP</p>
 							</div>
 						</div>
 						<div className="row">
@@ -243,9 +241,7 @@ class BankTransfer extends Component {
 										</div>
 										<div
 											className="add-bank-account"
-											onClick={() =>
-												$('#add-bank-account-modal').modal('toggle')
-											}>
+											onClick={this.props.onAddAccount}>
 											Add bank account
 											<img
 												className="add-account-icon"
@@ -289,7 +285,7 @@ class BankTransfer extends Component {
 				return this.renderScreen()
 			} else if (this.props.order.loading || this.props.accounts.loading) {
 				return (
-					<div className="main-calc-wrappe d-flex">
+					<div className="main-calc-wrapper d-flex">
 						<div className="h-100 m-auto" style={{ color: '#045CC7' }}>
 							<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
 						</div>
@@ -535,5 +531,6 @@ BankTransfer.propTypes = {
 	wallet: PropTypes.string,
 	ctUser: PropTypes.number,
 	onConfirm: PropTypes.func,
-	onRestart: PropTypes.func
+	onRestart: PropTypes.func,
+	onAddAccount: PropTypes.func
 }
