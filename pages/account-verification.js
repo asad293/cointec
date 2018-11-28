@@ -146,7 +146,7 @@ class AccountVerification extends Component {
 							}}>
 							<InnerNav
 								step={this.state.step}
-								setStep={step => this.setState({ step })}
+								setStep={step => this.setState({ step }, () => this.onResize())}
 							/>
 							{this.state.completed && this.renderCompletedFrame()}
 							{!this.state.completed &&
