@@ -32,7 +32,9 @@ class BankAccounts extends Component {
 		this.state = {
 			showAlert: true,
 			addBankAccountModal: false,
-			editAccount: null
+			editAccount: null,
+			scrolling: false,
+			accountsAvailable: false
 		}
 	}
 
@@ -45,6 +47,25 @@ class BankAccounts extends Component {
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
+
+		addEventListener('resize', this.onResize)
+		this.onResize()
+	}
+
+	componentWillUnmount() {
+		removeEventListener('resize', this.onResize)
+	}
+
+	onResize = () => {
+		const element = document.querySelector('.settings-page')
+		const documentElement = document.documentElement
+
+		this.setState({
+			scrolling:
+				element && documentElement
+					? documentElement.clientHeight < element.scrollHeight
+					: false
+		})
 	}
 
 	render() {
@@ -65,7 +86,11 @@ class BankAccounts extends Component {
 				{this.state.showAlert && (
 					<AlertMessage onHide={() => this.setState({ showAlert: false })} />
 				)}
-				<div className="container dashboard-container">
+				<div
+					className="container dashboard-container"
+					style={{
+						marginBottom: !this.state.scrolling ? 86 : ''
+					}}>
 					<div className="row">
 						<div className="col">
 							<div className="content-wrapper p-0 h-auto">
@@ -112,7 +137,7 @@ class BankAccounts extends Component {
 						</div>
 					</div>
 				</div>
-				<StickyFooter className="bg-white" />
+				<StickyFooter className="bg-white" fixed={!this.state.scrolling} />
 				{this.state.addBankAccountModal && (
 					<AddBankAccount
 						editAccount={this.state.editAccount}
@@ -123,6 +148,21 @@ class BankAccounts extends Component {
 				)}
 			</div>
 		)
+	}
+
+	componentWillReceiveProps(props) {
+		if (
+			!this.state.accountsAvailable &&
+			props.accounts &&
+			props.accounts.list
+		) {
+			this.setState(
+				{
+					accountsAvailable: true
+				},
+				() => this.onResize()
+			)
+		}
 	}
 }
 

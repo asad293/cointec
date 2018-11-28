@@ -102,6 +102,19 @@
 					background: #e7ecee;
 				}
 			}
+			@include media-breakpoint-down(md) {
+				background: none;
+				box-shadow: none;
+				margin: 0;
+				padding: 0;
+				.dropdown-item {
+					color: #fff;
+					opacity: 0.72;
+					i {
+						display: none;
+					}
+				}
+			}
 		}
 	}
 
@@ -147,6 +160,26 @@
 			@include media-breakpoint-down(sm) {
 				padding-left: 20px;
 				padding-right: 20px;
+			}
+		}
+		.col-lg-calc {
+			@include media-breakpoint-up(lg) {
+				flex: 0 0 37.918%;
+				max-width: 37.918%;
+			}
+			@include media-breakpoint-up(xl) {
+				flex: 0 0 31.93%;
+				max-width: 31.93%;
+			}
+		}
+		.col-lg-chart {
+			@include media-breakpoint-up(lg) {
+				flex: 0 0 62.082%;
+				max-width: 62.082%;
+			}
+			@include media-breakpoint-up(xl) {
+				flex: 0 0 68.07%;
+				max-width: 68.07%;
 			}
 		}
 		.content-wrapper {
@@ -197,21 +230,25 @@
 			thead {
 				th {
 					font-weight: 600;
-					line-height: 10px;
+					line-height: 14px;
 					font-size: 14px;
 					color: #1a1d1f;
-					padding: 22px 32px;
+					padding: 20px 32px;
 					border-bottom: 1px solid #d5dce0;
 					white-space: nowrap;
+					i {
+						color: #8c969e;
+					}
 				}
 			}
 			tbody {
 				tr {
+					cursor: pointer;
 					&:hover {
 						background: #f0f3f5;
 					}
-					// &:first-child {
 					&.tr-empty {
+						cursor: initial;
 						td {
 							padding: 4px;
 							border: none;
@@ -220,29 +257,20 @@
 							background: none;
 						}
 					}
-					// &:last-child {
-					// 	td {
-					// 		padding: 4px;
-					// 		border: none;
-					// 	}
-					// 	&:hover {
-					// 		background: none;
-					// 	}
-					// }
-					// &:nth-child(2) {
-					// 	td {
-					// 		border: none;
-					// 	}
-					// }
 					&.no-border {
 						td {
 							border: none;
 						}
 					}
 					&.tr-date {
+						cursor: initial;
 						background: #e7ecee;
 					}
 					&.no-result {
+						cursor: initial;
+						td {
+							border: none;
+						}
 						text-align: center;
 						&:hover {
 							background: none;
@@ -255,11 +283,15 @@
 					line-height: 22px;
 					font-size: 16px;
 					white-space: nowrap;
+					@include media-breakpoint-down(md) {
+						padding: 16px 16px 16px 32px;
+					}
 					@include media-breakpoint-down(sm) {
-						padding: 16px 24px;
+						padding: 16px 0 16px 24px;
 					}
 					img {
 						height: 24px;
+						width: 24px;
 					}
 					i {
 						color: #8c969e;
@@ -284,6 +316,7 @@
 			}
 		}
 	}
+
 	.pagination {
 		li {
 			padding: 0 5px;
@@ -309,6 +342,104 @@
 					background: #0575e6;
 					&:hover {
 						color: white;
+					}
+				}
+			}
+		}
+	}
+
+	.modal-transaction-detail {
+		@include media-breakpoint-up(sm) {
+			max-width: 496px;
+		}
+		.modal-content {
+			box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.13);
+			border-radius: 3px;
+			.modal-header {
+				padding: 25px 32px;
+				border: 1px solid #d5dce0;
+				.modal-heading {
+					font-weight: 600;
+					line-height: 13px;
+					font-size: 18px;
+					margin: 0;
+					color: #1a1d1f;
+				}
+				.close {
+					color: #0459c4;
+					opacity: 1;
+					line-height: 13px;
+					font-size: 18px;
+					padding: 15px;
+				}
+			}
+			.modal-body {
+				padding: 0;
+				.transaction-details {
+					padding: 8px 0;
+					.transaction-field {
+						padding: 20px 32px 17px;
+						&:hover {
+							background: #f0f3f5;
+						}
+						.field-label {
+							font-weight: 600;
+							line-height: 10px;
+							font-size: 14px;
+							color: #1a1d1f;
+							margin-bottom: 10px;
+						}
+						.field-value {
+							font-weight: normal;
+							line-height: 19px;
+							font-size: 16px;
+							color: #667075;
+							margin: 0;
+							white-space: nowrap;
+							text-overflow: ellipsis;
+							overflow: hidden;
+							padding-right: 32px;
+							.fa-clone {
+								cursor: pointer;
+								position: absolute;
+								right: 32px;
+							}
+							&.status {
+								&::before {
+									content: '';
+									width: 7px;
+									height: 7px;
+									background: #0459c4;
+									border-radius: 50%;
+									display: inline-block;
+									margin-right: 8px;
+									margin-bottom: 2px;
+								}
+								&.completed {
+									&::before {
+										background: #29be60;
+									}
+								}
+								&.failed {
+									&::before {
+										background: #d7263d;
+									}
+								}
+							}
+						}
+					}
+				}
+				.blockchain-tracker {
+					background: #0459c4;
+					font-weight: 600;
+					line-height: 12px;
+					font-size: 16px;
+					padding: 22px 32px;
+					color: #ffffff;
+					.fa-clone {
+						cursor: pointer;
+						position: absolute;
+						right: 32px;
 					}
 				}
 			}

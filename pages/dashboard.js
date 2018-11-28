@@ -8,20 +8,27 @@ import Moment from 'react-moment'
 
 import Nav from '../components/dashboard/Nav'
 import AlertMessage from '../components/dashboard/AlertMessage'
+import TransactionDetail from '../components/dashboard/TransactionDetail'
 import Chart from '../components/dashboard/Chart'
 import Calculator from '../components/home/Calculator'
 import StickyFooter from '../components/StickyFooter'
+
+const dev = process.env.NODE_ENV !== 'production'
 
 class Dashboard extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			assetsImages: null,
-			showAlert: true
+			showAlert: true,
+			transactionDetailModal: false,
+			activeTransaction: null,
+			scrolling: false
 		}
 	}
 
 	componentDidMount() {
+		// if (!dev) {
 		const userData = localStorage.getItem('user')
 		const user = userData && JSON.parse(userData)
 		const sessionId = Cookie.get('CT-SESSION-ID')
@@ -31,6 +38,25 @@ class Dashboard extends Component {
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
+		// }
+		addEventListener('resize', this.onResize)
+		this.onResize()
+	}
+
+	componentWillUnmount() {
+		removeEventListener('resize', this.onResize)
+	}
+
+	onResize = () => {
+		const element = document.querySelector('.dashboard-page')
+		const documentElement = document.documentElement
+
+		this.setState({
+			scrolling:
+				element && documentElement
+					? documentElement.clientHeight < element.scrollHeight
+					: false
+		})
 	}
 
 	render() {
@@ -53,12 +79,12 @@ class Dashboard extends Component {
 				)}
 				<div className="container dashboard-container">
 					<div className="row flex-column-reverse flex-lg-row">
-						<div className="col-12 col-lg-8 mt-4 mt-lg-0">
+						<div className="col-12 col-lg-chart mt-4 mt-lg-0">
 							<div className="content-wrapper">
 								<Chart />
 							</div>
 						</div>
-						<div className="col-12 col-lg-4 hero-calculator">
+						<div className="col-12 col-lg-calc hero-calculator">
 							<div className="content-wrapper calculator-wrapper">
 								<Calculator />
 							</div>
@@ -70,12 +96,29 @@ class Dashboard extends Component {
 								<TransactionTable
 									orders={this.props.order.orders}
 									assets={this.state.assetsImages}
+									onSelect={transaction =>
+										this.setState({
+											activeTransaction: transaction,
+											transactionDetailModal: true
+										})
+									}
 								/>
 							</div>
 						</div>
 					</div>
 				</div>
-				<StickyFooter className="bg-white" />
+				<StickyFooter className="bg-white" fixed={!this.state.scrolling} />
+				{this.state.transactionDetailModal && (
+					<TransactionDetail
+						transaction={this.state.activeTransaction}
+						onClose={() =>
+							this.setState({
+								activeTransaction: null,
+								transactionDetailModal: false
+							})
+						}
+					/>
+				)}
 			</div>
 		)
 	}
@@ -88,11 +131,13 @@ class Dashboard extends Component {
 		props.assets.list.Send.forEach(asset => {
 			assetsImages[asset.Name] = asset.Image
 		})
-		this.setState({ assetsImages })
+		this.setState({ assetsImages }, () => {
+			if (this.state.assetsImages) this.onResize()
+		})
 	}
 }
 
-const TransactionTable = ({ orders, assets }) => (
+const TransactionTable = ({ orders, assets, onSelect }) => (
 	<table className="table">
 		<thead>
 			<tr>
@@ -112,7 +157,8 @@ const TransactionTable = ({ orders, assets }) => (
 					(order, index) => (
 						<tr
 							key={order.ctTransactionId}
-							className={index === 0 ? 'no-border' : ''}>
+							className={index === 0 ? 'no-border' : ''}
+							onClick={() => onSelect(order)}>
 							{assets && (
 								<td>
 									<img src={assets[order.sourceCurrency]} />

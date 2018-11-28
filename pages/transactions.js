@@ -9,6 +9,7 @@ import _ from 'lodash'
 
 import Nav from '../components/dashboard/Nav'
 import AlertMessage from '../components/dashboard/AlertMessage'
+import TransactionDetail from '../components/dashboard/TransactionDetail'
 import StickyFooter from '../components/StickyFooter'
 import Pagination from '../components/Pagination'
 
@@ -19,7 +20,12 @@ class Transactions extends Component {
 			currentPage: 1,
 			totalPages: 0,
 			showAlert: true,
-			assetsImages: null
+			assetsImages: null,
+			sortOrder: 'timestamp',
+			sortDirection: 'desc',
+			transactionDetailModal: false,
+			activeTransaction: null,
+			scrolling: false
 		}
 	}
 
@@ -33,6 +39,24 @@ class Transactions extends Component {
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
+		addEventListener('resize', this.onResize)
+		this.onResize()
+	}
+
+	componentWillUnmount() {
+		removeEventListener('resize', this.onResize)
+	}
+
+	onResize = () => {
+		const element = document.querySelector('.dashboard-page')
+		const documentElement = document.documentElement
+
+		this.setState({
+			scrolling:
+				element && documentElement
+					? documentElement.clientHeight < element.scrollHeight
+					: false
+		})
 	}
 
 	render() {
@@ -61,6 +85,20 @@ class Transactions extends Component {
 									currentPage={this.state.currentPage}
 									orders={this.props.order.orders}
 									assets={this.state.assetsImages}
+									sortOrder={this.state.sortOrder}
+									sortDirection={this.state.sortDirection}
+									onSort={({ sortOrder, sortDirection }) =>
+										this.setState({
+											sortOrder,
+											sortDirection
+										})
+									}
+									onSelect={transaction =>
+										this.setState({
+											activeTransaction: transaction,
+											transactionDetailModal: true
+										})
+									}
 								/>
 							</div>
 							<Pagination
@@ -72,7 +110,18 @@ class Transactions extends Component {
 						</div>
 					</div>
 				</div>
-				<StickyFooter className="bg-white" />
+				<StickyFooter className="bg-white" fixed={!this.state.scrolling} />
+				{this.state.transactionDetailModal && (
+					<TransactionDetail
+						transaction={this.state.activeTransaction}
+						onClose={() =>
+							this.setState({
+								activeTransaction: null,
+								transactionDetailModal: false
+							})
+						}
+					/>
+				)}
 			</div>
 		)
 	}
@@ -85,19 +134,32 @@ class Transactions extends Component {
 		assets.list.Send.forEach(asset => {
 			assetsImages[asset.Name] = asset.Image
 		})
-		this.setState({
-			totalPages: order.orders
-				? Math.ceil(
-						order.orders.TransactionHistory.length /
-							order.orders.TransactionsDisplayLimit
-				  )
-				: 0,
-			assetsImages
-		})
+		this.setState(
+			{
+				totalPages: order.orders
+					? Math.ceil(
+							order.orders.TransactionHistory.length /
+								order.orders.TransactionsDisplayLimit
+					  )
+					: 0,
+				assetsImages
+			},
+			() => {
+				if (this.state.assetsImages) this.onResize()
+			}
+		)
 	}
 }
 
-const TransactionTable = ({ orders, assets, currentPage }) => {
+const TransactionTable = ({
+	orders,
+	assets,
+	sortOrder,
+	sortDirection,
+	currentPage,
+	onSelect,
+	onSort
+}) => {
 	const transactionHistoryGroups = orders
 		? _.groupBy(orders.TransactionHistory, order =>
 				new Date(order.createdAt * 1000).setHours(0, 0, 0, 0)
@@ -109,9 +171,42 @@ const TransactionTable = ({ orders, assets, currentPage }) => {
 				<thead>
 					<tr>
 						<th>Recent activity</th>
-						<th className="d-none d-md-table-cell">Receive amount</th>
-						<th className="d-none d-lg-table-cell">Send amount</th>
-						<th className="d-none d-md-table-cell">Timestamp</th>
+						<th
+							className="d-none d-md-table-cell"
+							style={{ cursor: 'pointer' }}
+							onClick={() =>
+								onSort({
+									sortOrder: 'receiveAmount',
+									sortDirection: sortDirection === 'desc' ? 'asc' : 'desc'
+								})
+							}>
+							Receive amount
+							<i className="fas fa-sort fa-sm ml-2" />
+						</th>
+						<th
+							className="d-none d-lg-table-cell"
+							style={{ cursor: 'pointer' }}
+							onClick={() =>
+								onSort({
+									sortOrder: 'sendAmount',
+									sortDirection: sortDirection === 'desc' ? 'asc' : 'desc'
+								})
+							}>
+							Send amount
+							<i className="fas fa-sort fa-sm ml-2" />
+						</th>
+						<th
+							className="d-none d-md-table-cell"
+							style={{ cursor: 'pointer' }}
+							onClick={() =>
+								onSort({
+									sortOrder: 'timestamp',
+									sortDirection: sortDirection === 'desc' ? 'asc' : 'desc'
+								})
+							}>
+							Timestamp
+							<i className="fas fa-sort fa-sm ml-2" />
+						</th>
 						<th>Status</th>
 					</tr>
 				</thead>
@@ -120,39 +215,60 @@ const TransactionTable = ({ orders, assets, currentPage }) => {
 						<td />
 					</tr>
 					{orders ? (
-						orders.TransactionHistory.slice(
-							(currentPage - 1) * orders.TransactionsDisplayLimit,
-							(currentPage - 1) * orders.TransactionsDisplayLimit +
-								orders.TransactionsDisplayLimit
-						).map((order, index) => (
-							<tr
-								key={order.ctTransactionId}
-								className={index === 0 ? 'no-border' : ''}>
-								{assets && (
-									<td>
-										<img src={assets[order.sourceCurrency]} />
-										<i className="far fa-long-arrow-right fa-lg d-none d-md-inline" />
-										<img
-											className="d-none d-md-inline"
-											src={assets[order.destCurrency]}
-										/>
-										<span className="d-inline d-md-none pl-3">
-											+{order.destAmount}
-										</span>
+						orders.TransactionHistory.sort((x, y) =>
+							sortOrder === 'timestamp'
+								? sortDirection === 'desc'
+									? y.createdAt - x.createdAt
+									: x.createdAt - y.createdAt
+								: sortOrder === 'sendAmount'
+								? sortDirection === 'desc'
+									? y.sourceAmount - x.sourceAmount
+									: x.sourceAmount - y.sourceAmount
+								: sortOrder === 'receiveAmount'
+								? sortDirection === 'desc'
+									? y.destAmount - x.destAmount
+									: x.destAmount - y.destAmount
+								: 0
+						)
+							.slice(
+								(currentPage - 1) * orders.TransactionsDisplayLimit,
+								(currentPage - 1) * orders.TransactionsDisplayLimit +
+									orders.TransactionsDisplayLimit
+							)
+							.map((order, index) => (
+								<tr
+									key={order.ctTransactionId}
+									className={index === 0 ? 'no-border' : ''}
+									onClick={() => onSelect(order)}>
+									{assets && (
+										<td width="20%">
+											<img src={assets[order.sourceCurrency]} />
+											<i className="far fa-long-arrow-right fa-lg d-none d-md-inline" />
+											<img
+												className="d-none d-md-inline"
+												src={assets[order.destCurrency]}
+											/>
+											<span className="d-inline d-md-none pl-3">
+												+{order.destAmount}
+											</span>
+										</td>
+									)}
+									<td width="20%" className="d-none d-md-table-cell">
+										{order.destAmount}
 									</td>
-								)}
-								<td className="d-none d-md-table-cell">{order.destAmount}</td>
-								<td className="d-none d-lg-table-cell">
-									{order.sourceAmount} {order.sourceCurrency}
-								</td>
-								<td className="d-none d-md-table-cell">
-									<Moment format="DD MMM hh:mmA">
-										{order.createdAt * 1000}
-									</Moment>
-								</td>
-								<td className="transaction-status">{order.status}</td>
-							</tr>
-						))
+									<td width="20%" className="d-none d-lg-table-cell">
+										{order.sourceAmount} {order.sourceCurrency}
+									</td>
+									<td width="20%" className="d-none d-md-table-cell">
+										<Moment format="DD MMM hh:mmA">
+											{order.createdAt * 1000}
+										</Moment>
+									</td>
+									<td width="20%" className="transaction-status">
+										{order.status}
+									</td>
+								</tr>
+							))
 					) : (
 						<tr className="no-result">
 							<td colSpan="5">No results</td>
@@ -166,48 +282,31 @@ const TransactionTable = ({ orders, assets, currentPage }) => {
 			<table className="table d-table d-md-none">
 				<tbody>
 					{transactionHistoryGroups ? (
-						Object.keys(transactionHistoryGroups).map(
-							group => [
-								<tr className="tr-date" key={group}>
-									<td colSpan="2">
-										<Moment format="DD MMM YYYY">
-											{Number.parseInt(group)}
-										</Moment>
-									</td>
-								</tr>,
-								transactionHistoryGroups[group].map(order => (
-									<tr key={order.ctTransactionId}>
-										{assets && (
-											<td>
-												<img src={assets[order.sourceCurrency]} />
-												<i className="far fa-long-arrow-right fa-lg d-none d-md-inline" />
-												<img
-													className="d-none d-md-inline"
-													src={assets[order.destCurrency]}
-												/>
-												<span className="d-inline d-md-none pl-3">
-													+{order.destAmount}
-												</span>
-											</td>
-										)}
-										<td className="d-none d-md-table-cell">
-											{order.destAmount}
+						Object.keys(transactionHistoryGroups).map(group => [
+							<tr className="tr-date" key={group}>
+								<td colSpan="2">
+									<Moment format="DD MMM YYYY">{Number.parseInt(group)}</Moment>
+								</td>
+							</tr>,
+							transactionHistoryGroups[group].map(order => (
+								<tr key={order.ctTransactionId} onClick={() => onSelect(order)}>
+									{assets && (
+										<td>
+											<img src={assets[order.sourceCurrency]} />
+											<i className="far fa-long-arrow-right fa-lg d-none d-md-inline" />
+											<img
+												className="d-none d-md-inline"
+												src={assets[order.destCurrency]}
+											/>
+											<span className="d-inline d-md-none pl-3">
+												+{order.destAmount}
+											</span>
 										</td>
-										<td className="d-none d-lg-table-cell">
-											{order.sourceAmount} {order.sourceCurrency}
-										</td>
-										<td className="d-none d-md-table-cell">
-											<Moment format="DD MMM hh:mmA">
-												{order.createdAt * 1000}
-											</Moment>
-										</td>
-										<td className="transaction-status">{order.status}</td>
-									</tr>
-								))
-							]
-							// 	order => (
-							// )
-						)
+									)}
+									<td className="transaction-status">{order.status}</td>
+								</tr>
+							))
+						])
 					) : (
 						<tr className="no-result">
 							<td colSpan="5">No results</td>

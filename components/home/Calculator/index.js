@@ -421,7 +421,15 @@ class Calculator extends Component {
 			})
 		} else if (type === 'coin') {
 			if (!this.state.toggleCoin) this.props.fetchAssetsStatus()
-			this.setState({ toggleCoin: !this.state.toggleCoin, coinSearch: '' })
+			this.setState(
+				{ toggleCoin: !this.state.toggleCoin, coinSearch: '' },
+				() => {
+					const searchInput = document.querySelector('.search-input')
+					if (this.state.toggleCoin) {
+						searchInput.focus()
+					}
+				}
+			)
 		}
 	}
 

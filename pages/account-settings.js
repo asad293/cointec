@@ -25,7 +25,8 @@ class AccountSettings extends Component {
 			changeEmailModal: false,
 			updatePasswordModal: false,
 			closeAccountModal: false,
-			email: null
+			email: null,
+			scrolling: false
 		}
 	}
 
@@ -38,6 +39,25 @@ class AccountSettings extends Component {
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
+
+		addEventListener('resize', this.onResize)
+		this.onResize()
+	}
+
+	componentWillUnmount() {
+		removeEventListener('resize', this.onResize)
+	}
+
+	onResize = () => {
+		const element = document.querySelector('.settings-page')
+		const documentElement = document.documentElement
+
+		this.setState({
+			scrolling:
+				element && documentElement
+					? documentElement.clientHeight < element.scrollHeight
+					: false
+		})
 	}
 
 	render() {
@@ -58,7 +78,11 @@ class AccountSettings extends Component {
 				{this.state.showAlert && (
 					<AlertMessage onHide={() => this.setState({ showAlert: false })} />
 				)}
-				<div className="container dashboard-container">
+				<div
+					className="container dashboard-container"
+					style={{
+						marginBottom: !this.state.scrolling ? 86 : ''
+					}}>
 					<div className="row">
 						<div className="col">
 							<div className="content-wrapper p-0 h-auto position-relative">
@@ -160,7 +184,7 @@ class AccountSettings extends Component {
 						</div>
 					</div>
 				</div>
-				<StickyFooter className="bg-white" />
+				<StickyFooter className="bg-white" fixed={!this.state.scrolling} />
 				{this.state.confirmEmailModal && (
 					<ConfirmEmail
 						onClose={() => this.setState({ confirmEmailModal: false })}

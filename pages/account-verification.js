@@ -18,7 +18,8 @@ class AccountVerification extends Component {
 		this.state = {
 			ctUser: null,
 			completed: false,
-			step: 1
+			step: 1,
+			scrolling: false
 		}
 
 		this.next = this.next.bind(this)
@@ -41,13 +42,43 @@ class AccountVerification extends Component {
 		// } else {
 		// 	Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		// }
+
+		addEventListener('resize', this.onResize)
+		this.onResize()
+	}
+
+	componentWillUnmount() {
+		removeEventListener('resize', this.onResize)
+	}
+
+	onResize = () => {
+		const element = document.querySelector('.account-verification-page')
+		const documentElement = document.documentElement
+
+		this.setState(
+			{
+				scrolling:
+					element && documentElement
+						? documentElement.clientHeight < element.scrollHeight
+						: false
+			},
+			() =>
+				console.log(
+					documentElement.clientHeight,
+					element.scrollHeight,
+					this.state.scrolling
+				)
+		)
 	}
 
 	next(state) {
-		this.setState({
-			...state,
-			step: this.state.step + 1
-		})
+		this.setState(
+			{
+				...state,
+				step: this.state.step + 1
+			},
+			() => this.onResize()
+		)
 	}
 
 	back() {
@@ -57,9 +88,12 @@ class AccountVerification extends Component {
 	}
 
 	complete() {
-		this.setState({
-			completed: true
-		})
+		this.setState(
+			{
+				completed: true
+			},
+			() => this.onResize()
+		)
 	}
 
 	onConfirm({ txnID }) {
@@ -89,11 +123,15 @@ class AccountVerification extends Component {
 					<Nav
 						step={this.state.step}
 						completed={this.state.completed}
-						setStep={step => this.setState({ step })}
+						setStep={step => this.setState({ step }, () => this.onResize())}
 					/>
 				</Header>
 
-				<div className="container">
+				<div
+					className="container account-verification-container"
+					style={{
+						marginBottom: !this.state.scrolling ? 100 : ''
+					}}>
 					<div className="row justify-content-center">
 						<div
 							className="main-wrapper text-center"
@@ -108,7 +146,7 @@ class AccountVerification extends Component {
 							}}>
 							<InnerNav
 								step={this.state.step}
-								setStep={step => this.setState({ step })}
+								setStep={step => this.setState({ step }, () => this.onResize())}
 							/>
 							{this.state.completed && this.renderCompletedFrame()}
 							{!this.state.completed &&
@@ -127,7 +165,7 @@ class AccountVerification extends Component {
 					</div>
 				</div>
 
-				<StickyFooter className="bg-white" />
+				<StickyFooter className="bg-white" fixed={!this.state.scrolling} />
 			</div>
 		)
 	}
@@ -270,7 +308,7 @@ const Nav = props => (
 				</ul>
 			</div>
 
-			<div className="col-6 d-block d-md-none">
+			<div className="col-6 d-block d-md-none p-0">
 				<h5 className="exchange-heading">
 					{props.step === 1 && 'Confirm your email'}
 					{props.step === 2 && 'Your basic details'}

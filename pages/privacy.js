@@ -176,6 +176,23 @@ class Privacy extends Component {
 											</div>
 										</div>
 									</div>
+									<hr className="m-0" />
+									<div className="setting-wrapper">
+										<div className="d-flex flex-column flex-md-row">
+											<div>
+												<h6 className="setting-name">Export Data</h6>
+												<p className="d-none d-lg-block">
+													Export your data in a text foile
+												</p>
+												<p className="mb-4 mb-md-0 d-block d-lg-none">
+													Export your data in a text foile
+												</p>
+											</div>
+											<div className="ml-md-auto">
+												<a className="btn-setting">Export your data</a>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>

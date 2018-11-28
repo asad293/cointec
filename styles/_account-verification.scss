@@ -21,6 +21,12 @@
 	.exchange-heading {
 		white-space: nowrap;
 	}
+	.account-verification-container {
+		margin-bottom: 40px;
+		@include media-breakpoint-down(sm) {
+			margin-bottom: 24px;
+		}
+	}
 	.verification-nav {
 		ul {
 			display: flex;
@@ -373,7 +379,8 @@
 		}
 	}
 	.bottom-bar {
-		position: fixed;
+		position: initial;
+		// position: fixed;
 		@include media-breakpoint-down(sm) {
 			position: initial;
 			margin-top: 20px;
