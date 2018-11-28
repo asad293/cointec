@@ -1,76 +1,116 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
-import { connect } from 'react-redux'
-import { addAccount } from '../../store/actions'
 import cn from 'classnames'
-
-const errorMap = {
-	default: 'Bank must have Faster Payments enabled',
-	400: 'Please check your account details.',
-	406: 'Account is not Faster-Payments enabled.',
-	409: 'You have already added this account.'
-}
 
 class AddBankAccount extends Component {
 	constructor() {
 		super()
-		this.state = {
-			loading: false,
-			error: {
-				text: null,
-				status: null
-			}
-		}
+		this.state = {}
+		this.onClose = this.onClose.bind(this)
+		this.onClickOutside = this.onClickOutside.bind(this)
 		this.onSubmit = this.onSubmit.bind(this)
-		this.handleClick = this.handleClick.bind(this)
 	}
 
-	componentWillReceiveProps(props) {
-		if (props.bank) {
-			this.setState({ loading: props.bank.loading })
+	onClose() {
+		this.props.onClose()
+	}
 
-			if (props.bank.error) {
-				const { status } = props.bank.error.response
-				this.setState({ error: { text: errorMap[status], status } })
-			} else this.setState({ error: { text: errorMap.default, status: null } })
+	componentDidMount() {
+		setTimeout(() => {
+			addEventListener('click', this.onClickOutside)
+		}, 500)
+	}
 
-			if (props.bank.addFN && props.bank.addFN.Success) {
-				this.props.close(true)
-			}
+	componentWillUnmount() {
+		removeEventListener('click', this.onClickOutside)
+	}
+
+	onClickOutside = event => {
+		const select = event.path.find(
+			node => node.className === 'modal-dialog modal-account-settings'
+		)
+		if (!select) {
+			this.props.onClose()
 		}
 	}
 
-	renderButton() {
-		return (
-			<button
-				type="submit"
-				className="btn btn-block btn-success btn-lg text-white">
-				Add Bank Account
-			</button>
-		)
+	onSubmit(event) {
+		event.preventDefault()
+		this.props.onClose()
 	}
 
-	renderField(field) {
-		const {
-			placeholder,
-			valid,
-			meta: { touched, error }
-		} = field
-		const className = `form-group ${touched && error ? 'has-warning' : ''} ${
-			valid === true ? 'has-success' : ''
-		}  ${valid === false ? 'has-warning' : ''}`
-
+	render() {
 		return (
-			<div className={className}>
-				<input
-					placeholder={placeholder}
-					className="form-control"
-					{...field.input}
-				/>
-
-				<div className="text-help">{touched ? error : ''}</div>
+			<div
+				className="modal fade show"
+				id="abandon-order-modal"
+				role="dialog"
+				data-backdrop="false"
+				style={{ display: 'block' }}>
+				<div className="modal-dialog modal-account-settings" role="document">
+					<div className="modal-content">
+						<div className="modal-body">
+							<button type="button" className="close" onClick={this.onClose}>
+								<i className="far fa-times fa-xs" />
+							</button>
+							<h5 className="modal-heading text-left">Add bank account</h5>
+							<hr />
+							<form onSubmit={this.onSubmit}>
+								<div className="row">
+									<div className="col-12">
+										<Field
+											name="accountName"
+											label="Account name"
+											className="mt-4"
+											placeholder="Primary account"
+											component={this.renderField}
+										/>
+									</div>
+								</div>
+								<div className="row">
+									<div className="col-6">
+										<Field
+											name="accountNumber"
+											label="Account number"
+											placeholder="33333333"
+											normalize={this.normalizeAccountNumber}
+											component={this.renderField}
+										/>
+									</div>
+									<div className="col-6">
+										<Field
+											name="sortCode"
+											label="Sort code"
+											placeholder="11-22-33"
+											normalize={this.normalizeSortCode}
+											component={this.renderField}
+										/>
+									</div>
+								</div>
+								<div className="row mt-4">
+									<div className="col-md-12">
+										<button
+											type="submit"
+											className={cn('btn btn-block btn-lg', 'btn-primary')}>
+											Add bank account
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
 		)
+	}
+
+	normalizeAccountNumber(value) {
+		if (!value) {
+			return value
+		}
+		const onlyNums = value.replace(/[^\d]/g, '')
+
+		return onlyNums.slice(0, 8)
 	}
 
 	normalizeSortCode(value) {
@@ -91,126 +131,39 @@ class AddBankAccount extends Component {
 		)}`
 	}
 
-	normalizeAccountNumber(value) {
-		if (!value) {
-			return value
-		}
-		const onlyNums = value.replace(/[^\d]/g, '')
-
-		return onlyNums.slice(0, 8)
-	}
-
-	onSubmit(values) {
-		const userData = localStorage.getItem('user')
-		const user = userData && JSON.parse(userData)
-		if (user && user.CtUserId) {
-			this.props.addAccount(user.CtUserId, values)
-		}
-	}
-
-	handleClick() {
-		this.props.close()
-	}
-
-	render() {
-		const { handleSubmit } = this.props
-
+	renderField({
+		placeholder,
+		meta: { touched, valid, error },
+		label,
+		input,
+		className,
+		type,
+		disabled
+	}) {
 		return (
 			<div
-				className="modal fade"
-				id="add-bank-account-modal"
-				role="dialog"
-				data-backdrop="false"
-				aria-hidden="true">
-				<div className="modal-dialog modal-subscribe" role="document">
-					<div className="modal-content">
-						<div className="modal-body">
-							<button type="button" className="close" data-dismiss="modal">
-								<span aria-hidden="true">&times;</span>
-							</button>
-
-							<h5 className="modal-heading mt-0 mb-4">
-								Add a new bank account
-							</h5>
-
-							<form onSubmit={handleSubmit(this.onSubmit)}>
-								<div className="row">
-									<div className="col-12">
-										<label className="subscribe-email-label mt-0">
-											Account number
-										</label>
-										<Field
-											name="accountNo"
-											normalize={this.normalizeAccountNumber}
-											component={this.renderField}
-											placeholder="XXXXXXXX"
-										/>
-									</div>
-								</div>
-								<div className="row">
-									<div className="col-12">
-										<label className="subscribe-email-label mt-0">
-											Sort code
-										</label>
-										<Field
-											name="sortCode"
-											normalize={this.normalizeSortCode}
-											component={this.renderField}
-											placeholder="XX-XX-XX"
-										/>
-									</div>
-								</div>
-								<div className="row">
-									<div className="col-12">
-										<p
-											className={cn(
-												'inline-headers info text-center',
-												this.state.error.status ? 'text-danger' : null
-											)}>
-											{this.state.error.text}
-										</p>
-									</div>
-								</div>
-								<div className="row">
-									<div className="col-12">{this.renderButton()}</div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
+				className={cn(
+					'field-wrapper',
+					className,
+					touched && !valid ? 'invalid' : null
+				)}>
+				<label className="field-label">
+					{!touched ? label : valid ? label : error}
+				</label>
+				<input
+					autoComplete="off"
+					spellCheck={false}
+					placeholder={placeholder}
+					className="form-control"
+					type={type}
+					disabled={disabled}
+					{...input}
+				/>
 			</div>
 		)
 	}
 }
 
-function validate(values, props) {
-	const errors = {}
-	// validate inputs from 'values'
-	if (!values.accountName) {
-		errors.accountName = 'Enter Account Name'
-	}
-
-	if (!values.sortCode) {
-		errors.sortCode = 'Enter Sort Code'
-	}
-
-	if (!values.accountNo) {
-		errors.accountNo = 'Enter Account No'
-	}
-
-	return errors
-}
-
-const mapStateToProps = state => {
-	return { bank: state.bank }
-}
-
 export default reduxForm({
-	form: 'AddBankForm',
-	validate
-})(
-	connect(
-		mapStateToProps,
-		{ addAccount }
-	)(AddBankAccount)
-)
+	form: 'AddBankAccountForm'
+})(AddBankAccount)

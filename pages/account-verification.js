@@ -55,20 +55,12 @@ class AccountVerification extends Component {
 		const element = document.querySelector('.account-verification-page')
 		const documentElement = document.documentElement
 
-		this.setState(
-			{
-				scrolling:
-					element && documentElement
-						? documentElement.clientHeight < element.scrollHeight
-						: false
-			},
-			() =>
-				console.log(
-					documentElement.clientHeight,
-					element.scrollHeight,
-					this.state.scrolling
-				)
-		)
+		this.setState({
+			scrolling:
+				element && documentElement
+					? documentElement.clientHeight < element.scrollHeight
+					: false
+		})
 	}
 
 	next(state) {

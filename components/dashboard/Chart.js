@@ -108,8 +108,97 @@ class Chart extends Component {
 						titleFontStyle: 'bold',
 						footerFontColor: 'red',
 						displayColors: false,
-						xPadding: 12,
-						yPadding: 12,
+						xPadding: 16,
+						yPadding: 16,
+						enabled: false,
+
+						custom: function(tooltipModel) {
+							// Tooltip Element
+							var tooltipEl = document.getElementById('chartjs-tooltip')
+
+							// Create element on first render
+							if (!tooltipEl) {
+								tooltipEl = document.createElement('div')
+								tooltipEl.id = 'chartjs-tooltip'
+								tooltipEl.innerHTML = '<table></table>'
+								document.body.appendChild(tooltipEl)
+							}
+
+							// Hide if no tooltip
+							if (tooltipModel.opacity === 0) {
+								tooltipEl.style.opacity = 0
+								return
+							}
+
+							// Set caret Position
+							tooltipEl.classList.remove('above', 'below', 'no-transform')
+							if (tooltipModel.yAlign) {
+								tooltipEl.classList.add(tooltipModel.yAlign)
+							} else {
+								tooltipEl.classList.add('no-transform')
+							}
+
+							function getBody(bodyItem) {
+								return bodyItem.lines
+							}
+
+							// Set Text
+							if (tooltipModel.body) {
+								var titleLines = tooltipModel.title || []
+								var bodyLines = tooltipModel.body.map(getBody)
+
+								var innerHtml = '<thead>'
+
+								titleLines.forEach(function(title) {
+									const style = `
+									font-weight: 600;
+									line-height: 10px;
+									font-size: 14px;
+									color: #1A1D1F;
+									padding-bottom:12px;`
+									innerHtml +=
+										'<tr><th style="' + style + '">' + title + '</th></tr>'
+								})
+								innerHtml += '</thead><tbody>'
+
+								bodyLines.forEach(function(body, i) {
+									var colors = tooltipModel.labelColors[i]
+									var style = 'background:' + colors.backgroundColor
+									style += '; border-color:' + colors.borderColor
+									style += '; border-width: 2px'
+									var span = '<span style="' + style + '"></span>'
+									innerHtml +=
+										'<tr><td style="line-height:10px;font-weight: 600;font-size: 14px;color: #667075;">' +
+										span +
+										body +
+										'</td></tr>'
+								})
+								innerHtml += '</tbody>'
+
+								var tableRoot = tooltipEl.querySelector('table')
+								tableRoot.innerHTML = innerHtml
+							}
+
+							// `this` will be the overall tooltip
+							var position = this._chart.canvas.getBoundingClientRect()
+
+							// Display, position, and set styles for font
+							tooltipEl.style.opacity = 1
+							tooltipEl.style.position = 'absolute'
+							tooltipEl.style.backgroundColor = 'white'
+							tooltipEl.style.boxShadow = '0px 6px 8px rgba(0, 0, 0, 0.13)'
+							tooltipEl.style.borderRadius = '3px'
+							tooltipEl.style.left =
+								position.left + window.pageXOffset + tooltipModel.caretX + 'px'
+							tooltipEl.style.top =
+								position.top + window.pageYOffset + tooltipModel.caretY + 'px'
+							tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily
+							tooltipEl.style.fontSize = tooltipModel.bodyFontSize + 'px'
+							tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle
+							tooltipEl.style.padding =
+								tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px'
+							tooltipEl.style.pointerEvents = 'none'
+						},
 						callbacks: {
 							title: ([tooltipItem], data) => tooltip[tooltipItem.index],
 							label: (tooltipItem, data) =>
