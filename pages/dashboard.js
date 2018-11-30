@@ -31,7 +31,8 @@ class Dashboard extends Component {
 			assetsImages,
 			showAlert: true,
 			transactionDetailModal: false,
-			activeTransaction: null
+			activeTransaction: null,
+			scrolling: false
 		}
 	}
 
@@ -40,12 +41,33 @@ class Dashboard extends Component {
 		// const userData = localStorage.getItem('user')
 		// const user = userData && JSON.parse(userData)
 		// const sessionId = Cookie.get('CT-SESSION-ID')
+
 		// if (user && user.CtUserId && sessionId) {
 		// 	this.props.fetchOrders({ ctUser: user.CtUserId })
 		// } else {
 		// 	Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		// }
 		// }
+		addEventListener('resize', this.onResize)
+		this.onResize()
+	}
+
+	componentWillUnmount() {
+		removeEventListener('resize', this.onResize)
+		const tooltip = document.querySelector('#chartjs-tooltip')
+		if (tooltip) tooltip.remove() // remove chart tooltip when unmounted
+	}
+
+	onResize = () => {
+		const element = document.querySelector('.dashboard-page')
+		const documentElement = document.documentElement
+
+		this.setState({
+			scrolling:
+				element && documentElement
+					? documentElement.clientHeight < element.scrollHeight
+					: false
+		})
 	}
 
 	render() {
@@ -96,7 +118,7 @@ class Dashboard extends Component {
 						</div>
 					</div>
 				</div>
-				<StickyFooter className="bg-white" />
+				<StickyFooter className="bg-white" fixed={!this.state.scrolling} />
 				{this.state.transactionDetailModal && (
 					<TransactionDetail
 						transaction={this.state.activeTransaction}
@@ -120,7 +142,9 @@ class Dashboard extends Component {
 		props.assets.list.Send.forEach(asset => {
 			assetsImages[asset.Name] = asset.Image
 		})
-		this.setState({ assetsImages })
+		this.setState({ assetsImages }, () => {
+			if (this.state.assetsImages) this.onResize()
+		})
 	}
 }
 

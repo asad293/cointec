@@ -6,6 +6,7 @@ import ChartReducer from './chart'
 import ContstantsReducer from './constants'
 import OrderReducer from './order'
 import QuoteReducer from './quote'
+import VerificationReducer from './verification'
 import { reducer as FormReducer } from 'redux-form'
 
 const rootReducer = combineReducers({
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
 	constants: ContstantsReducer,
 	order: OrderReducer,
 	quote: QuoteReducer,
+	verification: VerificationReducer,
 	form: FormReducer
 })
 

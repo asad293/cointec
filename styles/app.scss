@@ -59,6 +59,9 @@ html {
 			height: 16.875rem;
 			width: 54.0625rem;
 			border-radius: 0 18.75rem 0 0;
+			@include media-breakpoint-down(sm) {
+				display: none;
+			}
 		}
 		&:after {
 			content: '';
@@ -74,6 +77,9 @@ html {
 			width: 38.75rem;
 			bottom: 0;
 			border-radius: 0 12.5rem 0 0;
+			@include media-breakpoint-down(sm) {
+				width: 100%;
+			}
 		}
 		&.up {
 			background: #0575e6 !important;

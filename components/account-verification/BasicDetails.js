@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { formValueSelector, Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
+import { fetchUserDetails, saveUserDetails } from '../../store/actions'
 import cn from 'classnames'
 import _ from 'lodash'
 
@@ -10,12 +11,19 @@ class BasicDetails extends Component {
 		this.state = {
 			manualAddress: false
 		}
+
 		this.onSubmit = this.onSubmit.bind(this)
 		this.toggleManual = this.toggleManual.bind(this)
 	}
 
-	onSubmit(event) {
-		event.preventDefault()
+	componentWillMount() {
+		this.props.fetchUserDetails(this.props.ctUser)
+	}
+
+	onSubmit(values) {
+		// event.preventDefault()
+		// console.log(values)
+		// this.props.saveUserDetails(this.props.ctUser, values)
 		this.props.onConfirm()
 	}
 
@@ -28,7 +36,7 @@ class BasicDetails extends Component {
 	render() {
 		return (
 			<div className="card-wrapper text-left">
-				<form onSubmit={this.onSubmit}>
+				<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
 					<div className="row">
 						<div className="col-12">
 							<h5 className="heading">Your profile</h5>
@@ -37,14 +45,14 @@ class BasicDetails extends Component {
 					<div className="row">
 						<div className="col-12 col-md-6">
 							<Field
-								name="firstname"
+								name="firstName"
 								label="First name"
 								component={this.renderField}
 							/>
 						</div>
 						<div className="col-12 col-md-6">
 							<Field
-								name="lastname"
+								name="lastLame"
 								label="Last name"
 								component={this.renderField}
 							/>
@@ -53,7 +61,7 @@ class BasicDetails extends Component {
 					<div className="row">
 						<div className="col-12 col-md-6">
 							<Field
-								name="birthdate"
+								name="birthDate"
 								label="Date of bith"
 								// type="date"
 								component={this.renderField}
@@ -82,7 +90,7 @@ class BasicDetails extends Component {
 											Enter manually
 										</a>
 										<Field
-											name="postcode"
+											name="postCode"
 											label="Post code"
 											component={this.renderField}
 											className="m-0"
@@ -121,7 +129,7 @@ class BasicDetails extends Component {
 								<div className="row" key={1}>
 									<div className="col-12 col-md-6">
 										<Field
-											name="city"
+											name="town"
 											label="Town/City"
 											component={this.renderField}
 											className="m-md-0"
@@ -129,7 +137,7 @@ class BasicDetails extends Component {
 									</div>
 									<div className="col-12 col-md-6">
 										<Field
-											name="postcode"
+											name="postCode"
 											label="Post Code"
 											component={this.renderField}
 											className="m-0"
@@ -201,8 +209,41 @@ class BasicDetails extends Component {
 			8
 		)}`
 	}
+
+	componentWillReceiveProps(props) {
+		if (props.accounts && props.accounts.userDetails) {
+			// this.props.change('firstName', props.accounts.userDetails.FirstName)
+			// this.props.change('lastLame', props.accounts.userDetails.LastName)
+		}
+	}
+}
+
+const mapStateToProps = state => {
+	const selector = formValueSelector('VerificationForm')
+	let firstName = selector(state, 'firstName')
+	let lastName = selector(state, 'lastName')
+	let birthDate = selector(state, 'birthDate')
+	let address1 = selector(state, 'address1')
+	let address2 = selector(state, 'address2')
+	let town = selector(state, 'town')
+	let postCode = selector(state, 'postCode')
+	return {
+		accounts: state.accounts,
+		firstName,
+		lastName,
+		birthDate,
+		address1,
+		address2,
+		town,
+		postCode
+	}
 }
 
 export default reduxForm({
 	form: 'VerificationForm'
-})(BasicDetails)
+})(
+	connect(
+		mapStateToProps,
+		{ fetchUserDetails, saveUserDetails }
+	)(BasicDetails)
+)

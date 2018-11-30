@@ -181,7 +181,7 @@ class AccountVerification extends Component {
 					<img src="/static/images/science.svg" alt="form-icon" />
 					<h4 className="form-title">Your basic details</h4>
 				</div>
-				<BasicDetails onConfirm={this.next} />
+				<BasicDetails ctUser={this.state.ctUser} onConfirm={this.next} />
 			</div>
 		)
 	}

@@ -20,6 +20,9 @@
 	}
 	.exchange-heading {
 		white-space: nowrap;
+		@include media-breakpoint-down(sm) {
+			padding-left: 5px;
+		}
 	}
 	.account-verification-container {
 		margin-bottom: 40px;
@@ -250,6 +253,30 @@
 			cursor: pointer;
 			@include media-breakpoint-down(sm) {
 				margin-top: 16px;
+			}
+		}
+		.lookup-dropdown-menu {
+			width: calc(200% - 24px);
+			background: #ffffff;
+			box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.13);
+			border-radius: 3px;
+			padding: 0;
+			.dropdown-item {
+				padding: 14px 16px;
+				&:hover {
+					background: #f0f3f5;
+				}
+				.postcode {
+					font-size: 16px;
+					line-height: 20px;
+					font-weight: normal;
+					color: #1a1d1f;
+				}
+				.address {
+					font-size: 14px;
+					line-height: 20px;
+					color: #1a1d1f;
+				}
 			}
 		}
 		.form-link,
