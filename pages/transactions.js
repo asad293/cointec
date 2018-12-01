@@ -283,7 +283,7 @@ const TransactionTable = ({
 									className="tr-activity"
 									onClick={() => onSelect(order)}>
 									{assets && (
-										<td>
+										<td colSpan="1">
 											<img src={assets[order.sourceCurrency]} />
 											<i className="far fa-long-arrow-right fa-lg d-none d-md-inline" />
 											<img
@@ -295,7 +295,9 @@ const TransactionTable = ({
 											</span>
 										</td>
 									)}
-									<td className="transaction-status">{order.status}</td>
+									<td colSpan="1" className="transaction-status">
+										{order.status}
+									</td>
 								</tr>
 							))
 						])
