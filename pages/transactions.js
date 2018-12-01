@@ -272,7 +272,7 @@ const TransactionTable = ({
 				<tbody>
 					{transactionHistoryGroups ? (
 						Object.keys(transactionHistoryGroups).map(group => [
-							<tr className="tr-date" key={group}>
+							<tr key={group} className="tr-date">
 								<td colSpan="2">
 									<Moment format="DD MMM YYYY">{Number.parseInt(group)}</Moment>
 								</td>
