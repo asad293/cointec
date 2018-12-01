@@ -278,7 +278,10 @@ const TransactionTable = ({
 								</td>
 							</tr>,
 							transactionHistoryGroups[group].map(order => (
-								<tr key={order.ctTransactionId} onClick={() => onSelect(order)}>
+								<tr
+									key={order.ctTransactionId}
+									className="tr-activity"
+									onClick={() => onSelect(order)}>
 									{assets && (
 										<td>
 											<img src={assets[order.sourceCurrency]} />
