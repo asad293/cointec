@@ -116,6 +116,10 @@ class Chart extends Component {
 							// Tooltip Element
 							var tooltipEl = document.getElementById('chartjs-tooltip')
 
+							if (document && document.documentElement.clientWidth < 992) {
+								return
+							}
+
 							// Create element on first render
 							if (!tooltipEl) {
 								tooltipEl = document.createElement('div')
