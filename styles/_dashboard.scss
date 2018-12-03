@@ -348,7 +348,11 @@
 		}
 	}
 
+	#abandon-order-modal {
+		transition: all 0.3s !important;
+	}
 	.modal-transaction-detail {
+		animation: fadein 0.5s;
 		@include media-breakpoint-up(sm) {
 			max-width: 496px;
 		}
@@ -443,6 +447,21 @@
 					}
 				}
 			}
+		}
+	}
+
+	@keyframes fadein {
+		0% {
+			opacity: 0;
+			transform: translateY(-50%);
+			visibility: hidden;
+		}
+		50% {
+			transform: translateY(0);
+		}
+		100% {
+			opacity: 1;
+			visibility: visible;
 		}
 	}
 }

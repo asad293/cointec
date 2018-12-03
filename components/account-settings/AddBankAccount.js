@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
+import { addAccount, deleteAccount } from '../../store/actions'
 import cn from 'classnames'
 
 class AddBankAccount extends Component {
@@ -8,6 +10,7 @@ class AddBankAccount extends Component {
 		this.state = {}
 		this.onClose = this.onClose.bind(this)
 		this.onClickOutside = this.onClickOutside.bind(this)
+		this.onDelete = this.onDelete.bind(this)
 		this.onSubmit = this.onSubmit.bind(this)
 	}
 
@@ -39,8 +42,14 @@ class AddBankAccount extends Component {
 		}
 	}
 
-	onSubmit(event) {
-		event.preventDefault()
+	onSubmit(values) {
+		console.log(values)
+		this.props.addAccount(this.props.ctUser, values)
+		this.props.onClose()
+	}
+
+	onDelete() {
+		this.props.deleteAccount(this.props.ctUser, this.props.editAccount.id)
 		this.props.onClose()
 	}
 
@@ -64,7 +73,7 @@ class AddBankAccount extends Component {
 									: 'Add bank account'}
 							</h5>
 							<hr />
-							<form onSubmit={this.onSubmit}>
+							<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
 								<div className="row">
 									<div className="col-12">
 										<Field
@@ -116,7 +125,9 @@ class AddBankAccount extends Component {
 												className={cn(
 													'btn btn-block btn-lg',
 													'btn-outline-danger'
-												)}>
+												)}
+												type="button"
+												onClick={this.onDelete}>
 												Delete bank account
 											</button>
 										</div>
@@ -188,8 +199,17 @@ class AddBankAccount extends Component {
 			</div>
 		)
 	}
+
+	componentWillReceiveProps(props) {
+		console.log(props)
+	}
 }
 
-export default reduxForm({
-	form: 'AddBankAccountForm'
-})(AddBankAccount)
+export default connect(
+	({ accounts }) => ({ accounts }),
+	{ addAccount, deleteAccount }
+)(
+	reduxForm({
+		form: 'AddBankAccountForm'
+	})(AddBankAccount)
+)

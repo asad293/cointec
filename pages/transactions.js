@@ -105,7 +105,9 @@ class Transactions extends Component {
 								currentPage={this.state.currentPage}
 								totalPages={this.state.totalPages}
 								className="d-none d-md-block"
-								onChange={page => this.setState({ currentPage: page })}
+								onChange={page =>
+									this.setState({ currentPage: page }, () => this.onResize())
+								}
 							/>
 						</div>
 					</div>
@@ -207,7 +209,17 @@ const TransactionTable = ({
 							Timestamp
 							<i className="fas fa-sort fa-sm ml-2" />
 						</th>
-						<th>Status</th>
+						<th
+							style={{ cursor: 'pointer' }}
+							onClick={() =>
+								onSort({
+									sortOrder: 'status',
+									sortDirection: sortDirection === 'desc' ? 'asc' : 'desc'
+								})
+							}>
+							Status
+							<i className="fas fa-sort fa-sm ml-2" />
+						</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -228,6 +240,14 @@ const TransactionTable = ({
 								? sortDirection === 'desc'
 									? y.destAmount - x.destAmount
 									: x.destAmount - y.destAmount
+								: sortOrder === 'status'
+								? sortDirection === 'desc'
+									? y.status.toUpperCase() < x.status.toUpperCase()
+										? -1
+										: 1
+									: y.status.toUpperCase() < x.status.toUpperCase()
+									? 1
+									: -1
 								: 0
 						)
 							.slice(

@@ -34,14 +34,14 @@ class AccountVerification extends Component {
 	}
 
 	componentDidMount() {
-		// const userData = localStorage.getItem('user')
-		// const user = userData && JSON.parse(userData)
-		// const sessionId = Cookie.get('CT-SESSION-ID')
-		// if (user && user.CtUserId && sessionId) {
-		// 	this.setState({ ctUser: user.CtUserId })
-		// } else {
-		// 	Router.push(`/login?redirectPath=${this.props.router.pathname}`)
-		// }
+		const userData = localStorage.getItem('user')
+		const user = userData && JSON.parse(userData)
+		const sessionId = Cookie.get('CT-SESSION-ID')
+		if (user && user.CtUserId && sessionId) {
+			this.setState({ ctUser: user.CtUserId })
+		} else {
+			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
+		}
 
 		addEventListener('resize', this.onResize)
 		this.onResize()
@@ -181,7 +181,7 @@ class AccountVerification extends Component {
 					<img src="/static/images/science.svg" alt="form-icon" />
 					<h4 className="form-title">Your basic details</h4>
 				</div>
-				<BasicDetails onConfirm={this.next} />
+				<BasicDetails ctUser={this.state.ctUser} onConfirm={this.next} />
 			</div>
 		)
 	}

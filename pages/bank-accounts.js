@@ -30,6 +30,7 @@ class BankAccounts extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			ctUser: null,
 			showAlert: true,
 			addBankAccountModal: false,
 			editAccount: null,
@@ -43,6 +44,7 @@ class BankAccounts extends Component {
 		const user = userData && JSON.parse(userData)
 		const sessionId = Cookie.get('CT-SESSION-ID')
 		if (user && user.CtUserId && sessionId) {
+			this.setState({ ctUser: user.CtUserId })
 			this.props.fetchAccounts(user.CtUserId)
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
@@ -141,6 +143,7 @@ class BankAccounts extends Component {
 				{this.state.addBankAccountModal && (
 					<AddBankAccount
 						editAccount={this.state.editAccount}
+						ctUser={this.state.ctUser}
 						onClose={() =>
 							this.setState({ addBankAccountModal: false, editAccount: null })
 						}

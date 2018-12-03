@@ -3,7 +3,12 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { fetchOrders, fetchAssetsList } from '../store/actions'
+import {
+	fetchOrders,
+	fetchAssetsList,
+	fetchVerificationStatus,
+	fetchUserDetails
+} from '../store/actions'
 import Cookie from 'js-cookie'
 
 import Nav from '../components/dashboard/Nav'
@@ -36,6 +41,8 @@ class AccountSettings extends Component {
 		const sessionId = Cookie.get('CT-SESSION-ID')
 		if (user && user.email && sessionId) {
 			this.setState({ email: user.email })
+			this.props.fetchVerificationStatus({ ctUser: user.CtUserId })
+			this.props.fetchUserDetails(user.CtUserId)
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
@@ -89,25 +96,56 @@ class AccountSettings extends Component {
 								<TabsGroup />
 								<SettingsMenu title="Your account" />
 								<div className="settings-list">
-									<div className="setting-wrapper">
+									<div
+										className="setting-wrapper"
+										style={{
+											padding: this.props.verification.VerificationComplete
+												? '36px 32px'
+												: ''
+										}}>
 										<div className="d-flex flex-column flex-md-row">
 											<div>
-												<h6 className="setting-name">
+												<h6
+													className="setting-name"
+													style={{
+														marginBottom: !this.props.verification
+															.VerificationComplete
+															? '16px'
+															: '12px'
+													}}>
 													Verification status
-													<img src="/static/images/check.svg" alt="verified" />
+													<img
+														src={
+															!this.props.verification.VerificationComplete
+																? '/static/images/check.svg'
+																: '/static/images/check-success.svg'
+														}
+														alt="verified"
+													/>
 												</h6>
-												<p className="d-none d-md-block">
-													Get verified to buy digital currency with GBP
-												</p>
-												<p className="d-block d-md-none mb-4">
-													Get verified to buy with GBP
-												</p>
+												{!this.props.verification.VerificationComplete ? (
+													<div>
+														<p className="d-none d-md-block">
+															Get verified to buy digital currency with GBP
+														</p>
+														<p className="d-block d-md-none mb-4">
+															Get verified to buy with GBP
+														</p>
+													</div>
+												) : (
+													<p className="verification-status">
+														<span className="beta-user">Beta user</span> |{' '}
+														<a className="link-setting">upgrade</a>
+													</p>
+												)}
 											</div>
-											<div className="ml-md-auto">
-												<Link href="/account-verification">
-													<a className="btn-setting">Complete verification</a>
-												</Link>
-											</div>
+											{!this.props.verification.VerificationComplete && (
+												<div className="ml-md-auto">
+													<Link href="/account-verification">
+														<a className="btn-setting">Complete verification</a>
+													</Link>
+												</div>
+											)}
 										</div>
 									</div>
 									<div className="setting-wrapper">
@@ -115,10 +153,21 @@ class AccountSettings extends Component {
 											<div>
 												<h6 className="setting-name">
 													Email address
-													<img src="/static/images/check.svg" alt="verified" />
+													<img
+														src={
+															!this.props.verification.EmailConfirmed
+																? '/static/images/check.svg'
+																: '/static/images/check-success.svg'
+														}
+														alt="verified"
+													/>
 												</h6>
 												<p className="mb-4 mb-md-0">
-													{this.state.email || 'nuurspace@gmail.com'} |
+													{(this.props.accounts.userDetails &&
+														this.props.accounts.userDetails.EmailAddress) ||
+														this.state.email ||
+														'email@cointec.co.uk'}
+													{' |'}
 													<a
 														className="link-setting"
 														onClick={() =>
@@ -208,9 +257,13 @@ class AccountSettings extends Component {
 			</div>
 		)
 	}
+
+	componentWillReceiveProps(props) {
+		console.log(props.verification)
+	}
 }
 
 export default connect(
-	({ auth }) => ({ auth }),
-	{ fetchOrders, fetchAssetsList }
+	({ auth, verification, accounts }) => ({ auth, verification, accounts }),
+	{ fetchOrders, fetchAssetsList, fetchVerificationStatus, fetchUserDetails }
 )(withRouter(AccountSettings))
