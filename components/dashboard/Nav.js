@@ -64,6 +64,7 @@ const Nav = () => (
 								aria-haspopup="true"
 								aria-expanded="false">
 								Your account
+								<i className="far fa-angle-down pl-2" />
 							</a>
 							<div className="dropdown-menu dropdown-menu-right">
 								<Link href="/account-settings">
