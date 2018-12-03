@@ -16,7 +16,8 @@ class TransactionLimits extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			showAlert: true
+			showAlert: true,
+			scrolling: false
 		}
 	}
 
@@ -29,6 +30,25 @@ class TransactionLimits extends Component {
 		// } else {
 		// 	Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		// }
+
+		addEventListener('resize', this.onResize)
+		this.onResize()
+	}
+
+	componentWillUnmount() {
+		removeEventListener('resize', this.onResize)
+	}
+
+	onResize = () => {
+		const element = document.querySelector('.settings-page')
+		const documentElement = document.documentElement
+
+		this.setState({
+			scrolling:
+				element && documentElement
+					? documentElement.clientHeight < element.scrollHeight
+					: false
+		})
 	}
 
 	render() {
@@ -49,7 +69,11 @@ class TransactionLimits extends Component {
 				{this.state.showAlert && (
 					<AlertMessage onHide={() => this.setState({ showAlert: false })} />
 				)}
-				<div className="container dashboard-container">
+				<div
+					className="container dashboard-container"
+					style={{
+						marginBottom: !this.state.scrolling ? 86 : ''
+					}}>
 					<div className="row">
 						<div className="col">
 							<div className="content-wrapper p-0 h-auto">
@@ -78,7 +102,7 @@ class TransactionLimits extends Component {
 						</div>
 					</div>
 				</div>
-				<StickyFooter className="bg-white" fixed={true} />
+				<StickyFooter className="bg-white" fixed={!this.state.scrolling} />
 			</div>
 		)
 	}
