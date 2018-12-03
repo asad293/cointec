@@ -348,6 +348,9 @@
 		}
 	}
 
+	#abandon-order-modal {
+		transition: all 0.3s !important;
+	}
 	.modal-transaction-detail {
 		animation: fadein 0.5s;
 		@include media-breakpoint-up(sm) {

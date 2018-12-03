@@ -4,13 +4,24 @@ import cn from 'classnames'
 class TransactionDetail extends Component {
 	constructor() {
 		super()
-		this.state = {}
+		this.state = {
+			closed: false
+		}
 		this.onClose = this.onClose.bind(this)
 		this.onClickOutside = this.onClickOutside.bind(this)
 	}
 
 	onClose() {
-		this.props.onClose()
+		this.setState(
+			{
+				closed: true
+			},
+			() => {
+				setTimeout(() => {
+					this.props.onClose()
+				}, 300)
+			}
+		)
 	}
 
 	componentDidMount() {
@@ -28,7 +39,7 @@ class TransactionDetail extends Component {
 			node => node.className === 'modal-dialog modal-transaction-detail'
 		)
 		if (!select) {
-			this.props.onClose()
+			this.onClose()
 		}
 	}
 
@@ -40,8 +51,11 @@ class TransactionDetail extends Component {
 				id="abandon-order-modal"
 				role="dialog"
 				data-backdrop="false"
-				style={{ display: 'block' }}>
-				<div className="modal-dialog modal-transaction-detail" role="document">
+				style={{ display: 'block', opacity: this.state.closed ? 0 : 1 }}>
+				<div
+					className="modal-dialog modal-transaction-detail"
+					role="document"
+					style={{ transform: this.state.closed ? 'translateY(-25%)' : '' }}>
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-heading text-left">Transaction detail</h5>
