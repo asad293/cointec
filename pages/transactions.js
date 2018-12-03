@@ -38,7 +38,8 @@ class Transactions extends Component {
 			sortOrder: 'timestamp',
 			sortDirection: 'desc',
 			transactionDetailModal: false,
-			activeTransaction: null
+			activeTransaction: null,
+			scrolling: false
 		}
 	}
 
@@ -51,6 +52,24 @@ class Transactions extends Component {
 		// } else {
 		// 	Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		// }
+		addEventListener('resize', this.onResize)
+		this.onResize()
+	}
+
+	componentWillUnmount() {
+		removeEventListener('resize', this.onResize)
+	}
+
+	onResize = () => {
+		const element = document.querySelector('.dashboard-page')
+		const documentElement = document.documentElement
+
+		this.setState({
+			scrolling:
+				element && documentElement
+					? documentElement.clientHeight < element.scrollHeight
+					: false
+		})
 	}
 
 	render() {
@@ -99,12 +118,14 @@ class Transactions extends Component {
 								currentPage={this.state.currentPage}
 								totalPages={this.state.totalPages}
 								className="d-none d-md-block"
-								onChange={page => this.setState({ currentPage: page })}
+								onChange={page =>
+									this.setState({ currentPage: page }, () => this.onResize())
+								}
 							/>
 						</div>
 					</div>
 				</div>
-				<StickyFooter className="bg-white" />
+				<StickyFooter className="bg-white" fixed={!this.state.scrolling} />
 				{this.state.transactionDetailModal && (
 					<TransactionDetail
 						transaction={this.state.activeTransaction}
@@ -128,15 +149,20 @@ class Transactions extends Component {
 		assets.list.Send.forEach(asset => {
 			assetsImages[asset.Name] = asset.Image
 		})
-		this.setState({
-			totalPages: order.orders
-				? Math.ceil(
-						order.orders.TransactionHistory.length /
-							order.orders.TransactionsDisplayLimit
-				  )
-				: 0,
-			assetsImages
-		})
+		this.setState(
+			{
+				totalPages: order.orders
+					? Math.ceil(
+							order.orders.TransactionHistory.length /
+								order.orders.TransactionsDisplayLimit
+					  )
+					: 0,
+				assetsImages
+			},
+			() => {
+				if (this.state.assetsImages) this.onResize()
+			}
+		)
 	}
 }
 
@@ -196,7 +222,17 @@ const TransactionTable = ({
 							Timestamp
 							<i className="fas fa-sort fa-sm ml-2" />
 						</th>
-						<th>Status</th>
+						<th
+							style={{ cursor: 'pointer' }}
+							onClick={() =>
+								onSort({
+									sortOrder: 'status',
+									sortDirection: sortDirection === 'desc' ? 'asc' : 'desc'
+								})
+							}>
+							Status
+							<i className="fas fa-sort fa-sm ml-2" />
+						</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -217,6 +253,14 @@ const TransactionTable = ({
 								? sortDirection === 'desc'
 									? y.destAmount - x.destAmount
 									: x.destAmount - y.destAmount
+								: sortOrder === 'status'
+								? sortDirection === 'desc'
+									? y.status.toUpperCase() < x.status.toUpperCase()
+										? -1
+										: 1
+									: y.status.toUpperCase() < x.status.toUpperCase()
+									? 1
+									: -1
 								: 0
 						)
 							.slice(
@@ -272,18 +316,15 @@ const TransactionTable = ({
 				<tbody>
 					{transactionHistoryGroups ? (
 						Object.keys(transactionHistoryGroups).map(group => [
-							<tr key={group} className="tr-date">
+							<tr className="tr-date" key={group}>
 								<td colSpan="2">
 									<Moment format="DD MMM YYYY">{Number.parseInt(group)}</Moment>
 								</td>
 							</tr>,
 							transactionHistoryGroups[group].map(order => (
-								<tr
-									key={order.ctTransactionId}
-									className="tr-activity"
-									onClick={() => onSelect(order)}>
+								<tr key={order.ctTransactionId} onClick={() => onSelect(order)}>
 									{assets && (
-										<td colSpan="1">
+										<td>
 											<img src={assets[order.sourceCurrency]} />
 											<i className="far fa-long-arrow-right fa-lg d-none d-md-inline" />
 											<img
@@ -295,9 +336,7 @@ const TransactionTable = ({
 											</span>
 										</td>
 									)}
-									<td colSpan="1" className="transaction-status">
-										{order.status}
-									</td>
+									<td className="transaction-status">{order.status}</td>
 								</tr>
 							))
 						])
