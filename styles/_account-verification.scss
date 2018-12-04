@@ -257,12 +257,27 @@
 		}
 		.lookup-dropdown-menu {
 			width: calc(200% - 24px);
+			overflow-y: scroll;
+			max-height: 192px;
 			background: #ffffff;
 			box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.13);
 			border-radius: 3px;
 			padding: 0;
+			left: calc(-100% + 12px);
+			&::-webkit-scrollbar {
+				width: 5px;
+			}
+			&::-webkit-scrollbar-track {
+				background: #e7ecee;
+			}
+			&::-webkit-scrollbar-thumb,
+			&::-webkit-scrollbar-thumb:hover {
+				background: #0459c4;
+			}
 			.dropdown-item {
 				padding: 14px 16px;
+				font-size: 16px;
+				line-height: 20px;
 				&:hover {
 					background: #f0f3f5;
 				}

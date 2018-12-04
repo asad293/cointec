@@ -47,6 +47,11 @@ const Nav = () => (
 							<a className="nav-link">Exchange</a>
 						</Link>
 					</li>
+					<li className="nav-item d-block d-lg-none">
+						<a href="https://intercom.help/cointec-test" className="nav-link">
+							Support
+						</a>
+					</li>
 					<li className="nav-item">
 						<div className="btn-group dashboard-menu d-block d-lg-inline-flex">
 							<button

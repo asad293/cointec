@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
+import { requestConfirmEmail } from '../../store/actions'
 import cn from 'classnames'
 
 class ConfirmEmail extends Component {
@@ -34,9 +36,9 @@ class ConfirmEmail extends Component {
 		}
 	}
 
-	onSubmit(event) {
-		event.preventDefault()
-		this.props.onClose()
+	onSubmit() {
+		this.props.requestConfirmEmail(this.props.ctUser)
+		this.props.onEmailSent()
 	}
 
 	render() {
@@ -55,13 +57,13 @@ class ConfirmEmail extends Component {
 							</button>
 							<h5 className="modal-heading text-left">Confirm email address</h5>
 							<hr />
-							<form onSubmit={this.onSubmit}>
+							<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
 								<div className="row">
 									<div className="col-12">
 										<p className="modal-message">
 											We’ve sent a confirmation email to{' '}
-											<span className="semi">youremail@gmail.com.</span> If you
-											can’t find the email please check your junk folder.
+											<span className="semi">{this.props.emailAddress}.</span>{' '}
+											If you can’t find the email please check your junk folder.
 										</p>
 									</div>
 								</div>
@@ -83,6 +85,11 @@ class ConfirmEmail extends Component {
 	}
 }
 
-export default reduxForm({
-	form: 'ConfirmEmailForm'
-})(ConfirmEmail)
+export default connect(
+	({ accounts }) => ({ accounts }),
+	{ requestConfirmEmail }
+)(
+	reduxForm({
+		form: 'ConfirmEmailForm'
+	})(ConfirmEmail)
+)

@@ -7,13 +7,17 @@ import {
 	ADD_ACCOUNT_END,
 	FETCH_USER_DETAILS,
 	FETCH_USER_DETAILS_START,
-	FETCH_USER_DETAILS_END
+	FETCH_USER_DETAILS_END,
+	REQUEST_CONFIRM_EMAIL,
+	REQUEST_CONFIRM_EMAIL_START,
+	REQUEST_CONFIRM_EMAIL_END
 } from '../actions'
 
 const INITIAL_STATE = {
 	loading: false,
 	error: null,
 	list: null,
+	requestEmail: null,
 	userDetails: null,
 	addFN: null,
 	fetched: false
@@ -39,6 +43,14 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 				error: null
 			}
 
+		case REQUEST_CONFIRM_EMAIL:
+			return {
+				...state,
+				requestEmail: payload,
+				loading: false,
+				error: null
+			}
+
 		case FETCH_USER_DETAILS:
 			return { ...state, userDetails: payload, loading: false, error: null }
 
@@ -51,9 +63,13 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case ADD_ACCOUNT_START:
 			return { ...state, loading: true, error: null }
 
+		case REQUEST_CONFIRM_EMAIL_START:
+			return { ...state, requestEmail: null, loading: true, error: null }
+
 		case FETCH_ACCOUNTS_END:
 		case FETCH_USER_DETAILS_END:
 		case ADD_ACCOUNT_END:
+		case REQUEST_CONFIRM_EMAIL_END:
 			return { ...state, loading: false, error: payload }
 
 		default:

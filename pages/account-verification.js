@@ -38,7 +38,7 @@ class AccountVerification extends Component {
 		const user = userData && JSON.parse(userData)
 		const sessionId = Cookie.get('CT-SESSION-ID')
 		if (user && user.CtUserId && sessionId) {
-			this.setState({ ctUser: user.CtUserId })
+			this.setState({ ctUser: user.CtUserId, email: user.email })
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
@@ -181,7 +181,11 @@ class AccountVerification extends Component {
 					<img src="/static/images/science.svg" alt="form-icon" />
 					<h4 className="form-title">Your basic details</h4>
 				</div>
-				<BasicDetails ctUser={this.state.ctUser} onConfirm={this.next} />
+				<BasicDetails
+					ctUser={this.state.ctUser}
+					emailAddress={this.state.email}
+					onConfirm={this.next}
+				/>
 			</div>
 		)
 	}

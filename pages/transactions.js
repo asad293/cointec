@@ -13,6 +13,14 @@ import TransactionDetail from '../components/dashboard/TransactionDetail'
 import StickyFooter from '../components/StickyFooter'
 import Pagination from '../components/Pagination'
 
+const STATUS_LIST = [
+	'COMPLETED',
+	'CANCELLED',
+	'FAILED',
+	'PENDING',
+	'REFUNDPENDING'
+]
+
 class Transactions extends Component {
 	constructor(props) {
 		super(props)
@@ -242,12 +250,10 @@ const TransactionTable = ({
 									: x.destAmount - y.destAmount
 								: sortOrder === 'status'
 								? sortDirection === 'desc'
-									? y.status.toUpperCase() < x.status.toUpperCase()
-										? -1
-										: 1
-									: y.status.toUpperCase() < x.status.toUpperCase()
-									? 1
-									: -1
+									? STATUS_LIST.indexOf(y.status.toUpperCase()) -
+									  STATUS_LIST.indexOf(x.status.toUpperCase())
+									: STATUS_LIST.indexOf(x.status.toUpperCase()) -
+									  STATUS_LIST.indexOf(y.status.toUpperCase())
 								: 0
 						)
 							.slice(

@@ -124,6 +124,9 @@
 		line-height: 19px;
 		padding: 18px 0;
 		color: white;
+		&.alert-success {
+			background: #29be60;
+		}
 		p {
 			margin: 0;
 		}
@@ -229,6 +232,7 @@
 			margin-bottom: 0;
 			thead {
 				th {
+					border-top: none;
 					font-weight: 600;
 					line-height: 14px;
 					font-size: 14px;
