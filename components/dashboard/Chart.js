@@ -18,6 +18,7 @@ class Chart extends Component {
 			data: null,
 			updatedOn: null
 		}
+		this.onScroll = this.onScroll.bind(this)
 	}
 
 	componentDidMount() {
@@ -25,6 +26,21 @@ class Chart extends Component {
 		this.setState({
 			updatedOn: new Date().getTime()
 		})
+
+		document
+			.querySelector('.dashboard-page')
+			.addEventListener('scroll', this.onScroll)
+	}
+
+	componentWillUnmount() {
+		document
+			.querySelector('.dashboard-page')
+			.removeEventListener('scroll', this.onScroll)
+	}
+
+	onScroll() {
+		const tooltip = document.querySelector('#chartjs-tooltip')
+		if (tooltip) tooltip.remove() // remove chart tooltip when scrolling
 	}
 
 	render() {
@@ -210,7 +226,10 @@ class Chart extends Component {
 						}
 					},
 					hover: {
-						mode: 'index',
+						mode:
+							document && document.documentElement.clientWidth > 992
+								? 'index'
+								: 'none',
 						intersect: false
 					},
 					layout: {

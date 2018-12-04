@@ -253,7 +253,7 @@ const Nav = props => (
 				</ul>
 			</div>
 
-			<div className="col-6 d-block d-md-none">
+			<div className="col-6 d-block d-md-none p-0">
 				<h5 className="exchange-heading">
 					{props.step === 1 && 'Enter amount'}
 					{props.step === 2 && 'Order summary'}
@@ -264,7 +264,7 @@ const Nav = props => (
 			<ul className="col-6 col-md-3 navbar-nav justify-content-end align-items-lg-center text-right">
 				<li className="nav-item">
 					<Link href="/">
-						<a className="nav-link">
+						<a className="nav-link px-0">
 							<i className="far fa-times" />
 						</a>
 					</Link>

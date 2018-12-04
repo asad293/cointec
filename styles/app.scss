@@ -320,6 +320,12 @@ html {
 	}
 }
 
+.modal-dialog {
+	@include media-breakpoint-down(xs) {
+		margin: 1rem;
+	}
+}
+
 .modal-subscribe {
 	.modal-body {
 		padding: 1.65rem;

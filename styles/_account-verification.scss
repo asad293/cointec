@@ -20,9 +20,9 @@
 	}
 	.exchange-heading {
 		white-space: nowrap;
-		@include media-breakpoint-down(sm) {
-			padding-left: 5px;
-		}
+		// @include media-breakpoint-down(sm) {
+		// 	padding-left: 5px;
+		// }
 	}
 	.account-verification-container {
 		margin-bottom: 40px;
