@@ -252,7 +252,7 @@ const Nav = props => (
 				</ul>
 			</div>
 
-			<div className="col-6 d-block d-md-none">
+			<div className="col-6 d-block d-md-none p-0">
 				<h5 className="exchange-heading">
 					{props.step === 1 && 'Enter amount'}
 					{props.step === 2 && 'Order summary'}
