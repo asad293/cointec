@@ -25,6 +25,21 @@ class Chart extends Component {
 		this.setState({
 			updatedOn: new Date().getTime()
 		})
+
+		document
+			.querySelector('.dashboard-page')
+			.addEventListener('scroll', this.onScroll)
+	}
+
+	componentWillUnmount() {
+		document
+			.querySelector('.dashboard-page')
+			.removeEventListener('scroll', this.onScroll)
+	}
+
+	onScroll() {
+		const tooltip = document.querySelector('#chartjs-tooltip')
+		if (tooltip) tooltip.remove() //
 	}
 
 	render() {
