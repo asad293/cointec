@@ -151,7 +151,8 @@
 			margin-top: 24px;
 			margin-bottom: 24px;
 		}
-		& > .row > [class*='col-'] {
+		& > .row > [class*='col-'],
+		& > .row > .col {
 			padding-right: 12px;
 			padding-left: 12px;
 			@include media-breakpoint-down(md) {
@@ -362,6 +363,9 @@
 			border-radius: 3px;
 			.modal-header {
 				padding: 25px 32px;
+				@include media-breakpoint-down(sm) {
+					padding: 25px 24px;
+				}
 				border: 1px solid #d5dce0;
 				.modal-heading {
 					font-weight: 600;
@@ -384,6 +388,9 @@
 					padding: 8px 0;
 					.transaction-field {
 						padding: 20px 32px 17px;
+						@include media-breakpoint-down(sm) {
+							padding: 20px 24px;
+						}
 						&:hover {
 							background: #f0f3f5;
 						}
@@ -441,6 +448,9 @@
 					font-size: 16px;
 					padding: 22px 32px;
 					color: #ffffff;
+					@include media-breakpoint-down(sm) {
+						padding: 22px 24px;
+					}
 					.fa-clone {
 						cursor: pointer;
 						position: absolute;

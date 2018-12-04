@@ -225,7 +225,10 @@ class Chart extends Component {
 						}
 					},
 					hover: {
-						mode: 'index',
+						mode:
+							document && document.documentElement.clientWidth > 992
+								? 'index'
+								: 'none',
 						intersect: false
 					},
 					layout: {

@@ -15,10 +15,10 @@ import Pagination from '../components/Pagination'
 
 const STATUS_LIST = [
 	'COMPLETED',
-	'CANCELLED',
-	'FAILED',
 	'PENDING',
-	'REFUNDPENDING'
+	'REFUNDPENDING',
+	'CANCELLED',
+	'FAILED'
 ]
 
 class Transactions extends Component {

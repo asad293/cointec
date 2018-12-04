@@ -422,6 +422,9 @@
 		border-radius: 3px;
 		.modal-body {
 			padding: 25px 30px 32px;
+			@include media-breakpoint-down(sm) {
+				padding: 24px;
+			}
 			.close {
 				color: #0459c4;
 				opacity: 1;
