@@ -163,7 +163,7 @@ export const saveUserDetails = (
 		FirstName: values.firstName,
 		LastName: values.lastName,
 		EmailAddress: emailAddress,
-		MobileNo: '07397224277',
+		// MobileNo: '07397224277',
 		AddressLine1: values.address1,
 		AddressLine2: values.address2 || ' ',
 		Town: values.town,
