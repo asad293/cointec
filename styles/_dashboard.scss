@@ -415,6 +415,9 @@
 								cursor: pointer;
 								position: absolute;
 								right: 32px;
+								@include media-breakpoint-down(sm) {
+									right: 24px;
+								}
 							}
 							&.status {
 								&::before {
@@ -455,6 +458,9 @@
 						cursor: pointer;
 						position: absolute;
 						right: 32px;
+						@include media-breakpoint-down(sm) {
+							right: 24px;
+						}
 					}
 				}
 			}
