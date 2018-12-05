@@ -63,7 +63,7 @@ class Chart extends Component {
 							options={this.state.options}
 							data={this.state.data}
 							height={
-								document && document.documentElement.clientWidth > 768
+								document && document.documentElement.clientWidth > 767
 									? 230
 									: 144
 							}
@@ -246,7 +246,7 @@ class Chart extends Component {
 								},
 								ticks: {
 									maxTicksLimit:
-										document && document.documentElement.clientWidth > 768
+										document && document.documentElement.clientWidth > 767
 											? 5
 											: 3
 								}

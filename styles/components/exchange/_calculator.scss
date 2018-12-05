@@ -10,6 +10,7 @@
 	}
 	@include media-breakpoint-down(xs) {
 		padding: 24px;
+		min-height: auto;
 	}
 	.field-label {
 		display: block;
