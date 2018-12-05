@@ -1,4 +1,30 @@
 .exchange-page {
+	header {
+		.container {
+			.navbar-nav {
+				.nav-link {
+					@include media-breakpoint-down(sm) {
+						padding-right: 0;
+					}
+				}
+				@include media-breakpoint-down(sm) {
+					padding-right: 0;
+				}
+			}
+			@include media-breakpoint-down(sm) {
+				padding-left: 20px;
+				padding-right: 20px;
+			}
+		}
+	}
+	& > .container {
+		padding-left: 20px;
+		padding-right: 20px;
+		& > .row {
+			margin-left: -20px;
+			margin-right: -20px;
+		}
+	}
 	@include media-breakpoint-down(xs) {
 		overflow-y: scroll;
 		.bottom-bar {
@@ -163,6 +189,11 @@
 		}
 	}
 }
+.navbar-brand {
+	img {
+		max-width: 104px;
+	}
+}
 .navbar-exchange {
 	padding: 18px 0;
 	@include media-breakpoint-down(xs) {
@@ -172,15 +203,16 @@
 
 .exchange-page {
 	.bottom-bar {
-		position: fixed;
-  }
+		position: initial;
+		// position: fixed;
+	}
 }
 .main-wrapper {
 	width: 434px;
 	text-align: center;
 	@include media-breakpoint-down(xs) {
 		width: 100%;
-		padding: 0 15px;
+		padding: 0 20px;
 	}
 }
 
@@ -214,12 +246,13 @@
 			line-height: 12px;
 			font-size: 16px;
 			color: #515c61;
-			max-width: 355px;
+			max-width: 328px;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			text-align: left;
 			@include media-breakpoint-down(xs) {
-				max-width: 270px;
+				max-width: 65vw;
+				// max-width: 270px;
 			}
 		}
 		i {

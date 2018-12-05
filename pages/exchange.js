@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import Cookie from 'js-cookie'
 import cn from 'classnames'
+import { connect } from 'react-redux'
 
 import Header from '../components/Header'
 import Calculator from '../components/exchange/Calculator'
@@ -25,7 +26,9 @@ class Exchange extends Component {
 			rate: 1200,
 			wallet: null,
 			ctUser: null,
-			step: 1
+			step: 1,
+			addBankAccountModal: false,
+			scrolling: false
 		}
 
 		this.next = this.next.bind(this)
@@ -49,13 +52,35 @@ class Exchange extends Component {
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
+
+		addEventListener('resize', this.onResize)
+		this.onResize()
+	}
+
+	componentWillUnmount() {
+		removeEventListener('resize', this.onResize)
+	}
+
+	onResize = () => {
+		const element = document.querySelector('.exchange-page')
+		const documentElement = document.documentElement
+
+		this.setState({
+			scrolling:
+				element && documentElement
+					? documentElement.clientHeight < element.scrollHeight
+					: false
+		})
 	}
 
 	next(state) {
-		this.setState({
-			...state,
-			step: this.state.step + 1
-		})
+		this.setState(
+			{
+				...state,
+				step: this.state.step + 1
+			},
+			() => this.onResize()
+		)
 	}
 
 	back() {
@@ -69,9 +94,12 @@ class Exchange extends Component {
 	}
 
 	onRestart() {
-		this.setState({
-			step: 1
-		})
+		this.setState(
+			{
+				step: 1
+			},
+			() => this.onResize()
+		)
 	}
 
 	onRateChange(state) {
@@ -89,7 +117,7 @@ class Exchange extends Component {
 				<Header background="solid">
 					<Nav
 						step={this.state.step}
-						setStep={step => this.setState({ step })}
+						setStep={step => this.setState({ step }, () => this.onResize())}
 					/>
 				</Header>
 
@@ -98,7 +126,7 @@ class Exchange extends Component {
 						<div className="main-wrapper">
 							<InnerNav
 								step={this.state.step}
-								setStep={step => this.setState({ step })}
+								setStep={step => this.setState({ step }, () => this.onResize())}
 							/>
 							{this.state.step === 1 && this.renderAmountFrame()}
 							{this.state.step === 2 && this.renderSummaryFrame()}
@@ -107,8 +135,12 @@ class Exchange extends Component {
 					</div>
 				</div>
 
-				<StickyFooter className="bg-white" />
-				<AddBankAccount />
+				<StickyFooter className="bg-white" fixed={!this.state.scrolling} />
+				{this.state.addBankAccountModal && (
+					<AddBankAccount
+						onClose={() => this.setState({ addBankAccountModal: false })}
+					/>
+				)}
 			</div>
 		)
 	}
@@ -172,9 +204,14 @@ class Exchange extends Component {
 					ctUser={this.state.ctUser}
 					onConfirm={this.onConfirm}
 					onRestart={this.onRestart}
+					onAddAccount={() => this.setState({ addBankAccountModal: true })}
 				/>
 			</div>
 		)
+	}
+
+	componentWillReceiveProps(props) {
+		this.onResize()
 	}
 }
 
@@ -216,7 +253,7 @@ const Nav = props => (
 				</ul>
 			</div>
 
-			<div className="col-6 d-block d-md-none">
+			<div className="col-6 d-block d-md-none p-0">
 				<h5 className="exchange-heading">
 					{props.step === 1 && 'Enter amount'}
 					{props.step === 2 && 'Order summary'}
@@ -227,7 +264,7 @@ const Nav = props => (
 			<ul className="col-6 col-md-3 navbar-nav justify-content-end align-items-lg-center text-right">
 				<li className="nav-item">
 					<Link href="/">
-						<a className="nav-link">
+						<a className="nav-link px-0">
 							<i className="far fa-times" />
 						</a>
 					</Link>
@@ -261,4 +298,7 @@ const InnerNav = props => (
 	</div>
 )
 
-export default withRouter(Exchange)
+export default connect(
+	({ order }) => ({ order }),
+	null
+)(withRouter(Exchange))

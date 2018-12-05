@@ -5,7 +5,9 @@ import AuthReducer from './auth'
 import ChartReducer from './chart'
 import ContstantsReducer from './constants'
 import OrderReducer from './order'
+import PostCodesReducer from './postcodes'
 import QuoteReducer from './quote'
+import VerificationReducer from './verification'
 import { reducer as FormReducer } from 'redux-form'
 
 const rootReducer = combineReducers({
@@ -15,7 +17,9 @@ const rootReducer = combineReducers({
 	chart: ChartReducer,
 	constants: ContstantsReducer,
 	order: OrderReducer,
+	postcodes: PostCodesReducer,
 	quote: QuoteReducer,
+	verification: VerificationReducer,
 	form: FormReducer
 })
 

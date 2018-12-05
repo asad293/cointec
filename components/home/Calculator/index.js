@@ -411,7 +411,26 @@ class Calculator extends Component {
 		this.setState({ search: !this.state.search })
 	}
 
+	autoScroll() {
+		if (document && document.documentElement.clientWidth < 992) {
+			const calcWrapper = document.querySelector('.calculator-wrapper')
+			if (calcWrapper) {
+				if (this.props.router.pathname === '/dashboard')
+					document.querySelector('.dashboard-page').scrollBy({
+						top: calcWrapper.getBoundingClientRect().top - 24,
+						behavior: 'smooth'
+					})
+				else
+					window.scrollBy({
+						top: calcWrapper.getBoundingClientRect().top - 20 || 330,
+						behavior: 'smooth'
+					})
+			}
+		}
+	}
+
 	toggleDropDown(type) {
+		this.autoScroll()
 		if (type === 'currency') {
 			if (!this.state.toggleCurrency) this.props.fetchAssetsStatus()
 			this.setState({
@@ -421,7 +440,15 @@ class Calculator extends Component {
 			})
 		} else if (type === 'coin') {
 			if (!this.state.toggleCoin) this.props.fetchAssetsStatus()
-			this.setState({ toggleCoin: !this.state.toggleCoin, coinSearch: '' })
+			this.setState(
+				{ toggleCoin: !this.state.toggleCoin, coinSearch: '' },
+				() => {
+					const searchInput = document.querySelector('.search-input')
+					if (this.state.toggleCoin) {
+						searchInput.focus()
+					}
+				}
+			)
 		}
 	}
 

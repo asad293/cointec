@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { formValueSelector, Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
+import {
+	fetchUserDetails,
+	saveUserDetails,
+	lookupPostcode
+} from '../../store/actions'
 import cn from 'classnames'
 import _ from 'lodash'
 
@@ -8,16 +13,58 @@ class BasicDetails extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			manualAddress: false
+			manualAddress: false,
+			postcodeMenu: false
 		}
 
 		this.onSubmit = this.onSubmit.bind(this)
 		this.toggleManual = this.toggleManual.bind(this)
+		this.lookupPostalcode = this.lookupPostalcode.bind(this)
+		this.onAddressChange = this.onAddressChange.bind(this)
 	}
 
-	onSubmit(event) {
-		event.preventDefault()
-		this.props.onConfirm()
+	componentWillMount() {
+		this.props.fetchUserDetails(this.props.ctUser).then(() => {
+			const { accounts } = this.props
+			if (accounts && accounts.userDetails) {
+				this.props.change('firstName', accounts.userDetails.FirstName)
+				this.props.change('lastName', accounts.userDetails.LastName)
+				this.props.change('birthDate', accounts.userDetails.DateOfBirth)
+				this.props.change('postCode', accounts.userDetails.Postcode)
+				this.props.change('address1', accounts.userDetails.AddressLine1)
+				this.props.change('address2', accounts.userDetails.AddressLine2)
+				this.props.change('town', accounts.userDetails.Town)
+			}
+		})
+	}
+
+	componentDidMount() {
+		addEventListener('click', this.onClickOutside)
+	}
+
+	componentWillUnmount() {
+		removeEventListener('click', this.onClickOutside)
+	}
+
+	onClickOutside = event => {
+		const select = event.path.find(
+			node => node.className === 'lookup-dropdown-menu'
+		)
+		if (!select) {
+			this.setState({
+				postcodeMenu: false
+			})
+		}
+	}
+
+	onSubmit(values) {
+		// event.preventDefault()
+		console.log(values)
+		this.props
+			.saveUserDetails(this.props.ctUser, this.props.emailAddress, values)
+			.then(res => {
+				if (res.data && res.data.Success) this.props.onConfirm()
+			})
 	}
 
 	toggleManual() {
@@ -26,10 +73,31 @@ class BasicDetails extends Component {
 		})
 	}
 
+	lookupPostalcode() {
+		if (!this.state.postcodeMenu) {
+			this.props.lookupPostcode(this.props.postCode).then(r => {
+				this.setState({
+					postcodeMenu: true
+				})
+			})
+		} else {
+			this.setState({
+				postcodeMenu: false
+			})
+		}
+	}
+
+	onAddressChange(address) {
+		this.props.change('address1', address.line_1)
+		this.props.change('address2', address.line_2)
+		this.props.change('town', address.postal_county)
+		// this.toggleManual()
+	}
+
 	render() {
 		return (
 			<div className="card-wrapper text-left">
-				<form onSubmit={this.onSubmit}>
+				<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
 					<div className="row">
 						<div className="col-12">
 							<h5 className="heading">Your profile</h5>
@@ -38,14 +106,14 @@ class BasicDetails extends Component {
 					<div className="row">
 						<div className="col-12 col-md-6">
 							<Field
-								name="firstname"
+								name="firstName"
 								label="First name"
 								component={this.renderField}
 							/>
 						</div>
 						<div className="col-12 col-md-6">
 							<Field
-								name="lastname"
+								name="lastName"
 								label="Last name"
 								component={this.renderField}
 							/>
@@ -54,10 +122,12 @@ class BasicDetails extends Component {
 					<div className="row">
 						<div className="col-12 col-md-6">
 							<Field
-								name="birthdate"
+								name="birthDate"
 								label="Date of bith"
-								type="date"
+								// type="date"
 								component={this.renderField}
+								placeholder="01/01/1999"
+								normalize={this.normalizeBirthDate}
 							/>
 						</div>
 					</div>
@@ -81,7 +151,7 @@ class BasicDetails extends Component {
 											Enter manually
 										</a>
 										<Field
-											name="postcode"
+											name="postCode"
 											label="Post code"
 											component={this.renderField}
 											className="m-0"
@@ -89,7 +159,22 @@ class BasicDetails extends Component {
 										/>
 									</div>
 									<div className="col-12 col-md-6">
-										<a className="btn-field">Lookup postal code</a>
+										<a className="btn-field" onClick={this.lookupPostalcode}>
+											Lookup postal code
+										</a>
+										{this.state.postcodeMenu && (
+											<div className="lookup-dropdown-menu dropdown-menu show">
+												{this.props.postcodes.result &&
+													this.props.postcodes.result.map((address, index) => (
+														<div
+															className="dropdown-item"
+															key={index}
+															onClick={() => this.onAddressChange(address)}>{`${
+															address.line_1
+														} ${address.line_2} ${address.postal_county}`}</div>
+													))}
+											</div>
+										)}
 									</div>
 								</div>,
 								<div className="row d-none d-md-flex" key={1}>
@@ -120,7 +205,7 @@ class BasicDetails extends Component {
 								<div className="row" key={1}>
 									<div className="col-12 col-md-6">
 										<Field
-											name="city"
+											name="town"
 											label="Town/City"
 											component={this.renderField}
 											className="m-md-0"
@@ -128,7 +213,7 @@ class BasicDetails extends Component {
 									</div>
 									<div className="col-12 col-md-6">
 										<Field
-											name="postcode"
+											name="postCode"
 											label="Post Code"
 											component={this.renderField}
 											className="m-0"
@@ -182,8 +267,55 @@ class BasicDetails extends Component {
 			</div>
 		)
 	}
+
+	normalizeBirthDate(value) {
+		if (!value) {
+			return value
+		}
+		const onlyNums = value.replace(/[^\d]/g, '')
+
+		if (onlyNums.length <= 2) {
+			return onlyNums
+		}
+		if (onlyNums.length <= 4) {
+			return `${onlyNums.slice(0, 2)}/${onlyNums.slice(2, 4)}`
+		}
+		return `${onlyNums.slice(0, 2)}/${onlyNums.slice(2, 4)}/${onlyNums.slice(
+			4,
+			8
+		)}`
+	}
+
+	componentWillReceiveProps(props) {}
+}
+
+const mapStateToProps = state => {
+	const selector = formValueSelector('VerificationForm')
+	let firstName = selector(state, 'firstName')
+	let lastName = selector(state, 'lastName')
+	let birthDate = selector(state, 'birthDate')
+	let address1 = selector(state, 'address1')
+	let address2 = selector(state, 'address2')
+	let town = selector(state, 'town')
+	let postCode = selector(state, 'postCode')
+	return {
+		accounts: state.accounts,
+		postcodes: state.postcodes,
+		firstName,
+		lastName,
+		birthDate,
+		address1,
+		address2,
+		town,
+		postCode
+	}
 }
 
 export default reduxForm({
 	form: 'VerificationForm'
-})(BasicDetails)
+})(
+	connect(
+		mapStateToProps,
+		{ fetchUserDetails, saveUserDetails, lookupPostcode }
+	)(BasicDetails)
+)

@@ -5371,7 +5371,7 @@ const INITIAL_STATE = {
 	refund: null,
 	clear: null,
 	status: null,
-	orders: orders //: null
+	orders: null
 }
 
 export default (state = INITIAL_STATE, { type, payload }) => {
