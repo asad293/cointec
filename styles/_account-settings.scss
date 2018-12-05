@@ -415,6 +415,7 @@
 	}
 }
 .modal-account-settings {
+	animation: modal-enter 0.5s;
 	@include media-breakpoint-up(md) {
 		max-width: 434px;
 	}
