@@ -172,8 +172,8 @@
 				max-width: 37.918%;
 			}
 			@include media-breakpoint-up(xl) {
-				flex: 0 0 31.93%;
-				max-width: 31.93%;
+				flex: 0 0 33.86%;
+				max-width: 33.86%;
 			}
 		}
 		.col-lg-chart {
@@ -182,8 +182,8 @@
 				max-width: 62.082%;
 			}
 			@include media-breakpoint-up(xl) {
-				flex: 0 0 68.07%;
-				max-width: 68.07%;
+				flex: 0 0 66.14%;
+				max-width: 66.14%;
 			}
 		}
 		.content-wrapper {
@@ -353,9 +353,6 @@
 		}
 	}
 
-	#abandon-order-modal {
-		transition: all 0.3s !important;
-	}
 	.modal-transaction-detail {
 		animation: modal-enter 0.5s;
 		@include media-breakpoint-up(sm) {

@@ -7,7 +7,9 @@ import cn from 'classnames'
 class AddBankAccount extends Component {
 	constructor() {
 		super()
-		this.state = {}
+		this.state = {
+			closed: false
+		}
 		this.onClose = this.onClose.bind(this)
 		this.onClickOutside = this.onClickOutside.bind(this)
 		this.onDelete = this.onDelete.bind(this)
@@ -15,7 +17,16 @@ class AddBankAccount extends Component {
 	}
 
 	onClose() {
-		this.props.onClose()
+		this.setState(
+			{
+				closed: true
+			},
+			() => {
+				setTimeout(() => {
+					this.props.onClose()
+				}, 300)
+			}
+		)
 	}
 
 	componentDidMount() {
@@ -38,19 +49,19 @@ class AddBankAccount extends Component {
 			node => node.className === 'modal-dialog modal-account-settings'
 		)
 		if (!select) {
-			this.props.onClose()
+			this.onClose()
 		}
 	}
 
 	onSubmit(values) {
 		console.log(values)
 		this.props.addAccount(this.props.ctUser, values)
-		this.props.onClose()
+		this.onClose()
 	}
 
 	onDelete() {
 		this.props.deleteAccount(this.props.ctUser, this.props.editAccount.id)
-		this.props.onClose()
+		this.onClose()
 	}
 
 	render() {
@@ -60,8 +71,11 @@ class AddBankAccount extends Component {
 				id="abandon-order-modal"
 				role="dialog"
 				data-backdrop="false"
-				style={{ display: 'block' }}>
-				<div className="modal-dialog modal-account-settings" role="document">
+				style={{ display: 'block', opacity: this.state.closed ? 0 : 1 }}>
+				<div
+					className="modal-dialog modal-account-settings"
+					role="document"
+					style={{ transform: this.state.closed ? 'translateY(-25%)' : '' }}>
 					<div className="modal-content">
 						<div className="modal-body">
 							<button type="button" className="close" onClick={this.onClose}>

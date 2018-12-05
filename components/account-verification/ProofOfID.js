@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
-import { formValueSelector, Field, reduxForm } from 'redux-form'
+import { reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
+import {
+	getRehiveId,
+	getRehiveToken,
+	uploadDocument
+} from '../../store/actions'
 import cn from 'classnames'
 import _ from 'lodash'
 
@@ -19,6 +24,15 @@ class ProofOfID extends Component {
 		}
 
 		this.handleChange = this.handleChange.bind(this)
+	}
+
+	componentDidMount() {
+		const userData = localStorage.getItem('user')
+		const user = userData && JSON.parse(userData)
+		if (user && user.CtUserId) {
+			this.props.getRehiveId({ ctUser: user.CtUserId })
+			this.props.getRehiveToken({ ctUser: user.CtUserId })
+		}
 	}
 
 	handleChange(event) {
@@ -41,25 +55,42 @@ class ProofOfID extends Component {
 				})
 			} else {
 				if (this.state.timeout) clearTimeout(this.state.timeout)
-				const timeout = setTimeout(() => {
-					this.setState({
-						progress: 100
-					})
-					setTimeout(() => {
-						this.props.onConfirm()
-					}, 350)
-				}, 750)
+				// const timeout = setTimeout(() => {
+				// 	this.setState({
+				// 		progress: 100
+				// 	})
+				// 	setTimeout(() => {
+				// 		this.props.onConfirm()
+				// 	}, 350)
+				// }, 750)
 				this.setState({
 					error: false,
 					uploading: true,
 					uploaded: false,
 					file,
-					progress: 20,
-					timeout
+					progress: 20
+					// timeout
 				})
+				this.props
+					.uploadDocument({
+						AccountId: this.props.verification.AccountId,
+						RehiveId: this.props.verification.RehiveId,
+						Token: this.props.verification.Token,
+						file,
+						category: 'Proof Of Identity'
+					})
+					.then(res => {
+						console.log(res)
+						this.setState({
+							progress: 100
+						})
+						setTimeout(() => {
+							this.props.onConfirm()
+						}, 350)
+					})
 			}
 		}
-		console.log(file)
+		// console.log(file)
 	}
 
 	render() {
@@ -136,7 +167,11 @@ class ProofOfID extends Component {
 							type="submit"
 							className={cn('btn btn-block btn-lg', 'btn-primary')}
 							onChange={this.handleChange}
-							disabled={this.state.uploading}>
+							disabled={
+								this.state.uploading ||
+								!this.props.verification.RehiveId ||
+								!this.props.verification.Token
+							}>
 							Upload proof of ID
 						</FileInput>
 					</div>
@@ -146,6 +181,11 @@ class ProofOfID extends Component {
 	}
 }
 
-export default reduxForm({
-	form: 'VerificationForm'
-})(ProofOfID)
+export default connect(
+	({ verification }) => ({ verification }),
+	{ getRehiveId, getRehiveToken, uploadDocument }
+)(
+	reduxForm({
+		form: 'VerificationForm'
+	})(ProofOfID)
+)

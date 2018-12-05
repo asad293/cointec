@@ -7,14 +7,25 @@ import cn from 'classnames'
 class ConfirmEmail extends Component {
 	constructor() {
 		super()
-		this.state = {}
+		this.state = {
+			closed: false
+		}
 		this.onClose = this.onClose.bind(this)
 		this.onClickOutside = this.onClickOutside.bind(this)
 		this.onSubmit = this.onSubmit.bind(this)
 	}
 
 	onClose() {
-		this.props.onClose()
+		this.setState(
+			{
+				closed: true
+			},
+			() => {
+				setTimeout(() => {
+					this.props.onClose()
+				}, 300)
+			}
+		)
 	}
 
 	componentDidMount() {
@@ -32,7 +43,7 @@ class ConfirmEmail extends Component {
 			node => node.className === 'modal-dialog modal-account-settings'
 		)
 		if (!select) {
-			this.props.onClose()
+			this.onClose()
 		}
 	}
 
@@ -48,8 +59,11 @@ class ConfirmEmail extends Component {
 				id="abandon-order-modal"
 				role="dialog"
 				data-backdrop="false"
-				style={{ display: 'block' }}>
-				<div className="modal-dialog modal-account-settings" role="document">
+				style={{ display: 'block', opacity: this.state.closed ? 0 : 1 }}>
+				<div
+					className="modal-dialog modal-account-settings"
+					role="document"
+					style={{ transform: this.state.closed ? 'translateY(-25%)' : '' }}>
 					<div className="modal-content">
 						<div className="modal-body">
 							<button type="button" className="close" onClick={this.onClose}>

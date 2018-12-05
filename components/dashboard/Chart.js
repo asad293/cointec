@@ -247,7 +247,7 @@ class Chart extends Component {
 								},
 								ticks: {
 									maxTicksLimit:
-										document && document.documentElement.clientWidth > 768
+										document && document.documentElement.clientWidth > 767
 											? 5
 											: 3
 								}

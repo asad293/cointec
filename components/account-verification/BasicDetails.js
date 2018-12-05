@@ -91,7 +91,7 @@ class BasicDetails extends Component {
 		this.props.change('address1', address.line_1)
 		this.props.change('address2', address.line_2)
 		this.props.change('town', address.postal_county)
-		// this.toggleManual()
+		this.toggleManual()
 	}
 
 	render() {
