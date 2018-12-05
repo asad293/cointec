@@ -478,6 +478,7 @@ html {
 #abandon-order-modal,
 #add-bank-account-modal {
 	background: rgba(0, 0, 0, 0.5);
+	transition: all 0.3s !important;
 }
 
 @keyframes modal-enter {

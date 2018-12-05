@@ -1,18 +1,31 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
+import { requestConfirmEmail } from '../../store/actions'
 import cn from 'classnames'
 
 class ConfirmEmail extends Component {
 	constructor() {
 		super()
-		this.state = {}
+		this.state = {
+			closed: false
+		}
 		this.onClose = this.onClose.bind(this)
 		this.onClickOutside = this.onClickOutside.bind(this)
 		this.onSubmit = this.onSubmit.bind(this)
 	}
 
 	onClose() {
-		this.props.onClose()
+		this.setState(
+			{
+				closed: true
+			},
+			() => {
+				setTimeout(() => {
+					this.props.onClose()
+				}, 300)
+			}
+		)
 	}
 
 	componentDidMount() {
@@ -30,13 +43,13 @@ class ConfirmEmail extends Component {
 			node => node.className === 'modal-dialog modal-account-settings'
 		)
 		if (!select) {
-			this.props.onClose()
+			this.onClose()
 		}
 	}
 
-	onSubmit(event) {
-		event.preventDefault()
-		this.props.onClose()
+	onSubmit() {
+		// this.props.requestConfirmEmail(this.props.ctUser)
+		this.props.onEmailSent()
 	}
 
 	render() {
@@ -46,8 +59,11 @@ class ConfirmEmail extends Component {
 				id="abandon-order-modal"
 				role="dialog"
 				data-backdrop="false"
-				style={{ display: 'block' }}>
-				<div className="modal-dialog modal-account-settings" role="document">
+				style={{ display: 'block', opacity: this.state.closed ? 0 : 1 }}>
+				<div
+					className="modal-dialog modal-account-settings"
+					role="document"
+					style={{ transform: this.state.closed ? 'translateY(-25%)' : '' }}>
 					<div className="modal-content">
 						<div className="modal-body">
 							<button type="button" className="close" onClick={this.onClose}>
@@ -55,13 +71,13 @@ class ConfirmEmail extends Component {
 							</button>
 							<h5 className="modal-heading text-left">Confirm email address</h5>
 							<hr />
-							<form onSubmit={this.onSubmit}>
+							<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
 								<div className="row">
 									<div className="col-12">
 										<p className="modal-message">
 											We’ve sent a confirmation email to{' '}
-											<span className="semi">youremail@gmail.com.</span> If you
-											can’t find the email please check your junk folder.
+											<span className="semi">{this.props.emailAddress}.</span>{' '}
+											If you can’t find the email please check your junk folder.
 										</p>
 									</div>
 								</div>
@@ -83,6 +99,11 @@ class ConfirmEmail extends Component {
 	}
 }
 
+// export default // connect(
+// ({ accounts }) => ({ accounts }),
+// { requestConfirmEmail }
+// )(
 export default reduxForm({
 	form: 'ConfirmEmailForm'
 })(ConfirmEmail)
+// )
