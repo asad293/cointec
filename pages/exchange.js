@@ -141,6 +141,11 @@ class Exchange extends Component {
 						onClose={() => this.setState({ addBankAccountModal: false })}
 					/>
 				)}
+				<style jsx global>{`
+					html {
+						background: #f7f9fa;
+					}
+				`}</style>
 			</div>
 		)
 	}

@@ -480,6 +480,21 @@ html {
 	background: rgba(0, 0, 0, 0.5);
 }
 
+@keyframes modal-enter {
+	0% {
+		opacity: 0;
+		transform: translateY(-50%);
+		visibility: hidden;
+	}
+	50% {
+		transform: translateY(0);
+	}
+	100% {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
 .full-height {
 	position: fixed;
 	top: 0;
