@@ -141,8 +141,8 @@ class Exchange extends Component {
 					/>
 				)}
 				<style jsx global>{`
-					body { 
-						background: #F7F9FA;
+					html {
+						background: #f7f9fa;
 					}
 				`}</style>
 			</div>
