@@ -197,7 +197,7 @@ class AccountVerification extends Component {
 					<img src="/static/images/science.svg" alt="form-icon" />
 					<h4 className="form-title">Upload proof of ID</h4>
 				</div>
-				<ProofOfID onConfirm={this.next} />
+				<ProofOfID ctUser={this.state.ctUser} onConfirm={this.next} />
 			</div>
 		)
 	}
