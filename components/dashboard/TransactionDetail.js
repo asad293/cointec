@@ -92,7 +92,7 @@ class TransactionDetail extends Component {
 										{transaction.destAmount} {transaction.destCurrency}
 									</p>
 								</div>
-								<div className="transaction-field">
+								<div className="transaction-field position-relative">
 									<h6 className="field-label">Wallet address</h6>
 									<p className="field-value">
 										{transaction.dest}
