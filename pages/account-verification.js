@@ -17,6 +17,7 @@ class AccountVerification extends Component {
 		super()
 		this.state = {
 			ctUser: null,
+			email: null,
 			completed: false,
 			step: 1,
 			scrolling: false
@@ -142,15 +143,19 @@ class AccountVerification extends Component {
 							/>
 							{this.state.completed && this.renderCompletedFrame()}
 							{!this.state.completed &&
+								this.state.ctUser &&
 								this.state.step === 1 &&
 								this.renderEmailFrame()}
 							{!this.state.completed &&
+								this.state.ctUser &&
 								this.state.step === 2 &&
 								this.renderBasicDetailsFrame()}
 							{!this.state.completed &&
+								this.state.ctUser &&
 								this.state.step === 3 &&
 								this.renderProofIDFrame()}
 							{!this.state.completed &&
+								this.state.ctUser &&
 								this.state.step === 4 &&
 								this.renderProofAddressFrame()}
 						</div>
@@ -169,7 +174,10 @@ class AccountVerification extends Component {
 					<img src="/static/images/science.svg" alt="form-icon" />
 					<h4 className="form-title">Confirm your email address</h4>
 				</div>
-				<EmailConfirmation onConfirm={this.next} />
+				<EmailConfirmation
+					emailAddress={this.state.email}
+					onConfirm={this.next}
+				/>
 			</div>
 		)
 	}
@@ -209,7 +217,7 @@ class AccountVerification extends Component {
 					<img src="/static/images/science.svg" alt="form-icon" />
 					<h4 className="form-title">Upload proof of address</h4>
 				</div>
-				<ProofOfAddress onConfirm={this.complete} />
+				<ProofOfAddress ctUser={this.state.ctUser} onConfirm={this.complete} />
 			</div>
 		)
 	}

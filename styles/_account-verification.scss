@@ -257,7 +257,7 @@
 		}
 		.lookup-dropdown-menu {
 			width: calc(200% - 24px);
-			overflow-y: scroll;
+			overflow-y: auto;
 			max-height: 192px;
 			background: #ffffff;
 			box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.13);
@@ -274,12 +274,24 @@
 			&::-webkit-scrollbar-thumb:hover {
 				background: #0459c4;
 			}
+			@include media-breakpoint-down(sm) {
+				width: calc(100% - 24px);
+				left: 12px;
+			}
 			.dropdown-item {
 				padding: 14px 16px;
 				font-size: 16px;
 				line-height: 20px;
+				width: 100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
 				&:hover {
 					background: #f0f3f5;
+				}
+				&.no-highlight {
+					&:hover {
+						background: none;
+					}
 				}
 				.postcode {
 					font-size: 16px;

@@ -28,8 +28,10 @@ class EmailConfirmation extends Component {
 			<div>
 				<p className="confirmation-message">
 					We’ve sent a confirmation email to{' '}
-					<span className="email-address">youremail@gmail.com</span>. If you
-					can’t find the email please check your junk folder.
+					<span className="email-address">
+						{this.props.emailAddress || 'youremail@gmail.com'}
+					</span>
+					. If you can’t find the email please check your junk folder.
 				</p>
 				<Link href="/account-verification">
 					<a className="confirmation-link">Resend confirmation email</a>

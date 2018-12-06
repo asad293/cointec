@@ -26,19 +26,15 @@ class ProofOfID extends Component {
 		this.handleChange = this.handleChange.bind(this)
 	}
 
-	componentDidMount() {
-		const userData = localStorage.getItem('user')
-		const user = userData && JSON.parse(userData)
-		if (user && user.CtUserId) {
-			this.props.getRehiveId({ ctUser: user.CtUserId })
-			this.props.getRehiveToken({ ctUser: user.CtUserId })
-		}
+	componentWillMount() {
+		this.props.getRehiveId({ ctUser: this.props.ctUser })
+		this.props.getRehiveToken({ ctUser: this.props.ctUser })
 	}
 
 	handleChange(event) {
 		const [file] = event.target.files
 		if (file) {
-			if (file.size > 26214400) {
+			if (file.size > 5242880) {
 				if (this.state.timeout) clearTimeout(this.state.timeout)
 				const timeout = setTimeout(() => {
 					this.setState({
@@ -55,21 +51,12 @@ class ProofOfID extends Component {
 				})
 			} else {
 				if (this.state.timeout) clearTimeout(this.state.timeout)
-				// const timeout = setTimeout(() => {
-				// 	this.setState({
-				// 		progress: 100
-				// 	})
-				// 	setTimeout(() => {
-				// 		this.props.onConfirm()
-				// 	}, 350)
-				// }, 750)
 				this.setState({
 					error: false,
 					uploading: true,
 					uploaded: false,
 					file,
-					progress: 20
-					// timeout
+					progress: 0
 				})
 				this.props
 					.uploadDocument({
@@ -77,10 +64,14 @@ class ProofOfID extends Component {
 						RehiveId: this.props.verification.RehiveId,
 						Token: this.props.verification.Token,
 						file,
-						category: 'Proof Of Identity'
+						category: 'Proof Of Identity',
+						onUploadProgress: event => {
+							this.setState({
+								progress: (event.loaded * 100) / file.size
+							})
+						}
 					})
 					.then(res => {
-						console.log(res)
 						this.setState({
 							progress: 100
 						})
@@ -90,7 +81,6 @@ class ProofOfID extends Component {
 					})
 			}
 		}
-		// console.log(file)
 	}
 
 	render() {
