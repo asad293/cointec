@@ -191,6 +191,7 @@ export const saveUserDetails = (
 				type: SAVE_USER_DETAILS_END,
 				payload: error
 			})
+			throw error
 		})
 }
 

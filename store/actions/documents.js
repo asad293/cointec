@@ -9,7 +9,8 @@ export const uploadDocument = ({
 	RehiveId,
 	Token,
 	file,
-	category
+	category,
+	onUploadProgress
 }) => dispatch => {
 	dispatch({ type: UPLOAD_DOCUMENT_START })
 
@@ -25,13 +26,13 @@ export const uploadDocument = ({
 	data.append('status', 'pending')
 	data.append('user', RehiveId)
 
-	console.log(data)
 	return axios
-		.post(`https://api.rehive.com/${AccountId}/admin/users/documents/`, data, {
-			headers
+		.post(`https://api.rehive.com/3/admin/users/documents/`, data, {
+			headers,
+			onUploadProgress
 		})
 		.then(response => {
-			console.log(response)
+			// console.log(response)
 			dispatch({
 				type: UPLOAD_DOCUMENT,
 				payload: response.data

@@ -18,7 +18,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 			return { ...state, loading: true, error: null }
 
 		case LOOKUP_POSTCODE_END:
-			return { ...state, loading: false, error: payload }
+			return { loading: false, error: payload }
 
 		default:
 			return state

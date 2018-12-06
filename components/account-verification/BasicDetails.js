@@ -14,7 +14,8 @@ class BasicDetails extends Component {
 		super(props)
 		this.state = {
 			manualAddress: false,
-			postcodeMenu: false
+			postcodeMenu: false,
+			errorMessage: null
 		}
 
 		this.onSubmit = this.onSubmit.bind(this)
@@ -58,12 +59,22 @@ class BasicDetails extends Component {
 	}
 
 	onSubmit(values) {
-		// event.preventDefault()
-		console.log(values)
 		this.props
 			.saveUserDetails(this.props.ctUser, this.props.emailAddress, values)
 			.then(res => {
-				if (res.data && res.data.Success) this.props.onConfirm()
+				if (res && res.data && res.data.Success) this.props.onConfirm()
+			})
+			.catch(err => {
+				if (err && err.response.data) {
+					this.setState({
+						errorMessage: err.response.data.Message
+					})
+					setTimeout(() => {
+						this.setState({
+							errorMessage: null
+						})
+					}, 3000)
+				}
 			})
 	}
 
@@ -89,7 +100,10 @@ class BasicDetails extends Component {
 
 	onAddressChange(address) {
 		this.props.change('address1', address.line_1)
-		this.props.change('address2', address.line_2)
+		this.props.change(
+			'address2',
+			address.line_2 + (address.line_3 ? ', ' : '') + address.line_3
+		)
 		this.props.change('town', address.postal_county)
 		this.toggleManual()
 	}
@@ -164,15 +178,24 @@ class BasicDetails extends Component {
 										</a>
 										{this.state.postcodeMenu && (
 											<div className="lookup-dropdown-menu dropdown-menu show">
-												{this.props.postcodes.result &&
+												{this.props.postcodes.result ? (
 													this.props.postcodes.result.map((address, index) => (
 														<div
 															className="dropdown-item"
 															key={index}
-															onClick={() => this.onAddressChange(address)}>{`${
-															address.line_1
-														} ${address.line_2} ${address.postal_county}`}</div>
-													))}
+															onClick={() => this.onAddressChange(address)}>
+															{`${address.line_1}${address.line_2 ? ', ' : ''}${
+																address.line_2
+															}${address.line_3 ? ', ' : ''}${
+																address.line_3
+															}, ${address.postal_county}, ${address.postcode}`}
+														</div>
+													))
+												) : (
+													<div className="dropdown-item no-highlight">
+														No result
+													</div>
+												)}
 											</div>
 										)}
 									</div>
@@ -221,6 +244,13 @@ class BasicDetails extends Component {
 									</div>
 								</div>
 						  ]}
+					{this.state.errorMessage && (
+						<div className="row">
+							<div className="col-12">
+								<p className="error-message">{this.state.errorMessage}</p>
+							</div>
+						</div>
+					)}
 					<div className="row mt-4">
 						<div className="col-md-12">
 							<button

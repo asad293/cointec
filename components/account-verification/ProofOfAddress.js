@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
-import { formValueSelector, Field, reduxForm } from 'redux-form'
+import { reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
+import {
+	getRehiveId,
+	getRehiveToken,
+	uploadDocument
+} from '../../store/actions'
 import cn from 'classnames'
 import _ from 'lodash'
 
@@ -21,10 +26,15 @@ class ProofOfAddress extends Component {
 		this.handleChange = this.handleChange.bind(this)
 	}
 
+	componentWillMount() {
+		this.props.getRehiveId({ ctUser: this.props.ctUser })
+		this.props.getRehiveToken({ ctUser: this.props.ctUser })
+	}
+
 	handleChange(event) {
 		const [file] = event.target.files
 		if (file) {
-			if (file.size > 26214400) {
+			if (file.size > 5242880) {
 				if (this.state.timeout) clearTimeout(this.state.timeout)
 				const timeout = setTimeout(() => {
 					this.setState({
@@ -41,25 +51,36 @@ class ProofOfAddress extends Component {
 				})
 			} else {
 				if (this.state.timeout) clearTimeout(this.state.timeout)
-				const timeout = setTimeout(() => {
-					this.setState({
-						progress: 100
-					})
-					setTimeout(() => {
-						this.props.onConfirm()
-					}, 350)
-				}, 1000)
 				this.setState({
 					error: false,
 					uploading: true,
 					uploaded: false,
 					file,
-					progress: 20,
-					timeout
+					progress: 0
 				})
+				this.props
+					.uploadDocument({
+						AccountId: this.props.verification.AccountId,
+						RehiveId: this.props.verification.RehiveId,
+						Token: this.props.verification.Token,
+						file,
+						category: 'Proof Of Address',
+						onUploadProgress: event => {
+							this.setState({
+								progress: (event.loaded * 100) / file.size
+							})
+						}
+					})
+					.then(res => {
+						this.setState({
+							progress: 100
+						})
+						setTimeout(() => {
+							this.props.onConfirm()
+						}, 350)
+					})
 			}
 		}
-		console.log(file)
 	}
 
 	render() {
@@ -156,7 +177,11 @@ class ProofOfAddress extends Component {
 							type="submit"
 							className={cn('btn btn-block btn-lg', 'btn-primary')}
 							onChange={this.handleChange}
-							disabled={this.state.uploading}>
+							disabled={
+								this.state.uploading ||
+								!this.props.verification.RehiveId ||
+								!this.props.verification.Token
+							}>
 							Upload proof of address
 						</FileInput>
 					</div>
@@ -166,6 +191,11 @@ class ProofOfAddress extends Component {
 	}
 }
 
-export default reduxForm({
-	form: 'VerificationForm'
-})(ProofOfAddress)
+export default connect(
+	({ verification }) => ({ verification }),
+	{ getRehiveId, getRehiveToken, uploadDocument }
+)(
+	reduxForm({
+		form: 'VerificationForm'
+	})(ProofOfAddress)
+)
