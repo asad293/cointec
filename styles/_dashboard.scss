@@ -499,3 +499,9 @@
 		}
 	}
 }
+
+#chartjs-tooltip {
+	@include media-breakpoint-down(md) {
+		opacity: 0 !important;
+	}
+}
