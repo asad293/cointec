@@ -59,7 +59,7 @@ class ConfirmEmail extends Component {
 				id="abandon-order-modal"
 				role="dialog"
 				data-backdrop="false"
-				style={{ display: 'block', opacity: this.state.closed ? 0 : 1 }}>
+				style={{ display: 'block' }}>
 				<div
 					className="modal-dialog modal-account-settings"
 					role="document"

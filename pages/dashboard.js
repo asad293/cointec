@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { fetchOrders, fetchAssetsList } from '../store/actions'
 import Cookie from 'js-cookie'
 import Moment from 'react-moment'
+import cn from 'classnames'
 
 import Nav from '../components/dashboard/Nav'
 import AlertMessage from '../components/dashboard/AlertMessage'
