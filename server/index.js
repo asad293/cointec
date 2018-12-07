@@ -32,6 +32,10 @@ app
 			app.render(req, res, `/${req.params.pathname}`)
 		})
 
+		server.get('/forgot-password/:token', (req, res) => {
+			app.render(req, res, `/forgot-password`, { token: req.params.token })
+		})
+
 		server.get('*', handle)
 
 		const appServer = secure ? createSecureServer(server) : server
