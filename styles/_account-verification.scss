@@ -235,6 +235,13 @@
 				&[type='date'] {
 					padding-right: 0;
 				}
+
+				&:-webkit-autofill,
+				&:-webkit-autofill:hover,
+				&:-webkit-autofill:focus {
+					transition: background-color 5000s ease-in-out 0s;
+					box-shadow: 0 0 0 30px white inset;
+				}
 			}
 		}
 		.btn-field {
@@ -251,6 +258,9 @@
 			text-align: center;
 			width: 100%;
 			cursor: pointer;
+			&:hover {
+				color: #0459c4;
+			}
 			@include media-breakpoint-down(sm) {
 				margin-top: 16px;
 			}
@@ -317,6 +327,7 @@
 			margin-top: 20px;
 			&:hover {
 				text-decoration: underline;
+				color: #0459c4;
 			}
 		}
 		.form-link {

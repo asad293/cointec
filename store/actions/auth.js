@@ -80,7 +80,7 @@ export const forgotPassword = body => async dispatch => {
 		const headers = { 'Content-Type': 'application/json' }
 		const response = await fetch(`${ROOT_URL}/accounts/forgot-password`, {
 			method: 'POST',
-			body,
+			body: JSON.stringify(body),
 			headers
 		})
 

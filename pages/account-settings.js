@@ -113,7 +113,11 @@ class AccountSettings extends Component {
 				{this.state.showAlert &&
 					!this.state.notificationAlert &&
 					!this.props.verification.VerificationComplete && (
-						<AlertMessage onHide={() => this.setState({ showAlert: false })} />
+						<AlertMessage
+							onHide={() =>
+								this.setState({ showAlert: false }, () => this.onResize())
+							}
+						/>
 					)}
 				{this.state.notificationAlert && (
 					<NotificationAlert

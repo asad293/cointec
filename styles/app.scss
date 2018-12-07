@@ -478,12 +478,12 @@ html {
 #abandon-order-modal,
 #add-bank-account-modal {
 	background: rgba(0, 0, 0, 0.5);
-	transition: all 0.3s !important;
+	transition: transform 0.3s !important;
 }
 
 @keyframes modal-enter {
 	0% {
-		opacity: 0;
+		// opacity: 0;
 		transform: translateY(-50%);
 		visibility: hidden;
 	}
@@ -491,7 +491,7 @@ html {
 		transform: translateY(0);
 	}
 	100% {
-		opacity: 1;
+		// opacity: 1;
 		visibility: visible;
 	}
 }

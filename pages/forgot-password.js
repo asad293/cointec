@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
 
 import Header from '../components/Header'
@@ -16,18 +17,20 @@ class ForgotPassword extends Component {
 	}
 
 	handleSubmit(values) {
+		console.log(values)
 		this.props
 			.forgotPassword(values)
 			.then(res => this.resetEmailSent(values.emailAddress))
 	}
 
 	resetEmailSent(email) {
+		console.log(email)
 		// Router.push('/link-sent/reset', { email })
 	}
 
 	render() {
 		const { loading } = this.props.auth
-		const { token } = this.props.match.params
+		const { token } = this.props.router.query
 
 		const description = !token
 			? 'Please enter your email address to begin resetting your password.'
@@ -74,4 +77,4 @@ class ForgotPassword extends Component {
 export default connect(
 	({ auth }) => ({ auth }),
 	{ forgotPassword }
-)(ForgotPassword)
+)(withRouter(ForgotPassword))
