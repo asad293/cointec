@@ -51,11 +51,11 @@ class TransactionDetail extends Component {
 				id="abandon-order-modal"
 				role="dialog"
 				data-backdrop="false"
-				style={{ display: 'block', opacity: this.state.closed ? 0 : 1 }}>
+				style={{ display: 'block' }}>
 				<div
 					className="modal-dialog modal-transaction-detail"
 					role="document"
-					style={{ transform: this.state.closed ? 'translateY(-25%)' : '' }}>
+					style={{ transform: this.state.closed ? 'translateY(-120%)' : '' }}>
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-heading text-left">Transaction detail</h5>
@@ -92,7 +92,7 @@ class TransactionDetail extends Component {
 										{transaction.destAmount} {transaction.destCurrency}
 									</p>
 								</div>
-								<div className="transaction-field">
+								<div className="transaction-field position-relative">
 									<h6 className="field-label">Wallet address</h6>
 									<p className="field-value">
 										{transaction.dest}

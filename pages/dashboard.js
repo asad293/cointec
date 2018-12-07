@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { fetchOrders, fetchAssetsList } from '../store/actions'
 import Cookie from 'js-cookie'
 import Moment from 'react-moment'
+import cn from 'classnames'
 
 import Nav from '../components/dashboard/Nav'
 import AlertMessage from '../components/dashboard/AlertMessage'
@@ -77,7 +78,11 @@ class Dashboard extends Component {
 					</div>
 				</header>
 				{this.state.showAlert && (
-					<AlertMessage onHide={() => this.setState({ showAlert: false })} />
+					<AlertMessage
+						onHide={() =>
+							this.setState({ showAlert: false }, () => this.onResize())
+						}
+					/>
 				)}
 				<div className="container dashboard-container">
 					<div className="row flex-column-reverse flex-lg-row">
@@ -162,7 +167,7 @@ const TransactionTable = ({ orders, assets, onSelect }) => (
 							className={index === 0 ? 'no-border' : ''}
 							onClick={() => onSelect(order)}>
 							{assets && (
-								<td>
+								<td width="20%">
 									<img src={assets[order.sourceCurrency]} />
 									<i className="far fa-long-arrow-right fa-lg d-none d-md-inline" />
 									<img
@@ -174,14 +179,27 @@ const TransactionTable = ({ orders, assets, onSelect }) => (
 									</span>
 								</td>
 							)}
-							<td className="d-none d-md-table-cell">{order.destAmount}</td>
-							<td className="d-none d-lg-table-cell">
+							<td width="20%" className="d-none d-md-table-cell">
+								{order.destAmount}
+							</td>
+							<td width="20%" className="d-none d-lg-table-cell">
 								{order.sourceAmount} {order.sourceCurrency}
 							</td>
-							<td className="d-none d-md-table-cell">
+							<td width="20%" className="d-none d-md-table-cell">
 								<Moment format="DD MMM hh:mmA">{order.createdAt * 1000}</Moment>
 							</td>
-							<td className="transaction-status">{order.status}</td>
+							<td
+								width="20%"
+								className={cn(
+									'transaction-status',
+									order.status === 'COMPLETED'
+										? 'completed'
+										: order.status === 'FAILED' || order.status === 'CANCELLED'
+										? 'failed'
+										: ''
+								)}>
+								{order.status}
+							</td>
 						</tr>
 					)
 				)

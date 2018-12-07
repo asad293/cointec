@@ -59,11 +59,11 @@ class ConfirmEmail extends Component {
 				id="abandon-order-modal"
 				role="dialog"
 				data-backdrop="false"
-				style={{ display: 'block', opacity: this.state.closed ? 0 : 1 }}>
+				style={{ display: 'block' }}>
 				<div
 					className="modal-dialog modal-account-settings"
 					role="document"
-					style={{ transform: this.state.closed ? 'translateY(-25%)' : '' }}>
+					style={{ transform: this.state.closed ? 'translateY(-120%)' : '' }}>
 					<div className="modal-content">
 						<div className="modal-body">
 							<button type="button" className="close" onClick={this.onClose}>

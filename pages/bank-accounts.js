@@ -86,7 +86,11 @@ class BankAccounts extends Component {
 					</div>
 				</header>
 				{this.state.showAlert && (
-					<AlertMessage onHide={() => this.setState({ showAlert: false })} />
+					<AlertMessage
+						onHide={() =>
+							this.setState({ showAlert: false }, () => this.onResize())
+						}
+					/>
 				)}
 				<div
 					className="container dashboard-container"
