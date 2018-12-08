@@ -217,15 +217,17 @@ class AccountSettings extends Component {
 													</a>
 												</p>
 											</div>
-											<div className="ml-md-auto">
-												<a
-													className="btn-setting"
-													onClick={() =>
-														this.setState({ confirmEmailModal: true })
-													}>
-													Confirm email address
-												</a>
-											</div>
+											{!this.props.verification.EmailConfirmed && (
+												<div className="ml-md-auto">
+													<a
+														className="btn-setting"
+														onClick={() =>
+															this.setState({ confirmEmailModal: true })
+														}>
+														Confirm email address
+													</a>
+												</div>
+											)}
 										</div>
 									</div>
 									<div className="setting-wrapper">
@@ -289,6 +291,13 @@ class AccountSettings extends Component {
 				)}
 				{this.state.changeEmailModal && (
 					<ChangeEmail
+						emailAddress={
+							(this.props.accounts.userDetails &&
+								this.props.accounts.userDetails.EmailAddress) ||
+							this.state.email ||
+							'email@cointec.co.uk'
+						}
+						ctUser={this.state.ctUser}
 						onClose={() => this.setState({ changeEmailModal: false })}
 					/>
 				)}

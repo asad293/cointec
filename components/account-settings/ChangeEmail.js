@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
+import { changeEmail } from '../../store/actions'
 import cn from 'classnames'
 
 class ChangeEmail extends Component {
@@ -45,9 +47,16 @@ class ChangeEmail extends Component {
 		}
 	}
 
-	onSubmit(event) {
-		event.preventDefault()
-		this.onClose()
+	onSubmit() {
+		this.props
+			.changeEmail({
+				ctUser: this.props.ctUser,
+				emailAddress: this.props.emailAddress
+			})
+			.then(res => {
+				console.log(res)
+				this.onClose()
+			})
 	}
 
 	render() {
@@ -69,7 +78,7 @@ class ChangeEmail extends Component {
 							</button>
 							<h5 className="modal-heading text-left">Change email</h5>
 							<hr />
-							<form onSubmit={this.onSubmit}>
+							<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
 								<div className="row">
 									<div className="col-12">
 										<Field
@@ -91,7 +100,7 @@ class ChangeEmail extends Component {
 											label="Password"
 											type="password"
 											placeholder="••••••••"
-											validate={password}
+											// validate={password}
 											component={this.renderField}
 										/>
 									</div>
@@ -100,8 +109,15 @@ class ChangeEmail extends Component {
 									<div className="col-md-12">
 										<button
 											type="submit"
-											className={cn('btn btn-block btn-lg', 'btn-primary')}>
-											Change email address
+											className={cn('btn btn-block btn-lg', 'btn-primary')}
+											disabled={this.props.accounts.loading}>
+											{this.props.accounts.loading ? (
+												<div>
+													<i className="fas fa-spinner fa-spin" />
+												</div>
+											) : (
+												<span>Change email address</span>
+											)}
 										</button>
 									</div>
 								</div>
@@ -151,6 +167,11 @@ const emailAddress = value => {
 }
 const password = value => (!value ? 'Please enter a valid password' : undefined)
 
-export default reduxForm({
-	form: 'ChangeEmailForm'
-})(ChangeEmail)
+export default connect(
+	({ accounts }) => ({ accounts }),
+	{ changeEmail }
+)(
+	reduxForm({
+		form: 'ChangeEmailForm'
+	})(ChangeEmail)
+)

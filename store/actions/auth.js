@@ -11,9 +11,9 @@ export const SIGN_IN_END = 'SIGN_IN_END'
 export const FORGOT_PASSWORD = 'FORGOT_PASSWORD'
 export const FORGOT_PASSWORD_START = 'FORGOT_PASSWORD_START'
 export const FORGOT_PASSWORD_END = 'FORGOT_PASSWORD_END'
-export const RESET_PASSWORD = 'RESET_PASSWORD'
-export const RESET_PASSWORD_START = 'RESET_PASSWORD_START'
-export const RESET_PASSWORD_END = 'RESET_PASSWORD_END'
+// export const RESET_PASSWORD = 'RESET_PASSWORD'
+// export const RESET_PASSWORD_START = 'RESET_PASSWORD_START'
+// export const RESET_PASSWORD_END = 'RESET_PASSWORD_END'
 export const FETCH_LIMIT = 'FETCH_LIMIT'
 export const FETCH_LIMIT_START = 'FETCH_LIMIT_START'
 export const FETCH_LIMIT_END = 'FETCH_LIMIT_END'
@@ -99,19 +99,19 @@ export const forgotPassword = body => async dispatch => {
 	}
 }
 
-export const resetPassword = body => async dispatch => {
-	dispatch({ type: RESET_PASSWORD_START, payload: null })
+// export const resetPassword = body => async dispatch => {
+// 	dispatch({ type: RESET_PASSWORD_START, payload: null })
 
-	try {
-		const response = await Promise.resolve({}) // fetch()
-		if (!response.ok) throw new Error(response.statusText)
+// 	try {
+// 		const response = await Promise.resolve({}) // fetch()
+// 		if (!response.ok) throw new Error(response.statusText)
 
-		const payload = await Promise.resolve() // response.json()
-		return dispatch({ type: RESET_PASSWORD, payload })
-	} catch (error) {
-		return dispatch({ type: RESET_PASSWORD_END, payload: error.message })
-	}
-}
+// 		const payload = await Promise.resolve() // response.json()
+// 		return dispatch({ type: RESET_PASSWORD, payload })
+// 	} catch (error) {
+// 		return dispatch({ type: RESET_PASSWORD_END, payload: error.message })
+// 	}
+// }
 
 export const fetchLimit = ctUser => async dispatch => {
 	dispatch({ type: FETCH_LIMIT_START })
