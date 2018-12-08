@@ -10,7 +10,10 @@ import {
 	FETCH_USER_DETAILS_END,
 	REQUEST_CONFIRM_EMAIL,
 	REQUEST_CONFIRM_EMAIL_START,
-	REQUEST_CONFIRM_EMAIL_END
+	REQUEST_CONFIRM_EMAIL_END,
+	REQUEST_CHANGE_EMAIL,
+	REQUEST_CHANGE_EMAIL_START,
+	REQUEST_CHANGE_EMAIL_END
 } from '../actions'
 
 const INITIAL_STATE = {
@@ -18,6 +21,7 @@ const INITIAL_STATE = {
 	error: null,
 	list: null,
 	requestEmail: null,
+	changeEmail: null,
 	userDetails: null,
 	addFN: null,
 	fetched: false
@@ -51,6 +55,14 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 				error: null
 			}
 
+		case REQUEST_CHANGE_EMAIL:
+			return {
+				...state,
+				changeEmail: payload,
+				loading: false,
+				error: null
+			}
+
 		case FETCH_USER_DETAILS:
 			return { ...state, userDetails: payload, loading: false, error: null }
 
@@ -66,10 +78,14 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case REQUEST_CONFIRM_EMAIL_START:
 			return { ...state, requestEmail: null, loading: true, error: null }
 
+		case REQUEST_CHANGE_EMAIL_START:
+			return { ...state, changeEmail: null, loading: true, error: null }
+
 		case FETCH_ACCOUNTS_END:
 		case FETCH_USER_DETAILS_END:
 		case ADD_ACCOUNT_END:
 		case REQUEST_CONFIRM_EMAIL_END:
+		case REQUEST_CHANGE_EMAIL_END:
 			return { ...state, loading: false, error: payload }
 
 		default:

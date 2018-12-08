@@ -26,6 +26,26 @@ export const REQUEST_CONFIRM_EMAIL = 'REQUEST_CONFIRM_EMAIL'
 export const REQUEST_CONFIRM_EMAIL_START = 'REQUEST_CONFIRM_EMAIL_START'
 export const REQUEST_CONFIRM_EMAIL_END = 'REQUEST_CONFIRM_EMAIL_END'
 
+export const REQUEST_CHANGE_EMAIL = 'REQUEST_CHANGE_EMAIL'
+export const REQUEST_CHANGE_EMAIL_START = 'REQUEST_CHANGE_EMAIL_START'
+export const REQUEST_CHANGE_EMAIL_END = 'REQUEST_CHANGE_EMAIL_END'
+
+export const REQUEST_PASSWORD_RESET = 'REQUEST_PASSWORD_RESET'
+export const REQUEST_PASSWORD_RESET_START = 'REQUEST_PASSWORD_RESET_START'
+export const REQUEST_PASSWORD_RESET_END = 'REQUEST_PASSWORD_RESET_END'
+
+export const EXPORT_DATA = 'EXPORT_DATA'
+export const EXPORT_DATA_START = 'EXPORT_DATA_START'
+export const EXPORT_DATA_END = 'EXPORT_DATA_END'
+
+export const REQUEST_DATA = 'REQUEST_DATA'
+export const REQUEST_DATA_START = 'REQUEST_DATA_START'
+export const REQUEST_DATA_END = 'REQUEST_DATA_END'
+
+export const CLOSE_ACCOUNT = 'CLOSE_ACCOUNT'
+export const CLOSE_ACCOUNT_START = 'CLOSE_ACCOUNT_START'
+export const CLOSE_ACCOUNT_END = 'CLOSE_ACCOUNT_END'
+
 export const fetchAccounts = ctUser => async dispatch => {
 	dispatch({ type: FETCH_ACCOUNTS_START })
 
@@ -195,31 +215,182 @@ export const saveUserDetails = (
 		})
 }
 
-export const requestConfirmEmail = ctUser => async dispatch => {
+export const requestConfirmEmail = ({
+	ctUser,
+	emailAddress
+}) => async dispatch => {
 	dispatch({ type: REQUEST_CONFIRM_EMAIL_START })
 
-	try {
-		const headers = {
-			'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-			'CT-ACCOUNT-ID': ctUser
-		}
-		const response = await fetch(
-			`https://api.staging.cointec.co.uk/accounts/request-confirm-email`,
-			{
-				headers
-			}
-		)
-		if (!response.ok) throw new Error(response.statusText)
-
-		const payload = await response.json()
-		return dispatch({
-			type: REQUEST_CONFIRM_EMAIL,
-			payload
-		})
-	} catch (error) {
-		return dispatch({
-			type: REQUEST_CONFIRM_EMAIL_END,
-			payload: error.message
-		})
+	const data = {
+		EmailAddress: emailAddress
 	}
+
+	const headers = {
+		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+		'CT-ACCOUNT-ID': ctUser
+	}
+	return axios
+		.post(`${ROOT_URL}/accounts/request-confirm-email`, data, { headers })
+		.then(response => {
+			dispatch({
+				type: REQUEST_CONFIRM_EMAIL,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			console.log(error)
+			dispatch({
+				type: REQUEST_CONFIRM_EMAIL_END,
+				payload: error
+			})
+			throw error
+		})
+}
+
+export const changeEmail = ({
+	// ctUser,
+	emailAddress,
+	newEmailAddress
+}) => async dispatch => {
+	dispatch({ type: REQUEST_CHANGE_EMAIL_START })
+
+	const data = {
+		EmailAddress: emailAddress,
+		NewEmailAddress: newEmailAddress
+	}
+
+	// const headers = {
+	// 	'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+	// 	'CT-ACCOUNT-ID': ctUser
+	// }
+	return axios
+		.post(
+			`${ROOT_URL}/accounts/request-change-email`,
+			data
+			// { headers }
+		)
+		.then(response => {
+			dispatch({
+				type: REQUEST_CHANGE_EMAIL,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: REQUEST_CHANGE_EMAIL_END,
+				payload: error
+			})
+			throw error
+		})
+}
+
+export const resetPassword = ({
+	ctUser,
+	password,
+	newPassword
+}) => async dispatch => {
+	dispatch({ type: REQUEST_PASSWORD_RESET_START })
+
+	const data = {
+		Password: password,
+		NewPassword: newPassword
+	}
+
+	return axios
+		.post(`${ROOT_URL}/accounts/request-reset`, data)
+		.then(response => {
+			dispatch({
+				type: REQUEST_PASSWORD_RESET,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: REQUEST_PASSWORD_RESET_END,
+				payload: error
+			})
+			throw error
+		})
+}
+
+export const exportData = ({ emailAddress }) => async dispatch => {
+	dispatch({ type: EXPORT_DATA_START })
+
+	const data = {
+		EmailAddress: emailAddress
+	}
+
+	return axios
+		.post(`${ROOT_URL}/accounts/export-data`, data)
+		.then(response => {
+			dispatch({
+				type: EXPORT_DATA,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: EXPORT_DATA_END,
+				payload: error
+			})
+			throw error
+		})
+}
+
+export const requestData = ({ ctUser, emailAddress }) => async dispatch => {
+	dispatch({ type: REQUEST_DATA_START })
+
+	const data = {
+		EmailAddress: emailAddress
+	}
+
+	const headers = {
+		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+		'CT-ACCOUNT-ID': ctUser
+	}
+	return axios
+		.post(`${ROOT_URL}/accounts/request-data`, data, { headers })
+		.then(response => {
+			dispatch({
+				type: REQUEST_DATA,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: REQUEST_DATA_END,
+				payload: error
+			})
+			throw error
+		})
+}
+
+export const closeAccount = ({ emailAddress }) => async dispatch => {
+	dispatch({ type: CLOSE_ACCOUNT_START })
+
+	const data = {
+		EmailAddress: emailAddress
+	}
+
+	return axios
+		.post(`${ROOT_URL}/accounts/close-account`, data)
+		.then(response => {
+			dispatch({
+				type: CLOSE_ACCOUNT,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: CLOSE_ACCOUNT_END,
+				payload: error
+			})
+			throw error
+		})
 }
