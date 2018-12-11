@@ -302,6 +302,13 @@ class AccountSettings extends Component {
 				)}
 				{this.state.updatePasswordModal && (
 					<UpdatePassword
+						emailAddress={
+							(this.props.accounts.userDetails &&
+								this.props.accounts.userDetails.EmailAddress) ||
+							this.state.email ||
+							'email@cointec.co.uk'
+						}
+						ctUser={this.state.ctUser}
 						onClose={() => this.setState({ updatePasswordModal: false })}
 					/>
 				)}

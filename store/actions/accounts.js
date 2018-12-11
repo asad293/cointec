@@ -244,7 +244,8 @@ export const requestConfirmEmail = ({
 export const changeEmail = ({
 	// ctUser,
 	emailAddress,
-	newEmailAddress
+	newEmailAddress,
+	password
 }) => async dispatch => {
 	dispatch({ type: REQUEST_CHANGE_EMAIL_START })
 
@@ -254,8 +255,7 @@ export const changeEmail = ({
 	}
 
 	// const headers = {
-	// 	'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-	// 	'CT-ACCOUNT-ID': ctUser
+	// 	Authorization: 'Basic ' + btoa(emailAddress + ':' + password)
 	// }
 	return axios
 		.post(
@@ -281,14 +281,16 @@ export const changeEmail = ({
 
 export const resetPassword = ({
 	ctUser,
+	emailAddress,
 	password,
 	newPassword
 }) => async dispatch => {
 	dispatch({ type: REQUEST_PASSWORD_RESET_START })
 
 	const data = {
-		Password: password,
-		NewPassword: newPassword
+		// Password: password,
+		// NewPassword: newPassword
+		EmailAddress: emailAddress
 	}
 
 	return axios

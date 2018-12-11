@@ -47,11 +47,12 @@ class ChangeEmail extends Component {
 		}
 	}
 
-	onSubmit() {
+	onSubmit(values) {
 		this.props
 			.changeEmail({
 				ctUser: this.props.ctUser,
-				emailAddress: this.props.emailAddress
+				emailAddress: this.props.emailAddress,
+				password: values.password
 			})
 			.then(res => {
 				console.log(res)
@@ -100,7 +101,7 @@ class ChangeEmail extends Component {
 											label="Password"
 											type="password"
 											placeholder="••••••••"
-											// validate={password}
+											validate={password}
 											component={this.renderField}
 										/>
 									</div>
