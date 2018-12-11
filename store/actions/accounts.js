@@ -254,15 +254,11 @@ export const changeEmail = ({
 		NewEmailAddress: newEmailAddress
 	}
 
-	// const headers = {
-	// 	Authorization: 'Basic ' + btoa(emailAddress + ':' + password)
-	// }
+	const headers = {
+		Authorization: 'Basic ' + btoa(emailAddress + ':' + password)
+	}
 	return axios
-		.post(
-			`${ROOT_URL}/accounts/request-change-email`,
-			data
-			// { headers }
-		)
+		.post(`${ROOT_URL}/accounts/request-change-email`, data, { headers })
 		.then(response => {
 			dispatch({
 				type: REQUEST_CHANGE_EMAIL,
