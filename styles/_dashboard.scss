@@ -423,10 +423,18 @@
 							text-overflow: ellipsis;
 							overflow: hidden;
 							padding-right: 32px;
-							.fa-clone {
+							a {
+								color: #667075;
+							}
+							// .fa-clone {
+							button {
+								background: none;
+								border: none;
+								display: inline-block;
 								cursor: pointer;
 								position: absolute;
 								right: 32px;
+								outline: none;
 								@include media-breakpoint-down(sm) {
 									right: 24px;
 								}
@@ -462,12 +470,17 @@
 					line-height: 12px;
 					font-size: 16px;
 					padding: 22px 32px;
-					color: #ffffff;
+					cursor: pointer;
 					@include media-breakpoint-down(sm) {
 						padding: 22px 24px;
 					}
-					.fa-clone {
-						cursor: pointer;
+					color: #ffffff;
+					button {
+						background: none;
+						border: none;
+						outline: none;
+					}
+					.fa-external-link {
 						position: absolute;
 						right: 32px;
 						@include media-breakpoint-down(sm) {

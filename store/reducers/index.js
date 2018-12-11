@@ -4,6 +4,7 @@ import AssetsReducer from './assets'
 import AuthReducer from './auth'
 import ChartReducer from './chart'
 import ContstantsReducer from './constants'
+import GlobalsReducer from './globals'
 import OrderReducer from './order'
 import QuoteReducer from './quote'
 import VerificationReducer from './verification'
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
 	auth: AuthReducer,
 	chart: ChartReducer,
 	constants: ContstantsReducer,
+	globals: GlobalsReducer,
 	order: OrderReducer,
 	quote: QuoteReducer,
 	verification: VerificationReducer,

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Clipboard from 'react-clipboard.js'
 import cn from 'classnames'
 
 class TransactionDetail extends Component {
@@ -95,8 +96,12 @@ class TransactionDetail extends Component {
 								<div className="transaction-field position-relative">
 									<h6 className="field-label">Wallet address</h6>
 									<p className="field-value">
-										{transaction.dest}
-										<i className="far fa-clone" />
+										<a href="/" target="_blank">
+											{transaction.dest}
+										</a>
+										<Clipboard data-clipboard-text={transaction.dest}>
+											<i className="far fa-clone" />
+										</Clipboard>
 									</p>
 								</div>
 								<div className="transaction-field">
@@ -113,8 +118,11 @@ class TransactionDetail extends Component {
 							</div>
 
 							<div className="blockchain-tracker">
+								{/* <Clipboard data-clipboard-text={transaction.dest}> */}
 								Blockchain tracker
-								<i className="far fa-clone" />
+								{/* <i className="far fa-clone" /> */}
+								<i className="far fa-external-link" />
+								{/* </Clipboard> */}
 							</div>
 						</div>
 					</div>

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { fetchOrders, fetchAssetsList } from '../store/actions'
+import { toggleVerificationAlert } from '../store/actions'
 import Cookie from 'js-cookie'
 
 import Nav from '../components/dashboard/Nav'
@@ -17,7 +16,6 @@ class Privacy extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			showAlert: true,
 			saved: false,
 			requestDataModal: false,
 			scrolling: false,
@@ -34,13 +32,13 @@ class Privacy extends Component {
 					description: 'our latest and greatest work, sent monthly at most.',
 					shortDescription: 'latest product information',
 					active: true
-				},
-				{
-					id: 3,
-					name: 'Giving feedback',
-					description: 'surveys, reviews, and testing things we’re working on.',
-					active: true
 				}
+				// {
+				// 	id: 3,
+				// 	name: 'Giving feedback',
+				// 	description: 'surveys, reviews, and testing things we’re working on.',
+				// 	active: true
+				// }
 			]
 		}
 		this.handleInputChange = this.handleInputChange.bind(this)
@@ -107,13 +105,16 @@ class Privacy extends Component {
 						<h2 className="dashboard-heading">Account settings</h2>
 					</div>
 				</header>
-				{this.state.showAlert && (
-					<AlertMessage
-						onHide={() =>
-							this.setState({ showAlert: false }, () => this.onResize())
-						}
-					/>
-				)}
+				{this.props.globals.verificationAlert &&
+					!this.state.notificationAlert &&
+					!this.props.verification.VerificationComplete && (
+						<AlertMessage
+							onHide={() => {
+								this.props.toggleVerificationAlert(false)
+								this.onResize()
+							}}
+						/>
+					)}
 				<div
 					className="container dashboard-container"
 					style={{
@@ -237,6 +238,10 @@ class Privacy extends Component {
 }
 
 export default connect(
-	({ order, assets }) => ({ order, assets }),
-	{ fetchOrders, fetchAssetsList }
+	({ accounts, verification, globals }) => ({
+		accounts,
+		verification,
+		globals
+	}),
+	{ toggleVerificationAlert }
 )(withRouter(Privacy))

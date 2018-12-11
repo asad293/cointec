@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { fetchOrders, fetchAssetsList } from '../store/actions'
+import { toggleVerificationAlert } from '../store/actions'
 import Cookie from 'js-cookie'
 
 import Nav from '../components/dashboard/Nav'
@@ -16,7 +15,6 @@ class TransactionLimits extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			showAlert: true,
 			scrolling: false
 		}
 	}
@@ -66,11 +64,12 @@ class TransactionLimits extends Component {
 						<h2 className="dashboard-heading">Account settings</h2>
 					</div>
 				</header>
-				{this.state.showAlert && (
+				{this.props.globals.verificationAlert && (
 					<AlertMessage
-						onHide={() =>
-							this.setState({ showAlert: false }, () => this.onResize())
-						}
+						onHide={() => {
+							this.props.toggleVerificationAlert(false)
+							this.onResize()
+						}}
 					/>
 				)}
 				<div
@@ -113,6 +112,6 @@ class TransactionLimits extends Component {
 }
 
 export default connect(
-	({ order, assets }) => ({ order, assets }),
-	{ fetchOrders, fetchAssetsList }
+	({ globals }) => ({ globals }),
+	{ toggleVerificationAlert }
 )(withRouter(TransactionLimits))

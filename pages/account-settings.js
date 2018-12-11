@@ -4,15 +4,15 @@ import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
 import {
-	fetchOrders,
-	fetchAssetsList,
 	fetchVerificationStatus,
-	fetchUserDetails
+	fetchUserDetails,
+	toggleVerificationAlert
 } from '../store/actions'
 import Cookie from 'js-cookie'
 
 import Nav from '../components/dashboard/Nav'
 import AlertMessage from '../components/dashboard/AlertMessage'
+import NotificationAlert from '../components/dashboard/NotificationAlert'
 import TabsGroup from '../components/account-settings/TabsGroup'
 import SettingsMenu from '../components/account-settings/SettingsMenu'
 import ConfirmEmail from '../components/account-settings/ConfirmEmail'
@@ -25,14 +25,16 @@ class AccountSettings extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			showAlert: true,
 			confirmEmailModal: false,
 			changeEmailModal: false,
 			updatePasswordModal: false,
 			closeAccountModal: false,
 			email: null,
-			scrolling: false
+			scrolling: false,
+			notificationAlert: false,
+			notificationContent: null
 		}
+		this.onConfirmationEmailSent = this.onConfirmationEmailSent.bind(this)
 	}
 
 	componentDidMount() {
@@ -67,6 +69,30 @@ class AccountSettings extends Component {
 		})
 	}
 
+	onConfirmationEmailSent() {
+		const notificationContent = (
+			<p>
+				Confirmation email sent to{' '}
+				<b>
+					{(this.props.accounts.userDetails &&
+						this.props.accounts.userDetails.EmailAddress) ||
+						this.state.email ||
+						''}
+				</b>
+			</p>
+		)
+		this.setState({
+			confirmEmailModal: false,
+			notificationAlert: true,
+			notificationContent
+		})
+		setTimeout(() => {
+			this.setState({
+				notificationAlert: false
+			})
+		}, 5000)
+	}
+
 	render() {
 		return (
 			<div
@@ -82,12 +108,21 @@ class AccountSettings extends Component {
 						<h2 className="dashboard-heading">Account settings</h2>
 					</div>
 				</header>
-				{this.state.showAlert && (
-					<AlertMessage
-						onHide={() =>
-							this.setState({ showAlert: false }, () => this.onResize())
-						}
-					/>
+				{this.props.globals.verificationAlert &&
+					!this.state.notificationAlert &&
+					!this.props.verification.VerificationComplete && (
+						<AlertMessage
+							onHide={() => {
+								this.props.toggleVerificationAlert(false)
+								this.onResize()
+							}}
+						/>
+					)}
+				{this.state.notificationAlert && (
+					<NotificationAlert
+						onHide={() => this.setState({ notificationAlert: false })}>
+						{this.state.notificationContent}
+					</NotificationAlert>
 				)}
 				<div
 					className="container dashboard-container"
@@ -181,15 +216,17 @@ class AccountSettings extends Component {
 													</a>
 												</p>
 											</div>
-											<div className="ml-md-auto">
-												<a
-													className="btn-setting"
-													onClick={() =>
-														this.setState({ confirmEmailModal: true })
-													}>
-													Confirm email address
-												</a>
-											</div>
+											{!this.props.verification.EmailConfirmed && (
+												<div className="ml-md-auto">
+													<a
+														className="btn-setting"
+														onClick={() =>
+															this.setState({ confirmEmailModal: true })
+														}>
+														Confirm email address
+													</a>
+												</div>
+											)}
 										</div>
 									</div>
 									<div className="setting-wrapper">
@@ -240,11 +277,26 @@ class AccountSettings extends Component {
 				<StickyFooter className="bg-white" fixed={!this.state.scrolling} />
 				{this.state.confirmEmailModal && (
 					<ConfirmEmail
+						emailAddress={
+							(this.props.accounts.userDetails &&
+								this.props.accounts.userDetails.EmailAddress) ||
+							this.state.email ||
+							'email@cointec.co.uk'
+						}
+						ctUser={this.state.ctUser}
 						onClose={() => this.setState({ confirmEmailModal: false })}
+						onEmailSent={this.onConfirmationEmailSent}
 					/>
 				)}
 				{this.state.changeEmailModal && (
 					<ChangeEmail
+						emailAddress={
+							(this.props.accounts.userDetails &&
+								this.props.accounts.userDetails.EmailAddress) ||
+							this.state.email ||
+							'email@cointec.co.uk'
+						}
+						ctUser={this.state.ctUser}
 						onClose={() => this.setState({ changeEmailModal: false })}
 					/>
 				)}
@@ -268,6 +320,15 @@ class AccountSettings extends Component {
 }
 
 export default connect(
-	({ auth, verification, accounts }) => ({ auth, verification, accounts }),
-	{ fetchOrders, fetchAssetsList, fetchVerificationStatus, fetchUserDetails }
+	({ auth, verification, accounts, globals }) => ({
+		auth,
+		verification,
+		accounts,
+		globals
+	}),
+	{
+		fetchVerificationStatus,
+		fetchUserDetails,
+		toggleVerificationAlert
+	}
 )(withRouter(AccountSettings))
