@@ -4,10 +4,9 @@ import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
 import {
-	fetchOrders,
-	fetchAssetsList,
 	fetchVerificationStatus,
-	fetchUserDetails
+	fetchUserDetails,
+	toggleVerificationAlert
 } from '../store/actions'
 import Cookie from 'js-cookie'
 
@@ -26,7 +25,6 @@ class AccountSettings extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			showAlert: true,
 			confirmEmailModal: false,
 			changeEmailModal: false,
 			updatePasswordModal: false,
@@ -110,13 +108,14 @@ class AccountSettings extends Component {
 						<h2 className="dashboard-heading">Account settings</h2>
 					</div>
 				</header>
-				{this.state.showAlert &&
+				{this.props.globals.verificationAlert &&
 					!this.state.notificationAlert &&
 					!this.props.verification.VerificationComplete && (
 						<AlertMessage
-							onHide={() =>
-								this.setState({ showAlert: false }, () => this.onResize())
-							}
+							onHide={() => {
+								this.props.toggleVerificationAlert(false)
+								this.onResize()
+							}}
 						/>
 					)}
 				{this.state.notificationAlert && (
@@ -321,6 +320,15 @@ class AccountSettings extends Component {
 }
 
 export default connect(
-	({ auth, verification, accounts }) => ({ auth, verification, accounts }),
-	{ fetchOrders, fetchAssetsList, fetchVerificationStatus, fetchUserDetails }
+	({ auth, verification, accounts, globals }) => ({
+		auth,
+		verification,
+		accounts,
+		globals
+	}),
+	{
+		fetchVerificationStatus,
+		fetchUserDetails,
+		toggleVerificationAlert
+	}
 )(withRouter(AccountSettings))

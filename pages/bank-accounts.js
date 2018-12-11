@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { fetchAccounts } from '../store/actions'
+import { fetchAccounts, toggleVerificationAlert } from '../store/actions'
 import Cookie from 'js-cookie'
 
 import Nav from '../components/dashboard/Nav'
@@ -31,7 +30,6 @@ class BankAccounts extends Component {
 		super(props)
 		this.state = {
 			ctUser: null,
-			showAlert: true,
 			addBankAccountModal: false,
 			editAccount: null,
 			scrolling: false,
@@ -85,11 +83,12 @@ class BankAccounts extends Component {
 						<h2 className="dashboard-heading">Account settings</h2>
 					</div>
 				</header>
-				{this.state.showAlert && (
+				{this.props.globals.verificationAlert && (
 					<AlertMessage
-						onHide={() =>
-							this.setState({ showAlert: false }, () => this.onResize())
-						}
+						onHide={() => {
+							this.props.toggleVerificationAlert(false)
+							this.onResize()
+						}}
 					/>
 				)}
 				<div
@@ -157,18 +156,9 @@ class BankAccounts extends Component {
 		)
 	}
 
-	componentWillReceiveProps(props) {
-		if (
-			!this.state.accountsAvailable &&
-			props.accounts &&
-			props.accounts.list
-		) {
-			this.setState(
-				{
-					accountsAvailable: true
-				},
-				() => this.onResize()
-			)
+	componentWillReceiveProps({ accounts }) {
+		if (!this.state.accountsAvailable && accounts && accounts.list) {
+			this.setState({ accountsAvailable: true }, () => this.onResize())
 		}
 	}
 }
@@ -185,7 +175,6 @@ const AccountCard = ({
 			<div className="col">
 				<h6 className="field-label">Account name</h6>
 				<p className="field-value">{AccountOwner}</p>
-				{/* <p className="field-value">Primary account</p> */}
 			</div>
 			<div className="col-3 text-right">
 				<a className="edit-account-link" onClick={onEdit}>
@@ -198,18 +187,16 @@ const AccountCard = ({
 			<div className="col-7">
 				<h6 className="field-label">Account number</h6>
 				<p className="field-value">{AccountNumber}</p>
-				{/* <p className="field-value">33456546</p> */}
 			</div>
 			<div className="col-5 text-right">
 				<h6 className="field-label">Sort code</h6>
 				<p className="field-value">{SortCode}</p>
-				{/* <p className="field-value">11-22-33</p> */}
 			</div>
 		</div>
 	</div>
 )
 
 export default connect(
-	({ accounts }) => ({ accounts }),
-	{ fetchAccounts }
+	({ accounts, globals }) => ({ accounts, globals }),
+	{ fetchAccounts, toggleVerificationAlert }
 )(withRouter(BankAccounts))

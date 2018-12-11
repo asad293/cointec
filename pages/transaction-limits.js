@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { fetchOrders, fetchAssetsList } from '../store/actions'
+import { toggleVerificationAlert } from '../store/actions'
 import Cookie from 'js-cookie'
 
 import Nav from '../components/dashboard/Nav'
@@ -16,20 +15,18 @@ class TransactionLimits extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			showAlert: true,
 			scrolling: false
 		}
 	}
 
 	componentDidMount() {
-		// const userData = localStorage.getItem('user')
-		// const user = userData && JSON.parse(userData)
-		// const sessionId = Cookie.get('CT-SESSION-ID')
-		// if (user && user.CtUserId && sessionId) {
-		// 	this.props.fetchOrders({ ctUser: user.CtUserId })
-		// } else {
-		// 	Router.push(`/login?redirectPath=${this.props.router.pathname}`)
-		// }
+		const userData = localStorage.getItem('user')
+		const user = userData && JSON.parse(userData)
+		const sessionId = Cookie.get('CT-SESSION-ID')
+		if (user && user.CtUserId && sessionId) {
+		} else {
+			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
+		}
 
 		addEventListener('resize', this.onResize)
 		this.onResize()
@@ -66,11 +63,12 @@ class TransactionLimits extends Component {
 						<h2 className="dashboard-heading">Account settings</h2>
 					</div>
 				</header>
-				{this.state.showAlert && (
+				{this.props.globals.verificationAlert && (
 					<AlertMessage
-						onHide={() =>
-							this.setState({ showAlert: false }, () => this.onResize())
-						}
+						onHide={() => {
+							this.props.toggleVerificationAlert(false)
+							this.onResize()
+						}}
 					/>
 				)}
 				<div
@@ -113,6 +111,6 @@ class TransactionLimits extends Component {
 }
 
 export default connect(
-	({ order, assets }) => ({ order, assets }),
-	{ fetchOrders, fetchAssetsList }
+	({ globals }) => ({ globals }),
+	{ toggleVerificationAlert }
 )(withRouter(TransactionLimits))

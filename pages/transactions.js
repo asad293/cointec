@@ -2,7 +2,11 @@ import React, { Component } from 'react'
 import Head from 'next/head'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { fetchOrders, fetchAssetsList } from '../store/actions'
+import {
+	fetchOrders,
+	fetchAssetsList,
+	toggleVerificationAlert
+} from '../store/actions'
 import Cookie from 'js-cookie'
 import Moment from 'react-moment'
 import cn from 'classnames'
@@ -28,7 +32,6 @@ class Transactions extends Component {
 		this.state = {
 			currentPage: 1,
 			totalPages: 0,
-			showAlert: true,
 			assetsImages: null,
 			sortOrder: 'timestamp',
 			sortDirection: 'desc',
@@ -83,11 +86,12 @@ class Transactions extends Component {
 						<h2 className="dashboard-heading">Transaction history</h2>
 					</div>
 				</header>
-				{this.state.showAlert && (
+				{this.props.globals.verificationAlert && (
 					<AlertMessage
-						onHide={() =>
-							this.setState({ showAlert: false }, () => this.onResize())
-						}
+						onHide={() => {
+							this.props.toggleVerificationAlert(false)
+							this.onResize()
+						}}
 					/>
 				)}
 				<div className="container dashboard-container mb-md-5">
@@ -375,6 +379,6 @@ const TransactionTable = ({
 }
 
 export default connect(
-	({ order, assets }) => ({ order, assets }),
-	{ fetchOrders, fetchAssetsList }
+	({ order, assets, globals }) => ({ order, assets, globals }),
+	{ fetchOrders, fetchAssetsList, toggleVerificationAlert }
 )(withRouter(Transactions))

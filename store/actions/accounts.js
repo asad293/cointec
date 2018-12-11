@@ -76,6 +76,11 @@ export const fetchAccounts = ctUser => async dispatch => {
 export const addAccount = (ctUser, values) => async dispatch => {
 	dispatch({ type: ADD_ACCOUNT_START })
 
+	const headers = {
+		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+		'CT-ACCOUNT-ID': ctUser
+	}
+
 	const post = {
 		AccountOwner: values.accountName,
 		SortCode: values.sortCode,
@@ -83,34 +88,22 @@ export const addAccount = (ctUser, values) => async dispatch => {
 		AccountReference: ''
 	}
 
-	try {
-		const headers = {
-			'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-			'CT-ACCOUNT-ID': ctUser
-		}
-		const response = await fetch(
-			`${ROOT_URL}/accounts/${ctUser}/bank-accounts`,
-			{
-				headers,
-				method: 'POST',
-				body: JSON.stringify(post)
-			}
-		)
-		if (!response.ok) throw new Error(response.statusText)
-
-		const payload = await response.json()
-		dispatch({
-			type: ADD_ACCOUNT,
-			payload
+	return axios
+		.post(`${ROOT_URL}/accounts/${ctUser}/bank-accounts`, post, { headers })
+		.then(response => {
+			dispatch({
+				type: ADD_ACCOUNT,
+				payload: response.data
+			})
+			return dispatch(fetchAccounts(ctUser))
 		})
-		// fetch newly added accounts
-		return dispatch(fetchAccounts(ctUser))
-	} catch (error) {
-		return dispatch({
-			type: ADD_ACCOUNT_END,
-			payload: error
+		.catch(error => {
+			dispatch({
+				type: ADD_ACCOUNT_END,
+				payload: error.response
+			})
+			// throw error
 		})
-	}
 }
 
 export const deleteAccount = (ctUser, id) => async dispatch => {
