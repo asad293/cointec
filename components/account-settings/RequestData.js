@@ -47,11 +47,12 @@ class RequestData extends Component {
 		}
 	}
 
-	onSubmit() {
+	onSubmit(values) {
 		this.props
 			.requestData({
-				ctUser: this.props.ctUser,
-				emailAddress: this.props.emailAddress
+				// ctUser: this.props.ctUser,
+				emailAddress: this.props.emailAddress,
+				password: values.password
 			})
 			.then(res => {
 				console.log(res)
@@ -96,7 +97,7 @@ class RequestData extends Component {
 											type="password"
 											placeholder="••••••••"
 											className="mt-0"
-											// validate={password}
+											validate={password}
 											component={this.renderField}
 										/>
 									</div>

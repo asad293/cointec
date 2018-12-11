@@ -334,7 +334,7 @@ export const exportData = ({ emailAddress }) => async dispatch => {
 		})
 }
 
-export const requestData = ({ ctUser, emailAddress }) => async dispatch => {
+export const requestData = ({ emailAddress, password }) => async dispatch => {
 	dispatch({ type: REQUEST_DATA_START })
 
 	const data = {
@@ -342,8 +342,7 @@ export const requestData = ({ ctUser, emailAddress }) => async dispatch => {
 	}
 
 	const headers = {
-		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-		'CT-ACCOUNT-ID': ctUser
+		Authorization: 'Basic ' + btoa(emailAddress + ':' + password)
 	}
 	return axios
 		.post(`${ROOT_URL}/accounts/request-data`, data, { headers })
