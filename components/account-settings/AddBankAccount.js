@@ -4,11 +4,19 @@ import { connect } from 'react-redux'
 import { addAccount, deleteAccount } from '../../store/actions'
 import cn from 'classnames'
 
+const errorMap = {
+	default: 'Bank must have Faster Payments enabled',
+	400: 'Please check your account details.',
+	406: 'Account is not Faster-Payments enabled.',
+	409: 'You have already added this account.'
+}
+
 class AddBankAccount extends Component {
 	constructor() {
 		super()
 		this.state = {
-			closed: false
+			closed: false,
+			error: { text: null, status: null }
 		}
 		this.onClose = this.onClose.bind(this)
 		this.onClickOutside = this.onClickOutside.bind(this)
@@ -54,9 +62,11 @@ class AddBankAccount extends Component {
 	}
 
 	onSubmit(values) {
-		console.log(values)
+		// console.log(values)
 		this.props.addAccount(this.props.ctUser, values)
-		this.onClose()
+		// .then(res => console.log(res.payload.response))
+		// .catch(e => console.log(e.response))
+		// this.onClose()
 	}
 
 	onDelete() {
@@ -122,6 +132,11 @@ class AddBankAccount extends Component {
 									</div>
 								</div>
 								<div className="row mt-4">
+									{this.state.error.text && (
+										<div className="col-md-12 mb-2 text-danger">
+											{this.state.error.text}
+										</div>
+									)}
 									<div className="col-md-12">
 										<button
 											type="submit"
@@ -215,8 +230,35 @@ class AddBankAccount extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		console.log(props)
+		console.log(props.accounts.error)
+		if (props.accounts.error) {
+			const { status } = props.accounts.error
+			this.setState({
+				error: {
+					text: errorMap[status] ? errorMap[status] : errorMap.default,
+					status
+				}
+			})
+		} // else this.setState({ error: { text: errorMap.default, status: null } })
 	}
+}
+
+const validate = (values, props) => {
+	const errors = {}
+	// validate inputs from 'values'
+	if (!values.accountName) {
+		errors.accountName = 'Enter Account Name'
+	}
+
+	if (!values.sortCode) {
+		errors.sortCode = 'Enter Sort Code'
+	}
+
+	if (!values.accountNumber) {
+		errors.accountNumber = 'Enter Account Number'
+	}
+
+	return errors
 }
 
 export default connect(
@@ -224,6 +266,7 @@ export default connect(
 	{ addAccount, deleteAccount }
 )(
 	reduxForm({
-		form: 'AddBankAccountForm'
+		form: 'AddBankAccountForm',
+		validate
 	})(AddBankAccount)
 )

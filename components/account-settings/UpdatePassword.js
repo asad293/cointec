@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
+import { resetPassword } from '../../store/actions'
 import cn from 'classnames'
 
 class UpdatePassword extends Component {
@@ -34,9 +36,19 @@ class UpdatePassword extends Component {
 		}
 	}
 
-	onSubmit(event) {
-		event.preventDefault()
-		this.props.onClose()
+	onSubmit(values) {
+		console.log(values)
+		this.props
+			.resetPassword({
+				emailAddress: this.props.emailAddress,
+				password: values.password,
+				newPassword: values.newPassword
+			})
+			.then(res => {
+				console.log(res)
+				this.onClose()
+			})
+		// this.props.onClose()
 	}
 
 	render() {
@@ -55,7 +67,7 @@ class UpdatePassword extends Component {
 							</button>
 							<h5 className="modal-heading text-left">Update password</h5>
 							<hr />
-							<form onSubmit={this.onSubmit}>
+							<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
 								<div className="row">
 									<div className="col-12">
 										<Field
@@ -132,6 +144,11 @@ class UpdatePassword extends Component {
 // Validators
 const password = value => (!value ? 'Please enter a valid password' : undefined)
 
-export default reduxForm({
-	form: 'UpdatePasswordForm'
-})(UpdatePassword)
+export default connect(
+	({ accounts }) => ({ accounts }),
+	{ resetPassword }
+)(
+	reduxForm({
+		form: 'UpdatePasswordForm'
+	})(UpdatePassword)
+)
