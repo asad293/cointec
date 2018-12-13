@@ -5,39 +5,33 @@ import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
 
 import Header from '../components/Header'
-import ForgotPasswordForm from '../components/ForgotPasswordForm'
 
 import { resetPassword } from '../store/actions'
 
-class ForgotPassword extends Component {
+class LinkSent extends Component {
 	constructor() {
 		super()
-		this.handleSubmit = this.handleSubmit.bind(this)
-		this.resetEmailSent = this.resetEmailSent.bind(this)
+		this.resendEmail = this.resendEmail.bind(this)
 	}
 
-	handleSubmit(values) {
-		this.props
-			.resetPassword(values)
-			.then(() => this.resetEmailSent(values.emailAddress))
-	}
-
-	resetEmailSent(email) {
-		Router.push(`/link-sent?type=reset&email=${email}`, '/link-sent')
+	resendEmail(type, email) {
+		if (type === 'reset') this.props.resetPassword({ emailAddress: email })
 	}
 
 	render() {
+		const { type, email } = this.props.router.query
 		const { loading } = this.props.accounts
-		const { token } = this.props.router.query
-
-		const description = !token
-			? 'Please enter your email address to begin resetting your password.'
-			: 'To receive another password reset link, please enter your email below.'
+		const heading =
+			type === 'activation'
+				? 'We sent you an activation link. '
+				: type === 'reset'
+				? 'We sent you a link to reset your password. '
+				: ''
 
 		return (
 			<div className="signin-page">
 				<Head>
-					<title>Forgot Password | Cointec</title>
+					<title>Check your inbox!</title>
 				</Head>
 				<Header background="gradient">
 					<div className="sg-logo text-center position-relative">
@@ -56,16 +50,30 @@ class ForgotPassword extends Component {
 									<i className="far fa-arrow-left mr-3" />
 								</a>
 							</Link>
-							Forgot password
+							Check your inbox!
 						</h5>
 					</div>
 					<hr />
 
-					<ForgotPasswordForm
-						loading={loading}
-						description={description}
-						onSubmit={this.handleSubmit}
-					/>
+					<div className="als-content">
+						<h1 className="heading-line">{heading}</h1>
+						<p className="heading-line">
+							If you don't see the message in a few minutes, check your spam
+							folder.
+						</p>
+						<button
+							className="btn btn-primary"
+							onClick={() => this.resendEmail(type, email)}
+							disabled={loading}>
+							{loading ? (
+								<div>
+									<i className="fas fa-spinner fa-spin" />
+								</div>
+							) : (
+								<span>Resend Email</span>
+							)}
+						</button>
+					</div>
 				</section>
 			</div>
 		)
@@ -75,4 +83,4 @@ class ForgotPassword extends Component {
 export default connect(
 	({ accounts }) => ({ accounts }),
 	{ resetPassword }
-)(withRouter(ForgotPassword))
+)(withRouter(LinkSent))
