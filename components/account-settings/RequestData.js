@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import { requestData } from '../../store/actions'
+import { requestData, exportData } from '../../store/actions'
 import cn from 'classnames'
 
 class RequestData extends Component {
@@ -48,17 +48,29 @@ class RequestData extends Component {
 	}
 
 	onSubmit(values) {
-		this.props
-			.requestData({
-				// ctUser: this.props.ctUser,
-				emailAddress: this.props.emailAddress,
-				password: values.password
-			})
-			.then(res => {
-				console.log(res)
-				this.props.onRequestSent()
-				this.onClose()
-			})
+		if (this.props.action === 'export') {
+			this.props
+				.exportData({
+					emailAddress: this.props.emailAddress,
+					password: values.password
+				})
+				.then(res => {
+					console.log(res)
+					this.props.onRequestSent()
+					this.onClose()
+				})
+		} else {
+			this.props
+				.requestData({
+					emailAddress: this.props.emailAddress,
+					password: values.password
+				})
+				.then(res => {
+					console.log(res)
+					this.props.onRequestSent()
+					this.onClose()
+				})
+		}
 	}
 
 	render() {
@@ -155,7 +167,7 @@ const password = value => (!value ? 'Please enter a valid password' : undefined)
 
 export default connect(
 	({ accounts }) => ({ accounts }),
-	{ requestData }
+	{ requestData, exportData }
 )(
 	reduxForm({
 		form: 'RequestDataForm'

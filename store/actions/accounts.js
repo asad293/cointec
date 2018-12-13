@@ -307,15 +307,18 @@ export const resetPassword = ({
 		})
 }
 
-export const exportData = ({ emailAddress }) => async dispatch => {
+export const exportData = ({ emailAddress, password }) => async dispatch => {
 	dispatch({ type: EXPORT_DATA_START })
 
 	const data = {
 		EmailAddress: emailAddress
 	}
 
+	const headers = {
+		Authorization: 'Basic ' + btoa(emailAddress + ':' + password)
+	}
 	return axios
-		.post(`${ROOT_URL}/accounts/export-data`, data)
+		.post(`${ROOT_URL}/accounts/export-data`, data, { headers })
 		.then(response => {
 			dispatch({
 				type: EXPORT_DATA,
