@@ -13,7 +13,10 @@ import {
 	REQUEST_CONFIRM_EMAIL_END,
 	REQUEST_CHANGE_EMAIL,
 	REQUEST_CHANGE_EMAIL_START,
-	REQUEST_CHANGE_EMAIL_END
+	REQUEST_CHANGE_EMAIL_END,
+	REQUEST_PASSWORD_RESET,
+	REQUEST_PASSWORD_RESET_START,
+	REQUEST_PASSWORD_RESET_END
 } from '../actions'
 
 const INITIAL_STATE = {
@@ -23,6 +26,7 @@ const INITIAL_STATE = {
 	requestEmail: null,
 	changeEmail: null,
 	userDetails: null,
+	resetPassword: null,
 	addFN: null,
 	fetched: false
 }
@@ -63,6 +67,14 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 				error: null
 			}
 
+		case REQUEST_PASSWORD_RESET:
+			return {
+				...state,
+				resetPassword: payload,
+				loading: false,
+				error: null
+			}
+
 		case FETCH_USER_DETAILS:
 			return { ...state, userDetails: payload, loading: false, error: null }
 
@@ -81,11 +93,15 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case REQUEST_CHANGE_EMAIL_START:
 			return { ...state, changeEmail: null, loading: true, error: null }
 
+		case REQUEST_PASSWORD_RESET_START:
+			return { ...state, resetPassword: null, loading: true, error: null }
+
 		case FETCH_ACCOUNTS_END:
 		case FETCH_USER_DETAILS_END:
 		case ADD_ACCOUNT_END:
 		case REQUEST_CONFIRM_EMAIL_END:
 		case REQUEST_CHANGE_EMAIL_END:
+		case REQUEST_PASSWORD_RESET_END:
 			return { ...state, loading: false, error: payload }
 
 		default:

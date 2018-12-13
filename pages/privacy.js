@@ -21,6 +21,7 @@ class Privacy extends Component {
 			requestDataModal: false,
 			scrolling: false,
 			notificationAlert: false,
+			dataAction: null,
 			notificationSettings: [
 				{
 					id: 1,
@@ -229,7 +230,10 @@ class Privacy extends Component {
 												<a
 													className="btn-setting"
 													onClick={() =>
-														this.setState({ requestDataModal: true })
+														this.setState({
+															requestDataModal: true,
+															dataAction: 'request'
+														})
 													}>
 													Data access request
 												</a>
@@ -252,7 +256,10 @@ class Privacy extends Component {
 												<a
 													className="btn-setting"
 													onClick={() =>
-														this.setState({ requestDataModal: true })
+														this.setState({
+															requestDataModal: true,
+															dataAction: 'export'
+														})
 													}>
 													Export your data
 												</a>
@@ -269,6 +276,7 @@ class Privacy extends Component {
 					<RequestData
 						ctUser={this.state.ctUser}
 						emailAddress={this.state.email}
+						action={this.state.dataAction}
 						onClose={() => this.setState({ requestDataModal: false })}
 						onRequestSent={this.onConfirmationEmailSent}
 					/>
