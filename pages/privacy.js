@@ -73,7 +73,8 @@ class Privacy extends Component {
 			scrolling:
 				element && documentElement
 					? documentElement.clientHeight < element.scrollHeight
-					: false
+					: false,
+			docWidth: documentElement.clientWidth
 		})
 	}
 
@@ -118,6 +119,7 @@ class Privacy extends Component {
 	}
 
 	render() {
+		const { docWidth } = this.state
 		return (
 			<div
 				className="settings-page dashboard-page full-height"
@@ -281,6 +283,11 @@ class Privacy extends Component {
 						onRequestSent={this.onConfirmationEmailSent}
 					/>
 				)}
+				<style jsx global>{`
+					#intercom-container {
+						display: ${docWidth > 768 ? 'block' : 'none'};
+					}
+				`}</style>
 			</div>
 		)
 	}

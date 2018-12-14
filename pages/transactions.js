@@ -67,7 +67,8 @@ class Transactions extends Component {
 			scrolling:
 				element && documentElement
 					? documentElement.clientHeight < element.scrollHeight
-					: false
+					: false,
+			docWidth: documentElement.clientWidth
 		})
 	}
 
@@ -141,6 +142,11 @@ class Transactions extends Component {
 						}
 					/>
 				)}
+				<style jsx global>{`
+					#intercom-container {
+						display: ${this.state.docWidth > 768 ? 'block' : 'none'};
+					}
+				`}</style>
 			</div>
 		)
 	}

@@ -119,7 +119,13 @@ class RequestData extends Component {
 										<button
 											type="submit"
 											className={cn('btn btn-block btn-lg', 'btn-primary')}>
-											Request data
+											{this.props.accounts.loading && (
+												<div
+													style={{ display: 'inline-block', marginRight: 12 }}>
+													<i className="fas fa-spinner fa-spin" />
+												</div>
+											)}
+											<span>Request data</span>
 										</button>
 									</div>
 								</div>
