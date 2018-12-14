@@ -5,6 +5,9 @@ import {
 	ADD_ACCOUNT,
 	ADD_ACCOUNT_START,
 	ADD_ACCOUNT_END,
+	DELETE_ACCOUNT,
+	DELETE_ACCOUNT_START,
+	DELETE_ACCOUNT_END,
 	FETCH_USER_DETAILS,
 	FETCH_USER_DETAILS_START,
 	FETCH_USER_DETAILS_END,
@@ -28,7 +31,8 @@ const INITIAL_STATE = {
 	userDetails: null,
 	resetPassword: null,
 	addFN: null,
-	fetched: false
+	fetched: false,
+	action: null
 }
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -48,6 +52,15 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 				...state,
 				addFN: payload,
 				loading: false,
+				action: null,
+				error: null
+			}
+
+		case DELETE_ACCOUNT:
+			return {
+				...state,
+				loading: false,
+				action: null,
 				error: null
 			}
 
@@ -85,7 +98,10 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 			return { ...state, loading: true, error: null }
 
 		case ADD_ACCOUNT_START:
-			return { ...state, loading: true, error: null }
+			return { ...state, loading: true, action: 'add', error: null }
+
+		case DELETE_ACCOUNT_START:
+			return { ...state, loading: true, action: 'delete', error: null }
 
 		case REQUEST_CONFIRM_EMAIL_START:
 			return { ...state, requestEmail: null, loading: true, error: null }
@@ -99,10 +115,11 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case FETCH_ACCOUNTS_END:
 		case FETCH_USER_DETAILS_END:
 		case ADD_ACCOUNT_END:
+		case DELETE_ACCOUNT_END:
 		case REQUEST_CONFIRM_EMAIL_END:
 		case REQUEST_CHANGE_EMAIL_END:
 		case REQUEST_PASSWORD_RESET_END:
-			return { ...state, loading: false, error: payload }
+			return { ...state, loading: false, action: null, error: payload }
 
 		default:
 			return state

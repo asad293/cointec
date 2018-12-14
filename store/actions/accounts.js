@@ -102,7 +102,7 @@ export const addAccount = (ctUser, values) => async dispatch => {
 				type: ADD_ACCOUNT_END,
 				payload: error.response
 			})
-			// throw error
+			throw error
 		})
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Clipboard from 'react-clipboard.js'
+// import ReactTooltip from 'react-tooltip'
 import cn from 'classnames'
 
 class TransactionDetail extends Component {
@@ -99,9 +100,25 @@ class TransactionDetail extends Component {
 										<a href="/" target="_blank">
 											{transaction.dest}
 										</a>
-										<Clipboard data-clipboard-text={transaction.dest}>
+										<Clipboard
+											data-clipboard-text={transaction.dest}
+											onClick={() =>
+												this.setState({ showTooltip: true }, () => {
+													setTimeout(() => {
+														this.setState({
+															showTooltip: false
+														})
+													}, 2000)
+												})
+											}>
 											<i className="far fa-clone" />
+											{/* <i
+												className="far fa-clone"
+												data-tip="Copied!"
+												data-event="click focus"
+											/> */}
 										</Clipboard>
+										<Tooltip visible={this.state.showTooltip} data="Copied!" />
 									</p>
 								</div>
 								<div className="transaction-field">
@@ -119,7 +136,9 @@ class TransactionDetail extends Component {
 
 							<div className="blockchain-tracker">
 								{/* <Clipboard data-clipboard-text={transaction.dest}> */}
-								Blockchain tracker
+								{transaction.status === 'COMPLETED'
+									? 'Blockchain tracker'
+									: 'Transaction tracker'}
 								{/* <i className="far fa-clone" /> */}
 								<i className="far fa-external-link" />
 								{/* </Clipboard> */}
@@ -127,9 +146,16 @@ class TransactionDetail extends Component {
 						</div>
 					</div>
 				</div>
+				{/* <ReactTooltip globalEventOff="click" /> */}
 			</div>
 		)
 	}
+}
+
+const Tooltip = ({ visible, data }) => {
+	return visible === true ? (
+		<span className="copied-tooltip">{data}</span>
+	) : null
 }
 
 export default TransactionDetail

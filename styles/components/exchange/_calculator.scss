@@ -60,18 +60,22 @@
 			.dropdown-toggle {
 				vertical-align: initial;
 				.text-label {
-					padding-left: 30px;
+					// padding-left: 30px;
 					span {
 						line-height: 23px;
 					}
 				}
-				img.dropdown-arrow {
-					margin-right: 13px;
-				}
+				// img.dropdown-arrow {
+				// 	margin-right: 13px;
+				// }
 			}
 			.dropdown-menu {
 				width: 370px;
-				left: -229px;
+				left: -200px;
+				* {
+					font-weight: 400;
+				}
+				// left: -229px;
 				@include media-breakpoint-down(xs) {
 					width: 222%;
 					left: -121%;
@@ -107,29 +111,57 @@
 						&:focus {
 							background: #f0f3f5;
 						}
-						.currency-label {
+						.text-label {
 							padding: 0;
 							.currency-symbol-wrapper {
-								margin-right: 8px;
-								.currency-symbol {
+								margin: 0 !important;
+								padding: 0;
+								img.currency-symbol {
 									width: 16px;
 									height: 16px;
 								}
-							}
-							span {
-								margin-top: 3px;
+								color: #1a1d1f;
 								line-height: 11px;
 								font-size: 16px;
-								font-weight: normal;
-								color: #1a1d1f;
-								&.name {
-									margin-left: auto;
-									font-size: 14px;
+								b {
 									font-weight: 600;
-									color: #1a1d1f;
+									font-size: 14px;
+								}
+								&.fluid {
+									width: 100%;
+									img.currency-symbol {
+										margin-right: 8px;
+									}
 								}
 							}
 						}
+
+						.currency-label {
+							justify-content: flex-start;
+						}
+						// .currency-label {
+						// 	padding: 0;
+						// 	.currency-symbol-wrapper {
+						// 		margin-right: 8px;
+						// 		.currency-symbol {
+						// 			width: 16px;
+						// 			height: 16px;
+						// 		}
+						// 	}
+						// 	span {
+						// 		margin-top: 3px;
+						// 		line-height: 11px;
+						// 		font-size: 16px;
+						// 		font-weight: normal;
+						// 		color: #1a1d1f;
+						// 		&.name {
+						// 			margin-left: auto;
+						// 			font-size: 14px;
+						// 			font-weight: 600;
+						// 			color: #1a1d1f;
+						// 		}
+						// 	}
+						// }
 					}
 				}
 			}
@@ -140,14 +172,19 @@
 				padding-left: 15px;
 				.currency-symbol-wrapper {
 					margin-right: 8px;
-					width: 20px;
+					width: 26px;
 					display: flex;
 					align-items: center;
 					justify-content: center;
+					margin-left: auto;
 					img.currency-symbol {
 						width: 20px;
 						height: 20px;
 					}
+				}
+				.dropdown-arrow {
+					margin-left: 8px;
+					margin-right: 13px;
 				}
 			}
 		}
