@@ -147,6 +147,9 @@
 			&:focus-within {
 				border: 1px solid #045cc7;
 				box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
+				input {
+					border: none;
+				}
 			}
 			.typing-validator {
 				height: 38px;

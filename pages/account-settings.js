@@ -65,7 +65,8 @@ class AccountSettings extends Component {
 			scrolling:
 				element && documentElement
 					? documentElement.clientHeight < element.scrollHeight
-					: false
+					: false,
+			docWidth: documentElement.clientWidth
 		})
 	}
 
@@ -310,6 +311,11 @@ class AccountSettings extends Component {
 						onClose={() => this.setState({ closeAccountModal: false })}
 					/>
 				)}
+				<style jsx global>{`
+					#intercom-container {
+						display: ${this.state.docWidth > 768 ? 'block' : 'none'};
+					}
+				`}</style>
 			</div>
 		)
 	}

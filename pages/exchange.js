@@ -68,7 +68,8 @@ class Exchange extends Component {
 			scrolling:
 				element && documentElement
 					? documentElement.clientHeight < element.scrollHeight
-					: false
+					: false,
+			docWidth: documentElement.clientWidth
 		})
 	}
 
@@ -106,6 +107,7 @@ class Exchange extends Component {
 	}
 
 	render() {
+		const { docWidth } = this.state
 		return (
 			<div
 				className="exchange-page full-height"
@@ -143,6 +145,9 @@ class Exchange extends Component {
 				<style jsx global>{`
 					html {
 						background: #f7f9fa;
+					}
+					#intercom-container {
+						display: ${docWidth > 768 ? 'block' : 'none'};
 					}
 				`}</style>
 			</div>

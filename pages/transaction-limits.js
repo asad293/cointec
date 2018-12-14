@@ -45,7 +45,8 @@ class TransactionLimits extends Component {
 			scrolling:
 				element && documentElement
 					? documentElement.clientHeight < element.scrollHeight
-					: false
+					: false,
+			docWidth: documentElement.clientWidth
 		})
 	}
 
@@ -106,6 +107,11 @@ class TransactionLimits extends Component {
 					</div>
 				</div>
 				<StickyFooter className="bg-white" fixed={!this.state.scrolling} />
+				<style jsx global>{`
+					#intercom-container {
+						display: ${this.state.docWidth > 768 ? 'block' : 'none'};
+					}
+				`}</style>
 			</div>
 		)
 	}
