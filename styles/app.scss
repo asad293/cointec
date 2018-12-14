@@ -504,6 +504,22 @@ html {
 	left: 0;
 }
 
+.copied-tooltip {
+	position: absolute;
+	top: -20px;
+	right: 38px;
+	background: rgba(26, 29, 31, 0.8);
+	border-radius: 3px;
+	font-weight: normal;
+	line-height: normal;
+	font-size: 14px;
+	color: #ffffff;
+	padding: 12px 16px;
+	@include media-breakpoint-down(sm) {
+		right: 32px;
+	}
+}
+
 @import 'helper';
 @import 'nav';
 @import 'landing';
