@@ -64,11 +64,13 @@ class BankAccounts extends Component {
 			scrolling:
 				element && documentElement
 					? documentElement.clientHeight < element.scrollHeight
-					: false
+					: false,
+			docWidth: documentElement.clientWidth
 		})
 	}
 
 	render() {
+		const { docWidth } = this.state
 		return (
 			<div
 				className="settings-page dashboard-page full-height"
@@ -76,6 +78,11 @@ class BankAccounts extends Component {
 				<Head>
 					<title>Bank Accounts | Cointec</title>
 				</Head>
+				<style jsx global>{`
+					#intercom-container {
+						display: ${docWidth > 768 ? 'block' : 'none'};
+					}
+				`}</style>
 				<header>
 					<Nav />
 					<hr className="hr-header" />

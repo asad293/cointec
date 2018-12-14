@@ -60,7 +60,8 @@ class AccountVerification extends Component {
 			scrolling:
 				element && documentElement
 					? documentElement.clientHeight < element.scrollHeight
-					: false
+					: false,
+			docWidth: documentElement.clientWidth
 		})
 	}
 
@@ -104,6 +105,7 @@ class AccountVerification extends Component {
 	}
 
 	render() {
+		const { docWidth } = this.state
 		return (
 			<div
 				className="account-verification-page exchange-page full-height"
@@ -163,6 +165,11 @@ class AccountVerification extends Component {
 				</div>
 
 				<StickyFooter className="bg-white" fixed={!this.state.scrolling} />
+				<style jsx global>{`
+					#intercom-container {
+						display: ${docWidth > 768 ? 'block' : 'none'};
+					}
+				`}</style>
 			</div>
 		)
 	}

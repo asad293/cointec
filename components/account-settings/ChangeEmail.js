@@ -112,13 +112,13 @@ class ChangeEmail extends Component {
 											type="submit"
 											className={cn('btn btn-block btn-lg', 'btn-primary')}
 											disabled={this.props.accounts.loading}>
-											{this.props.accounts.loading ? (
-												<div>
+											{this.props.accounts.loading && (
+												<div
+													style={{ display: 'inline-block', marginRight: 12 }}>
 													<i className="fas fa-spinner fa-spin" />
 												</div>
-											) : (
-												<span>Change email address</span>
 											)}
+											<span>Change email address</span>
 										</button>
 									</div>
 								</div>

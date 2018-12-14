@@ -36,6 +36,14 @@ app
 			app.render(req, res, `/forgot-password`, { token: req.params.token })
 		})
 
+		server.get('/account-locked', (req, res) => {
+			app.render(req, res, `/no-access`, { type: 'locked' })
+		})
+
+		server.get('/account-closed', (req, res) => {
+			app.render(req, res, `/no-access`, { type: 'closed' })
+		})
+
 		server.get('*', handle)
 
 		const appServer = secure ? createSecureServer(server) : server
