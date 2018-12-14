@@ -359,10 +359,10 @@ class Calculator extends Component {
 			const coinSelected = this.state.coinSelected
 				? updatedCoins.find(coin => coin.Name === this.state.coinSelected.Name)
 				: preSelectedCoin
-					? preSelectedCoin
-					: updatedCoins.length
-						? updatedCoins[0]
-						: false
+				? preSelectedCoin
+				: updatedCoins.length
+				? updatedCoins[0]
+				: false
 
 			this.setState(
 				{
@@ -548,15 +548,19 @@ class Calculator extends Component {
 						// onClick={unavailable ? null : () => onItemSelected(exchangeable)}
 						onClick={() => onItemSelected(exchangeable)}>
 						<div className="text-label currency-label">
-							<div className="currency-symbol-wrapper">
-								<img
-									className="currency-symbol"
-									src={exchangeable.Image}
-									alt={exchangeable.Name}
-								/>
+							<div className="currency-symbol-wrapper fluid justify-content-between">
+								<div className="col-8 text-left text-truncate currency-fullname p-0">
+									<img
+										className="currency-symbol"
+										src={exchangeable.Image}
+										alt={exchangeable.Name}
+									/>
+									<span>{exchangeable.FullName}</span>
+								</div>
+								<div className="col-4 text-right p-0">
+									<b>{exchangeable.Name}</b>
+								</div>
 							</div>
-							<span>{exchangeable.FullName}</span>
-							<span className="name">{exchangeable.Name}</span>
 						</div>
 					</a>
 				}
@@ -575,7 +579,7 @@ class Calculator extends Component {
 							{Message ? Message : 'You send'}
 						</label>
 						<div className="calc-field">
-							<div className="col-6 col-sm-7 pr-0">
+							<div className="col-6 pr-0">
 								<Field
 									name="sendAmount"
 									component={this.renderField}
@@ -587,14 +591,16 @@ class Calculator extends Component {
 									)}
 								/>
 							</div>
-							<div className="col-6 col-sm-5 pr-0 d-flex align-items-center d-flex align-items-center">
+							<div className="col-6 pr-0 d-flex align-items-center d-flex align-items-center">
 								<div className="dropdown dropdown-currency-select">
 									<a
 										className="btn dropdown-toggle"
 										role="button"
 										id="dropdownMenuLink"
 										onClick={() => this.toggleDropDown('currency')}>
-										<div className="text-label currency-label">
+										<div
+											className="text-label currency-label"
+											style={{ maxWidth: 150, marginLeft: 'auto' }}>
 											<div className="currency-symbol-wrapper">
 												<img
 													className="currency-symbol"
@@ -602,7 +608,9 @@ class Calculator extends Component {
 													alt={this.state.currencySelected.Name}
 												/>
 											</div>
-											<span>{this.state.currencySelected.Name}</span>
+											<span className="text-left" style={{ minWidth: '46px' }}>
+												{this.state.currencySelected.Name}
+											</span>
 											<img
 												className="dropdown-arrow"
 												src="/static/images/arrow-down.svg"
@@ -642,7 +650,7 @@ class Calculator extends Component {
 					<div className="calc-input-wrapper text-left">
 						<label className="field-label">You receive</label>
 						<div className="calc-field">
-							<div className="col-6 col-sm-7 pr-0">
+							<div className="col-6 pr-0">
 								<Field
 									name="receiveAmount"
 									component={this.renderField}
@@ -652,7 +660,7 @@ class Calculator extends Component {
 									).toFixed(8)}
 								/>
 							</div>
-							<div className="col-6 col-sm-5 pr-0 d-flex align-items-center">
+							<div className="col-6 pr-0 d-flex align-items-center">
 								<div className="dropdown dropdown-currency-select">
 									<a
 										className="btn dropdown-toggle"
@@ -660,7 +668,9 @@ class Calculator extends Component {
 										id="dropdownMenuLink"
 										onClick={() => this.toggleDropDown('coin')}>
 										{this.state.coinSelected && (
-											<div className="text-label currency-label">
+											<div
+												className="text-label currency-label"
+												style={{ maxWidth: 150, marginLeft: 'auto' }}>
 												<div className="currency-symbol-wrapper">
 													<img
 														className="currency-symbol"
@@ -668,7 +678,11 @@ class Calculator extends Component {
 														alt={this.state.coinSelected.Name}
 													/>
 												</div>
-												<span>{this.state.coinSelected.Name}</span>
+												<span
+													className="text-left"
+													style={{ minWidth: '46px' }}>
+													{this.state.coinSelected.Name}
+												</span>
 												<img
 													className="dropdown-arrow"
 													src="/static/images/arrow-down.svg"

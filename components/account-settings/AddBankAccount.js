@@ -62,16 +62,13 @@ class AddBankAccount extends Component {
 	}
 
 	onSubmit(values) {
-		// console.log(values)
-		this.props.addAccount(this.props.ctUser, values)
-		// .then(res => console.log(res.payload.response))
-		// .catch(e => console.log(e.response))
-		// this.onClose()
+		this.props.addAccount(this.props.ctUser, values).then(() => this.onClose())
 	}
 
 	onDelete() {
-		this.props.deleteAccount(this.props.ctUser, this.props.editAccount.id)
-		this.onClose()
+		this.props
+			.deleteAccount(this.props.ctUser, this.props.editAccount.id)
+			.then(() => this.onClose())
 	}
 
 	render() {
@@ -142,12 +139,16 @@ class AddBankAccount extends Component {
 											type="submit"
 											className={cn('btn btn-block btn-lg', 'btn-primary')}
 											disabled={this.props.accounts.loading}>
-											{this.props.accounts.loading && (
-												<div
-													style={{ display: 'inline-block', marginRight: 12 }}>
-													<i className="fas fa-spinner fa-spin" />
-												</div>
-											)}
+											{this.props.accounts.loading &&
+												this.props.accounts.action === 'add' && (
+													<div
+														style={{
+															display: 'inline-block',
+															marginRight: 12
+														}}>
+														<i className="fas fa-spinner fa-spin" />
+													</div>
+												)}
 											<span>
 												{!this.props.editAccount
 													? 'Add bank account'
@@ -165,8 +166,19 @@ class AddBankAccount extends Component {
 													'btn-outline-danger'
 												)}
 												type="button"
-												onClick={this.onDelete}>
-												Delete bank account
+												onClick={this.onDelete}
+												disabled={this.props.accounts.loading}>
+												{this.props.accounts.loading &&
+													this.props.accounts.action === 'delete' && (
+														<div
+															style={{
+																display: 'inline-block',
+																marginRight: 12
+															}}>
+															<i className="fas fa-spinner fa-spin" />
+														</div>
+													)}
+												<span>Delete bank account</span>
 											</button>
 										</div>
 									</div>

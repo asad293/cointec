@@ -118,7 +118,8 @@ class RequestData extends Component {
 									<div className="col-md-12">
 										<button
 											type="submit"
-											className={cn('btn btn-block btn-lg', 'btn-primary')}>
+											className={cn('btn btn-block btn-lg', 'btn-primary')}
+											disabled={this.props.accounts.loading}>
 											{this.props.accounts.loading && (
 												<div
 													style={{ display: 'inline-block', marginRight: 12 }}>
