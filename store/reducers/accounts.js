@@ -17,6 +17,9 @@ import {
 	REQUEST_CHANGE_EMAIL,
 	REQUEST_CHANGE_EMAIL_START,
 	REQUEST_CHANGE_EMAIL_END,
+	UPDATE_PASSWORD,
+	UPDATE_PASSWORD_START,
+	UPDATE_PASSWORD_END,
 	REQUEST_PASSWORD_RESET,
 	REQUEST_PASSWORD_RESET_START,
 	REQUEST_PASSWORD_RESET_END
@@ -80,6 +83,14 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 				error: null
 			}
 
+		case UPDATE_PASSWORD:
+			return {
+				...state,
+				updatePassword: payload,
+				loading: false,
+				error: null
+			}
+
 		case REQUEST_PASSWORD_RESET:
 			return {
 				...state,
@@ -112,12 +123,16 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case REQUEST_PASSWORD_RESET_START:
 			return { ...state, resetPassword: null, loading: true, error: null }
 
+		case UPDATE_PASSWORD_START:
+			return { ...state, updatePassword: null, loading: true, error: null }
+
 		case FETCH_ACCOUNTS_END:
 		case FETCH_USER_DETAILS_END:
 		case ADD_ACCOUNT_END:
 		case DELETE_ACCOUNT_END:
 		case REQUEST_CONFIRM_EMAIL_END:
 		case REQUEST_CHANGE_EMAIL_END:
+		case UPDATE_PASSWORD_END:
 		case REQUEST_PASSWORD_RESET_END:
 			return { ...state, loading: false, action: null, error: payload }
 

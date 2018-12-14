@@ -30,6 +30,10 @@ export const REQUEST_CHANGE_EMAIL = 'REQUEST_CHANGE_EMAIL'
 export const REQUEST_CHANGE_EMAIL_START = 'REQUEST_CHANGE_EMAIL_START'
 export const REQUEST_CHANGE_EMAIL_END = 'REQUEST_CHANGE_EMAIL_END'
 
+export const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
+export const UPDATE_PASSWORD_START = 'UPDATE_PASSWORD_START'
+export const UPDATE_PASSWORD_END = 'UPDATE_PASSWORD_END'
+
 export const REQUEST_PASSWORD_RESET = 'REQUEST_PASSWORD_RESET'
 export const REQUEST_PASSWORD_RESET_START = 'REQUEST_PASSWORD_RESET_START'
 export const REQUEST_PASSWORD_RESET_END = 'REQUEST_PASSWORD_RESET_END'
@@ -275,17 +279,45 @@ export const changeEmail = ({
 		})
 }
 
-export const resetPassword = ({
+export const updatePassword = ({
 	ctUser,
-	emailAddress,
 	password,
 	newPassword
 }) => async dispatch => {
+	dispatch({ type: UPDATE_PASSWORD_START })
+
+	const data = {
+		Password: password,
+		NewPassword: newPassword
+	}
+
+	const headers = {
+		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+		'CT-ACCOUNT-ID': ctUser
+	}
+
+	return axios
+		.post(`${ROOT_URL}/accounts/${ctUser}/change-password`, data, { headers })
+		.then(response => {
+			dispatch({
+				type: UPDATE_PASSWORD,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: UPDATE_PASSWORD_END,
+				payload: error
+			})
+			throw error
+		})
+}
+
+export const resetPassword = ({ emailAddress }) => async dispatch => {
 	dispatch({ type: REQUEST_PASSWORD_RESET_START })
 
 	const data = {
-		// Password: password,
-		// NewPassword: newPassword
 		EmailAddress: emailAddress
 	}
 
