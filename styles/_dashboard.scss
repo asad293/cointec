@@ -118,35 +118,6 @@
 		}
 	}
 
-	.alert-message {
-		background: #0459c4;
-		font-size: 14px;
-		line-height: 19px;
-		padding: 18px 0;
-		color: white;
-		&.alert-success {
-			background: #29be60;
-		}
-		p {
-			margin: 0;
-		}
-		i {
-			margin: 0 8px;
-		}
-		a {
-			color: white;
-			font-weight: 600;
-			&:hover {
-				text-decoration: none;
-			}
-		}
-		.btn-hide-alert {
-			position: absolute;
-			right: 15px;
-			cursor: pointer;
-		}
-	}
-
 	.dashboard-container {
 		margin-top: 40px;
 		margin-bottom: 40px;
@@ -525,5 +496,34 @@
 #chartjs-tooltip {
 	@include media-breakpoint-down(md) {
 		opacity: 0 !important;
+	}
+}
+
+.alert-message {
+	background: #0459c4;
+	font-size: 14px;
+	line-height: 19px;
+	padding: 18px 0;
+	color: white;
+	&.alert-success {
+		background: #29be60;
+	}
+	p {
+		margin: 0;
+	}
+	i {
+		margin: 0 8px;
+	}
+	a {
+		color: white;
+		font-weight: 600;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+	.btn-hide-alert {
+		position: absolute;
+		right: 15px;
+		cursor: pointer;
 	}
 }

@@ -36,6 +36,25 @@ app
 			app.render(req, res, `/forgot-password`, { token: req.params.token })
 		})
 
+		server.get('/validate', (req, res) => {
+			app.render(req, res, `/on-load`, {
+				action: req.query.action,
+				token: req.query.token
+			})
+		})
+
+		server.get('/token-expired/:parameter', (req, res) => {
+			app.render(req, res, `/token-expired`, {
+				parameter: req.params.parameter
+			})
+		})
+
+		server.get('/request-sent/:parameter', (req, res) => {
+			app.render(req, res, `/alert-message`, {
+				parameter: req.params.parameter
+			})
+		})
+
 		server.get('/account-locked', (req, res) => {
 			app.render(req, res, `/no-access`, { type: 'locked' })
 		})

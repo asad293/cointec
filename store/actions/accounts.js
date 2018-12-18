@@ -50,6 +50,10 @@ export const CLOSE_ACCOUNT = 'CLOSE_ACCOUNT'
 export const CLOSE_ACCOUNT_START = 'CLOSE_ACCOUNT_START'
 export const CLOSE_ACCOUNT_END = 'CLOSE_ACCOUNT_END'
 
+export const VALIDATE_TOKEN = 'VALIDATE_TOKEN'
+export const VALIDATE_TOKEN_START = 'VALIDATE_TOKEN_START'
+export const VALIDATE_TOKEN_END = 'VALIDATE_TOKEN_END'
+
 export const fetchAccounts = ctUser => async dispatch => {
 	dispatch({ type: FETCH_ACCOUNTS_START })
 
@@ -414,6 +418,27 @@ export const closeAccount = ({ emailAddress }) => async dispatch => {
 		.catch(error => {
 			dispatch({
 				type: CLOSE_ACCOUNT_END,
+				payload: error
+			})
+			throw error
+		})
+}
+
+export const validateToken = ({ action, token }) => async dispatch => {
+	dispatch({ type: VALIDATE_TOKEN_START })
+
+	return axios
+		.get(`${ROOT_URL}/accounts/${action}?token=${token}`)
+		.then(response => {
+			dispatch({
+				type: VALIDATE_TOKEN,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: VALIDATE_TOKEN_END,
 				payload: error
 			})
 			throw error
