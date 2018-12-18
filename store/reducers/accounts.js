@@ -22,7 +22,13 @@ import {
 	UPDATE_PASSWORD_END,
 	REQUEST_PASSWORD_RESET,
 	REQUEST_PASSWORD_RESET_START,
-	REQUEST_PASSWORD_RESET_END
+	REQUEST_PASSWORD_RESET_END,
+	REQUEST_DATA,
+	REQUEST_DATA_START,
+	REQUEST_DATA_END,
+	EXPORT_DATA,
+	EXPORT_DATA_START,
+	EXPORT_DATA_END
 } from '../actions'
 
 const INITIAL_STATE = {
@@ -99,6 +105,14 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 				error: null
 			}
 
+		case REQUEST_DATA:
+		case EXPORT_DATA:
+			return {
+				...state,
+				loading: false,
+				error: null
+			}
+
 		case FETCH_USER_DETAILS:
 			return { ...state, userDetails: payload, loading: false, error: null }
 
@@ -126,6 +140,10 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case UPDATE_PASSWORD_START:
 			return { ...state, updatePassword: null, loading: true, error: null }
 
+		case REQUEST_DATA_START:
+		case EXPORT_DATA_START:
+			return { ...state, loading: true, error: null }
+
 		case FETCH_ACCOUNTS_END:
 		case FETCH_USER_DETAILS_END:
 		case ADD_ACCOUNT_END:
@@ -134,6 +152,8 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case REQUEST_CHANGE_EMAIL_END:
 		case UPDATE_PASSWORD_END:
 		case REQUEST_PASSWORD_RESET_END:
+		case REQUEST_DATA_END:
+		case EXPORT_DATA_END:
 			return { ...state, loading: false, action: null, error: payload }
 
 		default:
