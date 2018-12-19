@@ -300,7 +300,7 @@ const validate = (values, props) => {
 
 export default connect(
 	({ accounts }) => ({ accounts }),
-	{ addAccount, updateAccount, deleteAccount }
+	{ addAccount, updateAccount, deleteAccount, fetchAccounts }
 )(
 	reduxForm({
 		form: 'AddBankAccountForm',
