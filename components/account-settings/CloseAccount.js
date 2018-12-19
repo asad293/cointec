@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
+import { closeAccount } from '../../store/actions'
 import cn from 'classnames'
 
 class CloseAccount extends Component {
@@ -45,9 +47,17 @@ class CloseAccount extends Component {
 		}
 	}
 
-	onSubmit(event) {
-		event.preventDefault()
-		this.onClose()
+	onSubmit(values) {
+		this.props
+			.closeAccount({
+				emailAddress: this.props.emailAddress,
+				password: values.password
+			})
+			.then(res => {
+				localStorage.removeItem('user')
+				this.props.onAccountClosed()
+				this.onClose()
+			})
 	}
 
 	render() {
@@ -69,7 +79,7 @@ class CloseAccount extends Component {
 							</button>
 							<h5 className="modal-heading text-left">Close your account</h5>
 							<hr />
-							<form onSubmit={this.onSubmit}>
+							<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
 								<div className="row">
 									<div className="col-12">
 										<p className="modal-message">
@@ -142,6 +152,11 @@ class CloseAccount extends Component {
 // Validators
 const password = value => (!value ? 'Please enter a valid password' : undefined)
 
-export default reduxForm({
-	form: 'CloseAccountForm'
-})(CloseAccount)
+export default connect(
+	({ accounts }) => ({ accounts }),
+	{ closeAccount }
+)(
+	reduxForm({
+		form: 'CloseAccountForm'
+	})(CloseAccount)
+)

@@ -10,6 +10,10 @@ export const ADD_ACCOUNT = 'ADD_ACCOUNT'
 export const ADD_ACCOUNT_START = 'ADD_ACCOUNT_START'
 export const ADD_ACCOUNT_END = 'ADD_ACCOUNT_END'
 
+export const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT'
+export const UPDATE_ACCOUNT_START = 'UPDATE_ACCOUNT_START'
+export const UPDATE_ACCOUNT_END = 'UPDATE_ACCOUNT_END'
+
 export const DELETE_ACCOUNT = 'DELETE_ACCOUNT'
 export const DELETE_ACCOUNT_START = 'DELETE_ACCOUNT_START'
 export const DELETE_ACCOUNT_END = 'DELETE_ACCOUNT_END'
@@ -108,6 +112,40 @@ export const addAccount = (ctUser, values) => async dispatch => {
 		.catch(error => {
 			dispatch({
 				type: ADD_ACCOUNT_END,
+				payload: error.response
+			})
+			throw error
+		})
+}
+
+export const updateAccount = (ctUser, values, accountId) => async dispatch => {
+	dispatch({ type: UPDATE_ACCOUNT_START })
+
+	const headers = {
+		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+		'CT-ACCOUNT-ID': ctUser
+	}
+
+	const post = {
+		UserBankAccountId: accountId,
+		AccountOwner: values.accountName,
+		SortCode: values.sortCode,
+		AccountNumber: values.accountNumber,
+		AccountReference: 'Test'
+	}
+
+	return axios
+		.put(`${ROOT_URL}/accounts/${ctUser}/bank-accounts`, post, { headers })
+		.then(response => {
+			dispatch({
+				type: UPDATE_ACCOUNT,
+				payload: response.data
+			})
+			return dispatch(fetchAccounts(ctUser))
+		})
+		.catch(error => {
+			dispatch({
+				type: UPDATE_ACCOUNT_END,
 				payload: error.response
 			})
 			throw error
@@ -399,15 +437,18 @@ export const requestData = ({ emailAddress, password }) => async dispatch => {
 		})
 }
 
-export const closeAccount = ({ emailAddress }) => async dispatch => {
+export const closeAccount = ({ emailAddress, password }) => async dispatch => {
 	dispatch({ type: CLOSE_ACCOUNT_START })
 
 	const data = {
 		EmailAddress: emailAddress
 	}
 
+	const headers = {
+		Authorization: 'Basic ' + btoa(emailAddress + ':' + password)
+	}
 	return axios
-		.post(`${ROOT_URL}/accounts/close-account`, data)
+		.post(`${ROOT_URL}/accounts/close-account`, data, { headers })
 		.then(response => {
 			dispatch({
 				type: CLOSE_ACCOUNT,

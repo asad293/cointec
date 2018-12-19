@@ -25,16 +25,16 @@ class TokenExpired extends Component {
 
 	onSubmit(values) {
 		console.log(values)
-		const { parameter } = this.props.router.query
+		const { action } = this.props.router.query
 
-		if (parameter === 'requestdata') {
+		if (action === 'requestdata') {
 			this.props
 				.requestData({
 					emailAddress: values.email,
 					password: values.password
 				})
 				.then(() => this.onSent(values.email))
-		} else if (parameter === 'exportdata') {
+		} else if (action === 'exportdata') {
 			this.props
 				.exportData({
 					emailAddress: values.email,
@@ -62,7 +62,7 @@ class TokenExpired extends Component {
 	}
 
 	render() {
-		const { parameter } = this.props.router.query
+		const { action } = this.props.router.query
 
 		return (
 			<div
@@ -86,7 +86,7 @@ class TokenExpired extends Component {
 				<div className="content-wrapper">
 					<div className="alert-box">
 						<div className="alert-header">
-							<h6 className="heading text-left">{parameter} token expired</h6>
+							<h6 className="heading text-left">{action} token expired</h6>
 						</div>
 						<div className="alert-body">
 							<p className="message-text">

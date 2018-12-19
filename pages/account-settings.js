@@ -35,6 +35,7 @@ class AccountSettings extends Component {
 			notificationContent: null
 		}
 		this.onConfirmationEmailSent = this.onConfirmationEmailSent.bind(this)
+		this.onAccountClosed = this.onAccountClosed.bind(this)
 	}
 
 	componentDidMount() {
@@ -92,6 +93,10 @@ class AccountSettings extends Component {
 				notificationAlert: false
 			})
 		}, 5000)
+	}
+
+	onAccountClosed() {
+		Router.push('/account-closed')
 	}
 
 	render() {
@@ -309,6 +314,13 @@ class AccountSettings extends Component {
 				)}
 				{this.state.closeAccountModal && (
 					<CloseAccount
+						emailAddress={
+							(this.props.accounts.userDetails &&
+								this.props.accounts.userDetails.EmailAddress) ||
+							this.state.email ||
+							'email@cointec.co.uk'
+						}
+						onAccountClosed={this.onAccountClosed}
 						onClose={() => this.setState({ closeAccountModal: false })}
 					/>
 				)}

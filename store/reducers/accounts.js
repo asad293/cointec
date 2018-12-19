@@ -5,6 +5,9 @@ import {
 	ADD_ACCOUNT,
 	ADD_ACCOUNT_START,
 	ADD_ACCOUNT_END,
+	UPDATE_ACCOUNT,
+	UPDATE_ACCOUNT_START,
+	UPDATE_ACCOUNT_END,
 	DELETE_ACCOUNT,
 	DELETE_ACCOUNT_START,
 	DELETE_ACCOUNT_END,
@@ -28,7 +31,10 @@ import {
 	REQUEST_DATA_END,
 	EXPORT_DATA,
 	EXPORT_DATA_START,
-	EXPORT_DATA_END
+	EXPORT_DATA_END,
+	CLOSE_ACCOUNT,
+	CLOSE_ACCOUNT_START,
+	CLOSE_ACCOUNT_END
 } from '../actions'
 
 const INITIAL_STATE = {
@@ -40,6 +46,7 @@ const INITIAL_STATE = {
 	userDetails: null,
 	resetPassword: null,
 	addFN: null,
+	updateFN: null,
 	fetched: false,
 	action: null
 }
@@ -60,6 +67,15 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 			return {
 				...state,
 				addFN: payload,
+				loading: false,
+				action: null,
+				error: null
+			}
+
+		case UPDATE_ACCOUNT:
+			return {
+				...state,
+				updateFN: payload,
 				loading: false,
 				action: null,
 				error: null
@@ -107,6 +123,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 
 		case REQUEST_DATA:
 		case EXPORT_DATA:
+		case CLOSE_ACCOUNT:
 			return {
 				...state,
 				loading: false,
@@ -123,6 +140,9 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 			return { ...state, loading: true, error: null }
 
 		case ADD_ACCOUNT_START:
+			return { ...state, loading: true, action: 'add', error: null }
+
+		case UPDATE_ACCOUNT_START:
 			return { ...state, loading: true, action: 'add', error: null }
 
 		case DELETE_ACCOUNT_START:
@@ -142,11 +162,13 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 
 		case REQUEST_DATA_START:
 		case EXPORT_DATA_START:
+		case CLOSE_ACCOUNT_START:
 			return { ...state, loading: true, error: null }
 
 		case FETCH_ACCOUNTS_END:
 		case FETCH_USER_DETAILS_END:
 		case ADD_ACCOUNT_END:
+		case UPDATE_ACCOUNT_END:
 		case DELETE_ACCOUNT_END:
 		case REQUEST_CONFIRM_EMAIL_END:
 		case REQUEST_CHANGE_EMAIL_END:
@@ -154,6 +176,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case REQUEST_PASSWORD_RESET_END:
 		case REQUEST_DATA_END:
 		case EXPORT_DATA_END:
+		case CLOSE_ACCOUNT_END:
 			return { ...state, loading: false, action: null, error: payload }
 
 		default:

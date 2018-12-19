@@ -37,10 +37,11 @@ export const signUp = data => async dispatch => {
 			payload
 		})
 	} catch (error) {
-		return dispatch({
+		dispatch({
 			type: SIGN_UP_END,
 			payload: error.message
 		})
+		throw error
 	}
 }
 
