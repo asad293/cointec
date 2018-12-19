@@ -123,11 +123,17 @@ const TransactionStatus = ({
 	const cancelled = ABANDONED || EXPIRED
 	return (
 		<div>
-			{cancelled && (
-				<TransactionCancelled ABANDONED={ABANDONED} EXPIRED={EXPIRED} />
+			{(cancelled || (TERMINATED && !CLEARING)) && (
+				<TransactionCancelled
+					ABANDONED={ABANDONED}
+					EXPIRED={EXPIRED}
+					TERMINATED={TERMINATED}
+				/>
 			)}
-			{!cancelled && <PaymentSent CLEARING={CLEARING} />}
-			{!cancelled && (
+			{!(cancelled || (TERMINATED && !CLEARING)) && (
+				<PaymentSent CLEARING={CLEARING} />
+			)}
+			{!(cancelled || (TERMINATED && !CLEARING)) && (
 				<PaymentReceived
 					CLEARING={CLEARING}
 					REVIEW={REVIEW}
@@ -135,7 +141,7 @@ const TransactionStatus = ({
 					SETTLED={SETTLED}
 				/>
 			)}
-			{!cancelled && (
+			{!(cancelled || (TERMINATED && !CLEARING)) && (
 				<CoinSent
 					Exchange={Exchange}
 					SETTLED={SETTLED}
@@ -166,16 +172,22 @@ const TransactionStatus = ({
 	)
 }
 
-const TransactionCancelled = ({ ABANDONED, EXPIRED }) => (
+const TransactionCancelled = ({ ABANDONED, EXPIRED, TERMINATED }) => (
 	<div className="coin-sent-wrapper error mt-3">
 		<div className="d-flex justify-content-between card-tracking">
 			<div>
 				<i className="far fa-times fa-lg mr-3" />
-				{ABANDONED ? 'Transaction cancelled' : 'Transaction expired'}
+				{ABANDONED
+					? 'Transaction cancelled'
+					: TERMINATED
+					? 'Transaction error'
+					: 'Transaction expired'}
 			</div>
 			<span className="transaction-time">
 				{ABANDONED ? (
 					<Moment format="hh:mm A">{ABANDONED * 1000}</Moment>
+				) : TERMINATED ? (
+					<Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
 				) : (
 					<Moment format="hh:mm A">{EXPIRED * 1000}</Moment>
 				)}
@@ -185,6 +197,12 @@ const TransactionCancelled = ({ ABANDONED, EXPIRED }) => (
 			<div className="description">
 				We have recieved your refund request. We will be in touch within 24
 				hours to arrange payment.
+			</div>
+		)}
+		{TERMINATED && (
+			<div className="description">
+				Sorry, we were unable to fulfill your order. Any payments received from
+				your account will be refunded within 2 business days.
 			</div>
 		)}
 		<Link href="/">
@@ -223,8 +241,8 @@ const PaymentReceived = ({ CLEARING, REVIEW, TERMINATED, SETTLED }) => {
 				(REVIEW || TERMINATED) && !SETTLED
 					? 'error'
 					: !SETTLED
-						? 'in-progress'
-						: ''
+					? 'in-progress'
+					: ''
 			)}>
 			<div>
 				{(REVIEW || TERMINATED) && !SETTLED ? (
@@ -268,10 +286,10 @@ const CoinSent = ({ Exchange, SETTLED, FAILED, TERMINATED, SENT }) => {
 				FAILED || TERMINATED
 					? 'error'
 					: !SENT
-						? 'in-progress'
-						: SENT
-							? 'sent'
-							: ''
+					? 'in-progress'
+					: SENT
+					? 'sent'
+					: ''
 			)}>
 			<div className="d-flex justify-content-between card-tracking">
 				<div>

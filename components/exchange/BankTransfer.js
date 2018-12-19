@@ -143,8 +143,10 @@ class BankTransfer extends Component {
 
 	renderScreen() {
 		const { sendAmount, accounts, sendFromAccount } = this.props
+		// const { AccountOwner, SortCode, AccountReference, AccountNumber } =
+		// 	sendFromAccount || {}
 		const { AccountOwner, SortCode, AccountReference, AccountNumber } =
-			sendFromAccount || {}
+			this.state.sourceAccount || {}
 
 		return (
 			<div>
@@ -439,6 +441,7 @@ class BankTransfer extends Component {
 	componentWillReceiveProps(props) {
 		const { accounts, order, constants, ctUser, sendCurrency } = props
 
+		console.log(accounts, order)
 		if (sendCurrency === 'GBP') {
 			if (!order.create || !accounts.list) {
 				clearInterval(this.state.timerId)
