@@ -10,7 +10,7 @@ import Header from '../components/Header'
 import Calculator from '../components/exchange/Calculator'
 import OrderSummary from '../components/exchange/OrderSummary'
 import BankTransfer from '../components/exchange/BankTransfer'
-import AddBankAccount from '../components/exchange/AddBankAccount'
+import AddBankAccount from '../components/account-settings/AddBankAccount'
 import StickyFooter from '../components/StickyFooter'
 
 class Exchange extends Component {
@@ -140,6 +140,7 @@ class Exchange extends Component {
 				<StickyFooter className="bg-white" fixed={!this.state.scrolling} />
 				{this.state.addBankAccountModal && (
 					<AddBankAccount
+						ctUser={this.state.ctUser}
 						onClose={() => this.setState({ addBankAccountModal: false })}
 					/>
 				)}
