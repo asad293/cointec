@@ -4,7 +4,14 @@ import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import { requestData, exportData } from '../store/actions'
+import {
+	requestData,
+	exportData,
+	requestConfirmEmail,
+	changeEmail,
+	resetPassword,
+	closeAccount
+} from '../store/actions'
 import cn from 'classnames'
 
 import Header from '../components/Header'
@@ -25,20 +32,48 @@ class TokenExpired extends Component {
 
 	onSubmit(values) {
 		console.log(values)
-		const { parameter } = this.props.router.query
+		const action = this.props.router.query.action
+			.toLowerCase()
+			.replace(/[^a-zA-Z]/g, '')
 
-		if (parameter === 'requestdata') {
+		if (action === 'requestdata') {
 			this.props
 				.requestData({
 					emailAddress: values.email,
-					password: values.password
+					password: '' //values.password
 				})
 				.then(() => this.onSent(values.email))
-		} else if (parameter === 'exportdata') {
+		} else if (action === 'exportdata') {
 			this.props
 				.exportData({
 					emailAddress: values.email,
-					password: values.password
+					password: '' //values.password
+				})
+				.then(() => this.onSent(values.email))
+		} else if (action === 'confirmemail') {
+			this.props
+				.requestConfirmEmail({
+					emailAddress: values.email
+				})
+				.then(() => this.onSent(values.email))
+		} else if (action === 'changeemail') {
+			this.props
+				.changeEmail({
+					emailAddress: values.email,
+					password: '' //values.password
+				})
+				.then(() => this.onSent(values.email))
+		} else if (action === 'resetpassword') {
+			this.props
+				.resetPassword({
+					emailAddress: values.email
+				})
+				.then(() => this.onSent(values.email))
+		} else if (action === 'closeaccount') {
+			this.props
+				.closeAccount({
+					emailAddress: values.email,
+					password: '' //values.password
 				})
 				.then(() => this.onSent(values.email))
 		}
@@ -62,7 +97,7 @@ class TokenExpired extends Component {
 	}
 
 	render() {
-		const { parameter } = this.props.router.query
+		const { action } = this.props.router.query
 
 		return (
 			<div
@@ -86,7 +121,7 @@ class TokenExpired extends Component {
 				<div className="content-wrapper">
 					<div className="alert-box">
 						<div className="alert-header">
-							<h6 className="heading text-left">{parameter} token expired</h6>
+							<h6 className="heading text-left">{action} token expired</h6>
 						</div>
 						<div className="alert-body">
 							<p className="message-text">
@@ -107,19 +142,23 @@ class TokenExpired extends Component {
 										/>
 									</div>
 								</div>
-								<div className="row">
-									<div className="col-12">
-										<Field
-											name="password"
-											label="Password"
-											type="password"
-											placeholder="••••••••"
-											className="mt-4"
-											validate={password}
-											component={this.renderField}
-										/>
+								{/* {(action === 'requestdata' ||
+									action === 'exportdata' ||
+									action === 'closeaccount') && (
+									<div className="row">
+										<div className="col-12">
+											<Field
+												name="password"
+												label="Password"
+												type="password"
+												placeholder="••••••••"
+												className="mt-4"
+												validate={password}
+												component={this.renderField}
+											/>
+										</div>
 									</div>
-								</div>
+								)} */}
 								<div className="row mt-4">
 									<div className="col-md-12">
 										<button
@@ -204,7 +243,14 @@ const password = value => (!value ? 'Please enter a valid password' : undefined)
 
 export default connect(
 	({ accounts }) => ({ accounts }),
-	{ requestData, exportData }
+	{
+		requestData,
+		exportData,
+		requestConfirmEmail,
+		changeEmail,
+		resetPassword,
+		closeAccount
+	}
 )(
 	reduxForm({
 		form: 'TokenExpiredForm'

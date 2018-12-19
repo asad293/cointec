@@ -34,10 +34,10 @@ class TokenExpired extends Component {
 	componentDidMount() {}
 
 	render() {
-		const { parameter } = this.props.router.query
+		const { action } = this.props.router.query
 
-		const heading = headings[parameter]
-		const message = messages[parameter]
+		const heading = headings[action]
+		const message = messages[action]
 
 		return (
 			<div

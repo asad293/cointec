@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import { addAccount, deleteAccount } from '../../store/actions'
+import {
+	addAccount,
+	updateAccount,
+	deleteAccount,
+	fetchAccounts
+} from '../../store/actions'
 import cn from 'classnames'
 
 const errorMap = {
@@ -62,7 +67,18 @@ class AddBankAccount extends Component {
 	}
 
 	onSubmit(values) {
-		this.props.addAccount(this.props.ctUser, values).then(() => this.onClose())
+		if (this.props.editAccount) {
+			this.props
+				.updateAccount(this.props.ctUser, values, this.props.editAccount.id)
+				.then(() => {
+					this.props.fetchAccounts(this.props.ctUser)
+					this.onClose()
+				})
+		} else {
+			this.props
+				.addAccount(this.props.ctUser, values)
+				.then(() => this.onClose())
+		}
 	}
 
 	onDelete() {
@@ -284,7 +300,7 @@ const validate = (values, props) => {
 
 export default connect(
 	({ accounts }) => ({ accounts }),
-	{ addAccount, deleteAccount }
+	{ addAccount, updateAccount, deleteAccount, fetchAccounts }
 )(
 	reduxForm({
 		form: 'AddBankAccountForm',

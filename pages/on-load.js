@@ -4,7 +4,12 @@ import { connect } from 'react-redux'
 import { validateToken } from '../store/actions'
 
 const actions = {
-	requestdata: 'request-data'
+	requestdata: 'request-data',
+	exportdata: 'export-data',
+	changeemail: 'change-email',
+	'change-email': 'change-email',
+	confirmemail: 'confirm-email',
+	'confirm-email': 'confirm-email'
 }
 
 class OnLoad extends Component {
@@ -20,7 +25,7 @@ class OnLoad extends Component {
 		const { action, token } = this.props.router.query
 		this.props
 			.validateToken({
-				action: actions[action],
+				action: actions[action.toLowerCase()],
 				token
 			})
 			.then(res => this.tokenValidated(action))
@@ -28,14 +33,16 @@ class OnLoad extends Component {
 	}
 
 	tokenExpired(action) {
-		Router.push(
-			`/token-expired/${action}`,
-			`/token-expired?parameter=${action}`
-		)
+		Router.push(`/token-expired/${action}`, `/token-expired?action=${action}`)
 	}
 
 	tokenValidated(action) {
-		Router.push(`/request-sent/${action}`, `/request-sent?parameter=${action}`)
+		if (action === 'confirmemail' || action === 'confirm-email') {
+			Router.push('/account-settings')
+		} else if (action === 'changeemail') {
+			Router.push('/login')
+		} else
+			Router.push(`/request-sent/${action}`, `/request-sent?action=${action}`)
 	}
 
 	render() {
@@ -44,6 +51,12 @@ class OnLoad extends Component {
 				className="d-flex justify-content-center"
 				style={{ marginTop: '45vh' }}>
 				<i className="fas fa-spinner-third fa-lg fa-spin mr-3 text-primary" />
+				<style jsx global>{`
+					html body {
+						background: none;
+						box-shadow: none;
+					}
+				`}</style>
 			</div>
 		)
 	}

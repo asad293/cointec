@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { SubmissionError } from 'redux-form'
 
 import Header from '../components/Header'
+import NotificationAlert from '../components/dashboard/NotificationAlert'
 import SignUpForm from '../components/SignUpForm'
 import StickyFooter from '../components/StickyFooter'
 
@@ -15,7 +16,9 @@ class SignUp extends Component {
 	constructor() {
 		super()
 		this.state = {
-			maskPassword: false
+			maskPassword: false,
+			notificationAlert: false,
+			notificationContent: null
 		}
 		this.authComplete = this.authComplete.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -27,7 +30,8 @@ class SignUp extends Component {
 			.signUp(values)
 			.then(res => {
 				console.log(res)
-				this.authComplete(values.emailAddress)
+				// this.authComplete(values.emailAddress)
+				this.onSent(values.emailAddress)
 			})
 			.catch(error => {
 				throw new SubmissionError({
@@ -46,6 +50,23 @@ class SignUp extends Component {
 		})
 	}
 
+	onSent(email) {
+		const notificationContent = (
+			<p>
+				Confirmation email sent to <b>{email}</b>
+			</p>
+		)
+		this.setState({
+			notificationAlert: true,
+			notificationContent
+		})
+		setTimeout(() => {
+			this.setState({
+				notificationAlert: false
+			})
+		}, 5000)
+	}
+
 	render() {
 		const { loading } = this.props.auth
 
@@ -54,6 +75,14 @@ class SignUp extends Component {
 				<Head>
 					<title>Sign Up | Cointec</title>
 				</Head>
+
+				{this.state.notificationAlert && (
+					<NotificationAlert
+						onHide={() => this.setState({ notificationAlert: false })}>
+						{this.state.notificationContent}
+					</NotificationAlert>
+				)}
+
 				<Header background="gradient">
 					<div className="sg-logo text-center position-relative">
 						<Link href="/">

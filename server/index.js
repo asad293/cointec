@@ -43,15 +43,15 @@ app
 			})
 		})
 
-		server.get('/token-expired/:parameter', (req, res) => {
+		server.get('/token-expired/:action', (req, res) => {
 			app.render(req, res, `/token-expired`, {
-				parameter: req.params.parameter
+				action: req.params.action
 			})
 		})
 
-		server.get('/request-sent/:parameter', (req, res) => {
+		server.get('/request-sent/:action', (req, res) => {
 			app.render(req, res, `/alert-message`, {
-				parameter: req.params.parameter
+				action: req.params.action
 			})
 		})
 
