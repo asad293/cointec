@@ -37,7 +37,12 @@ class OnLoad extends Component {
 	}
 
 	tokenValidated(action) {
-		Router.push(`/request-sent/${action}`, `/request-sent?action=${action}`)
+		if (action === 'confirmemail' || action === 'confirm-email') {
+			Router.push('/account-settings')
+		} else if (action === 'changeemail') {
+			Router.push('/login')
+		} else
+			Router.push(`/request-sent/${action}`, `/request-sent?action=${action}`)
 	}
 
 	render() {
