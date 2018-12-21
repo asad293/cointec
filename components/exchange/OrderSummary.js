@@ -8,6 +8,7 @@ import MinutesFormat from '../MinutesFormat'
 
 // const sitekey = '6Ld5nFUUAAAAANRvB37_utUYF0-keXqw_i105cGm'
 const sitekey = '6LcopGcUAAAAALwksZY5mpplDNxtR8trVNiyMyRY'
+const dev = process.env.NODE_ENV !== 'production'
 
 class OrderSummary extends Component {
 	constructor() {
@@ -15,7 +16,7 @@ class OrderSummary extends Component {
 		this.state = {
 			timerId: null,
 			timer: 0,
-			buttonIsDisabled: true,
+			buttonIsDisabled: !dev, // true,
 			refreshTime: 60,
 			showCaptcha: false,
 			exchangeRate: null
@@ -72,7 +73,7 @@ class OrderSummary extends Component {
 	}
 
 	onVerify = response => {
-		console.log(response)
+		// console.log(response)
 		this.setState({ buttonIsDisabled: false })
 	}
 

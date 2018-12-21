@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Router from 'next/router'
 import { formValueSelector, Field, reduxForm } from 'redux-form'
 import cn from 'classnames'
 import { connect } from 'react-redux'
@@ -9,7 +10,8 @@ import {
 	fetchConsts,
 	getStatus,
 	createOrder,
-	clearOrder
+	clearOrder,
+	showTransactionAlert
 } from '../../store/actions'
 
 class BankTransfer extends Component {
@@ -49,9 +51,9 @@ class BankTransfer extends Component {
 	}
 
 	componentDidMount() {
-		setTimeout(() => {
-			this.startPayment()
-		}, 500)
+		// setTimeout(() => {
+		this.startPayment()
+		// }, 500)
 	}
 
 	componentWillUnmount() {
@@ -64,16 +66,30 @@ class BankTransfer extends Component {
 
 	startPayment() {
 		const createdAt = Math.round(new Date().getTime() / 1000.0)
-		this.props.createOrder({
-			destAmount: this.props.receiveAmount,
-			sourceAmount: this.props.sendAmount,
-			destCurrency: this.props.receiveCurrency,
-			sourceCurrency: this.props.sendCurrency,
-			exchangeRate: this.props.rate,
-			dest: this.props.wallet,
-			ctUser: this.props.ctUser,
-			createdAt
-		})
+		this.props
+			.createOrder({
+				destAmount: this.props.receiveAmount,
+				sourceAmount: this.props.sendAmount,
+				destCurrency: this.props.receiveCurrency,
+				sourceCurrency: this.props.sendCurrency,
+				exchangeRate: this.props.rate,
+				dest: this.props.wallet,
+				ctUser: this.props.ctUser,
+				createdAt
+			})
+			.catch(error => {
+				console.log(error.response)
+				if (error.response.status === 409) {
+					const txnID = error.response.data.Message.split(
+						/[[\]]{1,2}/
+					)[1].replace('CT', '')
+					this.props.showTransactionAlert()
+					Router.push(
+						`/transaction-tracker?txnID=${txnID}`,
+						`/transaction-tracker/${txnID}`
+					)
+				}
+			})
 		this.setState({ expired: false })
 		this.initInterval()
 		this.fetchCalls()
@@ -114,8 +130,7 @@ class BankTransfer extends Component {
 			)
 	}
 
-	onSubmit(event) {
-		event.preventDefault()
+	onSubmit() {
 		const {
 			sendFromAccount,
 			order,
@@ -142,20 +157,18 @@ class BankTransfer extends Component {
 	}
 
 	renderScreen() {
-		const { sendAmount, accounts, sendFromAccount } = this.props
-		// const { AccountOwner, SortCode, AccountReference, AccountNumber } =
-		// 	sendFromAccount || {}
-		const { AccountOwner, SortCode, AccountReference, AccountNumber } =
-			this.state.sourceAccount || {}
+		const { sendAmount, accounts, order } = this.props
+		const { owner, sortCode, accountNumber } =
+			(order.create && order.create.BrokerAccount) || {}
 
 		return (
 			<div>
 				<div className="main-calc-wrapper make-payment-wrapper">
-					<form onSubmit={this.onSubmit}>
+					<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
 						<div className="row">
 							<div className="col-6 text-left text-nowrap">
 								<label className="field-label">Beneficiary</label>
-								<p className="field-value">{AccountOwner || <br />}</p>
+								<p className="field-value">{owner || <br />}</p>
 							</div>
 							<div className="col-6 text-left text-nowrap">
 								<label className="field-label">Payment type</label>
@@ -165,18 +178,18 @@ class BankTransfer extends Component {
 						<div className="row">
 							<div className="col-6 text-left text-nowrap">
 								<label className="field-label">Account number</label>
-								<p className="field-value">{AccountNumber || 'XXXXXXXX'}</p>
+								<p className="field-value">{accountNumber || 'XXXXXXXX'}</p>
 							</div>
 							<div className="col-6 text-left text-nowrap">
 								<label className="field-label">Sort code</label>
-								<p className="field-value">{SortCode || 'XX-XX-XX'}</p>
+								<p className="field-value">{sortCode || 'XX-XX-XX'}</p>
 							</div>
 						</div>
 						<div className="row">
 							<div className="col-6 text-left text-nowrap">
 								<label className="field-label">Reference</label>
 								<p className="field-value m-0">
-									{AccountReference || 'XXXXXXXX'}
+									{(order.create && order.create.OrderReference) || 'XXXXXXXX'}
 								</p>
 							</div>
 							<div className="col-6 text-left text-nowrap">
@@ -441,7 +454,6 @@ class BankTransfer extends Component {
 	componentWillReceiveProps(props) {
 		const { accounts, order, constants, ctUser, sendCurrency } = props
 
-		console.log(accounts, order)
 		if (sendCurrency === 'GBP') {
 			if (!order.create || !accounts.list) {
 				clearInterval(this.state.timerId)
@@ -496,18 +508,11 @@ class BankTransfer extends Component {
 
 const mapStateToProps = state => {
 	const selector = formValueSelector('BankTransfer')
-	// const sendFrom = selector(state, 'sendFrom')
-	// const sendFromAccount =
-	// 	state.accounts.list &&
-	// 	state.accounts.list.find(account => account.id == sendFrom)
 	const depositAddress = selector(state, 'depositAddress')
-	// console.log(state.accounts)
 	return {
 		order: state.order,
 		constants: state.constants,
 		accounts: state.accounts,
-		// sendFrom,
-		// sendFromAccount,
 		depositAddress
 	}
 }
@@ -520,7 +525,8 @@ export default reduxForm({ form: 'ExchangeForm' })(
 			fetchConsts,
 			getStatus,
 			createOrder,
-			clearOrder
+			clearOrder,
+			showTransactionAlert
 		}
 	)(BankTransfer)
 )

@@ -49,7 +49,7 @@ export function createOrder({
 		destAmount,
 		exchangeRate
 	}
-	console.log('createOrder', info)
+	// console.log('createOrder', info)
 	const headers = {
 		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
 		'CT-ACCOUNT-ID': ctUser
@@ -73,12 +73,13 @@ export function createOrder({
 					type: CREATE_ORDER_END,
 					payload: error
 				})
+				throw error
 			})
 	}
 }
 
 export function clearOrder({ orderId, accountId, ctUser }) {
-	console.log('clearing order: ', orderId, accountId)
+	// console.log('clearing order: ', orderId, accountId)
 	return dispatch => {
 		dispatch({
 			type: CLEAR_ORDER_START,
@@ -88,19 +89,21 @@ export function clearOrder({ orderId, accountId, ctUser }) {
 			'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
 			'CT-ACCOUNT-ID': ctUser
 		}
-		axios
+		return axios
 			.get(`${ROOT_URL}/orders/clearing/${orderId}/${accountId}`, { headers })
 			.then(response => {
 				dispatch({
 					type: CLEAR_ORDER,
 					payload: response.data
 				})
+				return response
 			})
 			.catch(error => {
 				dispatch({
 					type: CLEAR_ORDER_END,
 					payload: error
 				})
+				throw error
 			})
 	}
 }
@@ -209,7 +212,7 @@ export function getStatus({ orderId, ctUser }) {
 			'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
 			'CT-ACCOUNT-ID': ctUser
 		}
-		axios
+		return axios
 			.get(`${ROOT_URL}/orders/status/${orderId}`, { headers })
 			.then(response => {
 				dispatch({
@@ -224,6 +227,7 @@ export function getStatus({ orderId, ctUser }) {
 					// 	}
 					// }
 				})
+				return response
 			})
 			.catch(error => {
 				dispatch({
