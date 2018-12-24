@@ -14,6 +14,10 @@ export const GET_REHIVE_TOKEN = 'GET_REHIVE_TOKEN'
 export const GET_REHIVE_TOKEN_START = 'GET_REHIVE_TOKEN_START'
 export const GET_REHIVE_TOKEN_END = 'GET_REHIVE_TOKEN_END'
 
+export const DELETE_REHIVE_TOKEN = 'DELETE_REHIVE_TOKEN'
+export const DELETE_REHIVE_TOKEN_START = 'DELETE_REHIVE_TOKEN_START'
+export const DELETE_REHIVE_TOKEN_END = 'DELETE_REHIVE_TOKEN_END'
+
 export const fetchVerificationStatus = ({ ctUser }) => dispatch => {
 	dispatch({ type: FETCH_VERIFICATION_STATUS_START })
 
@@ -87,6 +91,32 @@ export const getRehiveToken = ({ ctUser }) => dispatch => {
 		.catch(error => {
 			dispatch({
 				type: GET_REHIVE_TOKEN_END,
+				payload: error
+			})
+		})
+}
+
+export const deleteRehiveToken = ({ ctUser }) => dispatch => {
+	dispatch({ type: DELETE_REHIVE_TOKEN_START })
+
+	const headers = {
+		'Content-Type': 'application/json',
+		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+		'CT-ACCOUNT-ID': ctUser
+	}
+
+	return axios
+		.delete(`${ROOT_URL}/verification/${ctUser}/rehive/token`, { headers })
+		.then(response => {
+			dispatch({
+				type: DELETE_REHIVE_TOKEN,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: DELETE_REHIVE_TOKEN_END,
 				payload: error
 			})
 		})

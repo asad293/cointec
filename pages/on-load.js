@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { validateToken } from '../store/actions'
+import { validateToken, reportFraud } from '../store/actions'
 
 const actions = {
 	requestdata: 'request-data',
@@ -22,14 +22,23 @@ class OnLoad extends Component {
 	}
 
 	componentDidMount() {
-		const { action, token } = this.props.router.query
-		this.props
-			.validateToken({
-				action: actions[action.toLowerCase()],
-				token
+		const { action, token, method } = this.props.router.query
+		console.log(action, token, method)
+		if (method === 'validate') {
+			this.props
+				.validateToken({
+					action: actions[action.toLowerCase()],
+					token
+				})
+				.then(res => this.tokenValidated(action))
+				.catch(error => this.tokenExpired(action))
+		} else if (method === 'report-fraud') {
+			this.props.reportFraud({ token }).then(res => {
+				console.log(res)
+				this.tokenValidated(action)
 			})
-			.then(res => this.tokenValidated(action))
-			.catch(error => this.tokenExpired(action))
+			// .catch(error => this.tokenExpired(action))
+		}
 	}
 
 	tokenExpired(action) {
@@ -37,12 +46,16 @@ class OnLoad extends Component {
 	}
 
 	tokenValidated(action) {
-		if (action === 'confirmemail' || action === 'confirm-email') {
-			Router.push('/account-settings')
-		} else if (action === 'changeemail') {
-			Router.push('/login')
-		} else
-			Router.push(`/request-sent/${action}`, `/request-sent?action=${action}`)
+		if (method === 'validate') {
+			if (action === 'confirmemail' || action === 'confirm-email') {
+				Router.push('/account-settings')
+			} else if (action === 'changeemail') {
+				Router.push('/login')
+			} else
+				Router.push(`/request-sent/${action}`, `/request-sent?action=${action}`)
+		} else {
+			Router.push('no-access', '/account-locked')
+		}
 	}
 
 	render() {
@@ -64,5 +77,5 @@ class OnLoad extends Component {
 
 export default connect(
 	({ accounts }) => ({ accounts }),
-	{ validateToken }
+	{ validateToken, reportFraud }
 )(withRouter(OnLoad))
