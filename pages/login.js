@@ -33,7 +33,7 @@ class Login extends Component {
 			})
 			.catch(error => {
 				if (error.response.status === 403) {
-					if (timeout) clearTimeout(timeout)
+					if (this.state.timeout) clearTimeout(this.state.timeout)
 					const timeout = setTimeout(() => {
 						this.setState({ notificationAlert: false })
 					}, 5000)
