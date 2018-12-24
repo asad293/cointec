@@ -5424,6 +5424,8 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 			return { ...state, loading: true, error: null }
 
 		case CREATE_ORDER_END:
+			return { ...state, create: null, loading: false, error: payload }
+
 		case CLEAR_ORDER_END:
 		case ABANDON_ORDER_END:
 		case REFUND_PAYMENT_END:
