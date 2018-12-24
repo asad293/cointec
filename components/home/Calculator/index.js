@@ -382,7 +382,11 @@ class Calculator extends Component {
 				)}
 				onClick={e => {
 					e.preventDefault()
-					if (available) Router.push('/login')
+					if (available) {
+						if (this.props.router.pathname === '/dashboard')
+							Router.push('/dashboard')
+						else Router.push('/login')
+					}
 				}}>
 				{available ? 'Instant Exchange' : 'Currently unavailable'}
 			</button>
