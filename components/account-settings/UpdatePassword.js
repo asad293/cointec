@@ -14,7 +14,16 @@ class UpdatePassword extends Component {
 	}
 
 	onClose() {
-		this.props.onClose()
+		this.setState(
+			{
+				closed: true
+			},
+			() => {
+				setTimeout(() => {
+					this.props.onClose()
+				}, 300)
+			}
+		)
 	}
 
 	componentDidMount() {
@@ -45,6 +54,7 @@ class UpdatePassword extends Component {
 			})
 			.then(res => {
 				console.log(res)
+				this.props.onPasswordUpdated()
 				this.onClose()
 			})
 		// this.props.onClose()

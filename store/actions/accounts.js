@@ -58,6 +58,10 @@ export const VALIDATE_TOKEN = 'VALIDATE_TOKEN'
 export const VALIDATE_TOKEN_START = 'VALIDATE_TOKEN_START'
 export const VALIDATE_TOKEN_END = 'VALIDATE_TOKEN_END'
 
+export const REPORT_FRAUD = 'REPORT_FRAUD'
+export const REPORT_FRAUD_START = 'REPORT_FRAUD_START'
+export const REPORT_FRAUD_END = 'REPORT_FRAUD_END'
+
 export const fetchAccounts = ctUser => async dispatch => {
 	dispatch({ type: FETCH_ACCOUNTS_START })
 
@@ -480,6 +484,27 @@ export const validateToken = ({ action, token }) => async dispatch => {
 		.catch(error => {
 			dispatch({
 				type: VALIDATE_TOKEN_END,
+				payload: error
+			})
+			throw error
+		})
+}
+
+export const reportFraud = ({ token }) => async dispatch => {
+	dispatch({ type: REPORT_FRAUD_START })
+
+	return axios
+		.get(`${ROOT_URL}/accounts/reset-password?token=${token}`)
+		.then(response => {
+			dispatch({
+				type: REPORT_FRAUD,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: REPORT_FRAUD_END,
 				payload: error
 			})
 			throw error

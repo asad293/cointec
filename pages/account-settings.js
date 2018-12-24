@@ -36,6 +36,7 @@ class AccountSettings extends Component {
 		}
 		this.onConfirmationEmailSent = this.onConfirmationEmailSent.bind(this)
 		this.onAccountClosed = this.onAccountClosed.bind(this)
+		this.onPasswordUpdated = this.onPasswordUpdated.bind(this)
 	}
 
 	componentDidMount() {
@@ -96,7 +97,40 @@ class AccountSettings extends Component {
 	}
 
 	onAccountClosed() {
-		Router.push('/account-closed')
+		// Router.push('/account-closed')
+		const notificationContent = (
+			<p>
+				Confirmation email sent to{' '}
+				<b>
+					{(this.props.accounts.userDetails &&
+						this.props.accounts.userDetails.EmailAddress) ||
+						this.state.email ||
+						''}
+				</b>
+			</p>
+		)
+		this.setState({
+			notificationAlert: true,
+			notificationContent
+		})
+		setTimeout(() => {
+			this.setState({
+				notificationAlert: false
+			})
+		}, 5000)
+	}
+
+	onPasswordUpdated() {
+		const notificationContent = <p>Your password has been updated</p>
+		this.setState({
+			notificationAlert: true,
+			notificationContent
+		})
+		setTimeout(() => {
+			this.setState({
+				notificationAlert: false
+			})
+		}, 5000)
 	}
 
 	render() {
@@ -309,6 +343,7 @@ class AccountSettings extends Component {
 				{this.state.updatePasswordModal && (
 					<UpdatePassword
 						ctUser={this.state.ctUser}
+						onPasswordUpdated={this.onPasswordUpdated}
 						onClose={() => this.setState({ updatePasswordModal: false })}
 					/>
 				)}

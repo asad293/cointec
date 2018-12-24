@@ -54,7 +54,6 @@ class CloseAccount extends Component {
 				password: values.password
 			})
 			.then(res => {
-				localStorage.removeItem('user')
 				this.props.onAccountClosed()
 				this.onClose()
 			})

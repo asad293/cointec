@@ -39,7 +39,16 @@ app
 		server.get('/validate', (req, res) => {
 			app.render(req, res, `/on-load`, {
 				action: req.query.action,
-				token: req.query.token
+				token: req.query.token,
+				method: 'validate'
+			})
+		})
+
+		server.get('/report-fraud', (req, res) => {
+			app.render(req, res, `/on-load`, {
+				action: req.query.action,
+				token: req.query.token,
+				method: 'report-fraud'
 			})
 		})
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import {
 	getRehiveId,
 	getRehiveToken,
+	deleteRehiveToken,
 	uploadDocument
 } from '../../store/actions'
 import cn from 'classnames'
@@ -72,9 +73,8 @@ class ProofOfAddress extends Component {
 						}
 					})
 					.then(res => {
-						this.setState({
-							progress: 100
-						})
+						this.props.deleteRehiveToken({ ctUser: this.props.ctUser })
+						this.setState({ progress: 100 })
 						setTimeout(() => {
 							this.props.onConfirm()
 						}, 350)
@@ -193,7 +193,7 @@ class ProofOfAddress extends Component {
 
 export default connect(
 	({ verification }) => ({ verification }),
-	{ getRehiveId, getRehiveToken, uploadDocument }
+	{ getRehiveId, getRehiveToken, deleteRehiveToken, uploadDocument }
 )(
 	reduxForm({
 		form: 'VerificationForm'
