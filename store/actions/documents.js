@@ -44,5 +44,6 @@ export const uploadDocument = ({
 				type: UPLOAD_DOCUMENT_END,
 				payload: error
 			})
+			throw error
 		})
 }

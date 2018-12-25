@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
+import { connect } from 'react-redux'
+import { fetchVerificationOverview } from '../store/actions'
 import Cookie from 'js-cookie'
 import cn from 'classnames'
 
@@ -10,25 +12,35 @@ import EmailConfirmation from '../components/account-verification/EmailConfirmat
 import BasicDetails from '../components/account-verification/BasicDetails'
 import ProofOfID from '../components/account-verification/ProofOfID'
 import ProofOfAddress from '../components/account-verification/ProofOfAddress'
+import LoadingCircle from '../components/LoadingCircle'
 import StickyFooter from '../components/StickyFooter'
 
+const ProgressStatus = {
+	CONFIRMEMAIL: 1,
+	BASICDETAILS: 2,
+	UPLOADIDENTITY: 3,
+	ATTENTIONIDENTITY: 3,
+	UPLOADADDRESS: 4,
+	ATTENTIONADDRESS: 4
+}
+
 class AccountVerification extends Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.state = {
 			ctUser: null,
 			email: null,
 			completed: false,
-			step: 1,
+			step: 0,
 			scrolling: false
 		}
 
 		this.next = this.next.bind(this)
-		this.back = this.back.bind(this)
 		this.complete = this.complete.bind(this)
 		this.onConfirm = this.onConfirm.bind(this)
 		this.onRestart = this.onRestart.bind(this)
 		this.renderCompletedFrame = this.renderCompletedFrame.bind(this)
+		this.renderLoadingFrame = this.renderLoadingFrame.bind(this)
 		this.renderEmailFrame = this.renderEmailFrame.bind(this)
 		this.renderBasicDetailsFrame = this.renderBasicDetailsFrame.bind(this)
 		this.renderProofIDFrame = this.renderProofIDFrame.bind(this)
@@ -40,6 +52,7 @@ class AccountVerification extends Component {
 		const sessionId = Cookie.get('CT-SESSION-ID')
 		if (user && user.CtUserId && sessionId) {
 			this.setState({ ctUser: user.CtUserId, email: user.email })
+			this.props.fetchVerificationOverview({ ctUser: user.CtUserId })
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
@@ -69,16 +82,18 @@ class AccountVerification extends Component {
 		this.setState(
 			{
 				...state,
-				step: this.state.step + 1
+				step: 0
 			},
 			() => this.onResize()
 		)
-	}
-
-	back() {
-		this.setState({
-			step: this.state.step - 1
-		})
+		this.props.fetchVerificationOverview({ ctUser: this.state.ctUser })
+		// this.setState(
+		// 	{
+		// 		...state,
+		// 		step: this.state.step + 1
+		// 	},
+		// 	() => this.onResize()
+		// )
 	}
 
 	complete() {
@@ -145,6 +160,9 @@ class AccountVerification extends Component {
 							/>
 							{this.state.completed && this.renderCompletedFrame()}
 							{!this.state.completed &&
+								this.state.step === 0 &&
+								this.renderLoadingFrame()}
+							{!this.state.completed &&
 								this.state.ctUser &&
 								this.state.step === 1 &&
 								this.renderEmailFrame()}
@@ -174,6 +192,24 @@ class AccountVerification extends Component {
 		)
 	}
 
+	componentWillReceiveProps(props) {
+		console.log(props.verification.overview)
+		const { overview } = props.verification
+		if (overview) {
+			const { FrontendProgress } = overview
+			const step = ProgressStatus[FrontendProgress] || 0
+			this.setState({ step }, () => this.onResize())
+		}
+	}
+
+	renderLoadingFrame() {
+		return (
+			<div style={{ marginTop: 200 }}>
+				<LoadingCircle />
+			</div>
+		)
+	}
+
 	renderEmailFrame() {
 		return (
 			<div className="email-frame">
@@ -182,6 +218,7 @@ class AccountVerification extends Component {
 					<h4 className="form-title">Confirm your email address</h4>
 				</div>
 				<EmailConfirmation
+					ctUser={this.state.ctUser}
 					emailAddress={this.state.email}
 					onConfirm={this.next}
 				/>
@@ -377,4 +414,7 @@ const SubmittedAlert = () => (
 	</div>
 )
 
-export default withRouter(AccountVerification)
+export default connect(
+	({ verification }) => ({ verification }),
+	{ fetchVerificationOverview }
+)(withRouter(AccountVerification))

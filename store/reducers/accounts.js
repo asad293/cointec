@@ -34,7 +34,10 @@ import {
 	EXPORT_DATA_END,
 	CLOSE_ACCOUNT,
 	CLOSE_ACCOUNT_START,
-	CLOSE_ACCOUNT_END
+	CLOSE_ACCOUNT_END,
+	FETCH_TRANSACTION_LIMITS,
+	FETCH_TRANSACTION_LIMITS_START,
+	FETCH_TRANSACTION_LIMITS_END
 } from '../actions'
 
 const INITIAL_STATE = {
@@ -45,6 +48,7 @@ const INITIAL_STATE = {
 	changeEmail: null,
 	userDetails: null,
 	resetPassword: null,
+	limits: null,
 	addFN: null,
 	updateFN: null,
 	fetched: false,
@@ -133,6 +137,10 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case FETCH_USER_DETAILS:
 			return { ...state, userDetails: payload, loading: false, error: null }
 
+		case FETCH_TRANSACTION_LIMITS:
+			return { ...state, limits: payload, loading: false, error: null }
+
+		/////
 		case FETCH_ACCOUNTS_START:
 			return { ...state, fetched: false, loading: true, error: null }
 
@@ -160,6 +168,9 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case UPDATE_PASSWORD_START:
 			return { ...state, updatePassword: null, loading: true, error: null }
 
+		case FETCH_TRANSACTION_LIMITS_START:
+			return { ...state, limits: null, loading: true, error: null }
+
 		case REQUEST_DATA_START:
 		case EXPORT_DATA_START:
 		case CLOSE_ACCOUNT_START:
@@ -177,6 +188,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case REQUEST_DATA_END:
 		case EXPORT_DATA_END:
 		case CLOSE_ACCOUNT_END:
+		case FETCH_TRANSACTION_LIMITS_END:
 			return { ...state, loading: false, action: null, error: payload }
 
 		default:

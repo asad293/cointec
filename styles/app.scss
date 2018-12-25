@@ -520,6 +520,21 @@ html {
 	}
 }
 
+.loading-indicator {
+	// stroke-dashoffset: -40;
+	transform-origin: center;
+	// animation: loading-circle 1s linear infinite;
+}
+
+@keyframes loading-circle {
+	from {
+		transform: rotateZ(0deg);
+	}
+	to {
+		transform: rotateZ(360deg);
+	}
+}
+
 @import 'helper';
 @import 'nav';
 @import 'landing';
