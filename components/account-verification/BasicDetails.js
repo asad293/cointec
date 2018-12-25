@@ -86,11 +86,12 @@ class BasicDetails extends Component {
 
 	lookupPostalcode() {
 		if (!this.state.postcodeMenu) {
-			this.props.lookupPostcode(this.props.postCode).then(r => {
-				this.setState({
-					postcodeMenu: true
+			if (this.props.postCode)
+				this.props.lookupPostcode(this.props.postCode).then(r => {
+					this.setState({
+						postcodeMenu: true
+					})
 				})
-			})
 		} else {
 			this.setState({
 				postcodeMenu: false

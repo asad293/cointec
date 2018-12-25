@@ -6,6 +6,10 @@ export const FETCH_VERIFICATION_STATUS = 'FETCH_VERIFICATION_STATUS'
 export const FETCH_VERIFICATION_STATUS_START = 'FETCH_VERIFICATION_STATUS_START'
 export const FETCH_VERIFICATION_STATUS_END = 'FETCH_VERIFICATION_STATUS_END'
 
+export const FETCH_VERIFICATION_OVERVIEW = 'FETCH_VERIFICATION_OVERVIEW'
+export const FETCH_VERIFICATION_OVERVIEW_START = 'FETCH_VERIFICATION_OVERVIEW_START'
+export const FETCH_VERIFICATION_OVERVIEW_END = 'FETCH_VERIFICATION_OVERVIEW_END'
+
 export const GET_REHIVE_ID = 'GET_REHIVE_ID'
 export const GET_REHIVE_ID_START = 'GET_REHIVE_ID_START'
 export const GET_REHIVE_ID_END = 'GET_REHIVE_ID_END'
@@ -39,6 +43,32 @@ export const fetchVerificationStatus = ({ ctUser }) => dispatch => {
 		.catch(error => {
 			dispatch({
 				type: FETCH_VERIFICATION_STATUS_END,
+				payload: error
+			})
+		})
+}
+
+export const fetchVerificationOverview = ({ ctUser }) => dispatch => {
+	dispatch({ type: FETCH_VERIFICATION_OVERVIEW_START })
+
+	const headers = {
+		'Content-Type': 'application/json',
+		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+		'CT-ACCOUNT-ID': ctUser
+	}
+
+	return axios
+		.get(`${ROOT_URL}/verification/${ctUser}/overview/`, { headers })
+		.then(response => {
+			dispatch({
+				type: FETCH_VERIFICATION_OVERVIEW,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: FETCH_VERIFICATION_OVERVIEW_END,
 				payload: error
 			})
 		})

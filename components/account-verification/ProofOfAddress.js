@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
+import Router from 'next/router'
 import {
 	getRehiveId,
 	getRehiveToken,
@@ -21,7 +22,8 @@ class ProofOfAddress extends Component {
 			progress: 0,
 			error: false,
 			timeout: null,
-			uploaded: false
+			uploaded: false,
+			triesLeft: 3
 		}
 
 		this.handleChange = this.handleChange.bind(this)
@@ -78,6 +80,17 @@ class ProofOfAddress extends Component {
 						setTimeout(() => {
 							this.props.onConfirm()
 						}, 350)
+					})
+					.catch(error => {
+						console.log(error.response)
+						if (error.response && error.response.status === 403) {
+							if (this.state.triesLeft > 0) {
+								this.props.getRehiveToken({ ctUser: this.props.ctUser })
+								this.setState({ triesLeft: this.state.triesLeft - 1 })
+							} else {
+								Router.push('/account-settings')
+							}
+						}
 					})
 			}
 		}

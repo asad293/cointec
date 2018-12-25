@@ -62,6 +62,10 @@ export const REPORT_FRAUD = 'REPORT_FRAUD'
 export const REPORT_FRAUD_START = 'REPORT_FRAUD_START'
 export const REPORT_FRAUD_END = 'REPORT_FRAUD_END'
 
+export const FETCH_TRANSACTION_LIMITS = 'FETCH_TRANSACTION_LIMITS'
+export const FETCH_TRANSACTION_LIMITS_START = 'FETCH_TRANSACTION_LIMITS_START'
+export const FETCH_TRANSACTION_LIMITS_END = 'FETCH_TRANSACTION_LIMITS_END'
+
 export const fetchAccounts = ctUser => async dispatch => {
 	dispatch({ type: FETCH_ACCOUNTS_START })
 
@@ -132,9 +136,9 @@ export const updateAccount = (ctUser, values, accountId) => async dispatch => {
 
 	const post = {
 		UserBankAccountId: accountId,
-		AccountOwner: values.accountName,
-		SortCode: values.sortCode,
-		AccountNumber: values.accountNumber,
+		// AccountOwner: values.accountName,
+		// SortCode: values.sortCode,
+		// AccountNumber: values.accountNumber,
 		AccountReference: 'Test'
 	}
 
@@ -505,6 +509,32 @@ export const reportFraud = ({ token }) => async dispatch => {
 		.catch(error => {
 			dispatch({
 				type: REPORT_FRAUD_END,
+				payload: error
+			})
+			throw error
+		})
+}
+
+export const fetchTransactionLimits = ({ ctUser }) => async dispatch => {
+	dispatch({ type: FETCH_TRANSACTION_LIMITS_START })
+
+	const headers = {
+		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+		'CT-ACCOUNT-ID': ctUser
+	}
+
+	return axios
+		.get(`${ROOT_URL}/accounts/${ctUser}/limits`, { headers })
+		.then(response => {
+			dispatch({
+				type: FETCH_TRANSACTION_LIMITS,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: FETCH_TRANSACTION_LIMITS_END,
 				payload: error
 			})
 			throw error
