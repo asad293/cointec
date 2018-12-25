@@ -76,12 +76,12 @@ class SignUp extends Component {
 					<title>Sign Up | Cointec</title>
 				</Head>
 
-				{this.state.notificationAlert && (
-					<NotificationAlert
-						onHide={() => this.setState({ notificationAlert: false })}>
-						{this.state.notificationContent}
-					</NotificationAlert>
-				)}
+				<NotificationAlert
+					type="success"
+					visible={this.state.notificationAlert}
+					onHide={() => this.setState({ notificationAlert: false })}>
+					{this.state.notificationContent}
+				</NotificationAlert>
 
 				<Header background="gradient">
 					<div className="sg-logo text-center position-relative">

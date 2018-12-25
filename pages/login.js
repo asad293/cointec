@@ -7,6 +7,7 @@ import { SubmissionError } from 'redux-form'
 
 import Header from '../components/Header'
 import SignInForm from '../components/SignInForm'
+import NotificationAlert from '../components/dashboard/NotificationAlert'
 import StickyFooter from '../components/StickyFooter'
 
 import { signIn } from '../store/actions'
@@ -15,7 +16,9 @@ class Login extends Component {
 	constructor() {
 		super()
 		this.state = {
-			maskPassword: false
+			maskPassword: false,
+			notificationAlert: false,
+			timeout: null
 		}
 		this.authComplete = this.authComplete.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -29,10 +32,18 @@ class Login extends Component {
 				this.authComplete()
 			})
 			.catch(error => {
-				throw new SubmissionError({
-					email: "Sorry, that email or password didn't work.",
-					password: 'Password'
-				})
+				if (error.response.status === 403) {
+					if (this.state.timeout) clearTimeout(this.state.timeout)
+					const timeout = setTimeout(() => {
+						this.setState({ notificationAlert: false })
+					}, 5000)
+					this.setState({ notificationAlert: true, timeout })
+				} else {
+					throw new SubmissionError({
+						email: "Sorry, that email or password didn't work.",
+						password: 'Password'
+					})
+				}
 			})
 	}
 
@@ -56,6 +67,17 @@ class Login extends Component {
 				<Head>
 					<title>Login | Cointec</title>
 				</Head>
+
+				<NotificationAlert
+					type="danger"
+					visible={this.state.notificationAlert}
+					onHide={() => this.setState({ notificationAlert: false })}>
+					<p>
+						This account is frozen.{' '}
+						<b style={{ fontWeight: 600 }}>Contact us for more information</b>
+					</p>
+				</NotificationAlert>
+
 				<Header background="gradient">
 					<div className="sg-logo text-center position-relative">
 						<Link href="/">
