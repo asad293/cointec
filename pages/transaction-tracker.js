@@ -7,8 +7,15 @@ import Moment from 'react-moment'
 import Cookie from 'js-cookie'
 import cn from 'classnames'
 import PropTypes from 'prop-types'
-import { abandonOrder, getStatus, fetchConsts } from '../store/actions'
+import {
+	abandonOrder,
+	getStatus,
+	fetchConsts,
+	hideTransactionAlert
+} from '../store/actions'
+
 import Header from '../components/Header'
+import TransactionAlert from '../components/dashboard/TransactionAlert'
 import AbandonOrder from '../components/transaction-tracker/AbandonOrder'
 
 class TransactionTracker extends Component {
@@ -30,6 +37,7 @@ class TransactionTracker extends Component {
 	}
 
 	componentWillUnmount() {
+		this.props.hideTransactionAlert()
 		clearInterval(this.state.timerId)
 	}
 
@@ -45,10 +53,20 @@ class TransactionTracker extends Component {
 		const sessionId = Cookie.get('CT-SESSION-ID')
 		if (user && user.CtUserId && sessionId) {
 			this.setState({ ctUser: user.CtUserId })
-			this.props.getStatus({
-				orderId: this.props.router.query.txnID,
-				ctUser: user.CtUserId
-			})
+			this.props
+				.getStatus({
+					orderId: this.props.router.query.txnID,
+					ctUser: user.CtUserId
+				})
+				.then(res => {
+					if (res.status === 202) {
+						console.log(res)
+						Router.push(
+							`/transaction-expired?txnID=${this.props.router.query.txnID}`,
+							`/transaction-expired`
+						)
+					}
+				})
 		} else {
 			const redirectPath =
 				this.props.router.pathname + '/' + this.props.router.query.txnID
@@ -63,12 +81,20 @@ class TransactionTracker extends Component {
 				<Head>
 					<title>Transaction Tracker | Cointec</title>
 				</Head>
+
+				{this.props.globals.transactionAlert && (
+					<TransactionAlert>
+						<p>Transaction already in progress</p>
+					</TransactionAlert>
+				)}
+
 				<Header background="solid">
 					<Nav heading="Transaction tracker" />
 				</Header>
 
 				<div className="container">
 					<div className="row justify-content-center">
+						{/* {!this.props.order.error && ( */}
 						<div className="col-12 col-md-8 col-lg-6 col-xl-5 px-lg-4 text-center">
 							<div className="form-title-wrapper d-none d-md-flex">
 								<img src="/static/images/science.svg" alt="form-icon" />
@@ -87,6 +113,29 @@ class TransactionTracker extends Component {
 								)}
 							</div>
 						</div>
+						{/* )} */}
+						{/* {this.props.order.error && (
+							<div
+								className="col-12 col-md-8 col-lg-6 col-xl-5 px-lg-4 text-center"
+								style={{ marginTop: 120 }}>
+								<div className="alert-box">
+									<div className="alert-header">
+										<h6 className="heading text-left">
+											Transaction {this.props.router.query.txnID} not found
+										</h6>
+									</div>
+									<div className="alert-body">
+										<p className="message-text">
+											We were unable to find this transaction. Visit your{' '}
+											<Link href="/transactions">
+												<a>transaction history</a>
+											</Link>{' '}
+											to see all pending and historic transactions.
+										</p>
+									</div>
+								</div>
+							</div>
+						)} */}
 					</div>
 				</div>
 
@@ -99,6 +148,12 @@ class TransactionTracker extends Component {
 				)}
 			</div>
 		)
+	}
+
+	componentWillReceiveProps(props) {
+		if (props.order.error) {
+			clearInterval(this.state.timerId)
+		}
 	}
 }
 
@@ -123,11 +178,17 @@ const TransactionStatus = ({
 	const cancelled = ABANDONED || EXPIRED
 	return (
 		<div>
-			{cancelled && (
-				<TransactionCancelled ABANDONED={ABANDONED} EXPIRED={EXPIRED} />
+			{(cancelled || (TERMINATED && !CLEARING)) && (
+				<TransactionCancelled
+					ABANDONED={ABANDONED}
+					EXPIRED={EXPIRED}
+					TERMINATED={TERMINATED}
+				/>
 			)}
-			{!cancelled && <PaymentSent CLEARING={CLEARING} />}
-			{!cancelled && (
+			{!(cancelled || (TERMINATED && !CLEARING)) && (
+				<PaymentSent CLEARING={CLEARING} />
+			)}
+			{!(cancelled || (TERMINATED && !CLEARING)) && (
 				<PaymentReceived
 					CLEARING={CLEARING}
 					REVIEW={REVIEW}
@@ -135,7 +196,7 @@ const TransactionStatus = ({
 					SETTLED={SETTLED}
 				/>
 			)}
-			{!cancelled && (
+			{!(cancelled || (TERMINATED && !CLEARING)) && (
 				<CoinSent
 					Exchange={Exchange}
 					SETTLED={SETTLED}
@@ -166,16 +227,22 @@ const TransactionStatus = ({
 	)
 }
 
-const TransactionCancelled = ({ ABANDONED, EXPIRED }) => (
+const TransactionCancelled = ({ ABANDONED, EXPIRED, TERMINATED }) => (
 	<div className="coin-sent-wrapper error mt-3">
 		<div className="d-flex justify-content-between card-tracking">
 			<div>
 				<i className="far fa-times fa-lg mr-3" />
-				{ABANDONED ? 'Transaction cancelled' : 'Transaction expired'}
+				{ABANDONED
+					? 'Transaction cancelled'
+					: TERMINATED
+					? 'Transaction error'
+					: 'Transaction expired'}
 			</div>
 			<span className="transaction-time">
 				{ABANDONED ? (
 					<Moment format="hh:mm A">{ABANDONED * 1000}</Moment>
+				) : TERMINATED ? (
+					<Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
 				) : (
 					<Moment format="hh:mm A">{EXPIRED * 1000}</Moment>
 				)}
@@ -187,7 +254,19 @@ const TransactionCancelled = ({ ABANDONED, EXPIRED }) => (
 				hours to arrange payment.
 			</div>
 		)}
-		<Link href="/">
+		{TERMINATED && (
+			<div className="description">
+				Sorry, we were unable to fulfill your order. Any payments received from
+				your account will be refunded within 2 business days.
+			</div>
+		)}
+		{!ABANDONED && !TERMINATED && (
+			<div className="description">
+				Sorry, we were unable to fulfill your order. Any payments received from
+				your account will be refunded within 2 business days.
+			</div>
+		)}
+		<Link href="/dashboard">
 			<a className="btn-follow-blockchain">
 				<i className="fas fa-paper-plane" />
 				Return to dashboard
@@ -223,8 +302,8 @@ const PaymentReceived = ({ CLEARING, REVIEW, TERMINATED, SETTLED }) => {
 				(REVIEW || TERMINATED) && !SETTLED
 					? 'error'
 					: !SETTLED
-						? 'in-progress'
-						: ''
+					? 'in-progress'
+					: ''
 			)}>
 			<div>
 				{(REVIEW || TERMINATED) && !SETTLED ? (
@@ -268,10 +347,10 @@ const CoinSent = ({ Exchange, SETTLED, FAILED, TERMINATED, SENT }) => {
 				FAILED || TERMINATED
 					? 'error'
 					: !SENT
-						? 'in-progress'
-						: SENT
-							? 'sent'
-							: ''
+					? 'in-progress'
+					: SENT
+					? 'sent'
+					: ''
 			)}>
 			<div className="d-flex justify-content-between card-tracking">
 				<div>
@@ -321,7 +400,7 @@ const CoinSent = ({ Exchange, SETTLED, FAILED, TERMINATED, SENT }) => {
 				''
 			)}
 			{FAILED || TERMINATED ? (
-				<Link href="/">
+				<Link href="/dashboard">
 					<a className="btn-follow-blockchain">
 						<i className="fas fa-paper-plane" />
 						Return to dashboard
@@ -372,15 +451,9 @@ const Nav = ({ heading }) => (
 	</div>
 )
 
-const mapStateToProps = state => {
-	return {
-		order: state.order
-	}
-}
-
 export default connect(
-	mapStateToProps,
-	{ abandonOrder, getStatus, fetchConsts }
+	({ order, globals }) => ({ order, globals }),
+	{ abandonOrder, getStatus, fetchConsts, hideTransactionAlert }
 )(withRouter(TransactionTracker))
 
 TransactionTracker.propTypes = {
