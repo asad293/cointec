@@ -1,0 +1,55 @@
+.wallet-selector-page {
+	header {
+		overflow: hidden;
+		.hero-wrapper.hero-wrapper-inner {
+			margin-top: 48px;
+			padding-bottom: 24px;
+			.page-heading {
+				font-weight: bold;
+				line-height: 24px;
+				font-size: 32px;
+				text-align: center;
+				color: #ffffff;
+				margin-bottom: 20px;
+			}
+			.page-sub-heading {
+				font-weight: normal;
+				line-height: 12px;
+				font-size: 16px;
+				text-align: center;
+				color: rgba(255, 255, 255, 0.8);
+				margin-bottom: 32px;
+			}
+			@include media-breakpoint-down(md) {
+				margin-top: 40px;
+				.learn-heading {
+					line-height: 36px;
+					font-size: 28px;
+					margin-bottom: 10px;
+					&.dc-basics-heading {
+						margin-bottom: 14px;
+					}
+				}
+				p {
+					margin-bottom: 16px;
+				}
+			}
+			@include media-breakpoint-down(sm) {
+				.learn-heading {
+					line-height: 31px;
+					font-size: 24px;
+					&.dc-basics-heading {
+						margin-bottom: 2px;
+					}
+				}
+				p {
+					margin-bottom: 3px;
+				}
+			}
+		}
+		&.bg-gradient.bg-primary-gradient::before,
+		&.bg-gradient.bg-primary-gradient::after {
+			content: none;
+		}
+	}
+}
