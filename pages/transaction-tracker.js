@@ -298,36 +298,54 @@ const PaymentReceived = ({ CLEARING, REVIEW, TERMINATED, SETTLED }) => {
 	return CLEARING ? (
 		<div
 			className={cn(
-				'd-flex justify-content-between card-tracking mt-3',
+				'coin-sent-wrapper mt-3',
 				(REVIEW || TERMINATED) && !SETTLED
 					? 'error'
 					: !SETTLED
 					? 'in-progress'
 					: ''
 			)}>
-			<div>
-				{(REVIEW || TERMINATED) && !SETTLED ? (
-					<i className="far fa-times fa-lg mr-3" />
-				) : !SETTLED ? (
-					<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
-				) : (
-					<i className="far fa-check fa-lg mr-3" />
-				)}
-				{(REVIEW || TERMINATED) && !SETTLED
-					? 'Payment error'
-					: 'We received payment'}
+			<div
+				className={cn(
+					'd-flex justify-content-between card-tracking',
+					(REVIEW || TERMINATED) && !SETTLED
+						? 'error'
+						: !SETTLED
+						? 'in-progress'
+						: ''
+				)}>
+				<div>
+					{(REVIEW || TERMINATED) && !SETTLED ? (
+						<i className="far fa-times fa-lg mr-3" />
+					) : !SETTLED ? (
+						<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
+					) : (
+						<i className="far fa-check fa-lg mr-3" />
+					)}
+					{(REVIEW || TERMINATED) && !SETTLED
+						? 'Payment error'
+						: 'We received payment'}
+				</div>
+				<span className="transaction-time">
+					{SETTLED ? (
+						<Moment format="hh:mm A">{SETTLED * 1000}</Moment>
+					) : TERMINATED ? (
+						<Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
+					) : REVIEW ? (
+						<Moment format="hh:mm A">{REVIEW * 1000}</Moment>
+					) : (
+						''
+					)}
+				</span>
 			</div>
-			<span className="transaction-time">
-				{SETTLED ? (
-					<Moment format="hh:mm A">{SETTLED * 1000}</Moment>
-				) : TERMINATED ? (
-					<Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
-				) : REVIEW ? (
-					<Moment format="hh:mm A">{REVIEW * 1000}</Moment>
-				) : (
-					''
-				)}
-			</span>
+			{(REVIEW || TERMINATED) && !SETTLED ? (
+				<div className="description">
+					Sorry, we were unable to fulfill your order. Any payments received
+					from your account will be refunded within 2 business days.
+				</div>
+			) : (
+				''
+			)}
 		</div>
 	) : (
 		<div className="d-flex justify-content-between card-tracking disabled mt-3">
