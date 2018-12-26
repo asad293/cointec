@@ -42,6 +42,10 @@ export const REQUEST_PASSWORD_RESET = 'REQUEST_PASSWORD_RESET'
 export const REQUEST_PASSWORD_RESET_START = 'REQUEST_PASSWORD_RESET_START'
 export const REQUEST_PASSWORD_RESET_END = 'REQUEST_PASSWORD_RESET_END'
 
+export const RESET_PASSWORD_TOKEN = 'RESET_PASSWORD_TOKEN'
+export const RESET_PASSWORD_TOKEN_START = 'RESET_PASSWORD_TOKEN_START'
+export const RESET_PASSWORD_TOKEN_END = 'RESET_PASSWORD_TOKEN_END'
+
 export const EXPORT_DATA = 'EXPORT_DATA'
 export const EXPORT_DATA_START = 'EXPORT_DATA_START'
 export const EXPORT_DATA_END = 'EXPORT_DATA_END'
@@ -139,7 +143,7 @@ export const updateAccount = (ctUser, values, accountId) => async dispatch => {
 		// AccountOwner: values.accountName,
 		// SortCode: values.sortCode,
 		// AccountNumber: values.accountNumber,
-		AccountReference: 'Test'
+		AccountReference: values.accountName
 	}
 
 	return axios
@@ -383,6 +387,32 @@ export const resetPassword = ({ emailAddress }) => async dispatch => {
 		.catch(error => {
 			dispatch({
 				type: REQUEST_PASSWORD_RESET_END,
+				payload: error
+			})
+			throw error
+		})
+}
+
+export const resetPasswordByToken = ({ token, values }) => async dispatch => {
+	dispatch({ type: RESET_PASSWORD_TOKEN_START })
+
+	const data = {
+		Password: values.password,
+		NewPassword: values.newPassword
+	}
+
+	return axios
+		.post(`${ROOT_URL}/reset-password?token=${token}`, data)
+		.then(response => {
+			dispatch({
+				type: RESET_PASSWORD_TOKEN,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: RESET_PASSWORD_TOKEN_END,
 				payload: error
 			})
 			throw error

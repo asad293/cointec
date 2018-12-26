@@ -37,7 +37,10 @@ import {
 	CLOSE_ACCOUNT_END,
 	FETCH_TRANSACTION_LIMITS,
 	FETCH_TRANSACTION_LIMITS_START,
-	FETCH_TRANSACTION_LIMITS_END
+	FETCH_TRANSACTION_LIMITS_END,
+	RESET_PASSWORD_TOKEN,
+	RESET_PASSWORD_TOKEN_START,
+	RESET_PASSWORD_TOKEN_END
 } from '../actions'
 
 const INITIAL_STATE = {
@@ -48,6 +51,7 @@ const INITIAL_STATE = {
 	changeEmail: null,
 	userDetails: null,
 	resetPassword: null,
+	resetPasswordToken: null,
 	limits: null,
 	addFN: null,
 	updateFN: null,
@@ -125,6 +129,14 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 				error: null
 			}
 
+		case RESET_PASSWORD_TOKEN:
+			return {
+				...state,
+				resetPasswordToken: payload,
+				loading: false,
+				error: null
+			}
+
 		case REQUEST_DATA:
 		case EXPORT_DATA:
 		case CLOSE_ACCOUNT:
@@ -165,6 +177,9 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case REQUEST_PASSWORD_RESET_START:
 			return { ...state, resetPassword: null, loading: true, error: null }
 
+		case RESET_PASSWORD_TOKEN_START:
+			return { ...state, resetPasswordToken: null, loading: true, error: null }
+
 		case UPDATE_PASSWORD_START:
 			return { ...state, updatePassword: null, loading: true, error: null }
 
@@ -185,6 +200,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case REQUEST_CHANGE_EMAIL_END:
 		case UPDATE_PASSWORD_END:
 		case REQUEST_PASSWORD_RESET_END:
+		case RESET_PASSWORD_TOKEN_END:
 		case REQUEST_DATA_END:
 		case EXPORT_DATA_END:
 		case CLOSE_ACCOUNT_END:

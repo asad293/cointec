@@ -384,7 +384,7 @@ class Calculator extends Component {
 					e.preventDefault()
 					if (available) {
 						if (this.props.router.pathname === '/dashboard')
-							Router.push('/dashboard')
+							Router.push('/exchange')
 						else Router.push('/login')
 					}
 				}}>

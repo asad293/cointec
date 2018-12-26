@@ -23,21 +23,25 @@ class OnLoad extends Component {
 
 	componentDidMount() {
 		const { action, token, method } = this.props.router.query
-		console.log(action, token, method)
 		if (method === 'validate') {
 			this.props
 				.validateToken({
 					action: actions[action.toLowerCase()],
 					token
 				})
-				.then(res => this.tokenValidated(action))
-				.catch(error => this.tokenExpired(action))
+				.then(res => {
+					this.tokenValidated(action, method)
+				})
+				.catch(error => {
+					this.tokenExpired(action)
+				})
 		} else if (method === 'report-fraud') {
-			this.props.reportFraud({ token }).then(res => {
-				console.log(res)
-				this.tokenValidated(action)
-			})
-			// .catch(error => this.tokenExpired(action))
+			this.props
+				.reportFraud({ token })
+				.then(res => {
+					this.tokenValidated(action, method)
+				})
+				.catch(error => this.tokenExpired(action))
 		}
 	}
 
@@ -45,14 +49,13 @@ class OnLoad extends Component {
 		Router.push(`/token-expired/${action}`, `/token-expired?action=${action}`)
 	}
 
-	tokenValidated(action) {
+	tokenValidated(action, method) {
 		if (method === 'validate') {
 			if (action === 'confirmemail' || action === 'confirm-email') {
 				Router.push('/account-settings')
 			} else if (action === 'changeemail') {
 				Router.push('/login')
-			} else
-				Router.push(`/request-sent/${action}`, `/request-sent?action=${action}`)
+			} else Router.push(`/request-sent/${action}`)
 		} else {
 			Router.push('no-access', '/account-locked')
 		}
