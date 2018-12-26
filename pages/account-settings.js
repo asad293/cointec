@@ -158,12 +158,14 @@ class AccountSettings extends Component {
 							}}
 						/>
 					)}
-				{this.state.notificationAlert && (
-					<NotificationAlert
-						onHide={() => this.setState({ notificationAlert: false })}>
-						{this.state.notificationContent}
-					</NotificationAlert>
-				)}
+
+				<NotificationAlert
+					type="success"
+					visible={this.state.notificationAlert}
+					onHide={() => this.setState({ notificationAlert: false })}>
+					{this.state.notificationContent}
+				</NotificationAlert>
+
 				<div
 					className="container dashboard-container"
 					style={{

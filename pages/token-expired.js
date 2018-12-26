@@ -107,12 +107,12 @@ class TokenExpired extends Component {
 					<title>Token Expired | Cointec</title>
 				</Head>
 
-				{this.state.notificationAlert && (
-					<NotificationAlert
-						onHide={() => this.setState({ notificationAlert: false })}>
-						{this.state.notificationContent}
-					</NotificationAlert>
-				)}
+				<NotificationAlert
+					type="success"
+					visible={this.state.notificationAlert}
+					onHide={() => this.setState({ notificationAlert: false })}>
+					{this.state.notificationContent}
+				</NotificationAlert>
 
 				<Header>
 					<Nav />

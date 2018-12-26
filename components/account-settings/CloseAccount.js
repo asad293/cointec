@@ -8,7 +8,8 @@ class CloseAccount extends Component {
 	constructor() {
 		super()
 		this.state = {
-			closed: false
+			closed: false,
+			error: null
 		}
 		this.onClose = this.onClose.bind(this)
 		this.onClickOutside = this.onClickOutside.bind(this)
@@ -57,6 +58,14 @@ class CloseAccount extends Component {
 				this.props.onAccountClosed()
 				this.onClose()
 			})
+			.catch(error => {
+				console.log(error.response)
+				if (error.response.status === 400) {
+					this.setState({
+						error: 'Cannot close account with pending transactions'
+					})
+				}
+			})
 	}
 
 	render() {
@@ -101,6 +110,13 @@ class CloseAccount extends Component {
 									</div>
 								</div>
 								<div className="row mt-4">
+									{this.state.error && (
+										<div
+											className="col-md-12 mb-3 text-danger"
+											style={{ fontSize: 14, lineHeight: 'normal' }}>
+											{this.state.error}
+										</div>
+									)}
 									<div className="col-md-12">
 										<button
 											type="submit"

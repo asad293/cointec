@@ -112,7 +112,7 @@ class BankTransfer extends Component {
 						'btn-block btn-lg btn-exchange no-border',
 						'btn-primary'
 					)}
-					disabled={!this.props.sendFromAccount}>
+					disabled={!this.state.sourceAccount}>
 					Proceed to payment
 				</button>
 			)
@@ -141,7 +141,7 @@ class BankTransfer extends Component {
 		if (sendCurrency === 'GBP') {
 			this.props.clearOrder({
 				orderId: order.create.CtTransactionId,
-				accountId: sendFromAccount.id,
+				accountId: this.state.sourceAccount.id,
 				ctUser
 			})
 			this.props.onConfirm({

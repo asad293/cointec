@@ -743,7 +743,7 @@ class Calculator extends Component {
 					<h6 className="exchange-rate">
 						<b>
 							Exchange Rate:{' '}
-							{!this.state.rate
+							{!this.state.rate || this.props.quote.Message
 								? '-/-'
 								: (this.state.currencySelected
 										? this.state.currencySelected.Symbol
