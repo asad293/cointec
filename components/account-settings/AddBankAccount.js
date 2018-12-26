@@ -47,7 +47,7 @@ class AddBankAccount extends Component {
 			addEventListener('click', this.onClickOutside)
 		}, 500)
 		if (this.props.editAccount) {
-			this.props.change('accountName', this.props.editAccount.AccountOwner)
+			this.props.change('accountName', this.props.editAccount.AccountReference)
 			this.props.change('sortCode', this.props.editAccount.SortCode)
 			this.props.change('accountNumber', this.props.editAccount.AccountNumber)
 		}

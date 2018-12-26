@@ -131,6 +131,7 @@ class BankAccounts extends Component {
 													key={account.id}>
 													<AccountCard
 														AccountOwner={account.AccountOwner}
+														AccountReference={account.AccountReference}
 														AccountNumber={account.AccountNumber}
 														SortCode={account.SortCode}
 														color={colors[index % colors.length]}
@@ -173,6 +174,7 @@ class BankAccounts extends Component {
 const AccountCard = ({
 	AccountOwner,
 	AccountNumber,
+	AccountReference,
 	SortCode,
 	color,
 	onEdit
@@ -181,7 +183,7 @@ const AccountCard = ({
 		<div className="row">
 			<div className="col">
 				<h6 className="field-label">Account name</h6>
-				<p className="field-value">{AccountOwner}</p>
+				<p className="field-value">{AccountReference}</p>
 			</div>
 			<div className="col-3 text-right">
 				<a className="edit-account-link" onClick={onEdit}>

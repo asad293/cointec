@@ -54,6 +54,7 @@ class TransactionLimits extends Component {
 	}
 
 	render() {
+		const { limits } = this.props.accounts
 		return (
 			<div
 				className="settings-page dashboard-page full-height"
@@ -91,18 +92,25 @@ class TransactionLimits extends Component {
 										Your saved bank accounts
 									</h6>
 									<h6 className="heading d-flex d-md-none">Bank transfer</h6>
-									<div className="limit-card">
-										<div className="d-flex justify-content-between">
-											<p className="limit-label">Daily limit</p>
-											<p className="limit-value">120/200 GBP</p>
+									{limits && (
+										<div className="limit-card">
+											<div className="d-flex justify-content-between">
+												<p className="limit-label">Daily limit</p>
+												<p className="limit-value">
+													{limits.vDaily}/{limits.lDaily + limits.vDaily} GBP
+												</p>
+											</div>
+											<div className="limit-bar">
+												<div
+													className="limit-progress"
+													style={{
+														width: `${(limits.vDaily * 100) /
+															(limits.lDaily + limits.vDaily)}%`
+													}}
+												/>
+											</div>
 										</div>
-										<div className="limit-bar">
-											<div
-												className="limit-progress"
-												style={{ width: `${50}%` }}
-											/>
-										</div>
-									</div>
+									)}
 									<p className="coming-soon">Increased limits coming soon</p>
 								</div>
 							</div>
@@ -117,6 +125,10 @@ class TransactionLimits extends Component {
 				`}</style>
 			</div>
 		)
+	}
+
+	componentWillReceiveProps(props) {
+		console.log(props.accounts.limits)
 	}
 }
 

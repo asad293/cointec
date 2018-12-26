@@ -139,7 +139,7 @@ export const updateAccount = (ctUser, values, accountId) => async dispatch => {
 		// AccountOwner: values.accountName,
 		// SortCode: values.sortCode,
 		// AccountNumber: values.accountNumber,
-		AccountReference: 'Test'
+		AccountReference: values.accountName
 	}
 
 	return axios
