@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Link from 'next/link'
 import Clipboard from 'react-clipboard.js'
 // import ReactTooltip from 'react-tooltip'
 import cn from 'classnames'
@@ -134,15 +135,23 @@ class TransactionDetail extends Component {
 								</div>
 							</div>
 
-							<div className="blockchain-tracker">
-								{/* <Clipboard data-clipboard-text={transaction.dest}> */}
-								{transaction.status === 'COMPLETED'
-									? 'Blockchain tracker'
-									: 'Transaction tracker'}
-								{/* <i className="far fa-clone" /> */}
-								<i className="far fa-external-link" />
-								{/* </Clipboard> */}
-							</div>
+							<Link
+								href={`/transaction-tracker?txnID=${
+									transaction.ctTransactionId
+								}`}
+								as={`/transaction-tracker/${transaction.ctTransactionId}`}>
+								<a
+									className="blockchain-tracker"
+									style={{ display: 'block', textDecoration: 'none' }}>
+									{/* <Clipboard data-clipboard-text={transaction.dest}> */}
+									{transaction.status === 'COMPLETED'
+										? 'Blockchain tracker'
+										: 'Transaction tracker'}
+									{/* <i className="far fa-clone" /> */}
+									<i className="far fa-external-link" />
+									{/* </Clipboard> */}
+								</a>
+							</Link>
 						</div>
 					</div>
 				</div>
