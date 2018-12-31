@@ -141,7 +141,7 @@ class BasicDetails extends Component {
 								label="Date of bith"
 								// type="date"
 								component={this.renderField}
-								placeholder="01/01/1999"
+								placeholder="DD/MM/YYYY"
 								normalize={this.normalizeBirthDate}
 							/>
 						</div>

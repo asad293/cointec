@@ -9,6 +9,7 @@ import cn from 'classnames'
 
 import Header from '../components/Header'
 import EmailConfirmation from '../components/account-verification/EmailConfirmation'
+import NotificationAlert from '../components/dashboard/NotificationAlert'
 import BasicDetails from '../components/account-verification/BasicDetails'
 import ProofOfID from '../components/account-verification/ProofOfID'
 import ProofOfAddress from '../components/account-verification/ProofOfAddress'
@@ -31,6 +32,8 @@ class AccountVerification extends Component {
 			ctUser: null,
 			email: null,
 			completed: false,
+			notificationAlert: false,
+			notificationContent: null,
 			step: 0,
 			scrolling: false
 		}
@@ -44,6 +47,7 @@ class AccountVerification extends Component {
 		this.renderEmailFrame = this.renderEmailFrame.bind(this)
 		this.renderBasicDetailsFrame = this.renderBasicDetailsFrame.bind(this)
 		this.renderProofIDFrame = this.renderProofIDFrame.bind(this)
+		this.onResendEmail = this.onResendEmail.bind(this)
 	}
 
 	componentDidMount() {
@@ -105,6 +109,23 @@ class AccountVerification extends Component {
 		)
 	}
 
+	onResendEmail() {
+		const notificationContent = (
+			<p>
+				Confirmation email sent to <b>{this.state.email || ''}</b>
+			</p>
+		)
+		this.setState({
+			notificationAlert: true,
+			notificationContent
+		})
+		setTimeout(() => {
+			this.setState({
+				notificationAlert: false
+			})
+		}, 5000)
+	}
+
 	onConfirm({ txnID }) {
 		Router.push(`/transaction-tracker/${txnID}`)
 	}
@@ -129,6 +150,12 @@ class AccountVerification extends Component {
 					<title>Account verification | Cointec</title>
 				</Head>
 				{this.state.completed && <SubmittedAlert />}
+				<NotificationAlert
+					type="success"
+					visible={this.state.notificationAlert}
+					onHide={() => this.setState({ notificationAlert: false })}>
+					{this.state.notificationContent}
+				</NotificationAlert>
 				<Header background="solid">
 					<Nav
 						step={this.state.step}
@@ -193,7 +220,6 @@ class AccountVerification extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		console.log(props.verification.overview)
 		const { overview } = props.verification
 		if (overview) {
 			const { FrontendProgress } = overview
@@ -220,6 +246,7 @@ class AccountVerification extends Component {
 				<EmailConfirmation
 					ctUser={this.state.ctUser}
 					emailAddress={this.state.email}
+					onResendEmail={this.onResendEmail}
 					onConfirm={this.next}
 				/>
 			</div>

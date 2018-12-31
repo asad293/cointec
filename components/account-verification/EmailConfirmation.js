@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import Link from 'next/link'
 import { reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import { fetchVerificationOverview } from '../../store/actions'
+import {
+	fetchVerificationOverview,
+	requestConfirmEmail
+} from '../../store/actions'
 import _ from 'lodash'
 
 import LoadingCircle from '../LoadingCircle'
@@ -11,20 +14,12 @@ class EmailConfirmation extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			// progress: 0
 			timeout: null
 		}
+		this.onResendEmail = this.onResendEmail.bind(this)
 	}
 
 	componentDidMount() {
-		// setTimeout(() => {
-		// 	this.setState({
-		// 		progress: 100
-		// 	})
-		// 	setTimeout(() => {
-		// 		this.props.onConfirm()
-		// 	}, 1500)
-		// }, 1000)
 		this.initInterval()
 	}
 
@@ -38,7 +33,17 @@ class EmailConfirmation extends Component {
 			this.props.fetchVerificationOverview({ ctUser: this.props.ctUser })
 		}, 5000)
 		this.setState({ timeout })
-		console.log(timeout)
+	}
+
+	onResendEmail() {
+		this.props.requestConfirmEmail({
+			ctUser: this.props.ctUser,
+			emailAddress: this.props.emailAddress
+		})
+		// .then(() => {
+		// 	this.props.onResendEmail()
+		// })
+		this.props.onResendEmail()
 	}
 
 	render() {
@@ -51,9 +56,12 @@ class EmailConfirmation extends Component {
 					</span>
 					. If you can’t find the email please check your junk folder.
 				</p>
-				<Link href="/account-verification">
-					<a className="confirmation-link">Resend confirmation email</a>
-				</Link>
+				<a className="confirmation-link" onClick={this.onResendEmail}>
+					{/* {this.props.accounts.loading && (
+						<i className="fas fa-spinner fa-spin" style={{ marginRight: 12 }} />
+					)} */}
+					Resend confirmation email
+				</a>
 				<div className="loading-circle">
 					<LoadingCircle />
 					{/* <LoadingCircle infinite={false} progress={this.state.progress} /> */}
@@ -77,7 +85,7 @@ export default reduxForm({
 	form: 'VerificationForm'
 })(
 	connect(
-		({ verification }) => ({ verification }),
-		{ fetchVerificationOverview }
+		({ accounts, verification }) => ({ accounts, verification }),
+		{ fetchVerificationOverview, requestConfirmEmail }
 	)(EmailConfirmation)
 )
