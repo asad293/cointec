@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { validateToken, reportFraud } from '../store/actions'
+import {
+	validateToken,
+	reportFraud,
+	showNotificationAlert,
+	hideNotificationAlert
+} from '../store/actions'
 
 const actions = {
 	requestdata: 'request-data',
@@ -52,6 +57,15 @@ class OnLoad extends Component {
 	tokenValidated(action, method) {
 		if (method === 'validate') {
 			if (action === 'confirmemail' || action === 'confirm-email') {
+				const notificationContent = <p>You have confirmed your email address</p>
+				this.props.showNotificationAlert({
+					content: notificationContent,
+					type: 'success'
+				})
+				setTimeout(() => {
+					this.props.hideNotificationAlert()
+				}, 5000)
+
 				Router.push('/account-settings')
 			} else if (action === 'changeemail') {
 				Router.push('/login')
@@ -80,5 +94,5 @@ class OnLoad extends Component {
 
 export default connect(
 	({ accounts }) => ({ accounts }),
-	{ validateToken, reportFraud }
+	{ validateToken, reportFraud, showNotificationAlert, hideNotificationAlert }
 )(withRouter(OnLoad))

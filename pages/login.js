@@ -10,14 +10,17 @@ import SignInForm from '../components/SignInForm'
 import NotificationAlert from '../components/dashboard/NotificationAlert'
 import StickyFooter from '../components/StickyFooter'
 
-import { signIn } from '../store/actions'
+import {
+	signIn,
+	showNotificationAlert,
+	hideNotificationAlert
+} from '../store/actions'
 
 class Login extends Component {
 	constructor() {
 		super()
 		this.state = {
 			maskPassword: false,
-			notificationAlert: false,
 			timeout: null
 		}
 		this.authComplete = this.authComplete.bind(this)
@@ -35,9 +38,16 @@ class Login extends Component {
 				if (error.response.status === 403) {
 					if (this.state.timeout) clearTimeout(this.state.timeout)
 					const timeout = setTimeout(() => {
-						this.setState({ notificationAlert: false })
+						this.props.hideNotificationAlert()
 					}, 5000)
-					this.setState({ notificationAlert: true, timeout })
+					const content = (
+						<p>
+							This account is frozen.{' '}
+							<b style={{ fontWeight: 600 }}>Contact us for more information</b>
+						</p>
+					)
+					this.props.showNotificationAlert({ content, type: 'danger' })
+					this.setState({ timeout })
 				} else {
 					throw new SubmissionError({
 						email: "Sorry, that email or password didn't work.",
@@ -69,13 +79,10 @@ class Login extends Component {
 				</Head>
 
 				<NotificationAlert
-					type="danger"
-					visible={this.state.notificationAlert}
-					onHide={() => this.setState({ notificationAlert: false })}>
-					<p>
-						This account is frozen.{' '}
-						<b style={{ fontWeight: 600 }}>Contact us for more information</b>
-					</p>
+					type={this.props.globals.notificationType}
+					visible={this.props.globals.notificationAlert}
+					onHide={() => this.props.hideNotificationAlert()}>
+					{this.props.globals.notificationContent}
 				</NotificationAlert>
 
 				<Header background="gradient">
@@ -114,6 +121,6 @@ class Login extends Component {
 }
 
 export default connect(
-	({ auth }) => ({ auth }),
-	{ signIn }
+	({ auth, globals }) => ({ auth, globals }),
+	{ signIn, showNotificationAlert, hideNotificationAlert }
 )(Login)
