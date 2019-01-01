@@ -357,6 +357,7 @@ class AccountSettings extends Component {
 						onClose={() => this.setState({ closeAccountModal: false })}
 					/>
 				)}
+
 				<style jsx global>{`
 					#intercom-container {
 						display: ${this.state.docWidth > 768 ? 'block' : 'none'};

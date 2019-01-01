@@ -12,9 +12,9 @@ const actions = {
 	requestdata: 'request-data',
 	exportdata: 'export-data',
 	changeemail: 'change-email',
-	'change-email': 'change-email',
-	confirmemail: 'confirm-email',
-	'confirm-email': 'confirm-email'
+	// 'change-email': 'change-email',
+	confirmemail: 'confirm-email'
+	// 'confirm-email': 'confirm-email'
 }
 
 class OnLoad extends Component {
@@ -31,7 +31,7 @@ class OnLoad extends Component {
 		if (method === 'validate') {
 			this.props
 				.validateToken({
-					action: actions[action.toLowerCase()],
+					action: actions[action.toLowerCase().replace(/-/g, '')],
 					token
 				})
 				.then(res => {
@@ -42,7 +42,7 @@ class OnLoad extends Component {
 				})
 		} else if (method === 'report-fraud') {
 			this.props
-				.reportFraud({ token })
+				.reportFraud({ action, token })
 				.then(res => {
 					this.tokenValidated(action, method)
 				})
@@ -71,7 +71,7 @@ class OnLoad extends Component {
 				Router.push('/login')
 			} else Router.push(`/request-sent/${action}`)
 		} else {
-			Router.push('no-access', '/account-locked')
+			Router.push('/no-access', '/account-locked')
 		}
 	}
 

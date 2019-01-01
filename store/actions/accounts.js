@@ -524,11 +524,11 @@ export const validateToken = ({ action, token }) => async dispatch => {
 		})
 }
 
-export const reportFraud = ({ token }) => async dispatch => {
+export const reportFraud = ({ action, token }) => async dispatch => {
 	dispatch({ type: REPORT_FRAUD_START })
 
 	return axios
-		.get(`${ROOT_URL}/accounts/reset-password?token=${token}`)
+		.get(`${ROOT_URL}/accounts/report-fraud?action=${action}&token=${token}`)
 		.then(response => {
 			dispatch({
 				type: REPORT_FRAUD,
