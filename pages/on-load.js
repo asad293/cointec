@@ -12,9 +12,9 @@ const actions = {
 	requestdata: 'request-data',
 	exportdata: 'export-data',
 	changeemail: 'change-email',
-	// 'change-email': 'change-email',
+	resetpassword: 'reset-password',
+	closeaccount: 'close-account',
 	confirmemail: 'confirm-email'
-	// 'confirm-email': 'confirm-email'
 }
 
 class OnLoad extends Component {
@@ -67,9 +67,13 @@ class OnLoad extends Component {
 				}, 5000)
 
 				Router.push('/account-settings')
-			} else if (action === 'changeemail') {
+			} else if (action === 'changeemail' || action === 'change-email') {
 				Router.push('/login')
-			} else Router.push(`/request-sent/${action}`)
+			} else if (action === 'resetpassword' || action === 'reset-password') {
+				Router.push('/reset-password')
+			} else {
+				Router.push(`/request-sent/${action}`)
+			}
 		} else {
 			Router.push('/no-access', '/account-locked')
 		}

@@ -402,7 +402,7 @@ export const resetPasswordByToken = ({ token, values }) => async dispatch => {
 	}
 
 	return axios
-		.post(`${ROOT_URL}/reset-password?token=${token}`, data)
+		.get(`${ROOT_URL}/accounts/reset-password?token=${token}`, data)
 		.then(response => {
 			dispatch({
 				type: RESET_PASSWORD_TOKEN,
