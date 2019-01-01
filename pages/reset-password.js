@@ -32,7 +32,15 @@ class ResetPassword extends Component {
 	}
 
 	passwordUpdated() {
-		// Router.push(`/reset-password?token=${this.props.router.query.token}`)
+		const notificationContent = <p>Your password has been updated</p>
+		this.props.showNotificationAlert({
+			content: notificationContent,
+			type: 'success'
+		})
+		setTimeout(() => {
+			this.props.hideNotificationAlert()
+		}, 5000)
+		Router.push(`/login`)
 	}
 
 	render() {
