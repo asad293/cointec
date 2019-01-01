@@ -7,7 +7,11 @@ import { connect } from 'react-redux'
 import Header from '../components/Header'
 import ResetPasswordForm from '../components/ResetPasswordForm'
 
-import { resetPasswordByToken } from '../store/actions'
+import {
+	resetPasswordByToken,
+	showNotificationAlert,
+	hideNotificationAlert
+} from '../store/actions'
 
 class ResetPassword extends Component {
 	constructor() {
@@ -32,7 +36,15 @@ class ResetPassword extends Component {
 	}
 
 	passwordUpdated() {
-		// Router.push(`/reset-password?token=${this.props.router.query.token}`)
+		const notificationContent = <p>Your password has been updated</p>
+		this.props.showNotificationAlert({
+			content: notificationContent,
+			type: 'success'
+		})
+		setTimeout(() => {
+			this.props.hideNotificationAlert()
+		}, 5000)
+		Router.push(`/login`)
 	}
 
 	render() {
@@ -74,5 +86,5 @@ class ResetPassword extends Component {
 
 export default connect(
 	({ accounts }) => ({ accounts }),
-	{ resetPasswordByToken }
+	{ resetPasswordByToken, showNotificationAlert, hideNotificationAlert }
 )(withRouter(ResetPassword))

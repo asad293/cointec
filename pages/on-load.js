@@ -1,15 +1,20 @@
 import React, { Component } from 'react'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { validateToken, reportFraud } from '../store/actions'
+import {
+	validateToken,
+	reportFraud,
+	showNotificationAlert,
+	hideNotificationAlert
+} from '../store/actions'
 
 const actions = {
 	requestdata: 'request-data',
 	exportdata: 'export-data',
 	changeemail: 'change-email',
-	'change-email': 'change-email',
-	confirmemail: 'confirm-email',
-	'confirm-email': 'confirm-email'
+	resetpassword: 'reset-password',
+	closeaccount: 'close-account',
+	confirmemail: 'confirm-email'
 }
 
 class OnLoad extends Component {
@@ -26,7 +31,7 @@ class OnLoad extends Component {
 		if (method === 'validate') {
 			this.props
 				.validateToken({
-					action: actions[action.toLowerCase()],
+					action: actions[action.toLowerCase().replace(/-/g, '')],
 					token
 				})
 				.then(res => {
@@ -37,7 +42,7 @@ class OnLoad extends Component {
 				})
 		} else if (method === 'report-fraud') {
 			this.props
-				.reportFraud({ token })
+				.reportFraud({ action, token })
 				.then(res => {
 					this.tokenValidated(action, method)
 				})
@@ -52,12 +57,25 @@ class OnLoad extends Component {
 	tokenValidated(action, method) {
 		if (method === 'validate') {
 			if (action === 'confirmemail' || action === 'confirm-email') {
+				const notificationContent = <p>You have confirmed your email address</p>
+				this.props.showNotificationAlert({
+					content: notificationContent,
+					type: 'success'
+				})
+				setTimeout(() => {
+					this.props.hideNotificationAlert()
+				}, 5000)
+
 				Router.push('/account-settings')
-			} else if (action === 'changeemail') {
+			} else if (action === 'changeemail' || action === 'change-email') {
 				Router.push('/login')
-			} else Router.push(`/request-sent/${action}`)
+			} else if (action === 'resetpassword' || action === 'reset-password') {
+				Router.push('/reset-password')
+			} else {
+				Router.push(`/request-sent/${action}`)
+			}
 		} else {
-			Router.push('no-access', '/account-locked')
+			Router.push('/no-access', '/account-locked')
 		}
 	}
 
@@ -80,5 +98,5 @@ class OnLoad extends Component {
 
 export default connect(
 	({ accounts }) => ({ accounts }),
-	{ validateToken, reportFraud }
+	{ validateToken, reportFraud, showNotificationAlert, hideNotificationAlert }
 )(withRouter(OnLoad))

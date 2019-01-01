@@ -177,7 +177,11 @@
 		line-height: 12px;
 		font-size: 16px;
 		text-align: center;
-		color: #0459c4;
+		color: #0459c4 !important;
+		cursor: pointer;
+		&:hover {
+			text-decoration: underline !important;
+		}
 	}
 	.loading-circle {
 		margin-top: 32px;

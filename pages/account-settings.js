@@ -3,12 +3,15 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
+import Cookie from 'js-cookie'
+
 import {
 	fetchVerificationStatus,
 	fetchUserDetails,
-	toggleVerificationAlert
+	toggleVerificationAlert,
+	showNotificationAlert,
+	hideNotificationAlert
 } from '../store/actions'
-import Cookie from 'js-cookie'
 
 import Nav from '../components/dashboard/Nav'
 import AlertMessage from '../components/dashboard/AlertMessage'
@@ -30,9 +33,7 @@ class AccountSettings extends Component {
 			updatePasswordModal: false,
 			closeAccountModal: false,
 			email: null,
-			scrolling: false,
-			notificationAlert: false,
-			notificationContent: null
+			scrolling: false
 		}
 		this.onConfirmationEmailSent = this.onConfirmationEmailSent.bind(this)
 		this.onAccountClosed = this.onAccountClosed.bind(this)
@@ -85,19 +86,18 @@ class AccountSettings extends Component {
 			</p>
 		)
 		this.setState({
-			confirmEmailModal: false,
-			notificationAlert: true,
-			notificationContent
+			confirmEmailModal: false
+		})
+		this.props.showNotificationAlert({
+			content: notificationContent,
+			type: 'success'
 		})
 		setTimeout(() => {
-			this.setState({
-				notificationAlert: false
-			})
+			this.props.hideNotificationAlert()
 		}, 5000)
 	}
 
 	onAccountClosed() {
-		// Router.push('/account-closed')
 		const notificationContent = (
 			<p>
 				Confirmation email sent to{' '}
@@ -109,32 +109,28 @@ class AccountSettings extends Component {
 				</b>
 			</p>
 		)
-		this.setState({
-			notificationAlert: true,
-			notificationContent
+		this.props.showNotificationAlert({
+			content: notificationContent,
+			type: 'success'
 		})
 		setTimeout(() => {
-			this.setState({
-				notificationAlert: false
-			})
+			this.props.hideNotificationAlert()
 		}, 5000)
 	}
 
 	onPasswordUpdated() {
 		const notificationContent = <p>Your password has been updated</p>
-		this.setState({
-			notificationAlert: true,
-			notificationContent
+		this.props.showNotificationAlert({
+			content: notificationContent,
+			type: 'success'
 		})
 		setTimeout(() => {
-			this.setState({
-				notificationAlert: false
-			})
+			this.props.hideNotificationAlert()
 		}, 5000)
 	}
 
 	render() {
-		return (
+		return this.state.ctUser ? (
 			<div
 				className="settings-page dashboard-page full-height"
 				style={{ background: '#F7F9FA', overflowY: 'auto' }}>
@@ -149,7 +145,7 @@ class AccountSettings extends Component {
 					</div>
 				</header>
 				{this.props.globals.verificationAlert &&
-					!this.state.notificationAlert &&
+					!this.props.globals.notificationAlert &&
 					!this.props.verification.VerificationComplete && (
 						<AlertMessage
 							onHide={() => {
@@ -160,10 +156,10 @@ class AccountSettings extends Component {
 					)}
 
 				<NotificationAlert
-					type="success"
-					visible={this.state.notificationAlert}
-					onHide={() => this.setState({ notificationAlert: false })}>
-					{this.state.notificationContent}
+					type={this.props.globals.notificationType}
+					visible={this.props.globals.notificationAlert}
+					onHide={() => this.props.hideNotificationAlert()}>
+					{this.props.globals.notificationContent}
 				</NotificationAlert>
 
 				<div
@@ -361,17 +357,18 @@ class AccountSettings extends Component {
 						onClose={() => this.setState({ closeAccountModal: false })}
 					/>
 				)}
+
 				<style jsx global>{`
 					#intercom-container {
 						display: ${this.state.docWidth > 768 ? 'block' : 'none'};
 					}
 				`}</style>
 			</div>
-		)
+		) : null
 	}
 
 	componentWillReceiveProps(props) {
-		console.log(props.verification)
+		// console.log(props.verification)
 	}
 }
 
@@ -385,6 +382,8 @@ export default connect(
 	{
 		fetchVerificationStatus,
 		fetchUserDetails,
-		toggleVerificationAlert
+		toggleVerificationAlert,
+		showNotificationAlert,
+		hideNotificationAlert
 	}
 )(withRouter(AccountSettings))
