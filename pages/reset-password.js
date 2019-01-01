@@ -7,7 +7,11 @@ import { connect } from 'react-redux'
 import Header from '../components/Header'
 import ResetPasswordForm from '../components/ResetPasswordForm'
 
-import { resetPasswordByToken } from '../store/actions'
+import {
+	resetPasswordByToken,
+	showNotificationAlert,
+	hideNotificationAlert
+} from '../store/actions'
 
 class ResetPassword extends Component {
 	constructor() {
@@ -82,5 +86,5 @@ class ResetPassword extends Component {
 
 export default connect(
 	({ accounts }) => ({ accounts }),
-	{ resetPasswordByToken }
+	{ resetPasswordByToken, showNotificationAlert, hideNotificationAlert }
 )(withRouter(ResetPassword))
