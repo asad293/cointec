@@ -35,7 +35,7 @@ class OnLoad extends Component {
 					token
 				})
 				.then(res => {
-					this.tokenValidated(action, method)
+					this.tokenValidated(action, method, res.data)
 				})
 				.catch(error => {
 					this.tokenExpired(action)
@@ -54,7 +54,7 @@ class OnLoad extends Component {
 		Router.push(`/token-expired/${action}`, `/token-expired?action=${action}`)
 	}
 
-	tokenValidated(action, method) {
+	tokenValidated(action, method, data) {
 		if (method === 'validate') {
 			if (action === 'confirmemail' || action === 'confirm-email') {
 				const notificationContent = <p>You have confirmed your email address</p>
@@ -70,7 +70,8 @@ class OnLoad extends Component {
 			} else if (action === 'changeemail' || action === 'change-email') {
 				Router.push('/login')
 			} else if (action === 'resetpassword' || action === 'reset-password') {
-				Router.push('/reset-password')
+				const token = data && data.Token
+				Router.push(`/reset-password?token=${token}`)
 			} else {
 				Router.push(`/request-sent/${action}`)
 			}
