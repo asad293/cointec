@@ -308,8 +308,8 @@ export const changeEmail = ({
 	dispatch({ type: REQUEST_CHANGE_EMAIL_START })
 
 	const data = {
-		// EmailAddress: emailAddress,
-		NewEmailAddress: emailAddress
+		EmailAddress: emailAddress,
+		NewEmailAddress: newEmailAddress
 	}
 
 	const headers = {
