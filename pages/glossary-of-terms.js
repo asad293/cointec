@@ -15,7 +15,7 @@ class GlossaryOfTerms extends Component {
 				<Head>
 					<title>Glossary Of Terms | Cointec</title>
 				</Head>
-				<Header background="gradient">
+				<Header background="gradient" deco={false}>
 					<Nav />
 					<hr className="hr-header" />
 
@@ -23,9 +23,7 @@ class GlossaryOfTerms extends Component {
 						<div className="hero-wrapper hero-wrapper-inner">
 							<div className="row">
 								<div className="col-md-12">
-									<h1 className="learn-heading dc-basics-heading">
-										Glossary Of Terms
-									</h1>
+									<h1 className="learn-heading">Glossary Of Terms</h1>
 								</div>
 							</div>
 						</div>
@@ -96,7 +94,13 @@ class GlossaryOfTerms extends Component {
 					</div>
 				</section>
 
-				<Footer />
+				<Footer backgroundColor="#fff" />
+
+				<style jsx global>{`
+					html body {
+						background-color: #f7f9fa;
+					}
+				`}</style>
 			</div>
 		)
 	}

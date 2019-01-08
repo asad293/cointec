@@ -3,7 +3,12 @@ import Link from 'next/link'
 import PropTypes from 'prop-types'
 
 const Footer = props => (
-	<footer className="pt-5" style={{ backgroundColor: props.backgroundColor }}>
+	<footer
+		className="pt-5"
+		style={{
+			backgroundColor: props.backgroundColor,
+			borderTop: '1px solid #D5DCE0'
+		}}>
 		<div className="container">
 			<div className="row">
 				<div className="col-12 col-md-3 col-lg-4 text-center text-md-left">

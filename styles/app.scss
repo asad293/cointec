@@ -81,6 +81,12 @@ html {
 				width: 100%;
 			}
 		}
+		&.no-deco {
+			&:before,
+			&:after {
+				content: none;
+			}
+		}
 		&.up {
 			background: #0575e6 !important;
 			&:before {
