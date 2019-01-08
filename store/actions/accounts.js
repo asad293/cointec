@@ -276,27 +276,30 @@ export const requestConfirmEmail = ({
 		EmailAddress: emailAddress
 	}
 
-	const headers = {
-		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-		'CT-ACCOUNT-ID': ctUser
-	}
-	return axios
-		.post(`${ROOT_URL}/accounts/request-confirm-email`, data, { headers })
-		.then(response => {
-			dispatch({
-				type: REQUEST_CONFIRM_EMAIL,
-				payload: response.data
+	// const headers = {
+	// 	'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+	// 	'CT-ACCOUNT-ID': ctUser
+	// }
+	return (
+		axios
+			.post(`${ROOT_URL}/accounts/trigger?action=confirmemail`, data)
+			// .post(`${ROOT_URL}/accounts/trigger?action=confirmemail`, data, { headers })
+			.then(response => {
+				dispatch({
+					type: REQUEST_CONFIRM_EMAIL,
+					payload: response.data
+				})
+				return response
 			})
-			return response
-		})
-		.catch(error => {
-			console.log(error)
-			dispatch({
-				type: REQUEST_CONFIRM_EMAIL_END,
-				payload: error
+			.catch(error => {
+				console.log(error)
+				dispatch({
+					type: REQUEST_CONFIRM_EMAIL_END,
+					payload: error
+				})
+				throw error
 			})
-			throw error
-		})
+	)
 }
 
 export const changeEmail = ({
@@ -308,29 +311,34 @@ export const changeEmail = ({
 	dispatch({ type: REQUEST_CHANGE_EMAIL_START })
 
 	const data = {
-		EmailAddress: emailAddress,
+		// EmailAddress: emailAddress,
 		NewEmailAddress: newEmailAddress
 	}
 
 	const headers = {
 		Authorization: 'Basic ' + btoa(emailAddress + ':' + password)
 	}
-	return axios
-		.post(`${ROOT_URL}/accounts/request-change-email`, data, { headers })
-		.then(response => {
-			dispatch({
-				type: REQUEST_CHANGE_EMAIL,
-				payload: response.data
+	return (
+		axios
+			.post(`${ROOT_URL}/accounts/trigger?action=changeemail`, data, {
+				headers
 			})
-			return response
-		})
-		.catch(error => {
-			dispatch({
-				type: REQUEST_CHANGE_EMAIL_END,
-				payload: error
+			// .post(`${ROOT_URL}/accounts/request-change-email`, data, { headers })
+			.then(response => {
+				dispatch({
+					type: REQUEST_CHANGE_EMAIL,
+					payload: response.data
+				})
+				return response
 			})
-			throw error
-		})
+			.catch(error => {
+				dispatch({
+					type: REQUEST_CHANGE_EMAIL_END,
+					payload: error
+				})
+				throw error
+			})
+	)
 }
 
 export const updatePassword = ({
@@ -375,22 +383,25 @@ export const resetPassword = ({ emailAddress }) => async dispatch => {
 		EmailAddress: emailAddress
 	}
 
-	return axios
-		.post(`${ROOT_URL}/accounts/request-reset`, data)
-		.then(response => {
-			dispatch({
-				type: REQUEST_PASSWORD_RESET,
-				payload: response.data
+	return (
+		axios
+			.post(`${ROOT_URL}/accounts/trigger?action=resetpassword`, data)
+			// .post(`${ROOT_URL}/accounts/request-reset`, data)
+			.then(response => {
+				dispatch({
+					type: REQUEST_PASSWORD_RESET,
+					payload: response.data
+				})
+				return response
 			})
-			return response
-		})
-		.catch(error => {
-			dispatch({
-				type: REQUEST_PASSWORD_RESET_END,
-				payload: error
+			.catch(error => {
+				dispatch({
+					type: REQUEST_PASSWORD_RESET_END,
+					payload: error
+				})
+				throw error
 			})
-			throw error
-		})
+	)
 }
 
 export const resetPasswordByToken = ({ token, values }) => async dispatch => {
@@ -429,22 +440,27 @@ export const exportData = ({ emailAddress, password }) => async dispatch => {
 	const headers = {
 		Authorization: 'Basic ' + btoa(emailAddress + ':' + password)
 	}
-	return axios
-		.post(`${ROOT_URL}/accounts/export-data`, data, { headers })
-		.then(response => {
-			dispatch({
-				type: EXPORT_DATA,
-				payload: response.data
+	return (
+		axios
+			.post(`${ROOT_URL}/accounts/trigger?action=requestdata`, data, {
+				headers
 			})
-			return response
-		})
-		.catch(error => {
-			dispatch({
-				type: EXPORT_DATA_END,
-				payload: error
+			// .post(`${ROOT_URL}/accounts/export-data`, data, { headers })
+			.then(response => {
+				dispatch({
+					type: EXPORT_DATA,
+					payload: response.data
+				})
+				return response
 			})
-			throw error
-		})
+			.catch(error => {
+				dispatch({
+					type: EXPORT_DATA_END,
+					payload: error
+				})
+				throw error
+			})
+	)
 }
 
 export const requestData = ({ emailAddress, password }) => async dispatch => {
@@ -457,22 +473,27 @@ export const requestData = ({ emailAddress, password }) => async dispatch => {
 	const headers = {
 		Authorization: 'Basic ' + btoa(emailAddress + ':' + password)
 	}
-	return axios
-		.post(`${ROOT_URL}/accounts/request-data`, data, { headers })
-		.then(response => {
-			dispatch({
-				type: REQUEST_DATA,
-				payload: response.data
+	return (
+		axios
+			.post(`${ROOT_URL}/accounts/trigger?action=requestdata`, data, {
+				headers
 			})
-			return response
-		})
-		.catch(error => {
-			dispatch({
-				type: REQUEST_DATA_END,
-				payload: error
+			// .post(`${ROOT_URL}/accounts/request-data`, data, { headers })
+			.then(response => {
+				dispatch({
+					type: REQUEST_DATA,
+					payload: response.data
+				})
+				return response
 			})
-			throw error
-		})
+			.catch(error => {
+				dispatch({
+					type: REQUEST_DATA_END,
+					payload: error
+				})
+				throw error
+			})
+	)
 }
 
 export const closeAccount = ({ emailAddress, password }) => async dispatch => {
@@ -486,7 +507,7 @@ export const closeAccount = ({ emailAddress, password }) => async dispatch => {
 		Authorization: 'Basic ' + btoa(emailAddress + ':' + password)
 	}
 	return axios
-		.post(`${ROOT_URL}/accounts/close-account`, data, { headers })
+		.post(`${ROOT_URL}/accounts/trigger?action=closeaccount`, data, { headers })
 		.then(response => {
 			dispatch({
 				type: CLOSE_ACCOUNT,
@@ -507,7 +528,7 @@ export const validateToken = ({ action, token }) => async dispatch => {
 	dispatch({ type: VALIDATE_TOKEN_START })
 
 	return axios
-		.get(`${ROOT_URL}/validate?action=${action}&token=${token}`)
+		.get(`${ROOT_URL}/accounts/${action}?token=${token}`)
 		.then(response => {
 			dispatch({
 				type: VALIDATE_TOKEN,
