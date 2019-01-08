@@ -52,6 +52,7 @@ class ChangeEmail extends Component {
 			.changeEmail({
 				ctUser: this.props.ctUser,
 				emailAddress: this.props.emailAddress,
+				newEmailAddress: values.email,
 				password: values.password
 			})
 			.then(res => {

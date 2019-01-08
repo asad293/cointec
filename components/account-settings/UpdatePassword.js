@@ -105,7 +105,8 @@ class UpdatePassword extends Component {
 								<div className="row mt-4">
 									{this.props.accounts.error && (
 										<div className="col-md-12 mb-2 text-danger">
-											{this.props.accounts.error.response.data.Message}
+											{/* {this.props.accounts.error.response.data.Message} */}
+											Incorrect current password
 										</div>
 									)}
 									<div className="col-md-12">
