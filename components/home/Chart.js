@@ -30,24 +30,34 @@ class Chart extends Component {
 	render() {
 		return (
 			<div className="chart-wrapper">
-				{this.state.latestRate &&
-					this.state.latestTimestamp && (
-						<div className="info-latest">
-							<h6 className="rate">
-								<span>{this.state.latestRate.toFixed(2)}</span> GBP/
-								{this.state.coinName}
-							</h6>
-							<Moment fromNow>{this.state.updatedOn}</Moment>
-						</div>
-					)}
+				{this.state.latestRate && this.state.latestTimestamp && (
+					<div className="info-latest">
+						<h6 className="rate">
+							<span>{this.state.latestRate.toFixed(2)}</span> GBP/
+							{this.state.coinName}
+						</h6>
+						{/* <Moment fromNow>{this.state.updatedOn}</Moment> */}
+						<span className="updated-at d-none d-lg-block">
+							Updated 20s ago
+						</span>
+					</div>
+				)}
 				{this.state.options ? (
 					<div className="line">
-						<Line options={this.state.options} data={this.state.data} />
+						<Line
+							options={this.state.options}
+							data={this.state.data}
+							height={205}
+						/>
 					</div>
 				) : (
 					''
 				)}
-				{this.state.options ? <p className="axis-name">Past 30 days</p> : ''}
+				{this.state.options ? (
+					<p className="axis-name text-center">Past 30 days</p>
+				) : (
+					''
+				)}
 			</div>
 		)
 	}
@@ -118,7 +128,9 @@ class Chart extends Component {
 						yAxes: [
 							{
 								gridLines: {
-									drawBorder: false
+									drawBorder: false,
+									borderDash: [1, 8],
+									color: '#B0B9BD'
 								},
 								ticks: {
 									maxTicksLimit: 5
@@ -162,7 +174,7 @@ class Chart extends Component {
 								lineTension: 0.1,
 								pointRadius: 0,
 								cubicInterpolationMode: 'default',
-								backgroundColor: gradient
+								backgroundColor: 'transparent'
 							}
 						]
 					}
