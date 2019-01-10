@@ -11,18 +11,30 @@ import Header from '../components/Header'
 import StickyFooter from '../components/StickyFooter'
 
 const headings = {
-	exportdata: 'Export data request',
-	requestdata: 'Access to your data',
+	exportdata: 'Download your data',
+	requestdata: 'Download your data',
 	closeaccount: 'Account closure'
 }
 
 const messages = {
-	exportdata:
-		'We will prepare your data and send it to you in the next 1-2 days.',
-	requestdata:
-		'We will prepare your data and send it to you in the next 1-2 days.',
-	closeaccount:
-		'Sorry to see you go. We will process your account and let you know when your account has been fully closed.'
+	exportdata: (
+		<span>
+			Click <a href="javascript:history.back()">here</a> if your download
+			doesn’t start automatically.
+		</span>
+	),
+	requestdata: (
+		<span>
+			Click <a href="javascript:history.back()">here</a> if your download
+			doesn’t start automatically.
+		</span>
+	),
+	closeaccount: (
+		<span>
+			Sorry to see you go. We will process your account and let you know when
+			your account has been fully closed.
+		</span>
+	)
 }
 
 class TokenExpired extends Component {
