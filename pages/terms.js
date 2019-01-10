@@ -224,6 +224,12 @@ class Terms extends Component {
 				</section>
 
 				<Footer />
+				
+				<style jsx global>{`
+					html body {
+						background-color: #f7f9fa;
+					}
+				`}</style>
 			</div>
 		)
 	}

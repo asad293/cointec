@@ -11,7 +11,7 @@ class Security extends Component {
 		return (
 			<div className="learn-page">
 				<Head>
-					<title>AML/KYC | Cointec</title>
+					<title>Anti-Money Laundering | Cointec</title>
 				</Head>
 				<Header background="gradient" deco={false}>
 					<Nav />
@@ -20,7 +20,9 @@ class Security extends Component {
 						<div className="hero-wrapper hero-wrapper-inner">
 							<div className="row">
 								<div className="col-md-12">
-									<h1 className="learn-heading dc-basics-heading">AML/KYC</h1>
+									<h1 className="learn-heading dc-basics-heading">
+										Anti-Money Laundering
+									</h1>
 								</div>
 							</div>
 						</div>
@@ -31,7 +33,7 @@ class Security extends Component {
 					<div className="row">
 						<div className="col-12 col-lg-8">
 							<div className="privacy-policy-wrapper">
-								<h5 className="page-heading">AML/KYC</h5>
+								<h5 className="page-heading">Anti-Money Laundering</h5>
 								<h5 className="last-updated">Last updated: 13 Aug 2018</h5>
 								<p>
 									By using our website(s) or other services in any capacity you

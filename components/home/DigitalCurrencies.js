@@ -2,28 +2,40 @@ import React from 'react'
 import Link from 'next/link'
 
 const DigitalCurrencies = () => (
-	<div className="home-section container">
-		<div className="row">
-			<div className="col-12 col-md-6 pr-4 text-center text-md-left">
-				<h4 className="section-title d-none d-md-block">
-					Choose from 20 of the most popular digital currencies.
-				</h4>
-				<h4 className="section-title d-md-none">
-					Wide selection of currencies
-				</h4>
+	<div className="bg-gradient bg-mid-gradient">
+		<div className="home-section container digital-currencies-section">
+			<div className="row">
+				<div className="col-12 col-lg-5 text-center text-lg-left">
+					<h4 className="section-title d-none d-lg-block">
+						{/* Choose from 20 of the most popular digital currencies. */}
+						Choose from 30 of the most popular digital currency assets.
+					</h4>
+					<h4 className="section-title d-lg-none">Choose from 30 currencies</h4>
 
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-					eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-					minim veniam, quis nostrud exercitation ullamco laboris.
-				</p>
+					<p className="d-none d-lg-block">
+						We understand long winded it can be to buy some of the trending
+						altcoins. That’s why we’ve created this platform to let you directly
+						exchange. Add some more text here.
+					</p>
 
-				<Link href="/digital-currency-list">
-					<a className="d-none d-md-inline">See all digital currencies</a>
-				</Link>
-			</div>
-			<div className="col-12 col-md-6 text-center mt-4 mt-md-0">
-				<div className="currencies-group">
+					<Link href="/digital-currency-list">
+						<a className="d-none d-lg-inline-block">
+							View all our digital currencies
+						</a>
+					</Link>
+				</div>
+				<div className="col-lg-1" />
+				<div className="col-12 col-lg-6 text-center mt-4 mt-lg-0">
+					<img
+						className="digital-currencies-art"
+						src="/static/images/digital-currencies.png"
+					/>
+					<p className="d-lg-none text-center">
+						We understand long winded it can be to buy some of the trending
+						altcoins. That’s why we’ve created this platform to let you directly
+						exchange. Add some more text here.
+					</p>
+					{/* <div className="currencies-group">
 					<img src="/static/images/cg-image-1.svg" />
 					<img src="/static/images/cg-image-2.svg" />
 					<img src="/static/images/cg-image-3.svg" />
@@ -32,10 +44,11 @@ const DigitalCurrencies = () => (
 					<img src="/static/images/cg-image-1.svg" />
 					<img src="/static/images/cg-image-6.svg" />
 					<img src="/static/images/cg-image-7.svg" />
+				</div> */}
+					<Link href="/digital-currency-list">
+						<a className="d-lg-none">View all our digital currencies</a>
+					</Link>
 				</div>
-				<Link href="/digital-currency-list">
-					<a className="d-md-none">See all digital currencies</a>
-				</Link>
 			</div>
 		</div>
 	</div>
