@@ -96,7 +96,7 @@ class Home extends Component {
 				<Security />
 				<Subscribe />
 
-				<Footer />
+				<Footer backgroundColor="#fff" />
 			</div>
 		)
 	}
