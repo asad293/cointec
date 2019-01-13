@@ -529,7 +529,7 @@ export const validateToken = ({ action, token }) => async dispatch => {
 	dispatch({ type: VALIDATE_TOKEN_START })
 
 	return axios
-		.get(`${ROOT_URL}/accounts/${action}?token=${token}`)
+		.get(`${ROOT_URL}/accounts/validate/?action=${action}&token=${token}`)
 		.then(response => {
 			if (
 				response.status === 200 &&
