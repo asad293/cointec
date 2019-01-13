@@ -528,18 +528,31 @@ export const closeAccount = ({ emailAddress, password }) => async dispatch => {
 export const validateToken = ({ action, token }) => async dispatch => {
 	dispatch({ type: VALIDATE_TOKEN_START })
 
+    if (action === 'request-data' || action === 'export-data') {
+        return axios
+            .get(`${ROOT_URL}/accounts/${action}?token=${token}`)
+            .then(response => {
+                if (
+                    response.status === 200 &&
+                        (action === 'request-data' || action === 'export-data')
+                ) {
+                    const blob = new Blob([response.data], {
+                        type: 'text/plain;charset=utf-8'
+                    })
+                    FileSaver.saveAs(blob, `${token}.csv`)
+                }
+                dispatch({
+                    type: VALIDATE_TOKEN,
+                    payload: response.data
+                })
+                return response
+            })
+
+    }
+
 	return axios
         .get(`${ROOT_URL}/accounts/validate?action=${action.toLowerCase().replace(/-/g, '')}&token=${token}`)
-		.then(response => {
-			if (
-				response.status === 200 &&
-				(action === 'request-data' || action === 'export-data')
-			) {
-				const blob = new Blob([response.data], {
-					type: 'text/plain;charset=utf-8'
-				})
-				FileSaver.saveAs(blob, `${token}.csv`)
-			}
+		.then(response => {{}
 			dispatch({
 				type: VALIDATE_TOKEN,
 				payload: response.data
