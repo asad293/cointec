@@ -312,7 +312,7 @@ export const changeEmail = ({
 	dispatch({ type: REQUEST_CHANGE_EMAIL_START })
 
 	const data = {
-		// EmailAddress: emailAddress,
+		EmailAddress: emailAddress,
 		NewEmailAddress: newEmailAddress
 	}
 
@@ -443,7 +443,7 @@ export const exportData = ({ emailAddress, password }) => async dispatch => {
 	}
 	return (
 		axios
-			.post(`${ROOT_URL}/accounts/trigger?action=requestdata`, data, {
+			.post(`${ROOT_URL}/accounts/trigger?action=exportdata`, data, {
 				headers
 			})
 			// .post(`${ROOT_URL}/accounts/export-data`, data, { headers })
