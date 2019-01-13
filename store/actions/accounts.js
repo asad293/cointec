@@ -539,7 +539,16 @@ export const validateToken = ({ action, token }) => async dispatch => {
                     const blob = new Blob([response.data], {
                         type: 'text/plain;charset=utf-8'
                     })
-                    FileSaver.saveAs(blob, `${token}.csv`)
+
+                    const contentDisposition = response.headers['content-disposition'];
+                    let fileName = 'user-data';
+                    if (contentDisposition) {
+                        const fileNameMatch = contentDisposition.match(/filename="(.+)"/);
+                        if (fileNameMatch.length === 2)
+                            fileName = fileNameMatch[1];
+                    }
+
+                    FileSaver.saveAs(blob, fileName)
                 }
                 dispatch({
                     type: VALIDATE_TOKEN,
