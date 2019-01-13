@@ -1,5 +1,6 @@
 import Cookie from 'js-cookie'
 import axios from 'axios'
+import FileSaver from 'file-saver'
 import { ROOT_URL } from '..'
 
 export const FETCH_ACCOUNTS = 'FETCH_ACCOUNTS'
@@ -530,6 +531,15 @@ export const validateToken = ({ action, token }) => async dispatch => {
 	return axios
 		.get(`${ROOT_URL}/accounts/${action}?token=${token}`)
 		.then(response => {
+			if (
+				response.status === 200 &&
+				(action === 'request-data' || action === 'export-data')
+			) {
+				const blob = new Blob([response.data], {
+					type: 'text/plain;charset=utf-8'
+				})
+				FileSaver.saveAs(blob, `${token}.csv`)
+			}
 			dispatch({
 				type: VALIDATE_TOKEN,
 				payload: response.data
