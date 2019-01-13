@@ -321,7 +321,7 @@ header.bg-primary-gradient {
 		font-size: 24px;
 		color: #1a1d1f;
 		margin-top: 59px;
-		margin-bottom: 0;
+		margin-bottom: 12px;
 		@include media-breakpoint-down(md) {
 			margin-top: 0;
 			margin-bottom: 8px;
@@ -331,7 +331,9 @@ header.bg-primary-gradient {
 		line-height: 33px;
 		font-size: 16px;
 		color: #667075;
+		margin-top: 0;
 		@include media-breakpoint-down(md) {
+			line-height: 28px;
 			margin-top: 40px;
 		}
 	}
@@ -355,6 +357,7 @@ header.bg-primary-gradient {
 		font-weight: 600;
 		margin-bottom: 0;
 		margin-top: 61px;
+		margin-bottom: 12px;
 		@include media-breakpoint-down(md) {
 			margin-top: 0;
 		}
@@ -363,12 +366,16 @@ header.bg-primary-gradient {
 		line-height: 33px;
 		font-size: 16px;
 		color: #515c61;
-		margin-top: 32px;
-		margin-bottom: 0;
+		margin-top: 0;
+		margin-bottom: 4px;
+		@include media-breakpoint-down(md) {
+			line-height: 28px;
+		}
 	}
 	a {
 		display: inline-block;
-		margin-top: 24px;
+		margin-top: 0px;
+		// margin-top: 24px;
 		line-height: 12px;
 		font-weight: 600;
 		font-size: 16px;
@@ -376,6 +383,10 @@ header.bg-primary-gradient {
 	}
 	.digital-currencies-art {
 		width: 538px;
+		@include media-breakpoint-down(md) {
+			width: auto;
+			max-width: 100%;
+		}
 	}
 	@include media-breakpoint-down(md) {
 		padding-top: 56px;

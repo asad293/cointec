@@ -19,6 +19,7 @@
 	p {
 		line-height: 28px;
 		font-size: 16px;
+		margin-top: 0;
 		color: #515c61;
 		@include media-breakpoint-down(md) {
 			margin-top: 26px;

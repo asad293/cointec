@@ -45,7 +45,7 @@ footer {
 			line-height: 13px;
 			margin-bottom: 18px;
 			color: #1a1d1f;
-			@include media-breakpoint-down(md) {
+			@include media-breakpoint-down(xs) {
 				margin-top: 40px;
 			}
 		}
