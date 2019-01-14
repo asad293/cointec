@@ -2,58 +2,22 @@ import React, { Component } from 'react'
 import Head from 'next/head'
 import { withRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { fetchVerificationStatus } from '../store/actions'
+import Moment from 'react-moment'
+import { fetchVerificationStatus, fetchPosts } from '../store/actions'
 
 import Header from '../components/Header'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 
-class Blog extends Component {
+class Blogs extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {
-			blogs: [
-				{
-					preview: '/static/images/bank-bitcoin-business.png',
-					title: '[ERC-20] This is the first Cointec Blog',
-					description:
-						'Create an account in seconds. All you need is an email an random.'
-				},
-				{
-					preview: '/static/images/bank-bitcoin-business.png',
-					title: '[ERC-20] This is the first Cointec Blog',
-					description:
-						'Create an account in seconds. All you need is an email an random.'
-				},
-				{
-					preview: '/static/images/bank-bitcoin-business.png',
-					title: '[ERC-20] This is the first Cointec Blog',
-					description:
-						'Create an account in seconds. All you need is an email an random.'
-				},
-				{
-					preview: '/static/images/bank-bitcoin-business.png',
-					title: '[ERC-20] This is the first Cointec Blog',
-					description:
-						'Create an account in seconds. All you need is an email an random.'
-				},
-				{
-					preview: '/static/images/bank-bitcoin-business.png',
-					title: '[ERC-20] This is the first Cointec Blog',
-					description:
-						'Create an account in seconds. All you need is an email an random.'
-				},
-				{
-					preview: '/static/images/bank-bitcoin-business.png',
-					title: '[ERC-20] This is the first Cointec Blog',
-					description:
-						'Create an account in seconds. All you need is an email an random.'
-				}
-			]
-		}
+		this.state = {}
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		this.props.fetchPosts()
+	}
 
 	render() {
 		return (
@@ -89,15 +53,19 @@ class Blog extends Component {
 						<div className="col">
 							<div className="content-wrapper blog-list p-0 h-auto position-relative">
 								<div className="row">
-									{this.state.blogs.map((blog, index) => (
-										<div key={index} className="col-lg-4 col-md-6">
-											<BlogItem
-												preview={blog.preview}
-												title={blog.title}
-												description={blog.description}
-											/>
-										</div>
-									))}
+									{this.props.blogs.posts &&
+										this.props.blogs.posts.map((post, index) => (
+											<div key={index} className="col-lg-4 col-md-6">
+												<BlogItem
+													image={post.image}
+													title={post.title}
+													link={post.link}
+													snippet={post.snippet}
+													user={post.user}
+													publishedAt={post.publishedAt}
+												/>
+											</div>
+										))}
 								</div>
 							</div>
 						</div>
@@ -122,26 +90,43 @@ class Blog extends Component {
 	componentWillReceiveProps(props) {}
 }
 
-const BlogItem = ({ preview, title, description }) => (
+const BlogItem = ({ image, title, link, snippet, user, publishedAt }) => (
 	<div className="blog-item">
-		<div className="header">
-			<img src={preview} alt="Meta Mask" />
-		</div>
+		<div className="header" style={{ backgroundImage: `url(${image})` }} />
 		<div className="blog-item-body">
-			<h4 className="blog-title">{title}</h4>
-			<p className="blog-description">{description}</p>
+			<h4 className="blog-title">
+				<a href={link} target="_blank">
+					{title}
+				</a>
+			</h4>
+			<p className="blog-description">{snippet}</p>
+		</div>
+		<div className="footer d-flex">
+			<img src={user.image} alt={user.name} />
+			<div>
+				<div>
+					<a href={user.link} target="_blank">
+						{user.name}
+					</a>
+				</div>
+				<div>
+					<Moment format="MMM DD, YYYY">{publishedAt}</Moment>
+				</div>
+			</div>
 		</div>
 	</div>
 )
 
 export default connect(
-	({ auth, verification, accounts, globals }) => ({
+	({ auth, verification, accounts, globals, blogs }) => ({
 		auth,
 		verification,
 		accounts,
-		globals
+		globals,
+		blogs
 	}),
 	{
-		fetchVerificationStatus
+		fetchVerificationStatus,
+		fetchPosts
 	}
-)(withRouter(Blog))
+)(withRouter(Blogs))
