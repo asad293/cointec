@@ -21,8 +21,12 @@ export const uploadDocument = ({
 
 	const data = new FormData()
 	data.append('file', file)
-	data.append('document_category', category)
-	data.append('document_type', 'other')
+	// data.append('document_category', category)
+	if (category === 'Proof Of Identity') {
+		data.append('document_type', 'government_id')
+	} else {
+		data.append('document_type', 'other')
+	}
 	data.append('status', 'pending')
 	data.append('user', RehiveId)
 
