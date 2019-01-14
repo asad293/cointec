@@ -1,6 +1,7 @@
 export * from './accounts'
 export * from './assets'
 export * from './auth'
+export * from './blogs'
 export * from './chart'
 export * from './constants'
 export * from './documents'
