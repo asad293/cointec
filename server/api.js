@@ -72,6 +72,7 @@ const axios = require('axios')
 // 	req.setHeader('Accept', 'application/json')
 // 	req.setHeader('Accept-Charset', 'utf-8')
 
+// req
 // 	req.setTimeout(5000, () => {
 // 		req.abort()
 // 	})
