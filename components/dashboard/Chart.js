@@ -18,6 +18,7 @@ class Chart extends Component {
 			data: null,
 			updatedOn: null
 		}
+		this.onScroll = this.onScroll.bind(this)
 	}
 
 	componentDidMount() {
@@ -39,7 +40,7 @@ class Chart extends Component {
 
 	onScroll() {
 		const tooltip = document.querySelector('#chartjs-tooltip')
-		if (tooltip) tooltip.remove() //
+		if (tooltip) tooltip.remove() // remove chart tooltip when scrolling
 	}
 
 	render() {
@@ -63,7 +64,7 @@ class Chart extends Component {
 							options={this.state.options}
 							data={this.state.data}
 							height={
-								document && document.documentElement.clientWidth > 767
+								document && document.documentElement.clientWidth > 768
 									? 230
 									: 144
 							}

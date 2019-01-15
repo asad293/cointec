@@ -1,6 +1,7 @@
 const express = require('express')
 const next = require('next')
 const createSecureServer = require('./createSecureServer')
+const api = require('./api')
 
 const dev = process.env.NODE_ENV !== 'production'
 const port = process.env.PORT || 3000
@@ -12,6 +13,8 @@ app
 	.prepare()
 	.then(() => {
 		const server = express()
+
+		server.use(api)
 
 		server.get('/buy-*', (req, res) => {
 			const query = {
@@ -34,6 +37,50 @@ app
 
 		server.get('/forgot-password/:token', (req, res) => {
 			app.render(req, res, `/forgot-password`, { token: req.params.token })
+		})
+
+		server.get('/validate', (req, res) => {
+			app.render(req, res, `/on-load`, {
+				action: req.query.action,
+				token: req.query.token,
+				method: 'validate'
+			})
+		})
+
+		server.get('/report-fraud', (req, res) => {
+			app.render(req, res, `/on-load`, {
+				action: req.query.action,
+				token: req.query.token,
+				method: 'report-fraud'
+			})
+		})
+
+		server.get('/token-expired/:action', (req, res) => {
+			app.render(req, res, `/token-expired`, {
+				action: req.params.action
+			})
+		})
+
+		server.get('/request-sent/:action', (req, res) => {
+			app.render(req, res, `/alert-message`, {
+				action: req.params.action
+			})
+		})
+
+		server.get('/account-locked', (req, res) => {
+			app.render(req, res, `/no-access`, { type: 'locked' })
+		})
+
+		server.get('/account-closed', (req, res) => {
+			app.render(req, res, `/no-access`, { type: 'closed' })
+		})
+
+		server.get('/aml', (req, res) => {
+			app.render(req, res, `/security`)
+		})
+
+		server.get('/blogs', (req, res) => {
+			app.render(req, res, `/blog`)
 		})
 
 		server.get('*', handle)

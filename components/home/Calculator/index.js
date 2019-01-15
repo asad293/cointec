@@ -382,7 +382,11 @@ class Calculator extends Component {
 				)}
 				onClick={e => {
 					e.preventDefault()
-					if (available) Router.push('/login')
+					if (available) {
+						if (this.props.router.pathname === '/dashboard')
+							Router.push('/exchange')
+						else Router.push('/login')
+					}
 				}}>
 				{available ? 'Instant Exchange' : 'Currently unavailable'}
 			</button>
@@ -621,7 +625,7 @@ class Calculator extends Component {
 							</div>
 						</div>
 						<h6 className="exchange-rate-label">
-							Exchange Rate:{' '}
+							Exchange Rate: {/* <b> */}
 							{!this.state.rate || Message
 								? '-/-'
 								: this.state.rate.toFixed(
@@ -638,6 +642,7 @@ class Calculator extends Component {
 										? this.state.coinSelected.Name
 										: 'BTC') +
 								  ' '}
+							{/* </b> */}
 						</h6>
 						<div className="am row">
 							<div className="col-md-12">{this.renderButton()}</div>

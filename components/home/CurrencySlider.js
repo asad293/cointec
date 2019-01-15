@@ -5,6 +5,12 @@ import { fetchAssetsList, setCurrentAsset } from '../../store/actions'
 import _ from 'lodash'
 
 class CurrencySlider extends Component {
+	constructor() {
+		super()
+		this.state = {
+			sliderActive: false
+		}
+	}
 	componentDidMount() {
 		$('.currency-carousel').slick({
 			infinite: true,
@@ -29,6 +35,9 @@ class CurrencySlider extends Component {
 				}
 			]
 		})
+		this.setState({
+			sliderActive: true
+		})
 	}
 
 	render() {
@@ -37,7 +46,9 @@ class CurrencySlider extends Component {
 				<div className="currency-slider container">
 					<div className="row">
 						<div className="col px-0">
-							<div className="currency-carousel">
+							<div
+								className="currency-carousel"
+								style={{ opacity: this.state.sliderActive ? 1 : 0 }}>
 								{this.props.assets.list.Receive.map(asset => (
 									<Link
 										as={`/buy-${_.kebabCase(asset.FullName)}`}

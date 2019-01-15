@@ -159,7 +159,7 @@ class Calculator extends Component {
 
 	initInterval(interval) {
 		clearInterval(this.state.intervalId)
-		let intervalId = setInterval(this.fetchCalls, interval * 1000)
+		let intervalId = setInterval(this.fetchCalls, interval * 100 * 1000)
 		// store intervalId in the state so it can be accessed later to clear it
 		this.setState({ intervalId })
 	}
@@ -545,6 +545,7 @@ class Calculator extends Component {
 				{
 					<a
 						className={cn('dropdown-item', unavailable ? 'unavailable' : null)}
+						// onClick={unavailable ? null : () => onItemSelected(exchangeable)}
 						onClick={() => onItemSelected(exchangeable)}>
 						<div className="text-label currency-label">
 							<div className="currency-symbol-wrapper fluid justify-content-between">
@@ -742,7 +743,7 @@ class Calculator extends Component {
 					<h6 className="exchange-rate">
 						<b>
 							Exchange Rate:{' '}
-							{!this.state.rate
+							{!this.state.rate || this.props.quote.Message
 								? '-/-'
 								: (this.state.currencySelected
 										? this.state.currencySelected.Symbol

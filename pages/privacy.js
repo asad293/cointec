@@ -7,6 +7,7 @@ import Cookie from 'js-cookie'
 
 import Nav from '../components/dashboard/Nav'
 import AlertMessage from '../components/dashboard/AlertMessage'
+import NotificationAlert from '../components/dashboard/NotificationAlert'
 import TabsGroup from '../components/account-settings/TabsGroup'
 import SettingsMenu from '../components/account-settings/SettingsMenu'
 import RequestData from '../components/account-settings/RequestData'
@@ -19,6 +20,8 @@ class Privacy extends Component {
 			saved: false,
 			requestDataModal: false,
 			scrolling: false,
+			notificationAlert: false,
+			dataAction: null,
 			notificationSettings: [
 				{
 					id: 1,
@@ -42,17 +45,18 @@ class Privacy extends Component {
 			]
 		}
 		this.handleInputChange = this.handleInputChange.bind(this)
+		this.onConfirmationEmailSent = this.onConfirmationEmailSent.bind(this)
 	}
 
 	componentDidMount() {
-		// const userData = localStorage.getItem('user')
-		// const user = userData && JSON.parse(userData)
-		// const sessionId = Cookie.get('CT-SESSION-ID')
-		// if (user && user.CtUserId && sessionId) {
-		// 	this.props.fetchOrders({ ctUser: user.CtUserId })
-		// } else {
-		// 	Router.push(`/login?redirectPath=${this.props.router.pathname}`)
-		// }
+		const userData = localStorage.getItem('user')
+		const user = userData && JSON.parse(userData)
+		const sessionId = Cookie.get('CT-SESSION-ID')
+		if (user && user.CtUserId && sessionId) {
+			this.setState({ ctUser: user.CtUserId, email: user.email })
+		} else {
+			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
+		}
 		addEventListener('resize', this.onResize)
 		this.onResize()
 	}
@@ -91,6 +95,29 @@ class Privacy extends Component {
 		}, 1000)
 	}
 
+	onConfirmationEmailSent() {
+		const notificationContent = (
+			<p>
+				Confirmation email sent to{' '}
+				<b>
+					{(this.props.accounts.userDetails &&
+						this.props.accounts.userDetails.EmailAddress) ||
+						this.state.email ||
+						''}
+				</b>
+			</p>
+		)
+		this.setState({
+			notificationAlert: true,
+			notificationContent
+		})
+		setTimeout(() => {
+			this.setState({
+				notificationAlert: false
+			})
+		}, 5000)
+	}
+
 	render() {
 		const { docWidth } = this.state
 		return (
@@ -117,6 +144,14 @@ class Privacy extends Component {
 							}}
 						/>
 					)}
+
+				<NotificationAlert
+					type="success"
+					visible={this.state.notificationAlert}
+					onHide={() => this.setState({ notificationAlert: false })}>
+					{this.state.notificationContent}
+				</NotificationAlert>
+
 				<div
 					className="container dashboard-container"
 					style={{
@@ -199,7 +234,10 @@ class Privacy extends Component {
 												<a
 													className="btn-setting"
 													onClick={() =>
-														this.setState({ requestDataModal: true })
+														this.setState({
+															requestDataModal: true,
+															dataAction: 'request'
+														})
 													}>
 													Data access request
 												</a>
@@ -219,7 +257,16 @@ class Privacy extends Component {
 												</p>
 											</div>
 											<div className="ml-md-auto">
-												<a className="btn-setting">Export your data</a>
+												<a
+													className="btn-setting"
+													onClick={() =>
+														this.setState({
+															requestDataModal: true,
+															dataAction: 'export'
+														})
+													}>
+													Export your data
+												</a>
 											</div>
 										</div>
 									</div>
@@ -231,7 +278,11 @@ class Privacy extends Component {
 				<StickyFooter className="bg-white" fixed={!this.state.scrolling} />
 				{this.state.requestDataModal && (
 					<RequestData
+						ctUser={this.state.ctUser}
+						emailAddress={this.state.email}
+						action={this.state.dataAction}
 						onClose={() => this.setState({ requestDataModal: false })}
+						onRequestSent={this.onConfirmationEmailSent}
 					/>
 				)}
 				<style jsx global>{`

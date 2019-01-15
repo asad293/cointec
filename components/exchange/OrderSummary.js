@@ -8,6 +8,7 @@ import MinutesFormat from '../MinutesFormat'
 
 // const sitekey = '6Ld5nFUUAAAAANRvB37_utUYF0-keXqw_i105cGm'
 const sitekey = '6LcopGcUAAAAALwksZY5mpplDNxtR8trVNiyMyRY'
+const dev = process.env.NODE_ENV !== 'production'
 
 class OrderSummary extends Component {
 	constructor() {
@@ -15,11 +16,10 @@ class OrderSummary extends Component {
 		this.state = {
 			timerId: null,
 			timer: 0,
-			buttonIsDisabled: true,
+			buttonIsDisabled: !dev, // true,
 			refreshTime: 60,
 			showCaptcha: false,
 			exchangeRate: null
-			// fetchQuote: null
 		}
 
 		this.tick = this.tick.bind(this)
@@ -61,22 +61,19 @@ class OrderSummary extends Component {
 
 	componentWillUnmount() {
 		clearInterval(this.state.timerId)
-		// if (this.state.fetchQuote) this.state.fetchQuote.cancel()
 	}
 
 	fetchCalls() {
-		// const fetchQuote =
 		this.props.fetchQuote({
 			SendCurrency: this.props.sendCurrency,
 			ReceiveCurrency: this.props.receiveCurrency,
 			ReceiveAmount: this.props.receiveAmount
 		})
-		// this.setState({ fetchQuote })
 		this.props.fetchConsts()
 	}
 
 	onVerify = response => {
-		console.log(response)
+		// console.log(response)
 		this.setState({ buttonIsDisabled: false })
 	}
 
@@ -144,8 +141,8 @@ class OrderSummary extends Component {
 												? rate.toFixed(2)
 												: rate.toFixed(8)
 											: sendCurrency === 'GBP'
-												? this.state.exchangeRate.toFixed(2)
-												: this.state.exchangeRate.toFixed(8)
+											? this.state.exchangeRate.toFixed(2)
+											: this.state.exchangeRate.toFixed(8)
 									} ${sendCurrency}/${receiveCurrency}`}
 								</p>
 							</div>

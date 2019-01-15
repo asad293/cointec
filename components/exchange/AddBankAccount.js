@@ -10,6 +10,7 @@ class AddBankAccount extends Component {
 		}
 		this.onClose = this.onClose.bind(this)
 		this.onClickOutside = this.onClickOutside.bind(this)
+		this.onDelete = this.onDelete.bind(this)
 		this.onSubmit = this.onSubmit.bind(this)
 	}
 

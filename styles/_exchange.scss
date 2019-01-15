@@ -1,3 +1,43 @@
+.exchange-page {
+	header {
+		.container {
+			.navbar-nav {
+				.nav-link {
+					@include media-breakpoint-down(sm) {
+						padding-right: 0;
+					}
+				}
+				@include media-breakpoint-down(sm) {
+					padding-right: 0;
+				}
+			}
+			@include media-breakpoint-down(sm) {
+				padding-left: 20px;
+				padding-right: 20px;
+			}
+		}
+	}
+	& > .container {
+		padding-left: 20px;
+		padding-right: 20px;
+		& > .row {
+			margin-left: -20px;
+			margin-right: -20px;
+		}
+	}
+	@include media-breakpoint-down(xs) {
+		overflow-y: scroll;
+		.bottom-bar {
+			position: relative;
+		}
+		@media screen and (min-height: 699px) {
+			.bottom-bar {
+				position: fixed;
+			}
+		}
+	}
+}
+
 .form-title-wrapper {
 	margin-top: 72px;
 	margin-bottom: 32px;
@@ -162,32 +202,6 @@
 }
 
 .exchange-page {
-	header {
-		.container {
-			.navbar-nav {
-				.nav-link {
-					@include media-breakpoint-down(sm) {
-						padding-right: 0;
-					}
-				}
-				@include media-breakpoint-down(sm) {
-					padding-right: 0;
-				}
-			}
-			@include media-breakpoint-down(sm) {
-				padding-left: 20px;
-				padding-right: 20px;
-			}
-		}
-	}
-	& > .container {
-		padding-left: 20px;
-		padding-right: 20px;
-		& > .row {
-			margin-left: -20px;
-			margin-right: -20px;
-		}
-	}
 	.bottom-bar {
 		position: initial;
 		// position: fixed;

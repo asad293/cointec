@@ -11,7 +11,7 @@ class FileInput extends Component {
 			<div>
 				<input
 					type="file"
-					accept="image/*"
+					accept="image/jpeg, image/jpg, image/png, application/pdf"
 					style={{ display: 'none' }}
 					ref={this.input}
 					onChange={this.props.onChange}

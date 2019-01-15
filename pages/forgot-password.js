@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import Header from '../components/Header'
 import ForgotPasswordForm from '../components/ForgotPasswordForm'
 
-import { forgotPassword } from '../store/actions'
+import { resetPassword } from '../store/actions'
 
 class ForgotPassword extends Component {
 	constructor() {
@@ -17,19 +17,17 @@ class ForgotPassword extends Component {
 	}
 
 	handleSubmit(values) {
-		console.log(values)
 		this.props
-			.forgotPassword(values)
-			.then(res => this.resetEmailSent(values.emailAddress))
+			.resetPassword(values)
+			.then(() => this.resetEmailSent(values.emailAddress))
 	}
 
 	resetEmailSent(email) {
-		console.log(email)
-		// Router.push('/link-sent/reset', { email })
+		Router.push(`/link-sent?type=reset&email=${email}`, '/link-sent')
 	}
 
 	render() {
-		const { loading } = this.props.auth
+		const { loading } = this.props.accounts
 		const { token } = this.props.router.query
 
 		const description = !token
@@ -75,6 +73,6 @@ class ForgotPassword extends Component {
 }
 
 export default connect(
-	({ auth }) => ({ auth }),
-	{ forgotPassword }
+	({ accounts }) => ({ accounts }),
+	{ resetPassword }
 )(withRouter(ForgotPassword))

@@ -23,18 +23,8 @@ const dev = process.env.NODE_ENV !== 'production'
 class Dashboard extends Component {
 	constructor(props) {
 		super(props)
-
-		const assetsImages = {}
-		props.assets.list.Receive.forEach(asset => {
-			assetsImages[asset.Name] = asset.Image
-		})
-		props.assets.list.Send.forEach(asset => {
-			assetsImages[asset.Name] = asset.Image
-		})
-
 		this.state = {
-			assetsImages,
-			showAlert: true,
+			assetsImages: null,
 			transactionDetailModal: false,
 			activeTransaction: null,
 			scrolling: false
@@ -43,15 +33,15 @@ class Dashboard extends Component {
 
 	componentDidMount() {
 		// if (!dev) {
-		// const userData = localStorage.getItem('user')
-		// const user = userData && JSON.parse(userData)
-		// const sessionId = Cookie.get('CT-SESSION-ID')
+		const userData = localStorage.getItem('user')
+		const user = userData && JSON.parse(userData)
+		const sessionId = Cookie.get('CT-SESSION-ID')
 
-		// if (user && user.CtUserId && sessionId) {
-		// 	this.props.fetchOrders({ ctUser: user.CtUserId })
-		// } else {
-		// 	Router.push(`/login?redirectPath=${this.props.router.pathname}`)
-		// }
+		if (user && user.CtUserId && sessionId) {
+			this.props.fetchOrders({ ctUser: user.CtUserId })
+		} else {
+			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
+		}
 		// }
 		addEventListener('resize', this.onResize)
 		this.onResize()

@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
+import { closeAccount } from '../../store/actions'
 import cn from 'classnames'
 
 class CloseAccount extends Component {
 	constructor() {
 		super()
 		this.state = {
-			closed: false
+			closed: false,
+			error: null
 		}
 		this.onClose = this.onClose.bind(this)
 		this.onClickOutside = this.onClickOutside.bind(this)
@@ -45,9 +48,24 @@ class CloseAccount extends Component {
 		}
 	}
 
-	onSubmit(event) {
-		event.preventDefault()
-		this.onClose()
+	onSubmit(values) {
+		this.props
+			.closeAccount({
+				emailAddress: this.props.emailAddress,
+				password: values.password
+			})
+			.then(res => {
+				this.props.onAccountClosed()
+				this.onClose()
+			})
+			.catch(error => {
+				console.log(error.response)
+				if (error.response.status === 400) {
+					this.setState({
+						error: 'Cannot close account with pending transactions'
+					})
+				}
+			})
 	}
 
 	render() {
@@ -69,7 +87,7 @@ class CloseAccount extends Component {
 							</button>
 							<h5 className="modal-heading text-left">Close your account</h5>
 							<hr />
-							<form onSubmit={this.onSubmit}>
+							<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
 								<div className="row">
 									<div className="col-12">
 										<p className="modal-message">
@@ -92,6 +110,13 @@ class CloseAccount extends Component {
 									</div>
 								</div>
 								<div className="row mt-4">
+									{this.state.error && (
+										<div
+											className="col-md-12 mb-3 text-danger"
+											style={{ fontSize: 14, lineHeight: 'normal' }}>
+											{this.state.error}
+										</div>
+									)}
 									<div className="col-md-12">
 										<button
 											type="submit"
@@ -142,6 +167,11 @@ class CloseAccount extends Component {
 // Validators
 const password = value => (!value ? 'Please enter a valid password' : undefined)
 
-export default reduxForm({
-	form: 'CloseAccountForm'
-})(CloseAccount)
+export default connect(
+	({ accounts }) => ({ accounts }),
+	{ closeAccount }
+)(
+	reduxForm({
+		form: 'CloseAccountForm'
+	})(CloseAccount)
+)

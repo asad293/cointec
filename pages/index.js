@@ -9,6 +9,7 @@ import Header from '../components/Header'
 import Nav from '../components/Nav'
 import Calculator from '../components/home/Calculator'
 import CurrencySlider from '../components/home/CurrencySlider'
+import PHSection from '../components/home/PHSection'
 import GetStarted from '../components/home/GetStarted'
 import ExchangeRates from '../components/home/ExchangeRates'
 import DigitalCurrencies from '../components/home/DigitalCurrencies'
@@ -31,6 +32,20 @@ class Home extends Component {
 		return (
 			<div>
 				<Head>
+					<meta name="twitter:card" content="summary" />
+					<meta name="twitter:site" content="@Cointec" />
+					<meta
+						name="twitter:title"
+						content="Say hello to a new kind of money."
+					/>
+					<meta
+						name="twitter:description"
+						content="Buy 30 digital currencies using Bank Transfer or GBP."
+					/>
+					<meta
+						name="twitter:image"
+						content="../static/images/twitterCard.png"
+					/>
 					<title>{title}</title>
 				</Head>
 				<Header background="gradient" style={{ overflow: 'initial' }}>
@@ -45,12 +60,14 @@ class Home extends Component {
 										<br />
 										kind of money.
 									</h1>
-									<h2 className="hero-intro">
-										Buy 20 digital currencies using Bank Transfer or Bitcoin.
+									<h2 className="hero-intro d-none d-sm-block">
+										Buy 30 digital currencies using Bank Transfer or Bitcoin.{' '}
+										{/* Buy 20 digital currencies using Bank Transfer or Bitcoin. */}
 										<br className="d-none d-md-inline" />
-										Create an account and get started in minutes.
+										Create an account and start buying digital currency today.
+										{/* Create an account and get started in minutes. */}
 									</h2>
-									<div className="my-3 my-md-0">
+									<div className="my-3 my-md-0 d-none d-sm-block">
 										<Link href="/learn">
 											<a>New to digital currencies? Learn more</a>
 										</Link>
@@ -59,7 +76,8 @@ class Home extends Component {
 								<div className="d-none d-lg-flex col-lg-1 col-xl-2" />
 								<div
 									id="main-calc"
-									className="col-12 col-lg-5 col-xl-4 hero-calculator pl-xl-0 pt-lg-3">
+									className="col-12 col-lg-5 col-xl-4 hero-calculator pl-xl-0">
+									{/* pt-lg-3 */}
 									<div className="calculator-wrapper">
 										<Calculator />
 									</div>
@@ -70,6 +88,7 @@ class Home extends Component {
 				</Header>
 
 				<CurrencySlider />
+				<PHSection />
 				<GetStarted />
 				<ExchangeRates />
 				<DigitalCurrencies />
@@ -77,7 +96,7 @@ class Home extends Component {
 				<Security />
 				<Subscribe />
 
-				<Footer />
+				<Footer backgroundColor="#fff" />
 			</div>
 		)
 	}

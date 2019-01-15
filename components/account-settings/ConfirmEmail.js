@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import { requestConfirmEmail } from '../../store/actions'
 import cn from 'classnames'
@@ -48,8 +48,15 @@ class ConfirmEmail extends Component {
 	}
 
 	onSubmit() {
-		// this.props.requestConfirmEmail(this.props.ctUser)
-		this.props.onEmailSent()
+		this.props
+			.requestConfirmEmail({
+				ctUser: this.props.ctUser,
+				emailAddress: this.props.emailAddress
+			})
+			.then(res => {
+				console.log(res)
+				this.props.onEmailSent()
+			})
 	}
 
 	render() {
@@ -106,11 +113,11 @@ class ConfirmEmail extends Component {
 	}
 }
 
-// export default // connect(
-// ({ accounts }) => ({ accounts }),
-// { requestConfirmEmail }
-// )(
-export default reduxForm({
-	form: 'ConfirmEmailForm'
-})(ConfirmEmail)
-// )
+export default connect(
+	({ accounts }) => ({ accounts }),
+	{ requestConfirmEmail }
+)(
+	reduxForm({
+		form: 'ConfirmEmailForm'
+	})(ConfirmEmail)
+)

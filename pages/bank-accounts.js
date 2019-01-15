@@ -30,7 +30,6 @@ class BankAccounts extends Component {
 		super(props)
 		this.state = {
 			ctUser: null,
-			showAlert: true,
 			addBankAccountModal: false,
 			editAccount: null,
 			scrolling: false,
@@ -39,16 +38,15 @@ class BankAccounts extends Component {
 	}
 
 	componentDidMount() {
-		// const userData = localStorage.getItem('user')
-		// const user = userData && JSON.parse(userData)
-		// const sessionId = Cookie.get('CT-SESSION-ID')
-		// if (user && user.CtUserId && sessionId) {
-		// 	this.setState({ ctUser: user.CtUserId })
-		// 	this.props.fetchAccounts(user.CtUserId)
-		// } else {
-		// 	Router.push(`/login?redirectPath=${this.props.router.pathname}`)
-		// }
-		this.props.fetchAccounts(5)
+		const userData = localStorage.getItem('user')
+		const user = userData && JSON.parse(userData)
+		const sessionId = Cookie.get('CT-SESSION-ID')
+		if (user && user.CtUserId && sessionId) {
+			this.setState({ ctUser: user.CtUserId })
+			this.props.fetchAccounts(user.CtUserId)
+		} else {
+			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
+		}
 
 		addEventListener('resize', this.onResize)
 		this.onResize()
@@ -133,6 +131,7 @@ class BankAccounts extends Component {
 													key={account.id}>
 													<AccountCard
 														AccountOwner={account.AccountOwner}
+														AccountReference={account.AccountReference}
 														AccountNumber={account.AccountNumber}
 														SortCode={account.SortCode}
 														color={colors[index % colors.length]}
@@ -175,6 +174,7 @@ class BankAccounts extends Component {
 const AccountCard = ({
 	AccountOwner,
 	AccountNumber,
+	AccountReference,
 	SortCode,
 	color,
 	onEdit
@@ -183,7 +183,7 @@ const AccountCard = ({
 		<div className="row">
 			<div className="col">
 				<h6 className="field-label">Account name</h6>
-				<p className="field-value">{AccountOwner}</p>
+				<p className="field-value">{AccountReference}</p>
 			</div>
 			<div className="col-3 text-right">
 				<a className="edit-account-link" onClick={onEdit}>

@@ -29,7 +29,7 @@ class BlockChain extends Component {
 				<Head>
 					<title>Blockchain | Cointec</title>
 				</Head>
-				<Header background="gradient">
+				<Header background="gradient" deco={false}>
 					<Nav />
 					<hr className="hr-header" />
 
@@ -87,7 +87,13 @@ class BlockChain extends Component {
 					</div>
 				</section>
 
-				<Footer />
+				<Footer backgroundColor="#fff" />
+
+				<style jsx global>{`
+					html body {
+						background-color: #f7f9fa;
+					}
+				`}</style>
 			</div>
 		)
 	}

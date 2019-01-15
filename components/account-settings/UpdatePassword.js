@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
+import { updatePassword } from '../../store/actions'
 import cn from 'classnames'
 
 class UpdatePassword extends Component {
@@ -12,7 +14,16 @@ class UpdatePassword extends Component {
 	}
 
 	onClose() {
-		this.props.onClose()
+		this.setState(
+			{
+				closed: true
+			},
+			() => {
+				setTimeout(() => {
+					this.props.onClose()
+				}, 300)
+			}
+		)
 	}
 
 	componentDidMount() {
@@ -34,9 +45,19 @@ class UpdatePassword extends Component {
 		}
 	}
 
-	onSubmit(event) {
-		event.preventDefault()
-		this.props.onClose()
+	onSubmit(values) {
+		this.props
+			.updatePassword({
+				ctUser: this.props.ctUser,
+				password: values.password,
+				newPassword: values.newPassword
+			})
+			.then(res => {
+				console.log(res)
+				this.props.onPasswordUpdated()
+				this.onClose()
+			})
+		// this.props.onClose()
 	}
 
 	render() {
@@ -55,7 +76,7 @@ class UpdatePassword extends Component {
 							</button>
 							<h5 className="modal-heading text-left">Update password</h5>
 							<hr />
-							<form onSubmit={this.onSubmit}>
+							<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
 								<div className="row">
 									<div className="col-12">
 										<Field
@@ -72,7 +93,7 @@ class UpdatePassword extends Component {
 								<div className="row">
 									<div className="col-12">
 										<Field
-											name="new-password"
+											name="newPassword"
 											label="New password"
 											type="password"
 											placeholder="••••••••"
@@ -82,11 +103,24 @@ class UpdatePassword extends Component {
 									</div>
 								</div>
 								<div className="row mt-4">
+									{this.props.accounts.error && (
+										<div className="col-md-12 mb-2 text-danger">
+											{/* {this.props.accounts.error.response.data.Message} */}
+											Incorrect current password
+										</div>
+									)}
 									<div className="col-md-12">
 										<button
 											type="submit"
-											className={cn('btn btn-block btn-lg', 'btn-primary')}>
-											Update password
+											className={cn('btn btn-block btn-lg', 'btn-primary')}
+											disabled={this.props.accounts.loading}>
+											{this.props.accounts.loading && (
+												<div
+													style={{ display: 'inline-block', marginRight: 12 }}>
+													<i className="fas fa-spinner fa-spin" />
+												</div>
+											)}
+											<span>Update password</span>
 										</button>
 									</div>
 								</div>
@@ -132,6 +166,11 @@ class UpdatePassword extends Component {
 // Validators
 const password = value => (!value ? 'Please enter a valid password' : undefined)
 
-export default reduxForm({
-	form: 'UpdatePasswordForm'
-})(UpdatePassword)
+export default connect(
+	({ accounts }) => ({ accounts }),
+	{ updatePassword }
+)(
+	reduxForm({
+		form: 'UpdatePasswordForm'
+	})(UpdatePassword)
+)

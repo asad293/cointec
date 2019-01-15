@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import Head from 'next/head'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { toggleVerificationAlert } from '../store/actions'
+import {
+	toggleVerificationAlert,
+	fetchTransactionLimits
+} from '../store/actions'
 import Cookie from 'js-cookie'
 
 import Nav from '../components/dashboard/Nav'
@@ -20,14 +23,14 @@ class TransactionLimits extends Component {
 	}
 
 	componentDidMount() {
-		// const userData = localStorage.getItem('user')
-		// const user = userData && JSON.parse(userData)
-		// const sessionId = Cookie.get('CT-SESSION-ID')
-		// if (user && user.CtUserId && sessionId) {
-		// 	this.props.fetchOrders({ ctUser: user.CtUserId })
-		// } else {
-		// 	Router.push(`/login?redirectPath=${this.props.router.pathname}`)
-		// }
+		const userData = localStorage.getItem('user')
+		const user = userData && JSON.parse(userData)
+		const sessionId = Cookie.get('CT-SESSION-ID')
+		if (user && user.CtUserId && sessionId) {
+			this.props.fetchTransactionLimits({ ctUser: user.CtUserId })
+		} else {
+			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
+		}
 
 		addEventListener('resize', this.onResize)
 		this.onResize()
@@ -51,6 +54,7 @@ class TransactionLimits extends Component {
 	}
 
 	render() {
+		const { limits } = this.props.accounts
 		return (
 			<div
 				className="settings-page dashboard-page full-height"
@@ -88,18 +92,25 @@ class TransactionLimits extends Component {
 										Your saved bank accounts
 									</h6>
 									<h6 className="heading d-flex d-md-none">Bank transfer</h6>
-									<div className="limit-card">
-										<div className="d-flex justify-content-between">
-											<p className="limit-label">Daily limit</p>
-											<p className="limit-value">120/200 GBP</p>
+									{limits && (
+										<div className="limit-card">
+											<div className="d-flex justify-content-between">
+												<p className="limit-label">Daily limit</p>
+												<p className="limit-value">
+													{limits.vDaily}/{limits.lDaily + limits.vDaily} GBP
+												</p>
+											</div>
+											<div className="limit-bar">
+												<div
+													className="limit-progress"
+													style={{
+														width: `${(limits.vDaily * 100) /
+															(limits.lDaily + limits.vDaily)}%`
+													}}
+												/>
+											</div>
 										</div>
-										<div className="limit-bar">
-											<div
-												className="limit-progress"
-												style={{ width: `${50}%` }}
-											/>
-										</div>
-									</div>
+									)}
 									<p className="coming-soon">Increased limits coming soon</p>
 								</div>
 							</div>
@@ -115,9 +126,13 @@ class TransactionLimits extends Component {
 			</div>
 		)
 	}
+
+	componentWillReceiveProps(props) {
+		console.log(props.accounts.limits)
+	}
 }
 
 export default connect(
-	({ globals }) => ({ globals }),
-	{ toggleVerificationAlert }
+	({ globals, accounts }) => ({ globals, accounts }),
+	{ toggleVerificationAlert, fetchTransactionLimits }
 )(withRouter(TransactionLimits))

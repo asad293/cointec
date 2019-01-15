@@ -15,7 +15,7 @@ class GlossaryOfTokens extends Component {
 				<Head>
 					<title>Glossary Of Tokens | Cointec</title>
 				</Head>
-				<Header background="gradient">
+				<Header background="gradient" deco={false}>
 					<Nav />
 					<hr className="hr-header" />
 
@@ -52,7 +52,7 @@ class GlossaryOfTokens extends Component {
 								<div className="token-group">
 									<h6 className="token-heading">
 										<img src="/static/images/coins/BTC.svg" alt="BTC" />
-										Bitcoin
+										Bitcoin (BTC)
 									</h6>
 									<p className="token-description">
 										Anti-money Laundering is the principle of preventing
@@ -68,7 +68,7 @@ class GlossaryOfTokens extends Component {
 								<div className="token-group">
 									<h6 className="token-heading">
 										<img src="/static/images/coins/BTC.svg" alt="BTC" />
-										Bitcoin
+										Bitcoin (BTC)
 									</h6>
 									<p className="token-description">
 										Anti-money Laundering is the principle of preventing
@@ -84,7 +84,7 @@ class GlossaryOfTokens extends Component {
 								<div className="token-group">
 									<h6 className="token-heading">
 										<img src="/static/images/coins/BTC.svg" alt="BTC" />
-										Bitcoin
+										Bitcoin (BTC)
 									</h6>
 									<p className="token-description">
 										Anti-money Laundering is the principle of preventing
@@ -103,7 +103,13 @@ class GlossaryOfTokens extends Component {
 					</div>
 				</section>
 
-				<Footer />
+				<Footer backgroundColor="#fff" />
+
+				<style jsx global>{`
+					html body {
+						background-color: #f7f9fa;
+					}
+				`}</style>
 			</div>
 		)
 	}

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
+import { requestData, exportData } from '../../store/actions'
 import cn from 'classnames'
 
 class RequestData extends Component {
@@ -45,9 +47,30 @@ class RequestData extends Component {
 		}
 	}
 
-	onSubmit(event) {
-		event.preventDefault()
-		this.onClose()
+	onSubmit(values) {
+		if (this.props.action === 'export') {
+			this.props
+				.exportData({
+					emailAddress: this.props.emailAddress,
+					password: values.password
+				})
+				.then(res => {
+					console.log(res)
+					this.props.onRequestSent()
+					this.onClose()
+				})
+		} else {
+			this.props
+				.requestData({
+					emailAddress: this.props.emailAddress,
+					password: values.password
+				})
+				.then(res => {
+					console.log(res)
+					this.props.onRequestSent()
+					this.onClose()
+				})
+		}
 	}
 
 	render() {
@@ -69,7 +92,7 @@ class RequestData extends Component {
 							</button>
 							<h5 className="modal-heading text-left">Data access request</h5>
 							<hr />
-							<form onSubmit={this.onSubmit}>
+							<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
 								<div className="row">
 									<div className="col-12">
 										<p className="modal-message">
@@ -95,7 +118,8 @@ class RequestData extends Component {
 									<div className="col-md-12">
 										<button
 											type="submit"
-											className={cn('btn btn-block btn-lg', 'btn-primary')}>
+											className={cn('btn btn-block btn-lg', 'btn-primary')}
+											disabled={this.props.accounts.loading}>
 											{this.props.accounts.loading && (
 												<div
 													style={{ display: 'inline-block', marginRight: 12 }}>
@@ -148,6 +172,11 @@ class RequestData extends Component {
 // Validators
 const password = value => (!value ? 'Please enter a valid password' : undefined)
 
-export default reduxForm({
-	form: 'RequestDataForm'
-})(RequestData)
+export default connect(
+	({ accounts }) => ({ accounts }),
+	{ requestData, exportData }
+)(
+	reduxForm({
+		form: 'RequestDataForm'
+	})(RequestData)
+)

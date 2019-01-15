@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
+import { changeEmail } from '../../store/actions'
 import cn from 'classnames'
 
 class ChangeEmail extends Component {
@@ -45,9 +47,18 @@ class ChangeEmail extends Component {
 		}
 	}
 
-	onSubmit(event) {
-		event.preventDefault()
-		this.onClose()
+	onSubmit(values) {
+		this.props
+			.changeEmail({
+				ctUser: this.props.ctUser,
+				emailAddress: this.props.emailAddress,
+				newEmailAddress: values.email,
+				password: values.password
+			})
+			.then(res => {
+				console.log(res)
+				this.onClose()
+			})
 	}
 
 	render() {
@@ -69,7 +80,7 @@ class ChangeEmail extends Component {
 							</button>
 							<h5 className="modal-heading text-left">Change email</h5>
 							<hr />
-							<form onSubmit={this.onSubmit}>
+							<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
 								<div className="row">
 									<div className="col-12">
 										<Field
@@ -158,6 +169,11 @@ const emailAddress = value => {
 }
 const password = value => (!value ? 'Please enter a valid password' : undefined)
 
-export default reduxForm({
-	form: 'ChangeEmailForm'
-})(ChangeEmail)
+export default connect(
+	({ accounts }) => ({ accounts }),
+	{ changeEmail }
+)(
+	reduxForm({
+		form: 'ChangeEmailForm'
+	})(ChangeEmail)
+)

@@ -1,12 +1,36 @@
 .home-section.security-section.container {
-	padding: 7.625rem 0.9375rem;
+	padding: 61px 15px 68px;
+	// padding: 122px 15px;
 	@include media-breakpoint-down(md) {
-		padding: 2.125rem 0.9375rem 2.3125rem;
+		padding: 56px 20px 56px;
 	}
 	.section-title {
-		margin-top: 0.75rem;
+		margin-top: 80px;
+		font-weight: 600;
+		line-height: normal;
+		font-size: 24px;
+		color: #1a1d1f;
+		margin-bottom: 12px;
+		@include media-breakpoint-down(md) {
+			margin-top: 0;
+			margin-bottom: 32px;
+		}
+	}
+	p {
+		line-height: 28px;
+		font-size: 16px;
+		margin-top: 0;
+		color: #515c61;
+		@include media-breakpoint-down(md) {
+			margin-top: 26px;
+			margin-bottom: 0;
+		}
 	}
 	img.security-lock {
-		width: 14.375rem;
+		width: 538px;
+		@include media-breakpoint-down(md) {
+			width: auto;
+			max-width: 100%;
+		}
 	}
 }

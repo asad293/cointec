@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { formValueSelector, Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import { fetchUserDetails, saveUserDetails } from '../../store/actions'
+import {
+	fetchUserDetails,
+	saveUserDetails,
+	lookupPostcode
+} from '../../store/actions'
 import cn from 'classnames'
 import _ from 'lodash'
 
@@ -9,28 +13,100 @@ class BasicDetails extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			manualAddress: false
+			manualAddress: false,
+			postcodeMenu: false,
+			errorMessage: null
 		}
 
 		this.onSubmit = this.onSubmit.bind(this)
 		this.toggleManual = this.toggleManual.bind(this)
+		this.lookupPostalcode = this.lookupPostalcode.bind(this)
+		this.onAddressChange = this.onAddressChange.bind(this)
 	}
 
 	componentWillMount() {
-		this.props.fetchUserDetails(this.props.ctUser)
+		this.props.fetchUserDetails(this.props.ctUser).then(() => {
+			const { accounts } = this.props
+			if (accounts && accounts.userDetails) {
+				this.props.change('firstName', accounts.userDetails.FirstName)
+				this.props.change('lastName', accounts.userDetails.LastName)
+				this.props.change('birthDate', accounts.userDetails.DateOfBirth)
+				this.props.change('postCode', accounts.userDetails.Postcode)
+				this.props.change('address1', accounts.userDetails.AddressLine1)
+				this.props.change('address2', accounts.userDetails.AddressLine2)
+				this.props.change('town', accounts.userDetails.Town)
+			}
+		})
+	}
+
+	componentDidMount() {
+		addEventListener('click', this.onClickOutside)
+	}
+
+	componentWillUnmount() {
+		removeEventListener('click', this.onClickOutside)
+	}
+
+	onClickOutside = event => {
+		const select = event.path.find(
+			node => node.className === 'lookup-dropdown-menu'
+		)
+		if (!select) {
+			this.setState({
+				postcodeMenu: false
+			})
+		}
 	}
 
 	onSubmit(values) {
-		// event.preventDefault()
-		// console.log(values)
-		// this.props.saveUserDetails(this.props.ctUser, values)
-		this.props.onConfirm()
+		this.props
+			.saveUserDetails(this.props.ctUser, this.props.emailAddress, values)
+			.then(res => {
+				if (res && res.data && res.data.Success) this.props.onConfirm()
+			})
+			.catch(err => {
+				if (err && err.response.data) {
+					this.setState({
+						errorMessage: err.response.data.Message
+					})
+					setTimeout(() => {
+						this.setState({
+							errorMessage: null
+						})
+					}, 3000)
+				}
+			})
 	}
 
 	toggleManual() {
 		this.setState({
 			manualAddress: true
 		})
+	}
+
+	lookupPostalcode() {
+		if (!this.state.postcodeMenu) {
+			if (this.props.postCode)
+				this.props.lookupPostcode(this.props.postCode).then(r => {
+					this.setState({
+						postcodeMenu: true
+					})
+				})
+		} else {
+			this.setState({
+				postcodeMenu: false
+			})
+		}
+	}
+
+	onAddressChange(address) {
+		this.props.change('address1', address.line_1)
+		this.props.change(
+			'address2',
+			address.line_2 + (address.line_3 ? ', ' : '') + address.line_3
+		)
+		this.props.change('town', address.postal_county)
+		this.toggleManual()
 	}
 
 	render() {
@@ -52,7 +128,7 @@ class BasicDetails extends Component {
 						</div>
 						<div className="col-12 col-md-6">
 							<Field
-								name="lastLame"
+								name="lastName"
 								label="Last name"
 								component={this.renderField}
 							/>
@@ -65,7 +141,7 @@ class BasicDetails extends Component {
 								label="Date of bith"
 								// type="date"
 								component={this.renderField}
-								placeholder="01/01/1999"
+								placeholder="DD/MM/YYYY"
 								normalize={this.normalizeBirthDate}
 							/>
 						</div>
@@ -98,7 +174,31 @@ class BasicDetails extends Component {
 										/>
 									</div>
 									<div className="col-12 col-md-6">
-										<a className="btn-field">Lookup postal code</a>
+										<a className="btn-field" onClick={this.lookupPostalcode}>
+											Lookup postal code
+										</a>
+										{this.state.postcodeMenu && (
+											<div className="lookup-dropdown-menu dropdown-menu show">
+												{this.props.postcodes.result ? (
+													this.props.postcodes.result.map((address, index) => (
+														<div
+															className="dropdown-item"
+															key={index}
+															onClick={() => this.onAddressChange(address)}>
+															{`${address.line_1}${address.line_2 ? ', ' : ''}${
+																address.line_2
+															}${address.line_3 ? ', ' : ''}${
+																address.line_3
+															}, ${address.postal_county}, ${address.postcode}`}
+														</div>
+													))
+												) : (
+													<div className="dropdown-item no-highlight">
+														No result
+													</div>
+												)}
+											</div>
+										)}
 									</div>
 								</div>,
 								<div className="row d-none d-md-flex" key={1}>
@@ -145,6 +245,13 @@ class BasicDetails extends Component {
 									</div>
 								</div>
 						  ]}
+					{this.state.errorMessage && (
+						<div className="row">
+							<div className="col-12">
+								<p className="error-message">{this.state.errorMessage}</p>
+							</div>
+						</div>
+					)}
 					<div className="row mt-4">
 						<div className="col-md-12">
 							<button
@@ -210,12 +317,7 @@ class BasicDetails extends Component {
 		)}`
 	}
 
-	componentWillReceiveProps(props) {
-		if (props.accounts && props.accounts.userDetails) {
-			// this.props.change('firstName', props.accounts.userDetails.FirstName)
-			// this.props.change('lastLame', props.accounts.userDetails.LastName)
-		}
-	}
+	componentWillReceiveProps(props) {}
 }
 
 const mapStateToProps = state => {
@@ -229,6 +331,7 @@ const mapStateToProps = state => {
 	let postCode = selector(state, 'postCode')
 	return {
 		accounts: state.accounts,
+		postcodes: state.postcodes,
 		firstName,
 		lastName,
 		birthDate,
@@ -244,6 +347,6 @@ export default reduxForm({
 })(
 	connect(
 		mapStateToProps,
-		{ fetchUserDetails, saveUserDetails }
+		{ fetchUserDetails, saveUserDetails, lookupPostcode }
 	)(BasicDetails)
 )

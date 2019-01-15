@@ -7,15 +7,21 @@ import { SubmissionError } from 'redux-form'
 
 import Header from '../components/Header'
 import SignInForm from '../components/SignInForm'
+import NotificationAlert from '../components/dashboard/NotificationAlert'
 import StickyFooter from '../components/StickyFooter'
 
-import { signIn } from '../store/actions'
+import {
+	signIn,
+	showNotificationAlert,
+	hideNotificationAlert
+} from '../store/actions'
 
 class Login extends Component {
 	constructor() {
 		super()
 		this.state = {
-			maskPassword: false
+			maskPassword: false,
+			timeout: null
 		}
 		this.authComplete = this.authComplete.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -29,10 +35,25 @@ class Login extends Component {
 				this.authComplete()
 			})
 			.catch(error => {
-				throw new SubmissionError({
-					email: "Sorry, that email or password didn't work.",
-					password: 'Password'
-				})
+				if (error.response.status === 403) {
+					if (this.state.timeout) clearTimeout(this.state.timeout)
+					const timeout = setTimeout(() => {
+						this.props.hideNotificationAlert()
+					}, 5000)
+					const content = (
+						<p>
+							This account is frozen.{' '}
+							<b style={{ fontWeight: 600 }}>Contact us for more information</b>
+						</p>
+					)
+					this.props.showNotificationAlert({ content, type: 'danger' })
+					this.setState({ timeout })
+				} else {
+					throw new SubmissionError({
+						email: "Sorry, that email or password didn't work.",
+						password: 'Password'
+					})
+				}
 			})
 	}
 
@@ -56,6 +77,14 @@ class Login extends Component {
 				<Head>
 					<title>Login | Cointec</title>
 				</Head>
+
+				<NotificationAlert
+					type={this.props.globals.notificationType}
+					visible={this.props.globals.notificationAlert}
+					onHide={() => this.props.hideNotificationAlert()}>
+					{this.props.globals.notificationContent}
+				</NotificationAlert>
+
 				<Header background="gradient">
 					<div className="sg-logo text-center position-relative">
 						<Link href="/">
@@ -92,6 +121,6 @@ class Login extends Component {
 }
 
 export default connect(
-	({ auth }) => ({ auth }),
-	{ signIn }
+	({ auth, globals }) => ({ auth, globals }),
+	{ signIn, showNotificationAlert, hideNotificationAlert }
 )(Login)

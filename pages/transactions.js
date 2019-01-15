@@ -29,25 +29,10 @@ const STATUS_LIST = [
 class Transactions extends Component {
 	constructor(props) {
 		super(props)
-
-		const assetsImages = {}
-		props.assets.list.Receive.forEach(asset => {
-			assetsImages[asset.Name] = asset.Image
-		})
-		props.assets.list.Send.forEach(asset => {
-			assetsImages[asset.Name] = asset.Image
-		})
-
 		this.state = {
 			currentPage: 1,
-			totalPages: props.order.orders
-				? Math.ceil(
-						props.order.orders.TransactionHistory.length /
-							props.order.orders.TransactionsDisplayLimit
-				  )
-				: 0,
-			showAlert: true,
-			assetsImages,
+			totalPages: 0,
+			assetsImages: null,
 			sortOrder: 'timestamp',
 			sortDirection: 'desc',
 			transactionDetailModal: false,
@@ -57,14 +42,15 @@ class Transactions extends Component {
 	}
 
 	componentDidMount() {
-		// const userData = localStorage.getItem('user')
-		// const user = userData && JSON.parse(userData)
-		// const sessionId = Cookie.get('CT-SESSION-ID')
-		// if (user && user.CtUserId && sessionId) {
-		// 	this.props.fetchOrders({ ctUser: user.CtUserId })
-		// } else {
-		// 	Router.push(`/login?redirectPath=${this.props.router.pathname}`)
-		// }
+		const userData = localStorage.getItem('user')
+		const user = userData && JSON.parse(userData)
+		const sessionId = Cookie.get('CT-SESSION-ID')
+
+		if (user && user.CtUserId && sessionId) {
+			this.props.fetchOrders({ ctUser: user.CtUserId })
+		} else {
+			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
+		}
 		addEventListener('resize', this.onResize)
 		this.onResize()
 	}
