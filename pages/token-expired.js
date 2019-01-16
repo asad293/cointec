@@ -121,7 +121,10 @@ class TokenExpired extends Component {
 				<div className="content-wrapper">
 					<div className="alert-box">
 						<div className="alert-header">
-							<h6 className="heading text-left">{action} token expired</h6>
+							{action && (
+								<h6 className="heading text-left">{action} token expired</h6>
+							)}
+							{!action && <h6 className="heading text-left">Token expired</h6>}
 						</div>
 						<div className="alert-body">
 							<p className="message-text">

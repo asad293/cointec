@@ -51,7 +51,11 @@ class OnLoad extends Component {
 	}
 
 	tokenExpired(action) {
-		Router.push(`/token-expired/${action}`, `/token-expired?action=${action}`)
+		if (action) {
+			Router.push(`/token-expired/${action}`, `/token-expired?action=${action}`)
+		} else {
+			Router.push(`/token-expired`)
+		}
 	}
 
 	tokenValidated(action, method, data) {
