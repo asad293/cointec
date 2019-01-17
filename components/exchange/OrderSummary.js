@@ -42,7 +42,6 @@ class OrderSummary extends Component {
 			// 		SendAmount: this.props.initialSendAmount
 			// 	})
 			// }
-			this.fetchCalls()
 		} else {
 			clearInterval(this.state.timerId)
 			this.fetchCalls()
@@ -129,8 +128,8 @@ class OrderSummary extends Component {
 								<label className="field-label">You send</label>
 								<p className="field-value">{`${
 									sendAmount !== 0
-										? sendAmount.toFixed(8)
-										: initialSendAmount.toFixed(8)
+										? sendAmount.toFixed(sendCurrency === 'GBP' ? 2 : 8)
+										: initialSendAmount.toFixed(sendCurrency === 'GBP' ? 2 : 8)
 								} ${sendCurrency}`}</p>
 							</div>
 							<div className="col-12 text-left text-nowrap">
