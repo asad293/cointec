@@ -60,8 +60,18 @@
 				0px 1px 2px rgba(0, 0, 0, 0.24);
 			border-radius: 3px;
 			margin-bottom: 32px;
+			@include media-breakpoint-down(lg) {
+				height: 445px;
+			}
 			@include media-breakpoint-down(md) {
+				height: 482px;
 				margin-bottom: 20px;
+			}
+			@include media-breakpoint-down(sm) {
+				height: 547px;
+			}
+			@include media-breakpoint-down(xs) {
+				height: 505px;
 			}
 			.header {
 				text-align: center;
@@ -83,7 +93,7 @@
 					height: 310px;
 				}
 				@include media-breakpoint-down(xs) {
-					height: auto;
+					height: 272px;
 					img {
 						height: 100%;
 					}
