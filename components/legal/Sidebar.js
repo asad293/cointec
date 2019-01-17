@@ -9,10 +9,12 @@ const Sidebar = () => (
 				<NavLink href="/privacy-policy">Privacy policy</NavLink>
 			</li>
 			<li>
-				<NavLink href="/terms">Terms and conditions</NavLink>
+				<NavLink href="/terms">Terms of use</NavLink>
 			</li>
 			<li>
-				<NavLink href="/security">Security</NavLink>
+				<NavLink href="/security" as="/aml">
+					AML/KYC
+				</NavLink>
 			</li>
 		</ul>
 	</aside>

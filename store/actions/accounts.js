@@ -312,7 +312,7 @@ export const changeEmail = ({
 	dispatch({ type: REQUEST_CHANGE_EMAIL_START })
 
 	const data = {
-		// EmailAddress: emailAddress,
+		EmailAddress: emailAddress,
 		NewEmailAddress: newEmailAddress
 	}
 
@@ -443,7 +443,7 @@ export const exportData = ({ emailAddress, password }) => async dispatch => {
 	}
 	return (
 		axios
-			.post(`${ROOT_URL}/accounts/trigger?action=requestdata`, data, {
+			.post(`${ROOT_URL}/accounts/trigger?action=exportdata`, data, {
 				headers
 			})
 			// .post(`${ROOT_URL}/accounts/export-data`, data, { headers })
@@ -528,18 +528,40 @@ export const closeAccount = ({ emailAddress, password }) => async dispatch => {
 export const validateToken = ({ action, token }) => async dispatch => {
 	dispatch({ type: VALIDATE_TOKEN_START })
 
+    if (action === 'request-data' || action === 'export-data') {
+        return axios
+            .get(`${ROOT_URL}/accounts/${action}?token=${token}`)
+            .then(response => {
+                if (
+                    response.status === 200 &&
+                        (action === 'request-data' || action === 'export-data')
+                ) {
+                    const blob = new Blob([response.data], {
+                        type: 'text/plain;charset=utf-8'
+                    })
+
+                    const contentDisposition = response.headers['Content-Disposition'];
+                    let fileName = 'user-data';
+                    if (contentDisposition) {
+                        const fileNameMatch = contentDisposition.match(/filename="(.+)"/);
+                        if (fileNameMatch.length === 2)
+                            fileName = fileNameMatch[1];
+                    }
+
+                    FileSaver.saveAs(blob, fileName)
+                }
+                dispatch({
+                    type: VALIDATE_TOKEN,
+                    payload: response.data
+                })
+                return response
+            })
+
+    }
+
 	return axios
-		.get(`${ROOT_URL}/accounts/${action}?token=${token}`)
-		.then(response => {
-			if (
-				response.status === 200 &&
-				(action === 'request-data' || action === 'export-data')
-			) {
-				const blob = new Blob([response.data], {
-					type: 'text/plain;charset=utf-8'
-				})
-				FileSaver.saveAs(blob, `${token}.csv`)
-			}
+        .get(`${ROOT_URL}/accounts/validate?action=${action.toLowerCase().replace(/-/g, '')}&token=${token}`)
+		.then(response => {{}
 			dispatch({
 				type: VALIDATE_TOKEN,
 				payload: response.data

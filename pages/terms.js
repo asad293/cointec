@@ -13,7 +13,7 @@ class Terms extends Component {
 				<Head>
 					<title>Terms & Conditions | Cointec</title>
 				</Head>
-				<Header background="gradient">
+				<Header background="gradient" deco={false}>
 					<Nav />
 					<hr className="hr-header m-0" />
 					<div className="container">
@@ -33,6 +33,7 @@ class Terms extends Component {
 					<div className="row">
 						<div className="col-12 col-lg-8">
 							<div className="privacy-policy-wrapper">
+								<h5 className="page-heading">Terms and conditions</h5>
 								<h5 className="last-updated">Last updated: 13 Aug 2018</h5>
 								<p>
 									By using our website(s) or other services in any capacity you
@@ -223,6 +224,12 @@ class Terms extends Component {
 				</section>
 
 				<Footer />
+				
+				<style jsx global>{`
+					html body {
+						background-color: #f7f9fa;
+					}
+				`}</style>
 			</div>
 		)
 	}

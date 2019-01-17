@@ -72,6 +72,10 @@ app
 			app.render(req, res, `/no-access`, { type: 'closed' })
 		})
 
+		server.get('/aml', (req, res) => {
+			app.render(req, res, `/security`)
+		})
+
 		server.get('*', handle)
 
 		const appServer = secure ? createSecureServer(server) : server

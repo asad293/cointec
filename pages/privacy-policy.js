@@ -11,7 +11,7 @@ const PrivacyPolicy = () => (
 		<Head>
 			<title>Privacy Policy | Cointec</title>
 		</Head>
-		<Header background="gradient">
+		<Header background="gradient" deco={false}>
 			<Nav />
 			<hr className="hr-header" />
 			<div className="container">
@@ -31,7 +31,9 @@ const PrivacyPolicy = () => (
 			<div className="row">
 				<div className="col-12 col-lg-8">
 					<div className="privacy-policy-wrapper">
-						<h5 className="last-updated">Last updated: 13 Aug 2018</h5>
+						<h5 className="page-heading">Privacy Policy</h5>
+						<h5 className="last-updated">Last updated: 12 Jan 2018</h5>
+						{/* <h5 className="last-updated">Last updated: 13 Aug 2018</h5> */}
 						<p>
 							By using our website(s) or other services in any capacity you
 							agree to the terms below, outlining the handling of personal
@@ -211,7 +213,13 @@ const PrivacyPolicy = () => (
 			</div>
 		</section>
 
-		<Footer />
+		<Footer backgroundColor="#fff" />
+
+		<style jsx global>{`
+			html body {
+				background-color: #f7f9fa;
+			}
+		`}</style>
 	</div>
 )
 

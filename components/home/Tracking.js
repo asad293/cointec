@@ -2,55 +2,60 @@ import React from 'react'
 import Link from 'next/link'
 
 const Tracking = () => (
-	<div className="bg-gradient bg-mid-gradient">
-		<div className="home-section tracking-section container px-4">
-			<div className="row flex-column-reverse flex-md-row">
-				<div className="col-12 col-md-6 pr-md-0 pr-lg-5 mt-4 mt-md-0">
-					<div className="card-tracking sent d-flex justify-content-between px-4">
-						<div>
-							<i className="far fa-check fa-lg mr-3" /> Digital currency sent
-						</div>
-						<span>17:05PM</span>
+	// <div className="bg-gradient bg-mid-gradient">
+	<div className="home-section tracking-section container px-4">
+		<div className="row flex-column-reverse flex-lg-row">
+			<div className="col-12 col-lg-6 pr-lg-0 pr-lg-5 mt-4 mt-lg-0">
+				<div className="card-tracking pro d-flex justify-content-between px-4 mx-auto mx-lg-0">
+					<div>
+						<i className="far fa-check fa-lg mr-3" /> You sent payment
 					</div>
-					<div className="card-tracking mt-4 pro d-flex justify-content-between px-4">
-						<div>
-							<i className="far fa-check fa-lg mr-3" /> We received payment
-						</div>
-						<span>17:02PM</span>
-					</div>
-					<div className="card-tracking mt-4 pro d-flex justify-content-between px-4">
-						<div>
-							<i className="far fa-check fa-lg mr-3" /> You sent payment
-						</div>
-						<span>17:00PM</span>
-					</div>
-					<div className="text-center mt-4 mt-md-0">
-						<Link href="/">
-							<a className="d-md-none">Learn about blockchain</a>
-						</Link>
-					</div>
+					<span className="time">17:00PM</span>
 				</div>
-				<div className="col-12 col-md-6 px-4 px-md-5 text-center text-md-left">
-					<h4 className="section-title mt-2 d-none d-md-block">
-						Receive your digital currencies in minutes, track every step.
-					</h4>
-					<h4 className="section-title d-md-none">
-						Receive your coins in minutes.
-					</h4>
-
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-						eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-						ad minim veniam, quis nostrud exercitation ullamco laboris.
-					</p>
-
+				<div className="card-tracking pro d-flex justify-content-between px-4 mx-auto mx-lg-0">
+					<div>
+						<i className="far fa-check fa-lg mr-3" /> We received payment
+					</div>
+					<span className="time">17:02PM</span>
+				</div>
+				<div className="card-tracking sent d-flex justify-content-between px-4 mx-auto mx-lg-0">
+					<div>
+						<i className="far fa-check fa-lg mr-3" /> Coins sent
+					</div>
+					<span className="time">17:05PM</span>
+				</div>
+				<p className="d-lg-none text-center">
+					We understand long winded it can be to buy some of the trending
+					altcoins. That’s why we’ve created this platform to let you directly
+					exchange. Add some more text here.
+				</p>
+				<div className="text-center">
 					<Link href="/">
-						<a className="d-none d-md-inline">Learn about blockchain</a>
+						<a className="d-lg-none">Make your first transaction</a>
 					</Link>
 				</div>
 			</div>
+			<div className="col-12 col-lg-6 px-4 px-lg-5 text-center text-lg-left">
+				<h4 className="section-title d-none d-lg-block">
+					Receive your digital currencies in minutes, track every step.
+				</h4>
+				<h4 className="section-title d-lg-none">Live transaction tracking</h4>
+
+				<p className="d-none d-lg-block">
+					We understand long winded it can be to buy some of the trending
+					altcoins. That’s why we’ve created this platform to let you directly
+					exchange. Add some more text here.
+				</p>
+
+				<Link href="/">
+					<a className="d-none d-lg-inline-block">
+						Make your first transaction
+					</a>
+				</Link>
+			</div>
 		</div>
 	</div>
+	// </div>
 )
 
 export default Tracking
