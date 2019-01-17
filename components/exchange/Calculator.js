@@ -159,7 +159,8 @@ class Calculator extends Component {
 
 	initInterval(interval) {
 		clearInterval(this.state.intervalId)
-		let intervalId = setInterval(this.fetchCalls, interval * 100 * 1000)
+		let intervalId = setTimeout(this.fetchCalls, interval * 1000)
+		// let intervalId = setInterval(this.fetchCalls, interval * 1000)
 		// store intervalId in the state so it can be accessed later to clear it
 		this.setState({ intervalId })
 	}
@@ -232,13 +233,9 @@ class Calculator extends Component {
 
 	fetchCalls() {
 		if (!this.state.active) return
-		console.log(this.state.intervalId)
 		this.props.fetchAssetsStatus()
-		// this.props.fetchConsts()
-		// if (this.state.fetchQuote) this.state.fetchQuote.cancel()
-		// const fetchQuote =
+		this.props.fetchConsts()
 		this.getQuote()
-		// this.setState({ fetchQuote })
 	}
 
 	componentWillReceiveProps(props) {
@@ -258,12 +255,12 @@ class Calculator extends Component {
 		}
 
 		if (receiveAmount && action === 'receiving' && currencySelected) {
-			const { dp } = currencySelected
+			const { Dp } = currencySelected
 			if (receiveAmount === QuoteReceiveAmount)
 				this.props.change(
 					'sendAmount',
 					`${Number.parseFloat(QuoteSendAmount).toFixed(
-						QuoteSendAmount == 0 ? 0 : dp
+						QuoteSendAmount == 0 ? 0 : Dp
 					)}`
 				)
 		}
@@ -321,7 +318,8 @@ class Calculator extends Component {
 	updateLimit({ constants }) {
 		if (constants) {
 			let interval = constants.Frame1Refresh
-			if (this.state.interval != interval && this.state.active) {
+			// this.state.interval !== interval &&
+			if (this.state.active) {
 				this.initInterval(interval)
 				this.setState({ interval })
 			}

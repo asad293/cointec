@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import AccountsReducer from './accounts'
 import AssetsReducer from './assets'
 import AuthReducer from './auth'
+import BlogsReducer from './blogs'
 import ChartReducer from './chart'
 import ContstantsReducer from './constants'
 import DocumentsReducer from './documents'
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
 	accounts: AccountsReducer,
 	assets: AssetsReducer,
 	auth: AuthReducer,
+	blogs: BlogsReducer,
 	chart: ChartReducer,
 	constants: ContstantsReducer,
 	documents: DocumentsReducer,

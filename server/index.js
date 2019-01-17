@@ -1,6 +1,7 @@
 const express = require('express')
 const next = require('next')
 const createSecureServer = require('./createSecureServer')
+const api = require('./api')
 
 const dev = process.env.NODE_ENV !== 'production'
 const port = process.env.PORT || 3000
@@ -12,6 +13,8 @@ app
 	.prepare()
 	.then(() => {
 		const server = express()
+
+		server.use(api)
 
 		server.get('/buy-*', (req, res) => {
 			const query = {
@@ -74,6 +77,10 @@ app
 
 		server.get('/aml', (req, res) => {
 			app.render(req, res, `/security`)
+		})
+
+		server.get('/blogs', (req, res) => {
+			app.render(req, res, `/blog`)
 		})
 
 		server.get('*', handle)

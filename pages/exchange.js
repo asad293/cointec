@@ -75,6 +75,7 @@ class Exchange extends Component {
 	}
 
 	next(state) {
+		console.log('next', state)
 		this.setState(
 			{
 				...state,

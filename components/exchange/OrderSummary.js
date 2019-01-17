@@ -35,13 +35,13 @@ class OrderSummary extends Component {
 	tick() {
 		if (this.state.timer < this.state.refreshTime) {
 			this.setState({ timer: this.state.timer + 1 })
-			if (this.props.sendAmount === 0) {
-				this.props.fetchQuote({
-					SendCurrency: this.props.sendCurrency,
-					ReceiveCurrency: this.props.receiveCurrency,
-					SendAmount: this.props.initialSendAmount
-				})
-			}
+			// if (this.props.sendAmount === 0) {
+			// 	this.props.fetchQuote({
+			// 		SendCurrency: this.props.sendCurrency,
+			// 		ReceiveCurrency: this.props.receiveCurrency,
+			// 		SendAmount: this.props.initialSendAmount
+			// 	})
+			// }
 		} else {
 			clearInterval(this.state.timerId)
 			this.fetchCalls()
@@ -64,11 +64,19 @@ class OrderSummary extends Component {
 	}
 
 	fetchCalls() {
-		this.props.fetchQuote({
-			SendCurrency: this.props.sendCurrency,
-			ReceiveCurrency: this.props.receiveCurrency,
-			ReceiveAmount: this.props.receiveAmount
-		})
+		if (this.props.action === 'sending') {
+			this.props.fetchQuote({
+				SendCurrency: this.props.sendCurrency,
+				ReceiveCurrency: this.props.receiveCurrency,
+				SendAmount: this.props.sendAmount
+			})
+		} else {
+			this.props.fetchQuote({
+				SendCurrency: this.props.sendCurrency,
+				ReceiveCurrency: this.props.receiveCurrency,
+				ReceiveAmount: this.props.receiveAmount
+			})
+		}
 		this.props.fetchConsts()
 	}
 
@@ -120,8 +128,8 @@ class OrderSummary extends Component {
 								<label className="field-label">You send</label>
 								<p className="field-value">{`${
 									sendAmount !== 0
-										? sendAmount.toFixed(8)
-										: initialSendAmount.toFixed(8)
+										? sendAmount.toFixed(sendCurrency === 'GBP' ? 2 : 8)
+										: initialSendAmount.toFixed(sendCurrency === 'GBP' ? 2 : 8)
 								} ${sendCurrency}`}</p>
 							</div>
 							<div className="col-12 text-left text-nowrap">
