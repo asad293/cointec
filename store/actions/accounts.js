@@ -528,41 +528,49 @@ export const closeAccount = ({ emailAddress, password }) => async dispatch => {
 export const validateToken = ({ action, token }) => async dispatch => {
 	dispatch({ type: VALIDATE_TOKEN_START })
 
-    if (action === 'request-data' || action === 'export-data') {
-        return axios
-            .get(`${ROOT_URL}/accounts/${action}?token=${token}`)
-            .then(response => {
-                if (
-                    response.status === 200 &&
-                        (action === 'request-data' || action === 'export-data')
-                ) {
-                    const blob = new Blob([response.data], {
-                        type: 'text/plain;charset=utf-8'
-                    })
+	if (action === 'request-data' || action === 'export-data') {
+		return axios
+			.get(`${ROOT_URL}/accounts/${action}?token=${token}`)
+			.then(response => {
+				if (
+					response.status === 200 &&
+					(action === 'request-data' || action === 'export-data')
+				) {
+					const blob = new Blob([response.data], {
+						type: 'text/plain;charset=utf-8'
+					})
 
-                    const contentDisposition = response.headers['content-disposition'];
-                    // const contentDisposition = response.headers['Content-Disposition'];
-                    let fileName = 'user-data';
-                    if (contentDisposition) {
-                        const fileNameMatch = contentDisposition.match(/filename="(.+)"/);
-                        if (fileNameMatch.length === 2)
-                            fileName = fileNameMatch[1];
-                    }
+					const contentDisposition = response.headers['content-disposition']
+					// const contentDisposition = response.headers['Content-Disposition'];
+					let fileName = 'user-data'
+					if (contentDisposition) {
+						const fileNameMatch = contentDisposition.match(
+							/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/
+						)
+						// const fileNameMatch = contentDisposition.match(/filename="(.+)"/)
+						// if (fileNameMatch.length === 2) fileName = fileNameMatch[1]
+						if (fileNameMatch.length >= 2) fileName = fileNameMatch[1]
+					}
 
-                    FileSaver.saveAs(blob, fileName)
-                }
-                dispatch({
-                    type: VALIDATE_TOKEN,
-                    payload: response.data
-                })
-                return response
-            })
-
-    }
+					FileSaver.saveAs(blob, fileName)
+				}
+				dispatch({
+					type: VALIDATE_TOKEN,
+					payload: response.data
+				})
+				return response
+			})
+	}
 
 	return axios
-        .get(`${ROOT_URL}/accounts/validate?action=${action.toLowerCase().replace(/-/g, '')}&token=${token}`)
-		.then(response => {{}
+		.get(
+			`${ROOT_URL}/accounts/validate?action=${action
+				.toLowerCase()
+				.replace(/-/g, '')}&token=${token}`
+		)
+		.then(response => {
+			{
+			}
 			dispatch({
 				type: VALIDATE_TOKEN,
 				payload: response.data
