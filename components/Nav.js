@@ -1,29 +1,22 @@
 import React, { Component } from 'react'
 import Link from 'next/link'
-import Cookie from 'js-cookie'
+import { connect } from 'react-redux'
+import { validateSession, signOutSession } from '../store/actions'
 
 class Nav extends Component {
 	constructor() {
 		super()
 		this.state = {}
+
 		this.signOut = this.signOut.bind(this)
 	}
 
 	componentDidMount() {
-		const userData = localStorage.getItem('user')
-		const user = userData && JSON.parse(userData)
-		const sessionId = Cookie.get('CT-SESSION-ID')
-		if (user && user.CtUserId && sessionId) {
-			this.setState({ ctUser: user.CtUserId, email: user.email })
-		}
+		this.props.validateSession()
 	}
 
 	signOut() {
-		localStorage.removeItem('user')
-		this.setState({
-			ctUser: null,
-			email: null
-		})
+		this.props.signOutSession()
 	}
 
 	render() {
@@ -74,14 +67,14 @@ class Nav extends Component {
 									</a>
 								</Link>
 							</li>
-							{!this.state.ctUser && (
+							{!this.props.auth.ctUser && (
 								<li className="nav-item">
 									<Link href="/login" prefetch>
 										<a className="nav-link">Log in</a>
 									</Link>
 								</li>
 							)}
-							{this.state.ctUser && (
+							{this.props.auth.ctUser && (
 								<li className="nav-item">
 									<a
 										className="nav-link"
@@ -91,7 +84,7 @@ class Nav extends Component {
 									</a>
 								</li>
 							)}
-							{!this.state.ctUser && (
+							{!this.props.auth.ctUser && (
 								<li className="nav-item">
 									<Link href="/signup" prefetch>
 										<a className="nav-link btn btn-outline-success sign-up-btn">
@@ -100,7 +93,7 @@ class Nav extends Component {
 									</Link>
 								</li>
 							)}
-							{this.state.ctUser && (
+							{this.props.auth.ctUser && (
 								<li className="nav-item">
 									<Link href="/dashboard" prefetch>
 										<a className="nav-link btn btn-outline-success sign-up-btn">
@@ -117,4 +110,7 @@ class Nav extends Component {
 	}
 }
 
-export default Nav
+export default connect(
+	({ auth }) => ({ auth }),
+	{ validateSession, signOutSession }
+)(Nav)

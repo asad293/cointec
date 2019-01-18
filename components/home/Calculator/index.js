@@ -376,6 +376,7 @@ class Calculator extends Component {
 		return (
 			<button
 				type="submit"
+				style={{ cursor: 'pointer' }}
 				className={cn(
 					'btn-block btn-lg btn-exchange text-white no-border btn-success',
 					!available ? 'unavailable' : null
@@ -383,9 +384,7 @@ class Calculator extends Component {
 				onClick={e => {
 					e.preventDefault()
 					if (available) {
-						if (this.props.router.pathname === '/dashboard')
-							Router.push('/exchange')
-						else Router.push('/login')
+						Router.push('/exchange')
 					}
 				}}>
 				{available ? 'Instant Exchange' : 'Currently unavailable'}

@@ -11,7 +11,8 @@ import {
 	getStatus,
 	createOrder,
 	clearOrder,
-	showTransactionAlert
+	showTransactionAlert,
+	signOutSession
 } from '../../store/actions'
 
 class BankTransfer extends Component {
@@ -467,7 +468,12 @@ class BankTransfer extends Component {
 				}
 			}
 
-			if (!accounts.list && !accounts.loading) this.props.fetchAccounts(ctUser)
+			if (!accounts.list && !accounts.loading)
+				this.props.fetchAccounts(ctUser).catch(err => {
+					if (err.response.status === 401) {
+						this.props.signOutSession()
+					}
+				})
 
 			// if (accounts.list && !accounts.loading && !accounts.list.length)
 			// 	$('#add-bank-account-modal').modal('toggle')
@@ -526,7 +532,8 @@ export default reduxForm({ form: 'ExchangeForm' })(
 			getStatus,
 			createOrder,
 			clearOrder,
-			showTransactionAlert
+			showTransactionAlert,
+			signOutSession
 		}
 	)(BankTransfer)
 )

@@ -102,7 +102,7 @@ class Home extends Component {
 	}
 }
 
-const mapStateToProps = ({ assets }) => ({ assets })
+const mapStateToProps = ({ auth, assets }) => ({ auth, assets })
 const mapDispatchToProps = { fetchAssetsList }
 const withRedux = connect(
 	mapStateToProps,

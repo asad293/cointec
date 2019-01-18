@@ -1,6 +1,7 @@
 import axios from 'axios'
-import Cookie from 'js-cookie'
 import { ROOT_URL } from '..'
+import { validateSession, signOutSession } from './auth'
+
 export const CREATE_ORDER = 'CREATE_ORDER'
 export const CREATE_ORDER_START = 'CREATE_ORDER_START'
 export const CREATE_ORDER_END = 'CREATE_ORDER_END'
@@ -50,10 +51,8 @@ export function createOrder({
 		exchangeRate
 	}
 	// console.log('createOrder', info)
-	const headers = {
-		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-		'CT-ACCOUNT-ID': ctUser
-	}
+	const session = dispatch(validateSession())
+	const headers = { ...session }
 	return dispatch => {
 		dispatch({
 			type: CREATE_ORDER_START,
@@ -73,6 +72,9 @@ export function createOrder({
 					type: CREATE_ORDER_END,
 					payload: error
 				})
+				if (error && error.response && error.response.status === 401) {
+					dispatch(signOutSession())
+				}
 				throw error
 			})
 	}
@@ -85,10 +87,9 @@ export function clearOrder({ orderId, accountId, ctUser }) {
 			type: CLEAR_ORDER_START,
 			payload: null
 		})
-		const headers = {
-			'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-			'CT-ACCOUNT-ID': ctUser
-		}
+
+		const session = dispatch(validateSession())
+		const headers = { ...session }
 		return axios
 			.get(`${ROOT_URL}/orders/clearing/${orderId}/${accountId}`, { headers })
 			.then(response => {
@@ -103,6 +104,9 @@ export function clearOrder({ orderId, accountId, ctUser }) {
 					type: CLEAR_ORDER_END,
 					payload: error
 				})
+				if (error && error.response && error.response.status === 401) {
+					dispatch(signOutSession())
+				}
 				throw error
 			})
 	}
@@ -116,10 +120,8 @@ export function abandonOrder({ orderId, ctUser, reason }) {
 			payload: null
 		})
 
-		const headers = {
-			'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-			'CT-ACCOUNT-ID': ctUser
-		}
+		const session = dispatch(validateSession())
+		const headers = { ...session }
 		const data = {
 			AbandonReason: reason
 		}
@@ -136,6 +138,9 @@ export function abandonOrder({ orderId, ctUser, reason }) {
 					type: ABANDON_ORDER_END,
 					payload: error
 				})
+				if (error && error.response && error.response.status === 401) {
+					dispatch(signOutSession())
+				}
 				throw error
 			})
 	}
@@ -148,10 +153,8 @@ export function refundPayment({ orderId, ctUser, dest }) {
 			payload: null
 		})
 
-		const headers = {
-			'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-			'CT-ACCOUNT-ID': ctUser
-		}
+		const session = dispatch(validateSession())
+		const headers = { ...session }
 		const data = {
 			RefundDestination: dest
 		}
@@ -168,21 +171,23 @@ export function refundPayment({ orderId, ctUser, dest }) {
 					type: REFUND_PAYMENT_END,
 					payload: error
 				})
+				if (error && error.response && error.response.status === 401) {
+					dispatch(signOutSession())
+				}
 			})
 	}
 }
 
-export function fetchOrders({ ctUser }) {
+export function fetchOrders() {
 	return dispatch => {
 		dispatch({
 			type: FETCH_ORDERS_START,
 			payload: null
 		})
-		const headers = {
-			'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-			'CT-ACCOUNT-ID': ctUser
-		}
-		axios
+
+		const session = dispatch(validateSession())
+		const headers = { ...session }
+		return axios
 			.get(`${ROOT_URL}/orders`, { headers })
 			.then(response => {
 				dispatch({
@@ -200,7 +205,7 @@ export function fetchOrders({ ctUser }) {
 	}
 }
 
-export function getStatus({ orderId, ctUser }) {
+export function getStatus({ orderId }) {
 	console.log('status order: ', orderId)
 	return dispatch => {
 		dispatch({
@@ -208,24 +213,14 @@ export function getStatus({ orderId, ctUser }) {
 			payload: null
 		})
 
-		const headers = {
-			'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-			'CT-ACCOUNT-ID': ctUser
-		}
+		const session = dispatch(validateSession())
+		const headers = { ...session }
 		return axios
 			.get(`${ROOT_URL}/orders/status/${orderId}`, { headers })
 			.then(response => {
 				dispatch({
 					type: STATUS_ORDER,
 					payload: response.data
-					// payload: {
-					// 	Status: {
-					// 		CREATED: 1533471818,
-					// 		PAYMENT: 1533471819
-					// 		// CLEARING: 1533471838
-					// 		// SETTLED: 1533471839
-					// 	}
-					// }
 				})
 				return response
 			})
@@ -234,6 +229,9 @@ export function getStatus({ orderId, ctUser }) {
 					type: STATUS_ORDER_END,
 					payload: error
 				})
+				if (error && error.response && error.response.status === 401) {
+					dispatch(signOutSession())
+				}
 				throw error
 			})
 	}

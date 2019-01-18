@@ -840,5 +840,5 @@ export default reduxForm({
 
 Calculator.propTypes = {
 	onConfirm: PropTypes.func,
-	ctUser: PropTypes.number
+	ctUser: PropTypes.any
 }

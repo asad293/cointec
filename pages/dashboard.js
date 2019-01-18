@@ -5,9 +5,10 @@ import { connect } from 'react-redux'
 import {
 	fetchOrders,
 	fetchAssetsList,
-	toggleVerificationAlert
+	toggleVerificationAlert,
+	validateSession,
+	signOutSession
 } from '../store/actions'
-import Cookie from 'js-cookie'
 import Moment from 'react-moment'
 import cn from 'classnames'
 
@@ -32,17 +33,17 @@ class Dashboard extends Component {
 	}
 
 	componentDidMount() {
-		// if (!dev) {
-		const userData = localStorage.getItem('user')
-		const user = userData && JSON.parse(userData)
-		const sessionId = Cookie.get('CT-SESSION-ID')
-
-		if (user && user.CtUserId && sessionId) {
-			this.props.fetchOrders({ ctUser: user.CtUserId })
+		const session = this.props.validateSession()
+		if (session) {
+			this.props.fetchOrders().catch(err => {
+				if (err.response.status === 401) {
+					this.props.signOutSession()
+				}
+			})
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
-		// }
+
 		addEventListener('resize', this.onResize)
 		this.onResize()
 	}
@@ -227,5 +228,11 @@ const TransactionTable = ({ orders, assets, onSelect }) => (
 
 export default connect(
 	({ order, assets, globals }) => ({ order, assets, globals }),
-	{ fetchOrders, fetchAssetsList, toggleVerificationAlert }
+	{
+		fetchOrders,
+		fetchAssetsList,
+		toggleVerificationAlert,
+		validateSession,
+		signOutSession
+	}
 )(withRouter(Dashboard))

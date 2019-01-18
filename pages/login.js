@@ -13,7 +13,8 @@ import StickyFooter from '../components/StickyFooter'
 import {
 	signIn,
 	showNotificationAlert,
-	hideNotificationAlert
+	hideNotificationAlert,
+	validateSession
 } from '../store/actions'
 
 class Login extends Component {
@@ -26,6 +27,13 @@ class Login extends Component {
 		this.authComplete = this.authComplete.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.toggleMask = this.toggleMask.bind(this)
+	}
+
+	componentDidMount() {
+		const session = this.props.validateSession()
+		if (session) {
+			Router.push('/dashboard')
+		}
 	}
 
 	handleSubmit(values) {
@@ -70,9 +78,9 @@ class Login extends Component {
 	}
 
 	render() {
-		const { loading } = this.props.auth
+		const { loading, ctUser } = this.props.auth
 
-		return (
+		return !ctUser ? (
 			<div className="signin-page">
 				<Head>
 					<title>Login | Cointec</title>
@@ -116,11 +124,11 @@ class Login extends Component {
 
 				<StickyFooter className="d-none d-lg-block" />
 			</div>
-		)
+		) : null
 	}
 }
 
 export default connect(
 	({ auth, globals }) => ({ auth, globals }),
-	{ signIn, showNotificationAlert, hideNotificationAlert }
+	{ signIn, showNotificationAlert, hideNotificationAlert, validateSession }
 )(Login)

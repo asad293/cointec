@@ -5,7 +5,8 @@ import {
 	addAccount,
 	updateAccount,
 	deleteAccount,
-	fetchAccounts
+	fetchAccounts,
+	signOutSession
 } from '../../store/actions'
 import cn from 'classnames'
 
@@ -74,10 +75,20 @@ class AddBankAccount extends Component {
 					this.props.fetchAccounts(this.props.ctUser)
 					this.onClose()
 				})
+				.catch(err => {
+					if (err.response.status === 401) {
+						this.props.signOutSession()
+					}
+				})
 		} else {
 			this.props
 				.addAccount(this.props.ctUser, values)
 				.then(() => this.onClose())
+				.catch(err => {
+					if (err.response.status === 401) {
+						this.props.signOutSession()
+					}
+				})
 		}
 	}
 
@@ -85,6 +96,11 @@ class AddBankAccount extends Component {
 		this.props
 			.deleteAccount(this.props.ctUser, this.props.editAccount.id)
 			.then(() => this.onClose())
+			.catch(err => {
+				if (err.response.status === 401) {
+					this.props.signOutSession()
+				}
+			})
 	}
 
 	render() {
@@ -300,7 +316,7 @@ const validate = (values, props) => {
 
 export default connect(
 	({ accounts }) => ({ accounts }),
-	{ addAccount, updateAccount, deleteAccount, fetchAccounts }
+	{ addAccount, updateAccount, deleteAccount, fetchAccounts, signOutSession }
 )(
 	reduxForm({
 		form: 'AddBankAccountForm',

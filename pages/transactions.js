@@ -5,9 +5,9 @@ import { connect } from 'react-redux'
 import {
 	fetchOrders,
 	fetchAssetsList,
-	toggleVerificationAlert
+	toggleVerificationAlert,
+	validateSession
 } from '../store/actions'
-import Cookie from 'js-cookie'
 import Moment from 'react-moment'
 import cn from 'classnames'
 import _ from 'lodash'
@@ -42,15 +42,18 @@ class Transactions extends Component {
 	}
 
 	componentDidMount() {
-		const userData = localStorage.getItem('user')
-		const user = userData && JSON.parse(userData)
-		const sessionId = Cookie.get('CT-SESSION-ID')
-
-		if (user && user.CtUserId && sessionId) {
-			this.props.fetchOrders({ ctUser: user.CtUserId })
+		const session = this.props.validateSession()
+		if (session) {
+			this.props.fetchOrders().catch(err => {
+				if (err.response.status === 401) {
+					this.props.signOutSession()
+					Router.push('/')
+				}
+			})
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
+
 		addEventListener('resize', this.onResize)
 		this.onResize()
 	}
@@ -385,6 +388,6 @@ const TransactionTable = ({
 }
 
 export default connect(
-	({ order, assets, globals }) => ({ order, assets, globals }),
-	{ fetchOrders, fetchAssetsList, toggleVerificationAlert }
+	({ auth, order, assets, globals }) => ({ auth, order, assets, globals }),
+	{ fetchOrders, fetchAssetsList, toggleVerificationAlert, validateSession }
 )(withRouter(Transactions))

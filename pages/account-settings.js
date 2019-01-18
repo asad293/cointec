@@ -3,9 +3,10 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
-import Cookie from 'js-cookie'
 
 import {
+	validateSession,
+	signOutSession,
 	fetchVerificationStatus,
 	fetchUserDetails,
 	toggleVerificationAlert,
@@ -41,13 +42,11 @@ class AccountSettings extends Component {
 	}
 
 	componentDidMount() {
-		const userData = localStorage.getItem('user')
-		const user = userData && JSON.parse(userData)
-		const sessionId = Cookie.get('CT-SESSION-ID')
-		if (user && user.email && sessionId) {
-			this.setState({ ctUser: user.CtUserId, email: user.email })
-			this.props.fetchVerificationStatus({ ctUser: user.CtUserId })
-			this.props.fetchUserDetails(user.CtUserId)
+		const session = this.props.validateSession()
+		if (session) {
+			const ctUser = session['CT-ACCOUNT-ID']
+			this.props.fetchVerificationStatus({ ctUser })
+			this.props.fetchUserDetails(ctUser)
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
@@ -80,7 +79,6 @@ class AccountSettings extends Component {
 				<b>
 					{(this.props.accounts.userDetails &&
 						this.props.accounts.userDetails.EmailAddress) ||
-						this.state.email ||
 						''}
 				</b>
 			</p>
@@ -104,7 +102,6 @@ class AccountSettings extends Component {
 				<b>
 					{(this.props.accounts.userDetails &&
 						this.props.accounts.userDetails.EmailAddress) ||
-						this.state.email ||
 						''}
 				</b>
 			</p>
@@ -130,7 +127,7 @@ class AccountSettings extends Component {
 	}
 
 	render() {
-		return this.state.ctUser ? (
+		return this.props.auth.ctUser ? (
 			<div
 				className="settings-page dashboard-page full-height"
 				style={{ background: '#F7F9FA', overflowY: 'auto' }}>
@@ -242,7 +239,6 @@ class AccountSettings extends Component {
 												<p className="mb-4 mb-md-0">
 													{(this.props.accounts.userDetails &&
 														this.props.accounts.userDetails.EmailAddress) ||
-														this.state.email ||
 														'email@cointec.co.uk'}
 													{' |'}
 													<a
@@ -316,12 +312,10 @@ class AccountSettings extends Component {
 				{this.state.confirmEmailModal && (
 					<ConfirmEmail
 						emailAddress={
-							(this.props.accounts.userDetails &&
-								this.props.accounts.userDetails.EmailAddress) ||
-							this.state.email ||
-							'email@cointec.co.uk'
+							this.props.accounts.userDetails &&
+							this.props.accounts.userDetails.EmailAddress
 						}
-						ctUser={this.state.ctUser}
+						ctUser={this.props.auth.ctUser}
 						onClose={() => this.setState({ confirmEmailModal: false })}
 						onEmailSent={this.onConfirmationEmailSent}
 					/>
@@ -329,18 +323,16 @@ class AccountSettings extends Component {
 				{this.state.changeEmailModal && (
 					<ChangeEmail
 						emailAddress={
-							(this.props.accounts.userDetails &&
-								this.props.accounts.userDetails.EmailAddress) ||
-							this.state.email ||
-							'email@cointec.co.uk'
+							this.props.accounts.userDetails &&
+							this.props.accounts.userDetails.EmailAddress
 						}
-						ctUser={this.state.ctUser}
+						ctUser={this.props.auth.ctUser}
 						onClose={() => this.setState({ changeEmailModal: false })}
 					/>
 				)}
 				{this.state.updatePasswordModal && (
 					<UpdatePassword
-						ctUser={this.state.ctUser}
+						ctUser={this.props.auth.ctUser}
 						onPasswordUpdated={this.onPasswordUpdated}
 						onClose={() => this.setState({ updatePasswordModal: false })}
 					/>
@@ -348,10 +340,8 @@ class AccountSettings extends Component {
 				{this.state.closeAccountModal && (
 					<CloseAccount
 						emailAddress={
-							(this.props.accounts.userDetails &&
-								this.props.accounts.userDetails.EmailAddress) ||
-							this.state.email ||
-							'email@cointec.co.uk'
+							this.props.accounts.userDetails &&
+							this.props.accounts.userDetails.EmailAddress
 						}
 						onAccountClosed={this.onAccountClosed}
 						onClose={() => this.setState({ closeAccountModal: false })}
@@ -380,6 +370,8 @@ export default connect(
 		globals
 	}),
 	{
+		validateSession,
+		signOutSession,
 		fetchVerificationStatus,
 		fetchUserDetails,
 		toggleVerificationAlert,

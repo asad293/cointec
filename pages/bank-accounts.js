@@ -2,8 +2,12 @@ import React, { Component } from 'react'
 import Head from 'next/head'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { fetchAccounts, toggleVerificationAlert } from '../store/actions'
-import Cookie from 'js-cookie'
+import {
+	fetchAccounts,
+	toggleVerificationAlert,
+	validateSession,
+	signOutSession
+} from '../store/actions'
 
 import Nav from '../components/dashboard/Nav'
 import AlertMessage from '../components/dashboard/AlertMessage'
@@ -38,12 +42,14 @@ class BankAccounts extends Component {
 	}
 
 	componentDidMount() {
-		const userData = localStorage.getItem('user')
-		const user = userData && JSON.parse(userData)
-		const sessionId = Cookie.get('CT-SESSION-ID')
-		if (user && user.CtUserId && sessionId) {
-			this.setState({ ctUser: user.CtUserId })
-			this.props.fetchAccounts(user.CtUserId)
+		const session = this.props.validateSession()
+		if (session) {
+			const ctUser = session['CT-ACCOUNT-ID']
+			this.props.fetchAccounts(ctUser).catch(err => {
+				if (err.response.status === 401) {
+					this.props.signOutSession()
+				}
+			})
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
@@ -207,5 +213,5 @@ const AccountCard = ({
 
 export default connect(
 	({ accounts, globals }) => ({ accounts, globals }),
-	{ fetchAccounts, toggleVerificationAlert }
+	{ fetchAccounts, toggleVerificationAlert, validateSession, signOutSession }
 )(withRouter(BankAccounts))
