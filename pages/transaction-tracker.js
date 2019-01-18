@@ -408,7 +408,7 @@ const CoinSent = ({ Exchange, SETTLED, FAILED, TERMINATED, SENT }) => {
 			)}
 			{Exchange ? (
 				<a
-					href={Exchange.TransactionHash}
+					href={Exchange.TransactionHash || Exchange.ReceiveAddress}
 					className="btn-follow-blockchain"
 					target="_blank">
 					<i className="fas fa-paper-plane" />
