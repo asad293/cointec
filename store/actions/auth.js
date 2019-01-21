@@ -1,6 +1,7 @@
 import axios from 'axios'
 import Cookie from 'js-cookie'
 import { ROOT_URL } from '..'
+import Router from 'next/router'
 
 export const SIGN_UP = 'SIGN_UP'
 export const SIGN_UP_START = 'SIGN_UP_START'
@@ -11,12 +12,11 @@ export const SIGN_IN_END = 'SIGN_IN_END'
 export const FORGOT_PASSWORD = 'FORGOT_PASSWORD'
 export const FORGOT_PASSWORD_START = 'FORGOT_PASSWORD_START'
 export const FORGOT_PASSWORD_END = 'FORGOT_PASSWORD_END'
-// export const RESET_PASSWORD = 'RESET_PASSWORD'
-// export const RESET_PASSWORD_START = 'RESET_PASSWORD_START'
-// export const RESET_PASSWORD_END = 'RESET_PASSWORD_END'
 export const FETCH_LIMIT = 'FETCH_LIMIT'
 export const FETCH_LIMIT_START = 'FETCH_LIMIT_START'
 export const FETCH_LIMIT_END = 'FETCH_LIMIT_END'
+export const VALIDATE_SESSION = 'VALIDATE_SESSION'
+export const SIGN_OUT_SESSION = 'SIGN_OUT_SESSION'
 
 export const signUp = data => async dispatch => {
 	dispatch({ type: SIGN_UP_START })
@@ -62,8 +62,15 @@ export const signIn = ({ email, password }) => async dispatch => {
 				throw { response }
 			} else {
 				const data = { ...response.data, email }
-				const userData = JSON.stringify(data)
-				localStorage.setItem('user', userData)
+				const expires = new Date(new Date().getTime() + 30 * 60 * 1000) // +30 minutes
+				const options = {
+					path: '/',
+					expires,
+					domain: '.cointec.co.uk',
+					secure: true
+				}
+				Cookie.set('CT-ACCOUNT-ID', response.data.CtUserId, options)
+				// Cookie.set('CT-EMAIL-ADDRESS', email, options)
 				return dispatch({ type: SIGN_IN, payload: data })
 			}
 		})
@@ -100,28 +107,12 @@ export const forgotPassword = body => async dispatch => {
 	}
 }
 
-// export const resetPassword = body => async dispatch => {
-// 	dispatch({ type: RESET_PASSWORD_START, payload: null })
-
-// 	try {
-// 		const response = await Promise.resolve({}) // fetch()
-// 		if (!response.ok) throw new Error(response.statusText)
-
-// 		const payload = await Promise.resolve() // response.json()
-// 		return dispatch({ type: RESET_PASSWORD, payload })
-// 	} catch (error) {
-// 		return dispatch({ type: RESET_PASSWORD_END, payload: error.message })
-// 	}
-// }
-
 export const fetchLimit = ctUser => async dispatch => {
 	dispatch({ type: FETCH_LIMIT_START })
 
 	try {
-		const headers = {
-			'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-			'CT-ACCOUNT-ID': ctUser
-		}
+		const session = dispatch(validateSession())
+		const headers = { ...session }
 		const response = await fetch(`${ROOT_URL}/accounts/${ctUser}/limit`, {
 			headers
 		})
@@ -134,9 +125,42 @@ export const fetchLimit = ctUser => async dispatch => {
 			payload
 		})
 	} catch (error) {
+		if (error && error.response && error.response.status === 401) {
+			dispatch(signOutSession())
+		}
 		return dispatch({
 			type: FETCH_LIMIT_END,
 			payload: error.message
 		})
 	}
+}
+
+export const validateSession = () => dispatch => {
+	const sessionId = Cookie.get('CT-SESSION-ID')
+	const ctUser = Cookie.get('CT-ACCOUNT-ID')
+	dispatch({
+		type: 'VALIDATE_SESSION',
+		payload: { sessionId, ctUser: sessionId ? ctUser : null }
+	})
+	if (sessionId) {
+		return {
+			'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
+			'CT-ACCOUNT-ID': ctUser
+		}
+	} else {
+		return null
+	}
+}
+
+export const signOutSession = () => dispatch => {
+	dispatch({ type: 'SIGN_OUT_SESSION' })
+	console.log('signout')
+
+	const options = {
+		path: '/',
+		domain: '.cointec.co.uk'
+	}
+	Cookie.remove('CT-SESSION-ID', options)
+	Cookie.remove('CT-ACCOUNT-ID', options)
+	Router.push('/')
 }

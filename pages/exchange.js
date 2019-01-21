@@ -13,6 +13,8 @@ import BankTransfer from '../components/exchange/BankTransfer'
 import AddBankAccount from '../components/account-settings/AddBankAccount'
 import StickyFooter from '../components/StickyFooter'
 
+import { validateSession } from '../store/actions'
+
 class Exchange extends Component {
 	constructor() {
 		super()
@@ -42,14 +44,8 @@ class Exchange extends Component {
 	}
 
 	componentDidMount() {
-		const userData = localStorage.getItem('user')
-		const user = userData && JSON.parse(userData)
-		const sessionId = Cookie.get('CT-SESSION-ID')
-
-		// console.log(sessionId)
-		if (user && user.CtUserId && sessionId) {
-			this.setState({ ctUser: user.CtUserId })
-		} else {
+		const session = this.props.validateSession()
+		if (!session) {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
 
@@ -141,7 +137,7 @@ class Exchange extends Component {
 				<StickyFooter className="bg-white" fixed={!this.state.scrolling} />
 				{this.state.addBankAccountModal && (
 					<AddBankAccount
-						ctUser={this.state.ctUser}
+						ctUser={this.props.auth.ctUser}
 						onClose={() => this.setState({ addBankAccountModal: false })}
 					/>
 				)}
@@ -164,7 +160,7 @@ class Exchange extends Component {
 					<img src="/static/images/science.svg" alt="form-icon" />
 					<h4 className="form-title">Instant exchange</h4>
 				</div>
-				<Calculator ctUser={this.state.ctUser} onConfirm={this.next} />
+				<Calculator ctUser={this.props.auth.ctUser} onConfirm={this.next} />
 				<p className="terms-statment text-left">
 					By continuing you accept our{' '}
 					<Link href="/terms">
@@ -188,7 +184,7 @@ class Exchange extends Component {
 					receiveAmount={this.state.receiveAmount}
 					sendCurrency={this.state.sendCurrency}
 					receiveCurrency={this.state.receiveCurrency}
-					ctUser={this.state.ctUser}
+					ctUser={this.props.auth.ctUser}
 					action={this.state.action}
 					wallet={this.state.wallet}
 					rate={this.state.rate}
@@ -213,7 +209,7 @@ class Exchange extends Component {
 					receiveCurrency={this.state.receiveCurrency}
 					wallet={this.state.wallet}
 					rate={this.state.rate}
-					ctUser={this.state.ctUser}
+					ctUser={this.props.auth.ctUser}
 					onConfirm={this.onConfirm}
 					onRestart={this.onRestart}
 					onAddAccount={() => this.setState({ addBankAccountModal: true })}
@@ -311,6 +307,6 @@ const InnerNav = props => (
 )
 
 export default connect(
-	({ order }) => ({ order }),
-	null
+	({ auth, order }) => ({ auth, order }),
+	{ validateSession }
 )(withRouter(Exchange))

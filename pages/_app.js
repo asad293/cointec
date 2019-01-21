@@ -8,6 +8,12 @@ import '../styles/app.scss'
 class MyApp extends App {
 	componentDidMount() {
 		loadIntercom()
+
+		// remove persisted data if exist
+		const user = localStorage.getItem('user')
+		if (user) {
+			localStorage.removeItem('user')
+		}
 	}
 
 	render() {

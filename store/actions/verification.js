@@ -1,13 +1,14 @@
 import { ROOT_URL } from '..'
 import axios from 'axios'
-import Cookie from 'js-cookie'
+import { validateSession } from './auth'
 
 export const FETCH_VERIFICATION_STATUS = 'FETCH_VERIFICATION_STATUS'
 export const FETCH_VERIFICATION_STATUS_START = 'FETCH_VERIFICATION_STATUS_START'
 export const FETCH_VERIFICATION_STATUS_END = 'FETCH_VERIFICATION_STATUS_END'
 
 export const FETCH_VERIFICATION_OVERVIEW = 'FETCH_VERIFICATION_OVERVIEW'
-export const FETCH_VERIFICATION_OVERVIEW_START = 'FETCH_VERIFICATION_OVERVIEW_START'
+export const FETCH_VERIFICATION_OVERVIEW_START =
+	'FETCH_VERIFICATION_OVERVIEW_START'
 export const FETCH_VERIFICATION_OVERVIEW_END = 'FETCH_VERIFICATION_OVERVIEW_END'
 
 export const GET_REHIVE_ID = 'GET_REHIVE_ID'
@@ -25,10 +26,10 @@ export const DELETE_REHIVE_TOKEN_END = 'DELETE_REHIVE_TOKEN_END'
 export const fetchVerificationStatus = ({ ctUser }) => dispatch => {
 	dispatch({ type: FETCH_VERIFICATION_STATUS_START })
 
+	const session = dispatch(validateSession())
 	const headers = {
 		'Content-Type': 'application/json',
-		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-		'CT-ACCOUNT-ID': ctUser
+		...session
 	}
 
 	return axios
@@ -45,16 +46,19 @@ export const fetchVerificationStatus = ({ ctUser }) => dispatch => {
 				type: FETCH_VERIFICATION_STATUS_END,
 				payload: error
 			})
+			if (error && error.response && error.response.status === 401) {
+				dispatch(signOutSession())
+			}
 		})
 }
 
 export const fetchVerificationOverview = ({ ctUser }) => dispatch => {
 	dispatch({ type: FETCH_VERIFICATION_OVERVIEW_START })
 
+	const session = dispatch(validateSession())
 	const headers = {
 		'Content-Type': 'application/json',
-		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-		'CT-ACCOUNT-ID': ctUser
+		...session
 	}
 
 	return axios
@@ -71,16 +75,19 @@ export const fetchVerificationOverview = ({ ctUser }) => dispatch => {
 				type: FETCH_VERIFICATION_OVERVIEW_END,
 				payload: error
 			})
+			if (error && error.response && error.response.status === 401) {
+				dispatch(signOutSession())
+			}
 		})
 }
 
 export const getRehiveId = ({ ctUser }) => dispatch => {
 	dispatch({ type: GET_REHIVE_ID_START })
 
+	const session = dispatch(validateSession())
 	const headers = {
 		'Content-Type': 'application/json',
-		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-		'CT-ACCOUNT-ID': ctUser
+		...session
 	}
 
 	return axios
@@ -97,16 +104,19 @@ export const getRehiveId = ({ ctUser }) => dispatch => {
 				type: GET_REHIVE_ID_END,
 				payload: error
 			})
+			if (error && error.response && error.response.status === 401) {
+				dispatch(signOutSession())
+			}
 		})
 }
 
 export const getRehiveToken = ({ ctUser }) => dispatch => {
 	dispatch({ type: GET_REHIVE_TOKEN_START })
 
+	const session = dispatch(validateSession())
 	const headers = {
 		'Content-Type': 'application/json',
-		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-		'CT-ACCOUNT-ID': ctUser
+		...session
 	}
 
 	return axios
@@ -123,16 +133,19 @@ export const getRehiveToken = ({ ctUser }) => dispatch => {
 				type: GET_REHIVE_TOKEN_END,
 				payload: error
 			})
+			if (error && error.response && error.response.status === 401) {
+				dispatch(signOutSession())
+			}
 		})
 }
 
 export const deleteRehiveToken = ({ ctUser }) => dispatch => {
 	dispatch({ type: DELETE_REHIVE_TOKEN_START })
 
+	const session = dispatch(validateSession())
 	const headers = {
 		'Content-Type': 'application/json',
-		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-		'CT-ACCOUNT-ID': ctUser
+		...session
 	}
 
 	return axios
@@ -149,5 +162,8 @@ export const deleteRehiveToken = ({ ctUser }) => dispatch => {
 				type: DELETE_REHIVE_TOKEN_END,
 				payload: error
 			})
+			if (error && error.response && error.response.status === 401) {
+				dispatch(signOutSession())
+			}
 		})
 }

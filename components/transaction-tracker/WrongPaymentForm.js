@@ -5,7 +5,8 @@ import {
 	fetchAccounts,
 	abandonOrder,
 	refundPayment,
-	getStatus
+	getStatus,
+	signOutSession
 } from '../../store/actions'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -17,7 +18,12 @@ class WrongPaymentForm extends Component {
 	}
 
 	componentDidMount() {
-		if (this.props.ctUser) this.props.fetchAccounts(this.props.ctUser)
+		if (this.props.ctUser)
+			this.props.fetchAccounts(this.props.ctUser).catch(err => {
+				if (err.response.status === 401) {
+					this.props.signOutSession()
+				}
+			})
 	}
 
 	handleSubmit() {
@@ -129,7 +135,7 @@ const mapStateToProps = state => {
 export default reduxForm({ form: 'WrongPaymentForm' })(
 	connect(
 		mapStateToProps,
-		{ fetchAccounts, abandonOrder, refundPayment, getStatus }
+		{ fetchAccounts, abandonOrder, refundPayment, getStatus, signOutSession }
 	)(WrongPaymentForm)
 )
 

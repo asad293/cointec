@@ -4,14 +4,14 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import Moment from 'react-moment'
-import Cookie from 'js-cookie'
 import cn from 'classnames'
 import PropTypes from 'prop-types'
 import {
 	abandonOrder,
 	getStatus,
 	fetchConsts,
-	hideTransactionAlert
+	hideTransactionAlert,
+	validateSession
 } from '../store/actions'
 
 import Header from '../components/Header'
@@ -48,19 +48,17 @@ class TransactionTracker extends Component {
 	}
 
 	fetchStatus() {
-		const userData = localStorage.getItem('user')
-		const user = userData && JSON.parse(userData)
-		const sessionId = Cookie.get('CT-SESSION-ID')
-		if (user && user.CtUserId && sessionId) {
-			this.setState({ ctUser: user.CtUserId })
+		const session = this.props.validateSession()
+		if (session) {
+			const ctUser = session['CT-ACCOUNT-ID']
+			this.setState({ ctUser })
 			this.props
 				.getStatus({
 					orderId: this.props.router.query.txnID,
-					ctUser: user.CtUserId
+					ctUser
 				})
 				.then(res => {
 					if (res.status === 202) {
-						console.log(res)
 						Router.push(
 							`/transaction-expired?txnID=${this.props.router.query.txnID}`,
 							`/transaction-expired`
@@ -142,7 +140,7 @@ class TransactionTracker extends Component {
 				{this.state.abandonOrderModal && (
 					<AbandonOrder
 						txnID={this.props.router.query.txnID}
-						ctUser={this.state.ctUser}
+						ctUser={this.props.auth.ctUser}
 						onClose={() => this.setState({ abandonOrderModal: false })}
 					/>
 				)}
@@ -470,8 +468,14 @@ const Nav = ({ heading }) => (
 )
 
 export default connect(
-	({ order, globals }) => ({ order, globals }),
-	{ abandonOrder, getStatus, fetchConsts, hideTransactionAlert }
+	({ auth, order, globals }) => ({ auth, order, globals }),
+	{
+		abandonOrder,
+		getStatus,
+		fetchConsts,
+		hideTransactionAlert,
+		validateSession
+	}
 )(withRouter(TransactionTracker))
 
 TransactionTracker.propTypes = {

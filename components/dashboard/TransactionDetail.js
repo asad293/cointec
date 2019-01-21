@@ -98,7 +98,13 @@ class TransactionDetail extends Component {
 								<div className="transaction-field position-relative">
 									<h6 className="field-label">Wallet address</h6>
 									<p className="field-value">
-										<a href="/" target="_blank">
+										<a
+											href={
+												transaction.WalletAddress ||
+												transaction.walletAddress || // To be removed
+												''
+											}
+											target="_blank">
 											{transaction.dest}
 										</a>
 										<Clipboard

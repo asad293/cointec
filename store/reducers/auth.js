@@ -8,12 +8,11 @@ import {
 	FORGOT_PASSWORD,
 	FORGOT_PASSWORD_START,
 	FORGOT_PASSWORD_END,
-	// RESET_PASSWORD,
-	// RESET_PASSWORD_START,
-	// RESET_PASSWORD_END,
 	FETCH_LIMIT,
 	FETCH_LIMIT_START,
-	FETCH_LIMIT_END
+	FETCH_LIMIT_END,
+	VALIDATE_SESSION,
+	SIGN_OUT_SESSION
 } from '../actions'
 
 const INITIAL_STATE = {
@@ -22,7 +21,8 @@ const INITIAL_STATE = {
 	signup: null,
 	signin: null,
 	forgotpassword: null,
-	resetpassword: null
+	resetpassword: null,
+	ctUser: null
 }
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -39,6 +39,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 			return {
 				...state,
 				signin: payload,
+				ctUser: payload.CtUserId,
 				loading: false,
 				error: null
 			}
@@ -51,13 +52,21 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 				error: null
 			}
 
-		// case RESET_PASSWORD:
-		// 	return {
-		// 		...state,
-		// 		resetpassword: payload,
-		// 		loading: false,
-		// 		error: null
-		// 	}
+		case VALIDATE_SESSION:
+			return {
+				...state,
+				ctUser: payload.ctUser,
+				loading: false,
+				error: null
+			}
+
+		case SIGN_OUT_SESSION:
+			return {
+				...state,
+				ctUser: null,
+				loading: false,
+				error: null
+			}
 
 		case FETCH_LIMIT:
 			return { ...state, limit: payload }
@@ -65,14 +74,12 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case SIGN_IN_START:
 		case SIGN_UP_START:
 		case FORGOT_PASSWORD_START:
-		// case RESET_PASSWORD_START:
 		case FETCH_LIMIT_START:
 			return { ...state, loading: true, error: null }
 
 		case SIGN_UP_END:
 		case SIGN_IN_END:
 		case FORGOT_PASSWORD_END:
-		// case RESET_PASSWORD_END:
 		case FETCH_LIMIT_END:
 			return { ...state, loading: false, error: payload }
 
