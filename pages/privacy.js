@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import Head from 'next/head'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { toggleVerificationAlert } from '../store/actions'
-import Cookie from 'js-cookie'
+import {
+	toggleVerificationAlert,
+	fetchUserDetails,
+	validateSession
+} from '../store/actions'
 
 import Nav from '../components/dashboard/Nav'
 import AlertMessage from '../components/dashboard/AlertMessage'
@@ -49,14 +52,14 @@ class Privacy extends Component {
 	}
 
 	componentDidMount() {
-		const userData = localStorage.getItem('user')
-		const user = userData && JSON.parse(userData)
-		const sessionId = Cookie.get('CT-SESSION-ID')
-		if (user && user.CtUserId && sessionId) {
-			this.setState({ ctUser: user.CtUserId, email: user.email })
+		const session = this.props.validateSession()
+		if (session) {
+			const ctUser = session['CT-ACCOUNT-ID']
+			this.props.fetchUserDetails(ctUser)
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
+
 		addEventListener('resize', this.onResize)
 		this.onResize()
 	}
@@ -102,7 +105,6 @@ class Privacy extends Component {
 				<b>
 					{(this.props.accounts.userDetails &&
 						this.props.accounts.userDetails.EmailAddress) ||
-						this.state.email ||
 						''}
 				</b>
 			</p>
@@ -278,8 +280,11 @@ class Privacy extends Component {
 				<StickyFooter className="bg-white" fixed={!this.state.scrolling} />
 				{this.state.requestDataModal && (
 					<RequestData
-						ctUser={this.state.ctUser}
-						emailAddress={this.state.email}
+						ctUser={this.props.auth.ctUser}
+						emailAddress={
+							this.props.accounts.userDetails &&
+							this.props.accounts.userDetails.EmailAddress
+						}
 						action={this.state.dataAction}
 						onClose={() => this.setState({ requestDataModal: false })}
 						onRequestSent={this.onConfirmationEmailSent}
@@ -296,10 +301,11 @@ class Privacy extends Component {
 }
 
 export default connect(
-	({ accounts, verification, globals }) => ({
+	({ auth, accounts, verification, globals }) => ({
+		auth,
 		accounts,
 		verification,
 		globals
 	}),
-	{ toggleVerificationAlert }
+	{ toggleVerificationAlert, fetchUserDetails, validateSession }
 )(withRouter(Privacy))

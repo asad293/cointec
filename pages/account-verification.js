@@ -3,8 +3,11 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { fetchVerificationOverview } from '../store/actions'
-import Cookie from 'js-cookie'
+import {
+	fetchVerificationOverview,
+	fetchUserDetails,
+	validateSession
+} from '../store/actions'
 import cn from 'classnames'
 
 import Header from '../components/Header'
@@ -51,12 +54,11 @@ class AccountVerification extends Component {
 	}
 
 	componentDidMount() {
-		const userData = localStorage.getItem('user')
-		const user = userData && JSON.parse(userData)
-		const sessionId = Cookie.get('CT-SESSION-ID')
-		if (user && user.CtUserId && sessionId) {
-			this.setState({ ctUser: user.CtUserId, email: user.email })
-			this.props.fetchVerificationOverview({ ctUser: user.CtUserId })
+		const session = this.props.validateSession()
+		if (session) {
+			const ctUser = session['CT-ACCOUNT-ID']
+			this.props.fetchVerificationOverview({ ctUser })
+			this.props.fetchUserDetails(ctUser)
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
@@ -90,7 +92,7 @@ class AccountVerification extends Component {
 			},
 			() => this.onResize()
 		)
-		this.props.fetchVerificationOverview({ ctUser: this.state.ctUser })
+		this.props.fetchVerificationOverview({ ctUser: this.props.auth.ctUser })
 		// this.setState(
 		// 	{
 		// 		...state,
@@ -112,7 +114,12 @@ class AccountVerification extends Component {
 	onResendEmail() {
 		const notificationContent = (
 			<p>
-				Confirmation email sent to <b>{this.state.email || ''}</b>
+				Confirmation email sent to{' '}
+				<b>
+					{(this.props.accounts.userDetails &&
+						this.props.accounts.userDetails.EmailAddress) ||
+						''}
+				</b>
 			</p>
 		)
 		this.setState({
@@ -190,19 +197,19 @@ class AccountVerification extends Component {
 								this.state.step === 0 &&
 								this.renderLoadingFrame()}
 							{!this.state.completed &&
-								this.state.ctUser &&
+								this.props.auth.ctUser &&
 								this.state.step === 1 &&
 								this.renderEmailFrame()}
 							{!this.state.completed &&
-								this.state.ctUser &&
+								this.props.auth.ctUser &&
 								this.state.step === 2 &&
 								this.renderBasicDetailsFrame()}
 							{!this.state.completed &&
-								this.state.ctUser &&
+								this.props.auth.ctUser &&
 								this.state.step === 3 &&
 								this.renderProofIDFrame()}
 							{!this.state.completed &&
-								this.state.ctUser &&
+								this.props.auth.ctUser &&
 								this.state.step === 4 &&
 								this.renderProofAddressFrame()}
 						</div>
@@ -244,8 +251,11 @@ class AccountVerification extends Component {
 					<h4 className="form-title">Confirm your email address</h4>
 				</div>
 				<EmailConfirmation
-					ctUser={this.state.ctUser}
-					emailAddress={this.state.email}
+					ctUser={this.props.auth.ctUser}
+					emailAddress={
+						this.props.accounts.userDetails &&
+						this.props.accounts.userDetails.EmailAddress
+					}
 					onResendEmail={this.onResendEmail}
 					onConfirm={this.next}
 				/>
@@ -261,8 +271,11 @@ class AccountVerification extends Component {
 					<h4 className="form-title">Your basic details</h4>
 				</div>
 				<BasicDetails
-					ctUser={this.state.ctUser}
-					emailAddress={this.state.email}
+					ctUser={this.props.auth.ctUser}
+					emailAddress={
+						this.props.accounts.userDetails &&
+						this.props.accounts.userDetails.EmailAddress
+					}
 					onConfirm={this.next}
 				/>
 			</div>
@@ -276,7 +289,7 @@ class AccountVerification extends Component {
 					<img src="/static/images/science.svg" alt="form-icon" />
 					<h4 className="form-title">Upload proof of ID</h4>
 				</div>
-				<ProofOfID ctUser={this.state.ctUser} onConfirm={this.next} />
+				<ProofOfID ctUser={this.props.auth.ctUser} onConfirm={this.next} />
 			</div>
 		)
 	}
@@ -288,7 +301,10 @@ class AccountVerification extends Component {
 					<img src="/static/images/science.svg" alt="form-icon" />
 					<h4 className="form-title">Upload proof of address</h4>
 				</div>
-				<ProofOfAddress ctUser={this.state.ctUser} onConfirm={this.complete} />
+				<ProofOfAddress
+					ctUser={this.props.auth.ctUser}
+					onConfirm={this.complete}
+				/>
 			</div>
 		)
 	}
@@ -442,6 +458,6 @@ const SubmittedAlert = () => (
 )
 
 export default connect(
-	({ verification }) => ({ verification }),
-	{ fetchVerificationOverview }
+	({ auth, verification, accounts }) => ({ auth, verification, accounts }),
+	{ fetchVerificationOverview, fetchUserDetails, validateSession }
 )(withRouter(AccountVerification))

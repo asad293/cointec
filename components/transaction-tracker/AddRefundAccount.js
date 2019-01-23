@@ -3,7 +3,11 @@ import Link from 'next/link'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
-import { addAccount } from '../../store/actions'
+import {
+	addAccount,
+	validateSession,
+	signOutSession
+} from '../../store/actions'
 import cn from 'classnames'
 
 const errorMap = {
@@ -61,11 +65,14 @@ class AddRefundAccount extends Component {
 	}
 
 	handleSubmit(values) {
-		let user = null
-		const userData = localStorage.getItem('user')
-		user = userData && JSON.parse(userData)
-		if (user && user.CtUserId) {
-			this.props.addAccount(user.CtUserId, values)
+		const session = this.props.validateSession()
+		if (session) {
+			const ctUser = session['CT-ACCOUNT-ID']
+			this.props.addAccount(ctUser, values).catch(err => {
+				if (err.response.status === 401) {
+					this.props.signOutSession()
+				}
+			})
 		}
 	}
 
@@ -167,8 +174,8 @@ export default reduxForm({
 	validate
 })(
 	connect(
-		({ bank }) => ({ bank }),
-		{ addAccount }
+		({ auth, bank }) => ({ auth, bank }),
+		{ addAccount, validateSession, signOutSession }
 	)(AddRefundAccount)
 )
 

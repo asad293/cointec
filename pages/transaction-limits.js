@@ -4,9 +4,9 @@ import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
 import {
 	toggleVerificationAlert,
-	fetchTransactionLimits
+	fetchTransactionLimits,
+	validateSession
 } from '../store/actions'
-import Cookie from 'js-cookie'
 
 import Nav from '../components/dashboard/Nav'
 import AlertMessage from '../components/dashboard/AlertMessage'
@@ -23,11 +23,10 @@ class TransactionLimits extends Component {
 	}
 
 	componentDidMount() {
-		const userData = localStorage.getItem('user')
-		const user = userData && JSON.parse(userData)
-		const sessionId = Cookie.get('CT-SESSION-ID')
-		if (user && user.CtUserId && sessionId) {
-			this.props.fetchTransactionLimits({ ctUser: user.CtUserId })
+		const session = this.props.validateSession()
+		if (session) {
+			const ctUser = session['CT-ACCOUNT-ID']
+			this.props.fetchTransactionLimits({ ctUser })
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
@@ -133,6 +132,6 @@ class TransactionLimits extends Component {
 }
 
 export default connect(
-	({ globals, accounts }) => ({ globals, accounts }),
-	{ toggleVerificationAlert, fetchTransactionLimits }
+	({ auth, globals, accounts }) => ({ auth, globals, accounts }),
+	{ toggleVerificationAlert, fetchTransactionLimits, validateSession }
 )(withRouter(TransactionLimits))

@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import MinutesFormat from '../MinutesFormat'
 import {
-	fetchAccounts,
 	fetchConsts,
 	getStatus,
 	createOrder,
@@ -257,7 +256,6 @@ export default reduxForm({ form: 'ExchangeForm' })(
 	connect(
 		mapStateToProps,
 		{
-			fetchAccounts,
 			fetchConsts,
 			getStatus,
 			createOrder,

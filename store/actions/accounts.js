@@ -1,7 +1,7 @@
-import Cookie from 'js-cookie'
 import axios from 'axios'
 import FileSaver from 'file-saver'
 import { ROOT_URL } from '..'
+import { validateSession, signOutSession } from './auth'
 
 export const FETCH_ACCOUNTS = 'FETCH_ACCOUNTS'
 export const FETCH_ACCOUNTS_START = 'FETCH_ACCOUNTS_START'
@@ -75,10 +75,8 @@ export const fetchAccounts = ctUser => async dispatch => {
 	dispatch({ type: FETCH_ACCOUNTS_START })
 
 	try {
-		const headers = {
-			'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-			'CT-ACCOUNT-ID': ctUser
-		}
+		const session = dispatch(validateSession())
+		const headers = { ...session }
 		const response = await fetch(
 			`${ROOT_URL}/accounts/${ctUser}/bank-accounts`,
 			{ headers }
@@ -101,10 +99,8 @@ export const fetchAccounts = ctUser => async dispatch => {
 export const addAccount = (ctUser, values) => async dispatch => {
 	dispatch({ type: ADD_ACCOUNT_START })
 
-	const headers = {
-		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-		'CT-ACCOUNT-ID': ctUser
-	}
+	const session = dispatch(validateSession())
+	const headers = { ...session }
 
 	const post = {
 		AccountOwner: values.accountName,
@@ -134,16 +130,11 @@ export const addAccount = (ctUser, values) => async dispatch => {
 export const updateAccount = (ctUser, values, accountId) => async dispatch => {
 	dispatch({ type: UPDATE_ACCOUNT_START })
 
-	const headers = {
-		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-		'CT-ACCOUNT-ID': ctUser
-	}
+	const session = dispatch(validateSession())
+	const headers = { ...session }
 
 	const post = {
 		UserBankAccountId: accountId,
-		// AccountOwner: values.accountName,
-		// SortCode: values.sortCode,
-		// AccountNumber: values.accountNumber,
 		AccountReference: values.accountName
 	}
 
@@ -169,10 +160,8 @@ export const deleteAccount = (ctUser, id) => async dispatch => {
 	dispatch({ type: DELETE_ACCOUNT_START })
 
 	try {
-		const headers = {
-			'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-			'CT-ACCOUNT-ID': ctUser
-		}
+		const session = dispatch(validateSession())
+		const headers = { ...session }
 		const response = await fetch(
 			`${ROOT_URL}/accounts/${ctUser}/bank-accounts/${id}`,
 			{
@@ -195,6 +184,7 @@ export const deleteAccount = (ctUser, id) => async dispatch => {
 			type: DELETE_ACCOUNT_END,
 			payload: error
 		})
+		throw err
 	}
 }
 
@@ -202,10 +192,8 @@ export const fetchUserDetails = ctUser => async dispatch => {
 	dispatch({ type: FETCH_USER_DETAILS_START })
 
 	try {
-		const headers = {
-			'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-			'CT-ACCOUNT-ID': ctUser
-		}
+		const session = dispatch(validateSession())
+		const headers = { ...session }
 		const response = await fetch(`${ROOT_URL}/accounts/${ctUser}/details`, {
 			headers
 		})
@@ -243,10 +231,8 @@ export const saveUserDetails = (
 		Postcode: values.postCode,
 		DateOfBirth: values.birthDate
 	}
-	const headers = {
-		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-		'CT-ACCOUNT-ID': ctUser
-	}
+	const session = dispatch(validateSession())
+	const headers = { ...session }
 	return axios
 		.post(`${ROOT_URL}/accounts/${ctUser}/details/update`, data, {
 			headers
@@ -263,6 +249,9 @@ export const saveUserDetails = (
 				type: SAVE_USER_DETAILS_END,
 				payload: error
 			})
+			if (error && error.response && error.response.status === 401) {
+				dispatch(signOutSession())
+			}
 			throw error
 		})
 }
@@ -277,30 +266,23 @@ export const requestConfirmEmail = ({
 		EmailAddress: emailAddress
 	}
 
-	// const headers = {
-	// 	'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-	// 	'CT-ACCOUNT-ID': ctUser
-	// }
-	return (
-		axios
-			.post(`${ROOT_URL}/accounts/trigger?action=confirmemail`, data)
-			// .post(`${ROOT_URL}/accounts/trigger?action=confirmemail`, data, { headers })
-			.then(response => {
-				dispatch({
-					type: REQUEST_CONFIRM_EMAIL,
-					payload: response.data
-				})
-				return response
+	return axios
+		.post(`${ROOT_URL}/accounts/trigger?action=confirmemail`, data)
+		.then(response => {
+			dispatch({
+				type: REQUEST_CONFIRM_EMAIL,
+				payload: response.data
 			})
-			.catch(error => {
-				console.log(error)
-				dispatch({
-					type: REQUEST_CONFIRM_EMAIL_END,
-					payload: error
-				})
-				throw error
+			return response
+		})
+		.catch(error => {
+			console.log(error)
+			dispatch({
+				type: REQUEST_CONFIRM_EMAIL_END,
+				payload: error
 			})
-	)
+			throw error
+		})
 }
 
 export const changeEmail = ({
@@ -319,27 +301,24 @@ export const changeEmail = ({
 	const headers = {
 		Authorization: 'Basic ' + btoa(emailAddress + ':' + password)
 	}
-	return (
-		axios
-			.post(`${ROOT_URL}/accounts/trigger?action=changeemail`, data, {
-				headers
+	return axios
+		.post(`${ROOT_URL}/accounts/trigger?action=changeemail`, data, {
+			headers
+		})
+		.then(response => {
+			dispatch({
+				type: REQUEST_CHANGE_EMAIL,
+				payload: response.data
 			})
-			// .post(`${ROOT_URL}/accounts/request-change-email`, data, { headers })
-			.then(response => {
-				dispatch({
-					type: REQUEST_CHANGE_EMAIL,
-					payload: response.data
-				})
-				return response
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: REQUEST_CHANGE_EMAIL_END,
+				payload: error
 			})
-			.catch(error => {
-				dispatch({
-					type: REQUEST_CHANGE_EMAIL_END,
-					payload: error
-				})
-				throw error
-			})
-	)
+			throw error
+		})
 }
 
 export const updatePassword = ({
@@ -354,10 +333,8 @@ export const updatePassword = ({
 		NewPassword: newPassword
 	}
 
-	const headers = {
-		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-		'CT-ACCOUNT-ID': ctUser
-	}
+	const session = dispatch(validateSession())
+	const headers = { ...session }
 
 	return axios
 		.post(`${ROOT_URL}/accounts/${ctUser}/change-password`, data, { headers })
@@ -373,6 +350,9 @@ export const updatePassword = ({
 				type: UPDATE_PASSWORD_END,
 				payload: error
 			})
+			if (error && error.response && error.response.status === 401) {
+				dispatch(signOutSession())
+			}
 			throw error
 		})
 }
@@ -384,25 +364,22 @@ export const resetPassword = ({ emailAddress }) => async dispatch => {
 		EmailAddress: emailAddress
 	}
 
-	return (
-		axios
-			.post(`${ROOT_URL}/accounts/trigger?action=resetpassword`, data)
-			// .post(`${ROOT_URL}/accounts/request-reset`, data)
-			.then(response => {
-				dispatch({
-					type: REQUEST_PASSWORD_RESET,
-					payload: response.data
-				})
-				return response
+	return axios
+		.post(`${ROOT_URL}/accounts/trigger?action=resetpassword`, data)
+		.then(response => {
+			dispatch({
+				type: REQUEST_PASSWORD_RESET,
+				payload: response.data
 			})
-			.catch(error => {
-				dispatch({
-					type: REQUEST_PASSWORD_RESET_END,
-					payload: error
-				})
-				throw error
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: REQUEST_PASSWORD_RESET_END,
+				payload: error
 			})
-	)
+			throw error
+		})
 }
 
 export const resetPasswordByToken = ({ token, values }) => async dispatch => {
@@ -441,27 +418,24 @@ export const exportData = ({ emailAddress, password }) => async dispatch => {
 	const headers = {
 		Authorization: 'Basic ' + btoa(emailAddress + ':' + password)
 	}
-	return (
-		axios
-			.post(`${ROOT_URL}/accounts/trigger?action=exportdata`, data, {
-				headers
+	return axios
+		.post(`${ROOT_URL}/accounts/trigger?action=exportdata`, data, {
+			headers
+		})
+		.then(response => {
+			dispatch({
+				type: EXPORT_DATA,
+				payload: response.data
 			})
-			// .post(`${ROOT_URL}/accounts/export-data`, data, { headers })
-			.then(response => {
-				dispatch({
-					type: EXPORT_DATA,
-					payload: response.data
-				})
-				return response
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: EXPORT_DATA_END,
+				payload: error
 			})
-			.catch(error => {
-				dispatch({
-					type: EXPORT_DATA_END,
-					payload: error
-				})
-				throw error
-			})
-	)
+			throw error
+		})
 }
 
 export const requestData = ({ emailAddress, password }) => async dispatch => {
@@ -474,27 +448,24 @@ export const requestData = ({ emailAddress, password }) => async dispatch => {
 	const headers = {
 		Authorization: 'Basic ' + btoa(emailAddress + ':' + password)
 	}
-	return (
-		axios
-			.post(`${ROOT_URL}/accounts/trigger?action=requestdata`, data, {
-				headers
+	return axios
+		.post(`${ROOT_URL}/accounts/trigger?action=requestdata`, data, {
+			headers
+		})
+		.then(response => {
+			dispatch({
+				type: REQUEST_DATA,
+				payload: response.data
 			})
-			// .post(`${ROOT_URL}/accounts/request-data`, data, { headers })
-			.then(response => {
-				dispatch({
-					type: REQUEST_DATA,
-					payload: response.data
-				})
-				return response
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: REQUEST_DATA_END,
+				payload: error
 			})
-			.catch(error => {
-				dispatch({
-					type: REQUEST_DATA_END,
-					payload: error
-				})
-				throw error
-			})
-	)
+			throw error
+		})
 }
 
 export const closeAccount = ({ emailAddress, password }) => async dispatch => {
@@ -610,10 +581,8 @@ export const reportFraud = ({ action, token }) => async dispatch => {
 export const fetchTransactionLimits = ({ ctUser }) => async dispatch => {
 	dispatch({ type: FETCH_TRANSACTION_LIMITS_START })
 
-	const headers = {
-		'CT-SESSION-ID': Cookie.get('CT-SESSION-ID'),
-		'CT-ACCOUNT-ID': ctUser
-	}
+	const session = dispatch(validateSession())
+	const headers = { ...session }
 
 	return axios
 		.get(`${ROOT_URL}/accounts/${ctUser}/limits`, { headers })
@@ -629,6 +598,9 @@ export const fetchTransactionLimits = ({ ctUser }) => async dispatch => {
 				type: FETCH_TRANSACTION_LIMITS_END,
 				payload: error
 			})
+			if (error && error.response && error.response.status === 401) {
+				dispatch(signOutSession())
+			}
 			throw error
 		})
 }
