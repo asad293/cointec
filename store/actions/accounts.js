@@ -511,11 +511,16 @@ export const validateToken = ({ action, token }) => async dispatch => {
 						type: 'text/plain;charset=utf-8'
 					})
 
-					const contentDisposition = response.headers['Content-Disposition']
+					const contentDisposition = response.headers['content-disposition']
+					// const contentDisposition = response.headers['Content-Disposition'];
 					let fileName = 'user-data'
 					if (contentDisposition) {
-						const fileNameMatch = contentDisposition.match(/filename="(.+)"/)
-						if (fileNameMatch.length === 2) fileName = fileNameMatch[1]
+						const fileNameMatch = contentDisposition.match(
+							/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/
+						)
+						// const fileNameMatch = contentDisposition.match(/filename="(.+)"/)
+						// if (fileNameMatch.length === 2) fileName = fileNameMatch[1]
+						if (fileNameMatch.length >= 2) fileName = fileNameMatch[1]
 					}
 
 					FileSaver.saveAs(blob, fileName)
