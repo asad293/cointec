@@ -808,7 +808,8 @@ const debouceReceive = _.debounce(
 )
 
 const asyncValidate = ({ wallet, receiveCurrency }) => {
-	const validateUrl = 'https://shapeshift.io/validateAddress'
+	const validateUrl = '/api/validate-address'
+	// const validateUrl = 'https://shapeshift.io/validateAddress'
 	const error = { wallet: 'Invalid wallet address' }
 
 	return wallet
