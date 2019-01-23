@@ -8,7 +8,15 @@ export const fetchRates = pair => async dispatch => {
 	dispatch({ type: FETCH_RATES_START })
 
 	try {
-		const response = await fetch(`${ROOT_URL}/charts/${pair}`)
+		const currency = pair.split('GBP')[1].toLowerCase()
+		let response
+		if (currency !== 'btc') {
+			response = await fetch(
+				`https://ct-charts-service.azurewebsites.net/json/${currency}.json`
+			)
+		} else {
+			response = await fetch(`${ROOT_URL}/charts/${pair}`)
+		}
 		if (!response.ok) throw new Error(response.statusText)
 
 		const payload = await response.json()
