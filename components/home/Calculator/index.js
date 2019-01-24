@@ -708,7 +708,7 @@ const debouceReceive = _.debounce(
 )
 
 const mapStateToProps = state => {
-	const selector = formValueSelector('CalculatorForm')
+	const selector = formValueSelector('CalcForm')
 	const sendAmount = Number.parseFloat(selector(state, 'sendAmount'))
 	const receiveAmount = Number.parseFloat(selector(state, 'receiveAmount'))
 
@@ -729,7 +729,7 @@ const mapDispatchToProps = {
 	setCurrentAsset
 }
 
-export default reduxForm({ form: 'CalculatorForm' })(
+export default reduxForm({ form: 'CalcForm', destroyOnUnmount: false })(
 	connect(
 		mapStateToProps,
 		mapDispatchToProps
