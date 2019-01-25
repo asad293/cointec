@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const axios = require('axios')
 
-router.get('/api/blogs', (request, response) => {
+router.get('/blogs', (request, response) => {
 	// https://blog.sendwyre.com
 	axios.get('https://medium.com/s/cointalk?format=json').then(res => {
 		const { Post, User, Collection, Sequence } = JSON.parse(
@@ -39,7 +39,7 @@ router.get('/api/blogs', (request, response) => {
 })
 
 router.get(
-	'/api/validate-address/:wallet/:receiveCurrency',
+	'/validate-address/:wallet/:receiveCurrency',
 	(request, response) => {
 		const wallet = request.params.wallet
 		const receiveCurrency = request.params.receiveCurrency
@@ -58,5 +58,25 @@ router.get(
 			})
 	}
 )
+
+router.get('/lookup/:postcode', (request, response) => {
+	const postcode = request.params.postcode
+	const api_key = 'ak_je7po7xacHD4NsrQBBNpk65vBZORp'
+	axios
+		.get(
+			`https://api.ideal-postcodes.co.uk/v1/postcodes/${postcode}?api_key=${api_key}`
+		)
+		.then(res => {
+			const data = res.data
+			response.status(200).send({
+				...data
+			})
+		})
+		.catch(error => {
+			response.status(error.response.status).send({
+				...error.response
+			})
+		})
+})
 
 module.exports = router
