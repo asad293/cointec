@@ -25,7 +25,7 @@ export const uploadDocument = ({
 	if (category === 'Proof Of Identity') {
 		data.append('document_type', 'government_id')
 	} else {
-		data.append('document_type', 'other')
+		data.append('document_type', 'utility_bill')
 	}
 	data.append('status', 'pending')
 	data.append('user', RehiveId)
