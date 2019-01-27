@@ -228,7 +228,7 @@ class AccountVerification extends Component {
 
 	componentWillReceiveProps(props) {
 		const { overview } = props.verification
-		if (overview) {
+		if (overview && !this.state.step) {
 			const { FrontendProgress } = overview
 			const step = ProgressStatus[FrontendProgress] || 0
 			this.setState({ step }, () => this.onResize())

@@ -14,7 +14,7 @@ app
 	.then(() => {
 		const server = express()
 
-		server.use(api)
+		server.use('/api', api)
 
 		server.get('/buy-*', (req, res) => {
 			const query = {
