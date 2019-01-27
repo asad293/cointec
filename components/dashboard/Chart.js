@@ -96,7 +96,7 @@ class Chart extends Component {
 			)
 			const chartData = props.chart.data //.filter((_, index) => index % 4 === 0)
 			const timestamps = chartData.map(data => data && data.Timestamp)
-			const rates = chartData.map(data => data && data.Rate.toFixed(0))
+			const rates = chartData.map(data => data && data.Rate.toFixed(2))
 			const tooltip = chartData.map(data => {
 				const date = String(new Date(data.Timestamp * 1000))
 				return `${date.slice(8, 10)} ${date.slice(4, 7)} ${date.slice(16, 21)}`
@@ -280,10 +280,6 @@ class Chart extends Component {
 					maintainAspectRatio: false
 				},
 				data: canvas => {
-					// const context = canvas.getContext('2d')
-					// const gradient = context.createLinearGradient(0, 0, 0, 500)
-					// gradient.addColorStop(0, coin.Primary + '12')
-					// gradient.addColorStop(1, 'rgba(255, 255, 255, 0)')
 					return {
 						labels: timestamps,
 						datasets: [
