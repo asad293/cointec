@@ -169,10 +169,9 @@ const TransactionStatus = ({
 	ExchangeTransactions,
 	cancelOrder
 }) => {
+	const { DestinationWallet, ...Data } = ExchangeTransactions
 	const Exchange =
-		ExchangeTransactions &&
-		Object.keys(ExchangeTransactions).length &&
-		ExchangeTransactions[Object.keys(ExchangeTransactions).reverse()[0]]
+		Data && Object.keys(Data).length && Data[Object.keys(Data).reverse()[0]]
 	const cancelled = ABANDONED || EXPIRED
 	return (
 		<div>
@@ -197,6 +196,7 @@ const TransactionStatus = ({
 			{!(cancelled || (TERMINATED && !CLEARING)) && (
 				<CoinSent
 					Exchange={Exchange}
+					DestinationWallet={DestinationWallet}
 					SETTLED={SETTLED}
 					FAILED={FAILED}
 					TERMINATED={TERMINATED}
@@ -355,7 +355,14 @@ const PaymentReceived = ({ CLEARING, REVIEW, TERMINATED, SETTLED }) => {
 	)
 }
 
-const CoinSent = ({ Exchange, SETTLED, FAILED, TERMINATED, SENT }) => {
+const CoinSent = ({
+	Exchange,
+	DestinationWallet,
+	SETTLED,
+	FAILED,
+	TERMINATED,
+	SENT
+}) => {
 	return SETTLED ? (
 		<div
 			className={cn(
@@ -404,9 +411,9 @@ const CoinSent = ({ Exchange, SETTLED, FAILED, TERMINATED, SENT }) => {
 			) : (
 				''
 			)}
-			{Exchange ? (
+			{!(FAILED || TERMINATED) && DestinationWallet ? (
 				<a
-					href={Exchange.TransactionHash || Exchange.ReceiveAddress}
+					href={DestinationWallet.Address}
 					className="btn-follow-blockchain"
 					target="_blank">
 					<i className="fas fa-paper-plane" />
