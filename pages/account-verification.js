@@ -85,13 +85,13 @@ class AccountVerification extends Component {
 	}
 
 	next(state) {
-		this.setState(
-			{
-				...state,
-				step: 0
-			},
-			() => this.onResize()
-		)
+		// this.setState(
+		// 	{
+		// 		...state,
+		// 		step: 0
+		// 	},
+		// 	() => this.onResize()
+		// )
 		this.props.fetchVerificationOverview({ ctUser: this.props.auth.ctUser })
 		// this.setState(
 		// 	{
@@ -227,8 +227,12 @@ class AccountVerification extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		const { overview } = props.verification
-		if (overview && !this.state.step) {
+		const { overview, VerificationComplete } = props.verification
+		// if (overview && !this.state.step) {
+		if (VerificationComplete) {
+			Router.push('/dashboard')
+		}
+		if (overview) {
 			const { FrontendProgress } = overview
 			const step = ProgressStatus[FrontendProgress] || 0
 			this.setState({ step }, () => this.onResize())
@@ -458,6 +462,10 @@ const SubmittedAlert = () => (
 )
 
 export default connect(
-	({ auth, verification, accounts }) => ({ auth, verification, accounts }),
+	({ auth, verification, accounts }) => ({
+		auth,
+		verification,
+		accounts
+	}),
 	{ fetchVerificationOverview, fetchUserDetails, validateSession }
 )(withRouter(AccountVerification))
