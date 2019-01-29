@@ -3,57 +3,105 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { fetchVerificationStatus } from '../store/actions'
+import { fetchVerificationStatus, fetchWallets } from '../store/actions'
 
 import Header from '../components/Header'
 import Nav from '../components/Nav'
 import AddWallet from '../components/wallet-selector/AddWallet'
 import Footer from '../components/Footer'
 
+const walletLogo = {
+	MEW: '/static/images/my-ether-wallet.png',
+	MetaMask: '/static/images/meta-mask.svg',
+	Exodus: '/static/images/exodus.png',
+	Jaxx: '/static/images/jaxx.png'
+}
+
 class WalletSelector extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			addWalletModal: false,
-			wallets: [
-				{
-					logo: '/static/images/meta-mask.svg',
-					prop1: '2 million downloads',
-					prop2: 'Created in 2015',
-					prop3: 'Store 20+ coins'
-				},
-				{
-					logo: '/static/images/exodus.png',
-					prop1: '2 million downloads',
-					prop2: 'Created in 2015',
-					prop3: 'Store 20+ coins'
-				},
-				{
-					logo: '/static/images/my-ether-wallet.png',
-					prop1: '2 million downloads',
-					prop2: 'Created in 2015',
-					prop3: 'Store 20+ coins'
-				},
-				{
-					logo: '/static/images/jaxx.png',
-					prop1: '2 million downloads',
-					prop2: 'Created in 2015',
-					prop3: 'Store 20+ coins'
-				}
-			]
+			showDropdown: false,
+			filteredAssets: [],
+			searchWallet: '',
+			selectedAsset: null,
+			selectedWallet: null
+		}
+		this.handleInput = this.handleInput.bind(this)
+		this.assetSelected = this.assetSelected.bind(this)
+	}
+
+	componentDidMount() {
+		this.props.fetchWallets()
+		addEventListener('click', this.onClickOutside)
+	}
+
+	componentWillUnmount() {
+		removeEventListener('click', this.onClickOutside)
+	}
+
+	onClickOutside = event => {
+		if (this.state.filteredAssets.length > 0) {
+			const select = event.path.find(
+				node =>
+					node.className && node.className.includes('wallet-dropdown-menu')
+			)
+			if (!select) {
+				this.setState({
+					showDropdown: false
+				})
+			}
 		}
 	}
 
-	componentDidMount() {}
+	handleInput({ target }) {
+		const word = target.value.toLowerCase().trim()
+		this.setState({
+			searchWallet: target.value,
+			showDropdown: true,
+			filteredAssets: this.props.assets.list.Receive
+				? this.props.assets.list.Receive.filter(
+						asset =>
+							asset.Name.toLowerCase().startsWith(word) ||
+							asset.FullName.toLowerCase().startsWith(word)
+				  )
+				: []
+		})
+	}
+
+	assetSelected(asset) {
+		this.setState({
+			showDropdown: false,
+			selectedAsset: asset
+		})
+	}
 
 	render() {
+		const { wallets } = this.props.assets
+		const displayWallets =
+			wallets &&
+			Object.keys(wallets)
+				.map(key => {
+					return {
+						name: key,
+						assets: wallets[key],
+						logo: walletLogo[key]
+					}
+				})
+				.filter(wallet =>
+					this.state.selectedAsset
+						? wallet.assets.includes(this.state.selectedAsset.Name)
+						: true
+				)
+
 		return (
 			<div className="wallet-selector-page">
 				<Head>
 					<title>Cryptocurrency wallet selector | Cointec</title>
 				</Head>
 
-				<Header background="gradient">
+				<Header background="gradient" style={{ overflow: 'initial' }}>
 					<Nav />
 					<hr className="hr-header" />
 					<div className="container">
@@ -70,8 +118,33 @@ class WalletSelector extends Component {
 										Let us help you choose a suitable wallet
 									</h6>
 									<div className="search-bar">
-										<input type="text" />
+										<input
+											type="text"
+											value={this.state.searchWallet}
+											onChange={this.handleInput}
+										/>
 										<i className="far fa-search" />
+									</div>
+
+									<div>
+										{this.state.showDropdown &&
+											this.state.filteredAssets &&
+											this.state.filteredAssets.length > 0 && (
+												<div className="wallet-dropdown-menu dropdown-menu show">
+													{this.state.filteredAssets.map((asset, index) => (
+														<div
+															className="dropdown-item"
+															key={index}
+															onClick={() => this.assetSelected(asset)}>
+															<img src={asset.Image} alt={asset.Name} />
+															<span className="full-name">
+																{asset.FullName}
+															</span>
+															<span className="name">{asset.Name}</span>
+														</div>
+													))}
+												</div>
+											)}
 									</div>
 								</div>
 							</div>
@@ -84,17 +157,23 @@ class WalletSelector extends Component {
 						<div className="col">
 							<div className="content-wrapper wallet-list p-0 h-auto position-relative">
 								<div className="row">
-									{this.state.wallets.map((wallet, index) => (
-										<div key={index} className="col-lg-4 col-md-6">
-											<WalletSelection
-												logo={wallet.logo}
-												prop1={wallet.prop1}
-												prop2={wallet.prop2}
-												prop3={wallet.prop3}
-												onCreate={() => this.setState({ addWalletModal: true })}
-											/>
-										</div>
-									))}
+									{displayWallets &&
+										displayWallets.map((wallet, index) => (
+											<div key={index} className="col-lg-4 col-md-6">
+												<WalletSelection
+													logo={wallet.logo}
+													prop1={'2 million downloads'}
+													prop2={'Created in 2015'}
+													prop3={'Store 20+ coins'}
+													onCreate={() =>
+														this.setState({
+															addWalletModal: true,
+															selectedWallet: wallet
+														})
+													}
+												/>
+											</div>
+										))}
 								</div>
 							</div>
 						</div>
@@ -105,6 +184,7 @@ class WalletSelector extends Component {
 
 				{this.state.addWalletModal && (
 					<AddWallet
+						wallet={this.state.selectedWallet}
 						onClose={() =>
 							this.setState({
 								addWalletModal: false
@@ -126,7 +206,9 @@ class WalletSelector extends Component {
 		)
 	}
 
-	componentWillReceiveProps(props) {}
+	componentWillReceiveProps(props) {
+		// console.log(props.assets)
+	}
 }
 
 const WalletSelection = ({ logo, prop1, prop2, prop3, onCreate }) => (
@@ -158,13 +240,15 @@ const WalletSelection = ({ logo, prop1, prop2, prop3, onCreate }) => (
 )
 
 export default connect(
-	({ auth, verification, accounts, globals }) => ({
+	({ auth, verification, accounts, globals, assets }) => ({
 		auth,
 		verification,
 		accounts,
-		globals
+		globals,
+		assets
 	}),
 	{
-		fetchVerificationStatus
+		fetchVerificationStatus,
+		fetchWallets
 	}
 )(withRouter(WalletSelector))

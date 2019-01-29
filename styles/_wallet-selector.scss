@@ -60,6 +60,56 @@
 			content: none;
 		}
 	}
+	.wallet-dropdown-menu {
+		width: calc(100% - 30px);
+		overflow-y: auto;
+		max-height: 192px;
+		background: #ffffff;
+		box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.13);
+		border-radius: 3px;
+		padding: 0;
+		left: 15px;
+		&::-webkit-scrollbar {
+			width: 5px;
+		}
+		&::-webkit-scrollbar-track {
+			background: #e7ecee;
+		}
+		&::-webkit-scrollbar-thumb,
+		&::-webkit-scrollbar-thumb:hover {
+			background: #0459c4;
+		}
+		.dropdown-item {
+			padding: 16px;
+			font-size: 16px;
+			line-height: 20px;
+			width: 100%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: flex;
+			cursor: pointer;
+			&:hover {
+				background: #f0f3f5;
+			}
+			&:active {
+				background: #f0f3f5;
+				color: #212529;
+			}
+			img {
+				width: 16px;
+				height: 16px;
+				margin-right: 8px;
+			}
+			.full-name {
+				flex-grow: 1;
+				line-height: 16px;
+			}
+			.name {
+				line-height: 16px;
+				font-weight: 600;
+			}
+		}
+	}
 	.wallet-list {
 		margin-top: 40px;
 		margin-bottom: 40px;
@@ -172,7 +222,7 @@
 			}
 		}
 		.coin-list {
-			max-height: 296px;
+			height: 296px;
 			overflow: auto;
 			&::-webkit-scrollbar {
 				width: 5px;

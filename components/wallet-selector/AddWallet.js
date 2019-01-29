@@ -7,10 +7,12 @@ class AddWallet extends Component {
 	constructor() {
 		super()
 		this.state = {
-			closed: false
+			closed: false,
+			searchCoin: ''
 		}
 		this.onClose = this.onClose.bind(this)
 		this.onClickOutside = this.onClickOutside.bind(this)
+		this.handleChange = this.handleChange.bind(this)
 	}
 
 	onClose() {
@@ -45,7 +47,23 @@ class AddWallet extends Component {
 		}
 	}
 
+	handleChange({ target }) {
+		this.setState({
+			searchCoin: target.value
+		})
+	}
+
 	render() {
+		const word = this.state.searchCoin.toLowerCase().trim()
+		const assets =
+			this.props.assets.list &&
+			this.props.assets.list.Receive.filter(
+				asset =>
+					this.props.wallet.assets.includes(asset.Name) &&
+					(asset.Name.toLowerCase().startsWith(word) ||
+						asset.FullName.toLowerCase().startsWith(word))
+			)
+
 		return (
 			<div
 				className="modal fade show"
@@ -59,24 +77,29 @@ class AddWallet extends Component {
 					style={{ transform: this.state.closed ? 'translateY(-120%)' : '' }}>
 					<div className="modal-content">
 						<div className="modal-header">
-							<img src="/static/images/meta-mask.svg" />
+							{/* <img src="/static/images/meta-mask.svg" /> */}
+							<img src={this.props.wallet.logo} />
 							<button type="button" className="close" onClick={this.onClose}>
 								<i className="far fa-times fa-sm" />
 							</button>
 						</div>
 						<div className="modal-body">
 							<div className="search-coin">
-								<input type="text" placeholder="Search supported coins" />
+								<input
+									type="text"
+									placeholder="Search supported coins"
+									value={this.state.searchCoin}
+									onChange={this.handleChange}
+								/>
 								<i className="far fa-search" />
 							</div>
 							<div className="coin-list">
-								{this.props.assets.list &&
-									this.props.assets.list.Receive.map(asset => (
-										<div className="list-item">
-											<img src={`${asset.Image}`} alt={asset.Name} />
-											{asset.FullName}
-										</div>
-									))}
+								{assets.map(asset => (
+									<div className="list-item" key={asset.Name}>
+										<img src={`${asset.Image}`} alt={asset.Name} />
+										{asset.FullName}
+									</div>
+								))}
 							</div>
 
 							<div className="blockchain-tracker">Create wallet</div>
