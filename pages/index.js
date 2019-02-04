@@ -23,7 +23,7 @@ import { fetchAssetsList } from '../store/actions'
 class Home extends Component {
 	render() {
 		const coinName = this.props.router.query.buy
-		const coin = this.props.assets.list.Receive.find(
+		const [coin] = this.props.assets.list.Receive.filter(
 			asset => _.kebabCase(asset.FullName) === coinName
 		)
 		const title = coin

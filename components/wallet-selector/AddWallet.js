@@ -39,9 +39,25 @@ class AddWallet extends Component {
 	}
 
 	onClickOutside = event => {
-		const select = event.path.find(
-			node => node.className === 'modal-dialog modal-add-wallet'
-		)
+		const composedPath = el => {
+			var path = []
+			while (el) {
+				path.push(el)
+				if (el.tagName === 'HTML') {
+					path.push(document)
+					path.push(window)
+					return path
+				}
+				el = el.parentElement
+			}
+		}
+		let path = event.path || (event.composedPath && event.composedPath())
+		if (!path) {
+			path = composedPath(event.target)
+		}
+		const select =
+			path &&
+			path.find(node => node.className === 'modal-dialog modal-add-wallet')
 		if (!select) {
 			this.onClose()
 		}

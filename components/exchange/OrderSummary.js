@@ -218,7 +218,9 @@ class OrderSummary extends Component {
 
 	updateRate({ quote }) {
 		if (quote.ExchangeRate !== 0) {
-			this.setState({ exchangeRate: Number.parseFloat(quote.ExchangeRate) })
+			this.setState({
+				exchangeRate: parseFloat(quote.ExchangeRate)
+			})
 		}
 	}
 

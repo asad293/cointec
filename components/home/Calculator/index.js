@@ -174,9 +174,25 @@ class Calculator extends Component {
 	}
 
 	onClickOutside = event => {
-		const select = event.path.find(
-			node => node.className === 'dropdown dropdown-currency-select'
-		)
+		const composedPath = el => {
+			var path = []
+			while (el) {
+				path.push(el)
+				if (el.tagName === 'HTML') {
+					path.push(document)
+					path.push(window)
+					return path
+				}
+				el = el.parentElement
+			}
+		}
+		let path = event.path || (event.composedPath && event.composedPath())
+		if (!path) {
+			path = composedPath(event.target)
+		}
+		const select =
+			path &&
+			path.find(node => node.className === 'dropdown dropdown-currency-select')
 		if (!select) {
 			this.setState({
 				toggleCoin: false,
@@ -230,7 +246,7 @@ class Calculator extends Component {
 			if (sendAmount === QuoteSendAmount)
 				this.props.change(
 					'receiveAmount',
-					Number.parseFloat(QuoteReceiveAmount).toFixed(
+					parseFloat(QuoteReceiveAmount).toFixed(
 						QuoteReceiveAmount == 0 ? 0 : 8
 					)
 				)
@@ -240,7 +256,7 @@ class Calculator extends Component {
 			if (receiveAmount === QuoteReceiveAmount)
 				this.props.change(
 					'sendAmount',
-					`${Number.parseFloat(QuoteSendAmount).toFixed(
+					`${parseFloat(QuoteSendAmount).toFixed(
 						QuoteSendAmount == 0 ? 0 : dp
 					)}`
 				)
@@ -317,7 +333,9 @@ class Calculator extends Component {
 	}
 
 	updateRate(props) {
-		this.setState({ rate: Number.parseFloat(props.quote.ExchangeRate) })
+		this.setState({
+			rate: parseFloat(props.quote.ExchangeRate)
+		})
 	}
 
 	updateCoins(props) {
@@ -688,7 +706,7 @@ const debouceSend = _.debounce(
 		props.fetchQuote({
 			SendCurrency: currency,
 			ReceiveCurrency: coin,
-			SendAmount: Number.parseFloat(sendAmount)
+			SendAmount: parseFloat(sendAmount)
 		})
 	},
 	500,
@@ -700,7 +718,7 @@ const debouceReceive = _.debounce(
 		props.fetchQuote({
 			SendCurrency: currency,
 			ReceiveCurrency: coin,
-			ReceiveAmount: Number.parseFloat(receiveAmount)
+			ReceiveAmount: parseFloat(receiveAmount)
 		})
 	},
 	500,
@@ -709,8 +727,8 @@ const debouceReceive = _.debounce(
 
 const mapStateToProps = state => {
 	const selector = formValueSelector('CalcForm')
-	const sendAmount = Number.parseFloat(selector(state, 'sendAmount'))
-	const receiveAmount = Number.parseFloat(selector(state, 'receiveAmount'))
+	const sendAmount = parseFloat(selector(state, 'sendAmount'))
+	const receiveAmount = parseFloat(selector(state, 'receiveAmount'))
 
 	return {
 		quote: state.quote,

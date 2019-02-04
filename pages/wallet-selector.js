@@ -43,10 +43,28 @@ class WalletSelector extends Component {
 
 	onClickOutside = event => {
 		if (this.state.filteredAssets.length > 0) {
-			const select = event.path.find(
-				node =>
-					node.className && node.className.includes('wallet-dropdown-menu')
-			)
+			const composedPath = el => {
+				var path = []
+				while (el) {
+					path.push(el)
+					if (el.tagName === 'HTML') {
+						path.push(document)
+						path.push(window)
+						return path
+					}
+					el = el.parentElement
+				}
+			}
+			let path = event.path || (event.composedPath && event.composedPath())
+			if (!path) {
+				path = composedPath(event.target)
+			}
+			const select =
+				path &&
+				path.find(
+					node =>
+						node.className && node.className.includes('wallet-dropdown-menu')
+				)
 			if (!select) {
 				this.setState({
 					showDropdown: false

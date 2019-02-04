@@ -159,10 +159,10 @@ class Chart extends Component {
 					maintainAspectRatio: false
 				},
 				data: canvas => {
-					const context = canvas.getContext('2d')
-					const gradient = context.createLinearGradient(0, 0, 0, 500)
-					gradient.addColorStop(0, coin.Primary + '12')
-					gradient.addColorStop(1, 'rgba(255, 255, 255, 0)')
+					// const context = canvas.getContext('2d')
+					// const gradient = context.createLinearGradient(0, 0, 0, 500)
+					// gradient.addColorStop(0, coin.Primary + '12')
+					// gradient.addColorStop(1, 'rgba(255, 255, 255, 0)')
 					return {
 						labels: timestamps,
 						datasets: [
