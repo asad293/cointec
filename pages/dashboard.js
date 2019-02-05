@@ -170,7 +170,7 @@ const TransactionTable = ({ orders, assets, onSelect }) => (
 			<tr className="tr-empty">
 				<td />
 			</tr>
-			{orders ? (
+			{orders && orders.TransactionHistory ? (
 				orders.TransactionHistory.slice(0, orders.HomepageDisplayLimit).map(
 					(order, index) => (
 						<tr
@@ -216,7 +216,7 @@ const TransactionTable = ({ orders, assets, onSelect }) => (
 				)
 			) : (
 				<tr className="no-result">
-					<td colSpan="5">No results</td>
+					<td colSpan="5">No recent transactions</td>
 				</tr>
 			)}
 			<tr className="tr-empty">
