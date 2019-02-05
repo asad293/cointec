@@ -22,7 +22,7 @@ class CointecComparison extends Component {
 							Get your coins in <b>5-20 minutes</b>
 						</a>
 					</div>
-					<div class="divider d-none d-lg-block" />
+					<div className="divider d-none d-lg-block" />
 					<div className="without-cointec">
 						<h3 className="section-subtitle">Without Cointec</h3>
 						<ul>
