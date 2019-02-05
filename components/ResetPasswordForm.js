@@ -9,7 +9,7 @@ const ResetPasswordForm = ({ handleSubmit, loading }) => (
 			label="New password"
 			type="password"
 			placeholder="••••••••"
-			validate={password}
+			validate={[passwordLength, passwordLetter, passwordNumber]}
 			component={renderField}
 		/>
 
@@ -18,7 +18,7 @@ const ResetPasswordForm = ({ handleSubmit, loading }) => (
 			label="Confirm new password"
 			type="password"
 			placeholder="••••••••"
-			validate={password}
+			validate={[passwordLength, passwordLetter, passwordNumber]}
 			component={renderField}
 		/>
 
@@ -55,8 +55,24 @@ const renderField = ({
 )
 
 // Validators
-const password = value => (!value ? 'Please enter a valid password' : undefined)
+const passwordLength = value =>
+	!value || value.length < 8
+		? 'Password must consist of 8 or more character'
+		: undefined
+const passwordLetter = value =>
+	!/[a-zA-Z]/.test(value)
+		? 'Password must contain at least 1 letter'
+		: undefined
+const passwordNumber = value =>
+	!/[0-9]/.test(value) ? 'Password must contain at least 1 number' : undefined
 
 export default reduxForm({
-	form: 'ResetPasswordForm'
+	form: 'ResetPasswordForm',
+	validate: values => {
+		const errors = {}
+		if (values.password !== values.newPassword) {
+			errors.newPassword = 'Confirm password does not match'
+		}
+		return errors
+	}
 })(ResetPasswordForm)

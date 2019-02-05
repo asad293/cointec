@@ -95,6 +95,9 @@
 		b {
 			font-weight: 600;
 		}
+		&:hover {
+			color: #667075;
+		}
 		@include media-breakpoint-down(md) {
 			display: block;
 		}
@@ -102,6 +105,9 @@
 	.with-cointec {
 		a {
 			color: #0459c4;
+			&:hover {
+				color: #0459c4;
+			}
 			@include media-breakpoint-down(md) {
 				display: block;
 				margin-bottom: 55px;
