@@ -103,7 +103,7 @@ class UpdatePassword extends Component {
 											type="password"
 											placeholder="••••••••"
 											className="mt-4"
-											validate={password}
+											// validate={password}
 											component={this.renderField}
 										/>
 									</div>
@@ -115,7 +115,11 @@ class UpdatePassword extends Component {
 											label="New password"
 											type="password"
 											placeholder="••••••••"
-											validate={password}
+											validate={[
+												passwordLength,
+												passwordLetter,
+												passwordNumber
+											]}
 											component={this.renderField}
 										/>
 									</div>
@@ -183,6 +187,16 @@ class UpdatePassword extends Component {
 
 // Validators
 const password = value => (!value ? 'Please enter a valid password' : undefined)
+const passwordLength = value =>
+	!value || value.length < 8
+		? 'Password must consist of 8 or more character'
+		: undefined
+const passwordLetter = value =>
+	!/[a-zA-Z]/.test(value)
+		? 'Password must contain at least 1 letter'
+		: undefined
+const passwordNumber = value =>
+	!/[0-9]/.test(value) ? 'Password must contain at least 1 number' : undefined
 
 export default connect(
 	({ accounts }) => ({ accounts }),
