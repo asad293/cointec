@@ -5,24 +5,6 @@ import loadIntercom from '../libs/load-intercom'
 import { Provider } from 'react-redux'
 import '../styles/app.scss'
 
-// polyfills
-require('es6-promise').polyfill()
-require('isomorphic-fetch')
-
-if (!String.prototype.startsWith) {
-	String.prototype.startsWith = function(searchString, position) {
-		position = position || 0
-		return this.substr(position, searchString.length) === searchString
-	}
-}
-
-if (!Array.prototype.find) {
-	Array.prototype.find = function(func) {
-		const [r] = this.filter(func)
-		return r
-	}
-}
-
 class MyApp extends App {
 	componentDidMount() {
 		loadIntercom()
