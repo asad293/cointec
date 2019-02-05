@@ -9,7 +9,7 @@ import Header from '../components/Header'
 import Nav from '../components/Nav'
 import Calculator from '../components/home/Calculator'
 import CurrencySlider from '../components/home/CurrencySlider'
-import PHSection from '../components/home/PHSection'
+import CointecComparison from '../components/home/CointecComparison'
 import GetStarted from '../components/home/GetStarted'
 import ExchangeRates from '../components/home/ExchangeRates'
 import DigitalCurrencies from '../components/home/DigitalCurrencies'
@@ -23,7 +23,7 @@ import { fetchAssetsList } from '../store/actions'
 class Home extends Component {
 	render() {
 		const coinName = this.props.router.query.buy
-		const coin = this.props.assets.list.Receive.find(
+		const [coin] = this.props.assets.list.Receive.filter(
 			asset => _.kebabCase(asset.FullName) === coinName
 		)
 		const title = coin
@@ -88,7 +88,7 @@ class Home extends Component {
 				</Header>
 
 				<CurrencySlider />
-				<PHSection />
+				<CointecComparison />
 				<GetStarted />
 				<ExchangeRates />
 				<DigitalCurrencies />

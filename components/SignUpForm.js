@@ -19,7 +19,7 @@ const SignUpForm = ({ handleSubmit, maskPassword, toggleMask, loading }) => (
 			name="password"
 			label="Password"
 			placeholder="••••••••"
-			validate={password}
+			validate={[passwordLength, passwordLetter, passwordNumber]}
 			mask={maskPassword}
 			toggleMask={toggleMask}
 			component={renderPasswordField}
@@ -93,8 +93,16 @@ const emailAddress = value => {
 	const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 	return !regex.test(value) ? 'Please enter a valid email' : undefined
 }
-const password = value =>
-	!value || value.length < 8 ? 'Please enter a valid password' : undefined
+const passwordLength = value =>
+	!value || value.length < 8
+		? 'Password must consist of 8 or more character'
+		: undefined
+const passwordLetter = value =>
+	!/[a-zA-Z]/.test(value)
+		? 'Password must contain at least 1 letter'
+		: undefined
+const passwordNumber = value =>
+	!/[0-9]/.test(value) ? 'Password must contain at least 1 number' : undefined
 
 export default reduxForm({
 	form: 'SignUpForm'

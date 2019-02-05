@@ -164,12 +164,13 @@ class Transactions extends Component {
 		})
 		this.setState(
 			{
-				totalPages: order.orders
-					? Math.ceil(
-							order.orders.TransactionHistory.length /
-								order.orders.TransactionsDisplayLimit
-					  )
-					: 0,
+				totalPages:
+					order.orders && order.orders.TransactionHistory
+						? Math.ceil(
+								order.orders.TransactionHistory.length /
+									order.orders.TransactionsDisplayLimit
+						  )
+						: 0,
 				assetsImages
 			},
 			() => {
@@ -188,11 +189,12 @@ const TransactionTable = ({
 	onSelect,
 	onSort
 }) => {
-	const transactionHistoryGroups = orders
-		? _.groupBy(orders.TransactionHistory, order =>
-				new Date(order.createdAt * 1000).setHours(0, 0, 0, 0)
-		  )
-		: null
+	const transactionHistoryGroups =
+		orders && orders.TransactionHistory
+			? _.groupBy(orders.TransactionHistory, order =>
+					new Date(order.createdAt * 1000).setHours(0, 0, 0, 0)
+			  )
+			: null
 	return (
 		<div>
 			<table className="table d-none d-md-table">
@@ -252,7 +254,7 @@ const TransactionTable = ({
 					<tr className="tr-empty">
 						<td />
 					</tr>
-					{orders ? (
+					{orders && orders.TransactionHistory ? (
 						orders.TransactionHistory.sort((x, y) =>
 							sortOrder === 'timestamp'
 								? sortDirection === 'desc'
@@ -325,7 +327,7 @@ const TransactionTable = ({
 							))
 					) : (
 						<tr className="no-result">
-							<td colSpan="5">No results</td>
+							<td colSpan="5">No recent transactions</td>
 						</tr>
 					)}
 					<tr className="tr-empty">

@@ -1,0 +1,124 @@
+.comparison-section.container {
+	padding-top: 80px;
+	padding-bottom: 80px;
+	.section-title {
+		line-height: 19px;
+		margin-top: 0;
+		margin-bottom: 72px;
+		font-weight: 600;
+		@include media-breakpoint-down(md) {
+			margin-bottom: 48px;
+		}
+		@include media-breakpoint-down(sm) {
+			padding-right: 32px;
+			line-height: normal;
+			height: 51px;
+		}
+	}
+	.section-subtitle {
+		color: #02182b;
+		font-weight: 600;
+		line-height: 14px;
+		font-size: 18px;
+		margin-bottom: 40px;
+		@include media-breakpoint-down(md) {
+			margin-bottom: 32px;
+		}
+	}
+	.divider {
+		height: 328px;
+		border-left: 1px solid #e7ecee;
+		margin: 1px 80px;
+	}
+	ul {
+		list-style-type: none;
+		color: #515c61;
+		padding-left: 28px;
+		position: relative;
+		&::before {
+			content: '';
+			background: #b0b9bd;
+			width: 2px;
+			height: calc(100% - 2px);
+			position: absolute;
+			left: 5px;
+			top: 1px;
+		}
+		li {
+			line-height: 12px;
+			margin-bottom: 40px;
+			&::before {
+				content: '';
+				border: 2.4px solid #b0b9bd;
+				background: white;
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				position: absolute;
+				left: 1px;
+				margin-top: 1px;
+			}
+			@include media-breakpoint-down(md) {
+				margin-bottom: 24px;
+			}
+		}
+		&.deco-primary {
+			&::before {
+				content: '';
+				background: #0459c4;
+			}
+
+			li {
+				line-height: 12px;
+				&::before {
+					content: '';
+					border: 2.4px solid #0459c4;
+				}
+			}
+		}
+		@include media-breakpoint-down(md) {
+			margin-bottom: 32px;
+		}
+	}
+	a {
+		display: inline-block;
+		margin: 0;
+		background: #ffffff;
+		box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.13);
+		border-radius: 2px;
+		padding: 18px 26px;
+		line-height: 12px;
+		font-size: 16px;
+		font-weight: normal;
+		color: #667075;
+		text-align: center;
+		b {
+			font-weight: 600;
+		}
+		&:hover {
+			color: #667075;
+		}
+		@include media-breakpoint-down(md) {
+			display: block;
+		}
+	}
+	.with-cointec {
+		a {
+			color: #0459c4;
+			&:hover {
+				color: #0459c4;
+			}
+			@include media-breakpoint-down(md) {
+				display: block;
+				margin-bottom: 55px;
+			}
+		}
+	}
+	@include media-breakpoint-down(md) {
+		padding-top: 56px;
+		padding-bottom: 56px;
+	}
+	@include media-breakpoint-down(xs) {
+		padding: 56px 20px;
+	}
+}

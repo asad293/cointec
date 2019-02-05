@@ -40,9 +40,27 @@ class CloseAccount extends Component {
 	}
 
 	onClickOutside = event => {
-		const select = event.path.find(
-			node => node.className === 'modal-dialog modal-account-settings'
-		)
+		const composedPath = el => {
+			var path = []
+			while (el) {
+				path.push(el)
+				if (el.tagName === 'HTML') {
+					path.push(document)
+					path.push(window)
+					return path
+				}
+				el = el.parentElement
+			}
+		}
+		let path = event.path || (event.composedPath && event.composedPath())
+		if (!path) {
+			path = composedPath(event.target)
+		}
+		const select =
+			path &&
+			path.find(
+				node => node.className === 'modal-dialog modal-account-settings'
+			)
 		if (!select) {
 			this.onClose()
 		}

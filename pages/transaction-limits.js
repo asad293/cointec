@@ -125,10 +125,6 @@ class TransactionLimits extends Component {
 			</div>
 		)
 	}
-
-	componentWillReceiveProps(props) {
-		console.log(props.accounts.limits)
-	}
 }
 
 export default connect(
