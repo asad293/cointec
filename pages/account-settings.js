@@ -372,10 +372,10 @@ class AccountSettings extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		console.log(
-			props.accounts.userDetails &&
-				props.accounts.userDetails.CloseAccountTriggered
-		)
+		// console.log(
+		// 	props.accounts.userDetails &&
+		// 		props.accounts.userDetails.CloseAccountTriggered
+		// )
 	}
 }
 

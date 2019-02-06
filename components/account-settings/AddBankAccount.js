@@ -6,6 +6,7 @@ import {
 	updateAccount,
 	deleteAccount,
 	fetchAccounts,
+	validateSession,
 	signOutSession
 } from '../../store/actions'
 import cn from 'classnames'
@@ -44,6 +45,16 @@ class AddBankAccount extends Component {
 	}
 
 	componentDidMount() {
+		const session = this.props.validateSession()
+		if (session) {
+			const ctUser = session['CT-ACCOUNT-ID']
+			this.setState({
+				ctUser
+			})
+		} else {
+			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
+		}
+
 		setTimeout(() => {
 			addEventListener('click', this.onClickOutside)
 		}, 500)
@@ -88,9 +99,9 @@ class AddBankAccount extends Component {
 	onSubmit(values) {
 		if (this.props.editAccount) {
 			this.props
-				.updateAccount(this.props.ctUser, values, this.props.editAccount.id)
+				.updateAccount(this.state.ctUser, values, this.props.editAccount.id)
 				.then(() => {
-					this.props.fetchAccounts(this.props.ctUser)
+					this.props.fetchAccounts(this.state.ctUser)
 					this.onClose()
 				})
 				.catch(err => {
@@ -100,7 +111,7 @@ class AddBankAccount extends Component {
 				})
 		} else {
 			this.props
-				.addAccount(this.props.ctUser, values)
+				.addAccount(this.state.ctUser, values)
 				.then(() => this.onClose())
 				.catch(err => {
 					if (err.response.status === 401) {
@@ -112,7 +123,7 @@ class AddBankAccount extends Component {
 
 	onDelete() {
 		this.props
-			.deleteAccount(this.props.ctUser, this.props.editAccount.id)
+			.deleteAccount(this.state.ctUser, this.props.editAccount.id)
 			.then(() => this.onClose())
 			.catch(err => {
 				if (err.response.status === 401) {
@@ -334,7 +345,14 @@ const validate = (values, props) => {
 
 export default connect(
 	({ accounts }) => ({ accounts }),
-	{ addAccount, updateAccount, deleteAccount, fetchAccounts, signOutSession }
+	{
+		addAccount,
+		updateAccount,
+		deleteAccount,
+		fetchAccounts,
+		validateSession,
+		signOutSession
+	}
 )(
 	reduxForm({
 		form: 'AddBankAccountForm',
