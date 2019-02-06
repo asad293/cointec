@@ -112,7 +112,10 @@ class AddBankAccount extends Component {
 		} else {
 			this.props
 				.addAccount(this.state.ctUser, values)
-				.then(() => this.onClose())
+				.then(() => {
+					this.props.fetchAccounts(this.state.ctUser)
+					this.onClose()
+				})
 				.catch(err => {
 					if (err.response.status === 401) {
 						this.props.signOutSession()
@@ -124,7 +127,10 @@ class AddBankAccount extends Component {
 	onDelete() {
 		this.props
 			.deleteAccount(this.state.ctUser, this.props.editAccount.id)
-			.then(() => this.onClose())
+			.then(() => {
+				this.props.fetchAccounts(this.state.ctUser)
+				this.onClose()
+			})
 			.catch(err => {
 				if (err.response.status === 401) {
 					this.props.signOutSession()
