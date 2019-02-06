@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
+import cn from 'classnames'
 
 import {
 	validateSession,
@@ -294,9 +295,22 @@ class AccountSettings extends Component {
 											</div>
 											<div className="ml-md-auto">
 												<a
-													className="btn-setting text-danger"
-													onClick={() =>
-														this.setState({ closeAccountModal: true })
+													className={cn(
+														'btn-setting text-danger',
+														this.props.accounts.userDetails &&
+															this.props.accounts.userDetails
+																.CloseAccountTriggered
+															? 'disabled'
+															: ''
+													)}
+													onClick={
+														this.props.accounts.userDetails
+															? !this.props.accounts.userDetails
+																	.CloseAccountTriggered
+																? () =>
+																		this.setState({ closeAccountModal: true })
+																: null
+															: () => this.setState({ closeAccountModal: true })
 													}>
 													Close your account
 												</a>
@@ -358,7 +372,10 @@ class AccountSettings extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		// console.log(props.verification)
+		console.log(
+			props.accounts.userDetails &&
+				props.accounts.userDetails.CloseAccountTriggered
+		)
 	}
 }
 
