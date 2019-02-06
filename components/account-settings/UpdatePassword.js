@@ -116,7 +116,7 @@ class UpdatePassword extends Component {
 											type="password"
 											placeholder="••••••••"
 											className="mt-4"
-											// validate={password}
+											validate={passwordRequired}
 											component={this.renderField}
 										/>
 									</div>
@@ -129,6 +129,7 @@ class UpdatePassword extends Component {
 											type="password"
 											placeholder="••••••••"
 											validate={[
+												passwordRequired,
 												passwordLength,
 												passwordLetter,
 												passwordNumber
@@ -145,6 +146,7 @@ class UpdatePassword extends Component {
 											type="password"
 											placeholder="••••••••"
 											validate={[
+												passwordRequired,
 												passwordLength,
 												passwordLetter,
 												passwordNumber
@@ -214,7 +216,8 @@ class UpdatePassword extends Component {
 }
 
 // Validators
-const password = value => (!value ? 'Please enter a valid password' : undefined)
+const passwordRequired = value =>
+	!value ? 'Please enter a valid password' : undefined
 const passwordLength = value =>
 	!value || value.length < 8
 		? 'Password must consist of 8 or more character'
