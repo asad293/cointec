@@ -81,7 +81,7 @@ class UpdatePassword extends Component {
 						throw new SubmissionError({
 							password: 'Incorrect current password'
 						})
-					} else {
+					} else if (error.response.status === 400) {
 						throw new SubmissionError({
 							newPassword: error.response.data.Message
 						})
