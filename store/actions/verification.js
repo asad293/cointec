@@ -1,6 +1,6 @@
 import { ROOT_URL } from '..'
 import axios from 'axios'
-import { validateSession } from './auth'
+import { validateSession, signOutSession } from './auth'
 
 export const FETCH_VERIFICATION_STATUS = 'FETCH_VERIFICATION_STATUS'
 export const FETCH_VERIFICATION_STATUS_START = 'FETCH_VERIFICATION_STATUS_START'

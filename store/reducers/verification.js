@@ -31,6 +31,10 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 			return { ...state, ...payload, loading: false, error: null }
 
 		case FETCH_VERIFICATION_OVERVIEW:
+			// const IdItems = [...payload.IdItems]
+			// IdItems[2].Status = 'Declined'
+			// IdItems[2].Message = 'Reupload rejected documents'
+			// const overview = { FrontendProgress: 'ATTENTIONIDENTITY', IdItems }
 			return { ...state, overview: payload, loading: false, error: null }
 
 		case FETCH_VERIFICATION_STATUS_START:
