@@ -68,6 +68,14 @@
 				list-style-type: none;
 				position: relative;
 				font-size: 14px;
+				@include media-breakpoint-up(sm) {
+					&:nth-child(1) {
+						margin-right: 22px;
+					}
+					&:nth-child(2) {
+						margin-right: 8px;
+					}
+				}
 				&::before {
 					content: '';
 					width: 8px;
@@ -94,6 +102,13 @@
 					&::before {
 						background: #fff;
 						border: 2px solid #0459c4;
+					}
+				}
+				&.declined {
+					color: #1a1d1f;
+					&::before {
+						background: #fff;
+						border: 2px solid #d7263d;
 					}
 				}
 			}

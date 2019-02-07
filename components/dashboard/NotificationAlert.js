@@ -11,9 +11,11 @@ const NotificationAlert = ({ children, onHide, type, visible }) =>
 		<div className={cn('alert-message', types[type])}>
 			<div className="d-flex justify-content-center align-items-center container position-relative">
 				{children}
-				<a className="btn-hide-alert" onClick={onHide}>
-					<i className="far fa-times fa-lg" />
-				</a>
+				{onHide && (
+					<a className="btn-hide-alert" onClick={onHide}>
+						<i className="far fa-times fa-lg" />
+					</a>
+				)}
 			</div>
 		</div>
 	) : null

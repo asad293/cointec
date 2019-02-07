@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
 import {
+	fetchVerificationStatus,
 	fetchVerificationOverview,
 	fetchUserDetails,
 	validateSession
@@ -25,7 +26,8 @@ const ProgressStatus = {
 	UPLOADIDENTITY: 3,
 	ATTENTIONIDENTITY: 3,
 	UPLOADADDRESS: 4,
-	ATTENTIONADDRESS: 4
+	ATTENTIONADDRESS: 4,
+	COMPLETED: 0
 }
 
 class AccountVerification extends Component {
@@ -57,6 +59,7 @@ class AccountVerification extends Component {
 		const session = this.props.validateSession()
 		if (session) {
 			const ctUser = session['CT-ACCOUNT-ID']
+			this.props.fetchVerificationStatus({ ctUser })
 			this.props.fetchVerificationOverview({ ctUser })
 			this.props.fetchUserDetails(ctUser)
 		} else {
@@ -149,6 +152,18 @@ class AccountVerification extends Component {
 
 	render() {
 		const { docWidth } = this.state
+
+		const { FrontendProgress, IdItems } = this.props.verification.overview || {}
+		const isDeclined =
+			IdItems &&
+			(IdItems[2].Status === 'Declined' || IdItems[3].Status === 'Declined')
+		const declinedMessage =
+			this.state.step === 3
+				? IdItems[2].Message
+				: this.state.step === 4
+				? IdItems[3].Message
+				: ''
+
 		return (
 			<div
 				className="account-verification-page exchange-page full-height"
@@ -156,17 +171,22 @@ class AccountVerification extends Component {
 				<Head>
 					<title>Account verification | Cointec</title>
 				</Head>
-				{this.state.completed && <SubmittedAlert />}
+				{this.state.completed && !isDeclined && <SubmittedAlert />}
 				<NotificationAlert
 					type="success"
 					visible={this.state.notificationAlert}
 					onHide={() => this.setState({ notificationAlert: false })}>
 					{this.state.notificationContent}
 				</NotificationAlert>
+				<NotificationAlert type="danger" visible={isDeclined}>
+					<p>{declinedMessage}</p>
+				</NotificationAlert>
 				<Header background="solid">
 					<Nav
 						step={this.state.step}
 						completed={this.state.completed}
+						FrontendProgress={FrontendProgress}
+						IdItems={IdItems}
 						setStep={step => this.setState({ step }, () => this.onResize())}
 					/>
 				</Header>
@@ -228,12 +248,18 @@ class AccountVerification extends Component {
 
 	componentWillReceiveProps(props) {
 		const { overview, VerificationComplete } = props.verification
-		// if (overview && !this.state.step) {
+
 		if (VerificationComplete) {
 			Router.push('/dashboard')
 		}
+
 		if (overview) {
-			const { FrontendProgress } = overview
+			const { FrontendProgress, IdItems } = overview
+			if (FrontendProgress === 'COMPLETED') {
+				this.complete()
+			}
+			// console.log(overview)
+			// console.log(IdItems[ProgressStatus[FrontendProgress] - 1])
 			const step = ProgressStatus[FrontendProgress] || 0
 			this.setState({ step }, () => this.onResize())
 		}
@@ -353,7 +379,7 @@ const Nav = props => (
 					props.step <= 4 ? `step-${props.step}` : ''
 				)}>
 				<ul>
-					<li
+					{/* <li
 						className={cn(
 							props.completed
 								? 'passed'
@@ -366,8 +392,8 @@ const Nav = props => (
 						style={{ marginRight: 22 }}
 						onClick={props.step >= 2 ? () => props.setStep(1) : null}>
 						Email
-					</li>
-					<li
+					</li> */}
+					{/* <li
 						className={cn(
 							props.completed
 								? 'passed'
@@ -380,10 +406,38 @@ const Nav = props => (
 						style={{ marginRight: 8 }}
 						onClick={props.step >= 3 ? () => props.setStep(2) : null}>
 						Basic details
-					</li>
-					<li
+					</li> */}
+					<NavButton
+						FrontendProgress={props.FrontendProgress}
+						ProgressItem={props.IdItems && props.IdItems[0]}
+						step={1}>
+						Email
+					</NavButton>
+					<NavButton
+						FrontendProgress={props.FrontendProgress}
+						ProgressItem={props.IdItems && props.IdItems[1]}
+						step={2}>
+						Basic details
+					</NavButton>
+					<NavButton
+						FrontendProgress={props.FrontendProgress}
+						ProgressItem={props.IdItems && props.IdItems[2]}
+						step={3}>
+						Proof of ID
+					</NavButton>
+					<NavButton
+						FrontendProgress={props.FrontendProgress}
+						ProgressItem={props.IdItems && props.IdItems[3]}
+						step={4}>
+						Proof of address
+					</NavButton>
+					{/* <li
 						className={cn(
-							props.completed
+							props.ProgressItem &&
+								props.ProgressItem.Type === 'DOCIDENTITY' &&
+								props.ProgressItem.Status === 'Declined'
+								? 'declined'
+								: props.completed
 								? 'passed'
 								: props.step === 3
 								? 'active'
@@ -393,13 +447,13 @@ const Nav = props => (
 						)}
 						onClick={props.step === 4 ? () => props.setStep(3) : null}>
 						Proof of ID
-					</li>
-					<li
+					</li> */}
+					{/* <li
 						className={cn(
 							props.completed ? 'passed' : props.step === 4 ? 'active' : ''
 						)}>
 						Proof of address
-					</li>
+					</li> */}
 				</ul>
 			</div>
 
@@ -409,6 +463,7 @@ const Nav = props => (
 					{props.step === 2 && 'Your basic details'}
 					{props.step === 3 && 'Proof of ID'}
 					{props.step === 4 && 'Proof of address'}
+					{props.step === 0 && 'Documents submitted'}
 				</h5>
 			</div>
 
@@ -424,6 +479,30 @@ const Nav = props => (
 		</nav>
 	</div>
 )
+
+const NavButton = ({ FrontendProgress, ProgressItem, step, children }) => {
+	// console.log(ProgressItem)
+	const classes = {
+		Completed: 'passed',
+		Declined: 'declined',
+		Pending: 'passed',
+		Entered: 'active',
+		Empty: ''
+	}
+	const className = cn(
+		ProgressStatus[FrontendProgress] === step
+			? classes[ProgressItem && ProgressItem.Status] !== 'declined'
+				? 'active'
+				: 'declined'
+			: classes[ProgressItem && ProgressItem.Status] || ''
+	)
+	const cursor = className !== '' ? 'pointer' : 'initial'
+	return (
+		<li className={className} style={{ cursor }}>
+			{children}
+		</li>
+	)
+}
 
 const InnerNav = props => (
 	<div
@@ -467,5 +546,10 @@ export default connect(
 		verification,
 		accounts
 	}),
-	{ fetchVerificationOverview, fetchUserDetails, validateSession }
+	{
+		fetchVerificationStatus,
+		fetchVerificationOverview,
+		fetchUserDetails,
+		validateSession
+	}
 )(withRouter(AccountVerification))
