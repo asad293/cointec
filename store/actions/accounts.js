@@ -350,9 +350,9 @@ export const updatePassword = ({
 				type: UPDATE_PASSWORD_END,
 				payload: error
 			})
-			if (error && error.response && error.response.status === 401) {
-				dispatch(signOutSession())
-			}
+			// if (error && error.response && error.response.status === 401) {
+			// 	dispatch(signOutSession())
+			// }
 			throw error
 		})
 }

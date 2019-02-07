@@ -164,7 +164,8 @@ const TransactionStatus = ({
 		TERMINATED,
 		SENT,
 		FAILED,
-		ABANDONED
+		ABANDONED,
+		HASHNOTFOUND
 	},
 	ExchangeTransactions,
 	cancelOrder
@@ -201,6 +202,7 @@ const TransactionStatus = ({
 					FAILED={FAILED}
 					TERMINATED={TERMINATED}
 					SENT={SENT}
+					HASHNOTFOUND={HASHNOTFOUND}
 				/>
 			)}
 			{!(
@@ -361,7 +363,8 @@ const CoinSent = ({
 	SETTLED,
 	FAILED,
 	TERMINATED,
-	SENT
+	SENT,
+	HASHNOTFOUND
 }) => {
 	return SETTLED ? (
 		<div
@@ -413,7 +416,9 @@ const CoinSent = ({
 			)}
 			{!(FAILED || TERMINATED) && DestinationWallet ? (
 				<a
-					href={DestinationWallet.Address}
+					href={
+						HASHNOTFOUND ? DestinationWallet.Address : Exchange.TransactionHash
+					}
 					className="btn-follow-blockchain"
 					target="_blank">
 					<i className="fas fa-paper-plane" />

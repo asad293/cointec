@@ -16,8 +16,26 @@ import {
 class ResetPassword extends Component {
 	constructor() {
 		super()
+		this.state = {
+			maskPassword: false,
+			maskConfirmPassword: false
+		}
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.passwordUpdated = this.passwordUpdated.bind(this)
+		this.toggleMask = this.toggleMask.bind(this)
+		this.toggleConfirmMask = this.toggleConfirmMask.bind(this)
+	}
+
+	toggleMask() {
+		this.setState({
+			maskPassword: !this.state.maskPassword
+		})
+	}
+
+	toggleConfirmMask() {
+		this.setState({
+			maskConfirmPassword: !this.state.maskConfirmPassword
+		})
 	}
 
 	handleSubmit(values) {
@@ -77,7 +95,14 @@ class ResetPassword extends Component {
 					</div>
 					<hr />
 
-					<ResetPasswordForm loading={loading} onSubmit={this.handleSubmit} />
+					<ResetPasswordForm
+						maskPassword={this.state.maskPassword}
+						toggleMask={this.toggleMask}
+						maskConfirmPassword={this.state.maskConfirmPassword}
+						toggleConfirmMask={this.toggleConfirmMask}
+						loading={loading}
+						onSubmit={this.handleSubmit}
+					/>
 				</section>
 			</div>
 		)

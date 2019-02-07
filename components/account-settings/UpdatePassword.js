@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm, SubmissionError } from 'redux-form'
 import { connect } from 'react-redux'
 import { updatePassword } from '../../store/actions'
 import cn from 'classnames'
@@ -64,7 +64,7 @@ class UpdatePassword extends Component {
 	}
 
 	onSubmit(values) {
-		this.props
+		return this.props
 			.updatePassword({
 				ctUser: this.props.ctUser,
 				password: values.password,
@@ -74,6 +74,19 @@ class UpdatePassword extends Component {
 				console.log(res)
 				this.props.onPasswordUpdated()
 				this.onClose()
+			})
+			.catch(error => {
+				if (error) {
+					if (error.response.status === 401) {
+						throw new SubmissionError({
+							password: 'Incorrect current password'
+						})
+					} else if (error.response.status === 400) {
+						throw new SubmissionError({
+							newPassword: error.response.data.Message
+						})
+					}
+				}
 			})
 		// this.props.onClose()
 	}
@@ -103,7 +116,7 @@ class UpdatePassword extends Component {
 											type="password"
 											placeholder="••••••••"
 											className="mt-4"
-											// validate={password}
+											validate={passwordRequired}
 											component={this.renderField}
 										/>
 									</div>
@@ -116,6 +129,24 @@ class UpdatePassword extends Component {
 											type="password"
 											placeholder="••••••••"
 											validate={[
+												passwordRequired,
+												passwordLength,
+												passwordLetter,
+												passwordNumber
+											]}
+											component={this.renderField}
+										/>
+									</div>
+								</div>
+								<div className="row">
+									<div className="col-12">
+										<Field
+											name="confirmNewPassword"
+											label="Confirm New password"
+											type="password"
+											placeholder="••••••••"
+											validate={[
+												passwordRequired,
 												passwordLength,
 												passwordLetter,
 												passwordNumber
@@ -125,12 +156,11 @@ class UpdatePassword extends Component {
 									</div>
 								</div>
 								<div className="row mt-4">
-									{this.props.accounts.error && (
+									{/* {this.props.accounts.error && (
 										<div className="col-md-12 mb-2 text-danger">
-											{/* {this.props.accounts.error.response.data.Message} */}
 											Incorrect current password
 										</div>
-									)}
+									)} */}
 									<div className="col-md-12">
 										<button
 											type="submit"
@@ -186,7 +216,8 @@ class UpdatePassword extends Component {
 }
 
 // Validators
-const password = value => (!value ? 'Please enter a valid password' : undefined)
+const passwordRequired = value =>
+	!value ? 'Please enter a valid password' : undefined
 const passwordLength = value =>
 	!value || value.length < 8
 		? 'Password must consist of 8 or more character'
@@ -203,6 +234,13 @@ export default connect(
 	{ updatePassword }
 )(
 	reduxForm({
-		form: 'UpdatePasswordForm'
+		form: 'UpdatePasswordForm',
+		validate: values => {
+			const errors = {}
+			if (values.newPassword !== values.confirmNewPassword) {
+				errors.confirmNewPassword = 'Confirm password does not match'
+			}
+			return errors
+		}
 	})(UpdatePassword)
 )

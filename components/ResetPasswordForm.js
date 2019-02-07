@@ -1,25 +1,35 @@
 import React from 'react'
 import cn from 'classnames'
 import { Field, reduxForm } from 'redux-form'
+import PasswordToggle from '../components/PasswordToggle'
 
-const ResetPasswordForm = ({ handleSubmit, loading }) => (
+const ResetPasswordForm = ({
+	handleSubmit,
+	maskPassword,
+	toggleMask,
+	maskConfirmPassword,
+	toggleConfirmMask,
+	loading
+}) => (
 	<form className="als-content" onSubmit={handleSubmit} noValidate>
 		<Field
 			name="password"
 			label="New password"
-			type="password"
 			placeholder="••••••••"
 			validate={[passwordLength, passwordLetter, passwordNumber]}
-			component={renderField}
+			mask={maskPassword}
+			toggleMask={toggleMask}
+			component={renderPasswordField}
 		/>
 
 		<Field
 			name="newPassword"
 			label="Confirm new password"
-			type="password"
 			placeholder="••••••••"
 			validate={[passwordLength, passwordLetter, passwordNumber]}
-			component={renderField}
+			mask={maskConfirmPassword}
+			toggleMask={toggleConfirmMask}
+			component={renderPasswordField}
 		/>
 
 		<button type="submit" className="btn btn-primary" disabled={loading}>
@@ -38,23 +48,59 @@ const renderField = ({
 	input,
 	label,
 	placeholder,
-	autoComplete,
-	type,
-	meta: { touched, error }
+	mask,
+	toggleMask,
+	meta: { touched, error, valid, pristine }
 }) => (
 	<div className={cn('form-group', touched && error ? 'invalid' : null)}>
 		<label>{touched && error ? error : label}</label>
-		<input
-			{...input}
-			type={type}
-			className="form-control"
-			placeholder={placeholder}
-			autoComplete={autoComplete ? autoComplete : 'off'}
-		/>
+		<div className="password-validation position-relative">
+			<input
+				{...input}
+				type={mask ? 'text' : 'password'}
+				className="form-control"
+				placeholder={placeholder}
+				autoComplete="off"
+			/>
+
+			<PasswordToggle visible={mask} onToggle={toggleMask} />
+		</div>
+	</div>
+)
+
+const renderPasswordField = ({
+	input,
+	label,
+	placeholder,
+	mask,
+	toggleMask,
+	meta: { touched, error, valid, pristine }
+}) => (
+	<div
+		className={cn(
+			'form-group',
+			touched && error ? 'invalid' : !pristine && valid ? 'valid' : null
+		)}>
+		<label htmlFor="password">{touched && error ? error : label}</label>
+		<div className="password-validation position-relative">
+			<input
+				id="password"
+				{...input}
+				type={mask ? 'text' : 'password'}
+				className="form-control password"
+				placeholder={placeholder}
+				autoComplete="off"
+			/>
+
+			<PasswordToggle visible={mask} onToggle={toggleMask} />
+
+			<div className="typing-validator">8 or more character</div>
+		</div>
 	</div>
 )
 
 // Validators
+const required = value => (!value ? 'This field is required' : undefined)
 const passwordLength = value =>
 	!value || value.length < 8
 		? 'Password must consist of 8 or more character'
