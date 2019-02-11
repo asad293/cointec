@@ -294,26 +294,24 @@ class AccountSettings extends Component {
 												</p>
 											</div>
 											<div className="ml-md-auto">
-												<a
-													className={cn(
-														'btn-setting text-danger',
-														this.props.accounts.userDetails &&
-															this.props.accounts.userDetails
-																.CloseAccountTriggered
-															? 'disabled'
-															: ''
+												{this.props.verification &&
+													!this.props.verification.loading && (
+														<a
+															className={cn(
+																'btn-setting text-danger',
+																this.props.verification.CloseAccountTriggered
+																	? 'disabled'
+																	: ''
+															)}
+															onClick={
+																!this.props.verification.CloseAccountTriggered
+																	? () =>
+																			this.setState({ closeAccountModal: true })
+																	: null
+															}>
+															Close your account
+														</a>
 													)}
-													onClick={
-														this.props.accounts.userDetails
-															? !this.props.accounts.userDetails
-																	.CloseAccountTriggered
-																? () =>
-																		this.setState({ closeAccountModal: true })
-																: null
-															: () => this.setState({ closeAccountModal: true })
-													}>
-													Close your account
-												</a>
 											</div>
 										</div>
 									</div>

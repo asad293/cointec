@@ -25,6 +25,9 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, { type, payload }) => {
 	switch (type) {
 		case FETCH_VERIFICATION_STATUS:
+			// const data = { ...payload, CloseAccountTriggered: true }
+			return { ...state, ...payload, loading: false, error: null }
+
 		case GET_REHIVE_ID:
 		case GET_REHIVE_TOKEN:
 		case DELETE_REHIVE_TOKEN:
