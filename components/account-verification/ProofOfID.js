@@ -138,6 +138,16 @@ class ProofOfID extends Component {
 						</div>
 					</div>
 				)}
+				{this.props.verification.overview &&
+					this.props.verification.overview.IdItems[2].Status === 'Declined' && (
+						<div className="row">
+							<div className="col-12">
+								<p className="error-message">
+									{this.props.verification.overview.IdItems[2].Message}
+								</p>
+							</div>
+						</div>
+					)}
 				{this.state.uploaded && (
 					<div className="row">
 						<div className="col-12">

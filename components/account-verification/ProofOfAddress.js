@@ -158,6 +158,16 @@ class ProofOfAddress extends Component {
 						</div>
 					</div>
 				)}
+				{this.props.verification.overview &&
+					this.props.verification.overview.IdItems[3].Status === 'Declined' && (
+						<div className="row">
+							<div className="col-12">
+								<p className="error-message">
+									{this.props.verification.overview.IdItems[3].Message}
+								</p>
+							</div>
+						</div>
+					)}
 				{this.state.uploaded && (
 					<div className="row">
 						<div className="col-12">

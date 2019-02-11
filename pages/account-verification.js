@@ -88,21 +88,7 @@ class AccountVerification extends Component {
 	}
 
 	next(state) {
-		// this.setState(
-		// 	{
-		// 		...state,
-		// 		step: 0
-		// 	},
-		// 	() => this.onResize()
-		// )
 		this.props.fetchVerificationOverview({ ctUser: this.props.auth.ctUser })
-		// this.setState(
-		// 	{
-		// 		...state,
-		// 		step: this.state.step + 1
-		// 	},
-		// 	() => this.onResize()
-		// )
 	}
 
 	complete() {
@@ -179,7 +165,7 @@ class AccountVerification extends Component {
 					{this.state.notificationContent}
 				</NotificationAlert>
 				<NotificationAlert type="danger" visible={isDeclined}>
-					<p>{declinedMessage}</p>
+					<p>Reupload rejected documents</p>
 				</NotificationAlert>
 				<Header background="solid">
 					<Nav
@@ -331,10 +317,7 @@ class AccountVerification extends Component {
 					<img src="/static/images/science.svg" alt="form-icon" />
 					<h4 className="form-title">Upload proof of address</h4>
 				</div>
-				<ProofOfAddress
-					ctUser={this.props.auth.ctUser}
-					onConfirm={this.complete}
-				/>
+				<ProofOfAddress ctUser={this.props.auth.ctUser} onConfirm={this.next} />
 			</div>
 		)
 	}
