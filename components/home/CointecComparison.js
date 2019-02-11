@@ -18,7 +18,6 @@ class CointecComparison extends Component {
 				_.kebabCase(asset.FullName) === coinName &&
 				!majorCoins.includes(asset.Name)
 		)
-		// console.log(coin)
 		let AssetPrimaryWallet
 		if (coin && this.props.assets.wallets) {
 			if (this.props.assets.wallets['Exodus'].includes(coin.Name)) {
@@ -54,7 +53,12 @@ class CointecComparison extends Component {
 								<li>Create an external wallet</li>
 							)}
 							{coin ? (
-								<li>Buy and send {coin.FullName} to your wallet</li>
+								<li>
+									Buy and send{' '}
+									<span className="d-none d-sm-inline">{coin.FullName}</span>
+									<span className="d-inline d-sm-none">{coin.Name}</span> to
+									your wallet
+								</li>
 							) : (
 								<li>Send up to 30 altcoins to your wallet</li>
 							)}
@@ -70,7 +74,12 @@ class CointecComparison extends Component {
 							<li>Buy Bitcoin from a Bitcoin broker</li>
 							<li>Send Bitcoin to a digital currency exchange</li>
 							{coin ? (
-								<li>Trade Bitcoin for {coin.FullName} on the exchange</li>
+								<li>
+									Trade Bitcoin for{' '}
+									<span className="d-none d-sm-inline">{coin.FullName}</span>
+									<span className="d-inline d-sm-none">{coin.Name}</span> on the
+									exchange
+								</li>
 							) : (
 								<li>Trade Bitcoin for altcoin on the exchange</li>
 							)}
@@ -83,7 +92,12 @@ class CointecComparison extends Component {
 								<li>Create an external wallet for the altcoin</li>
 							)}
 							{coin ? (
-								<li>Send {coin.FullName} to your wallet</li>
+								<li>
+									Send{' '}
+									<span className="d-none d-sm-inline">{coin.FullName}</span>
+									<span className="d-inline d-sm-none">{coin.Name}</span> to
+									your wallet
+								</li>
 							) : (
 								<li>Send altcoins to external wallet</li>
 							)}
