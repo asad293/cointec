@@ -134,7 +134,7 @@ class UpdatePassword extends Component {
 												passwordLetter,
 												passwordNumber
 											]}
-											component={this.renderField}
+											component={this.renderPasswordField}
 										/>
 									</div>
 								</div>
@@ -151,7 +151,7 @@ class UpdatePassword extends Component {
 												passwordLetter,
 												passwordNumber
 											]}
-											component={this.renderField}
+											component={this.renderPasswordField}
 										/>
 									</div>
 								</div>
@@ -210,6 +210,41 @@ class UpdatePassword extends Component {
 					type={type}
 					{...input}
 				/>
+			</div>
+		)
+	}
+
+	renderPasswordField({
+		placeholder,
+		meta: { touched, valid, error, pristine },
+		label,
+		input,
+		className,
+		type
+	}) {
+		return (
+			<div
+				className={cn(
+					'field-wrapper',
+					className,
+					touched && error ? 'invalid' : !pristine && valid ? 'valid' : null
+					// touched && !valid ? 'invalid' : null
+				)}>
+				<label className="field-label">
+					{!touched ? label : valid ? label : error}
+				</label>
+				<div className="password-validation position-relative">
+					<input
+						autoComplete="off"
+						spellCheck={false}
+						placeholder={placeholder}
+						className="form-control"
+						type={type}
+						{...input}
+					/>
+
+					<div className="typing-validator">8 or more character</div>
+				</div>
 			</div>
 		)
 	}
