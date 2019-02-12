@@ -50,6 +50,11 @@
 			white-space: nowrap;
 			a {
 				color: #0459c4;
+				cursor: pointer;
+				text-decoration: none;
+				&:hover {
+					color: #0459c4;
+				}
 			}
 			&::before {
 				content: '';
