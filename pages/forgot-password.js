@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
+import { SubmissionError } from 'redux-form'
 
 import Header from '../components/Header'
 import ForgotPasswordForm from '../components/ForgotPasswordForm'
@@ -17,9 +18,16 @@ class ForgotPassword extends Component {
 	}
 
 	handleSubmit(values) {
-		this.props
+		return this.props
 			.resetPassword(values)
 			.then(() => this.resetEmailSent(values.emailAddress))
+			.catch(error => {
+				if (error.response.status === 400) {
+					throw new SubmissionError({
+						emailAddress: 'Account with this email does not exist.'
+					})
+				}
+			})
 	}
 
 	resetEmailSent(email) {
