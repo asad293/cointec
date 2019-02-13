@@ -31,6 +31,7 @@ class SignUp extends Component {
 			.then(res => {
 				console.log(res)
 				// this.authComplete(values.emailAddress)
+				Router.push('/dashboard')
 				this.onSent(values.emailAddress)
 			})
 			.catch(error => {

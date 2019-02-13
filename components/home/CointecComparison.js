@@ -6,6 +6,13 @@ import _ from 'lodash'
 
 const majorCoins = ['BTC', 'ETH', 'LTC', 'BCH', 'ETC']
 
+const walletLinks = {
+	MyEtherWallet: 'https://www.myetherwallet.com/getting-started',
+	MetaMask: 'https://metamask.io/',
+	Exodus: 'https://www.exodus.io/download/',
+	Jaxx: 'https://jaxx.io/downloads.html'
+}
+
 class CointecComparison extends Component {
 	componentWillMount() {
 		this.props.fetchWallets()
@@ -47,7 +54,9 @@ class CointecComparison extends Component {
 							{AssetPrimaryWallet ? (
 								<li>
 									Create {AssetPrimaryWallet === 'Exodus' ? 'an' : 'a'}{' '}
-									<a>{AssetPrimaryWallet}</a>
+									<a target="_blank" href={walletLinks[AssetPrimaryWallet]}>
+										{AssetPrimaryWallet}
+									</a>
 								</li>
 							) : (
 								<li>Create an external wallet</li>

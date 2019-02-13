@@ -3,6 +3,13 @@ import { connect } from 'react-redux'
 import { fetchAssetsList } from '../../store/actions'
 import cn from 'classnames'
 
+const walletLinks = {
+	MEW: 'https://www.myetherwallet.com/getting-started',
+	MetaMask: 'https://metamask.io/',
+	Exodus: 'https://www.exodus.io/download/',
+	Jaxx: 'https://jaxx.io/downloads.html'
+}
+
 class AddWallet extends Component {
 	constructor() {
 		super()
@@ -118,7 +125,12 @@ class AddWallet extends Component {
 								))}
 							</div>
 
-							<div className="blockchain-tracker">Create wallet</div>
+							<a
+								target="_blank"
+								href={walletLinks[this.props.wallet.name]}
+								className="create-wallet-link">
+								Create wallet
+							</a>
 						</div>
 					</div>
 				</div>
