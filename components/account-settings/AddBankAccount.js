@@ -6,6 +6,7 @@ import {
 	updateAccount,
 	deleteAccount,
 	fetchAccounts,
+	clearAccountErrors,
 	validateSession,
 	signOutSession
 } from '../../store/actions'
@@ -32,6 +33,7 @@ class AddBankAccount extends Component {
 	}
 
 	onClose() {
+		this.props.clearAccountErrors()
 		this.setState(
 			{
 				closed: true
@@ -356,6 +358,7 @@ export default connect(
 		updateAccount,
 		deleteAccount,
 		fetchAccounts,
+		clearAccountErrors,
 		validateSession,
 		signOutSession
 	}

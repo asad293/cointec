@@ -40,7 +40,8 @@ import {
 	FETCH_TRANSACTION_LIMITS_END,
 	RESET_PASSWORD_TOKEN,
 	RESET_PASSWORD_TOKEN_START,
-	RESET_PASSWORD_TOKEN_END
+	RESET_PASSWORD_TOKEN_END,
+	CLEAR_ACCOUNT_ERRORS
 } from '../actions'
 
 const INITIAL_STATE = {
@@ -206,6 +207,9 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case CLOSE_ACCOUNT_END:
 		case FETCH_TRANSACTION_LIMITS_END:
 			return { ...state, loading: false, action: null, error: payload }
+
+		case CLEAR_ACCOUNT_ERRORS:
+			return { ...state, error: null }
 
 		default:
 			return state
