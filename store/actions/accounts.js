@@ -19,6 +19,8 @@ export const DELETE_ACCOUNT = 'DELETE_ACCOUNT'
 export const DELETE_ACCOUNT_START = 'DELETE_ACCOUNT_START'
 export const DELETE_ACCOUNT_END = 'DELETE_ACCOUNT_END'
 
+export const CLEAR_ACCOUNT_ERRORS = 'CLEAR_ACCOUNT_ERRORS'
+
 export const FETCH_USER_DETAILS = 'FETCH_USER_DETAILS'
 export const FETCH_USER_DETAILS_START = 'FETCH_USER_DETAILS_START'
 export const FETCH_USER_DETAILS_END = 'FETCH_USER_DETAILS_END'
@@ -103,11 +105,12 @@ export const addAccount = (ctUser, values) => async dispatch => {
 	const headers = { ...session }
 
 	const post = {
-		AccountOwner: values.accountName,
+		// AccountOwner: values.accountName,
 		SortCode: values.sortCode,
 		AccountNumber: values.accountNumber,
-		AccountReference: ''
+		AccountReference: values.accountName
 	}
+	console.log(post)
 
 	return axios
 		.post(`${ROOT_URL}/accounts/${ctUser}/bank-accounts`, post, { headers })
@@ -186,6 +189,10 @@ export const deleteAccount = (ctUser, id) => async dispatch => {
 		})
 		throw err
 	}
+}
+
+export const clearAccountErrors = () => dispatch => {
+	dispatch({ type: CLEAR_ACCOUNT_ERRORS })
 }
 
 export const fetchUserDetails = ctUser => async dispatch => {
