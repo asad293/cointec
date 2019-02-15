@@ -35,6 +35,9 @@
 					opacity: 0.75;
 					padding: 13px 16px;
 					outline: none;
+					@include placeholder {
+						color: rgba(255, 255, 255, 0.8);
+					}
 				}
 				i {
 					position: absolute;
@@ -161,10 +164,13 @@
 						color: #0459c4;
 						margin-right: 12px;
 					}
-					i.fa-eye {
-						color: #b0b9bd;
-						position: absolute;
-						right: 0;
+					a {
+						cursor: pointer;
+						i.fa-eye {
+							color: #b0b9bd;
+							position: absolute;
+							right: 0;
+						}
 					}
 				}
 				hr {
@@ -179,6 +185,7 @@
 				font-size: 16px;
 				color: #0459c4;
 				padding: 20px 32px 23px;
+				text-decoration: none;
 				cursor: pointer;
 			}
 		}
