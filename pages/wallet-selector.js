@@ -17,6 +17,13 @@ const walletLogo = {
 	Jaxx: '/static/images/jaxx.png'
 }
 
+const walletLinks = {
+	MEW: 'https://www.myetherwallet.com/getting-started',
+	MetaMask: 'https://metamask.io/',
+	Exodus: 'https://www.exodus.io/download/',
+	Jaxx: 'https://jaxx.io/downloads.html'
+}
+
 class WalletSelector extends Component {
 	constructor(props) {
 		super(props)
@@ -138,6 +145,7 @@ class WalletSelector extends Component {
 									<div className="search-bar">
 										<input
 											type="text"
+											placeholder="Search digital currency"
 											value={this.state.searchWallet}
 											onChange={this.handleInput}
 										/>
@@ -179,6 +187,7 @@ class WalletSelector extends Component {
 										displayWallets.map((wallet, index) => (
 											<div key={index} className="col-lg-4 col-md-6">
 												<WalletSelection
+													name={wallet.name}
 													logo={wallet.logo}
 													prop1={'2 million downloads'}
 													prop2={'Created in 2015'}
@@ -229,7 +238,7 @@ class WalletSelector extends Component {
 	}
 }
 
-const WalletSelection = ({ logo, prop1, prop2, prop3, onCreate }) => (
+const WalletSelection = ({ name, logo, prop1, prop2, prop3, onCreate }) => (
 	<div className="wallet-selection">
 		<div className="header">
 			<img src={logo} alt="Meta Mask" />
@@ -248,10 +257,12 @@ const WalletSelection = ({ logo, prop1, prop2, prop3, onCreate }) => (
 			<div className="wallet-prop">
 				<i className="far fa-arrow-to-bottom fa-lg" />
 				{prop3}
-				<i className="fas fa-eye" />
+				<a onClick={onCreate}>
+					<i className="fas fa-eye" />
+				</a>
 			</div>
 		</div>
-		<a className="btn-create" onClick={onCreate}>
+		<a className="btn-create" target="_blank" href={walletLinks[name]}>
 			Create wallet
 		</a>
 	</div>

@@ -45,9 +45,6 @@ const Footer = props => (
 							<Link href="/learn">
 								<a>Learn</a>
 							</Link>
-							<Link href="/">
-								<a>Charts</a>
-							</Link>
 						</div>
 
 						<div className="col-12 col-sm-3">

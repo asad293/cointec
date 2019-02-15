@@ -1,19 +1,31 @@
 .comparison-section.container {
 	padding-top: 80px;
 	padding-bottom: 80px;
+	position: relative;
+	z-index: 0;
 	.section-title {
 		line-height: 19px;
 		margin-top: 0;
 		margin-bottom: 72px;
+		padding: 0;
 		font-weight: 600;
 		@include media-breakpoint-down(md) {
+			font-size: 1.5rem;
 			margin-bottom: 48px;
 		}
 		@include media-breakpoint-down(sm) {
-			padding-right: 32px;
 			line-height: normal;
 			height: 51px;
 		}
+	}
+	&::before {
+		content: url('/static/images/ct-vs-nct.svg');
+		width: 146px;
+		height: 26px;
+		position: absolute;
+		left: 26%;
+		top: 409px;
+		z-index: -1;
 	}
 	.section-subtitle {
 		color: #02182b;
@@ -126,11 +138,29 @@
 			}
 		}
 	}
+	@include media-breakpoint-down(lg) {
+		&::before {
+			left: 22%;
+		}
+	}
 	@include media-breakpoint-down(md) {
 		padding-top: 56px;
 		padding-bottom: 56px;
+		&::before {
+			left: initial;
+			right: 52px;
+			top: 319px;
+		}
+	}
+	@include media-breakpoint-down(sm) {
+		&::before {
+			top: 352px;
+		}
 	}
 	@include media-breakpoint-down(xs) {
 		padding: 56px 20px;
+		&::before {
+			right: 20px;
+		}
 	}
 }
