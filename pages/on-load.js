@@ -13,6 +13,7 @@ const actions = {
 	exportdata: 'export-data',
 	changeemail: 'change-email',
 	resetpassword: 'reset-password',
+	regainaccess: 'resetpassword',
 	closeaccount: 'close-account',
 	confirmemail: 'confirm-email'
 }
@@ -73,7 +74,11 @@ class OnLoad extends Component {
 				Router.push('/account-settings')
 			} else if (action === 'changeemail' || action === 'change-email') {
 				Router.push('/login')
-			} else if (action === 'resetpassword' || action === 'reset-password') {
+			} else if (
+				action === 'resetpassword' ||
+				action === 'reset-password' ||
+				action === 'regainaccess'
+			) {
 				const token = data && data.Token
 				Router.push(`/reset-password?token=${token}`)
 			} else {
