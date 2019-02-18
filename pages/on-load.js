@@ -80,7 +80,7 @@ class OnLoad extends Component {
 				action === 'regainaccess'
 			) {
 				const token = data && data.Token
-				Router.push(`/reset-password?token=${token}`)
+				Router.push(`/reset-password?token=${token}&action=${action}`)
 			} else {
 				Router.push(`/request-sent/${action}`)
 			}

@@ -63,7 +63,7 @@ class TokenExpired extends Component {
 					password: '' //values.password
 				})
 				.then(() => this.onSent(values.email))
-		} else if (action === 'resetpassword') {
+		} else if (action === 'resetpassword' || action === 'regainaccess') {
 			this.props
 				.resetPassword({
 					emailAddress: values.email

@@ -9,6 +9,7 @@ import ResetPasswordForm from '../components/ResetPasswordForm'
 
 import {
 	resetPasswordByToken,
+	regainAccessByToken,
 	showNotificationAlert,
 	hideNotificationAlert
 } from '../store/actions'
@@ -39,18 +40,33 @@ class ResetPassword extends Component {
 	}
 
 	handleSubmit(values) {
-		this.props
-			.resetPasswordByToken({ token: this.props.router.query.token, values })
-			.then(res => {
-				console.log(res)
-				this.passwordUpdated()
-			})
-			.catch(error => {
-				Router.push(
-					`/token-expired/resetpassword`,
-					`/token-expired?action=resetpassword`
-				)
-			})
+		if (this.props.router.query.action === 'regainaccess') {
+			this.props
+				.regainAccessByToken({ token: this.props.router.query.token, values })
+				.then(res => {
+					console.log(res)
+					this.passwordUpdated()
+				})
+				.catch(error => {
+					Router.push(
+						`/token-expired/resetpassword`,
+						`/token-expired?action=resetpassword`
+					)
+				})
+		} else {
+			this.props
+				.resetPasswordByToken({ token: this.props.router.query.token, values })
+				.then(res => {
+					console.log(res)
+					this.passwordUpdated()
+				})
+				.catch(error => {
+					Router.push(
+						`/token-expired/resetpassword`,
+						`/token-expired?action=resetpassword`
+					)
+				})
+		}
 	}
 
 	passwordUpdated() {
@@ -111,5 +127,10 @@ class ResetPassword extends Component {
 
 export default connect(
 	({ accounts }) => ({ accounts }),
-	{ resetPasswordByToken, showNotificationAlert, hideNotificationAlert }
+	{
+		resetPasswordByToken,
+		regainAccessByToken,
+		showNotificationAlert,
+		hideNotificationAlert
+	}
 )(withRouter(ResetPassword))
