@@ -415,6 +415,32 @@ export const resetPasswordByToken = ({ token, values }) => async dispatch => {
 		})
 }
 
+export const regainAccessByToken = ({ token, values }) => async dispatch => {
+	dispatch({ type: RESET_PASSWORD_TOKEN_START })
+
+	const data = {
+		Password: values.password,
+		NewPassword: values.newPassword
+	}
+
+	return axios
+		.post(`${ROOT_URL}/accounts/regain-access?token=${token}`, data)
+		.then(response => {
+			dispatch({
+				type: RESET_PASSWORD_TOKEN,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: RESET_PASSWORD_TOKEN_END,
+				payload: error
+			})
+			throw error
+		})
+}
+
 export const exportData = ({ emailAddress, password }) => async dispatch => {
 	dispatch({ type: EXPORT_DATA_START })
 
