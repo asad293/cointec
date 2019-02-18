@@ -13,7 +13,7 @@ const actions = {
 	exportdata: 'export-data',
 	changeemail: 'change-email',
 	resetpassword: 'reset-password',
-	regainaccess: 'resetpassword',
+	regainaccess: 'regainaccess',
 	closeaccount: 'close-account',
 	confirmemail: 'confirm-email'
 }
