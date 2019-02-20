@@ -9,6 +9,7 @@ import {
 	validateSession,
 	signOutSession,
 	fetchVerificationStatus,
+	fetchVerificationTier,
 	fetchUserDetails,
 	toggleVerificationAlert,
 	showNotificationAlert,
@@ -47,6 +48,7 @@ class AccountSettings extends Component {
 		if (session) {
 			const ctUser = session['CT-ACCOUNT-ID']
 			this.props.fetchVerificationStatus({ ctUser })
+			this.props.fetchVerificationTier({ ctUser })
 			this.props.fetchUserDetails(ctUser)
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
@@ -74,14 +76,10 @@ class AccountSettings extends Component {
 	}
 
 	onConfirmationEmailSent() {
+		const { EmailAddress } = this.props.accounts.userDetails || {}
 		const notificationContent = (
 			<p>
-				Confirmation email sent to{' '}
-				<b>
-					{(this.props.accounts.userDetails &&
-						this.props.accounts.userDetails.EmailAddress) ||
-						''}
-				</b>
+				Confirmation email sent to <b>{EmailAddress || ''}</b>
 			</p>
 		)
 		this.setState({
@@ -128,6 +126,7 @@ class AccountSettings extends Component {
 	}
 
 	render() {
+		const { currentTier } = this.props.verification
 		return this.props.auth.ctUser ? (
 			<div
 				className="settings-page dashboard-page full-height"
@@ -191,14 +190,21 @@ class AccountSettings extends Component {
 													Verification status
 													<img
 														src={
-															!this.props.verification.VerificationComplete
-																? '/static/images/check.svg'
-																: '/static/images/check-success.svg'
+															currentTier && currentTier.Id === 2
+																? '/static/images/check-success.svg'
+																: '/static/images/check.svg'
 														}
 														alt="verified"
 													/>
 												</h6>
-												{!this.props.verification.VerificationComplete ? (
+												{currentTier && currentTier.Id === 2 ? (
+													<p className="verification-status">
+														<span className="beta-user">
+															{currentTier.TierName}
+														</span>{' '}
+														| <a className="link-setting">upgrade</a>
+													</p>
+												) : (
 													<div>
 														<p className="d-none d-md-block">
 															Get verified to buy digital currency with GBP
@@ -207,11 +213,6 @@ class AccountSettings extends Component {
 															Get verified to buy with GBP
 														</p>
 													</div>
-												) : (
-													<p className="verification-status">
-														<span className="beta-user">Beta user</span> |{' '}
-														<a className="link-setting">upgrade</a>
-													</p>
 												)}
 											</div>
 											{!this.props.verification.VerificationComplete && (
@@ -370,6 +371,7 @@ class AccountSettings extends Component {
 	}
 
 	componentWillReceiveProps(props) {
+		// console.log(props.verification)
 		// console.log(
 		// 	props.accounts.userDetails &&
 		// 		props.accounts.userDetails.CloseAccountTriggered
@@ -388,6 +390,7 @@ export default connect(
 		validateSession,
 		signOutSession,
 		fetchVerificationStatus,
+		fetchVerificationTier,
 		fetchUserDetails,
 		toggleVerificationAlert,
 		showNotificationAlert,
