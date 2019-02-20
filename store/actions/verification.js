@@ -6,6 +6,10 @@ export const FETCH_VERIFICATION_STATUS = 'FETCH_VERIFICATION_STATUS'
 export const FETCH_VERIFICATION_STATUS_START = 'FETCH_VERIFICATION_STATUS_START'
 export const FETCH_VERIFICATION_STATUS_END = 'FETCH_VERIFICATION_STATUS_END'
 
+export const FETCH_VERIFICATION_TIER = 'FETCH_VERIFICATION_TIER'
+export const FETCH_VERIFICATION_TIER_START = 'FETCH_VERIFICATION_TIER_START'
+export const FETCH_VERIFICATION_TIER_END = 'FETCH_VERIFICATION_TIER_END'
+
 export const FETCH_VERIFICATION_OVERVIEW = 'FETCH_VERIFICATION_OVERVIEW'
 export const FETCH_VERIFICATION_OVERVIEW_START =
 	'FETCH_VERIFICATION_OVERVIEW_START'
@@ -44,6 +48,35 @@ export const fetchVerificationStatus = ({ ctUser }) => dispatch => {
 		.catch(error => {
 			dispatch({
 				type: FETCH_VERIFICATION_STATUS_END,
+				payload: error
+			})
+			if (error && error.response && error.response.status === 401) {
+				dispatch(signOutSession())
+			}
+		})
+}
+
+export const fetchVerificationTier = ({ ctUser }) => dispatch => {
+	dispatch({ type: FETCH_VERIFICATION_TIER_START })
+
+	const session = dispatch(validateSession())
+	const headers = {
+		'Content-Type': 'application/json',
+		...session
+	}
+
+	return axios
+		.get(`${ROOT_URL}/verification/${ctUser}/tier`, { headers })
+		.then(response => {
+			dispatch({
+				type: FETCH_VERIFICATION_TIER,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: FETCH_VERIFICATION_TIER_END,
 				payload: error
 			})
 			if (error && error.response && error.response.status === 401) {
