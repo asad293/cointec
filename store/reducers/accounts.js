@@ -41,7 +41,13 @@ import {
 	RESET_PASSWORD_TOKEN,
 	RESET_PASSWORD_TOKEN_START,
 	RESET_PASSWORD_TOKEN_END,
-	CLEAR_ACCOUNT_ERRORS
+	CLEAR_ACCOUNT_ERRORS,
+	FETCH_MESSAGING_PREFERENCES,
+	FETCH_MESSAGING_PREFERENCES_START,
+	FETCH_MESSAGING_PREFERENCES_END,
+	SET_MESSAGING_PREFERENCES,
+	SET_MESSAGING_PREFERENCES_START,
+	SET_MESSAGING_PREFERENCES_END
 } from '../actions'
 
 const INITIAL_STATE = {
@@ -54,6 +60,7 @@ const INITIAL_STATE = {
 	resetPassword: null,
 	resetPasswordToken: null,
 	limits: null,
+	messagingPreferences: null,
 	addFN: null,
 	updateFN: null,
 	fetched: false,
@@ -153,6 +160,21 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case FETCH_TRANSACTION_LIMITS:
 			return { ...state, limits: payload, loading: false, error: null }
 
+		case FETCH_MESSAGING_PREFERENCES:
+			return {
+				...state,
+				messagingPreferences: payload,
+				loading: false,
+				error: null
+			}
+
+		case SET_MESSAGING_PREFERENCES:
+			return {
+				...state,
+				loading: false,
+				error: null
+			}
+
 		/////
 		case FETCH_ACCOUNTS_START:
 			return { ...state, fetched: false, loading: true, error: null }
@@ -187,6 +209,21 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case FETCH_TRANSACTION_LIMITS_START:
 			return { ...state, limits: null, loading: true, error: null }
 
+		case FETCH_MESSAGING_PREFERENCES_START:
+			return {
+				...state,
+				messagingPreferences: null,
+				loading: true,
+				error: null
+			}
+
+		case SET_MESSAGING_PREFERENCES_START:
+			return {
+				...state,
+				loading: true,
+				error: null
+			}
+
 		case REQUEST_DATA_START:
 		case EXPORT_DATA_START:
 		case CLOSE_ACCOUNT_START:
@@ -206,6 +243,8 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case EXPORT_DATA_END:
 		case CLOSE_ACCOUNT_END:
 		case FETCH_TRANSACTION_LIMITS_END:
+		case FETCH_MESSAGING_PREFERENCES_END:
+		case SET_MESSAGING_PREFERENCES_END:
 			return { ...state, loading: false, action: null, error: payload }
 
 		case CLEAR_ACCOUNT_ERRORS:

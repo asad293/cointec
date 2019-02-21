@@ -315,7 +315,6 @@
 				font-size: 16px;
 				color: #1a1d1f;
 				position: relative;
-				cursor: pointer;
 				@include media-breakpoint-down(sm) {
 					margin-bottom: 16px;
 				}
@@ -336,6 +335,7 @@
 						right: 24px;
 						height: 20px;
 						visibility: visible;
+						cursor: pointer;
 					}
 					&:checked {
 						&::after {

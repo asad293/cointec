@@ -3,6 +3,8 @@ import Head from 'next/head'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
 import {
+	fetchMessagingPreferences,
+	setMessagingPreferences,
 	toggleVerificationAlert,
 	fetchUserDetails,
 	validateSession
@@ -16,6 +18,18 @@ import SettingsMenu from '../components/account-settings/SettingsMenu'
 import RequestData from '../components/account-settings/RequestData'
 import StickyFooter from '../components/StickyFooter'
 
+const preferenceDetail = {
+	Orders: {
+		name: 'My transfers',
+		description: 'notifications about where your coins are.'
+	},
+	Marketing: {
+		name: 'New coins and features',
+		description: 'our latest and greatest work, sent monthly at most.',
+		shortDescription: 'latest product information'
+	}
+}
+
 class Privacy extends Component {
 	constructor(props) {
 		super(props)
@@ -25,26 +39,20 @@ class Privacy extends Component {
 			scrolling: false,
 			notificationAlert: false,
 			dataAction: null,
-			notificationSettings: [
+			messagingPreferences: [
 				{
-					id: 1,
+					id: 'Orders',
 					name: 'My transfers',
 					description: 'notifications about where your coins are.',
 					active: false
 				},
 				{
-					id: 2,
+					id: 'Marketing',
 					name: 'New coins and features',
 					description: 'our latest and greatest work, sent monthly at most.',
 					shortDescription: 'latest product information',
-					active: true
+					active: false
 				}
-				// {
-				// 	id: 3,
-				// 	name: 'Giving feedback',
-				// 	description: 'surveys, reviews, and testing things we’re working on.',
-				// 	active: true
-				// }
 			]
 		}
 		this.handleInputChange = this.handleInputChange.bind(this)
@@ -56,6 +64,7 @@ class Privacy extends Component {
 		if (session) {
 			const ctUser = session['CT-ACCOUNT-ID']
 			this.props.fetchUserDetails(ctUser)
+			this.props.fetchMessagingPreferences({ ctUser })
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
@@ -85,17 +94,30 @@ class Privacy extends Component {
 		const target = event.target
 		const value = target.type === 'checkbox' ? target.checked : target.value
 		const name = target.name
-		const notificationSettings = this.state.notificationSettings
-		notificationSettings.find(setting => setting.id == name).active = value
-		this.setState({
-			notificationSettings,
-			saved: true
-		})
-		setTimeout(() => {
-			this.setState({
-				saved: false
+		const data = this.state.messagingPreferences.reduce(
+			(preferences, { id, active }) => ({ ...preferences, [id]: active }),
+			{}
+		)
+		data[name] = value
+		console.log(data)
+		const session = this.props.validateSession()
+		if (session) {
+			const ctUser = session['CT-ACCOUNT-ID']
+			this.props.setMessagingPreferences({ ctUser, data }).then(() => {
+				this.setState({
+					saved: true
+				})
+				setTimeout(() => {
+					this.setState({
+						saved: false
+					})
+				}, 1000)
 			})
-		}, 1000)
+		} else {
+			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
+		}
+		// const messagingPreferences = this.state.messagingPreferences
+		// messagingPreferences.find(setting => setting.id == name).active = value
 	}
 
 	onConfirmationEmailSent() {
@@ -168,7 +190,7 @@ class Privacy extends Component {
 									<div className="setting-group">
 										<h6 className="heading">Notifications</h6>
 										<div>
-											{this.state.notificationSettings.map(setting => (
+											{this.state.messagingPreferences.map(setting => (
 												<label
 													className="notification-setting"
 													key={setting.id}>
@@ -201,7 +223,14 @@ class Privacy extends Component {
 											))}
 										</div>
 										<div>
-											{this.state.saved && (
+											{this.state.saved && !this.props.accounts.loading && (
+												<p
+													className="saved d-inline d-md-none"
+													style={{ marginBottom: 12, marginTop: 8 }}>
+													Changes saved
+												</p>
+											)}
+											{this.props.accounts.loading && (
 												<p
 													className="saved d-inline d-md-none"
 													style={{ marginBottom: 12, marginTop: 8 }}>
@@ -214,8 +243,13 @@ class Privacy extends Component {
 												There are some things that we’ll always need to tell you
 												about like changes to our T&C’s.
 											</p>
-											{this.state.saved && (
+											{this.state.saved && !this.props.accounts.loading && (
 												<span className="saved d-none d-md-inline">Saved</span>
+											)}
+											{this.props.accounts.loading && (
+												<span className="saved d-none d-md-inline">
+													<i className="fas fa-spinner fa-spin" />
+												</span>
 											)}
 										</div>
 									</div>
@@ -298,6 +332,22 @@ class Privacy extends Component {
 			</div>
 		)
 	}
+
+	componentWillReceiveProps(props) {
+		const { messagingPreferences } = props.accounts
+		console.log(messagingPreferences)
+		if (messagingPreferences) {
+			this.setState({
+				messagingPreferences: Object.keys(messagingPreferences).map(key => {
+					return {
+						id: key,
+						...preferenceDetail[key],
+						active: messagingPreferences[key]
+					}
+				})
+			})
+		}
+	}
 }
 
 export default connect(
@@ -307,5 +357,11 @@ export default connect(
 		verification,
 		globals
 	}),
-	{ toggleVerificationAlert, fetchUserDetails, validateSession }
+	{
+		fetchMessagingPreferences,
+		setMessagingPreferences,
+		toggleVerificationAlert,
+		fetchUserDetails,
+		validateSession
+	}
 )(withRouter(Privacy))
