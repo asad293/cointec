@@ -73,6 +73,15 @@ export const FETCH_TRANSACTION_LIMITS = 'FETCH_TRANSACTION_LIMITS'
 export const FETCH_TRANSACTION_LIMITS_START = 'FETCH_TRANSACTION_LIMITS_START'
 export const FETCH_TRANSACTION_LIMITS_END = 'FETCH_TRANSACTION_LIMITS_END'
 
+export const FETCH_MESSAGING_PREFERENCES = 'FETCH_MESSAGING_PREFERENCES'
+export const FETCH_MESSAGING_PREFERENCES_START =
+	'FETCH_MESSAGING_PREFERENCES_START'
+export const FETCH_MESSAGING_PREFERENCES_END = 'FETCH_MESSAGING_PREFERENCES_END'
+
+export const SET_MESSAGING_PREFERENCES = 'SET_MESSAGING_PREFERENCES'
+export const SET_MESSAGING_PREFERENCES_START = 'SET_MESSAGING_PREFERENCES_START'
+export const SET_MESSAGING_PREFERENCES_END = 'SET_MESSAGING_PREFERENCES_END'
+
 export const fetchAccounts = ctUser => async dispatch => {
 	dispatch({ type: FETCH_ACCOUNTS_START })
 
@@ -629,6 +638,62 @@ export const fetchTransactionLimits = ({ ctUser }) => async dispatch => {
 		.catch(error => {
 			dispatch({
 				type: FETCH_TRANSACTION_LIMITS_END,
+				payload: error
+			})
+			if (error && error.response && error.response.status === 401) {
+				dispatch(signOutSession())
+			}
+			throw error
+		})
+}
+
+export const fetchMessagingPreferences = ({ ctUser }) => async dispatch => {
+	dispatch({ type: FETCH_MESSAGING_PREFERENCES_START })
+
+	const session = dispatch(validateSession())
+	const headers = { ...session }
+
+	return axios
+		.get(`${ROOT_URL}/accounts/${ctUser}/messaging-preferences`, { headers })
+		.then(response => {
+			dispatch({
+				type: FETCH_MESSAGING_PREFERENCES,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: FETCH_MESSAGING_PREFERENCES_END,
+				payload: error
+			})
+			if (error && error.response && error.response.status === 401) {
+				dispatch(signOutSession())
+			}
+			throw error
+		})
+}
+
+export const setMessagingPreferences = ({ ctUser, data }) => async dispatch => {
+	dispatch({ type: SET_MESSAGING_PREFERENCES_START })
+
+	const session = dispatch(validateSession())
+	const headers = { ...session }
+
+	return axios
+		.post(`${ROOT_URL}/accounts/${ctUser}/messaging-preferences`, data, {
+			headers
+		})
+		.then(response => {
+			dispatch({
+				type: SET_MESSAGING_PREFERENCES,
+				payload: response.data
+			})
+			return dispatch(fetchMessagingPreferences({ ctUser }))
+		})
+		.catch(error => {
+			dispatch({
+				type: SET_MESSAGING_PREFERENCES_END,
 				payload: error
 			})
 			if (error && error.response && error.response.status === 401) {
