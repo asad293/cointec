@@ -83,6 +83,10 @@ app
 			app.render(req, res, `/blog`)
 		})
 
+		server.get('/unsubscribe', (req, res) => {
+			app.render(req, res, `/unsubscribe`, { token: req.query.token })
+		})
+
 		server.get('*', handle)
 
 		const appServer = secure ? createSecureServer(server) : server

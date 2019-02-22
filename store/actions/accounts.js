@@ -61,6 +61,10 @@ export const CLOSE_ACCOUNT = 'CLOSE_ACCOUNT'
 export const CLOSE_ACCOUNT_START = 'CLOSE_ACCOUNT_START'
 export const CLOSE_ACCOUNT_END = 'CLOSE_ACCOUNT_END'
 
+export const UNSUBSCRIBE_EMAILS = 'UNSUBSCRIBE_EMAILS'
+export const UNSUBSCRIBE_EMAILS_START = 'UNSUBSCRIBE_EMAILS_START'
+export const UNSUBSCRIBE_EMAILS_END = 'UNSUBSCRIBE_EMAILS_END'
+
 export const VALIDATE_TOKEN = 'VALIDATE_TOKEN'
 export const VALIDATE_TOKEN_START = 'VALIDATE_TOKEN_START'
 export const VALIDATE_TOKEN_END = 'VALIDATE_TOKEN_END'
@@ -532,6 +536,52 @@ export const closeAccount = ({ emailAddress, password }) => async dispatch => {
 		.catch(error => {
 			dispatch({
 				type: CLOSE_ACCOUNT_END,
+				payload: error
+			})
+			throw error
+		})
+}
+
+export const triggerUnsubscribe = ({ token }) => async dispatch => {
+	dispatch({ type: REQUEST_DATA_START })
+
+	return axios
+		.get(`${ROOT_URL}/accounts/unsubscribe-trigger?token=${token}`)
+		.then(response => {
+			dispatch({
+				type: REQUEST_DATA,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: REQUEST_DATA_END,
+				payload: error
+			})
+			throw error
+		})
+}
+
+export const unsubscribeEmails = ({ emailAddress }) => async dispatch => {
+	dispatch({ type: UNSUBSCRIBE_EMAILS_START })
+
+	const data = {
+		EmailAddress: emailAddress
+	}
+
+	return axios
+		.post(`${ROOT_URL}/accounts/unsubscribe-email`, data, { headers })
+		.then(response => {
+			dispatch({
+				type: UNSUBSCRIBE_EMAILS,
+				payload: response.data
+			})
+			return response
+		})
+		.catch(error => {
+			dispatch({
+				type: UNSUBSCRIBE_EMAILS_END,
 				payload: error
 			})
 			throw error
