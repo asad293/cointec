@@ -35,6 +35,9 @@ import {
 	CLOSE_ACCOUNT,
 	CLOSE_ACCOUNT_START,
 	CLOSE_ACCOUNT_END,
+	UNSUBSCRIBE_EMAILS,
+	UNSUBSCRIBE_EMAILS_START,
+	UNSUBSCRIBE_EMAILS_END,
 	FETCH_TRANSACTION_LIMITS,
 	FETCH_TRANSACTION_LIMITS_START,
 	FETCH_TRANSACTION_LIMITS_END,
@@ -148,6 +151,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case REQUEST_DATA:
 		case EXPORT_DATA:
 		case CLOSE_ACCOUNT:
+		case UNSUBSCRIBE_EMAILS:
 			return {
 				...state,
 				loading: false,
@@ -227,6 +231,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case REQUEST_DATA_START:
 		case EXPORT_DATA_START:
 		case CLOSE_ACCOUNT_START:
+		case UNSUBSCRIBE_EMAILS_START:
 			return { ...state, loading: true, error: null }
 
 		case FETCH_ACCOUNTS_END:
@@ -242,6 +247,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case REQUEST_DATA_END:
 		case EXPORT_DATA_END:
 		case CLOSE_ACCOUNT_END:
+		case UNSUBSCRIBE_EMAILS_END:
 		case FETCH_TRANSACTION_LIMITS_END:
 		case FETCH_MESSAGING_PREFERENCES_END:
 		case SET_MESSAGING_PREFERENCES_END:
