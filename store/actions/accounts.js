@@ -563,7 +563,10 @@ export const triggerUnsubscribe = ({ token }) => async dispatch => {
 		})
 }
 
-export const unsubscribeEmails = ({ emailAddress }) => async dispatch => {
+export const unsubscribeEmails = ({
+	emailAddress,
+	token
+}) => async dispatch => {
 	dispatch({ type: UNSUBSCRIBE_EMAILS_START })
 
 	const data = {
@@ -571,7 +574,7 @@ export const unsubscribeEmails = ({ emailAddress }) => async dispatch => {
 	}
 
 	return axios
-		.post(`${ROOT_URL}/accounts/unsubscribe-email`, data, { headers })
+		.post(`${ROOT_URL}/accounts/unsubscribe-email?token=${token}`, data)
 		.then(response => {
 			dispatch({
 				type: UNSUBSCRIBE_EMAILS,

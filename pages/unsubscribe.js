@@ -18,24 +18,28 @@ class Unsubscribe extends Component {
 		this.onSubmit = this.onSubmit.bind(this)
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		const { token } = this.props.router.query
+		this.props.triggerUnsubscribe({ token }).then(res => {
+			this.setState({
+				unsubscribeToken: res.data
+			})
+		})
+	}
 
 	onSubmit(values) {
 		console.log(values)
 
-		// this.props
-		// 	.unsubscribeEmails({
-		// 		emailAddress: values.email
-		// 	})
-		// 	.then(() => this.onSent(values.email))
+		this.props
+			.unsubscribeEmails({
+				emailAddress: values.email,
+				token: this.state.unsubscribeToken
+			})
+			.then(() => this.onSent(values.email))
 	}
 
 	onSent(email) {
-		const notificationContent = (
-			<p>
-				Confirmation email sent to <b>{email}</b>
-			</p>
-		)
+		const notificationContent = <p>Emails unsubscribed</p>
 		this.setState({
 			notificationAlert: true,
 			notificationContent
