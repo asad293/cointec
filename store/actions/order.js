@@ -51,9 +51,9 @@ export function createOrder({
 		exchangeRate
 	}
 	// console.log('createOrder', info)
-	const session = dispatch(validateSession())
-	const headers = { ...session }
 	return dispatch => {
+		const session = dispatch(validateSession())
+		const headers = { ...session }
 		dispatch({
 			type: CREATE_ORDER_START,
 			payload: null
