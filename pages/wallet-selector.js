@@ -98,7 +98,8 @@ class WalletSelector extends Component {
 	assetSelected(asset) {
 		this.setState({
 			showDropdown: false,
-			selectedAsset: asset
+			selectedAsset: asset,
+			searchWallet: ''
 		})
 	}
 
