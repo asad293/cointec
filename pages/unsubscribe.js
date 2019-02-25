@@ -8,14 +8,19 @@ import { triggerUnsubscribe, unsubscribeEmails } from '../store/actions'
 import cn from 'classnames'
 
 import Header from '../components/Header'
-import NotificationAlert from '../components/dashboard/NotificationAlert'
 import StickyFooter from '../components/StickyFooter'
 
 class Unsubscribe extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {}
+		this.state = {
+			header: 'Unsubscribe',
+			text: 'Enter your email below to unsubscribe.',
+			completed: false
+		}
 		this.onSubmit = this.onSubmit.bind(this)
+		this.onSent = this.onSent.bind(this)
+		this.onFailed = this.onFailed.bind(this)
 	}
 
 	componentDidMount() {
@@ -36,19 +41,31 @@ class Unsubscribe extends Component {
 				token: this.state.unsubscribeToken
 			})
 			.then(() => this.onSent(values.email))
+			.catch(error => this.onFailed(error))
 	}
 
 	onSent(email) {
-		const notificationContent = <p>Emails unsubscribed</p>
 		this.setState({
-			notificationAlert: true,
-			notificationContent
+			header: 'You have unsubscribed',
+			text: 'You can always resubscribe from your account dashboard.',
+			completed: true
 		})
-		setTimeout(() => {
+	}
+
+	onFailed(error) {
+		if (error && error.response.data.Message === 'Already Unsubscribed') {
 			this.setState({
-				notificationAlert: false
+				header: 'Already Unsubscribed',
+				text: 'You have already unsubscribed.',
+				completed: true
 			})
-		}, 5000)
+		} else {
+			this.setState({
+				header: 'Check e-mail',
+				text: 'No account was found for that e-mail',
+				completed: false
+			})
+		}
 	}
 
 	render() {
@@ -60,13 +77,6 @@ class Unsubscribe extends Component {
 					<title>Unsubscribe | Cointec</title>
 				</Head>
 
-				<NotificationAlert
-					type="success"
-					visible={this.state.notificationAlert}
-					onHide={() => this.setState({ notificationAlert: false })}>
-					{this.state.notificationContent}
-				</NotificationAlert>
-
 				<Header>
 					<Nav />
 				</Header>
@@ -74,44 +84,47 @@ class Unsubscribe extends Component {
 				<div className="content-wrapper">
 					<div className="alert-box">
 						<div className="alert-header">
-							<h6 className="heading text-left">Unsubscribe</h6>
+							<h6 className="heading text-left">{this.state.header}</h6>
 						</div>
 						<div className="alert-body">
-							<p className="message-text">
-								Enter your email below to unsubscribe.
-							</p>
-							<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-								<div className="row">
-									<div className="col-12">
-										<Field
-											name="email"
-											label="Email"
-											type="email"
-											placeholder="email@cointec.co.uk"
-											autoComplete="email"
-											className="mt-4"
-											validate={emailAddress}
-											component={this.renderField}
-										/>
+							<p className="message-text">{this.state.text}</p>
+							{!this.state.completed && (
+								<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+									<div className="row">
+										<div className="col-12">
+											<Field
+												name="email"
+												label="Email"
+												type="email"
+												placeholder="email@cointec.co.uk"
+												autoComplete="email"
+												className="mt-4"
+												validate={emailAddress}
+												component={this.renderField}
+											/>
+										</div>
 									</div>
-								</div>
-								<div className="row mt-4">
-									<div className="col-md-12">
-										<button
-											type="submit"
-											className={cn('btn btn-block btn-lg', 'btn-primary')}
-											disabled={this.props.accounts.loading}>
-											{this.props.accounts.loading && (
-												<div
-													style={{ display: 'inline-block', marginRight: 12 }}>
-													<i className="fas fa-spinner fa-spin" />
-												</div>
-											)}
-											<span>Unsubscribe</span>
-										</button>
+									<div className="row mt-4">
+										<div className="col-md-12">
+											<button
+												type="submit"
+												className={cn('btn btn-block btn-lg', 'btn-primary')}
+												disabled={this.props.accounts.loading}>
+												{this.props.accounts.loading && (
+													<div
+														style={{
+															display: 'inline-block',
+															marginRight: 12
+														}}>
+														<i className="fas fa-spinner fa-spin" />
+													</div>
+												)}
+												<span>Unsubscribe</span>
+											</button>
+										</div>
 									</div>
-								</div>
-							</form>
+								</form>
+							)}
 						</div>
 					</div>
 				</div>
