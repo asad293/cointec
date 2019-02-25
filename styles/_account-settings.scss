@@ -84,6 +84,18 @@
 			}
 		}
 	}
+	.verification-status {
+		.beta-user {
+			display: inline-block;
+			font-weight: 600;
+			line-height: 10px;
+			font-size: 14px;
+			color: #0459c4;
+			padding: 6px 9px;
+			background: #f0f3f5;
+			border-radius: 3px;
+		}
+	}
 	.settings-list {
 		.setting-wrapper {
 			padding: 48px 32px 41px;
@@ -116,18 +128,6 @@
 				margin: 0;
 				line-height: 11px;
 				color: #667075;
-			}
-			.verification-status {
-				.beta-user {
-					display: inline-block;
-					font-weight: 600;
-					line-height: 10px;
-					font-size: 14px;
-					color: #0459c4;
-					padding: 6px 9px;
-					background: #f0f3f5;
-					border-radius: 3px;
-				}
 			}
 			.btn-setting {
 				font-weight: 600;
@@ -178,7 +178,7 @@
 			line-height: 12px;
 			font-size: 16px;
 			color: #1a1d1f;
-			margin-bottom: 24px;
+			margin-bottom: 12px;
 		}
 		.limit-card {
 			background: #f0f3f5;
@@ -210,6 +210,14 @@
 					width: 0;
 					background: #0459c4;
 				}
+			}
+		}
+		.link-setting {
+			color: #b0b9bd;
+			margin-left: 8px;
+			cursor: pointer;
+			&:hover {
+				text-decoration: underline;
 			}
 		}
 		.coming-soon {

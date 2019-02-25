@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import {
 	toggleVerificationAlert,
 	fetchTransactionLimits,
+	fetchVerificationTier,
 	validateSession
 } from '../store/actions'
 
@@ -27,6 +28,7 @@ class TransactionLimits extends Component {
 		if (session) {
 			const ctUser = session['CT-ACCOUNT-ID']
 			this.props.fetchTransactionLimits({ ctUser })
+			this.props.fetchVerificationTier({ ctUser })
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
@@ -54,6 +56,7 @@ class TransactionLimits extends Component {
 
 	render() {
 		const { limits } = this.props.accounts
+		const { currentTier } = this.props.verification
 		return (
 			<div
 				className="settings-page dashboard-page full-height"
@@ -87,10 +90,25 @@ class TransactionLimits extends Component {
 								<TabsGroup />
 								<SettingsMenu title="Transaction limits" />
 								<div className="transaction-limits">
-									<h6 className="heading d-none d-md-flex">
-										Your saved bank accounts
-									</h6>
-									<h6 className="heading d-flex d-md-none">Bank transfer</h6>
+									<div style={{ marginBottom: 24 }}>
+										{currentTier &&
+										currentTier.TierName.toLowerCase() !== 'unverified' ? (
+											<h6 className="heading">Transaction Limits</h6>
+										) : (
+											<h6 className="heading">Your saved bank accounts</h6>
+										)}
+										{currentTier &&
+											currentTier.TierName.toLowerCase() !== 'unverified' && (
+												<p
+													className="verification-status"
+													style={{ margin: 0 }}>
+													<span className="beta-user">
+														{currentTier.TierName}
+													</span>{' '}
+													| <a className="link-setting">upgrade</a>
+												</p>
+											)}
+									</div>
 									{limits && (
 										<div className="limit-card">
 											<div className="d-flex justify-content-between">
@@ -128,6 +146,16 @@ class TransactionLimits extends Component {
 }
 
 export default connect(
-	({ auth, globals, accounts }) => ({ auth, globals, accounts }),
-	{ toggleVerificationAlert, fetchTransactionLimits, validateSession }
+	({ auth, globals, accounts, verification }) => ({
+		auth,
+		globals,
+		accounts,
+		verification
+	}),
+	{
+		toggleVerificationAlert,
+		fetchTransactionLimits,
+		fetchVerificationTier,
+		validateSession
+	}
 )(withRouter(TransactionLimits))
