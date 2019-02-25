@@ -246,8 +246,8 @@ header.bg-primary-gradient {
 		}
 		@include media-breakpoint-down(md) {
 			left: initial;
-		}
-		@include media-breakpoint-down(sm) {
+			// }
+			// @include media-breakpoint-down(sm) {
 			margin: 0 0 49px;
 			width: auto;
 			height: 151px;
