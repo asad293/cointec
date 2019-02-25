@@ -190,14 +190,17 @@ class AccountSettings extends Component {
 													Verification status
 													<img
 														src={
-															currentTier && currentTier.Id === 2
+															currentTier &&
+															currentTier.TierName.toLowerCase() !==
+																'unverified'
 																? '/static/images/check-success.svg'
 																: '/static/images/check.svg'
 														}
 														alt="verified"
 													/>
 												</h6>
-												{currentTier && currentTier.Id === 2 ? (
+												{currentTier &&
+												currentTier.TierName.toLowerCase() !== 'unverified' ? (
 													<p className="verification-status">
 														<span className="beta-user">
 															{currentTier.TierName}

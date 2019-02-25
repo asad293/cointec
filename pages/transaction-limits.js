@@ -104,7 +104,8 @@ class TransactionLimits extends Component {
 													style={{ margin: 0 }}>
 													<span className="beta-user">
 														{currentTier.TierName}
-													</span>
+													</span>{' '}
+													| <a className="link-setting">upgrade</a>
 												</p>
 											)}
 									</div>
