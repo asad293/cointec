@@ -26,25 +26,25 @@ const DigitalCurrencies = () => (
 				</div>
 				<div className="col-lg-1" />
 				<div className="col-12 col-lg-6 text-center mt-4 mt-lg-0">
-					<img
+					{/* <img
 						className="digital-currencies-art"
 						src="/static/images/digital-currencies.png"
-					/>
+					/> */}
+					<div className="currencies-group">
+						<img src="/static/images/cg-image-1.svg" />
+						<img src="/static/images/cg-image-2.svg" />
+						<img src="/static/images/cg-image-3.svg" />
+						<img src="/static/images/cg-image-4.svg" />
+						<img src="/static/images/cg-image-5.svg" />
+						<img src="/static/images/cg-image-1.svg" />
+						<img src="/static/images/cg-image-6.svg" />
+						<img src="/static/images/cg-image-7.svg" />
+					</div>
 					<p className="d-lg-none text-center">
 						We understand long winded it can be to buy some of the trending
 						altcoins. That’s why we’ve created this platform to let you directly
 						exchange. Add some more text here.
 					</p>
-					{/* <div className="currencies-group">
-					<img src="/static/images/cg-image-1.svg" />
-					<img src="/static/images/cg-image-2.svg" />
-					<img src="/static/images/cg-image-3.svg" />
-					<img src="/static/images/cg-image-4.svg" />
-					<img src="/static/images/cg-image-5.svg" />
-					<img src="/static/images/cg-image-1.svg" />
-					<img src="/static/images/cg-image-6.svg" />
-					<img src="/static/images/cg-image-7.svg" />
-				</div> */}
 					<Link href="/digital-currency-list">
 						<a className="d-lg-none">View all our digital currencies</a>
 					</Link>
