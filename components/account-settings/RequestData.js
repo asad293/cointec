@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm, SubmissionError } from 'redux-form'
 import { connect } from 'react-redux'
 import { requestData, exportData } from '../../store/actions'
 import cn from 'classnames'
@@ -67,7 +67,7 @@ class RequestData extends Component {
 
 	onSubmit(values) {
 		if (this.props.action === 'export') {
-			this.props
+			return this.props
 				.exportData({
 					emailAddress: this.props.emailAddress,
 					password: values.password
@@ -77,8 +77,19 @@ class RequestData extends Component {
 					this.props.onRequestSent()
 					this.onClose()
 				})
+				.catch(error => {
+					if (error && error.response.status === 401) {
+						throw new SubmissionError({
+							password: 'The password enter is incorrect'
+						})
+					} else {
+						throw new SubmissionError({
+							password: 'Request failed'
+						})
+					}
+				})
 		} else {
-			this.props
+			return this.props
 				.requestData({
 					emailAddress: this.props.emailAddress,
 					password: values.password
@@ -87,6 +98,17 @@ class RequestData extends Component {
 					console.log(res)
 					this.props.onRequestSent()
 					this.onClose()
+				})
+				.catch(error => {
+					if (error && error.response.status === 401) {
+						throw new SubmissionError({
+							password: 'The password enter is incorrect'
+						})
+					} else {
+						throw new SubmissionError({
+							password: 'Request failed'
+						})
+					}
 				})
 		}
 	}
