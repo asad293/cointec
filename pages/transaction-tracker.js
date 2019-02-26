@@ -102,6 +102,7 @@ class TransactionTracker extends Component {
 								{status && (
 									<TransactionStatus
 										Status={status.Status}
+										Order={status.Order}
 										ExchangeTransactions={status.ExchangeTransactions}
 										cancelOrder={() =>
 											this.setState({ abandonOrderModal: true })
@@ -168,6 +169,7 @@ const TransactionStatus = ({
 		HASHNOTFOUND
 	},
 	ExchangeTransactions,
+	Order,
 	cancelOrder
 }) => {
 	const { DestinationWallet, ...Data } = ExchangeTransactions
@@ -203,6 +205,7 @@ const TransactionStatus = ({
 					TERMINATED={TERMINATED}
 					SENT={SENT}
 					HASHNOTFOUND={HASHNOTFOUND}
+					Order={Order}
 				/>
 			)}
 			{!(
@@ -364,7 +367,8 @@ const CoinSent = ({
 	FAILED,
 	TERMINATED,
 	SENT,
-	HASHNOTFOUND
+	HASHNOTFOUND,
+	Order
 }) => {
 	return SETTLED ? (
 		<div
@@ -408,8 +412,11 @@ const CoinSent = ({
 				</div>
 			) : SENT ? (
 				<div className="description">
-					<b>0.53453456 BTC</b> was sent to your external wallet. Your coins are
-					on the blockahin on the way to your wallet.
+					<b>
+						{Order.DestAmount} {Order.DestCurrency}
+					</b>{' '}
+					was sent to your external wallet. Your coins are on the blockchain on
+					the way to your wallet.
 				</div>
 			) : (
 				''
