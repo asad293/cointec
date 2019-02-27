@@ -91,23 +91,16 @@ class TransactionLimits extends Component {
 								<SettingsMenu title="Transaction limits" />
 								<div className="transaction-limits">
 									<div style={{ marginBottom: 24 }}>
-										{currentTier &&
-										currentTier.TierName.toLowerCase() !== 'unverified' ? (
-											<h6 className="heading">Transaction Limits</h6>
-										) : (
-											<h6 className="heading">Your saved bank accounts</h6>
+										<h6 className="heading">Transaction Limits</h6>
+										{/* <h6 className="heading">Your saved bank accounts</h6> */}
+										{currentTier && (
+											<p className="verification-status" style={{ margin: 0 }}>
+												<span className="beta-user">
+													{currentTier.TierName}
+												</span>{' '}
+												| <a className="link-setting">upgrade</a>
+											</p>
 										)}
-										{currentTier &&
-											currentTier.TierName.toLowerCase() !== 'unverified' && (
-												<p
-													className="verification-status"
-													style={{ margin: 0 }}>
-													<span className="beta-user">
-														{currentTier.TierName}
-													</span>{' '}
-													| <a className="link-setting">upgrade</a>
-												</p>
-											)}
 									</div>
 									{limits && (
 										<div className="limit-card">

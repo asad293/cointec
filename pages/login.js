@@ -68,7 +68,7 @@ class Login extends Component {
 	authComplete() {
 		const { query } = Router.router
 		if (query && query.redirectPath) Router.push(query.redirectPath)
-		else Router.push('/')
+		else Router.push('/dashboard')
 	}
 
 	toggleMask() {

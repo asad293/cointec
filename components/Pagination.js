@@ -5,7 +5,7 @@ import _ from 'lodash'
 class Pagination extends Component {
 	render() {
 		const { totalPages, currentPage, onChange, className } = this.props
-		const pages = _.range(2, totalPages)
+		const pages = totalPages > 1 ? _.range(2, totalPages) : []
 		return (
 			<div className={className}>
 				{totalPages > 0 && (
@@ -58,15 +58,17 @@ class Pagination extends Component {
 								</a>
 							</li>
 						)}
-						<li
-							className={cn(
-								'page-item',
-								currentPage === totalPages ? 'active' : null
-							)}>
-							<a className="page-link" onClick={() => onChange(totalPages)}>
-								{totalPages}
-							</a>
-						</li>
+						{totalPages !== 1 && (
+							<li
+								className={cn(
+									'page-item',
+									currentPage === totalPages ? 'active' : null
+								)}>
+								<a className="page-link" onClick={() => onChange(totalPages)}>
+									{totalPages}
+								</a>
+							</li>
+						)}
 						<li className="page-item">
 							<a
 								className="page-link"
