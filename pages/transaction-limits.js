@@ -107,15 +107,14 @@ class TransactionLimits extends Component {
 											<div className="d-flex justify-content-between">
 												<p className="limit-label">Daily limit</p>
 												<p className="limit-value">
-													{limits.vDaily}/{limits.lDaily + limits.vDaily} GBP
+													{limits.vDaily}/{limits.lDaily} GBP
 												</p>
 											</div>
 											<div className="limit-bar">
 												<div
 													className="limit-progress"
 													style={{
-														width: `${(limits.vDaily * 100) /
-															(limits.lDaily + limits.vDaily)}%`
+														width: `${(limits.vDaily * 100) / limits.lDaily}%`
 													}}
 												/>
 											</div>
