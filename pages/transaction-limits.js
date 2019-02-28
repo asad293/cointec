@@ -71,14 +71,15 @@ class TransactionLimits extends Component {
 						<h2 className="dashboard-heading">Account settings</h2>
 					</div>
 				</header>
-				{this.props.globals.verificationAlert && (
-					<AlertMessage
-						onHide={() => {
-							this.props.toggleVerificationAlert(false)
-							this.onResize()
-						}}
-					/>
-				)}
+				{this.props.verification &&
+					!this.props.verification.VerificationComplete && (
+						<AlertMessage
+							onHide={() => {
+								this.props.toggleVerificationAlert(false)
+								this.onResize()
+							}}
+						/>
+					)}
 				<div
 					className="container dashboard-container"
 					style={{
