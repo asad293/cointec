@@ -91,7 +91,7 @@ class TransactionLimits extends Component {
 								<SettingsMenu title="Transaction limits" />
 								<div className="transaction-limits">
 									<div style={{ marginBottom: 24 }}>
-										<h6 className="heading">Transaction Limits</h6>
+										<h6 className="heading">Bank Transfer Limits</h6>
 										{/* <h6 className="heading">Your saved bank accounts</h6> */}
 										{currentTier && (
 											<p className="verification-status" style={{ margin: 0 }}>
@@ -115,6 +115,24 @@ class TransactionLimits extends Component {
 													className="limit-progress"
 													style={{
 														width: `${(limits.vDaily * 100) / limits.lDaily}%`
+													}}
+												/>
+											</div>
+										</div>
+									)}
+									{limits && (
+										<div className="limit-card">
+											<div className="d-flex justify-content-between">
+												<p className="limit-label">Weekly limit</p>
+												<p className="limit-value">
+													{limits.vWeekly}/{limits.lWeekly} GBP
+												</p>
+											</div>
+											<div className="limit-bar">
+												<div
+													className="limit-progress"
+													style={{
+														width: `${(limits.vWeekly * 100) / limits.lWeekly}%`
 													}}
 												/>
 											</div>
