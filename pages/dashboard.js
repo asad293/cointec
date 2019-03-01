@@ -51,7 +51,14 @@ class Dashboard extends Component {
 	componentWillUnmount() {
 		removeEventListener('resize', this.onResize)
 		const tooltip = document.querySelector('#chartjs-tooltip')
-		if (tooltip) tooltip.remove() // remove chart tooltip when unmounted
+		if (tooltip) {
+			// remove chart tooltip when unmounted
+			if (tooltip.remove) {
+				tooltip.remove()
+			} else {
+				tooltip.parentNode.removeChild(tooltip)
+			}
+		}
 	}
 
 	onResize = () => {
