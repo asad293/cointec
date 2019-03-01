@@ -669,3 +669,13 @@ header.bg-primary-gradient {
 @import 'account-verification';
 @import 'account-settings';
 @import 'no-access';
+
+_:-ms-fullscreen,
+:root
+	.hero-calculator
+	.calculator-wrapper
+	.calc-input-wrapper
+	.text-label
+	.dropdown-arrow {
+	margin-right: 25px;
+}

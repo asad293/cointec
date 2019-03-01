@@ -40,7 +40,14 @@ class Chart extends Component {
 
 	onScroll() {
 		const tooltip = document.querySelector('#chartjs-tooltip')
-		if (tooltip) tooltip.remove() // remove chart tooltip when scrolling
+		if (tooltip) {
+			// remove chart tooltip when unmounted
+			if (tooltip.remove) {
+				tooltip.remove()
+			} else {
+				tooltip.parentNode.removeChild(tooltip)
+			}
+		}
 	}
 
 	render() {
