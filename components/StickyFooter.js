@@ -5,7 +5,7 @@ import cn from 'classnames'
 const StickyFooter = props => (
 	<div
 		className={cn('bottom-bar', props.className)}
-		style={{ position: props.fixed ? 'fixed' : '' }}>
+		style={{ position: props.fixed ? 'fixed' : 'static' }}>
 		<div className="container">
 			<div className="row">
 				<div className="col-6 copyright">@ Cointec LTD 2018</div>
