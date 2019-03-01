@@ -51,7 +51,7 @@ class Nav extends Component {
 					</button>
 
 					<div className="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul className="navbar-nav w-100 justify-content-end align-items-lg-center">
+						<ul className="navbar-nav w-100 align-items-lg-center">
 							<li className="nav-item">
 								<NavLink href="/dashboard" className="dash-nav-link">
 									Dashboard

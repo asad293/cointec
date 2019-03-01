@@ -57,7 +57,8 @@
 				height: 20px;
 				width: 100%;
 				.dropdown-toggle {
-					vertical-align: initial;
+					display: block;
+					// vertical-align: initial;
 					.text-label {
 						span {
 							line-height: 20px;
@@ -134,6 +135,8 @@
 				.dropdown-arrow {
 					margin-left: 8px;
 					margin-right: 13px;
+					width: 12px;
+					height: 20px;
 				}
 			}
 		}
