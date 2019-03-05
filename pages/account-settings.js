@@ -39,12 +39,20 @@ class AccountSettings extends Component {
 			email: null,
 			scrolling: false
 		}
+		this.fetchData = this.fetchData.bind(this)
 		this.onConfirmationEmailSent = this.onConfirmationEmailSent.bind(this)
 		this.onAccountClosed = this.onAccountClosed.bind(this)
 		this.onPasswordUpdated = this.onPasswordUpdated.bind(this)
 	}
 
 	componentDidMount() {
+		this.fetchData()
+
+		addEventListener('resize', this.onResize)
+		this.onResize()
+	}
+
+	fetchData() {
 		const session = this.props.validateSession()
 		if (session) {
 			const ctUser = session['CT-ACCOUNT-ID']
@@ -54,9 +62,6 @@ class AccountSettings extends Component {
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
-
-		addEventListener('resize', this.onResize)
-		this.onResize()
 	}
 
 	componentWillUnmount() {
@@ -86,6 +91,8 @@ class AccountSettings extends Component {
 		this.setState({
 			confirmEmailModal: false
 		})
+
+		this.fetchData()
 		this.props.showNotificationAlert({
 			content: notificationContent,
 			type: 'success'
@@ -106,6 +113,8 @@ class AccountSettings extends Component {
 				</b>
 			</p>
 		)
+
+		this.fetchData()
 		this.props.showNotificationAlert({
 			content: notificationContent,
 			type: 'success'
