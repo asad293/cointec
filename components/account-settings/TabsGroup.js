@@ -18,7 +18,7 @@ const TabsGroup = props => (
 			href="/bank-accounts"
 			as="/account-settings/bank-accounts"
 			className="tab-item">
-			<i className="far fa-cog" />
+			<i class="fal fa-university" />
 			Bank accounts
 		</NavLink>
 		<NavLink
