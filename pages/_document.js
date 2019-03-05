@@ -51,6 +51,7 @@ export default class MyDocument extends Document {
 					<link rel="stylesheet" type="text/css" href="/static/libs/slick/slick-theme.css"/>
 					<link rel="stylesheet" type="text/css" href="/static/libs/fontawesome/css/solid.min.css"/>
 					<link rel="stylesheet" type="text/css" href="/static/libs/fontawesome/css/regular.min.css"/>
+					<link rel="stylesheet" type="text/css" href="/static/libs/fontawesome/css/light.min.css"/>
 					<link rel="stylesheet" type="text/css" href="/static/libs/fontawesome/css/brands.min.css"/>
 					<link rel="stylesheet" type="text/css" href="/static/libs/fontawesome/css/fontawesome.min.css"/>
 					<script src="/static/libs/jquery/jquery-3.3.1.slim.min.js" />
