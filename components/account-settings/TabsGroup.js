@@ -11,7 +11,7 @@ const TabsGroup = props => (
 			href="/transaction-limits"
 			as="/account-settings/transaction-limits"
 			className="tab-item">
-			<i className="far fa-cog" />
+			<i class="fal fa-random" />
 			Transaction limits
 		</NavLink>
 		<NavLink
@@ -25,7 +25,7 @@ const TabsGroup = props => (
 			href="/privacy"
 			as="/account-settings/privacy"
 			className="tab-item">
-			<i className="far fa-cog" />
+			<i class="fal fa-eye-slash" />
 			Privacy
 		</NavLink>
 	</div>
