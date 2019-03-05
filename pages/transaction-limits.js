@@ -4,6 +4,7 @@ import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
 import {
 	toggleVerificationAlert,
+	fetchVerificationStatus,
 	fetchTransactionLimits,
 	fetchVerificationTier,
 	validateSession
@@ -28,6 +29,7 @@ class TransactionLimits extends Component {
 		if (session) {
 			const ctUser = session['CT-ACCOUNT-ID']
 			this.props.fetchTransactionLimits({ ctUser })
+			this.props.fetchVerificationStatus({ ctUser })
 			this.props.fetchVerificationTier({ ctUser })
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
@@ -71,15 +73,14 @@ class TransactionLimits extends Component {
 						<h2 className="dashboard-heading">Account settings</h2>
 					</div>
 				</header>
-				{this.props.verification &&
-					!this.props.verification.VerificationComplete && (
-						<AlertMessage
-							onHide={() => {
-								this.props.toggleVerificationAlert(false)
-								this.onResize()
-							}}
-						/>
-					)}
+				{this.state.verificationAlert && (
+					<AlertMessage
+						onHide={() => {
+							this.props.toggleVerificationAlert(false)
+							this.onResize()
+						}}
+					/>
+				)}
 				<div
 					className="container dashboard-container"
 					style={{
@@ -93,7 +94,6 @@ class TransactionLimits extends Component {
 								<div className="transaction-limits">
 									<div style={{ marginBottom: 24 }}>
 										<h6 className="heading">Bank Transfer Limits</h6>
-										{/* <h6 className="heading">Your saved bank accounts</h6> */}
 										{currentTier && (
 											<p className="verification-status" style={{ margin: 0 }}>
 												<span className="beta-user">
@@ -154,6 +154,18 @@ class TransactionLimits extends Component {
 			</div>
 		)
 	}
+
+	componentWillReceiveProps(props) {
+		const { globals, verification } = props
+
+		const verificationAlert =
+			globals.verificationAlert &&
+			verification.status &&
+			!verification.status.VerificationComplete
+		this.setState({
+			verificationAlert
+		})
+	}
 }
 
 export default connect(
@@ -165,6 +177,7 @@ export default connect(
 	}),
 	{
 		toggleVerificationAlert,
+		fetchVerificationStatus,
 		fetchTransactionLimits,
 		fetchVerificationTier,
 		validateSession

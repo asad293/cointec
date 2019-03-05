@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import {
 	fetchOrders,
 	fetchAssetsList,
+	fetchVerificationStatus,
 	toggleVerificationAlert,
 	validateSession,
 	signOutSession
@@ -35,6 +36,8 @@ class Dashboard extends Component {
 	componentDidMount() {
 		const session = this.props.validateSession()
 		if (session) {
+			const ctUser = session['CT-ACCOUNT-ID']
+			this.props.fetchVerificationStatus({ ctUser })
 			this.props.fetchOrders().catch(err => {
 				if (err.response.status === 401) {
 					this.props.signOutSession()
@@ -89,7 +92,7 @@ class Dashboard extends Component {
 						<h2 className="dashboard-heading">Dashboard</h2>
 					</div>
 				</header>
-				{this.props.globals.verificationAlert && (
+				{this.state.verificationAlert && (
 					<AlertMessage
 						onHide={() => {
 							this.props.toggleVerificationAlert(false)
@@ -149,16 +152,29 @@ class Dashboard extends Component {
 	}
 
 	componentWillReceiveProps(props) {
+		const { assets, globals, verification } = props
+
 		const assetsImages = {}
-		props.assets.list.Receive.forEach(asset => {
+		assets.list.Receive.forEach(asset => {
 			assetsImages[asset.Name] = asset.Image
 		})
-		props.assets.list.Send.forEach(asset => {
+		assets.list.Send.forEach(asset => {
 			assetsImages[asset.Name] = asset.Image
 		})
-		this.setState({ assetsImages }, () => {
-			if (this.state.assetsImages) this.onResize()
-		})
+
+		const verificationAlert =
+			globals.verificationAlert &&
+			verification.status &&
+			!verification.status.VerificationComplete
+		this.setState(
+			{
+				assetsImages,
+				verificationAlert
+			},
+			() => {
+				if (this.state.assetsImages) this.onResize()
+			}
+		)
 	}
 }
 
@@ -234,10 +250,16 @@ const TransactionTable = ({ orders, assets, onSelect }) => (
 )
 
 export default connect(
-	({ order, assets, globals }) => ({ order, assets, globals }),
+	({ order, assets, globals, verification }) => ({
+		order,
+		assets,
+		globals,
+		verification
+	}),
 	{
 		fetchOrders,
 		fetchAssetsList,
+		fetchVerificationStatus,
 		toggleVerificationAlert,
 		validateSession,
 		signOutSession

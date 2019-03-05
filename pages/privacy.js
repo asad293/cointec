@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import {
 	fetchMessagingPreferences,
 	setMessagingPreferences,
+	fetchVerificationStatus,
 	toggleVerificationAlert,
 	fetchUserDetails,
 	validateSession
@@ -64,6 +65,7 @@ class Privacy extends Component {
 		if (session) {
 			const ctUser = session['CT-ACCOUNT-ID']
 			this.props.fetchUserDetails(ctUser)
+			this.props.fetchVerificationStatus({ ctUser })
 			this.props.fetchMessagingPreferences({ ctUser })
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
@@ -160,7 +162,8 @@ class Privacy extends Component {
 				</header>
 				{this.props.globals.verificationAlert &&
 					!this.state.notificationAlert &&
-					!this.props.verification.VerificationComplete && (
+					this.props.verification.status &&
+					!this.props.verification.status.VerificationComplete && (
 						<AlertMessage
 							onHide={() => {
 								this.props.toggleVerificationAlert(false)
@@ -360,6 +363,7 @@ export default connect(
 	{
 		fetchMessagingPreferences,
 		setMessagingPreferences,
+		fetchVerificationStatus,
 		toggleVerificationAlert,
 		fetchUserDetails,
 		validateSession
