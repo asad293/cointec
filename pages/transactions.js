@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import {
 	fetchOrders,
 	fetchAssetsList,
+	fetchVerificationStatus,
 	toggleVerificationAlert,
 	validateSession
 } from '../store/actions'
@@ -44,6 +45,8 @@ class Transactions extends Component {
 	componentDidMount() {
 		const session = this.props.validateSession()
 		if (session) {
+			const ctUser = session['CT-ACCOUNT-ID']
+			this.props.fetchVerificationStatus({ ctUser })
 			this.props.fetchOrders().catch(err => {
 				if (err.response.status === 401) {
 					this.props.signOutSession()
@@ -391,5 +394,11 @@ const TransactionTable = ({
 
 export default connect(
 	({ auth, order, assets, globals }) => ({ auth, order, assets, globals }),
-	{ fetchOrders, fetchAssetsList, toggleVerificationAlert, validateSession }
+	{
+		fetchOrders,
+		fetchVerificationStatus,
+		fetchAssetsList,
+		toggleVerificationAlert,
+		validateSession
+	}
 )(withRouter(Transactions))

@@ -4,6 +4,7 @@ import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
 import {
 	fetchAccounts,
+	fetchVerificationStatus,
 	toggleVerificationAlert,
 	validateSession,
 	signOutSession
@@ -45,6 +46,7 @@ class BankAccounts extends Component {
 		const session = this.props.validateSession()
 		if (session) {
 			const ctUser = session['CT-ACCOUNT-ID']
+			this.props.fetchVerificationStatus({ ctUser })
 			this.props.fetchAccounts(ctUser).catch(err => {
 				if (err.response.status === 401) {
 					this.props.signOutSession()
@@ -96,8 +98,8 @@ class BankAccounts extends Component {
 						<h2 className="dashboard-heading">Account settings</h2>
 					</div>
 				</header>
-				{this.props.verification &&
-					!this.props.verification.VerificationComplete && (
+				{this.props.verification.status &&
+					!this.props.verification.status.VerificationComplete && (
 						<AlertMessage
 							onHide={() => {
 								this.props.toggleVerificationAlert(false)
@@ -218,5 +220,11 @@ export default connect(
 		globals,
 		verification
 	}),
-	{ fetchAccounts, toggleVerificationAlert, validateSession, signOutSession }
+	{
+		fetchAccounts,
+		fetchVerificationStatus,
+		toggleVerificationAlert,
+		validateSession,
+		signOutSession
+	}
 )(withRouter(BankAccounts))

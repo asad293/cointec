@@ -21,6 +21,7 @@ import {
 
 const INITIAL_STATE = {
 	overview: null,
+	status: null,
 	currentTier: null,
 	loading: false,
 	error: null
@@ -30,7 +31,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 	switch (type) {
 		case FETCH_VERIFICATION_STATUS:
 			// const data = { ...payload, CloseAccountTriggered: true }
-			return { ...state, ...payload, loading: false, error: null }
+			return { ...state, status: payload, loading: false, error: null }
 
 		case FETCH_VERIFICATION_TIER:
 			// const data = { ...payload, Id: 2, TierName: 'Beta User' }

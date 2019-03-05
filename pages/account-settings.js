@@ -35,6 +35,7 @@ class AccountSettings extends Component {
 			changeEmailModal: false,
 			updatePasswordModal: false,
 			closeAccountModal: false,
+			verificationAlert: false,
 			email: null,
 			scrolling: false
 		}
@@ -141,16 +142,14 @@ class AccountSettings extends Component {
 						<h2 className="dashboard-heading">Account settings</h2>
 					</div>
 				</header>
-				{this.props.globals.verificationAlert &&
-					!this.props.globals.notificationAlert &&
-					!this.props.verification.VerificationComplete && (
-						<AlertMessage
-							onHide={() => {
-								this.props.toggleVerificationAlert(false)
-								this.onResize()
-							}}
-						/>
-					)}
+				{this.state.verificationAlert && (
+					<AlertMessage
+						onHide={() => {
+							this.props.toggleVerificationAlert(false)
+							this.onResize()
+						}}
+					/>
+				)}
 
 				<NotificationAlert
 					type={this.props.globals.notificationType}
@@ -173,31 +172,36 @@ class AccountSettings extends Component {
 									<div
 										className="setting-wrapper"
 										style={{
-											padding: this.props.verification.VerificationComplete
-												? '36px 32px'
-												: ''
+											padding:
+												this.props.verification.status &&
+												this.props.verification.status.VerificationComplete
+													? '36px 32px'
+													: ''
 										}}>
 										<div className="d-flex flex-column flex-md-row">
 											<div>
 												<h6
 													className="setting-name"
 													style={{
-														marginBottom: !this.props.verification
-															.VerificationComplete
-															? '16px'
-															: '12px'
+														marginBottom:
+															this.props.verification.status &&
+															!this.props.verification.status
+																.VerificationComplete
+																? '16px'
+																: '12px'
 													}}>
 													Verification status
-													<img
-														src={
-															currentTier &&
-															currentTier.TierName.toLowerCase() !==
+													{currentTier && (
+														<img
+															src={
+																currentTier.TierName.toLowerCase() !==
 																'unverified'
-																? '/static/images/check-success.svg'
-																: '/static/images/check.svg'
-														}
-														alt="verified"
-													/>
+																	? '/static/images/check-success.svg'
+																	: '/static/images/check.svg'
+															}
+															alt="verified"
+														/>
+													)}
 												</h6>
 												{currentTier &&
 												currentTier.TierName.toLowerCase() !== 'unverified' ? (
@@ -218,13 +222,17 @@ class AccountSettings extends Component {
 													</div>
 												)}
 											</div>
-											{!this.props.verification.VerificationComplete && (
-												<div className="ml-md-auto">
-													<Link href="/account-verification">
-														<a className="btn-setting">Complete verification</a>
-													</Link>
-												</div>
-											)}
+											{this.props.verification.status &&
+												!this.props.verification.status
+													.VerificationComplete && (
+													<div className="ml-md-auto">
+														<Link href="/account-verification">
+															<a className="btn-setting">
+																Complete verification
+															</a>
+														</Link>
+													</div>
+												)}
 										</div>
 									</div>
 									<div className="setting-wrapper">
@@ -232,14 +240,16 @@ class AccountSettings extends Component {
 											<div>
 												<h6 className="setting-name">
 													Email address
-													<img
-														src={
-															!this.props.verification.EmailConfirmed
-																? '/static/images/check.svg'
-																: '/static/images/check-success.svg'
-														}
-														alt="verified"
-													/>
+													{this.props.verification.status && (
+														<img
+															src={
+																!this.props.verification.status.EmailConfirmed
+																	? '/static/images/check.svg'
+																	: '/static/images/check-success.svg'
+															}
+															alt="verified"
+														/>
+													)}
 												</h6>
 												<p className="mb-4 mb-md-0">
 													{(this.props.accounts.userDetails &&
@@ -255,17 +265,18 @@ class AccountSettings extends Component {
 													</a>
 												</p>
 											</div>
-											{!this.props.verification.EmailConfirmed && (
-												<div className="ml-md-auto">
-													<a
-														className="btn-setting"
-														onClick={() =>
-															this.setState({ confirmEmailModal: true })
-														}>
-														Confirm email address
-													</a>
-												</div>
-											)}
+											{this.props.verification.status &&
+												!this.props.verification.status.EmailConfirmed && (
+													<div className="ml-md-auto">
+														<a
+															className="btn-setting"
+															onClick={() =>
+																this.setState({ confirmEmailModal: true })
+															}>
+															Confirm email address
+														</a>
+													</div>
+												)}
 										</div>
 									</div>
 									<div className="setting-wrapper">
@@ -303,12 +314,16 @@ class AccountSettings extends Component {
 														<a
 															className={cn(
 																'btn-setting text-danger',
-																this.props.verification.CloseAccountTriggered
+																this.props.verification.status &&
+																	this.props.verification.status
+																		.CloseAccountTriggered
 																	? 'disabled'
 																	: ''
 															)}
 															onClick={
-																!this.props.verification.CloseAccountTriggered
+																this.props.verification.status &&
+																!this.props.verification.status
+																	.CloseAccountTriggered
 																	? () =>
 																			this.setState({ closeAccountModal: true })
 																	: null
@@ -374,11 +389,15 @@ class AccountSettings extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		// console.log(props.verification)
-		// console.log(
-		// 	props.accounts.userDetails &&
-		// 		props.accounts.userDetails.CloseAccountTriggered
-		// )
+		const { globals, verification } = props
+
+		this.setState({
+			verificationAlert:
+				globals.verificationAlert &&
+				!globals.notificationAlert &&
+				verification.status &&
+				!verification.status.VerificationComplete
+		})
 	}
 }
 
