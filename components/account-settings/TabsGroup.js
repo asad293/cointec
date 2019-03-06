@@ -11,21 +11,21 @@ const TabsGroup = props => (
 			href="/transaction-limits"
 			as="/account-settings/transaction-limits"
 			className="tab-item">
-			<i className="fal fa-tachometer" />
+			<i className="far fa-random" />
 			Transaction limits
 		</NavLink>
 		<NavLink
 			href="/bank-accounts"
 			as="/account-settings/bank-accounts"
 			className="tab-item">
-			<i className="fal fa-university" />
+			<i className="far fa-university" />
 			Bank accounts
 		</NavLink>
 		<NavLink
 			href="/privacy"
 			as="/account-settings/privacy"
 			className="tab-item">
-			<i className="fal fa-eye-slash" />
+			<i className="far fa-eye-slash" />
 			Privacy
 		</NavLink>
 	</div>

@@ -97,7 +97,7 @@ class Nav extends Component {
 											href="/transaction-limits"
 											as="/account-settings/transaction-limits">
 											<a className="dropdown-item">
-												<i className="fal fa-tachometer" />
+												<i className="far fa-random" />
 												Transaction limits
 											</a>
 										</Link>
@@ -105,13 +105,13 @@ class Nav extends Component {
 											href="/bank-accounts"
 											as="/account-settings/bank-accounts">
 											<a className="dropdown-item">
-												<i className="fal fa-university" />
+												<i className="far fa-university" />
 												Bank accounts
 											</a>
 										</Link>
 										<Link href="/privacy" as="/account-settings/privacy">
 											<a className="dropdown-item">
-												<i className="fal fa-eye-slash" />
+												<i className="far fa-eye-slash" />
 												Privacy
 											</a>
 										</Link>
