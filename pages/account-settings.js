@@ -368,6 +368,7 @@ class AccountSettings extends Component {
 						}
 						ctUser={this.props.auth.ctUser}
 						onClose={() => this.setState({ changeEmailModal: false })}
+						onEmailSent={this.onConfirmationEmailSent}
 					/>
 				)}
 				{this.state.updatePasswordModal && (

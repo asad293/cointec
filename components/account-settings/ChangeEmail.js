@@ -76,6 +76,7 @@ class ChangeEmail extends Component {
 			.then(res => {
 				console.log(res)
 				this.onClose()
+				this.props.onEmailSent()
 			})
 	}
 
