@@ -94,7 +94,7 @@ const renderPasswordField = ({
 
 			<PasswordToggle visible={mask} onToggle={toggleMask} />
 
-			<div className="typing-validator">8 or more character</div>
+			<div className="typing-validator">8 or more characters</div>
 		</div>
 	</div>
 )
@@ -103,7 +103,7 @@ const renderPasswordField = ({
 const required = value => (!value ? 'This field is required' : undefined)
 const passwordLength = value =>
 	!value || value.length < 8
-		? 'Password must consist of 8 or more character'
+		? 'Password must consist of 8 or more characters'
 		: undefined
 const passwordLetter = value =>
 	!/[a-zA-Z]/.test(value)

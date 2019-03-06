@@ -97,7 +97,7 @@ class Nav extends Component {
 											href="/transaction-limits"
 											as="/account-settings/transaction-limits">
 											<a className="dropdown-item">
-												<i className="fal fa-random" />
+												<i className="fal fa-tachometer" />
 												Transaction limits
 											</a>
 										</Link>
