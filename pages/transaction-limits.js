@@ -115,7 +115,14 @@ class TransactionLimits extends Component {
 												<div
 													className="limit-progress"
 													style={{
-														width: `${(limits.vDaily * 100) / limits.lDaily}%`
+														width: `${
+															limits.vDaily
+																? _.min([
+																		(limits.vDaily * 100) / limits.lDaily,
+																		100
+																  ])
+																: 0
+														}%`
 													}}
 												/>
 											</div>
@@ -133,7 +140,14 @@ class TransactionLimits extends Component {
 												<div
 													className="limit-progress"
 													style={{
-														width: `${(limits.vWeekly * 100) / limits.lWeekly}%`
+														width: `${
+															limits.vWeekly
+																? _.min([
+																		(limits.vWeekly * 100) / limits.lWeekly,
+																		100
+																  ])
+																: 0
+														}%`
 													}}
 												/>
 											</div>
