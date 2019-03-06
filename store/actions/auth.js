@@ -152,7 +152,7 @@ export const validateSession = () => dispatch => {
 	}
 }
 
-export const signOutSession = () => dispatch => {
+export const signOutSession = (redirectUrl = '/') => dispatch => {
 	dispatch({ type: 'SIGN_OUT_SESSION' })
 	console.log('signout')
 
@@ -162,5 +162,5 @@ export const signOutSession = () => dispatch => {
 	}
 	Cookie.remove('CT-SESSION-ID', options)
 	Cookie.remove('CT-ACCOUNT-ID', options)
-	Router.push('/')
+	if (redirectUrl) Router.push(redirectUrl)
 }
