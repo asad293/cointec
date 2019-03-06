@@ -59,7 +59,7 @@ class UpdatePassword extends Component {
 				node => node.className === 'modal-dialog modal-account-settings'
 			)
 		if (!select) {
-			this.props.onClose()
+			this.onClose()
 		}
 	}
 
@@ -99,7 +99,10 @@ class UpdatePassword extends Component {
 				role="dialog"
 				data-backdrop="false"
 				style={{ display: 'block' }}>
-				<div className="modal-dialog modal-account-settings" role="document">
+				<div
+					className="modal-dialog modal-account-settings"
+					role="document"
+					style={{ transform: this.state.closed ? 'translateY(-120%)' : '' }}>
 					<div className="modal-content">
 						<div className="modal-body">
 							<button type="button" className="close" onClick={this.onClose}>
