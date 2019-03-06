@@ -489,6 +489,7 @@
 							color: #b0b9bd;
 						}
 						&:active,
+						&:focus,
 						&:focus-within {
 							border: 1px solid #0459c4;
 							box-shadow: none;
@@ -497,6 +498,9 @@
 							color: #515c61;
 							background: #f0f3f5;
 							border: none;
+						}
+						&.form-control {
+							box-shadow: none;
 						}
 					}
 					&.invalid {
@@ -520,6 +524,9 @@
 
 				.password-validation {
 					border-radius: 3px;
+					border: 1px solid #8c969e;
+					overflow: hidden;
+					margin-top: 2px;
 					&:focus-within {
 						border: 1px solid #045cc7;
 						box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
@@ -537,6 +544,9 @@
 						display: none;
 					}
 					input {
+						border: 0;
+						height: 46px;
+						margin: 0;
 						&:focus {
 							border-bottom-right-radius: 0;
 							border-bottom-left-radius: 0;
