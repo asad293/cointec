@@ -671,11 +671,47 @@ header.bg-primary-gradient {
 @import 'no-access';
 
 _:-ms-fullscreen,
-:root
+:root {
 	.hero-calculator
-	.calculator-wrapper
-	.calc-input-wrapper
-	.text-label
-	.dropdown-arrow {
-	margin-right: 25px;
+		.calculator-wrapper
+		.calc-input-wrapper
+		.text-label
+		.dropdown-arrow {
+		margin-right: 25px;
+	}
+}
+
+_:-ms-fullscreen,
+:root {
+	.settings-page {
+		.privacy {
+			.setting-group {
+				.notification-setting {
+					input {
+						position: absolute;
+						top: 26px;
+						right: 24px;
+						visibility: visible;
+					}
+				}
+			}
+		}
+	}
+}
+
+@-moz-document url-prefix() {
+	.settings-page {
+		.privacy {
+			.setting-group {
+				.notification-setting {
+					input {
+						position: absolute;
+						top: 26px;
+						right: 24px;
+						visibility: visible;
+					}
+				}
+			}
+		}
+	}
 }
