@@ -228,7 +228,7 @@ class UpdatePassword extends Component {
 		return (
 			<div
 				className={cn(
-					'field-wrapper',
+					'field-wrapper position-relative',
 					className,
 					touched && error ? 'invalid' : !pristine && valid ? 'valid' : null
 					// touched && !valid ? 'invalid' : null
@@ -236,18 +236,18 @@ class UpdatePassword extends Component {
 				<label className="field-label">
 					{!touched ? label : valid ? label : error}
 				</label>
-				<div className="password-validation position-relative">
-					<input
-						autoComplete="off"
-						spellCheck={false}
-						placeholder={placeholder}
-						className="form-control"
-						type={type}
-						{...input}
-					/>
+				{/* <div className="password-validation position-relative"> */}
+				<input
+					autoComplete="off"
+					spellCheck={false}
+					placeholder={placeholder}
+					className="form-control password"
+					type={type}
+					{...input}
+				/>
 
-					<div className="typing-validator">8 or more characters</div>
-				</div>
+				<div className="typing-validator">8 or more characters</div>
+				{/* </div> */}
 			</div>
 		)
 	}

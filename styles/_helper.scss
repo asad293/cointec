@@ -6,6 +6,7 @@
 
 @mixin placeholder {
 	@include optional-at-root('::-webkit-input-placeholder') {
+		line-height: normal;
 		@content;
 	}
 

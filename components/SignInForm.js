@@ -70,20 +70,22 @@ const renderPasswordField = ({
 	toggleMask,
 	meta: { touched, error, valid, pristine }
 }) => (
-	<div className={cn('form-group', touched && error ? 'invalid' : null)}>
+	<div
+		className={cn(
+			'form-group position-relative',
+			touched && error ? 'invalid' : null
+		)}>
 		<label htmlFor="password">{touched && error ? error : label}</label>
-		<div className="password-validation position-relative">
-			<input
-				id="password"
-				{...input}
-				type={mask ? 'text' : 'password'}
-				className="form-control password"
-				placeholder={placeholder}
-				autoComplete="off"
-			/>
+		<input
+			id="password"
+			{...input}
+			type={mask ? 'text' : 'password'}
+			className="form-control"
+			placeholder={placeholder}
+			autoComplete="off"
+		/>
 
-			<PasswordToggle visible={mask} onToggle={toggleMask} />
-		</div>
+		<PasswordToggle visible={mask} onToggle={toggleMask} />
 	</div>
 )
 
