@@ -505,6 +505,11 @@
 	line-height: 19px;
 	padding: 18px 0;
 	color: white;
+	// animation: alert-appear 400ms;
+	// & > * {
+	// 	opacity: 0;
+	// 	animation: fade-in 300ms linear 400ms forwards;
+	// }
 	&.alert-success {
 		background: #29be60;
 	}
@@ -528,5 +533,25 @@
 		position: absolute;
 		right: 15px;
 		cursor: pointer;
+	}
+}
+
+@keyframes alert-appear {
+	0% {
+		height: 0;
+		padding: 0;
+	}
+	100% {
+		height: 55px;
+		padding: 0;
+	}
+}
+
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
 	}
 }

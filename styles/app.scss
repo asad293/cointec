@@ -680,38 +680,3 @@ _:-ms-fullscreen,
 		margin-right: 25px;
 	}
 }
-
-_:-ms-fullscreen,
-:root {
-	.settings-page {
-		.privacy {
-			.setting-group {
-				.notification-setting {
-					input {
-						position: absolute;
-						top: 26px;
-						right: 24px;
-						visibility: visible;
-					}
-				}
-			}
-		}
-	}
-}
-
-@-moz-document url-prefix() {
-	.settings-page {
-		.privacy {
-			.setting-group {
-				.notification-setting {
-					input {
-						position: absolute;
-						top: 26px;
-						right: 24px;
-						visibility: visible;
-					}
-				}
-			}
-		}
-	}
-}

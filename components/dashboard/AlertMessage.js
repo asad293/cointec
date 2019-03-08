@@ -1,8 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
 
-const AlertMessage = ({ onHide }) => (
-	<div className="alert-message">
+const AlertMessage = ({ onHide, ...props }) => (
+	<div className="alert-message" {...props}>
 		<div className="d-none d-md-flex justify-content-center align-items-center container position-relative">
 			<p>Complete verification to make GBP transactions</p>
 			<i className="far fa-long-arrow-right fa-lg" />
