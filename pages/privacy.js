@@ -222,6 +222,7 @@ class Privacy extends Component {
 														name={setting.id}
 														onChange={this.handleInputChange}
 													/>
+													<span />
 												</label>
 											))}
 										</div>

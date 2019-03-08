@@ -331,6 +331,8 @@
 				}
 				input {
 					visibility: hidden;
+				}
+				input + span {
 					&::after {
 						content: '\f00c';
 						font-family: 'Font Awesome 5 Pro';
@@ -345,7 +347,9 @@
 						visibility: visible;
 						cursor: pointer;
 					}
-					&:checked {
+				}
+				input {
+					&:checked + span {
 						&::after {
 							background: #045cc7;
 						}
@@ -492,6 +496,14 @@
 						@include placeholder {
 							color: #b0b9bd;
 						}
+						&[type='password'] {
+							letter-spacing: 0.2rem;
+						}
+						&[name='password'] {
+							@include placeholder {
+								letter-spacing: 0.2rem;
+							}
+						}
 						&:disabled {
 							color: #515c61;
 							background: #f0f3f5;
@@ -522,19 +534,25 @@
 					left: 1px;
 					right: 1px;
 					bottom: 1px;
-					height: 38px;
-					background: #f0f4f7;
-					border-bottom-right-radius: 3px;
-					border-bottom-left-radius: 3px;
-					padding: 5px 10px;
-					color: #a9b3bb;
-					display: none;
+					overflow: hidden;
+					height: 0px;
+					transition: height 300ms;
+					& > div {
+						height: 38px;
+						background: #f0f4f7;
+						border-bottom-right-radius: 3px;
+						border-bottom-left-radius: 3px;
+						padding: 5px 10px;
+						color: #a9b3bb;
+						transition: background 250ms, color 250ms;
+					}
 				}
 				input[type='password'].password {
 					height: 48px;
 					padding-top: 12px;
 					padding-bottom: 12px;
 					margin: 0;
+					transition: all 0.4s;
 					&:focus {
 						padding-top: 12px;
 						padding-bottom: 50px;
@@ -543,7 +561,7 @@
 						box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
 					}
 					&:focus + .typing-validator {
-						display: block;
+						height: 38px;
 					}
 				}
 
@@ -555,9 +573,11 @@
 						border: 1px solid #2ed06e;
 					}
 					.typing-validator {
-						background: #d6f5e2;
-						color: #2ed06e;
-						display: block;
+						height: 38px;
+						& > div {
+							background: #d6f5e2;
+							color: #2ed06e;
+						}
 					}
 				}
 				.field-wrapper.invalid {
@@ -571,9 +591,11 @@
 						border: 1px solid #d7263d;
 					}
 					.typing-validator {
-						background: rgba(246, 16, 16, 0.09);
-						color: #d7263d;
-						display: block;
+						height: 38px;
+						& > div {
+							background: rgba(246, 16, 16, 0.09);
+							color: #d7263d;
+						}
 					}
 				}
 

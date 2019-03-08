@@ -82,7 +82,6 @@ const renderPasswordField = ({
 			touched && error ? 'invalid' : !pristine && valid ? 'valid' : null
 		)}>
 		<label htmlFor="password">{touched && error ? error : label}</label>
-		{/* <div className="password-validation position-relative"> */}
 		<input
 			id="password"
 			{...input}
@@ -94,8 +93,9 @@ const renderPasswordField = ({
 
 		<PasswordToggle visible={mask} onToggle={toggleMask} />
 
-		<div className="typing-validator">8 or more characters</div>
-		{/* </div> */}
+		<div className="typing-validator">
+			<div>8 or more characters</div>
+		</div>
 	</div>
 )
 

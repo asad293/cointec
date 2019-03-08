@@ -83,7 +83,7 @@ const renderPasswordField = ({
 
 		<PasswordToggle visible={mask} onToggle={toggleMask} />
 
-		<div className="typing-validator">8 or more characters</div>
+		<div className="typing-validator"><div>8 or more characters</div></div>
 	</div>
 )
 

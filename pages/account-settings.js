@@ -400,13 +400,14 @@ class AccountSettings extends Component {
 
 	componentWillReceiveProps(props) {
 		const { globals, verification } = props
+		const verificationAlert =
+			globals.verificationAlert &&
+			!globals.notificationAlert &&
+			verification.status &&
+			!verification.status.VerificationComplete
 
 		this.setState({
-			verificationAlert:
-				globals.verificationAlert &&
-				!globals.notificationAlert &&
-				verification.status &&
-				!verification.status.VerificationComplete
+			verificationAlert
 		})
 	}
 }
