@@ -635,8 +635,6 @@ export const validateToken = ({ action, token }) => async dispatch => {
 				.replace(/-/g, '')}&token=${token}`
 		)
 		.then(response => {
-			{
-			}
 			dispatch({
 				type: VALIDATE_TOKEN,
 				payload: response.data
