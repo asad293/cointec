@@ -78,23 +78,25 @@ const renderPasswordField = ({
 }) => (
 	<div
 		className={cn(
-			'form-group position-relative',
+			'form-group',
 			touched && error ? 'invalid' : !pristine && valid ? 'valid' : null
 		)}>
 		<label htmlFor="password">{touched && error ? error : label}</label>
-		<input
-			id="password"
-			{...input}
-			type={mask ? 'text' : 'password'}
-			className="form-control password"
-			placeholder={placeholder}
-			autoComplete="off"
-		/>
+		<div className="position-relative">
+			<input
+				id="password"
+				{...input}
+				type={mask ? 'text' : 'password'}
+				className="form-control password"
+				placeholder={placeholder}
+				autoComplete="off"
+			/>
 
-		<PasswordToggle visible={mask} onToggle={toggleMask} />
+			<PasswordToggle visible={mask} onToggle={toggleMask} />
 
-		<div className="typing-validator">
-			<div>8 or more characters</div>
+			<div className="typing-validator">
+				<div>8 or more characters</div>
+			</div>
 		</div>
 	</div>
 )

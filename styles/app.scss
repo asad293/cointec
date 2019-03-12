@@ -680,3 +680,7 @@ _:-ms-fullscreen,
 		margin-right: 25px;
 	}
 }
+
+::-ms-reveal {
+	display: none;
+}
