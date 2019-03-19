@@ -468,14 +468,14 @@ const Receive = [
 		Wallets: null,
 		SeoUrl: null,
 		Description: null,
-		ShowGlobal: true,
+		ShowGlobal: false,
 		ShowCalculator: true,
-		ShowCarousel: false,
-		ShowCointecVs: false,
-		ShowCurrencyList: false,
-		ShowCharts: false,
-		ShowGlossary: false,
-		ShowWalletSelector: false
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	}
 ]
 
