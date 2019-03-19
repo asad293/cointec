@@ -50,25 +50,27 @@ class CurrencySlider extends Component {
 								className="currency-carousel"
 								style={{ opacity: this.state.sliderActive ? 1 : 0 }}>
 								{this.props.assets.list.Receive.map(asset => (
-									<Link
-										as={`/buy-${_.kebabCase(asset.FullName)}`}
-										href={`/?buy=${_.kebabCase(asset.FullName)}`}
-										key={asset.Name}>
-										<a
-											className="currency-item"
-											onClick={() => this.props.setCurrentAsset(asset.Name)}>
-											<img src={asset.Image} alt={asset.Name} />
-											<label className="m-0">
-												{// document.documentElement.clientWidth > 992
-												// ?
-												asset.FullName.length < 20
-													? asset.FullName
-													: asset.Name
-												// : asset.Name
-												}
-											</label>
-										</a>
-									</Link>
+									asset.ShowCarousel === true ?
+										<Link
+											as={`/buy-${_.kebabCase(asset.FullName)}`}
+											href={`/?buy=${_.kebabCase(asset.FullName)}`}
+											key={asset.Name}>
+											<a
+												className="currency-item"
+												onClick={() => this.props.setCurrentAsset(asset.Name)}>
+												<img src={asset.Image} alt={asset.Name} />
+												<label className="m-0">
+													{// document.documentElement.clientWidth > 992
+														// ?
+														asset.FullName.length < 20
+															? asset.FullName
+															: asset.Name
+														// : asset.Name
+													}
+												</label>
+											</a>
+										</Link>
+										: null
 								))}
 							</div>
 						</div>

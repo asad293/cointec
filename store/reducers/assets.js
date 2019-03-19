@@ -21,9 +21,17 @@ const Send = [
 		Image: '/static/images/union-jack.svg',
 		Keywords: 'british pound',
 		Primary: null,
-		Compile: true,
-		Class: null,
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'SEND',
@@ -34,9 +42,17 @@ const Send = [
 		Image: '/static/images/coins/BTC.svg',
 		Keywords: 'bitcoin',
 		Primary: null,
-		Compile: true,
-		Class: null,
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	}
 ]
 
@@ -50,9 +66,17 @@ const Receive = [
 		Image: '/static/images/coins/BTC.svg',
 		Keywords: 'bitcoin,btc',
 		Primary: '#F7931A',
-		Compile: true,
-		Class: 'major',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: false
 	},
 	{
 		Direction: 'RECEIVE',
@@ -63,9 +87,17 @@ const Receive = [
 		Image: '/static/images/coins/NEO.svg',
 		Keywords: 'neo',
 		Primary: '#54BB01',
-		Compile: true,
-		Class: 'altcoin',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -76,9 +108,17 @@ const Receive = [
 		Image: '/static/images/coins/ETH.svg',
 		Keywords: 'ethereum,eth',
 		Primary: '#62688F',
-		Compile: true,
-		Class: 'major',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -89,9 +129,17 @@ const Receive = [
 		Image: '/static/images/coins/EOS.svg',
 		Keywords: 'eos',
 		Primary: '#6D6E70',
-		Compile: true,
-		Class: 'altcoin',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -102,9 +150,17 @@ const Receive = [
 		Image: '/static/images/coins/BCH.svg',
 		Keywords: 'bitcoin cash,bch',
 		Primary: '#4BCF51',
-		Compile: true,
-		Class: 'major',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -115,9 +171,17 @@ const Receive = [
 		Image: '/static/images/coins/XRP.svg',
 		Keywords: 'ripple,xrp',
 		Primary: '#1276A7',
-		Compile: true,
-		Class: 'altcoin',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -128,9 +192,17 @@ const Receive = [
 		Image: '/static/images/coins/LTC.svg',
 		Keywords: 'litecoin,ltc',
 		Primary: '#BEBEBE',
-		Compile: true,
-		Class: 'major',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -141,9 +213,17 @@ const Receive = [
 		Image: '/static/images/coins/ETC.svg',
 		Keywords: 'ethereum classic,etc',
 		Primary: '#166816',
-		Compile: true,
-		Class: 'major',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -154,9 +234,17 @@ const Receive = [
 		Image: '/static/images/coins/DASH.svg',
 		Keywords: 'dash,dsh',
 		Primary: '#2573C2',
-		Compile: true,
-		Class: 'altcoin',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -167,9 +255,17 @@ const Receive = [
 		Image: '/static/images/coins/XMR.svg',
 		Keywords: 'monero,xmr',
 		Primary: '#FF6B01',
-		Compile: true,
-		Class: 'altcoin',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -180,9 +276,17 @@ const Receive = [
 		Image: '/static/images/coins/ZEC.svg',
 		Keywords: 'zcash,zec',
 		Primary: '#D6932C',
-		Compile: true,
-		Class: 'altcoin',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -193,9 +297,17 @@ const Receive = [
 		Image: '/static/images/coins/OMG.svg',
 		Keywords: 'omisecoin,omg',
 		Primary: '#1A53F0',
-		Compile: true,
-		Class: 'altcoin',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -206,9 +318,17 @@ const Receive = [
 		Image: '/static/images/coins/GNT.svg',
 		Keywords: 'golem,gnt',
 		Primary: '#001D57',
-		Compile: true,
-		Class: 'altcoin',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -219,9 +339,17 @@ const Receive = [
 		Image: '/static/images/coins/SNT.svg',
 		Keywords: 'status,snt',
 		Primary: '#5b6DEE',
-		Compile: true,
-		Class: 'altcoin',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -232,9 +360,17 @@ const Receive = [
 		Image: '/static/images/coins/ZRX.svg',
 		Keywords: '0x,zrx',
 		Primary: '#302C2C',
-		Compile: true,
-		Class: 'altcoin',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -245,9 +381,17 @@ const Receive = [
 		Image: '/static/images/coins/BNT.svg',
 		Keywords: 'bancor,bnt',
 		Primary: '#0B0F2B',
-		Compile: true,
-		Class: 'altcoin',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -258,9 +402,17 @@ const Receive = [
 		Image: '/static/images/coins/REP.svg',
 		Keywords: 'augur,rep',
 		Primary: '#6b3860',
-		Compile: true,
-		Class: 'altcoin',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -271,9 +423,17 @@ const Receive = [
 		Image: '/static/images/coins/STORJ.svg',
 		Keywords: 'storj',
 		Primary: '#2683FF',
-		Compile: true,
-		Class: 'altcoin',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -284,9 +444,17 @@ const Receive = [
 		Image: '/static/images/coins/BAT.svg',
 		Keywords: 'basic attention token,bat',
 		Primary: '#FF5000',
-		Compile: true,
-		Class: 'altcoin',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	},
 	{
 		Direction: 'RECEIVE',
@@ -297,9 +465,17 @@ const Receive = [
 		Image: '/static/images/coins/QTUM.svg',
 		Keywords: 'qtum',
 		Primary: '#4fAAC7',
-		Compile: true,
-		Class: 'altcoin',
-		Wallet: null
+		Wallets: null,
+		SeoUrl: null,
+		Description: null,
+		ShowGlobal: true,
+		ShowCalculator: true,
+		ShowCarousel: true,
+		ShowCointecVs: true,
+		ShowCurrencyList: true,
+		ShowCharts: true,
+		ShowGlossary: true,
+		ShowWalletSelector: true
 	}
 ]
 

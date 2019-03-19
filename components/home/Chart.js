@@ -16,7 +16,8 @@ class Chart extends Component {
 			latestTimestamp: null,
 			options: null,
 			data: null,
-			updatedOn: null
+			updatedOn: null,
+			ShowCharts: true
 		}
 	}
 
@@ -42,7 +43,7 @@ class Chart extends Component {
 						</span>
 					</div>
 				)}
-				{this.state.options ? (
+				{this.state.options && this.state.ShowCharts ? (
 					<div className="line">
 						<Line
 							options={this.state.options}
@@ -51,13 +52,13 @@ class Chart extends Component {
 						/>
 					</div>
 				) : (
-					''
-				)}
-				{this.state.options ? (
+						<p className="axis-name text-center">Chart data not available</p>
+					)}
+				{this.state.options && this.state.ShowCharts ? (
 					<p className="axis-name text-center">Past 30 days</p>
 				) : (
-					''
-				)}
+						''
+					)}
 			</div>
 		)
 	}
@@ -72,7 +73,8 @@ class Chart extends Component {
 				this.setState(
 					{
 						coinName: coin.Name,
-						updatedOn: new Date().getTime()
+						updatedOn: new Date().getTime(),
+						ShowCharts: coin.ShowCharts
 					},
 					() => this.props.fetchRates(`GBP${coin ? coin.Name : 'BTC'}`)
 				)

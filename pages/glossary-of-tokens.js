@@ -2,11 +2,14 @@ import React, { Component } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import _ from 'lodash'
+import { connect } from 'react-redux'
 
 import Header from '../components/Header'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import Sidebar from '../components/learn/Sidebar'
+
+import { fetchAssetsList } from '../store/actions'
 
 class GlossaryOfTokens extends Component {
 	render() {
@@ -49,52 +52,17 @@ class GlossaryOfTokens extends Component {
 					<div className="row">
 						<div className="col-12 col-lg-8">
 							<div className="glossary-wrapper tokens">
-								<div className="token-group">
-									<h6 className="token-heading">
-										<img src="/static/images/coins/BTC.svg" alt="BTC" />
-										Bitcoin (BTC)
-									</h6>
-									<p className="token-description">
-										Anti-money Laundering is the principle of preventing
-										financial criminals from transforming money obtained from
-										illegal activities into “clean” money. In order to do this,
-										businesses that provide money services take a number of
-										measures to ensure source of user funds are legitimate. Some
-										random text.
-									</p>
-								</div>
-								<hr />
-
-								<div className="token-group">
-									<h6 className="token-heading">
-										<img src="/static/images/coins/BTC.svg" alt="BTC" />
-										Bitcoin (BTC)
-									</h6>
-									<p className="token-description">
-										Anti-money Laundering is the principle of preventing
-										financial criminals from transforming money obtained from
-										illegal activities into “clean” money. In order to do this,
-										businesses that provide money services take a number of
-										measures to ensure source of user funds are legitimate. Some
-										random text.
-									</p>
-								</div>
-								<hr />
-
-								<div className="token-group">
-									<h6 className="token-heading">
-										<img src="/static/images/coins/BTC.svg" alt="BTC" />
-										Bitcoin (BTC)
-									</h6>
-									<p className="token-description">
-										Anti-money Laundering is the principle of preventing
-										financial criminals from transforming money obtained from
-										illegal activities into “clean” money. In order to do this,
-										businesses that provide money services take a number of
-										measures to ensure source of user funds are legitimate. Some
-										random text.
-									</p>
-								</div>
+								{this.props.assets.list.Receive.map(asset => (
+									asset.ShowCurrencyList === true ?
+										<Currency
+											key={asset.Name}
+											name={asset.Name}
+											fullName={asset.FullName}
+											image={asset.Image}
+											description={asset.Description}
+										/>
+										: null
+								))}
 							</div>
 						</div>
 						<div className="col-4 d-none d-lg-block">
@@ -115,4 +83,20 @@ class GlossaryOfTokens extends Component {
 	}
 }
 
-export default GlossaryOfTokens
+const Currency = ({ name, fullName, image, description }) => (
+	<div className="token-group">
+		<h6 className="token-heading">
+			<img src={image} alt={image} />
+			{fullName} ({name})
+		</h6>
+		<p className="token-description">
+			{description}
+		</p>
+		<hr />
+	</div>
+)
+
+export default connect(
+	({ assets }) => ({ assets }),
+	{ fetchAssetsList }
+)(GlossaryOfTokens)

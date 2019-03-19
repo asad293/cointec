@@ -87,10 +87,10 @@ class WalletSelector extends Component {
 			showDropdown: true,
 			filteredAssets: this.props.assets.list.Receive
 				? this.props.assets.list.Receive.filter(
-						asset =>
-							asset.Name.toLowerCase().startsWith(word) ||
-							asset.FullName.toLowerCase().startsWith(word)
-				  )
+					asset =>
+						asset.Name.toLowerCase().startsWith(word) ||
+						asset.FullName.toLowerCase().startsWith(word)
+				)
 				: []
 		})
 	}
@@ -159,16 +159,18 @@ class WalletSelector extends Component {
 											this.state.filteredAssets.length > 0 && (
 												<div className="wallet-dropdown-menu dropdown-menu show">
 													{this.state.filteredAssets.map((asset, index) => (
-														<div
-															className="dropdown-item"
-															key={index}
-															onClick={() => this.assetSelected(asset)}>
-															<img src={asset.Image} alt={asset.Name} />
-															<span className="full-name">
-																{asset.FullName}
-															</span>
-															<span className="name">{asset.Name}</span>
-														</div>
+														asset.ShowWalletSelector === true ?
+															<div
+																className="dropdown-item"
+																key={index}
+																onClick={() => this.assetSelected(asset)}>
+																<img src={asset.Image} alt={asset.Name} />
+																<span className="full-name">
+																	{asset.FullName}
+																</span>
+																<span className="name">{asset.Name}</span>
+															</div>
+															: null
 													))}
 												</div>
 											)}

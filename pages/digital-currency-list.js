@@ -36,12 +36,14 @@ class DigitalCurrencyList extends Component {
 				<section className="page-content dc-glossary container">
 					<div className="row mb-md-3">
 						{this.props.assets.list.Receive.map(asset => (
-							<Currency
-								key={asset.Name}
-								name={asset.Name}
-								fullName={asset.FullName}
-								image={asset.Image}
-							/>
+							asset.ShowCurrencyList === true ?
+								<Currency
+									key={asset.Name}
+									name={asset.Name}
+									fullName={asset.FullName}
+									image={asset.Image}
+								/>
+								: null
 						))}
 					</div>
 					<p className="more-on-currencies">

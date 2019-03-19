@@ -37,8 +37,9 @@ class CointecComparison extends Component {
 				AssetPrimaryWallet = 'Jaxx'
 			}
 		}
-		// console.log(AssetPrimaryWallet)
-		if (coin && coin.Class == 'majors') {
+		//console.log("Sajjad");
+		//console.log(coin.ShowCointecVs);
+		if (coin && coin.ShowCointecVs === true) {
 			return (
 				<div className="home-section comparison-section container">
 					<div className="row">
