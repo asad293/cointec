@@ -470,12 +470,12 @@ const Receive = [
 		Description: null,
 		ShowGlobal: true,
 		ShowCalculator: true,
-		ShowCarousel: true,
-		ShowCointecVs: true,
-		ShowCurrencyList: true,
-		ShowCharts: true,
-		ShowGlossary: true,
-		ShowWalletSelector: true
+		ShowCarousel: false,
+		ShowCointecVs: false,
+		ShowCurrencyList: false,
+		ShowCharts: false,
+		ShowGlossary: false,
+		ShowWalletSelector: false
 	}
 ]
 
