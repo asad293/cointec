@@ -57,7 +57,7 @@ class CointecComparison extends Component {
 									<li>
 										Create {AssetPrimaryWallet === 'Exodus' ? 'an' : 'a'}{' '}
 										<a target="_blank" href={walletLinks[AssetPrimaryWallet]}>
-											{AssetPrimaryWallet}
+											{AssetPrimaryWallet} wallet
 										</a>
 									</li>
 								) : (

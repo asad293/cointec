@@ -32,9 +32,9 @@ class Chart extends Component {
 		return (
 			<div className="chart-wrapper">
 				{this.state.options && !this.state.ShowCharts ? (
-					<div className="show-false-msg">Data chart not available</div>
+					<div className="show-false-msg">Chart data not available</div>
 				) : ('')}
-				{this.state.latestRate && this.state.latestTimestamp && (
+				{this.state.latestRate && this.state.latestTimestamp && this.state.ShowCharts && (
 					<div className="info-latest">
 						<h6 className="rate">
 							<span>{this.state.latestRate.toFixed(2)}</span> GBP/
