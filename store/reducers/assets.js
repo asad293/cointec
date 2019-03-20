@@ -74,7 +74,7 @@ const Receive = [
 		ShowCarousel: true,
 		ShowCointecVs: true,
 		ShowCurrencyList: true,
-		ShowCharts: true,
+		ShowCharts: false,
 		ShowGlossary: true,
 		ShowWalletSelector: false
 	},

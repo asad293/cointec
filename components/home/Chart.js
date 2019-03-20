@@ -7,8 +7,8 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 
 class Chart extends Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.state = {
 			coinName: 'BTC',
 			currentRate: 3800,
@@ -17,7 +17,7 @@ class Chart extends Component {
 			options: null,
 			data: null,
 			updatedOn: null,
-			ShowCharts: true
+			ShowCharts: props.assets.list.Receive[0].ShowCharts
 		}
 	}
 
@@ -31,6 +31,9 @@ class Chart extends Component {
 	render() {
 		return (
 			<div className="chart-wrapper">
+				{this.state.options && !this.state.ShowCharts ? (
+					<div className="show-false-msg">Data chart not available</div>
+				) : ('')}
 				{this.state.latestRate && this.state.latestTimestamp && (
 					<div className="info-latest">
 						<h6 className="rate">
@@ -43,8 +46,8 @@ class Chart extends Component {
 						</span>
 					</div>
 				)}
-				{this.state.options && this.state.ShowCharts ? (
-					<div className="line">
+				{this.state.options ? (
+					<div className={this.state.ShowCharts ? 'line' : 'line blur-chart'}>
 						<Line
 							options={this.state.options}
 							data={this.state.data}
@@ -52,7 +55,7 @@ class Chart extends Component {
 						/>
 					</div>
 				) : (
-						<p className="axis-name text-center">Chart data not available</p>
+						''
 					)}
 				{this.state.options && this.state.ShowCharts ? (
 					<p className="axis-name text-center">Past 30 days</p>

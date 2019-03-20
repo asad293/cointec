@@ -555,3 +555,18 @@
 		opacity: 1;
 	}
 }
+
+.blur-chart {
+	-webkit-filter: blur(5px);
+	-moz-filter: blur(5px);
+	-o-filter: blur(5px);
+	-ms-filter: blur(5px);
+	filter: blur(5px);
+}
+
+.show-false-msg {
+	position: relative;
+    top: 140px;
+    left: 170px;
+    z-index: 10;
+}
