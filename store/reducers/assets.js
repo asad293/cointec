@@ -469,7 +469,7 @@ const Receive = [
 		SeoUrl: null,
 		Description: null,
 		ShowGlobal: true,
-		ShowCalculator: true,
+		ShowCalculator: false,
 		ShowCarousel: true,
 		ShowCointecVs: true,
 		ShowCurrencyList: true,
