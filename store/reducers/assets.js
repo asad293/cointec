@@ -42,7 +42,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'BTC',
-        FullName: 'RECEIVE',
+        FullName: 'Bitcoin',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/BTC.svg',
@@ -64,7 +64,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'NEO',
-        FullName: 'RECEIVE',
+        FullName: 'NEO',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/NEO.svg',
@@ -86,7 +86,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'ETH',
-        FullName: 'RECEIVE',
+        FullName: 'Ethereum',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/ETH.svg',
@@ -108,7 +108,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'PAY',
-        FullName: 'RECEIVE',
+        FullName: 'test1',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/PAY.svg',
@@ -129,30 +129,8 @@ const Receive = [
     },
     {
         Direction: 'RECEIVE',
-        Name: 'BNB',
-        FullName: 'RECEIVE',
-        Symbol: null,
-        Dp: 8,
-        Image: '/static/images/coins/BNB.svg',
-        Keywords: 'BNB',
-        Primary: '#000000',
-        Wallets: null,
-        SeoURL: '/buy-bnb',
-        Description: 'no desc',
-        ShowGlobal: true,
-        ShowCalculator: true,
-        ShowCarousel: true,
-        ShowCointecVs: true,
-        ShowCurrencyList: true,
-        ShowCharts: true,
-        ShowGlossary: true,
-        ShowWalletSelector: true,
-        Position: 4
-    },
-    {
-        Direction: 'RECEIVE',
         Name: 'EOS',
-        FullName: 'RECEIVE',
+        FullName: 'EOS',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/EOS.svg',
@@ -174,7 +152,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'BCH',
-        FullName: 'RECEIVE',
+        FullName: 'Bitcoin Cash',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/BCH.svg',
@@ -196,7 +174,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'XRP',
-        FullName: 'RECEIVE',
+        FullName: 'Ripple',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/XRP.svg',
@@ -218,7 +196,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'LTC',
-        FullName: 'RECEIVE',
+        FullName: 'Litecoin',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/LTC.svg',
@@ -240,7 +218,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'ETC',
-        FullName: 'RECEIVE',
+        FullName: 'Ethereum Classic',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/ETC.svg',
@@ -262,7 +240,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'DASH',
-        FullName: 'RECEIVE',
+        FullName: 'Dash',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/DASH.svg',
@@ -284,7 +262,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'XMR',
-        FullName: 'RECEIVE',
+        FullName: 'Monero',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/XMR.svg',
@@ -306,7 +284,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'ZEC',
-        FullName: 'RECEIVE',
+        FullName: 'Zcash',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/ZEC.svg',
@@ -328,7 +306,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'OMG',
-        FullName: 'RECEIVE',
+        FullName: 'OmiseGo',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/OMG.svg',
@@ -350,7 +328,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'GNT',
-        FullName: 'RECEIVE',
+        FullName: 'Golem',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/GNT.svg',
@@ -372,7 +350,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'SNT',
-        FullName: 'RECEIVE',
+        FullName: 'Status',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/SNT.svg',
@@ -394,7 +372,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'ZRX',
-        FullName: 'RECEIVE',
+        FullName: '0x',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/ZRX.svg',
@@ -416,7 +394,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'BNT',
-        FullName: 'RECEIVE',
+        FullName: 'Bancor',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/BNT.svg',
@@ -438,7 +416,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'REP',
-        FullName: 'RECEIVE',
+        FullName: 'Augur',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/REP.svg',
@@ -460,7 +438,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'STORJ',
-        FullName: 'RECEIVE',
+        FullName: 'Storj',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/STORJ.svg',
@@ -482,7 +460,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'BAT',
-        FullName: 'RECEIVE',
+        FullName: 'Basic Attention Token',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/BAT.svg',
@@ -504,7 +482,7 @@ const Receive = [
     {
         Direction: 'RECEIVE',
         Name: 'QTUM',
-        FullName: 'RECEIVE',
+        FullName: 'Qtum',
         Symbol: null,
         Dp: 8,
         Image: '/static/images/coins/QTUM.svg',
