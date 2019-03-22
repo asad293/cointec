@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 
 import Header from '../components/Header'
 import ResetPasswordForm from '../components/ResetPasswordForm'
+import { SubmissionError } from 'redux-form'
 
 import {
 	resetPasswordByToken,
@@ -41,30 +42,44 @@ class ResetPassword extends Component {
 
 	handleSubmit(values) {
 		if (this.props.router.query.action === 'regainaccess') {
-			this.props
+			return this.props
 				.regainAccessByToken({ token: this.props.router.query.token, values })
 				.then(res => {
 					console.log(res)
 					this.passwordUpdated()
 				})
 				.catch(error => {
-					Router.push(
-						`/token-expired/resetpassword`,
-						`/token-expired?action=resetpassword`
-					)
+					if (error.response.status === 400) {
+						throw new SubmissionError({
+							password: 'Your new password must be different',
+							newPassword: 'Confirm new password'
+						})
+					} else {
+						Router.push(
+							`/token-expired/resetpassword`,
+							`/token-expired?action=resetpassword`
+						)
+					}
 				})
 		} else {
-			this.props
+			return this.props
 				.resetPasswordByToken({ token: this.props.router.query.token, values })
 				.then(res => {
 					console.log(res)
 					this.passwordUpdated()
 				})
 				.catch(error => {
-					Router.push(
-						`/token-expired/resetpassword`,
-						`/token-expired?action=resetpassword`
-					)
+					if (error.response.status === 400) {
+						throw new SubmissionError({
+							password: 'Your new password must be different',
+							newPassword: 'Confirm new password'
+						})
+					} else {
+						Router.push(
+							`/token-expired/resetpassword`,
+							`/token-expired?action=resetpassword`
+						)
+					}
 				})
 		}
 	}
