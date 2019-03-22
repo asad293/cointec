@@ -75,7 +75,10 @@ export const signIn = ({ email, password }) => async dispatch => {
 			}
 		})
 		.catch(error => {
-			dispatch({ type: SIGN_IN_END, payload: error.response.data })
+			dispatch({
+				type: SIGN_IN_END,
+				payload: error.response && error.response.data
+			})
 			throw error
 		})
 	return response

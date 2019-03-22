@@ -10,7 +10,7 @@ import NotificationAlert from '../components/dashboard/NotificationAlert'
 import SignUpForm from '../components/SignUpForm'
 import StickyFooter from '../components/StickyFooter'
 
-import { signUp } from '../store/actions'
+import { signUp, signIn } from '../store/actions'
 
 class SignUp extends Component {
 	constructor() {
@@ -18,7 +18,8 @@ class SignUp extends Component {
 		this.state = {
 			maskPassword: false,
 			notificationAlert: false,
-			notificationContent: null
+			notificationContent: null,
+			notificationTimeout: null
 		}
 		this.authComplete = this.authComplete.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -30,9 +31,12 @@ class SignUp extends Component {
 			.signUp(values)
 			.then(res => {
 				console.log(res)
-				// this.authComplete(values.emailAddress)
-				Router.push('/dashboard')
 				this.onSent(values.emailAddress)
+				return this.props
+					.signIn({ email: values.emailAddress, password: values.password })
+					.then(res => {
+						this.authComplete()
+					})
 			})
 			.catch(error => {
 				throw new SubmissionError({
@@ -41,8 +45,10 @@ class SignUp extends Component {
 			})
 	}
 
-	authComplete(email) {
-		Router.push('/link-sent/activation') //, { email })
+	authComplete() {
+		const { query } = Router.router
+		if (query && query.redirectPath) Router.push(query.redirectPath)
+		else Router.push('/dashboard')
 	}
 
 	toggleMask() {
@@ -57,15 +63,22 @@ class SignUp extends Component {
 				Confirmation email sent to <b>{email}</b>
 			</p>
 		)
-		this.setState({
-			notificationAlert: true,
-			notificationContent
-		})
-		setTimeout(() => {
+		const notificationTimeout = setTimeout(() => {
 			this.setState({
 				notificationAlert: false
 			})
 		}, 5000)
+		this.setState({
+			notificationAlert: true,
+			notificationContent,
+			notificationTimeout
+		})
+	}
+
+	componentWillUnmount() {
+		if (this.state.notificationTimeout) {
+			clearTimeout(this.state.notificationTimeout)
+		}
 	}
 
 	render() {
@@ -123,7 +136,7 @@ class SignUp extends Component {
 
 const withRedux = connect(
 	({ auth }) => ({ auth }),
-	{ signUp }
+	{ signUp, signIn }
 )
 
 export default withRedux(SignUp)
