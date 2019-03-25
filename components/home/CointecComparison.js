@@ -39,7 +39,7 @@ class CointecComparison extends Component {
 		}
 		//console.log("Sajjad");
 		//console.log(coin.ShowCointecVs);
-		if (coin && coin.ShowCointecVs === true) {
+		if (coin && coin.ShowCointecVs === true && coin.ShowGlobal === true) {
 			return (
 				<div className="home-section comparison-section container">
 					<div className="row">

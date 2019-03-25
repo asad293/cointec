@@ -50,10 +50,10 @@ class CurrencySlider extends Component {
 								className="currency-carousel"
 								style={{ opacity: this.state.sliderActive ? 1 : 0 }}>
 								{this.props.assets.list.Receive.map(asset => (
-									asset.ShowCarousel === true ?
+									asset.ShowCarousel === true && asset.ShowGlobal === true ?
 										<Link
-											as={`/buy-${_.kebabCase(asset.FullName)}`}
-											href={`/?buy=${_.kebabCase(asset.FullName)}`}
+											as={asset.SeoURL}
+											href={asset.SeoURL}
 											key={asset.Name}>
 											<a
 												className="currency-item"

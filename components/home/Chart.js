@@ -17,7 +17,8 @@ class Chart extends Component {
 			options: null,
 			data: null,
 			updatedOn: null,
-			ShowCharts: props.assets.list.Receive[0].ShowCharts
+			ShowCharts: props.assets.list.Receive[0].ShowCharts,
+			ShowGlobal: props.assets.list.Receive[0].ShowGlobal
 		}
 	}
 
@@ -31,10 +32,10 @@ class Chart extends Component {
 	render() {
 		return (
 			<div className="chart-wrapper">
-				{this.state.options && !this.state.ShowCharts ? (
+				{this.state.options && !this.state.ShowCharts && !this.state.ShowGlobal ? (
 					<div className="show-false-msg">Chart data not available</div>
 				) : ('')}
-				{this.state.latestRate && this.state.latestTimestamp && this.state.ShowCharts && (
+				{this.state.latestRate && this.state.latestTimestamp && this.state.ShowCharts && this.state.ShowGlobal && (
 					<div className="info-latest">
 						<h6 className="rate">
 							<span>{this.state.latestRate.toFixed(2)}</span> GBP/
@@ -47,7 +48,7 @@ class Chart extends Component {
 					</div>
 				)}
 				{this.state.options ? (
-					<div className={this.state.ShowCharts ? 'line' : 'line blur-chart'}>
+					<div className={this.state.ShowCharts && this.state.ShowGlobal ? 'line' : 'line blur-chart'}>
 						<Line
 							options={this.state.options}
 							data={this.state.data}
@@ -57,7 +58,7 @@ class Chart extends Component {
 				) : (
 						''
 					)}
-				{this.state.options && this.state.ShowCharts ? (
+				{this.state.options && this.state.ShowCharts && this.state.ShowGlobal ? (
 					<p className="axis-name text-center">Past 30 days</p>
 				) : (
 						''
@@ -77,7 +78,8 @@ class Chart extends Component {
 					{
 						coinName: coin.Name,
 						updatedOn: new Date().getTime(),
-						ShowCharts: coin.ShowCharts
+						ShowCharts: coin.ShowCharts,
+						ShowGlobal: coin.ShowGlobal
 					},
 					() => this.props.fetchRates(`GBP${coin ? coin.Name : 'BTC'}`)
 				)

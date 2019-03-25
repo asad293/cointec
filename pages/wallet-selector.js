@@ -159,8 +159,8 @@ class WalletSelector extends Component {
 											this.state.filteredAssets.length > 0 && (
 												<div className="wallet-dropdown-menu dropdown-menu show">
 													{this.state.filteredAssets.map((asset, index) => (
-														asset.ShowWalletSelector === true ?
-															<div
+														asset.ShowWalletSelector === true && asset.ShowGlobal === true ?
+															< div
 																className="dropdown-item"
 																key={index}
 																onClick={() => this.assetSelected(asset)}>
@@ -212,16 +212,18 @@ class WalletSelector extends Component {
 
 				<Footer backgroundColor="#fff" />
 
-				{this.state.addWalletModal && (
-					<AddWallet
-						wallet={this.state.selectedWallet}
-						onClose={() =>
-							this.setState({
-								addWalletModal: false
-							})
-						}
-					/>
-				)}
+				{
+					this.state.addWalletModal && (
+						<AddWallet
+							wallet={this.state.selectedWallet}
+							onClose={() =>
+								this.setState({
+									addWalletModal: false
+								})
+							}
+						/>
+					)
+				}
 
 				<style jsx global>{`
 					html {
@@ -232,7 +234,7 @@ class WalletSelector extends Component {
 						box-shadow: none;
 					}
 				`}</style>
-			</div>
+			</div >
 		)
 	}
 

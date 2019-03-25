@@ -349,7 +349,7 @@ class Calculator extends Component {
 					const coin = props.assets.list.Receive.find(
 						coin => assetPair.indexOf(coin.Name) === 3
 					)
-					if (coin && coin.ShowCalculator === true) {
+					if (coin && coin.ShowCalculator === true && coin.ShowGlobal === true) {
 						coin.DefaultQuoteAmount = asset.Send.DefaultQuoteAmount
 						coin.Status = asset.Send.Status
 						updatedCoins.push(coin)

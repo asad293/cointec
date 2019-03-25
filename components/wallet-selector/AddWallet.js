@@ -118,7 +118,7 @@ class AddWallet extends Component {
 							</div>
 							<div className="coin-list">
 								{assets.map(asset => (
-									asset.ShowWalletSelector === true ?
+									asset.ShowWalletSelector === true && asset.ShowGlobal === true ?
 										<div className="list-item" key={asset.Name}>
 											<img src={`${asset.Image}`} alt={asset.Name} />
 											{asset.FullName}
