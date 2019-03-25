@@ -53,7 +53,7 @@ class GlossaryOfTokens extends Component {
 						<div className="col-12 col-lg-8">
 							<div className="glossary-wrapper tokens">
 								{this.props.assets.list.Receive.map(asset => (
-									asset.ShowCurrencyList === true ?
+									asset.ShowCurrencyList === true && asset.ShowGlobal === true ?
 										<Currency
 											key={asset.Name}
 											name={asset.Name}

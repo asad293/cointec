@@ -36,7 +36,7 @@ class DigitalCurrencyList extends Component {
 				<section className="page-content dc-glossary container">
 					<div className="row mb-md-3">
 						{this.props.assets.list.Receive.map(asset => (
-							asset.ShowCurrencyList === true ?
+							asset.ShowCurrencyList === true && asset.ShowGlobal === true ?
 								<Currency
 									key={asset.Name}
 									name={asset.Name}
