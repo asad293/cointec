@@ -25,19 +25,27 @@ const INITIAL_STATE = {
 	error: null
 }
 
+const Wallets = ['MEW', 'MetaMask', 'Exodus', 'Jaxx']
+
 export default (state = INITIAL_STATE, { type, payload }) => {
 	switch (type) {
 		case FETCH_ASSETS_LIST:
 			const Send = payload.Send.reverse()
 			const Receive = payload.Receive
 			const list = { Send, Receive }
-			return { ...state, list, loading: false, error: null }
+			return { ...state, list, wallets, loading: false, error: null }
 
 		case FETCH_ASSETS_STATUS:
 			return { ...state, status: payload }
 
 		case FETCH_WALLETS:
-			return { ...state, wallets: payload }
+			const wallets = {}
+			Wallets.forEach(wallet => {
+				wallets[wallet] = state.list.Receive.filter(coin =>
+					coin.Wallets.includes(wallet)
+				).map(coin => coin.Name)
+			})
+			return { ...state, wallets }
 
 		case SET_CURRENT_ASSET:
 			return { ...state, currentAsset: payload }

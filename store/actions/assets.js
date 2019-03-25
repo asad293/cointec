@@ -55,25 +55,7 @@ export const fetchAssetsStatus = () => async dispatch => {
 }
 
 export const fetchWallets = () => async dispatch => {
-	dispatch({ type: FETCH_WALLETS_START })
-
-	try {
-		const response = await fetch(
-			'https://ct-charts-service.azurewebsites.net/wallets/assets.aspx'
-		)
-		if (!response.ok) throw new Error(response.statusText)
-
-		const payload = await response.json()
-		return dispatch({
-			type: FETCH_WALLETS,
-			payload
-		})
-	} catch (error) {
-		return dispatch({
-			type: FETCH_WALLETS_END,
-			payload: error.message
-		})
-	}
+	return dispatch({ type: FETCH_WALLETS })
 }
 
 export const setCurrentAsset = asset => async dispatch => {
