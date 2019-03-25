@@ -104,7 +104,7 @@ const Receive = [
 		Wallets: 'Jaxx',
 		SeoURL: '/buy-pay',
 		Description: 'no desc',
-		ShowGlobal: false,
+		ShowGlobal: true,
 		ShowCalculator: true,
 		ShowCarousel: true,
 		ShowCointecVs: true,
@@ -133,7 +133,7 @@ const Receive = [
 		ShowCurrencyList: true,
 		ShowCharts: true,
 		ShowGlossary: true,
-		ShowWalletSelector: true,
+		ShowWalletSelector: true,P
 		Position: 5
 	},
 	{
