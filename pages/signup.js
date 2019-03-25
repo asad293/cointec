@@ -30,8 +30,8 @@ class SignUp extends Component {
 		return this.props
 			.signUp(values)
 			.then(res => {
-				console.log(res)
-				this.onSent(values.emailAddress)
+				// console.log(res)
+				// this.onSent(values.emailAddress)
 				return this.props
 					.signIn({ email: values.emailAddress, password: values.password })
 					.then(res => {
@@ -46,9 +46,8 @@ class SignUp extends Component {
 	}
 
 	authComplete() {
-		const { query } = Router.router
-		if (query && query.redirectPath) Router.push(query.redirectPath)
-		else Router.push('/dashboard')
+		console.log('/dashboard')
+		Router.push('/dashboard')
 	}
 
 	toggleMask() {
