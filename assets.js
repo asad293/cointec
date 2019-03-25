@@ -133,7 +133,7 @@ const Receive = [
 		ShowCurrencyList: true,
 		ShowCharts: true,
 		ShowGlossary: true,
-		ShowWalletSelector: true,P
+		ShowWalletSelector: true,
 		Position: 5
 	},
 	{
