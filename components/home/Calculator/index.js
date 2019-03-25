@@ -341,6 +341,7 @@ class Calculator extends Component {
 	updateCoins(props) {
 		let updatedCoins = []
 
+		// console.log(props.assets.status)
 		if (props.assets.status && this.state.currencySelected) {
 			Object.keys(props.assets.status).forEach(assetPair => {
 				if (assetPair.startsWith(this.state.currencySelected.Name)) {
@@ -355,6 +356,8 @@ class Calculator extends Component {
 					}
 				}
 			})
+			updatedCoins = updatedCoins.sort((c1, c2) => c1.Position - c2.Position)
+			// console.log(updatedCoins)
 
 			const prev = this.state.coinSelected
 				? this.state.coinSelected.Name

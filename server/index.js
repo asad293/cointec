@@ -9,6 +9,8 @@ const secure = dev === true // set 'true' in development mode for ssl
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
+const Receive = require('../assets').Receive
+
 app
 	.prepare()
 	.then(() => {
@@ -20,7 +22,14 @@ app
 			const query = {
 				buy: req.params[0]
 			}
-			app.render(req, res, '/', query)
+			const coin = Receive.find(
+				coin => coin.SeoURL.toLowerCase() === `/buy-${req.params[0]}`
+			)
+			if (coin && coin.ShowGlobal === false) {
+				app.render404(req, res)
+			} else {
+				app.render(req, res, '/', query)
+			}
 		})
 
 		server.get('/transaction-tracker/:txnID', (req, res) => {
