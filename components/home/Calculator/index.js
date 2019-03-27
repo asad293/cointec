@@ -292,9 +292,7 @@ class Calculator extends Component {
 				`${pathname === '/' ? pathname : pathname + '/'}?buy=${_.kebabCase(
 					coin.FullName
 				)}`,
-				`${pathname === '/' ? pathname : pathname + '/'}buy-${_.kebabCase(
-					coin.FullName
-				)}`
+				`${pathname === '/' ? pathname : pathname}${_.kebabCase(coin.SeoURL)}`
 			)
 		this.props.setCurrentAsset(coin.Name)
 		this.setState({
@@ -349,7 +347,11 @@ class Calculator extends Component {
 					const coin = props.assets.list.Receive.find(
 						coin => assetPair.indexOf(coin.Name) === 3
 					)
-					if (coin && coin.ShowCalculator === true && coin.ShowGlobal === true) {
+					if (
+						coin &&
+						coin.ShowCalculator === true &&
+						coin.ShowGlobal === true
+					) {
 						coin.DefaultQuoteAmount = asset.Send.DefaultQuoteAmount
 						coin.Status = asset.Send.Status
 						updatedCoins.push(coin)
