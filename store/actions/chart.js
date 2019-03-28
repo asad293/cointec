@@ -10,7 +10,7 @@ export const fetchRates = pair => async dispatch => {
 	try {
 		const currency = pair.split('GBP')[1].toLowerCase()
 		const response = await fetch(
-			`https://ct-charts-service.azurewebsites.net/json/${currency}.json`
+			`https://api.staging.cointec.co.uk/charts/${currency}`
 		)
 		if (!response.ok) throw new Error(response.statusText)
 
