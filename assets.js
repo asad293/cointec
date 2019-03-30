@@ -29,7 +29,7 @@ const Receive = [
 	{
 		Direction: 'RECEIVE',
 		Name: 'BTC',
-		FullName: 'Bitcoin',
+		FullName: 'Bitcoin', ////In most cases should match the SeoURL to enable better search engine visibility as this value defines page title.
 		Symbol: null,
 		Dp: 8,
 		Image: '/static/images/coins/BTC.svg',
@@ -38,7 +38,7 @@ const Receive = [
 		Wallets: 'Exodus,Jaxx',
 		SeoURL: '/buy-bitcoin',
 		Description: 'bitcoin',
-		ShowGlobal: true,
+		ShowGlobal: true, /////If false, ensure all other ShowValues are false. 
 		ShowCalculator: true,
 		ShowCarousel: true,
 		ShowCointecVs: true,
@@ -109,7 +109,7 @@ const Receive = [
 		ShowCarousel: true,
 		ShowCointecVs: true,
 		ShowCurrencyList: true,
-		ShowCharts: true,
+		ShowCharts: false,
 		ShowGlossary: true,
 		ShowWalletSelector: true,
 		Position: 4
