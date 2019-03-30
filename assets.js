@@ -38,12 +38,12 @@ const Receive = [
 		Wallets: 'Exodus,Jaxx',
 		SeoURL: '/buy-bitcoin',
 		Description: 'bitcoin',
-		ShowGlobal: true, /////If false, ensure all other ShowValues are false. 
+		ShowGlobal: false, /////If false, ensure all other ShowValues are false. 
 		ShowCalculator: true,
 		ShowCarousel: true,
 		ShowCointecVs: true,
 		ShowCurrencyList: true,
-		ShowCharts: false, //// Ensure data is available before setting to true.
+		ShowCharts: true, //// Ensure data is available before setting to true.
 		ShowGlossary: true,
 		ShowWalletSelector: true,
 		Position: 1
