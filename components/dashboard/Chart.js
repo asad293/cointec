@@ -7,8 +7,8 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 
 class Chart extends Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.state = {
 			coinName: 'BTC',
 			currentRate: 3800,
@@ -16,7 +16,9 @@ class Chart extends Component {
 			latestTimestamp: null,
 			options: null,
 			data: null,
-			updatedOn: null
+			updatedOn: null,
+			ShowCharts: props.assets.list.Receive[0].ShowCharts,
+			ShowGlobal: props.assets.list.Receive[0].ShowGlobal
 		}
 		this.onScroll = this.onScroll.bind(this)
 	}
@@ -53,7 +55,10 @@ class Chart extends Component {
 	render() {
 		return (
 			<div className="chart-wrapper">
-				{this.state.latestRate && this.state.latestTimestamp && (
+				{this.state.options && (!this.state.ShowCharts || !this.state.ShowGlobal) ? (
+					<div className="show-false-msg">Chart data not available</div>
+				) : ('')}
+				{this.state.latestRate && this.state.latestTimestamp && this.state.ShowCharts && this.state.ShowGlobal && (
 					<div className="info-latest">
 						<h6 className="rate">
 							<span>{this.state.latestRate.toFixed(2)}</span> GBP/
@@ -65,8 +70,8 @@ class Chart extends Component {
 						</span>
 					</div>
 				)}
-				{this.state.options && (
-					<div className="line">
+				{this.state.options ? (
+					<div className={this.state.ShowCharts && this.state.ShowGlobal ? 'line' : 'line blur-chart'}>
 						<Line
 							options={this.state.options}
 							data={this.state.data}
@@ -77,7 +82,9 @@ class Chart extends Component {
 							}
 						/>
 					</div>
-				)}
+				) : (
+						''
+					)}
 			</div>
 		)
 	}
@@ -91,7 +98,9 @@ class Chart extends Component {
 				this.setState(
 					{
 						coinName: coin.Name,
-						updatedOn: new Date().getTime()
+						updatedOn: new Date().getTime(),
+						ShowCharts: coin.ShowCharts,
+						ShowGlobal: coin.ShowGlobal
 					},
 					() => this.props.fetchRates(`GBP${coin ? coin.Name : 'BTC'}`)
 				)
@@ -135,7 +144,7 @@ class Chart extends Component {
 						yPadding: 16,
 						enabled: false,
 
-						custom: function(tooltipModel) {
+						custom: function (tooltipModel) {
 							// Tooltip Element
 							var tooltipEl = document.getElementById('chartjs-tooltip')
 
@@ -176,7 +185,7 @@ class Chart extends Component {
 
 								var innerHtml = '<thead>'
 
-								titleLines.forEach(function(title) {
+								titleLines.forEach(function (title) {
 									const style = `
 									font-weight: 600;
 									line-height: 10px;
@@ -188,7 +197,7 @@ class Chart extends Component {
 								})
 								innerHtml += '</thead><tbody>'
 
-								bodyLines.forEach(function(body, i) {
+								bodyLines.forEach(function (body, i) {
 									var colors = tooltipModel.labelColors[i]
 									var style = 'background:' + colors.backgroundColor
 									style += '; border-color:' + colors.borderColor
