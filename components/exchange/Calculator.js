@@ -365,6 +365,7 @@ class Calculator extends Component {
 					}
 				}
 			})
+			updatedCoins = updatedCoins.sort((c1, c2) => c1.Position - c2.Position)
 
 			const prev = this.state.coinSelected
 				? this.state.coinSelected.Name
