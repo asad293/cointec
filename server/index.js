@@ -76,7 +76,7 @@ app
 			})
 		})
 
-		server.get('/account-locked', (req, res) => {
+		server.get('/account-frozen', (req, res) => {
 			app.render(req, res, `/no-access`, { type: 'locked' })
 		})
 

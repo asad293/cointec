@@ -85,7 +85,7 @@ class OnLoad extends Component {
 				Router.push(`/request-sent/${action}`)
 			}
 		} else {
-			Router.push('/no-access', '/account-locked')
+			Router.push('/no-access', '/account-frozen')
 		}
 	}
 
