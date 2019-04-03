@@ -566,7 +566,14 @@
 
 .show-false-msg {
 	position: relative;
-    top: 140px;
-    left: 170px;
+    top: 100px;
+    left: 200px;
     z-index: 10;
+}
+
+.blur-chart .chartjs-size-monitor{
+	pointer-events: initial !important;
+    visibility: initial !important;
+    z-index: 1 !important;
+
 }
