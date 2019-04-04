@@ -14,6 +14,7 @@ class MyApp extends App {
 		if (user) {
 			localStorage.removeItem('user')
 		}
+		console.log('working!!!')
 	}
 
 	render() {
