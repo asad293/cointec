@@ -2,6 +2,7 @@ const express = require('express')
 const next = require('next')
 const createSecureServer = require('./createSecureServer')
 const api = require('./api')
+const enforce = require('express-sslify')
 
 const dev = process.env.NODE_ENV !== 'production'
 const port = process.env.PORT || 3000
@@ -15,6 +16,9 @@ app
 	.prepare()
 	.then(() => {
 		const server = express()
+		if (!dev) {
+			server.use(enforce.HTTPS())
+		}
 
 		server.use('/api', api)
 
