@@ -487,7 +487,29 @@ const Receive = [
 		ShowGlossary: true,
 		ShowWalletSelector: true,
 		Position: 21
-	}
+    },
+    {
+        Direction: 'RECEIVE',
+        Name: 'MANA',
+        FullName: 'Decentraland',
+        Symbol: null,
+        Dp: 8,
+        Image: '/static/images/coins/MANA.svg',
+        Keywords: 'mana,decentraland',
+        Primary: '#d8a780',
+        Wallets: 'MEW,Exodus,MetaMask',
+        SeoURL: '/buy-decentraland',
+        Description: 'decentraland',
+        ShowGlobal: true,
+        ShowCalculator: true,
+        ShowCarousel: true,
+        ShowCointecVs: true,
+        ShowCurrencyList: true,
+        ShowCharts: false,
+        ShowGlossary: true,
+        ShowWalletSelector: true,
+        Position: 22
+    } 
 ]
 
 module.exports = { Send, Receive }
