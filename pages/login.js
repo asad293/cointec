@@ -50,7 +50,7 @@ class Login extends Component {
 					}, 5000)
 					const content = (
 						<p>
-							This account is frozen.{' '}
+							{error.response.data.Message}
 							<b style={{ fontWeight: 600 }}>Contact us for more information</b>
 						</p>
 					)
