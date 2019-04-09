@@ -509,7 +509,29 @@ const Receive = [
         ShowGlossary: true,
         ShowWalletSelector: true,
         Position: 22
-    } 
+    },
+    {
+        Direction: 'RECEIVE',
+        Name: 'CVC',
+        FullName: 'Civic',
+        Symbol: null,
+        Dp: 8,
+        Image: '/static/images/coins/CVC.svg',
+        Keywords: 'cvc,civic',
+        Primary: '#38ab3c',
+        Wallets: 'MEW,Exodus,MetaMask,Jaxx',
+        SeoURL: '/buy-civic',
+        Description: 'civil',
+        ShowGlobal: true,
+        ShowCalculator: true,
+        ShowCarousel: true,
+        ShowCointecVs: true,
+        ShowCurrencyList: true,
+        ShowCharts: true,
+        ShowGlossary: true,
+        ShowWalletSelector: true,
+        Position: 23
+    }
 ]
 
 module.exports = { Send, Receive }
