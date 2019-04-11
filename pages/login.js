@@ -51,7 +51,7 @@ class Login extends Component {
 					const content = (
 						<p>
 							{error.response.data.Message}
-							<b style={{ fontWeight: 600 }}>Contact us for more information</b>
+							{/* <b style={{ fontWeight: 600 }}>Contact us for more information</b> */}
 						</p>
 					)
 					this.props.showNotificationAlert({ content, type: 'danger' })
