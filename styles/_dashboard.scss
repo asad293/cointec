@@ -565,7 +565,7 @@
 }
 
 .show-false-msg {
-	position: relative;
+	position: absolute;
     top: 100px;
     left: 200px;
     z-index: 10;
@@ -575,5 +575,13 @@
 	pointer-events: initial !important;
     visibility: initial !important;
     z-index: 1 !important;
+}
 
+@media only screen and (max-width: 480px) {
+	.show-false-msg {
+		position: absolute;
+		top: 80px;
+		left: 110px;
+		z-index: 10;
+	}
 }
