@@ -58,7 +58,7 @@ class Login extends Component {
 					this.setState({ timeout })
 				} else {
 					throw new SubmissionError({
-						email: "Sorry, that email or password didn't work.",
+						email: "Incorrect username or password.",
 						password: 'Password'
 					})
 				}
