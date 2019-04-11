@@ -43,7 +43,7 @@ class Login extends Component {
 				this.authComplete()
 			})
 			.catch(error => {
-				if (error.response.status === 403) {
+				/*if (error.response.status === 403) {
 					if (this.state.timeout) clearTimeout(this.state.timeout)
 					const timeout = setTimeout(() => {
 						this.props.hideNotificationAlert()
@@ -51,7 +51,7 @@ class Login extends Component {
 					const content = (
 						<p>
 							{error.response.data.Message}
-							{/* <b style={{ fontWeight: 600 }}>Contact us for more information</b> */}
+							<b style={{ fontWeight: 600 }}>Contact us for more information</b>
 						</p>
 					)
 					this.props.showNotificationAlert({ content, type: 'danger' })
@@ -61,7 +61,12 @@ class Login extends Component {
 						email: "Incorrect username or password.",
 						password: 'Password'
 					})
-				}
+				}*/
+				const msg = error.response.data.Message;
+				throw new SubmissionError({
+					email: msg,
+					password: 'Password'
+				})
 			})
 	}
 
