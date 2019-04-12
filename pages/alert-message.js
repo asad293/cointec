@@ -13,7 +13,8 @@ import StickyFooter from '../components/StickyFooter'
 const headings = {
 	exportdata: 'Download your data',
 	requestdata: 'Download your data',
-	closeaccount: 'Account closure'
+	closeaccount: 'Account closure',
+	orderrejected: 'Order Rejected'
 }
 
 const messages = {
@@ -34,6 +35,12 @@ const messages = {
 			Sorry to see you go. We will process your account and let you know when
 			your account has been fully closed.
 		</span>
+	),
+	orderrejected: (
+		<span>
+			Your account does not have permissions to trade.
+			Please contact support.
+		</span>
 	)
 }
 
@@ -43,7 +50,7 @@ class TokenExpired extends Component {
 		this.state = {}
 	}
 
-	componentDidMount() {}
+	componentDidMount() { }
 
 	render() {
 		const { action } = this.props.router.query

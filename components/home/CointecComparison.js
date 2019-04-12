@@ -57,8 +57,8 @@ class CointecComparison extends Component {
 									<li>
 										Create {AssetPrimaryWallet === 'Exodus' ? 'an' : 'a'}{' '}
 										<a target="_blank" href={walletLinks[AssetPrimaryWallet]}>
-											{AssetPrimaryWallet} wallet
-										</a>
+											{AssetPrimaryWallet}
+										</a> wallet
 									</li>
 								) : (
 										<li>Create an external wallet</li>
@@ -75,15 +75,15 @@ class CointecComparison extends Component {
 									)}
 							</ul>
 							<a>
-								Get your coins in <b>5-20 minutes</b>
+								Get your assets in <b>5-20 minutes</b>
 							</a>
 						</div>
 						<div className="divider d-none d-lg-block" />
 						<div className="without-cointec">
 							<h3 className="section-subtitle">Without Cointec</h3>
 							<ul>
-								<li>Buy Bitcoin from a Bitcoin broker</li>
-								<li>Send Bitcoin to a digital currency exchange</li>
+								<li>Buy Bitcoin</li>
+								<li>Send Bitcoin to a digital asset exchange</li>
 								{coin ? (
 									<li>
 										Trade Bitcoin for{' '}
@@ -97,7 +97,7 @@ class CointecComparison extends Component {
 								{AssetPrimaryWallet ? (
 									<li>
 										Create {AssetPrimaryWallet === 'Exodus' ? 'an' : 'a'}{' '}
-										{AssetPrimaryWallet}
+										{AssetPrimaryWallet} wallet
 									</li>
 								) : (
 										<li>Create an external wallet for the altcoin</li>
@@ -114,7 +114,7 @@ class CointecComparison extends Component {
 									)}
 							</ul>
 							<a>
-								Get your coins in <b>1-2 hours</b>
+								Get your assets in <b>1-2 hours</b>
 							</a>
 						</div>
 					</div>

@@ -90,6 +90,9 @@ class BankTransfer extends Component {
 						`/transaction-tracker/${txnID}`
 					)
 				}
+				if (error.response.status === 403) {
+					Router.push(`/request-sent/orderrejected`)
+				}
 			})
 		this.setState({ expired: false })
 		this.initInterval()
@@ -229,8 +232,8 @@ class BankTransfer extends Component {
 										<span className="account-source">
 											{this.state.sourceAccount
 												? `${this.state.sourceAccount.BankName} (${
-														this.state.sourceAccount.SortCode
-												  })`
+												this.state.sourceAccount.SortCode
+												})`
 												: 'Send From'}
 										</span>
 										{/* <span>Primary account</span> */}
@@ -275,21 +278,21 @@ class BankTransfer extends Component {
 					</form>
 				</div>
 				{!this.state.expired &&
-				(this.props.order.create && this.props.accounts.list) ? (
-					<p className="text-left mt-3">
-						Transaction will expire in{' '}
-						<MinutesFormat
-							seconds={this.state.refreshTime - this.state.timer}
-						/>
-					</p>
-				) : (
-					<p className="text-left" style={{ marginTop: 11 }}>
-						Transaction expired -{' '}
-						<a className="restart-link" onClick={this.restart}>
-							Click to restart
+					(this.props.order.create && this.props.accounts.list) ? (
+						<p className="text-left mt-3">
+							Transaction will expire in{' '}
+							<MinutesFormat
+								seconds={this.state.refreshTime - this.state.timer}
+							/>
+						</p>
+					) : (
+						<p className="text-left" style={{ marginTop: 11 }}>
+							Transaction expired -{' '}
+							<a className="restart-link" onClick={this.restart}>
+								Click to restart
 						</a>
-					</p>
-				)}
+						</p>
+					)}
 			</div>
 		)
 	}
