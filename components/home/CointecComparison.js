@@ -45,7 +45,7 @@ class CointecComparison extends Component {
 					<div className="row">
 						<div className="col px-3 px-sm-0">
 							<h4 className="section-title text-left text-sm-center">
-								The fastest way to buy {coin ? coin.FullName : 'digital currency'}
+								The easiest way to buy {coin ? coin.FullName : 'digital currency'}
 							</h4>
 						</div>
 					</div>
