@@ -32,23 +32,34 @@ class Chart extends Component {
 	render() {
 		return (
 			<div className="chart-wrapper">
-				{this.state.options && (!this.state.ShowCharts || !this.state.ShowGlobal) ? (
+				{this.state.options &&
+				(!this.state.ShowCharts || !this.state.ShowGlobal) ? (
 					<div className="show-false-msg">Chart data not available</div>
-				) : ('')}
-				{this.state.latestRate && this.state.latestTimestamp && this.state.ShowCharts && this.state.ShowGlobal && (
-					<div className="info-latest">
-						<h6 className="rate">
-							<span>{this.state.latestRate.toFixed(2)}</span> GBP/
-							{this.state.coinName}
-						</h6>
-						{/* <Moment fromNow>{this.state.updatedOn}</Moment> */}
-						<span className="updated-at d-none d-lg-block">
-							Updated 20s ago
-						</span>
-					</div>
+				) : (
+					''
 				)}
+				{this.state.latestRate &&
+					this.state.latestTimestamp &&
+					this.state.ShowCharts &&
+					this.state.ShowGlobal && (
+						<div className="info-latest">
+							<h6 className="rate">
+								<span>{this.state.latestRate.toFixed(2)}</span> GBP/
+								{this.state.coinName}
+							</h6>
+							{/* <Moment fromNow>{this.state.updatedOn}</Moment> */}
+							<span className="updated-at d-none d-lg-block">
+								Updated 20s ago
+							</span>
+						</div>
+					)}
 				{this.state.options ? (
-					<div className={this.state.ShowCharts && this.state.ShowGlobal ? 'line' : 'line blur-chart'}>
+					<div
+						className={
+							this.state.ShowCharts && this.state.ShowGlobal
+								? 'line'
+								: 'line blur-chart'
+						}>
 						<Line
 							options={this.state.options}
 							data={this.state.data}
@@ -56,13 +67,15 @@ class Chart extends Component {
 						/>
 					</div>
 				) : (
-						''
-					)}
-				{this.state.options && this.state.ShowCharts && this.state.ShowGlobal ? (
+					''
+				)}
+				{this.state.options &&
+				this.state.ShowCharts &&
+				this.state.ShowGlobal ? (
 					<p className="axis-name text-center">Past 30 days</p>
 				) : (
-						''
-					)}
+					''
+				)}
 			</div>
 		)
 	}
@@ -153,7 +166,9 @@ class Chart extends Component {
 									maxRotation: 0,
 									fontColor: '#A8ADB2',
 									maxTicksLimit: 6,
-									display: false
+									padding: 15,
+									maxTicksLimit: 4,
+									callback: value => String(new Date(value * 1000)).slice(4, 10)
 								},
 								offset: true
 							}
