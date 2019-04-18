@@ -42,7 +42,7 @@ router.get(
 	'/validate-address/:wallet/:receiveCurrency',
 	(request, response) => {
 		const wallet = request.params.wallet
-		const receiveCurrency = request.params.receiveCurrency
+		const receiveCurrency = request.params.receiveCurrency !== 'PAY' ? request.params.receiveCurrency : 'ETH'
 		axios
 			.get(`https://shapeshift.io/validateAddress/${wallet}/${receiveCurrency}`)
 			.then(res => {
