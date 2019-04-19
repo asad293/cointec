@@ -56,7 +56,7 @@ class Chart extends Component {
 		return (
 			<div className="chart-wrapper">
 				{this.state.options && (!this.state.ShowCharts || !this.state.ShowGlobal) ? (
-					<div className="show-false-msg">Chart data not available</div>
+					<div className="show-false-msg-dashboard">Chart data not available</div>
 				) : ('')}
 				{this.state.latestRate && this.state.latestTimestamp && this.state.ShowCharts && this.state.ShowGlobal && (
 					<div className="info-latest">

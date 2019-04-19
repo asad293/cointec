@@ -565,10 +565,17 @@
 }
 
 .show-false-msg {
-	position: absolute;
-    top: 100px;
-    left: 200px;
+	position: relative;
+    text-align: center;
     z-index: 10;
+    top: 110px;
+}
+
+.show-false-msg-dashboard{
+	text-align: center;
+    position: relative;
+	top: 110px;
+	z-index: 10;
 }
 
 .blur-chart .chartjs-size-monitor{
@@ -579,6 +586,12 @@
 
 @media only screen and (max-width: 480px) {
 	.show-false-msg {
+		position: absolute;
+		top: 80px;
+		left: 110px;
+		z-index: 10;
+	}
+	.show-false-msg-dashboard{
 		position: absolute;
 		top: 80px;
 		left: 110px;
