@@ -686,12 +686,28 @@
 }
 
 
+.chart-time-interval-hp li:hover{
+	background-color: #F0F3F5;
+	font-weight: 600;
+	cursor: pointer;
+}
+
 .chart-time-interval li:hover{
 	background-color: #F0F3F5;
-    font-weight: 600;
+	font-weight: 600;
+	cursor: pointer;
 }
 
 .chart-time-interval-div::after{
+	border-left: 1px solid #667075;
+    content: "\A0";
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    font-size: 12px;
+}
+
+.chart-time-interval-homepage::after{
 	border-left: 1px solid #667075;
     content: "\A0";
     position: absolute;
