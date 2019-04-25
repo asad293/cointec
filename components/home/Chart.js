@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'next/router'
 import { Line } from 'react-chartjs-2'
 import Moment from 'react-moment'
-import { fetchRates, fetchAssetsList } from '../../store/actions'
+import { fetchRates, fetchAssetsList, changeTimeInterval } from '../../store/actions'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 
@@ -18,8 +18,12 @@ class Chart extends Component {
 			data: null,
 			updatedOn: null,
 			ShowCharts: props.assets.list.Receive[0].ShowCharts,
-			ShowGlobal: props.assets.list.Receive[0].ShowGlobal
+			ShowGlobal: props.assets.list.Receive[0].ShowGlobal,
+			TimeIntervalDropdown: "chart-time-interval dropdown-hide",
+			DefaultTimeIntervalValue: "30D"
 		}
+		this.chartShowDropdown = this.chartShowDropdown.bind(this)
+		this.updateTimeInterval = this.updateTimeInterval.bind(this)
 	}
 
 	componentDidMount() {
@@ -27,17 +31,61 @@ class Chart extends Component {
 		this.setState({
 			updatedOn: new Date().getTime()
 		})
+		addEventListener('click', this.onClickOutside)
+	}
+
+	componentWillUnmount() {
+		removeEventListener('click', this.onClickOutside)
+	}
+
+	chartShowDropdown() {
+		this.setState({ TimeIntervalDropdown: (this.state.TimeIntervalDropdown == "chart-time-interval dropdown-hide") ? "chart-time-interval dropdown-show" : "chart-time-interval dropdown-hide" })
+	}
+
+	updateTimeInterval(val) {
+		this.setState({
+			DefaultTimeIntervalValue: val,
+			TimeIntervalDropdown: "chart-time-interval dropdown-hide"
+		})
+		this.props.changeTimeInterval(val)
+	}
+
+	onClickOutside = event => {
+		const composedPath = el => {
+			var path = []
+			while (el) {
+				path.push(el)
+				if (el.tagName === 'HTML') {
+					path.push(document)
+					path.push(window)
+					return path
+				}
+				el = el.parentElement
+			}
+		}
+		let path = event.path || (event.composedPath && event.composedPath())
+		if (!path) {
+			path = composedPath(event.target)
+		}
+		const select =
+			path &&
+			path.find(node => node.className === 'check-click-outside')
+		if (!select) {
+			this.setState({
+				TimeIntervalDropdown: "chart-time-interval dropdown-hide"
+			})
+		}
 	}
 
 	render() {
 		return (
 			<div className="chart-wrapper">
 				{this.state.options &&
-				(!this.state.ShowCharts || !this.state.ShowGlobal) ? (
-					<div className="show-false-msg">Chart data not available</div>
-				) : (
-					''
-				)}
+					(!this.state.ShowCharts || !this.state.ShowGlobal) ? (
+						<div className="show-false-msg">Chart data not available</div>
+					) : (
+						''
+					)}
 				{this.state.latestRate &&
 					this.state.latestTimestamp &&
 					this.state.ShowCharts &&
@@ -47,6 +95,16 @@ class Chart extends Component {
 								<span>{this.state.latestRate.toFixed(2)}</span> GBP/
 								{this.state.coinName}
 							</h6>
+							<div className="check-click-outside">
+								<div className="chart-time-interval-div chart-time-interval-homepage" onClick={this.chartShowDropdown}>
+									{this.state.DefaultTimeIntervalValue}
+								</div>
+								<ul className={this.state.TimeIntervalDropdown}>
+									<li onClick={() => this.updateTimeInterval("30D")}>30D</li>
+									<li onClick={() => this.updateTimeInterval("7D")}>7D</li>
+									<li onClick={() => this.updateTimeInterval("1D")}>1D</li>
+								</ul>
+							</div>
 							{/* <Moment fromNow>{this.state.updatedOn}</Moment> */}
 							<span className="updated-at d-none d-lg-block">
 								Updated 20s ago
@@ -67,15 +125,15 @@ class Chart extends Component {
 						/>
 					</div>
 				) : (
-					''
-				)}
+						''
+					)}
 				{this.state.options &&
-				this.state.ShowCharts &&
-				this.state.ShowGlobal ? (
-					<p className="axis-name text-center">Past 30 days</p>
-				) : (
-					''
-				)}
+					this.state.ShowCharts &&
+					this.state.ShowGlobal ? (
+						<p className="axis-name text-center">Past 30 days</p>
+					) : (
+						''
+					)}
 			</div>
 		)
 	}
@@ -98,11 +156,19 @@ class Chart extends Component {
 				)
 			}
 		}
-		if (props.chart && props.chart.data.length) {
+		//console.log(props.chart.intervalValue)
+		if (props.chart && props.chart.data.ThirtyDay.length) {
 			const coin = this.props.assets.list.Receive.find(
 				coin => coin.Name === this.state.coinName
 			)
-			const chartData = props.chart.data //.filter((_, index) => index % 4 === 0)
+
+			let chartData = props.chart.data.ThirtyDay
+			if (props.chart.intervalValue == "1D") {
+				chartData = props.chart.data.OneDay
+			} else if (props.chart.intervalValue == "7D") {
+				chartData = props.chart.data.SevenDay
+			}
+
 			const timestamps = chartData.map(data => data && data.Timestamp)
 			const rates = chartData.map(data => data && data.Rate.toFixed(2))
 			const tooltip = chartData.map(data => {
@@ -123,6 +189,7 @@ class Chart extends Component {
 						backgroundColor: 'white',
 						borderColor: '#E8EAEB',
 						borderWidth: 1,
+						cornerRadius: 3,
 						bodyFontColor: coin.Primary, //'#f7931a',
 						bodyFontSize: 18,
 						titleFontColor: '#5E6C78',
@@ -181,10 +248,6 @@ class Chart extends Component {
 					maintainAspectRatio: false
 				},
 				data: canvas => {
-					// const context = canvas.getContext('2d')
-					// const gradient = context.createLinearGradient(0, 0, 0, 500)
-					// gradient.addColorStop(0, coin.Primary + '12')
-					// gradient.addColorStop(1, 'rgba(255, 255, 255, 0)')
 					return {
 						labels: timestamps,
 						datasets: [
@@ -209,7 +272,7 @@ class Chart extends Component {
 }
 
 const mapStateToProps = ({ assets, chart }) => ({ assets, chart })
-const mapDispatchToProps = { fetchRates, fetchAssetsList }
+const mapDispatchToProps = { fetchRates, fetchAssetsList, changeTimeInterval }
 const withRedux = connect(
 	mapStateToProps,
 	mapDispatchToProps

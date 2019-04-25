@@ -514,8 +514,6 @@ class Calculator extends Component {
 				if (this.props.sendAmount)
 					this.props.change(
 						'sendAmount',
-						// currency.Symbol +
-						// 	' ' +
 						parseFloat(this.props.sendAmount).toFixed(currency.Dp)
 					)
 				this.fetchCalls()
