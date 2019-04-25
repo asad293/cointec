@@ -19,7 +19,7 @@ class Chart extends Component {
 			updatedOn: null,
 			ShowCharts: props.assets.list.Receive[0].ShowCharts,
 			ShowGlobal: props.assets.list.Receive[0].ShowGlobal,
-			TimeIntervalDropdown: "chart-time-interval dropdown-hide",
+			TimeIntervalDropdown: "chart-time-interval-hp dropdown-hide",
 			DefaultTimeIntervalValue: "30D"
 		}
 		this.chartShowDropdown = this.chartShowDropdown.bind(this)
@@ -39,13 +39,13 @@ class Chart extends Component {
 	}
 
 	chartShowDropdown() {
-		this.setState({ TimeIntervalDropdown: (this.state.TimeIntervalDropdown == "chart-time-interval dropdown-hide") ? "chart-time-interval dropdown-show" : "chart-time-interval dropdown-hide" })
+		this.setState({ TimeIntervalDropdown: (this.state.TimeIntervalDropdown == "chart-time-interval-hp dropdown-hide") ? "chart-time-interval-hp dropdown-show" : "chart-time-interval-hp dropdown-hide" })
 	}
 
 	updateTimeInterval(val) {
 		this.setState({
 			DefaultTimeIntervalValue: val,
-			TimeIntervalDropdown: "chart-time-interval dropdown-hide"
+			TimeIntervalDropdown: "chart-time-interval-hp dropdown-hide"
 		})
 		this.props.changeTimeInterval(val)
 	}
@@ -72,7 +72,7 @@ class Chart extends Component {
 			path.find(node => node.className === 'check-click-outside')
 		if (!select) {
 			this.setState({
-				TimeIntervalDropdown: "chart-time-interval dropdown-hide"
+				TimeIntervalDropdown: "chart-time-interval-hp dropdown-hide"
 			})
 		}
 	}
@@ -92,11 +92,11 @@ class Chart extends Component {
 					this.state.ShowGlobal && (
 						<div className="info-latest">
 							<h6 className="rate">
-								<span>{this.state.latestRate.toFixed(2)}</span> GBP/
+								GBP/
 								{this.state.coinName}
 							</h6>
 							<div className="check-click-outside">
-								<div className="chart-time-interval-div chart-time-interval-homepage" onClick={this.chartShowDropdown}>
+								<div className="chart-time-interval-homepage" onClick={this.chartShowDropdown}>
 									{this.state.DefaultTimeIntervalValue}
 								</div>
 								<ul className={this.state.TimeIntervalDropdown}>
@@ -107,7 +107,7 @@ class Chart extends Component {
 							</div>
 							{/* <Moment fromNow>{this.state.updatedOn}</Moment> */}
 							<span className="updated-at d-none d-lg-block">
-								Updated 20s ago
+
 							</span>
 						</div>
 					)}
@@ -130,7 +130,7 @@ class Chart extends Component {
 				{this.state.options &&
 					this.state.ShowCharts &&
 					this.state.ShowGlobal ? (
-						<p className="axis-name text-center">Past 30 days</p>
+						<p className="axis-name text-center"></p>
 					) : (
 						''
 					)}

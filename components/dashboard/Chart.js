@@ -111,7 +111,7 @@ class Chart extends Component {
 				{this.state.latestRate && this.state.latestTimestamp && this.state.ShowCharts && this.state.ShowGlobal && (
 					<div className="info-latest">
 						<h6 className="rate">
-							<span>{this.state.latestRate.toFixed(2)}</span> GBP/
+							GBP/
 							{this.state.coinName}
 						</h6>
 						<div className="check-click-outside">
@@ -123,7 +123,7 @@ class Chart extends Component {
 							</ul>
 						</div>
 						<span className="updated-at">
-							Updated 20s ago
+
 							{/* <Moment fromNow>{this.state.updatedOn}</Moment> */}
 						</span>
 					</div>
