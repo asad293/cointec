@@ -600,97 +600,23 @@
 }
 
 //Dashboard chart interval css
-.chart-time-interval-div{
-	width: 73px;
-    height: 22px;
-    border: none;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
-    border-radius: 4px;
-    background: url(/static/images/arrow-down.svg) no-repeat right 0.40rem center;
-    -webkit-appearance: none;
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: normal;
-    color: #1A1D1F;
-    position: absolute;
-    top: 26px;
-	left: 130px;
-	text-indent: 14px;
+.check-click-outside{
+	margin-left: auto;
 }
 
-.chart-time-interval{
-	width: 73px;
-    height: 63px;
-    border: none;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
-    border-radius: 4px;
-    -webkit-appearance: none;
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 21px;
-    list-style: none;
-    color: #1A1D1F;
-    margin-bottom: auto;
-    padding-left: 0;
-    text-align: center;
-    position: absolute;
-    top: 58px;
-    left: 130px;
-	background-color: #fff;
-}
-
-.chart-time-interval li:hover{
+.chart-time-interval:hover{
 	background-color: #F0F3F5;
 	font-weight: 600;
 	cursor: pointer;
 }
 
-.chart-time-interval-div::after{
-	border-left: 1px solid #667075;
-    content: "\A0";
-    position: absolute;
-    top: 4px;
-    right: 6px;
-    font-size: 9px;
+.interval-selected{
+	font-weight: 600;
 }
 
-.dropdown-hide{
-	display: none;
-}
-
-.dropdown-show{
-	display: block;
-}
-
-//Homepage chart interval css
 .chart-time-interval-homepage{
-	width: 73px;
-    height: 22px;
-    border: none;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
-    border-radius: 4px;
-    background: url(/static/images/arrow-down.svg) no-repeat right 0.40rem center;
-    -webkit-appearance: none;
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: normal;
-    color: #1A1D1F;
-    position: absolute;
-    top: -5px;
-	left: 100px;
-	text-indent: 14px;
-}
-
-.chart-time-interval-hp{
-	width: 73px;
-    height: 63px;
-    border: none;
+	width: 120px;
+    height: 20px;
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
     border-radius: 4px;
     -webkit-appearance: none;
@@ -698,65 +624,7 @@
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
-    line-height: 21px;
-    list-style: none;
+    line-height: normal;
     color: #1A1D1F;
-    margin-bottom: auto;
-    padding-left: 0;
-    text-align: center;
-    position: absolute;
-    top: 28px;
-    left: 100px;
-	background-color: #fff;
-}
-
-.chart-time-interval-homepage::after{
-	border-left: 1px solid #667075;
-    content: "\A0";
-    position: absolute;
-    top: 4px;
-    right: 6px;
-    font-size: 9px;
-}
-
-.chart-time-interval-hp li:hover{
-	background-color: #F0F3F5;
-	font-weight: 600;
-	cursor: pointer;
-}
-
-@media only screen and (max-width: 767px) and (min-width: 500px) {
-	.chart-time-interval-homepage{
-		left: 310px;
-	}
-	.chart-time-interval-hp{
-		left: 310px;
-	}
-}
-
-@media only screen and (max-width: 991px) and (min-width: 767px) {
-	.chart-time-interval-homepage{
-		left: 400px;
-	}
-	.chart-time-interval-hp{
-		left: 400px;
-	}
-}
-
-@media only screen and (max-width: 500px) and (min-width: 400px) {
-	.chart-time-interval-homepage{
-		left: 280px;
-	}
-	.chart-time-interval-hp{
-		left: 280px;
-	}
-}
-
-@media only screen and (max-width: 399px) {
-	.chart-time-interval-homepage{
-		left: 220px;
-	}
-	.chart-time-interval-hp{
-		left: 220px;
-	}
+	text-indent: 10px;
 }
