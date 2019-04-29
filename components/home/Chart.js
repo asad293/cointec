@@ -23,9 +23,9 @@ class Chart extends Component {
 			updatedOn: null,
 			ShowCharts: props.assets.list.Receive[0].ShowCharts,
 			ShowGlobal: props.assets.list.Receive[0].ShowGlobal,
-			TDClass: "TD-interval chart-time-interval interval-selected",
-			SDClass: "SD-interval chart-time-interval",
-			ODClass: "OD-interval chart-time-interval",
+			TDClass: (props.chart.intervalValue == "30D") ? "TD-interval chart-time-interval interval-selected" : "TD-interval chart-time-interval",
+			SDClass: (props.chart.intervalValue == "7D") ? "SD-interval chart-time-interval interval-selected" : "TD-interval chart-time-interval",
+			ODClass: (props.chart.intervalValue == "1D") ? "OD-interval chart-time-interval interval-selected" : "TD-interval chart-time-interval",
 			SelectedInterval: "30D"
 		};
 		this.updateTimeInterval = this.updateTimeInterval.bind(this);
@@ -217,7 +217,7 @@ class Chart extends Component {
 										fontColor: "#A8ADB2",
 										maxTicksLimit: 6,
 										padding: 15,
-										maxTicksLimit: 4,
+										maxTicksLimit: 5,
 										callback: value => String(new Date(value * 1000)).slice(16, 21)
 									},
 									offset: true

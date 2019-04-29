@@ -10,6 +10,8 @@ import {
 	fetchAssetsStatus
 } from '../../store/actions'
 import _ from 'lodash'
+import CAValidator from 'cryptocurrency-address-validator'
+
 
 class Calculator extends Component {
 	constructor(props) {
@@ -825,17 +827,29 @@ const debouceReceive = _.debounce(
 )
 
 const asyncValidate = ({ wallet, receiveCurrency }) => {
-	const validateUrl = '/api/validate-address'
-	// const validateUrl = 'https://shapeshift.io/validateAddress'
 	const error = { wallet: 'Invalid wallet address' }
+	var valid = CAValidator.validate(wallet, receiveCurrency);
+	if (valid) {
+		console.log('This is a valid address');
+		return Promise.resolve(valid)
+	} else {
+		console.log('Address INVALID');
+		return Promise.reject(error)
+	}
+	// Promise.resolve(valid).then(d => {
+	// 	console.log(d)
+	// })
 
-	return wallet
-		? fetch(`${validateUrl}/${wallet}/${receiveCurrency}`)
-			.then(res => res.json())
-			.then(res => {
-				if (!res.isvalid) throw error
-			})
-		: Promise.reject(error)
+	// const validateUrl = '/api/validate-address'
+
+
+	// return wallet
+	// 	? fetch(`${validateUrl}/${wallet}/${receiveCurrency}`)
+	// 		.then(res => res.json())
+	// 		.then(res => {
+	// 			if (!res.isvalid) throw error
+	// 		})
+	// 	: Promise.reject(error)
 }
 
 export default reduxForm({
