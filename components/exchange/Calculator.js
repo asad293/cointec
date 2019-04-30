@@ -828,28 +828,26 @@ const debouceReceive = _.debounce(
 
 const asyncValidate = ({ wallet, receiveCurrency }) => {
 	const error = { wallet: 'Invalid wallet address' }
-	var valid = CAValidator.validate(wallet, receiveCurrency);
-	if (valid) {
-		console.log('This is a valid address');
-		return Promise.resolve(valid)
+
+	let receiveCurrencyArray = ["AUR", "BVC", "BIO", "BTC", "BCH", "BTG", "BTCP", "BTCZ", "CLO", "ADA", "DASH", "DCR", "DGB", "DOGE", "EOS", "ETH", "ETC", "ETZ", "FRC", "GRLC", "HUSH", "KMD", "IOTA", "ICON", "LTC", "MEC", "XMR", "NMC", "NANO", "NEO", "GAS", "NEM", "PPC", "XPM", "PTS", "QASH", "QTUM", "XRB", "REN", "XRP", "SNG", "XLM", "TRX", "VTC", "VeChain", "VOT", "ZEC", "ZCL", "ZEN"]
+
+	if (receiveCurrencyArray.indexOf(receiveCurrency) > -1) {
+		var valid = CAValidator.validate(wallet, receiveCurrency);
+		if (valid) {
+			return Promise.resolve(valid)
+		} else {
+			return Promise.reject(error)
+		}
 	} else {
-		console.log('Address INVALID');
-		return Promise.reject(error)
+		const validateUrl = '/api/validate-address'
+		return wallet
+			? fetch(`${validateUrl}/${wallet}/${receiveCurrency}`)
+				.then(res => res.json())
+				.then(res => {
+					if (!res.isvalid) throw error
+				})
+			: Promise.reject(error)
 	}
-	// Promise.resolve(valid).then(d => {
-	// 	console.log(d)
-	// })
-
-	// const validateUrl = '/api/validate-address'
-
-
-	// return wallet
-	// 	? fetch(`${validateUrl}/${wallet}/${receiveCurrency}`)
-	// 		.then(res => res.json())
-	// 		.then(res => {
-	// 			if (!res.isvalid) throw error
-	// 		})
-	// 	: Promise.reject(error)
 }
 
 export default reduxForm({
