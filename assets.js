@@ -1770,7 +1770,7 @@ const Receive = [
 		FullName: 'OpenANX',
 		Symbol: null,
 		Dp: 8,
-		Image: '/static/images/coins/OAX.svg',
+		Image: '/static/images/coins/OAX.png',
 		Keywords: 'oax,openanx',
 		Primary: '#d8a780',
 		Wallets: 'MEW,MetaMask',
