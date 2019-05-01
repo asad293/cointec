@@ -11,6 +11,7 @@ import {
 } from '../../store/actions'
 import _ from 'lodash'
 import CAValidator from 'cryptocurrency-address-validator'
+import { Send, Receive } from '../../assets'
 
 
 class Calculator extends Component {
@@ -831,8 +832,14 @@ const asyncValidate = ({ wallet, receiveCurrency }) => {
 
 	let receiveCurrencyArray = ["AUR", "BVC", "BIO", "BTC", "BCH", "BTG", "BTCP", "BTCZ", "CLO", "ADA", "DASH", "DCR", "DGB", "DOGE", "EOS", "ETH", "ETC", "ETZ", "FRC", "GRLC", "HUSH", "KMD", "IOTA", "ICON", "LTC", "MEC", "XMR", "NMC", "NANO", "NEO", "GAS", "NEM", "PPC", "XPM", "PTS", "QASH", "QTUM", "XRB", "REN", "XRP", "SNG", "XLM", "TRX", "VTC", "VeChain", "VOT", "ZEC", "ZCL", "ZEN"]
 
-	if (receiveCurrencyArray.indexOf(receiveCurrency) > -1) {
-		var valid = CAValidator.validate(wallet, receiveCurrency);
+	let matches = Receive.filter(v => v.Name.includes(receiveCurrency));
+	if (receiveCurrencyArray.indexOf(receiveCurrency) > -1 || matches[0].Type == "ERC20") {
+		if(matches[0].Type == "ERC20"){
+			var valid = CAValidator.validate(wallet, "ETH");
+		}else{
+			var valid = CAValidator.validate(wallet, receiveCurrency);
+		}
+		
 		if (valid) {
 			return Promise.resolve(valid)
 		} else {

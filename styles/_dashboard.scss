@@ -604,6 +604,11 @@
 	margin-left: auto;
 }
 
+.chart-time-interval{
+	padding-left: 2.5px;
+	padding-right: 2.5px;
+}
+
 .chart-time-interval:hover{
 	background-color: #F0F3F5;
 	font-weight: 600;
@@ -626,5 +631,5 @@
     font-size: 14px;
     line-height: normal;
     color: #1A1D1F;
-	text-indent: 10px;
+	text-indent: 3px;
 }
