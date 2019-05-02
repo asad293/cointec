@@ -1689,7 +1689,7 @@ const Receive = [
 		FullName: 'Zilliqa',
 		Symbol: null,
 		Dp: 8,
-        Image: '/static/images/coins/ZIL.png',
+        Image: '/static/images/coins/ZIL.svg',
 		Keywords: 'zil,zilliqa',
 		Primary: '#d8a780',
 		Type: 'ERC20',
