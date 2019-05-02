@@ -166,7 +166,7 @@ class Chart extends Component {
 
 			let chartData = props.chart.data.ThirtyDay;
 			if (props.chart.intervalValue == "1D") {
-				chartData = props.chart.data.OneDay;
+				chartData = props.chart.data.OneDay.slice(1, 26);
 			} else if (props.chart.intervalValue == "7D") {
 				chartData = props.chart.data.SevenDay;
 			}
@@ -184,129 +184,30 @@ class Chart extends Component {
 						scaleBegingAtZero: false,
 						tooltips: {
 							shadowOffsetX: 0,
-							shadowOffsetY: 6,
-							shadowBlur: 8,
-							shadowColor: "rgba(0, 0, 0, 0.13)",
+							shadowOffsetY: 4,
+							shadowBlur: 20,
+							shadowColor: "rgba(0, 0, 0, 0.04)",
 							mode: "index",
 							intersect: false,
 							backgroundColor: "white",
 							borderColor: "#E8EAEB",
 							borderWidth: 1,
 							cornerRadius: 3,
-							bodyFontColor: "#667075",
+							bodyFontColor: "#667075", //coin.Primary, 
 							bodyFontSize: 14,
 							bodyFontStyle: "bold",
 							titleFontColor: "#1A1D1F",
 							titleFontSize: 14,
-							titleFontStyle: "bold",
 							footerFontColor: "red",
 							displayColors: false,
-							xPadding: 16,
-							yPadding: 16,
-							enabled: false,
-
-							custom: function (tooltipModel) {
-								// Tooltip Element
-								var tooltipEl = document.getElementById("chartjs-tooltip");
-
-								if (document && document.documentElement.clientWidth < 992) {
-									return;
-								}
-
-								// Create element on first render
-								if (!tooltipEl) {
-									tooltipEl = document.createElement("div");
-									tooltipEl.id = "chartjs-tooltip";
-									tooltipEl.innerHTML = "<table></table>";
-									document.body.appendChild(tooltipEl);
-								}
-
-								// Hide if no tooltip
-								if (tooltipModel.opacity === 0) {
-									tooltipEl.style.opacity = 0;
-									return;
-								}
-
-								// Set caret Position
-								tooltipEl.classList.remove("above", "below", "no-transform");
-								if (tooltipModel.yAlign) {
-									tooltipEl.classList.add(tooltipModel.yAlign);
-								} else {
-									tooltipEl.classList.add("no-transform");
-								}
-
-								function getBody(bodyItem) {
-									return bodyItem.lines;
-								}
-
-								// Set Text
-								if (tooltipModel.body) {
-									var titleLines = tooltipModel.title || [];
-									var bodyLines = tooltipModel.body.map(getBody);
-
-									var innerHtml = "<thead>";
-
-									titleLines.forEach(function (title) {
-										const style = `
-										font-weight: 600;
-										line-height: 10px;
-										font-size: 14px;
-										color: #1A1D1F;
-										padding-bottom:12px;`;
-										innerHtml +=
-											'<tr><th style="' + style + '">' + title + "</th></tr>";
-									});
-									innerHtml += "</thead><tbody>";
-
-									bodyLines.forEach(function (body, i) {
-										var colors = tooltipModel.labelColors[i];
-										var style = "background:" + colors.backgroundColor;
-										style += "; border-color:" + colors.borderColor;
-										style += "; border-width: 2px";
-										var span = '<span style="' + style + '"></span>';
-										innerHtml +=
-											'<tr><td style="line-height:10px;font-weight: 600;font-size: 14px;color: #667075;">' +
-											span +
-											body +
-											"</td></tr>";
-									});
-									innerHtml += "</tbody>";
-
-									var tableRoot = tooltipEl.querySelector("table");
-									tableRoot.innerHTML = innerHtml;
-								}
-
-								// `this` will be the overall tooltip
-								var position = this._chart.canvas.getBoundingClientRect();
-
-								// Display, position, and set styles for font
-								tooltipEl.style.opacity = 1;
-								tooltipEl.style.position = "absolute";
-								tooltipEl.style.backgroundColor = "white";
-								tooltipEl.style.boxShadow = "0px 6px 8px rgba(0, 0, 0, 0.13)";
-								tooltipEl.style.borderRadius = "3px";
-								tooltipEl.style.left =
-									position.left + window.pageXOffset + tooltipModel.caretX + "px";
-								tooltipEl.style.top =
-									position.top + window.pageYOffset + tooltipModel.caretY + "px";
-								tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily;
-								tooltipEl.style.fontSize = tooltipModel.bodyFontSize + "px";
-								tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle;
-								tooltipEl.style.padding =
-									tooltipModel.yPadding + "px " + tooltipModel.xPadding + "px";
-								tooltipEl.style.pointerEvents = "none";
-							},
+							xPadding: 12,
+							yPadding: 12,
 							callbacks: {
-								title: ([tooltipItem], data) => tooltip[tooltipItem.index],
-								label: (tooltipItem, data) =>
-									rates[tooltipItem.index] + ` GBP/${coin.Name}`
+								title: ([tooltipItem], data) => tooltip[tooltipItem.index]
 							}
 						},
 						hover: {
-							mode:
-								document && document.documentElement.clientWidth > 992
-									? "index"
-									: "none",
+							mode: "index",
 							intersect: false
 						},
 						layout: {
@@ -323,10 +224,7 @@ class Chart extends Component {
 										color: "#B0B9BD"
 									},
 									ticks: {
-										maxTicksLimit:
-											document && document.documentElement.clientWidth > 767
-												? 5
-												: 3
+										maxTicksLimit: 5
 									}
 								}
 							],
@@ -337,13 +235,10 @@ class Chart extends Component {
 									},
 									ticks: {
 										maxRotation: 0,
-										fontColor: "#667075",
+										fontColor: "#A8ADB2",
 										maxTicksLimit: 6,
 										padding: 15,
 										maxTicksLimit: 5,
-										// autoSkip: true,
-										// autoSkipPadding: 150,
-										// labelOffset: 15,
 										callback: value => String(new Date(value * 1000)).slice(16, 21)
 									},
 									offset: true
@@ -368,7 +263,7 @@ class Chart extends Component {
 									lineTension: 0.1,
 									pointRadius: 0,
 									cubicInterpolationMode: "default",
-									backgroundColor: "transparent" //gradient
+									backgroundColor: "transparent"
 								}
 							]
 						};
@@ -382,16 +277,16 @@ class Chart extends Component {
 						scaleBegingAtZero: false,
 						tooltips: {
 							shadowOffsetX: 0,
-							shadowOffsetY: 6,
-							shadowBlur: 8,
-							shadowColor: "rgba(0, 0, 0, 0.13)",
+							shadowOffsetY: 4,
+							shadowBlur: 20,
+							shadowColor: "rgba(0, 0, 0, 0.04)",
 							mode: "index",
 							intersect: false,
 							backgroundColor: "white",
 							borderColor: "#E8EAEB",
 							borderWidth: 1,
 							cornerRadius: 3,
-							bodyFontColor: "#667075",
+							bodyFontColor: "#667075", //coin.Primary
 							bodyFontSize: 14,
 							bodyFontStyle: "bold",
 							titleFontColor: "#1A1D1F",
@@ -399,101 +294,8 @@ class Chart extends Component {
 							titleFontStyle: "bold",
 							footerFontColor: "red",
 							displayColors: false,
-							xPadding: 16,
-							yPadding: 16,
-							enabled: false,
-
-							custom: function (tooltipModel) {
-								// Tooltip Element
-								var tooltipEl = document.getElementById("chartjs-tooltip");
-
-								if (document && document.documentElement.clientWidth < 992) {
-									return;
-								}
-
-								// Create element on first render
-								if (!tooltipEl) {
-									tooltipEl = document.createElement("div");
-									tooltipEl.id = "chartjs-tooltip";
-									tooltipEl.innerHTML = "<table></table>";
-									document.body.appendChild(tooltipEl);
-								}
-
-								// Hide if no tooltip
-								if (tooltipModel.opacity === 0) {
-									tooltipEl.style.opacity = 0;
-									return;
-								}
-
-								// Set caret Position
-								tooltipEl.classList.remove("above", "below", "no-transform");
-								if (tooltipModel.yAlign) {
-									tooltipEl.classList.add(tooltipModel.yAlign);
-								} else {
-									tooltipEl.classList.add("no-transform");
-								}
-
-								function getBody(bodyItem) {
-									return bodyItem.lines;
-								}
-
-								// Set Text
-								if (tooltipModel.body) {
-									var titleLines = tooltipModel.title || [];
-									var bodyLines = tooltipModel.body.map(getBody);
-
-									var innerHtml = "<thead>";
-
-									titleLines.forEach(function (title) {
-										const style = `
-										font-weight: 600;
-										line-height: 10px;
-										font-size: 14px;
-										color: #1A1D1F;
-										padding-bottom:12px;`;
-										innerHtml +=
-											'<tr><th style="' + style + '">' + title + "</th></tr>";
-									});
-									innerHtml += "</thead><tbody>";
-
-									bodyLines.forEach(function (body, i) {
-										var colors = tooltipModel.labelColors[i];
-										var style = "background:" + colors.backgroundColor;
-										style += "; border-color:" + colors.borderColor;
-										style += "; border-width: 2px";
-										var span = '<span style="' + style + '"></span>';
-										innerHtml +=
-											'<tr><td style="line-height:10px;font-weight: 600;font-size: 14px;color: #667075;">' +
-											span +
-											body +
-											"</td></tr>";
-									});
-									innerHtml += "</tbody>";
-
-									var tableRoot = tooltipEl.querySelector("table");
-									tableRoot.innerHTML = innerHtml;
-								}
-
-								// `this` will be the overall tooltip
-								var position = this._chart.canvas.getBoundingClientRect();
-
-								// Display, position, and set styles for font
-								tooltipEl.style.opacity = 1;
-								tooltipEl.style.position = "absolute";
-								tooltipEl.style.backgroundColor = "white";
-								tooltipEl.style.boxShadow = "0px 6px 8px rgba(0, 0, 0, 0.13)";
-								tooltipEl.style.borderRadius = "3px";
-								tooltipEl.style.left =
-									position.left + window.pageXOffset + tooltipModel.caretX + "px";
-								tooltipEl.style.top =
-									position.top + window.pageYOffset + tooltipModel.caretY + "px";
-								tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily;
-								tooltipEl.style.fontSize = tooltipModel.bodyFontSize + "px";
-								tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle;
-								tooltipEl.style.padding =
-									tooltipModel.yPadding + "px " + tooltipModel.xPadding + "px";
-								tooltipEl.style.pointerEvents = "none";
-							},
+							xPadding: 12,
+							yPadding: 12,
 							callbacks: {
 								title: ([tooltipItem], data) => tooltip[tooltipItem.index],
 								label: (tooltipItem, data) =>
@@ -501,10 +303,7 @@ class Chart extends Component {
 							}
 						},
 						hover: {
-							mode:
-								document && document.documentElement.clientWidth > 992
-									? "index"
-									: "none",
+							mode: "index",
 							intersect: false
 						},
 						layout: {
@@ -521,10 +320,7 @@ class Chart extends Component {
 										color: "#B0B9BD"
 									},
 									ticks: {
-										maxTicksLimit:
-											document && document.documentElement.clientWidth > 767
-												? 5
-												: 3
+										maxTicksLimit: 5
 									}
 								}
 							],
@@ -535,13 +331,10 @@ class Chart extends Component {
 									},
 									ticks: {
 										maxRotation: 0,
-										fontColor: "#667075",
+										fontColor: "#A8ADB2",
 										maxTicksLimit: 6,
 										padding: 15,
 										maxTicksLimit: 5,
-										// autoSkip: true,
-										// autoSkipPadding: 150,
-										// labelOffset: 15,
 										callback: value => String(new Date(value * 1000)).slice(4, 10)
 									},
 									offset: true
@@ -566,7 +359,7 @@ class Chart extends Component {
 									lineTension: 0.1,
 									pointRadius: 0,
 									cubicInterpolationMode: "default",
-									backgroundColor: "transparent" //gradient
+									backgroundColor: "transparent"
 								}
 							]
 						};
