@@ -340,11 +340,11 @@ class Calculator extends Component {
 
 		// console.log(props.assets.status)
 		if (props.assets.status && this.state.currencySelected) {
-			Object.keys(props.assets.status).forEach(assetPair => {
+			Object.keys(props.assets.status).forEach((assetPair, index) => {
 				if (assetPair.startsWith(this.state.currencySelected.Name)) {
 					const asset = props.assets.status[assetPair]
-					const coin = props.assets.list.Receive.find(
-						coin => assetPair.indexOf(coin.Name) === 3
+					const coin = props.assets.list.Receive.find(coin =>
+						assetPair.endsWith(coin.Name)
 					)
 					if (
 						coin &&
@@ -353,6 +353,7 @@ class Calculator extends Component {
 					) {
 						coin.DefaultQuoteAmount = asset.Send.DefaultQuoteAmount
 						coin.Status = asset.Send.Status
+						if (coin.Name === 'BTC') console.log(index, assetPair)
 						updatedCoins.push(coin)
 					}
 				}
@@ -367,13 +368,13 @@ class Calculator extends Component {
 			const nextCoin = coinParam
 				? updatedCoins.find(coin => coin.Name === coinParam)
 				: updatedCoins.find(
-					coin => _.kebabCase(coin.FullName) === Router.router.query.buy
-				)
+						coin => _.kebabCase(coin.FullName) === Router.router.query.buy
+				  )
 			const coinSelected = nextCoin
 				? nextCoin
 				: updatedCoins.length
-					? updatedCoins[0]
-					: false
+				? updatedCoins[0]
+				: false
 
 			this.setState(
 				{
@@ -641,8 +642,8 @@ class Calculator extends Component {
 														/>
 													))
 												) : (
-														<div className="px-3">No results</div>
-													)}
+													<div className="px-3">No results</div>
+												)}
 											</div>
 										</div>
 									)}
@@ -654,19 +655,19 @@ class Calculator extends Component {
 							{!this.state.rate || Message
 								? '-/-'
 								: this.state.rate.toFixed(
-									this.state.currencySelected
-										? this.state.currencySelected.Dp
-										: 2
-								) +
-								' ' +
-								(this.state.currencySelected
-									? this.state.currencySelected.Name
-									: 'GBP') +
-								'/' +
-								(this.state.coinSelected
-									? this.state.coinSelected.Name
-									: 'BTC') +
-								' '}
+										this.state.currencySelected
+											? this.state.currencySelected.Dp
+											: 2
+								  ) +
+								  ' ' +
+								  (this.state.currencySelected
+										? this.state.currencySelected.Name
+										: 'GBP') +
+								  '/' +
+								  (this.state.coinSelected
+										? this.state.coinSelected.Name
+										: 'BTC') +
+								  ' '}
 							{/* </b> */}
 						</h6>
 						<div className="am row">
