@@ -28,7 +28,7 @@ class Home extends Component {
 		)
 		const title = coin
 			? `Buy ${coin.FullName} | Cointec`
-			: 'Buy Digital Currency | Cointec'
+			: 'Crypto Asset Investing | Cointec'
 		return (
 			<div>
 				<Head>
@@ -58,18 +58,18 @@ class Home extends Component {
 									<h1 className="hero-title">
 										Say hello to a new
 										<br />
-										kind of money.
+										kind of asset.
 									</h1>
 									<h2 className="hero-intro d-none d-sm-block">
-										Buy 30 digital currencies using Bank Transfer or Bitcoin.{' '}
+										Invest in 50+ Crypto Assets with UK bank transfer.{' '}
 										{/* Buy 20 digital currencies using Bank Transfer or Bitcoin. */}
 										<br className="d-none d-md-inline" />
-										Create an account and start buying digital currency today.
+										Simple. Secure. Create an account today to get started.
 										{/* Create an account and get started in minutes. */}
 									</h2>
 									<div className="my-3 my-md-0 d-none d-sm-block">
 										<Link href="/learn">
-											<a>New to digital currencies? Learn more</a>
+											<a>New to Crypto Assets? Learn more</a>
 										</Link>
 									</div>
 								</div>

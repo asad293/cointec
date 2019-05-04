@@ -18,16 +18,15 @@ class ExchangeRates extends Component {
 					</div>
 					<div className="col-12 col-lg-6 px-4 px-lg-5 text-center text-lg-left">
 						<h4 className="section-title d-none d-lg-block">
-							Exchange rates you’ll find hard to beat for all our currency
-							pairs.
+							Competitive exchange rates.
 							{/* Receive your digital currencies in minutes, track every step. */}
 						</h4>
 						<h4 className="section-title d-lg-none">Competitive rates</h4>
 
 						<p className="d-none d-lg-block">
-							We understand long winded it can be to buy some of the trending
-							altcoins. That’s why we’ve created this platform to let you
-							directly exchange. Add some more text here.
+							Still using Bitcoin to buy altcoins? Avoid slipping rates
+							and benefits from our direct GBP trading pairs. No extra fees.
+							Just one exchange rate.
 						</p>
 
 						{/* <Link href="/">

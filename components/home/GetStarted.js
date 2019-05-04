@@ -14,16 +14,16 @@ const GetStarted = () => (
 				<div className="col-md-12 col-lg-4 mt-4 mt-md-3">
 					<Card
 						title="Create an account"
-						description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
+						description="Open an account in seconds. All you need is an e-mail and password."
 						image="/static/images/lrn-plc-hd.svg"
-						link={{ href: '/', text: 'Get started now' }}
+						link={{ href: '/', text: 'Sign up now' }}
 					/>
 				</div>
 
 				<div className="col-md-12 col-lg-4 mt-4 mt-md-3">
 					<Card
 						title="Setup your wallet"
-						description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
+						description="Take control of your own assets. Get wallets for desktop or mobile."
 						image="/static/images/setup-wallet.png"
 						link={{ href: '/', text: 'Wallet selector' }}
 					/>
@@ -32,7 +32,7 @@ const GetStarted = () => (
 				<div className="col-md-12 col-lg-4 mt-4 mt-md-3">
 					<Card
 						title="Make an order"
-						description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
+						description="Choose from over 50 crypto assets. Track orders direct to your wallet."
 						image="/static/images/lrn-plc-hd.svg"
 						link={{ href: '/', text: 'Create your first order' }}
 					/>

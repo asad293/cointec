@@ -8,16 +8,15 @@ const Security = () => (
 				<div className="col-12 col-lg-5 pr-lg-4 text-center text-lg-left">
 					<h4 className="section-title d-none d-lg-block">
 						{/* Your funds are secure throughout the transaction process. */}
-						You’re in safe hands with our robust security protocols.
+						Robust Security Protocols.
 					</h4>
 					<h4 className="section-title d-lg-none">
 						Secure transaction process
 					</h4>
 
 					<p className="d-none d-lg-block">
-						We understand long winded it can be to buy some of the trending
-						altcoins. That’s why we’ve created this platform to let you directly
-						exchange. Add some more text here.
+						We use TLS encryption to communicate data between our servers and websites.
+						All user data is stored on our secure servers in accordance with data protection laws.
 					</p>
 				</div>
 				<div className="col-lg-1" />

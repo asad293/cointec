@@ -138,7 +138,6 @@ class Chart extends Component {
 				);
 			}
 		}
-		//console.log(props.chart.intervalValue)
 		if (props.chart && props.chart.data.ThirtyDay.length) {
 			const coin = this.props.assets.list.Receive.find(
 				coin => coin.Name === this.state.coinName
@@ -147,9 +146,8 @@ class Chart extends Component {
 			let chartData = props.chart.data.ThirtyDay;
 			if (props.chart.intervalValue == "1D") {
 				chartData = props.chart.data.OneDay.slice(1, 26);
-				console.log(chartData)
 			} else if (props.chart.intervalValue == "7D") {
-				chartData = props.chart.data.SevenDay;
+				chartData = props.chart.data.SevenDay.slice(18, 188);
 			}
 
 			const timestamps = chartData.map(data => data && data.Timestamp);
@@ -211,15 +209,17 @@ class Chart extends Component {
 							],
 							xAxes: [
 								{
+									stacked: false,
+									beginAtZero: true,
 									gridLines: {
 										display: false
 									},
 									ticks: {
+										stepSize: 5,
 										maxRotation: 0,
 										fontColor: "#A8ADB2",
-										maxTicksLimit: 6,
+										maxTicksLimit: 4,
 										padding: 15,
-										maxTicksLimit: 5,
 										callback: value => String(new Date(value * 1000)).slice(16, 21)
 									},
 									offset: true
@@ -307,15 +307,17 @@ class Chart extends Component {
 							],
 							xAxes: [
 								{
+									stacked: false,
+									beginAtZero: true,
 									gridLines: {
 										display: false
 									},
 									ticks: {
+										stepSize: 5,
 										maxRotation: 0,
 										fontColor: "#A8ADB2",
-										maxTicksLimit: 6,
+										maxTicksLimit: 4,
 										padding: 15,
-										maxTicksLimit: 5,
 										callback: value => String(new Date(value * 1000)).slice(4, 10)
 									},
 									offset: true

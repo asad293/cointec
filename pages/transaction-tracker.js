@@ -449,7 +449,7 @@ const CoinSent = ({
 		<div className="d-flex justify-content-between card-tracking disabled mt-3">
 			<div>
 				<i className="far fa-minus fa-lg mr-3" />
-				Coin Sent
+				Assets Sent
 			</div>
 		</div>
 	)

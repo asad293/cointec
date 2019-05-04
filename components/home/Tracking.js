@@ -37,19 +37,19 @@ const Tracking = () => (
 			</div>
 			<div className="col-12 col-lg-6 px-4 px-lg-5 text-center text-lg-left">
 				<h4 className="section-title d-none d-lg-block">
-					Receive your digital currencies in minutes, track every step.
+					Invest in minutes. Not hours
 				</h4>
 				<h4 className="section-title d-lg-none">Live transaction tracking</h4>
 
 				<p className="d-none d-lg-block">
-					We understand long winded it can be to buy some of the trending
-					altcoins. That’s why we’ve created this platform to let you directly
-					exchange. Add some more text here.
+					We understand exchanges can be long winded. Our automated
+					order engine takes you from GBP to Crypto in minutes.
+					Track every step of your order in real time.
 				</p>
 
 				<Link href="/">
 					<a className="d-none d-lg-inline-block">
-						Make your first transaction
+						Make your first order
 					</a>
 				</Link>
 			</div>

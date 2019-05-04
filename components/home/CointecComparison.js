@@ -75,7 +75,7 @@ class CointecComparison extends Component {
 									)}
 							</ul>
 							<a>
-								Get your assets in <b>5-20 minutes</b>
+								Get your assets in <b>10 minutes</b>
 							</a>
 						</div>
 						<div className="divider d-none d-lg-block" />
@@ -114,7 +114,7 @@ class CointecComparison extends Component {
 									)}
 							</ul>
 							<a>
-								Get your assets in <b>1-2 hours</b>
+								Get your assets in <b>~ 1 hr</b>
 							</a>
 						</div>
 					</div>

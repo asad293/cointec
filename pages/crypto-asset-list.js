@@ -25,7 +25,7 @@ class DigitalCurrencyList extends Component {
 							<div className="row">
 								<div className="col-md-12">
 									<h1 className="learn-heading dc-basics-heading">
-										Digital currency list
+										Crypto Asset List
 									</h1>
 								</div>
 							</div>
@@ -49,8 +49,8 @@ class DigitalCurrencyList extends Component {
 					<p className="more-on-currencies">
 						Want to learn about the underlying technology behind all the digital
 						currencies we offer? Check out the{' '}
-						<Link href="/glossary-of-tokens">
-							<a>glossary of tokens.</a>
+						<Link href="/glossary-of-tokens" as="/learn/crypto-asset-glossary">
+							<a>Crypto Asset Glossary</a>
 						</Link>
 					</p>
 				</section>

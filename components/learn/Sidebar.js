@@ -8,8 +8,8 @@ const Sidebar = () => (
 			<li>
 				<NavLink
 					href="/digital-currency-basics"
-					as="/learn/digital-currency-basics">
-					Digital currency basics
+					as="/learn/crypto-asset-basics">
+					Crypto Asset Basics
 				</NavLink>
 			</li>
 			<li>
@@ -28,8 +28,8 @@ const Sidebar = () => (
 				</NavLink>
 			</li>
 			<li>
-				<NavLink href="/glossary-of-tokens" as="/learn/glossary-of-tokens">
-					Glossary of tokens
+				<NavLink href="/glossary-of-tokens" as="/learn/crypto-asset-glossary">
+					Crypto Asset Glossary
 				</NavLink>
 			</li>
 		</ul>

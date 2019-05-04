@@ -16,7 +16,7 @@ class GlossaryOfTokens extends Component {
 		return (
 			<div className="learn-page">
 				<Head>
-					<title>Glossary Of Tokens | Cointec</title>
+					<title>Crypto Asset Glossary | Cointec</title>
 				</Head>
 				<Header background="gradient" deco={false}>
 					<Nav />
@@ -27,7 +27,7 @@ class GlossaryOfTokens extends Component {
 							<div className="row">
 								<div className="col-md-12">
 									<h1 className="learn-heading dc-basics-heading">
-										Glossary Of Tokens
+										Crypto Asset Glossary
 									</h1>
 								</div>
 							</div>
@@ -43,7 +43,7 @@ class GlossaryOfTokens extends Component {
 									<a>Learn /</a>
 								</Link>
 							</li>
-							<li> Glossary Of Tokens</li>
+							<li> Crypto Asset Glossary</li>
 						</ul>
 					</div>
 				</section>

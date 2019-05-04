@@ -27,7 +27,7 @@ class DigitalCurrencyBasics extends Component {
 		return (
 			<div className="learn-page">
 				<Head>
-					<title>Digital Currency Basics | Cointec</title>
+					<title>Crypto Asset Basics | Cointec</title>
 				</Head>
 				<Header background="gradient" deco={false}>
 					<Nav />
@@ -38,7 +38,7 @@ class DigitalCurrencyBasics extends Component {
 							<div className="row">
 								<div className="col-md-12">
 									<h1 className="learn-heading dc-basics-heading">
-										Digital currency basics
+										Crypto Asset Basics
 									</h1>
 								</div>
 							</div>
@@ -54,7 +54,7 @@ class DigitalCurrencyBasics extends Component {
 									<a>Learn /</a>
 								</Link>
 							</li>
-							<li> Digital currency basics</li>
+							<li> Crypto Asset Basics</li>
 						</ul>
 					</div>
 				</section>

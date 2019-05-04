@@ -58,6 +58,7 @@ class Learn extends Component {
 								image="/static/images/lrn-plc-hd.svg"
 								linkText="Create your first order"
 								href="/digital-currency-basics"
+								asLink="/learn/crypto-asset-basics"
 							/>
 						</div>
 
@@ -68,6 +69,7 @@ class Learn extends Component {
 								image="/static/images/lrn-plc-hd.svg"
 								linkText="Create your first order"
 								href="/digital-wallets"
+								asLink="/learn/digital-wallets"
 							/>
 						</div>
 
@@ -78,6 +80,7 @@ class Learn extends Component {
 								image="/static/images/lrn-plc-hd.svg"
 								linkText="Create your first order"
 								href="/blockchain"
+								asLink="/learn/blockchain"
 							/>
 						</div>
 
@@ -88,16 +91,18 @@ class Learn extends Component {
 								image="/static/images/lrn-plc-hd.svg"
 								linkText="Create your first order"
 								href="/glossary-of-terms"
+								asLink="/learn/glossary-of-terms"
 							/>
 						</div>
 
 						<div className="col-sm-12 col-md-6 col-lg-4">
 							<Card
-								title="Glossary of tokens"
+								title="Crypto Asset Glossary"
 								description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
 								image="/static/images/lrn-plc-hd.svg"
 								linkText="Create your first order"
 								href="/glossary-of-tokens"
+								asLink="/learn/crypto-asset-glossary"
 							/>
 						</div>
 
@@ -126,12 +131,12 @@ class Learn extends Component {
 	}
 }
 
-const Card = ({ title, description, image, linkText, href, noPrefix }) => (
+const Card = ({ title, description, image, linkText, href, noPrefix, asLink }) => (
 	<div className="learn-card text-center">
 		<img src={image} alt={title} />
 		<h5>{title}</h5>
 		<p>{description}</p>
-		<Link href={href} as={noPrefix ? undefined : `/learn${href}`}>
+		<Link href={href} as={noPrefix ? undefined : `${asLink}`}>
 			<a>{linkText}</a>
 		</Link>
 	</div>
