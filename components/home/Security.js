@@ -11,7 +11,7 @@ const Security = () => (
 						Robust Security Protocols.
 					</h4>
 					<h4 className="section-title d-lg-none">
-						Secure transaction process
+						Robust Security Protocols
 					</h4>
 
 					<p className="d-none d-lg-block">
@@ -27,9 +27,8 @@ const Security = () => (
 						alt="security-lock"
 					/>
 					<p className="d-lg-none text-center">
-						We understand long winded it can be to buy some of the trending
-						altcoins. That’s why we’ve created this platform to let you directly
-						exchange. Add some more text here.
+						We use TLS encryption to communicate data between our servers and websites.
+						All user data is stored on our secure servers in accordance with data protection laws.
 					</p>
 					{/* <Link href="/">
 					<a className="d-block d-lg-none">More on security</a>

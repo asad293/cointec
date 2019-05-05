@@ -10,7 +10,7 @@ const DigitalCurrencies = () => (
 						{/* Choose from 20 of the most popular digital currencies. */}
 						Our 50 Crypto Assets.
 					</h4>
-					<h4 className="section-title d-lg-none">Choose from 30 currencies</h4>
+					<h4 className="section-title d-lg-none">Our 50 Crypto Assets</h4>
 
 					<p className="d-none d-lg-block">
 						Find the most popular tokens and altcoins here.
@@ -41,12 +41,12 @@ const DigitalCurrencies = () => (
 						<img src="/static/images/cg-image-7.svg" />
 					</div>
 					<p className="d-lg-none text-center">
-						We understand long winded it can be to buy some of the trending
-						altcoins. That’s why we’ve created this platform to let you directly
-						exchange. Add some more text here.
+						Find the most popular tokens and altcoins here.
+						We're the only exchange to offer direct GBP trading
+						pairs for dozens of Crypto Assets.
 					</p>
 					<Link href="/digital-currency-list" as="/crypto-asset-list">
-						<a className="d-lg-none">View all our digital currencies</a>
+						<a className="d-lg-none">View our complete selection</a>
 					</Link>
 				</div>
 			</div>

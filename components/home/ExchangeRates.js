@@ -11,9 +11,9 @@ class ExchangeRates extends Component {
 					<div className="col-12 col-lg-6 pr-lg-0 pr-lg-5 mt-4 mt-lg-0">
 						<Chart />
 						<p className="d-lg-none text-center mb-0">
-							We understand long winded it can be to buy some of the trending
-							altcoins. That’s why we’ve created this platform to let you
-							directly exchange. Add some more text here.
+							Still using Bitcoin to buy altcoins? Avoid slipping rates
+							and benefits from our direct GBP trading pairs. No extra fees.
+							Just one exchange rate.
 						</p>
 					</div>
 					<div className="col-12 col-lg-6 px-4 px-lg-5 text-center text-lg-left">
