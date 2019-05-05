@@ -12,7 +12,7 @@ class ExchangeRates extends Component {
 						<Chart />
 						<p className="d-lg-none text-center mb-0">
 							Still using Bitcoin to buy altcoins? Avoid slipping rates
-							and benefits from our direct GBP trading pairs. No extra fees.
+							and benefit from our direct GBP trading pairs. No extra fees.
 							Just one exchange rate.
 						</p>
 					</div>

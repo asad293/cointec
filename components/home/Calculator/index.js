@@ -146,11 +146,22 @@ class Calculator extends Component {
 	}
 
 	componentDidMount() {
+		const coinName = this.props.router.query.buy
+		const [coin] = this.props.assets.list.Receive.filter(
+			asset =>
+				_.kebabCase(asset.FullName) === coinName
+		)
+
 		this.setState({ active: true })
 		// set call fetch interval
 		this.initInterval(this.state.interval)
 		// fetch call the first time component mounts
 		this.fetchCalls()
+
+		this.setState({
+			coinSelected: coin,
+			// currencySelected: coin
+		})
 
 		addEventListener('keyup', this.onEscape)
 		addEventListener('click', this.onClickOutside)
@@ -366,13 +377,13 @@ class Calculator extends Component {
 			const nextCoin = coinParam
 				? updatedCoins.find(coin => coin.Name === coinParam)
 				: updatedCoins.find(
-						coin => _.kebabCase(coin.FullName) === Router.router.query.buy
-				  )
+					coin => _.kebabCase(coin.FullName) === Router.router.query.buy
+				)
 			const coinSelected = nextCoin
 				? nextCoin
 				: updatedCoins.length
-				? updatedCoins[0]
-				: false
+					? updatedCoins[0]
+					: false
 
 			this.setState(
 				{
@@ -640,8 +651,8 @@ class Calculator extends Component {
 														/>
 													))
 												) : (
-													<div className="px-3">No results</div>
-												)}
+														<div className="px-3">No results</div>
+													)}
 											</div>
 										</div>
 									)}
@@ -653,19 +664,19 @@ class Calculator extends Component {
 							{!this.state.rate || Message
 								? '-/-'
 								: this.state.rate.toFixed(
-										this.state.currencySelected
-											? this.state.currencySelected.Dp
-											: 2
-								  ) +
-								  ' ' +
-								  (this.state.currencySelected
-										? this.state.currencySelected.Name
-										: 'GBP') +
-								  '/' +
-								  (this.state.coinSelected
-										? this.state.coinSelected.Name
-										: 'BTC') +
-								  ' '}
+									this.state.currencySelected
+										? this.state.currencySelected.Dp
+										: 2
+								) +
+								' ' +
+								(this.state.currencySelected
+									? this.state.currencySelected.Name
+									: 'GBP') +
+								'/' +
+								(this.state.coinSelected
+									? this.state.coinSelected.Name
+									: 'BTC') +
+								' '}
 							{/* </b> */}
 						</h6>
 						<div className="am row">

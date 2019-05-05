@@ -217,15 +217,15 @@ const TransactionStatus = ({
 				ABANDONED ||
 				EXPIRED
 			) ? (
-				<div className="cancel-transaction-link mt-3 text-left">
-					Changed your mind?{' '}
-					<a href="javascript:void(0)" onClick={cancelOrder}>
-						Cancel the transaction
+					<div className="cancel-transaction-link mt-3 text-left">
+						Changed your mind?{' '}
+						<a href="javascript:void(0)" onClick={cancelOrder}>
+							Cancel the transaction
 					</a>
-				</div>
-			) : (
-				''
-			)}
+					</div>
+				) : (
+					''
+				)}
 		</div>
 	)
 }
@@ -238,8 +238,8 @@ const TransactionCancelled = ({ ABANDONED, EXPIRED, TERMINATED }) => (
 				{ABANDONED
 					? 'Transaction cancelled'
 					: TERMINATED
-					? 'Transaction error'
-					: 'Transaction expired'}
+						? 'Transaction error'
+						: 'Transaction expired'}
 			</div>
 			<span className="transaction-time">
 				{ABANDONED ? (
@@ -247,8 +247,8 @@ const TransactionCancelled = ({ ABANDONED, EXPIRED, TERMINATED }) => (
 				) : TERMINATED ? (
 					<Moment format="hh:mm A">{TERMINATED * 1000}</Moment>
 				) : (
-					<Moment format="hh:mm A">{EXPIRED * 1000}</Moment>
-				)}
+							<Moment format="hh:mm A">{EXPIRED * 1000}</Moment>
+						)}
 			</span>
 		</div>
 		{ABANDONED && (
@@ -305,8 +305,8 @@ const PaymentReceived = ({ CLEARING, REVIEW, TERMINATED, SETTLED }) => {
 				(REVIEW || TERMINATED) && !SETTLED
 					? 'error'
 					: !SETTLED
-					? 'in-progress'
-					: ''
+						? 'in-progress'
+						: ''
 			)}>
 			<div
 				className={cn(
@@ -314,8 +314,8 @@ const PaymentReceived = ({ CLEARING, REVIEW, TERMINATED, SETTLED }) => {
 					(REVIEW || TERMINATED) && !SETTLED
 						? 'error'
 						: !SETTLED
-						? 'in-progress'
-						: ''
+							? 'in-progress'
+							: ''
 				)}>
 				<div>
 					{(REVIEW || TERMINATED) && !SETTLED ? (
@@ -323,8 +323,8 @@ const PaymentReceived = ({ CLEARING, REVIEW, TERMINATED, SETTLED }) => {
 					) : !SETTLED ? (
 						<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
 					) : (
-						<i className="far fa-check fa-lg mr-3" />
-					)}
+								<i className="far fa-check fa-lg mr-3" />
+							)}
 					{(REVIEW || TERMINATED) && !SETTLED
 						? 'Payment error'
 						: 'We received payment'}
@@ -337,8 +337,8 @@ const PaymentReceived = ({ CLEARING, REVIEW, TERMINATED, SETTLED }) => {
 					) : REVIEW ? (
 						<Moment format="hh:mm A">{REVIEW * 1000}</Moment>
 					) : (
-						''
-					)}
+									''
+								)}
 				</span>
 			</div>
 			{(REVIEW || TERMINATED) && !SETTLED ? (
@@ -347,17 +347,17 @@ const PaymentReceived = ({ CLEARING, REVIEW, TERMINATED, SETTLED }) => {
 					from your account will be refunded within 2 business days.
 				</div>
 			) : (
-				''
-			)}
+					''
+				)}
 		</div>
 	) : (
-		<div className="d-flex justify-content-between card-tracking disabled mt-3">
-			<div>
-				<i className="far fa-minus fa-lg mr-3" />
-				We received payment
+			<div className="d-flex justify-content-between card-tracking disabled mt-3">
+				<div>
+					<i className="far fa-minus fa-lg mr-3" />
+					We received payment
 			</div>
-		</div>
-	)
+			</div>
+		)
 }
 
 const CoinSent = ({
@@ -377,10 +377,10 @@ const CoinSent = ({
 				FAILED || TERMINATED
 					? 'error'
 					: !SENT
-					? 'in-progress'
-					: SENT
-					? 'sent'
-					: ''
+						? 'in-progress'
+						: SENT
+							? 'sent'
+							: ''
 			)}>
 			<div className="d-flex justify-content-between card-tracking">
 				<div>
@@ -391,9 +391,9 @@ const CoinSent = ({
 					) : !SENT ? (
 						<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
 					) : (
-						<i className="far fa-check fa-lg mr-3" />
-					)}
-					{FAILED || TERMINATED ? 'Transaction error' : 'Coin Sent'}
+									<i className="far fa-check fa-lg mr-3" />
+								)}
+					{FAILED || TERMINATED ? 'Transaction error' : 'Asset Sent'}
 				</div>
 				<span className="transaction-time">
 					{TERMINATED ? (
@@ -401,8 +401,8 @@ const CoinSent = ({
 					) : FAILED ? (
 						<Moment format="hh:mm A">{FAILED * 1000}</Moment>
 					) : (
-						SENT && <Moment format="hh:mm A">{SENT * 1000}</Moment>
-					)}
+								SENT && <Moment format="hh:mm A">{SENT * 1000}</Moment>
+							)}
 				</span>
 			</div>
 			{FAILED || TERMINATED ? (
@@ -419,8 +419,8 @@ const CoinSent = ({
 					the way to your wallet.
 				</div>
 			) : (
-				''
-			)}
+						''
+					)}
 			{!(FAILED || TERMINATED) && DestinationWallet ? (
 				<a
 					href={
@@ -432,8 +432,8 @@ const CoinSent = ({
 					Follow on the blockchain
 				</a>
 			) : (
-				''
-			)}
+					''
+				)}
 			{FAILED || TERMINATED ? (
 				<Link href="/dashboard">
 					<a className="btn-follow-blockchain">
@@ -442,17 +442,17 @@ const CoinSent = ({
 					</a>
 				</Link>
 			) : (
-				''
-			)}
+					''
+				)}
 		</div>
 	) : (
-		<div className="d-flex justify-content-between card-tracking disabled mt-3">
-			<div>
-				<i className="far fa-minus fa-lg mr-3" />
-				Assets Sent
+			<div className="d-flex justify-content-between card-tracking disabled mt-3">
+				<div>
+					<i className="far fa-minus fa-lg mr-3" />
+					Assets Sent
 			</div>
-		</div>
-	)
+			</div>
+		)
 }
 
 const Nav = ({ heading }) => (

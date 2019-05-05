@@ -37,8 +37,6 @@ class CointecComparison extends Component {
 				AssetPrimaryWallet = 'Jaxx'
 			}
 		}
-		//console.log("Sajjad");
-		//console.log(coin.ShowCointecVs);
 		if (coin && coin.ShowCointecVs === true && coin.ShowGlobal === true) {
 			return (
 				<div className="home-section comparison-section container">
@@ -83,7 +81,7 @@ class CointecComparison extends Component {
 							<h3 className="section-subtitle">Without Cointec</h3>
 							<ul>
 								<li>Buy Bitcoin</li>
-								<li>Send Bitcoin to a digital asset exchange</li>
+								<li>Send Bitcoin to an altcoin exchange</li>
 								{coin ? (
 									<li>
 										Trade Bitcoin for{' '}
@@ -92,7 +90,7 @@ class CointecComparison extends Component {
 										exchange
 									</li>
 								) : (
-										<li>Trade Bitcoin for altcoin on the exchange</li>
+										<li>Trade Bitcoin for Polymath on the exchange</li>
 									)}
 								{AssetPrimaryWallet ? (
 									<li>

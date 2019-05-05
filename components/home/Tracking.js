@@ -20,7 +20,7 @@ const Tracking = () => (
 				</div>
 				<div className="card-tracking sent d-flex justify-content-between px-4 mx-auto mx-lg-0">
 					<div>
-						<i className="far fa-check fa-lg mr-3" /> Coins sent
+						<i className="far fa-check fa-lg mr-3" /> Assets sent
 					</div>
 					<span className="time">17:05PM</span>
 				</div>

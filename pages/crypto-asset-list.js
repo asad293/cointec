@@ -14,7 +14,7 @@ class DigitalCurrencyList extends Component {
 		return (
 			<div className="digital-currency-page learn-page">
 				<Head>
-					<title>Digital Currencies | Cointec</title>
+					<title>Crypto Assset List | Cointec</title>
 				</Head>
 				<Header background="gradient">
 					<Nav />

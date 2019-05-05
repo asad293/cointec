@@ -834,12 +834,12 @@ const asyncValidate = ({ wallet, receiveCurrency }) => {
 
 	let matches = Receive.filter(v => v.Name.includes(receiveCurrency));
 	if (receiveCurrencyArray.indexOf(receiveCurrency) > -1 || matches[0].Type == "ERC20") {
-		if(matches[0].Type == "ERC20"){
+		if (matches[0].Type == "ERC20") {
 			var valid = CAValidator.validate(wallet, "ETH");
-		}else{
+		} else {
 			var valid = CAValidator.validate(wallet, receiveCurrency);
 		}
-		
+
 		if (valid) {
 			return Promise.resolve(valid)
 		} else {
