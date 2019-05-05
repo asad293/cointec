@@ -12,7 +12,7 @@ const Sidebar = () => (
 				<NavLink href="/terms">Terms of use</NavLink>
 			</li>
 			<li>
-				<NavLink href="/security" as="/aml">
+				<NavLink href="/security" as="/aml-kyc-policy">
 					AML/KYC
 				</NavLink>
 			</li>

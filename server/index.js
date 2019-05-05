@@ -84,7 +84,7 @@ app
 			app.render(req, res, `/no-access`, { type: 'closed' })
 		})
 
-		server.get('/aml', (req, res) => {
+		server.get('/aml-kyc-policy', (req, res) => {
 			app.render(req, res, `/security`)
 		})
 

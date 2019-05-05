@@ -68,7 +68,7 @@ const Footer = props => (
 							<Link href="/terms">
 								<a>Terms of use</a>
 							</Link>
-							<Link href="/aml">
+							<Link href="/aml-kyc-policy">
 								<a>AML/KYC</a>
 							</Link>
 						</div>

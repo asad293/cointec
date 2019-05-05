@@ -42,6 +42,7 @@ class DigitalCurrencyList extends Component {
 									name={asset.Name}
 									fullName={asset.FullName}
 									image={asset.Image}
+									seoUrl={asset.SeoURL}
 								/>
 								: null
 						))}
@@ -61,9 +62,9 @@ class DigitalCurrencyList extends Component {
 	}
 }
 
-const Currency = ({ name, fullName, image }) => (
+const Currency = ({ name, fullName, image, seoUrl }) => (
 	<div className="col-12 col-md-6 col-lg-4">
-		<Link href={`/exchange/${name}`}>
+		<Link href={`${seoUrl}`}>
 			<a className="digital-currency">
 				<img src={image} alt={name} />
 				<p>{fullName}</p>
