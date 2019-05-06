@@ -393,7 +393,7 @@ const CoinSent = ({
 					) : (
 									<i className="far fa-check fa-lg mr-3" />
 								)}
-					{FAILED || TERMINATED ? 'Transaction error' : 'Asset Sent'}
+					{FAILED || TERMINATED ? 'Transaction error' : 'Assets Sent'}
 				</div>
 				<span className="transaction-time">
 					{TERMINATED ? (

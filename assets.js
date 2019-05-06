@@ -337,7 +337,7 @@ const Receive = [
 		Primary: '#001D57',
 		Type: 'ERC20',
 		Wallets: 'MEW,Exodus,MetaMask,Jaxx',
-		SeoURL: '/buy-golemn',
+		SeoURL: '/buy-golem',
 		Description: 'golem',
 		ShowGlobal: true,
 		ShowCalculator: true,
