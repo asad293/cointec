@@ -67,33 +67,36 @@ class BankTransfer extends Component {
 
 	startPayment() {
 		const createdAt = Math.round(new Date().getTime() / 1000.0)
-		this.props
-			.createOrder({
-				destAmount: this.props.receiveAmount,
-				sourceAmount: this.props.sendAmount,
-				destCurrency: this.props.receiveCurrency,
-				sourceCurrency: this.props.sendCurrency,
-				exchangeRate: this.props.rate,
-				dest: this.props.wallet,
-				ctUser: this.props.ctUser,
-				createdAt
-			})
-			.catch(error => {
-				console.log(error.response)
-				if (error.response.status === 409) {
-					const txnID = error.response.data.Message.split(
-						/[[\]]{1,2}/
-					)[1].replace('CT', '')
-					this.props.showTransactionAlert()
-					Router.push(
-						`/transaction-tracker?txnID=${txnID}`,
-						`/transaction-tracker/${txnID}`
-					)
-				}
-				if (error.response.status === 403) {
-					Router.push(`/request-sent/orderrejected`)
-				}
-			})
+		console.log(this.props.txnID)
+		if (!this.props.txnID) {
+			this.props
+				.createOrder({
+					destAmount: this.props.receiveAmount,
+					sourceAmount: this.props.sendAmount,
+					destCurrency: this.props.receiveCurrency,
+					sourceCurrency: this.props.sendCurrency,
+					exchangeRate: this.props.rate,
+					dest: this.props.wallet,
+					ctUser: this.props.ctUser,
+					createdAt
+				})
+				.catch(error => {
+					console.log(error.response)
+					if (error.response.status === 409) {
+						const txnID = error.response.data.Message.split(
+							/[[\]]{1,2}/
+						)[1].replace('CT', '')
+						this.props.showTransactionAlert()
+						Router.push(
+							`/transaction-tracker?txnID=${txnID}`,
+							`/transaction-tracker/${txnID}`
+						)
+					}
+					if (error.response.status === 403) {
+						Router.push(`/request-sent/orderrejected`)
+					}
+				})
+		}
 		this.setState({ expired: false })
 		this.initInterval()
 		this.fetchCalls()
@@ -232,8 +235,8 @@ class BankTransfer extends Component {
 										<span className="account-source">
 											{this.state.sourceAccount
 												? `${this.state.sourceAccount.BankName} (${
-												this.state.sourceAccount.SortCode
-												})`
+														this.state.sourceAccount.SortCode
+												  })`
 												: 'Send From'}
 										</span>
 										{/* <span>Primary account</span> */}
@@ -278,21 +281,22 @@ class BankTransfer extends Component {
 					</form>
 				</div>
 				{!this.state.expired &&
-					(this.props.order.create && this.props.accounts.list) ? (
-						<p className="text-left mt-3">
-							Transaction will expire in{' '}
-							<MinutesFormat
-								seconds={this.state.refreshTime - this.state.timer}
-							/>
-						</p>
-					) : (
-						<p className="text-left" style={{ marginTop: 11 }}>
-							Transaction expired -{' '}
-							<a className="restart-link" onClick={this.restart}>
-								Click to restart
+				((this.props.order.create && this.props.accounts.list) ||
+					this.props.txnID) ? (
+					<p className="text-left mt-3">
+						Transaction will expire in{' '}
+						<MinutesFormat
+							seconds={this.state.refreshTime - this.state.timer}
+						/>
+					</p>
+				) : (
+					<p className="text-left" style={{ marginTop: 11 }}>
+						Transaction expired -{' '}
+						<a className="restart-link" onClick={this.restart}>
+							Click to restart
 						</a>
-						</p>
-					)}
+					</p>
+				)}
 			</div>
 		)
 	}
