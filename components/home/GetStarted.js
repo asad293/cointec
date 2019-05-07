@@ -15,7 +15,7 @@ const GetStarted = () => (
 					<Card
 						title="Create an account"
 						description="Open an account in seconds. All you need is an e-mail and password."
-						image="/static/images/lrn-plc-hd.svg"
+						image="/static/images/create-an-account.svg"
 						link={{ href: '/', text: 'Sign up now' }}
 					/>
 				</div>
