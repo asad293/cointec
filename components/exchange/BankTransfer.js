@@ -23,7 +23,8 @@ class BankTransfer extends Component {
 			timer: 0,
 			refreshTime: 10,
 			sourceAccount: null,
-			expired: false
+			expired: false,
+			expires: 0
 		}
 
 		this.tick = this.tick.bind(this)
@@ -38,12 +39,25 @@ class BankTransfer extends Component {
 
 	initInterval() {
 		clearInterval(this.state.timerId)
+		console.log('initInterval')
 		const timerId = setInterval(this.tick, 1000)
+		console.log(timerId, timerId)
 		this.setState({ timerId })
 	}
 
 	tick() {
+		console.log('tick', this.state.timer)
 		if (this.state.timer < this.state.refreshTime) {
+			if (
+				this.props.order.pendingStatus &&
+				this.props.order.pendingStatus.Status
+			) {
+				this.setState({
+					secondsLeft:
+						this.props.order.pendingStatus.Status.EXPIRES -
+						Math.round(new Date().getTime() / 1000)
+				})
+			}
 			this.setState({ timer: this.state.timer + 1 })
 		} else {
 			clearInterval(this.state.timerId)
@@ -80,6 +94,14 @@ class BankTransfer extends Component {
 					ctUser: this.props.ctUser,
 					createdAt
 				})
+				.then(({ data }) => {
+					console.log(data)
+					if (data) {
+						this.setState({
+							expires: createdAt + data.PaymentWindow * 60
+						})
+					}
+				})
 				.catch(error => {
 					console.log(error.response)
 					if (error.response.status === 409) {
@@ -97,9 +119,9 @@ class BankTransfer extends Component {
 					}
 				})
 		}
-		this.setState({ expired: false })
 		this.initInterval()
 		this.fetchCalls()
+		this.setState({ expired: false })
 	}
 
 	restart() {
@@ -285,9 +307,13 @@ class BankTransfer extends Component {
 					this.props.txnID) ? (
 					<p className="text-left mt-3">
 						Transaction will expire in{' '}
-						<MinutesFormat
-							seconds={this.state.refreshTime - this.state.timer}
-						/>
+						{this.state.secondsLeft ? (
+							<MinutesFormat seconds={this.state.secondsLeft} />
+						) : (
+							<MinutesFormat
+								seconds={this.state.refreshTime - this.state.timer}
+							/>
+						)}
 					</p>
 				) : (
 					<p className="text-left" style={{ marginTop: 11 }}>
@@ -460,14 +486,25 @@ class BankTransfer extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		const { accounts, order, constants, ctUser, sendCurrency } = props
+		const { accounts, order, constants, ctUser, sendCurrency, txnID } = props
+		console.log(order.pendingStatus)
 
 		if (sendCurrency === 'GBP') {
-			if (!order.create || !accounts.list) {
+			if (!txnID && (!order.create || !accounts.list)) {
 				clearInterval(this.state.timerId)
 			} else {
+				console.log('constants', constants)
 				if (constants) {
-					const refreshTime = constants.PaymentWindow * 60
+					const refreshTime = !txnID
+						? constants.PaymentWindow * 60
+						: order.pendingStatus.Status.EXPIRES -
+						  Math.round(new Date().getTime() / 1000)
+					console.log('refreshTime', refreshTime)
+					// console.log(
+					// 	'expires',
+					// 	order.pendingStatus.Status.EXPIRES -
+					// 		Math.round(new Date().getTime() / 1000)
+					// )
 					if (this.state.refreshTime >= this.state.timer) {
 						this.initInterval()
 						this.setState({ refreshTime, timer: 0 })
