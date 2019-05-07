@@ -24,7 +24,7 @@ const GetStarted = () => (
 					<Card
 						title="Setup your wallet"
 						description="Take control of your own assets. Get wallets for desktop or mobile."
-						image="/static/images/setup-wallet.png"
+						image="/static/images/setup-wallet.svg"
 						link={{ href: '/', text: 'Wallet selector' }}
 					/>
 				</div>
