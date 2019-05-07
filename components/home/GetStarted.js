@@ -33,7 +33,7 @@ const GetStarted = () => (
 					<Card
 						title="Make an order"
 						description="Choose from over 50 crypto assets. Track orders direct to your wallet."
-						image="/static/images/lrn-plc-hd.svg"
+						image="/static/images/make-an-order.svg"
 						link={{ href: '/', text: 'Create your first order' }}
 					/>
 				</div>
