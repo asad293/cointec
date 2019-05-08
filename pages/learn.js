@@ -54,7 +54,7 @@ class Learn extends Component {
 						<div className="col-sm-12 col-md-6 col-lg-4">
 							<Card
 								title="Cryptoasset Basics"
-                                description="If you are just getting started in the cryptocasset world, this guide is a great place to learn the basics."
+                                description="This is a guide to learn the basics of the cryptoasset space if you're just getting started."
 								image="/static/images/cryptoasset-basics.svg"
 								linkText="Learn the basics"
 								href="/digital-currency-basics"
@@ -65,7 +65,7 @@ class Learn extends Component {
 						<div className="col-sm-12 col-md-6 col-lg-4">
 							<Card
 								title="Storing Cryptossets"
-								description="Familiarize yourself with how to safely store cryptoassets and the different wallet options available."
+								description="Familiarize yourself with how to store cryptoassets and the different wallet options available."
 								image="/static/images/storing-cryptoassets.svg"
 								linkText="Learn about wallets"
 								href="/digital-wallets"
@@ -87,7 +87,7 @@ class Learn extends Component {
 						<div className="col-sm-12 col-md-6 col-lg-4">
 							<Card
 								title="Glossary of terms"
-                                description="From fintech acronyms to payments terminology and investing jargon, use this glossary to lookup commonly used terms in the space."
+                                description="Lookup commonly used terms from fintech acronyms to payments terminology and investment jargon."
                                 image="/static/images/glossary-of-terms.svg"
 								linkText="Lookup terms"
 								href="/glossary-of-terms"
@@ -98,7 +98,7 @@ class Learn extends Component {
 						<div className="col-sm-12 col-md-6 col-lg-4">
 							<Card
 								title="Crypto Asset Glossary"
-								description="Learn more about specific cryptoassets, including their function, projects and related networks."
+								description="Learn more about each cryptoasset - it's function and related networks."
 								image="/static/images/cryptoasset-glossary.svg"
 								linkText="Lookup cryptoassets"
 								href="/glossary-of-tokens"
