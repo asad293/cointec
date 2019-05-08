@@ -53,10 +53,10 @@ class Learn extends Component {
 					<div className="row">
 						<div className="col-sm-12 col-md-6 col-lg-4">
 							<Card
-								title="Cryptocurrency basics"
-								description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
-								image="/static/images/lrn-plc-hd.svg"
-								linkText="Create your first order"
+								title="Cryptoasset Basics"
+                                description="If you are just getting started in the cryptocasset world, this guide is a great place to learn the basics."
+								image="/static/images/cryptoasset-basics.svg"
+								linkText="Learn the basics"
 								href="/digital-currency-basics"
 								asLink="/learn/crypto-asset-basics"
 							/>
@@ -64,10 +64,10 @@ class Learn extends Component {
 
 						<div className="col-sm-12 col-md-6 col-lg-4">
 							<Card
-								title="Storing cryptocurrency"
-								description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
-								image="/static/images/lrn-plc-hd.svg"
-								linkText="Create your first order"
+								title="Storing Cryptossets"
+								description="Familiarize yourself with how to safely store cryptoassets and the different wallet options available."
+								image="/static/images/storing-cryptoassets.svg"
+								linkText="Learn about wallets"
 								href="/digital-wallets"
 								asLink="/learn/digital-wallets"
 							/>
@@ -76,9 +76,9 @@ class Learn extends Component {
 						<div className="col-sm-12 col-md-6 col-lg-4">
 							<Card
 								title="Blockchain technology"
-								description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
-								image="/static/images/lrn-plc-hd.svg"
-								linkText="Create your first order"
+                                description="Learn about the key concepts of blockchain technology and how it works."
+								image="/static/images/blockchain-technology.svg"
+								linkText="Learn about blockchain"
 								href="/blockchain"
 								asLink="/learn/blockchain"
 							/>
@@ -87,9 +87,9 @@ class Learn extends Component {
 						<div className="col-sm-12 col-md-6 col-lg-4">
 							<Card
 								title="Glossary of terms"
-								description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
-								image="/static/images/lrn-plc-hd.svg"
-								linkText="Create your first order"
+                                description="From fintech acronyms to payments terminology and investing jargon, use this glossary to lookup commonly used terms in the space."
+                                image="/static/images/glossary-of-terms.svg"
+								linkText="Lookup terms"
 								href="/glossary-of-terms"
 								asLink="/learn/glossary-of-terms"
 							/>
@@ -98,9 +98,9 @@ class Learn extends Component {
 						<div className="col-sm-12 col-md-6 col-lg-4">
 							<Card
 								title="Crypto Asset Glossary"
-								description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
-								image="/static/images/lrn-plc-hd.svg"
-								linkText="Create your first order"
+								description="Learn more about specific cryptoassets, including their function, projects and related networks."
+								image="/static/images/cryptoasset-glossary.svg"
+								linkText="Lookup cryptoassets"
 								href="/glossary-of-tokens"
 								asLink="/learn/crypto-asset-glossary"
 							/>
@@ -109,9 +109,9 @@ class Learn extends Component {
 						<div className="col-sm-12 col-md-6 col-lg-4">
 							<Card
 								title="FAQ’s and support"
-								description="Create an account in seconds. All you need is an email and password. This is placeholder text to."
-								image="/static/images/lrn-plc-hd.svg"
-								linkText="Create your first order"
+								description="Lookup commonly asked questions or contact support."
+								image="/static/images/faqs-support.svg"
+								linkText="Find answers"
 								href="/"
 								noPrefix={true}
 							/>
