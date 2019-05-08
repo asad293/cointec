@@ -22,6 +22,10 @@ export const STATUS_ORDER = 'STATUS_ORDER'
 export const STATUS_ORDER_START = 'STATUS_ORDER_START'
 export const STATUS_ORDER_END = 'STATUS_ORDER_END'
 
+export const GET_PENDING_ORDER = 'GET_PENDING_ORDER'
+export const GET_PENDING_ORDER_START = 'GET_PENDING_ORDER_START'
+export const GET_PENDING_ORDER_END = 'GET_PENDING_ORDER_END'
+
 export const FETCH_ORDERS = 'FETCH_ORDERS'
 export const FETCH_ORDERS_START = 'FETCH_ORDERS_START'
 export const FETCH_ORDERS_END = 'FETCH_ORDERS_END'
@@ -227,6 +231,38 @@ export function getStatus({ orderId }) {
 			.catch(error => {
 				dispatch({
 					type: STATUS_ORDER_END,
+					payload: error
+				})
+				if (error && error.response && error.response.status === 401) {
+					dispatch(signOutSession())
+				}
+				throw error
+			})
+	}
+}
+
+export function getPendingOrder() {
+	return dispatch => {
+		dispatch({
+			type: GET_PENDING_ORDER_START,
+			payload: null
+		})
+
+		const session = dispatch(validateSession())
+		const headers = { ...session }
+		const ctUser = session['CT-ACCOUNT-ID']
+		return axios
+			.get(`${ROOT_URL}/orders/pending/${ctUser}`, { headers })
+			.then(response => {
+				dispatch({
+					type: GET_PENDING_ORDER,
+					payload: response.data
+				})
+				return response
+			})
+			.catch(error => {
+				dispatch({
+					type: GET_PENDING_ORDER_END,
 					payload: error
 				})
 				if (error && error.response && error.response.status === 401) {

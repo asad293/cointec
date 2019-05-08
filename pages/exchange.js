@@ -13,7 +13,7 @@ import BankTransfer from '../components/exchange/BankTransfer'
 import AddBankAccount from '../components/account-settings/AddBankAccount'
 import StickyFooter from '../components/StickyFooter'
 
-import { validateSession } from '../store/actions'
+import { validateSession, getPendingOrder } from '../store/actions'
 
 class Exchange extends Component {
 	constructor() {
@@ -45,7 +45,9 @@ class Exchange extends Component {
 
 	componentDidMount() {
 		const session = this.props.validateSession()
-		if (!session) {
+		if (session) {
+			this.props.getPendingOrder()
+		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
 
@@ -209,7 +211,8 @@ class Exchange extends Component {
 					receiveCurrency={this.state.receiveCurrency}
 					wallet={this.state.wallet}
 					rate={this.state.rate}
-					ctUser={this.props.auth.ctUser}
+					ctUser={parseInt(this.props.auth.ctUser)}
+					txnID={this.state.txnID}
 					onConfirm={this.onConfirm}
 					onRestart={this.onRestart}
 					onAddAccount={() => this.setState({ addBankAccountModal: true })}
@@ -219,6 +222,28 @@ class Exchange extends Component {
 	}
 
 	componentWillReceiveProps(props) {
+		const { pendingStatus } = props.order
+		if (pendingStatus) {
+			const { Order, Status } = pendingStatus
+			const orderStatus = Status ? Object.keys(Status) : []
+
+			if (Status) {
+				if (orderStatus.includes('CLEARING')) {
+					Router.push(`/transaction-tracker/${Order.TxnId}`)
+				} else if (orderStatus.includes('PAYMENT')) {
+					this.setState({
+						sendAmount: parseFloat(Order.SourceAmount),
+						receiveAmount: parseFloat(Order.DestAmount),
+						sendCurrency: Order.SourceCurrency,
+						receiveCurrency: Order.DestCurrency,
+						wallet: Order.Destination,
+						txnID: parseInt(Order.TxnId),
+						step: 3
+					})
+				}
+			}
+		}
+
 		this.onResize()
 	}
 }
@@ -308,5 +333,5 @@ const InnerNav = props => (
 
 export default connect(
 	({ auth, order }) => ({ auth, order }),
-	{ validateSession }
+	{ validateSession, getPendingOrder }
 )(withRouter(Exchange))

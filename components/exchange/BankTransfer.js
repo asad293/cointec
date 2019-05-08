@@ -23,7 +23,8 @@ class BankTransfer extends Component {
 			timer: 0,
 			refreshTime: 10,
 			sourceAccount: null,
-			expired: false
+			expired: false,
+			expires: 0
 		}
 
 		this.tick = this.tick.bind(this)
@@ -43,8 +44,16 @@ class BankTransfer extends Component {
 	}
 
 	tick() {
-		if (this.state.timer < this.state.refreshTime) {
-			this.setState({ timer: this.state.timer + 1 })
+		const { pendingStatus } = this.props.order
+		let secondsLeft = 0
+		const secondsNow = Math.round(new Date().getTime() / 1000)
+		if (pendingStatus && pendingStatus.Status) {
+			secondsLeft = pendingStatus.Status.EXPIRES - secondsNow
+		} else {
+			secondsLeft = this.state.expires - secondsNow
+		}
+		if (secondsLeft > 0) {
+			this.setState({ secondsLeft })
 		} else {
 			clearInterval(this.state.timerId)
 			this.setState({ expired: true })
@@ -67,36 +76,44 @@ class BankTransfer extends Component {
 
 	startPayment() {
 		const createdAt = Math.round(new Date().getTime() / 1000.0)
-		this.props
-			.createOrder({
-				destAmount: this.props.receiveAmount,
-				sourceAmount: this.props.sendAmount,
-				destCurrency: this.props.receiveCurrency,
-				sourceCurrency: this.props.sendCurrency,
-				exchangeRate: this.props.rate,
-				dest: this.props.wallet,
-				ctUser: this.props.ctUser,
-				createdAt
-			})
-			.catch(error => {
-				console.log(error.response)
-				if (error.response.status === 409) {
-					const txnID = error.response.data.Message.split(
-						/[[\]]{1,2}/
-					)[1].replace('CT', '')
-					this.props.showTransactionAlert()
-					Router.push(
-						`/transaction-tracker?txnID=${txnID}`,
-						`/transaction-tracker/${txnID}`
-					)
-				}
-				if (error.response.status === 403) {
-					Router.push(`/request-sent/orderrejected`)
-				}
-			})
-		this.setState({ expired: false })
+		if (!this.props.txnID) {
+			this.props
+				.createOrder({
+					destAmount: this.props.receiveAmount,
+					sourceAmount: this.props.sendAmount,
+					destCurrency: this.props.receiveCurrency,
+					sourceCurrency: this.props.sendCurrency,
+					exchangeRate: this.props.rate,
+					dest: this.props.wallet,
+					ctUser: this.props.ctUser,
+					createdAt
+				})
+				.then(({ data }) => {
+					if (data) {
+						this.setState({
+							expires: createdAt + data.PaymentWindow * 60
+						})
+					}
+				})
+				.catch(error => {
+					if (error.response.status === 409) {
+						const txnID = error.response.data.Message.split(
+							/[[\]]{1,2}/
+						)[1].replace('CT', '')
+						this.props.showTransactionAlert()
+						Router.push(
+							`/transaction-tracker?txnID=${txnID}`,
+							`/transaction-tracker/${txnID}`
+						)
+					}
+					if (error.response.status === 403) {
+						Router.push(`/request-sent/orderrejected`)
+					}
+				})
+		}
 		this.initInterval()
 		this.fetchCalls()
+		this.setState({ expired: false })
 	}
 
 	restart() {
@@ -140,20 +157,21 @@ class BankTransfer extends Component {
 			order,
 			ctUser,
 			sendCurrency,
-			depositAddress
+			depositAddress,
+			txnID
 		} = this.props
 		if (sendCurrency === 'GBP') {
 			this.props.clearOrder({
-				orderId: order.create.CtTransactionId,
+				orderId: txnID ? txnID : order.create.CtTransactionId,
 				accountId: this.state.sourceAccount.id,
 				ctUser
 			})
 			this.props.onConfirm({
-				txnID: order.create.CtTransactionId
+				txnID: txnID ? txnID : order.create.CtTransactionId
 			})
 		} else {
 			this.props.clearOrder({
-				orderId: order.create.CtTransactionId,
+				orderId: txnID ? txnID : order.create.CtTransactionId,
 				accountId: null,
 				ctUser
 			})
@@ -232,8 +250,8 @@ class BankTransfer extends Component {
 										<span className="account-source">
 											{this.state.sourceAccount
 												? `${this.state.sourceAccount.BankName} (${
-												this.state.sourceAccount.SortCode
-												})`
+														this.state.sourceAccount.SortCode
+												  })`
 												: 'Send From'}
 										</span>
 										{/* <span>Primary account</span> */}
@@ -278,21 +296,20 @@ class BankTransfer extends Component {
 					</form>
 				</div>
 				{!this.state.expired &&
-					(this.props.order.create && this.props.accounts.list) ? (
-						<p className="text-left mt-3">
-							Transaction will expire in{' '}
-							<MinutesFormat
-								seconds={this.state.refreshTime - this.state.timer}
-							/>
-						</p>
-					) : (
-						<p className="text-left" style={{ marginTop: 11 }}>
-							Transaction expired -{' '}
-							<a className="restart-link" onClick={this.restart}>
-								Click to restart
+				((this.props.order.create && this.props.accounts.list) ||
+					this.props.txnID) ? (
+					<p className="text-left mt-3">
+						Transaction will expire in{' '}
+						<MinutesFormat seconds={this.state.secondsLeft} />
+					</p>
+				) : (
+					<p className="text-left" style={{ marginTop: 11 }}>
+						Transaction expired -{' '}
+						<a className="restart-link" onClick={this.restart}>
+							Click to restart
 						</a>
-						</p>
-					)}
+					</p>
+				)}
 			</div>
 		)
 	}
@@ -456,14 +473,17 @@ class BankTransfer extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		const { accounts, order, constants, ctUser, sendCurrency } = props
+		const { accounts, order, constants, ctUser, sendCurrency, txnID } = props
 
 		if (sendCurrency === 'GBP') {
-			if (!order.create || !accounts.list) {
+			if (!txnID && (!order.create || !accounts.list)) {
 				clearInterval(this.state.timerId)
 			} else {
 				if (constants) {
-					const refreshTime = constants.PaymentWindow * 60
+					const refreshTime = !txnID
+						? constants.PaymentWindow * 60
+						: order.pendingStatus.Status.EXPIRES -
+						  Math.round(new Date().getTime() / 1000)
 					if (this.state.refreshTime >= this.state.timer) {
 						this.initInterval()
 						this.setState({ refreshTime, timer: 0 })
