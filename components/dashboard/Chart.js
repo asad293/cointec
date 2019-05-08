@@ -166,7 +166,7 @@ class Chart extends Component {
 
 			let chartData = props.chart.data.ThirtyDay;
 			if (props.chart.intervalValue == "1D") {
-				chartData = props.chart.data.OneDay.slice(7, 34);
+				chartData = props.chart.data.OneDay.slice(1, 26);
 			} else if (props.chart.intervalValue == "7D") {
 				chartData = props.chart.data.SevenDay.slice(18, 188);
 			}
@@ -224,6 +224,9 @@ class Chart extends Component {
 										color: "#B0B9BD"
 									},
 									ticks: {
+										userCallback: function (label, index, labels) {
+											return parseFloat(label.toFixed(2));
+										},
 										maxTicksLimit: 5
 									}
 								}

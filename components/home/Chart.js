@@ -145,11 +145,12 @@ class Chart extends Component {
 
 			let chartData = props.chart.data.ThirtyDay;
 			if (props.chart.intervalValue == "1D") {
-				chartData = props.chart.data.OneDay.slice(7, 34);
+				chartData = props.chart.data.OneDay.slice(1, 26)
 			} else if (props.chart.intervalValue == "7D") {
-				chartData = props.chart.data.SevenDay.slice(18, 188);
+				chartData = props.chart.data.SevenDay;
 			}
 
+			//console.log(chartData)
 			const timestamps = chartData.map(data => data && data.Timestamp);
 			const rates = chartData.map(data => data && data.Rate.toFixed(2));
 			const tooltip = chartData.map(data => {
@@ -182,7 +183,9 @@ class Chart extends Component {
 							xPadding: 12,
 							yPadding: 12,
 							callbacks: {
-								title: ([tooltipItem], data) => tooltip[tooltipItem.index]
+								title: ([tooltipItem], data) => tooltip[tooltipItem.index],
+								label: (tooltipItem, data) =>
+									rates[tooltipItem.index] + ` GBP/${coin.Name}`
 							}
 						},
 						hover: {
@@ -203,6 +206,9 @@ class Chart extends Component {
 										color: "#B0B9BD"
 									},
 									ticks: {
+										userCallback: function (label, index, labels) {
+											return parseFloat(label.toFixed(2));
+										},
 										maxTicksLimit: 5
 									}
 								}

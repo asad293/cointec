@@ -146,10 +146,11 @@ class Calculator extends Component {
 	}
 
 	componentDidMount() {
-		const coinName = this.props.router.query.buy
+		const coinName = this.props.router.asPath
+
 		const [coin] = this.props.assets.list.Receive.filter(
 			asset =>
-				_.kebabCase(asset.FullName) === coinName
+				asset.SeoURL.toLowerCase() === coinName.toLowerCase()
 		)
 
 		this.setState({ active: true })
