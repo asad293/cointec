@@ -87,7 +87,7 @@ class Learn extends Component {
 						<div className="col-sm-12 col-md-6 col-lg-4">
 							<Card
 								title="Glossary of terms"
-                                description="Lookup commonly used terms, fintech acronyms and investment jargon."
+                                description="Lookup common terms, fintech acronyms and investment jargon."
                                 image="/static/images/glossary-of-terms.svg"
 								linkText="Lookup terms"
 								href="/glossary-of-terms"
@@ -108,7 +108,7 @@ class Learn extends Component {
 
 						<div className="col-sm-12 col-md-6 col-lg-4">
 							<Card
-								title="FAQ’s and support"
+								title="FAQs and support"
 								description="Lookup commonly asked questions or contact support."
 								image="/static/images/faqs-support.svg"
 								linkText="Find answers"
