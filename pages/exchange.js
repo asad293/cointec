@@ -222,16 +222,12 @@ class Exchange extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		console.log(props.order)
 		const { pendingStatus } = props.order
-		console.log(pendingStatus)
-		console.log(this.props.auth.ctUser)
 		if (pendingStatus) {
 			const { Order, Status } = pendingStatus
 			const orderStatus = Status ? Object.keys(Status) : []
 
 			if (Status) {
-				console.log(orderStatus)
 				if (orderStatus.includes('CLEARING')) {
 					Router.push(`/transaction-tracker/${Order.TxnId}`)
 				} else if (orderStatus.includes('PAYMENT')) {

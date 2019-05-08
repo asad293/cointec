@@ -39,26 +39,21 @@ class BankTransfer extends Component {
 
 	initInterval() {
 		clearInterval(this.state.timerId)
-		console.log('initInterval')
 		const timerId = setInterval(this.tick, 1000)
-		console.log(timerId, timerId)
 		this.setState({ timerId })
 	}
 
 	tick() {
-		console.log('tick', this.state.timer)
-		if (this.state.timer < this.state.refreshTime) {
-			if (
-				this.props.order.pendingStatus &&
-				this.props.order.pendingStatus.Status
-			) {
-				this.setState({
-					secondsLeft:
-						this.props.order.pendingStatus.Status.EXPIRES -
-						Math.round(new Date().getTime() / 1000)
-				})
-			}
-			this.setState({ timer: this.state.timer + 1 })
+		const { pendingStatus } = this.props.order
+		let secondsLeft = 0
+		const secondsNow = Math.round(new Date().getTime() / 1000)
+		if (pendingStatus && pendingStatus.Status) {
+			secondsLeft = pendingStatus.Status.EXPIRES - secondsNow
+		} else {
+			secondsLeft = this.state.expires - secondsNow
+		}
+		if (secondsLeft > 0) {
+			this.setState({ secondsLeft })
 		} else {
 			clearInterval(this.state.timerId)
 			this.setState({ expired: true })
@@ -81,7 +76,6 @@ class BankTransfer extends Component {
 
 	startPayment() {
 		const createdAt = Math.round(new Date().getTime() / 1000.0)
-		console.log(this.props.txnID)
 		if (!this.props.txnID) {
 			this.props
 				.createOrder({
@@ -95,7 +89,6 @@ class BankTransfer extends Component {
 					createdAt
 				})
 				.then(({ data }) => {
-					console.log(data)
 					if (data) {
 						this.setState({
 							expires: createdAt + data.PaymentWindow * 60
@@ -103,7 +96,6 @@ class BankTransfer extends Component {
 					}
 				})
 				.catch(error => {
-					console.log(error.response)
 					if (error.response.status === 409) {
 						const txnID = error.response.data.Message.split(
 							/[[\]]{1,2}/
@@ -165,20 +157,21 @@ class BankTransfer extends Component {
 			order,
 			ctUser,
 			sendCurrency,
-			depositAddress
+			depositAddress,
+			txnID
 		} = this.props
 		if (sendCurrency === 'GBP') {
 			this.props.clearOrder({
-				orderId: order.create.CtTransactionId,
+				orderId: txnID ? txnID : order.create.CtTransactionId,
 				accountId: this.state.sourceAccount.id,
 				ctUser
 			})
 			this.props.onConfirm({
-				txnID: order.create.CtTransactionId
+				txnID: txnID ? txnID : order.create.CtTransactionId
 			})
 		} else {
 			this.props.clearOrder({
-				orderId: order.create.CtTransactionId,
+				orderId: txnID ? txnID : order.create.CtTransactionId,
 				accountId: null,
 				ctUser
 			})
@@ -307,13 +300,7 @@ class BankTransfer extends Component {
 					this.props.txnID) ? (
 					<p className="text-left mt-3">
 						Transaction will expire in{' '}
-						{this.state.secondsLeft ? (
-							<MinutesFormat seconds={this.state.secondsLeft} />
-						) : (
-							<MinutesFormat
-								seconds={this.state.refreshTime - this.state.timer}
-							/>
-						)}
+						<MinutesFormat seconds={this.state.secondsLeft} />
 					</p>
 				) : (
 					<p className="text-left" style={{ marginTop: 11 }}>
@@ -487,24 +474,16 @@ class BankTransfer extends Component {
 
 	componentWillReceiveProps(props) {
 		const { accounts, order, constants, ctUser, sendCurrency, txnID } = props
-		console.log(order.pendingStatus)
 
 		if (sendCurrency === 'GBP') {
 			if (!txnID && (!order.create || !accounts.list)) {
 				clearInterval(this.state.timerId)
 			} else {
-				console.log('constants', constants)
 				if (constants) {
 					const refreshTime = !txnID
 						? constants.PaymentWindow * 60
 						: order.pendingStatus.Status.EXPIRES -
 						  Math.round(new Date().getTime() / 1000)
-					console.log('refreshTime', refreshTime)
-					// console.log(
-					// 	'expires',
-					// 	order.pendingStatus.Status.EXPIRES -
-					// 		Math.round(new Date().getTime() / 1000)
-					// )
 					if (this.state.refreshTime >= this.state.timer) {
 						this.initInterval()
 						this.setState({ refreshTime, timer: 0 })
