@@ -1945,7 +1945,7 @@ const Receive = [
         Image: '/static/images/coins/TRX.svg',
         Keywords: 'TRX,Tron',
         Primary: '#f7b14b',
-        Type: 'ERC20',
+        Type: 'yes',
         Wallets: 'MEW,Exodus, MetaMask',
         SeoURL: '/buy-Tron',
         Description: 'Tron',
