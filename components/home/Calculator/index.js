@@ -378,7 +378,7 @@ class Calculator extends Component {
 			const nextCoin = coinParam
 				? updatedCoins.find(coin => coin.Name === coinParam)
 				: updatedCoins.find(
-					coin => _.kebabCase(coin.FullName) === Router.router.query.buy
+					coin => coin.SeoURL.toLowerCase() === this.props.router.asPath.toLowerCase()
 				)
 			const coinSelected = nextCoin
 				? nextCoin

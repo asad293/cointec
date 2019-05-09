@@ -172,7 +172,7 @@ class Chart extends Component {
 			}
 
 			const timestamps = chartData.map(data => data && data.Timestamp);
-			const rates = chartData.map(data => data && data.Rate.toFixed(2));
+			const rates = chartData.map(data => data && data.Rate.toFixed(3));
 			const tooltip = chartData.map(data => {
 				const date = String(new Date(data.Timestamp * 1000));
 				return `${date.slice(8, 10)} ${date.slice(4, 7)} ${date.slice(16, 21)}`;
@@ -225,7 +225,11 @@ class Chart extends Component {
 									},
 									ticks: {
 										userCallback: function (label, index, labels) {
-											return parseFloat(label.toFixed(2));
+											if (label < 0.1) {
+												return parseFloat(label.toFixed(3));
+											} else {
+												return parseFloat(label.toFixed(2));
+											}
 										},
 										maxTicksLimit: 5
 									}

@@ -122,9 +122,9 @@ class Chart extends Component {
 
 	componentWillReceiveProps(props) {
 		if (props.router.query && props.router.query.buy) {
-			const coinFullName = props.router.query.buy;
+			const coinFullName = props.router.asPath;
 			const coin = props.assets.list.Receive.find(
-				coin => _.kebabCase(coin.FullName) === coinFullName
+				coin => coin.SeoURL.toLowerCase() === coinFullName.toLowerCase()
 			);
 			if (coin && this.state.coinName !== coin.Name) {
 				this.setState(
@@ -207,7 +207,11 @@ class Chart extends Component {
 									},
 									ticks: {
 										userCallback: function (label, index, labels) {
-											return parseFloat(label.toFixed(2));
+											if (label < 0.1) {
+												return parseFloat(label.toFixed(3));
+											} else {
+												return parseFloat(label.toFixed(2));
+											}
 										},
 										maxTicksLimit: 5
 									}
