@@ -161,14 +161,17 @@ class BankTransfer extends Component {
 			txnID
 		} = this.props
 		if (sendCurrency === 'GBP') {
-			this.props.clearOrder({
-				orderId: txnID ? txnID : order.create.CtTransactionId,
-				accountId: this.state.sourceAccount.id,
-				ctUser
-			})
-			this.props.onConfirm({
-				txnID: txnID ? txnID : order.create.CtTransactionId
-			})
+			this.props
+				.clearOrder({
+					orderId: txnID ? txnID : order.create.CtTransactionId,
+					accountId: this.state.sourceAccount.id,
+					ctUser
+				})
+				.then(() => {
+					this.props.onConfirm({
+						txnID: txnID ? txnID : order.create.CtTransactionId
+					})
+				})
 		} else {
 			this.props.clearOrder({
 				orderId: txnID ? txnID : order.create.CtTransactionId,
