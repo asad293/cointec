@@ -1912,7 +1912,30 @@ const Receive = [
 		ShowGlossary: true,
 		ShowWalletSelector: true,
 		Position: 82
-	},
+    },
+    {
+        Direction: 'RECEIVE',
+        Name: 'DAI',
+        FullName: 'DAI',
+        Symbol: null,
+        Dp: 8,
+        Image: '/static/images/coins/DAI.svg',
+        Keywords: 'DAI,stablecoin',
+        Primary: '#f7b14b',
+        Type: 'ERC20',
+        Wallets: 'MEW,MetaMask,Jaxx',
+        SeoURL: '/buy-DAI',
+        Description: 'DAI',
+        ShowGlobal: true,
+        ShowCalculator: true,
+        ShowCarousel: true,
+        ShowCointecVs: true,
+        ShowCurrencyList: true,
+        ShowCharts: true,
+        ShowGlossary: true,
+        ShowWalletSelector: true,
+        Position: 83
+    },
 ]
 
 module.exports = { Send, Receive }
