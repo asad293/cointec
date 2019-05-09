@@ -152,7 +152,7 @@ class Chart extends Component {
 
 			//console.log(chartData)
 			const timestamps = chartData.map(data => data && data.Timestamp);
-			const rates = chartData.map(data => data && data.Rate.toFixed(2));
+			const rates = chartData.map(data => data && data.Rate.toFixed(3));
 			const tooltip = chartData.map(data => {
 				const date = String(new Date(data.Timestamp * 1000));
 				return `${date.slice(4, 10)} ${date.slice(16, 21)}`;
