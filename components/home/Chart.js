@@ -184,8 +184,14 @@ class Chart extends Component {
 							yPadding: 12,
 							callbacks: {
 								title: ([tooltipItem], data) => tooltip[tooltipItem.index],
-								label: (tooltipItem, data) =>
-									rates[tooltipItem.index] + ` GBP/${coin.Name}`
+								label: function (tooltipItem, data) {
+									let val = parseFloat(rates[tooltipItem.index])
+									if (val > 0.1) {
+										return val.toFixed(2) + ` GBP/${coin.Name}`
+									} else {
+										return val + ` GBP/${coin.Name}`
+									}
+								}
 							}
 						},
 						hover: {
@@ -289,8 +295,14 @@ class Chart extends Component {
 							yPadding: 12,
 							callbacks: {
 								title: ([tooltipItem], data) => tooltip[tooltipItem.index],
-								label: (tooltipItem, data) =>
-									rates[tooltipItem.index] + ` GBP/${coin.Name}`
+								label: function (tooltipItem, data) {
+									let val = parseFloat(rates[tooltipItem.index])
+									if (val > 0.1) {
+										return val.toFixed(2) + ` GBP/${coin.Name}`
+									} else {
+										return val + ` GBP/${coin.Name}`
+									}
+								}
 							}
 						},
 						hover: {
