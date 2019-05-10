@@ -145,7 +145,7 @@ class Chart extends Component {
 
 			let chartData = props.chart.data.ThirtyDay;
 			if (props.chart.intervalValue == "1D") {
-				chartData = props.chart.data.OneDay.slice(1, 26)
+				chartData = props.chart.data.OneDay
 			} else if (props.chart.intervalValue == "7D") {
 				chartData = props.chart.data.SevenDay;
 			}
