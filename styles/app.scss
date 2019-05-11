@@ -639,6 +639,13 @@ header.bg-primary-gradient {
 	}
 }
 
+.no-pt-events {
+	&:before,
+	&:after {
+		pointer-events: none;
+	}
+}
+
 .loading-indicator {
 	// stroke-dashoffset: -40;
 	transform-origin: center;

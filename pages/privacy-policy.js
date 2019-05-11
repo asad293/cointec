@@ -32,23 +32,27 @@ const PrivacyPolicy = () => (
 				<div className="col-12 col-lg-8">
 					<div className="privacy-policy-wrapper">
 						<h5 className="page-heading">Privacy Policy</h5>
-						<h5 className="last-updated">Last updated: 12 Jan 2018</h5>
-						{/* <h5 className="last-updated">Last updated: 13 Aug 2018</h5> */}
+						<h5 className="last-updated">Last updated: 3rd May 2019</h5>
 						<p>
 							By using our website(s) or other services in any capacity you
 							agree to the terms below, outlining the handling of personal
-							information, as well as to our general terms and condition.
+							information, as well as to our general terms and conditions.
 						</p>
 						<p>
 							Cointec Ltd is a registered data controller, registration number
-							ZA304564 with the Information Commissioner’s Office. You can view
-							our registration here.
+							ZA304564 (link this{' '}
+							<a href="https://ico.org.uk/ESDWebPages/Entry/ZA304564">
+								https://ico.org.uk/ESDWebPages/Entry/ZA304564
+							</a>{' '}
+							to the registration number) with the Information Commissioner’s
+							Office. You can view our registration here.
 						</p>
-						<p className="pb-1">
+						<p>
 							Cointec Ltd, hereafter referred to as “we”, “the platform” or
 							simply “Cointec”, is legally required to process your (the data
-							subject’s) personal information in accordance with Data Protection
-							Act 2018 and the European Union’s General Data Protection Act.
+							subject’s) personal information in accordance with the Data
+							Protection Act 2018 and the European Union’s General Data
+							Protection Act.
 						</p>
 						<h6 className="mt-4 mb-2">YOUR DATA</h6>
 						<p className="mb-4">
@@ -61,9 +65,9 @@ const PrivacyPolicy = () => (
 						<h6 className="pt-3">1. INFORMATION COLLECTED AND HOW WE USE IT</h6>
 						<p>
 							Cointec intends to collect the minimum information required to
-							provide our services. As you interact with the platform we may
-							collect personal information from you directly or about you, from
-							third-party sources.
+							provide our services. As you interact with the platform, we may
+							collect personal information from yourself directly or about you,
+							from third-party sources.
 						</p>
 						<h6 className="sub-heading">Client information</h6>
 						<p>
@@ -81,8 +85,8 @@ const PrivacyPolicy = () => (
 							</li>
 						</ul>
 						<p>
-							We collect this information to analyse our user demographic and to
-							monitor suspicious activity.
+							We may collect this information to analyse our user demographic
+							and to monitor suspicious activity.
 						</p>
 
 						<h6 className="sub-heading">Account information</h6>
@@ -95,7 +99,7 @@ const PrivacyPolicy = () => (
 						<p>
 							We will collect your full name, date of birth, residence and
 							address and may collect any information contained in IDs or proof
-							of address provided such as governmental issued verification
+							of address provided such as government-issued verification
 							numbers. We share this information with third-party identity
 							verification services to verify your identity in line with AML
 							legislation and KYC regulation.
@@ -106,8 +110,8 @@ const PrivacyPolicy = () => (
 							these bank details with trade counterparties to fulfil orders and
 							to refund orders. We use your sort-code to identify your banking
 							provider and account type. Our payment service partners may
-							collect debit/credit details on our behalf to process card
-							payments.
+							collect debit/credit details or other payment details on our
+							behalf to process payments.
 						</p>
 						<p>
 							To detect fraud and track platform usage we will collect
@@ -118,11 +122,10 @@ const PrivacyPolicy = () => (
 						<h6 className="sub-heading">Sensitive information</h6>
 						<p className="mb-4">
 							Cointec will never collect information on your ethnic origin,
-							race, political opinions, or religious beliefs. In some
-							circumstances, such as when applying for an increase in your
-							trading limit, we may ask for details and or proof of your
-							employment status or means of income to carry out due diligence on
-							the source of funds used to trade.
+							race, political opinions, or religious beliefs. When applying for
+							an increase in your trading limit, we may ask for details and
+							proof of your employment status or means of income, to carry out
+							due diligence on the source of funds used to trade.
 						</p>
 
 						<h6 className="pt-3">2. STORAGE OF PERSONAL INFORMATION</h6>

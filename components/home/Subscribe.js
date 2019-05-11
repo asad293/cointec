@@ -4,7 +4,7 @@ import Link from 'next/link'
 class Subscribe extends Component {
 	render() {
 		return (
-			<div className="bg-gradient bg-primary-gradient up">
+			<div className="bg-gradient bg-primary-gradient up no-pt-events">
 				<div className="start-buying-wrapper">
 					<div className="container">
 						<div className="row">

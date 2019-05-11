@@ -17,7 +17,7 @@ const Footer = props => (
 						className="footer-logo"
 					/>
 					<div className="col-6 col-lg-12 mt-0 mt-lg-3 pr-0 d-flex flex-row justify-content-start justify-content-sm-end justify-content-lg-start pl-0">
-						<Link href="https://twitter.com/cointec">
+						{/* <Link href="https://twitter.com/cointec">
 							<a>
 								<i className="fab fa-twitter mr-4" />
 							</a>
@@ -31,13 +31,34 @@ const Footer = props => (
 							<a>
 								<i className="fab fa-medium mr-4" />
 							</a>
-						</Link>
+						</Link> */}
 					</div>
 				</div>
 
 				<div className="col-12 col-lg-9 links-wrapper">
 					<div className="row mt-0 mt-lg-2">
-						<div className="col-12 col-sm-3">
+						<div className="col-6 col-sm-3">
+							<h5 className="menu-heading">Social</h5>
+							<Link href="https://twitter.com/cointec">
+								<a>
+									<i className="fab fa-twitter mr-3" />
+									Twitter
+								</a>
+							</Link>
+							<Link href="https://www.instagram.com/cointec">
+								<a>
+									<i className="fab fa-medium mr-3" />
+									Medium
+								</a>
+							</Link>
+							<Link href="https://medium.com/@Cointec">
+								<a className="text-nowrap">
+									<i className="fab fa-instagram mr-3" />
+									Instagram
+								</a>
+							</Link>
+						</div>
+						{/* <div className="col-12 col-sm-3">
 							<h5 className="menu-heading">Information</h5>
 							<Link href="/">
 								<a>Home</a>
@@ -45,22 +66,22 @@ const Footer = props => (
 							<Link href="/learn">
 								<a>Learn</a>
 							</Link>
-						</div>
+						</div> */}
 
-						<div className="col-12 col-sm-3">
-							<h5 className="menu-heading">Learn</h5>
+						<div className="col-6 col-sm-3">
+							<h5 className="menu-heading">Information</h5>
+							<Link href="/">
+								<a>Blog</a>
+							</Link>
 							<Link href="/learn">
-								<a>Basics</a>
+								<a>Learn</a>
 							</Link>
 							<Link href="/wallet-selector">
 								<a>Wallets</a>
 							</Link>
-							<Link href="/">
-								<a>Blockchain</a>
-							</Link>
 						</div>
 
-						<div className="col-12 col-sm-3">
+						<div className="col-6 col-sm-3">
 							<h5 className="menu-heading">Legal</h5>
 							<Link href="/privacy-policy">
 								<a>Privacy Policy</a>
@@ -73,7 +94,7 @@ const Footer = props => (
 							</Link>
 						</div>
 
-						<div className="col-12 col-sm-3">
+						<div className="col-6 col-sm-3">
 							<h5 className="menu-heading">Support</h5>
 							{/* <h5 className="menu-heading">Help</h5> */}
 							<Link href="https://intercom.help/cointec-test">

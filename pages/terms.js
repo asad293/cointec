@@ -21,7 +21,7 @@ class Terms extends Component {
 							<div className="row">
 								<div className="col-md-12">
 									<h1 className="learn-heading dc-basics-heading">
-										Terms and conditions
+										Terms of use
 									</h1>
 								</div>
 							</div>
@@ -34,168 +34,202 @@ class Terms extends Component {
 						<div className="col-12 col-lg-8">
 							<div className="privacy-policy-wrapper">
 								<h5 className="page-heading">Terms and conditions</h5>
-								<h5 className="last-updated">Last updated: 13 Aug 2018</h5>
+								<h5 className="last-updated">Last updated: July 04, 2018</h5>
 								<p>
-									By using our website(s) or other services in any capacity you
-									agree to the terms below, outlining the handling of personal
-									information, as well as to our general terms and condition.
+									The following is a contract between Cointec Ltd, a company
+									incorporated in England & Wales (reg no. 11104052),
+									hereinafter referred to as “we”, “us” or “the platform” and
+									the contractual party, referred to as “you”, “the user” or
+									collectively as “users”.
 								</p>
 								<p>
-									Cointec Ltd is a registered data controller, registration
-									number ZA304564 with the Information Commissioner’s Office.
-									You can view our registration here.
+									Cointec offers a service that allows users in the UK to
+									exchange cryptocurrency.
 								</p>
-								<p className="pb-1">
-									Cointec Ltd, hereafter referred to as “we”, “the platform” or
-									simply “Cointec”, is legally required to process your (the
-									data subject’s) personal information in accordance with Data
-									Protection Act 2018 and the European Union’s General Data
-									Protection Act.
+								<h6 className="pt-3">1. Contract</h6>
+								<p>
+									1. By using this website, registering an account or using any
+									services offered by the platform you agree that you have read,
+									understood, acknowledged and accepted all of the terms within
+									this agreement.
 								</p>
-								<h6 className="mt-4 mb-2">YOUR DATA</h6>
+								<p>
+									2. If you do not agree to the terms of use and, by extension,
+									our privacy policy, you must not use our site or services.
+								</p>
+								<h6 className="sub-heading">2. General</h6>
+								<p>
+									1. Users must comply with the laws and regulations of the
+									country in which they access our services from.
+								</p>
+								<p>
+									2. Users agree to never access our website via public
+									computers or networks including wi-fi or otherwise.
+								</p>
+								<p>
+									3. Users take full responsibility for ensuring any hardware or
+									equipment they use to access our services are free of viruses,
+									keyloggers, malware or other software that could compromise
+									their own security or the platform’s.
+								</p>
+								<p>
+									4. The Cointec logo(s) are registered trademarks and the
+									intellectual property of Cointec Ltd.
+								</p>
+								<p>
+									5. Users will not copy, remove, replicate or download any
+									images, designs, trademarks, logos, data or code hosted on or
+									connected to our platform.
+								</p>
+								<p>
+									6. Users will not misuse our website or the platform by
+									marketing misleadingly, spamming, hacking or attacking.
+								</p>
+								<p>
+									7. Users have the right to use our services in accordance with
+									the terms outlined in this agreement.
+								</p>
+
+								<h6 className="sub-heading">3. Registering an account</h6>
+								<p>
+									1. To be eligible for an account, users must be over the age
+									of 18.
+								</p>
+								<p>
+									2. Details provided by the user for the purposes of
+									registering an account, or otherwise, must be real, up to date
+									and accurate. Accounts created using inaccurate details, false
+									identities or under names of third parties who have not
+									authorized the applicant will immediately be terminated and
+									the details passed on to fraud prevention and other relevant
+									authorities.
+								</p>
+								<p>
+									3. Each user is allowed to create and hold only one account
+									under their name. Discovery of multiple accounts used by the
+									same individual will result in termination of all accounts
+									held.
+								</p>
+								<p>
+									4. We reserve the right to deny opening of accounts and to
+									close accounts at our discretion.
+								</p>
+								<h6 className="sub-heading">4. Payments</h6>
+								<p>
+									1. Payments must only be made from payment accounts held in
+									the user’s name. Users who add or pay from payment accounts
+									not under their registered name are in violation of this user
+									agreement.
+								</p>
+								<p>
+									2. Bank transfers must only be made via Faster Payments using
+									online-banking. Bank transfers initiated by telephone banking,
+									in-branch or in any other way are considered violation of this
+									user agreement.
+								</p>
+								<p>
+									3. Users must only add or make payments from bank accounts
+									that are enabled by Faster Payments. Users must not make
+									payments from banks that obfuscate the sender’s name or banks
+									that delay or batch payments, even if payments are sent via
+									Faster Payments.
+								</p>
+								<p>
+									4. Users must only trade using funds that they solely own.
+									Users may not use overdrafts, loans or any form of credit.
+								</p>
+								<p>
+									5. Bank transfers must be made with the correct reference
+									provided. Transfers made without the correct references will
+									nullify this user agreement and give us the right to cancel
+									orders.
+								</p>
+								<p>
+									6. Users must not mention any terms relating to cryptocurrency
+									as references for bank transfers as this can cause
+									complications with the banks of both counterparties, resulting
+									in failed transfers. Any users found doing so will be banned
+									from the platform and their agreement with the platform will
+									be terminated.
+								</p>
+								<p>
+									7. Any unexpected costs incurred by Cointec for receiving
+									payments via bank transfer will be recovered from the user.
+								</p>
+								<p>
+									8. Any losses incurred by Cointec as a result of bank’s
+									recovering unauthorised funds will be passed on to the user.
+								</p>
+								<h6 className="sub-heading">5. Orders</h6>
+								<p>
+									1. Users ordering on the platform understand the financial
+									risk involved in investing in cryptocurrency. The user accepts
+									that he or she is solely responsible for any financial losses
+									incurred during the completion of orders on our platform or
+									outside.
+								</p>
+								<p>
+									2. Fulfilment of orders is not guaranteed and depends on a
+									number of factors including but not limited to: availability
+									of trade counterparties, availability of cryptocurrency,
+									market conditions and availability of our systems.
+								</p>
+								<p>
+									3. The user accepts that there may be insignificant
+									differences between the amount of cryptocurrency displayed in
+									the confirmation and the final amount received.
+								</p>
+								<p>
+									4. If the user fails to initiate a bank transfer or
+									cryptocurrency deposit in the allotted time period after
+									confirming their order, their order will be cancelled.
+								</p>
+								<p>
+									5. Users accept that they are obliged to pay any orders they
+									confirm. Abandoning orders after confirmation is considered
+									spam and a violation of the user agreement.
+								</p>
+								<p>
+									6. Once the user has made a bank transfer they must notify the
+									platform immediately by clicking ‘I have made payment’. If
+									users are found to delay this communication, we reserve the
+									right to cancel the user’s order.
+								</p>
+								<p>
+									7. Cointec will honour the rate and amount offered for an
+									order if payment is received within the allotted time period.
+									After this time period, we reserve the right to cancel orders
+									and return any funds that arrive late or to withdraw the rate
+									or amount offered and offer an updated rate or amount.
+								</p>
+								<p>
+									8. Cointec will not be responsible for any incorrect wallet
+									addresses provided by users, resulting in misplaced
+									cryptocurrency.
+								</p>
+								<p>
+									9. Orders are considered fulfilled upon the blockchain
+									transaction ID being presented to the user.
+								</p>
+								<p>
+									10. Filled orders are final and cannot be refunded or reversed
+									in any case.
+								</p>
+								<h6 className="sub-heading">6. Variations and termination</h6>
 								<p className="mb-4">
-									User Privacy is of the utmost importance and we aim to be as
-									transparent as possible. This policy sets out what data we
-									collect from and about you, how we use it and what control
-									your have over your data, with regards to viewing, exporting,
-									updating, and erasing it.
-								</p>
-								<h6 className="pt-3">
-									1. INFORMATION COLLECTED AND HOW WE USE IT
-								</h6>
-								<p>
-									Cointec intends to collect the minimum information required to
-									provide our services. As you interact with the platform we may
-									collect personal information from you directly or about you,
-									from third-party sources.
-								</p>
-								<h6 className="sub-heading">Client information</h6>
-								<p>
-									Upon visiting and using the platform we may collect the
-									following information about you automatically:
-								</p>
-								<ul>
-									<li>
-										Log Information, including your browser type, access times,
-										IP address, pages viewed and your geolocation.
-									</li>
-									<li>
-										Device Information, including your device’s hardware model,
-										operating system and version.
-									</li>
-								</ul>
-								<p>
-									We collect this information to analyse our user demographic
-									and to monitor suspicious activity.
-								</p>
-
-								<h6 className="sub-heading">Account information</h6>
-								<p>
-									To provide account services we collect your e-mail address and
-									may use this along with your mobile number to share Cointec
-									marketing material and updates.
-								</p>
-								<h6 className="sub-heading">Identity information</h6>
-								<p>
-									We will collect your full name, date of birth, residence and
-									address and may collect any information contained in IDs or
-									proof of address provided such as governmental issued
-									verification numbers. We share this information with
-									third-party identity verification services to verify your
-									identity in line with AML legislation and KYC regulation.
-								</p>
-								<h6 className="sub-heading">Payment information</h6>
-								<p>
-									We collect your name, account number and sort-code and may
-									share these bank details with trade counterparties to fulfil
-									orders and to refund orders. We use your sort-code to identify
-									your banking provider and account type. Our payment service
-									partners may collect debit/credit details on our behalf to
-									process card payments.
+									1. This agreement is legally binding and will continue until
+									termination.
 								</p>
 								<p>
-									To detect fraud and track platform usage we will collect
-									information about the time, size, price, frequency and type of
-									orders. This data is analysed internally and may also be
-									shared with payment service providers for fraud detection
-									purposes.
-								</p>
-								<h6 className="sub-heading">Sensitive information</h6>
-								<p className="mb-4">
-									Cointec will never collect information on your ethnic origin,
-									race, political opinions, or religious beliefs. In some
-									circumstances, such as when applying for an increase in your
-									trading limit, we may ask for details and or proof of your
-									employment status or means of income to carry out due
-									diligence on the source of funds used to trade.
-								</p>
-
-								<h6 className="pt-3">2. STORAGE OF PERSONAL INFORMATION</h6>
-								<p>
-									Data containing personal information is stored securely on our
-									servers in an encrypted state where necessary. Where
-									appropriate, data will only be decrypted offline.
+									2. This agreement may be terminated at any time by us
+									immediately or by yourself by providing written confirmation
+									to close your account or via the dashbaord. Any outstanding
+									orders will be honoured within the terms of this agreement.
 								</p>
 								<p>
-									In accordance with the legislation presented below we are
-									required to keep a record of your personal information, copies
-									of identity documents and details of transactions for a period
-									of five years from the date of your final transaction or
-									account closure.
-								</p>
-
-								<ul className="mb-4">
-									<li>
-										UK Money Laundering, Terrorist Financing and Transfer of
-										Funds Regulations 2017
-									</li>
-									<li>Money Laundering Regulations 2007 (SI 2007 No. 2157)</li>
-								</ul>
-
-								<h6 className="pt-3">3. CONTROL OVER YOUR DATA</h6>
-								<h6 className="sub-heading">Accessing your data</h6>
-								<p>
-									You may request at any time, via e-mail or our website
-									dashboard to receive an electronic copy of all the personal
-									information held about you.
-								</p>
-
-								<h6 className="sub-heading">Updating your data</h6>
-								<p>
-									You may request at any time, via e-mail or our website
-									dashboard to update the personal information held about you by
-									us.
-								</p>
-
-								<h6 className="sub-heading">Exporting your data</h6>
-								<p>
-									You may request at any time, via e-mail or our website
-									dashboard to receive an electronic copy of all the personal
-									information held about you.
-								</p>
-
-								<h6 className="sub-heading">Restricting access to your data</h6>
-								<p>
-									You may manage, via the website dashboard, what we can use
-									your personal information for, such as opting out of receiving
-									specific correspondence and marketing material.
-								</p>
-
-								<h6 className="sub-heading">Erasing your data</h6>
-								<p className="mb-4">
-									You may withdraw consent to the use of your data by closing
-									your account, via e-mail or our website dashboard. We will
-									erase all personal information held about you (to the extent
-									that we are permitted by law) within 14 days of your request.
-								</p>
-
-								<h6 className="pt-3">4. UPDATES TO OUR PRIVACY POLICY</h6>
-								<p>
-									We may modify this Privacy Policy. The “Last updated”
-									timestamp at the top of this Privacy Policy indicates when
-									this Privacy Policy was last revised. You will be notified by
-									e-mail whenever an updated version of this privacy policy is
-									issued.
+									3. This agreement is subject to changes at any time in which
+									case we will provide a notice and circulate the updated
+									agreement.
 								</p>
 
 								<h6>Contact</h6>
@@ -224,7 +258,7 @@ class Terms extends Component {
 				</section>
 
 				<Footer />
-				
+
 				<style jsx global>{`
 					html body {
 						background-color: #f7f9fa;

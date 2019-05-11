@@ -149,8 +149,7 @@ class Calculator extends Component {
 		const coinName = this.props.router.asPath
 
 		const [coin] = this.props.assets.list.Receive.filter(
-			asset =>
-				asset.SeoURL.toLowerCase() === coinName.toLowerCase()
+			asset => asset.SeoURL.toLowerCase() === coinName.toLowerCase()
 		)
 
 		this.setState({ active: true })
@@ -160,7 +159,7 @@ class Calculator extends Component {
 		this.fetchCalls()
 
 		this.setState({
-			coinSelected: coin,
+			coinSelected: coin
 			// currencySelected: coin
 		})
 
@@ -378,13 +377,15 @@ class Calculator extends Component {
 			const nextCoin = coinParam
 				? updatedCoins.find(coin => coin.Name === coinParam)
 				: updatedCoins.find(
-					coin => coin.SeoURL.toLowerCase() === this.props.router.asPath.toLowerCase()
-				)
+						coin =>
+							coin.SeoURL.toLowerCase() ===
+							this.props.router.asPath.toLowerCase()
+				  )
 			const coinSelected = nextCoin
 				? nextCoin
 				: updatedCoins.length
-					? updatedCoins[0]
-					: false
+				? updatedCoins[0]
+				: false
 
 			this.setState(
 				{
@@ -434,6 +435,10 @@ class Calculator extends Component {
 	filterCoins(coin) {
 		let word = this.state.coinSearch.toLowerCase().trim()
 		if (coin.Name.toLowerCase().startsWith(word)) {
+			return true
+		}
+
+		if (coin.FullName.toLowerCase().startsWith(word)) {
 			return true
 		}
 
@@ -652,8 +657,8 @@ class Calculator extends Component {
 														/>
 													))
 												) : (
-														<div className="px-3">No results</div>
-													)}
+													<div className="px-3">No results</div>
+												)}
 											</div>
 										</div>
 									)}
@@ -665,19 +670,19 @@ class Calculator extends Component {
 							{!this.state.rate || Message
 								? '-/-'
 								: this.state.rate.toFixed(
-									this.state.currencySelected
-										? this.state.currencySelected.Dp
-										: 2
-								) +
-								' ' +
-								(this.state.currencySelected
-									? this.state.currencySelected.Name
-									: 'GBP') +
-								'/' +
-								(this.state.coinSelected
-									? this.state.coinSelected.Name
-									: 'BTC') +
-								' '}
+										this.state.currencySelected
+											? this.state.currencySelected.Dp
+											: 2
+								  ) +
+								  ' ' +
+								  (this.state.currencySelected
+										? this.state.currencySelected.Name
+										: 'GBP') +
+								  '/' +
+								  (this.state.coinSelected
+										? this.state.coinSelected.Name
+										: 'BTC') +
+								  ' '}
 							{/* </b> */}
 						</h6>
 						<div className="am row">

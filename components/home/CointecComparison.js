@@ -43,7 +43,9 @@ class CointecComparison extends Component {
 					<div className="row">
 						<div className="col px-3 px-sm-0">
 							<h4 className="section-title text-left text-sm-center">
-								The easiest way to buy {coin ? coin.FullName : 'digital currency'}
+								The easiest way to buy{' '}
+								{coin ? coin.FullName : 'digital currency'}
+								<img src={coin.Image} className="currency-preview" />
 							</h4>
 						</div>
 					</div>
@@ -56,11 +58,12 @@ class CointecComparison extends Component {
 										Create {AssetPrimaryWallet === 'Exodus' ? 'an' : 'a'}{' '}
 										<a target="_blank" href={walletLinks[AssetPrimaryWallet]}>
 											{AssetPrimaryWallet}
-										</a> wallet
+										</a>{' '}
+										wallet
 									</li>
 								) : (
-										<li>Create an external wallet</li>
-									)}
+									<li>Create an external wallet</li>
+								)}
 								{coin ? (
 									<li>
 										Buy and send{' '}
@@ -69,8 +72,8 @@ class CointecComparison extends Component {
 										your wallet
 									</li>
 								) : (
-										<li>Send up to 30 altcoins to your wallet</li>
-									)}
+									<li>Send up to 30 altcoins to your wallet</li>
+								)}
 							</ul>
 							<a>
 								Get your assets in <b>10 minutes</b>
@@ -86,20 +89,20 @@ class CointecComparison extends Component {
 									<li>
 										Trade Bitcoin for{' '}
 										<span className="d-none d-sm-inline">{coin.FullName}</span>
-										<span className="d-inline d-sm-none">{coin.Name}</span> on the
-										exchange
+										<span className="d-inline d-sm-none">{coin.Name}</span> on
+										the exchange
 									</li>
 								) : (
-										<li>Trade Bitcoin for Polymath on the exchange</li>
-									)}
+									<li>Trade Bitcoin for Polymath on the exchange</li>
+								)}
 								{AssetPrimaryWallet ? (
 									<li>
 										Create {AssetPrimaryWallet === 'Exodus' ? 'an' : 'a'}{' '}
 										{AssetPrimaryWallet} wallet
 									</li>
 								) : (
-										<li>Create an external wallet for the altcoin</li>
-									)}
+									<li>Create an external wallet for the altcoin</li>
+								)}
 								{coin ? (
 									<li>
 										Send{' '}
@@ -108,8 +111,8 @@ class CointecComparison extends Component {
 										your wallet
 									</li>
 								) : (
-										<li>Send altcoins to external wallet</li>
-									)}
+									<li>Send altcoins to external wallet</li>
+								)}
 							</ul>
 							<a>
 								Get your assets in <b>~ 1 hr</b>
@@ -119,9 +122,8 @@ class CointecComparison extends Component {
 				</div>
 			)
 		} else {
-			return null;
+			return null
 		}
-
 	}
 
 	componentWillReceiveProps(props) {

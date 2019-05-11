@@ -13,7 +13,6 @@ import _ from 'lodash'
 import CAValidator from 'cryptocurrency-address-validator'
 import { Send, Receive } from '../../assets'
 
-
 class Calculator extends Component {
 	constructor(props) {
 		super(props)
@@ -302,6 +301,10 @@ class Calculator extends Component {
 			return true
 		}
 
+		if (coin.FullName.toLowerCase().startsWith(word)) {
+			return true
+		}
+
 		if (coin.Keywords.startsWith(word)) {
 			return true
 		}
@@ -379,10 +382,10 @@ class Calculator extends Component {
 			const coinSelected = this.state.coinSelected
 				? updatedCoins.find(coin => coin.Name === this.state.coinSelected.Name)
 				: preSelectedCoin
-					? preSelectedCoin
-					: updatedCoins.length
-						? updatedCoins[0]
-						: false
+				? preSelectedCoin
+				: updatedCoins.length
+				? updatedCoins[0]
+				: false
 
 			this.setState(
 				{
@@ -409,12 +412,12 @@ class Calculator extends Component {
 		this.setState({
 			buttonIsDisabled: props.sendAmount
 				? (props.quote.Limits && props.quote.Limits.Max.SendCurrency) <
-				props.sendAmount ||
-				(props.quote.Limits && props.quote.Limits.Min.SendCurrency) >
-				props.sendAmount ||
-				!props.wallet ||
-				props.asyncValidating ||
-				!props.valid
+						props.sendAmount ||
+				  (props.quote.Limits && props.quote.Limits.Min.SendCurrency) >
+						props.sendAmount ||
+				  !props.wallet ||
+				  props.asyncValidating ||
+				  !props.valid
 				: true
 		})
 	}
@@ -469,8 +472,8 @@ class Calculator extends Component {
 						{asyncValidating ? (
 							<i className="fas fa-spinner-third fa-lg fa-spin mr-3" />
 						) : (
-								''
-							)}
+							''
+						)}
 					</div>
 				</div>
 			</div>
@@ -559,31 +562,31 @@ class Calculator extends Component {
 			onItemSelected,
 			unavailable
 		}) => (
-				<div>
-					{
-						<a
-							className={cn('dropdown-item', unavailable ? 'unavailable' : null)}
-							// onClick={unavailable ? null : () => onItemSelected(exchangeable)}
-							onClick={() => onItemSelected(exchangeable)}>
-							<div className="text-label currency-label">
-								<div className="currency-symbol-wrapper fluid justify-content-between">
-									<div className="col-8 text-left text-truncate currency-fullname p-0">
-										<img
-											className="currency-symbol"
-											src={exchangeable.Image}
-											alt={exchangeable.Name}
-										/>
-										<span>{exchangeable.FullName}</span>
-									</div>
-									<div className="col-4 text-right p-0">
-										<b>{exchangeable.Name}</b>
-									</div>
+			<div>
+				{
+					<a
+						className={cn('dropdown-item', unavailable ? 'unavailable' : null)}
+						// onClick={unavailable ? null : () => onItemSelected(exchangeable)}
+						onClick={() => onItemSelected(exchangeable)}>
+						<div className="text-label currency-label">
+							<div className="currency-symbol-wrapper fluid justify-content-between">
+								<div className="col-8 text-left text-truncate currency-fullname p-0">
+									<img
+										className="currency-symbol"
+										src={exchangeable.Image}
+										alt={exchangeable.Name}
+									/>
+									<span>{exchangeable.FullName}</span>
+								</div>
+								<div className="col-4 text-right p-0">
+									<b>{exchangeable.Name}</b>
 								</div>
 							</div>
-						</a>
-					}
-				</div>
-			)
+						</div>
+					</a>
+				}
+			</div>
+		)
 
 		return (
 			<div className="main-calc-wrapper">
@@ -739,8 +742,8 @@ class Calculator extends Component {
 														/>
 													))
 												) : (
-														<div className="px-3">No results</div>
-													)}
+													<div className="px-3">No results</div>
+												)}
 											</div>
 										</div>
 									)}
@@ -764,17 +767,17 @@ class Calculator extends Component {
 							{!this.state.rate || this.props.quote.Message
 								? '-/-'
 								: (this.state.currencySelected
-									? this.state.currencySelected.Symbol
-									: this.state.currencySymbol) +
-								' ' +
-								(this.state.currencySelected
-									? this.state.rate.toFixed(this.state.currencySelected.Dp)
-									: this.state.rate.toFixed(2)) +
-								'/' +
-								(this.state.coinSelected
-									? this.state.coinSelected.Name
-									: 'BTC') +
-								' '}
+										? this.state.currencySelected.Symbol
+										: this.state.currencySymbol) +
+								  ' ' +
+								  (this.state.currencySelected
+										? this.state.rate.toFixed(this.state.currencySelected.Dp)
+										: this.state.rate.toFixed(2)) +
+								  '/' +
+								  (this.state.coinSelected
+										? this.state.coinSelected.Name
+										: 'BTC') +
+								  ' '}
 						</b>
 					</h6>
 					<div className="row">
@@ -830,14 +833,67 @@ const debouceReceive = _.debounce(
 const asyncValidate = ({ wallet, receiveCurrency }) => {
 	const error = { wallet: 'Invalid wallet address' }
 
-	let receiveCurrencyArray = ["AUR", "BVC", "BIO", "BTC", "BCH", "BTG", "BTCP", "BTCZ", "CLO", "ADA", "DASH", "DCR", "DGB", "DOGE", "EOS", "ETH", "ETC", "ETZ", "FRC", "GRLC", "HUSH", "KMD", "IOTA", "ICON", "LTC", "MEC", "XMR", "NMC", "NANO", "NEO", "GAS", "NEM", "PPC", "XPM", "PTS", "QASH", "QTUM", "XRB", "REN", "XRP", "SNG", "XLM", "TRX", "VTC", "VeChain", "VOT", "ZEC", "ZCL", "ZEN"]
+	let receiveCurrencyArray = [
+		'AUR',
+		'BVC',
+		'BIO',
+		'BTC',
+		'BCH',
+		'BTG',
+		'BTCP',
+		'BTCZ',
+		'CLO',
+		'ADA',
+		'DASH',
+		'DCR',
+		'DGB',
+		'DOGE',
+		'EOS',
+		'ETH',
+		'ETC',
+		'ETZ',
+		'FRC',
+		'GRLC',
+		'HUSH',
+		'KMD',
+		'IOTA',
+		'ICON',
+		'LTC',
+		'MEC',
+		'XMR',
+		'NMC',
+		'NANO',
+		'NEO',
+		'GAS',
+		'NEM',
+		'PPC',
+		'XPM',
+		'PTS',
+		'QASH',
+		'QTUM',
+		'XRB',
+		'REN',
+		'XRP',
+		'SNG',
+		'XLM',
+		'TRX',
+		'VTC',
+		'VeChain',
+		'VOT',
+		'ZEC',
+		'ZCL',
+		'ZEN'
+	]
 
-	let matches = Receive.filter(v => v.Name.includes(receiveCurrency));
-	if (receiveCurrencyArray.indexOf(receiveCurrency) > -1 || matches[0].Type == "ERC20") {
-		if (matches[0].Type == "ERC20") {
-			var valid = CAValidator.validate(wallet, "ETH");
+	let matches = Receive.filter(v => v.Name.includes(receiveCurrency))
+	if (
+		receiveCurrencyArray.indexOf(receiveCurrency) > -1 ||
+		matches[0].Type == 'ERC20'
+	) {
+		if (matches[0].Type == 'ERC20') {
+			var valid = CAValidator.validate(wallet, 'ETH')
 		} else {
-			var valid = CAValidator.validate(wallet, receiveCurrency);
+			var valid = CAValidator.validate(wallet, receiveCurrency)
 		}
 
 		if (valid) {
@@ -849,10 +905,10 @@ const asyncValidate = ({ wallet, receiveCurrency }) => {
 		const validateUrl = '/api/validate-address'
 		return wallet
 			? fetch(`${validateUrl}/${wallet}/${receiveCurrency}`)
-				.then(res => res.json())
-				.then(res => {
-					if (!res.isvalid) throw error
-				})
+					.then(res => res.json())
+					.then(res => {
+						if (!res.isvalid) throw error
+					})
 			: Promise.reject(error)
 	}
 }
