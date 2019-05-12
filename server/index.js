@@ -21,7 +21,7 @@ app
 	.then(() => {
 		const server = express()
 
-		server.use(httpsRedirect)
+		// server.use(httpsRedirect)
 
 		server.use('/api', api)
 
