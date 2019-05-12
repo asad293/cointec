@@ -8,10 +8,11 @@ const port = process.env.PORT || 3000
 const secure = dev === true // set 'true' in development mode for ssl
 const app = next({ dev })
 const handle = app.getRequestHandler()
-const httpsRedirect = (req, res) => {
+const httpsRedirect = (req, res, next) => {
 	if (!req.secure) {
-		res.redirect('https://' + req.headers.host + req.url)
+		return res.redirect('https://' + req.headers.host + req.url)
 	}
+	next()
 }
 
 const Receive = require('../assets').Receive
@@ -21,7 +22,7 @@ app
 	.then(() => {
 		const server = express()
 
-		// server.use(httpsRedirect)
+		server.use(httpsRedirect)
 
 		server.use('/api', api)
 
