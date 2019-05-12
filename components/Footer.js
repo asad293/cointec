@@ -116,8 +116,10 @@ const Footer = props => (
 				</div>
 				<div className="col-12 col-lg-8">
 					<p className="reg-info">
-						Cointec Ltd is a company registered in England and Wales (No.
-						08804411)
+						<span className="text-nowrap">
+							Cointec Ltd is a company registered in England and
+						</span>{' '}
+						<span className="text-nowrap">Wales (No. 08804411)</span>
 					</p>
 				</div>
 			</div>

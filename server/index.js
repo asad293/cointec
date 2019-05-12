@@ -9,7 +9,7 @@ const secure = dev === true // set 'true' in development mode for ssl
 const app = next({ dev })
 const handle = app.getRequestHandler()
 const httpsRedirect = (req, res, next) => {
-	if (!req.secure) {
+	if (!req.secure && req.get('x-forwarded-proto') !== 'https') {
 		return res.redirect('https://' + req.headers.host + req.url)
 	}
 	next()
