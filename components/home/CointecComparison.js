@@ -42,7 +42,7 @@ class CointecComparison extends Component {
 				<div className="home-section comparison-section container">
 					<div className="row">
 						<div className="col px-3 px-sm-0">
-							<h4 className="section-title text-left text-sm-center">
+							<h4 className="section-title text-center">
 								The easiest way to buy{' '}
 								{coin ? coin.FullName : 'digital currency'}
 								<img src={coin.Image} className="currency-preview" />

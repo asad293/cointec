@@ -39,13 +39,14 @@ const PrivacyPolicy = () => (
 							information, as well as to our general terms and conditions.
 						</p>
 						<p>
-							Cointec Ltd is a registered data controller, registration number
-							ZA304564 (link this{' '}
-							<a href="https://ico.org.uk/ESDWebPages/Entry/ZA304564">
-								https://ico.org.uk/ESDWebPages/Entry/ZA304564
+							Cointec Ltd is a registered data controller, registration number{' '}
+							<a
+								href="https://ico.org.uk/ESDWebPages/Entry/ZA304564"
+								target="_blank">
+								ZA304564
 							</a>{' '}
-							to the registration number) with the Information Commissioner’s
-							Office. You can view our registration here.
+							with the Information Commissioner’s Office. You can view our
+							registration here.
 						</p>
 						<p>
 							Cointec Ltd, hereafter referred to as “we”, “the platform” or

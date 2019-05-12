@@ -70,7 +70,7 @@ const Footer = props => (
 
 						<div className="col-6 col-sm-3">
 							<h5 className="menu-heading">Information</h5>
-							<Link href="/">
+							<Link href="/blog">
 								<a>Blog</a>
 							</Link>
 							<Link href="/learn">
