@@ -122,7 +122,7 @@ const Footer = props => (
 						<span className="text-nowrap">
 							Wales (No. <a style={{ display: 'inline-block' }}>08804411</a>)
 						</span>
-						<div className="d-block d-sm-none " style={{ height: 91 }} />
+						<div className="d-block d-sm-none " style={{ height: 60 }} />
 					</p>
 				</div>
 			</div>
