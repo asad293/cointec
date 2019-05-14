@@ -119,7 +119,7 @@ const Footer = props => (
 						<span className="text-nowrap">
 							Cointec Ltd is a company registered in England and
 						</span>{' '}
-						<span className="text-nowrap">{'Wales (No. 08804411)'}</span>
+						<span className="text-nowrap">Wales (No. <span>08804411</span>)</span>
 						<div className="d-block d-sm-none " style={{ height: 91 }} />
 					</p>
 				</div>
