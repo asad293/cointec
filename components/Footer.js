@@ -117,12 +117,11 @@ const Footer = props => (
 				<div className="col-12 col-lg-8">
 					<p className="reg-info">
 						<span className="text-nowrap">
-							Cointec Ltd is a company registered in England and
+							Cointec Ltd is a company registered in England
 						</span>{' '}
 						<span className="text-nowrap d-block">
-							Wales (No. <a style={{ display: 'inline-block' }}>08804411</a>)
+							and Wales (No. <a className="d-inline-block">08804411</a>)
 						</span>
-						<span className="d-block d-sm-none " style={{ height: 60 }} />
 					</p>
 				</div>
 			</div>
