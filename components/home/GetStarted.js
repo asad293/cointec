@@ -23,7 +23,13 @@ const GetStarted = () => (
 				<div className="col-md-12 col-lg-4 mt-3 mt-sm-4 mt-lg-3">
 					<Card
 						title="2. Setup your wallet"
-						description="Take full control of your assets. Find wallets for desktop or mobile."
+						description={
+							<>
+								Take full control of your assets.{' '}
+								<br className="d-none d-xl-inline" />
+								Find wallets for desktop or mobile.
+							</>
+						}
 						image="/static/images/setup-wallet.svg"
 						link={{ href: '/wallet-selector', text: 'Wallet selector' }}
 					/>

@@ -45,7 +45,12 @@ class CointecComparison extends Component {
 							<h4 className="section-title text-center">
 								The easiest way to buy{' '}
 								{coin ? (
-									<strong className="d-block d-sm-inline">{coin.Name}</strong>
+									<>
+										<strong className="d-block d-sm-none">{coin.Name}</strong>
+										<strong className="d-none d-sm-inline">
+											{coin.FullName}
+										</strong>
+									</>
 								) : (
 									'digital currency'
 								)}

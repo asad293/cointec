@@ -65,14 +65,16 @@ class Home extends Component {
 											Invest in 50+ Crypto Assets with UK bank transfer.
 										</span>
 										<span className="d-inline d-sm-none">
-											Invest in 50+ Crypto Assets.
+											Invest in 50+ Crypto Assets. Simple. Secure.
 										</span>{' '}
 										{/* Buy 20 digital currencies using Bank Transfer or Bitcoin. */}
 										<br className="d-none d-md-inline" />
-										Simple. Secure. Create an account today to get started.
+										<span className="d-none d-sm-inline">
+											Simple. Secure. Create an account today to get started.
+										</span>
 										{/* Create an account and get started in minutes. */}
 									</h2>
-									<div className="my-3 my-md-0">
+									<div className="hero-link my-md-0">
 										<Link href="/learn">
 											<a>New to Crypto Assets? Learn more</a>
 										</Link>
