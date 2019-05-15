@@ -108,7 +108,7 @@ const Footer = props => (
 				</div>
 			</div>
 		</div>
-		<hr className="d-none d-lg-block" />
+		<hr className="d-block d-sm-none d-lg-block" />
 		<div className="container footer-bottom">
 			<div className="row">
 				<div className="col-12 col-lg-4">

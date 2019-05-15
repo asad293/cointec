@@ -46,10 +46,7 @@ class CointecComparison extends Component {
 								The easiest way to buy{' '}
 								{coin ? (
 									<>
-										<strong className="d-block d-sm-none">{coin.Name}</strong>
-										<strong className="d-none d-sm-inline">
-											{coin.FullName}
-										</strong>
+										<strong className="d-block d-sm-inline">{coin.Name}</strong>
 									</>
 								) : (
 									'digital currency'
@@ -76,9 +73,11 @@ class CointecComparison extends Component {
 								{coin ? (
 									<li>
 										Buy and send{' '}
-										<span className="d-none d-sm-inline">{coin.FullName}</span>
-										<span className="d-inline d-sm-none">{coin.Name}</span> to
-										your wallet
+										<strong className="d-none d-sm-inline">
+											{coin.FullName}
+										</strong>
+										<strong className="d-inline d-sm-none">{coin.Name}</strong>{' '}
+										to your wallet
 									</li>
 								) : (
 									<li>Send up to 30 altcoins to your wallet</li>
@@ -97,9 +96,11 @@ class CointecComparison extends Component {
 								{coin ? (
 									<li>
 										Trade Bitcoin for{' '}
-										<span className="d-none d-sm-inline">{coin.FullName}</span>
-										<span className="d-inline d-sm-none">{coin.Name}</span> on
-										the exchange
+										<strong className="d-none d-sm-inline">
+											{coin.FullName}
+										</strong>
+										<strong className="d-inline d-sm-none">{coin.Name}</strong>{' '}
+										on the exchange
 									</li>
 								) : (
 									<li>Trade Bitcoin for Polymath on the exchange</li>
@@ -115,9 +116,11 @@ class CointecComparison extends Component {
 								{coin ? (
 									<li>
 										Send{' '}
-										<span className="d-none d-sm-inline">{coin.FullName}</span>
-										<span className="d-inline d-sm-none">{coin.Name}</span> to
-										your wallet
+										<strong className="d-none d-sm-inline">
+											{coin.FullName}
+										</strong>
+										<strong className="d-inline d-sm-none">{coin.Name}</strong>{' '}
+										to your wallet
 									</li>
 								) : (
 									<li>Send altcoins to external wallet</li>
