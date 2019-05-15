@@ -143,11 +143,11 @@ class Chart extends Component {
 				coin => coin.Name === this.state.coinName
 			);
 
-			let chartData = props.chart.data.ThirtyDay;
+			let chartData = props.chart.data.ThirtyDay.slice(-725);
 			if (props.chart.intervalValue == "1D") {
-				chartData = props.chart.data.OneDay
+				chartData = props.chart.data.OneDay.slice(-25)
 			} else if (props.chart.intervalValue == "7D") {
-				chartData = props.chart.data.SevenDay;
+				chartData = props.chart.data.SevenDay.slice(-169)
 			}
 
 			//console.log(chartData)
