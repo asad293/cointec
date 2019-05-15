@@ -32,6 +32,9 @@
 			left: 0;
 			right: 0;
 			margin: auto;
+			top: 110px;
+		}
+		@include media-breakpoint-down(xs) {
 			top: 130px;
 		}
 	}

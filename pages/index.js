@@ -60,14 +60,19 @@ class Home extends Component {
 										<br />
 										kind of asset.
 									</h1>
-									<h2 className="hero-intro d-none d-sm-block">
-										Invest in 50+ Crypto Assets with UK bank transfer.{' '}
+									<h2 className="hero-intro d-block">
+										<span className="d-none d-sm-inline">
+											Invest in 50+ Crypto Assets with UK bank transfer.
+										</span>
+										<span className="d-inline d-sm-none">
+											Invest in 50+ Crypto Assets.
+										</span>{' '}
 										{/* Buy 20 digital currencies using Bank Transfer or Bitcoin. */}
 										<br className="d-none d-md-inline" />
 										Simple. Secure. Create an account today to get started.
 										{/* Create an account and get started in minutes. */}
 									</h2>
-									<div className="my-3 my-md-0 d-none d-sm-block">
+									<div className="my-3 my-md-0">
 										<Link href="/learn">
 											<a>New to Crypto Assets? Learn more</a>
 										</Link>
