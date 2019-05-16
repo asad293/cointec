@@ -26,7 +26,7 @@ const GetStarted = () => (
 						description={
 							<>
 								Take full control of your assets.{' '}
-								<br className="d-none d-xl-inline" />
+								<br className="d-inline d-sm-none d-xl-inline" />
 								Find wallets for desktop or mobile.
 							</>
 						}
