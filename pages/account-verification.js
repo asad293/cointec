@@ -330,13 +330,16 @@ class AccountVerification extends Component {
 					<h4 className="form-title">Documents submitted</h4>
 				</div>
 				<p className="confirmation-message">
-					Great! We have received all your documents will review them within 2
-					business days. Don’t forget that you can still buy up to 30 digital
-					currencies with BTC without verification. 😊
+					We will review your documents and activate your account as soon as
+					possible. In the meantime, head over to our{' '}
+					<Link href="/">
+						<a
+							className="confirmation-link d-block"
+							style={{ lineHeight: 'normal' }}>
+							learning portal.
+						</a>
+					</Link>
 				</p>
-				<Link href="/">
-					<a className="confirmation-link">Buy with BTC</a>
-				</Link>
 			</div>
 		)
 	}
