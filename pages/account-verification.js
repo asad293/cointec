@@ -335,7 +335,7 @@ class AccountVerification extends Component {
 					<Link href="/learn">
 						<a
 							className="confirmation-link d-block"
-							style={{ lineHeight: 'normal' }}>
+							style={{ lineHeight: 'normal', paddingTop: 2 }}>
 							learning portal.
 						</a>
 					</Link>

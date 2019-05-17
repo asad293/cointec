@@ -30,8 +30,9 @@ class ProofOfAddress extends Component {
 	}
 
 	componentWillMount() {
-		this.props.getRehiveId({ ctUser: this.props.ctUser })
-		this.props.getRehiveToken({ ctUser: this.props.ctUser })
+		this.props.getRehiveId({ ctUser: this.props.ctUser }).then(() => {
+			this.props.getRehiveToken({ ctUser: this.props.ctUser })
+		})
 	}
 
 	handleChange(event) {
