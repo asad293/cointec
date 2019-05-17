@@ -93,14 +93,14 @@ class Transactions extends Component {
 						<h2 className="dashboard-heading">Transaction history</h2>
 					</div>
 				</header>
-				{this.props.globals.verificationAlert && (
+				{/* {this.props.globals.verificationAlert && (
 					<AlertMessage
 						onHide={() => {
 							this.props.toggleVerificationAlert(false)
 							this.onResize()
 						}}
 					/>
-				)}
+				)} */}
 				<div className="container dashboard-container mb-md-5">
 					<div className="row">
 						<div className="col">

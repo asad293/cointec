@@ -44,6 +44,7 @@ class AccountVerification extends Component {
 		}
 
 		this.next = this.next.bind(this)
+		this.fetchCalls = this.fetchCalls.bind(this)
 		this.complete = this.complete.bind(this)
 		this.onConfirm = this.onConfirm.bind(this)
 		this.onRestart = this.onRestart.bind(this)
@@ -62,6 +63,8 @@ class AccountVerification extends Component {
 			this.props.fetchVerificationStatus({ ctUser })
 			this.props.fetchVerificationOverview({ ctUser })
 			this.props.fetchUserDetails(ctUser)
+			this.setState({ ctUser })
+			this.initInterval()
 		} else {
 			Router.push(`/login?redirectPath=${this.props.router.pathname}`)
 		}
@@ -71,6 +74,7 @@ class AccountVerification extends Component {
 	}
 
 	componentWillUnmount() {
+		if (this.state.intervalId) clearTimeout(this.state.intervalId)
 		removeEventListener('resize', this.onResize)
 	}
 
@@ -85,6 +89,19 @@ class AccountVerification extends Component {
 					: false,
 			docWidth: documentElement.clientWidth
 		})
+	}
+
+	initInterval() {
+		clearTimeout(this.state.intervalId)
+		let intervalId = setTimeout(this.fetchCalls, 5000)
+		this.setState({ intervalId })
+	}
+
+	fetchCalls() {
+		const { ctUser } = this.state
+		this.props.fetchVerificationStatus({ ctUser })
+		this.props.fetchVerificationOverview({ ctUser })
+		this.props.fetchUserDetails(ctUser)
 	}
 
 	next(state) {
@@ -233,19 +250,28 @@ class AccountVerification extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		const { overview, VerificationComplete } = props.verification
+		const { overview, status } = props.verification
 
-		if (VerificationComplete) {
+		if (status.VerificationComplete) {
 			Router.push('/dashboard')
 		}
 
 		if (overview) {
-			const { FrontendProgress, IdItems } = overview
+			const { FrontendProgress } = overview
 			if (FrontendProgress === 'COMPLETED') {
 				this.complete()
 			}
-			// console.log(overview)
-			// console.log(IdItems[ProgressStatus[FrontendProgress] - 1])
+			const recheckStatus = [
+				'UPLOADIDENTITY',
+				'ATTENTIONIDENTITY',
+				'UPLOADADDRESS',
+				'ATTENTIONADDRESS',
+				'COMPLETED'
+			]
+			if (recheckStatus.includes(FrontendProgress)) {
+				this.initInterval()
+			}
+
 			const step = ProgressStatus[FrontendProgress] || 0
 			this.setState({ step }, () => this.onResize())
 		}
@@ -365,34 +391,6 @@ const Nav = props => (
 					props.step <= 4 ? `step-${props.step}` : ''
 				)}>
 				<ul>
-					{/* <li
-						className={cn(
-							props.completed
-								? 'passed'
-								: props.step === 1
-								? 'active'
-								: props.step > 1
-								? 'passed'
-								: ''
-						)}
-						style={{ marginRight: 22 }}
-						onClick={props.step >= 2 ? () => props.setStep(1) : null}>
-						Email
-					</li> */}
-					{/* <li
-						className={cn(
-							props.completed
-								? 'passed'
-								: props.step === 2
-								? 'active'
-								: props.step > 2
-								? 'passed'
-								: ''
-						)}
-						style={{ marginRight: 8 }}
-						onClick={props.step >= 3 ? () => props.setStep(2) : null}>
-						Basic details
-					</li> */}
 					<NavButton
 						FrontendProgress={props.FrontendProgress}
 						ProgressItem={props.IdItems && props.IdItems[0]}
@@ -417,29 +415,6 @@ const Nav = props => (
 						step={4}>
 						Proof of address
 					</NavButton>
-					{/* <li
-						className={cn(
-							props.ProgressItem &&
-								props.ProgressItem.Type === 'DOCIDENTITY' &&
-								props.ProgressItem.Status === 'Declined'
-								? 'declined'
-								: props.completed
-								? 'passed'
-								: props.step === 3
-								? 'active'
-								: props.step > 3
-								? 'passed'
-								: ''
-						)}
-						onClick={props.step === 4 ? () => props.setStep(3) : null}>
-						Proof of ID
-					</li> */}
-					{/* <li
-						className={cn(
-							props.completed ? 'passed' : props.step === 4 ? 'active' : ''
-						)}>
-						Proof of address
-					</li> */}
 				</ul>
 			</div>
 

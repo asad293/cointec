@@ -98,7 +98,7 @@ class BankAccounts extends Component {
 						<h2 className="dashboard-heading">Account settings</h2>
 					</div>
 				</header>
-				{this.props.verification.status &&
+				{/* {this.props.verification.status &&
 					!this.props.verification.status.VerificationComplete && (
 						<AlertMessage
 							onHide={() => {
@@ -106,7 +106,7 @@ class BankAccounts extends Component {
 								this.onResize()
 							}}
 						/>
-					)}
+					)} */}
 				<div
 					className="container dashboard-container"
 					style={{

@@ -92,14 +92,14 @@ class Dashboard extends Component {
 						<h2 className="dashboard-heading">Dashboard</h2>
 					</div>
 				</header>
-				{this.state.verificationAlert && (
+				{/* {this.state.verificationAlert && (
 					<AlertMessage
 						onHide={() => {
 							this.props.toggleVerificationAlert(false)
 							this.onResize()
 						}}
 					/>
-				)}
+				)} */}
 				<div className="container dashboard-container">
 					<div className="row flex-column-reverse flex-lg-row">
 						<div className="col-12 col-lg-chart mt-4 mt-lg-0">

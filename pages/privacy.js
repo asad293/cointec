@@ -160,7 +160,7 @@ class Privacy extends Component {
 						<h2 className="dashboard-heading">Account settings</h2>
 					</div>
 				</header>
-				{this.props.globals.verificationAlert &&
+				{/* {this.props.globals.verificationAlert &&
 					!this.state.notificationAlert &&
 					this.props.verification.status &&
 					!this.props.verification.status.VerificationComplete && (
@@ -170,7 +170,7 @@ class Privacy extends Component {
 								this.onResize()
 							}}
 						/>
-					)}
+					)} */}
 
 				<NotificationAlert
 					type="success"

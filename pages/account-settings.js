@@ -151,14 +151,14 @@ class AccountSettings extends Component {
 						<h2 className="dashboard-heading">Account settings</h2>
 					</div>
 				</header>
-				{this.state.verificationAlert && (
+				{/* {this.state.verificationAlert && (
 					<AlertMessage
 						onHide={() => {
 							this.props.toggleVerificationAlert(false)
 							this.onResize()
 						}}
 					/>
-				)}
+				)} */}
 
 				<NotificationAlert
 					type={this.props.globals.notificationType}
