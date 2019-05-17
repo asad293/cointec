@@ -94,7 +94,7 @@ class TransactionLimits extends Component {
 								<div className="transaction-limits">
 									<div style={{ marginBottom: 24 }}>
 										<h6 className="heading">Bank Transfer Limits</h6>
-										{currentTier && currentTier.Id === 1 && (
+										{currentTier && (
 											<p className="verification-status" style={{ margin: 0 }}>
 												<span className="beta-user">
 													{currentTier.TierName}
