@@ -332,7 +332,7 @@ class AccountVerification extends Component {
 				<p className="confirmation-message">
 					We will review your documents and activate your account as soon as
 					possible. In the meantime, head over to our{' '}
-					<Link href="/">
+					<Link href="/learn">
 						<a
 							className="confirmation-link d-block"
 							style={{ lineHeight: 'normal' }}>
