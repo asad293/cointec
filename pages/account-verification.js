@@ -99,9 +99,12 @@ class AccountVerification extends Component {
 
 	fetchCalls() {
 		const { ctUser } = this.state
-		this.props.fetchVerificationStatus({ ctUser })
-		this.props.fetchVerificationOverview({ ctUser })
-		this.props.fetchUserDetails(ctUser)
+
+		if (ctUser) {
+			this.props.fetchVerificationStatus({ ctUser })
+			this.props.fetchVerificationOverview({ ctUser })
+			this.props.fetchUserDetails(ctUser)
+		}
 	}
 
 	next(state) {
