@@ -255,7 +255,7 @@ class AccountVerification extends Component {
 	componentWillReceiveProps(props) {
 		const { overview, status } = props.verification
 
-		if (status.VerificationComplete) {
+		if (status && status.VerificationComplete) {
 			Router.push('/dashboard')
 		}
 
