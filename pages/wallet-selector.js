@@ -12,9 +12,9 @@ import Footer from '../components/Footer'
 
 const walletLogo = {
 	MEW: '/static/images/my-ether-wallet.png',
-	MetaMask: '/static/images/meta-mask.svg',
+	MetaMask: '/static/images/meta-mask-wallet.svg',
 	Exodus: '/static/images/exodus-wallet.svg',
-	Jaxx: '/static/images/jaxx.png'
+	Jaxx: '/static/images/jaxx-wallet.png'
 }
 
 const walletLinks = {
