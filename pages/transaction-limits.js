@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
 import {
@@ -99,7 +100,7 @@ class TransactionLimits extends Component {
 												<span className="beta-user">
 													{currentTier.TierName}
 												</span>{' '}
-												| <a className="link-setting">upgrade</a>
+												| <Link href="/account-verification"><a className="link-setting">upgrade</a></Link>
 											</p>
 										)}
 									</div>
