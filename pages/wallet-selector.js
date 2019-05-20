@@ -146,7 +146,7 @@ class WalletSelector extends Component {
 									<div className="search-bar">
 										<input
 											type="text"
-											placeholder="Type in a cryptoasset to search for compatible wallets"
+											placeholder="Type in a asset to find compatible wallets"
 											value={this.state.searchWallet}
 											onChange={this.handleInput}
 										/>
