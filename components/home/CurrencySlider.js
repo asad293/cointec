@@ -75,10 +75,7 @@ class CurrencySlider extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		// console.log(props.assets.list.Receive)
-		// console.log(props.tickers)
 		if (props.tickers && !this.state.sliderActive) {
-			console.log(this.state.sliderActive)
 			this.setState(
 				{
 					sliderActive: true

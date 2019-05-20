@@ -42,7 +42,10 @@ router.get(
 	'/validate-address/:wallet/:receiveCurrency',
 	(request, response) => {
 		const wallet = request.params.wallet
-		const receiveCurrency = request.params.receiveCurrency !== 'PAY' ? request.params.receiveCurrency : 'ETH'
+		const receiveCurrency =
+			request.params.receiveCurrency !== 'PAY'
+				? request.params.receiveCurrency
+				: 'ETH'
 		axios
 			.get(`https://shapeshift.io/validateAddress/${wallet}/${receiveCurrency}`)
 			.then(res => {
@@ -74,7 +77,7 @@ router.get('/lookup/:postcode', (request, response) => {
 		})
 		.catch(error => {
 			response.status(error.response.status).send({
-				...error.response
+				...error.response.data
 			})
 		})
 })
