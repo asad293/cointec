@@ -12,7 +12,7 @@ import Footer from '../components/Footer'
 
 const walletLogo = {
 	MEW: '/static/images/my-ether-wallet.png',
-	MetaMask: '/static/images/meta-mask-wallet.svg',
+	MetaMask: '/static/images/meta-mask-wallet.png',
 	Exodus: '/static/images/exodus-wallet.svg',
 	Jaxx: '/static/images/jaxx-wallet.png'
 }
@@ -141,7 +141,7 @@ class WalletSelector extends Component {
 										Choosing a wallet
 									</h1>
 									<h6 className="page-sub-heading d-none d-sm-block">
-										None of our recommended wallets take control of user's private keys.
+										None of our recommended wallets take control of your private keys.
 									</h6>
 									<div className="search-bar">
 										<input
