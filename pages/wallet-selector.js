@@ -13,12 +13,12 @@ import Footer from '../components/Footer'
 const walletLogo = {
 	MEW: '/static/images/my-ether-wallet.png',
 	MetaMask: '/static/images/meta-mask.svg',
-	Exodus: '/static/images/exodus.png',
+	Exodus: '/static/images/exodus-wallet.svg',
 	Jaxx: '/static/images/jaxx.png'
 }
 
 const walletLinks = {
-	MEW: 'https://www.myetherwallet.com/getting-started',
+    MEW: 'https://www.myetherwallet.com/create-wallet',
 	MetaMask: 'https://metamask.io/',
 	Exodus: 'https://www.exodus.io/download/',
 	Jaxx: 'https://jaxx.io/downloads.html'
@@ -124,7 +124,7 @@ class WalletSelector extends Component {
 		return (
 			<div className="wallet-selector-page">
 				<Head>
-					<title>Cryptocurrency wallet selector | Cointec</title>
+					<title>Wallet Selector | Cointec</title>
 				</Head>
 
 				<Header background="gradient" style={{ overflow: 'initial' }}>
@@ -135,18 +135,18 @@ class WalletSelector extends Component {
 							<div className="row">
 								<div className="col-md-12">
 									<h1 className="page-heading d-md-block d-none">
-										Cryptocurrency wallet selector
+										Cryptoassets wallet selector
 									</h1>
 									<h1 className="page-heading d-block	d-md-none">
 										Choosing a wallet
 									</h1>
 									<h6 className="page-sub-heading d-none d-sm-block">
-										Let us help you choose a suitable wallet
+										None of our recommended wallets take control of user's private keys.
 									</h6>
 									<div className="search-bar">
 										<input
 											type="text"
-											placeholder="Search digital currency"
+											placeholder="Type in a cryptoasset to search for compatible wallets"
 											value={this.state.searchWallet}
 											onChange={this.handleInput}
 										/>
