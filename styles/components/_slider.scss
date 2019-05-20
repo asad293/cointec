@@ -1,10 +1,11 @@
 .currency-slider.container {
-	padding: 35px 0 34px;
+	padding: 33px 0 33px;
 	.btn-nav {
 		cursor: pointer;
 	}
 	.currency-carousel {
-		transition: opacity 0.3s;
+		height: 38px;
+		transition: opacity 0.6s;
 		.currency-item {
 			white-space: nowrap;
 			text-align: center;
@@ -24,6 +25,24 @@
 				font-weight: 600;
 				vertical-align: top;
 				cursor: pointer;
+				.asset-pair {
+					font-weight: 300;
+					line-height: 12px;
+					margin-bottom: 5px;
+					font-size: 14px;
+				}
+				.ticker-info {
+					line-height: 20px;
+					font-size: 14px;
+					.positive {
+						font-size: 10px;
+						color: #0459c4;
+					}
+					.nagetive {
+						font-size: 10px;
+						color: #d7263d;
+					}
+				}
 			}
 			&:hover {
 				img {
@@ -55,6 +74,6 @@
 		}
 	}
 	@include media-breakpoint-down(md) {
-		padding: 15px 0;
+		padding: 16px 0 14px;
 	}
 }

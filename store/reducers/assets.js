@@ -8,6 +8,9 @@ import {
 	FETCH_WALLETS,
 	FETCH_WALLETS_START,
 	FETCH_WALLETS_END,
+	FETCH_TICKERS,
+	FETCH_TICKERS_START,
+	FETCH_TICKERS_END,
 	SET_CURRENT_ASSET
 } from '../actions/assets'
 
@@ -18,6 +21,7 @@ const INITIAL_STATE = {
 		Send,
 		Receive
 	},
+	tickers: null,
 	wallets: null,
 	status: null,
 	currentAsset: null,
@@ -47,17 +51,22 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 			})
 			return { ...state, wallets }
 
+		case FETCH_TICKERS:
+			return { ...state, tickers: payload }
+
 		case SET_CURRENT_ASSET:
-			return { ...state, currentAsset: payload }
+			return { ...state, currentAsset: payload, loading: false }
 
 		case FETCH_ASSETS_LIST_START:
 		case FETCH_ASSETS_STATUS_START:
 		case FETCH_WALLETS_START:
+		case FETCH_TICKERS_START:
 			return { ...state, loading: true, error: null }
 
 		case FETCH_ASSETS_LIST_END:
 		case FETCH_ASSETS_STATUS_END:
 		case FETCH_WALLETS_END:
+		case FETCH_TICKERS_END:
 			return { ...state, loading: false, error: payload }
 
 		default:
