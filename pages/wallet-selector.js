@@ -144,7 +144,6 @@ class WalletSelector extends Component {
 						? wallet.assets.includes(this.state.selectedAsset.Name)
 						: true
 				)
-		console.log(displayWallets)
 
 		return (
 			<div className="wallet-selector-page">
@@ -259,10 +258,6 @@ class WalletSelector extends Component {
 				`}</style>
 			</div>
 		)
-	}
-
-	componentWillReceiveProps(props) {
-		// console.log(props.assets)
 	}
 }
 
