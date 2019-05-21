@@ -146,6 +146,7 @@
 				img {
 					margin: 31px auto 26px;
 					height: 68px;
+					min-height: 68px;
 					@include media-breakpoint-down(sm) {
 						margin: 22px auto 21px;
 					}
@@ -160,7 +161,7 @@
 					color: #1a1d1f;
 					padding: 22px 0 23px;
 					position: relative;
-					i.fa-arrow-to-bottom {
+					i.fa-plus {
 						color: #0459c4;
 						margin-right: 12px;
 					}
@@ -170,6 +171,11 @@
 							color: #b0b9bd;
 							position: absolute;
 							right: 0;
+						}
+						&:hover {
+							i.fa-eye {
+								color: #0459c4;
+							}
 						}
 					}
 				}
