@@ -66,6 +66,15 @@ class TransactionDetail extends Component {
 
 	render() {
 		const { transaction } = this.props
+		const linkProps =
+			transaction.status === 'COMPLETED'
+				? {
+						href: transaction.ledgerTxnId
+				  }
+				: {
+						href: `/transaction-tracker?txnID=${transaction.ctTransactionId}`,
+						as: `/transaction-tracker/${transaction.ctTransactionId}`
+				  }
 		return (
 			<div
 				className="modal fade show"
@@ -152,11 +161,7 @@ class TransactionDetail extends Component {
 								</div>
 							</div>
 
-							<Link
-								href={`/transaction-tracker?txnID=${
-									transaction.ctTransactionId
-								}`}
-								as={`/transaction-tracker/${transaction.ctTransactionId}`}>
+							<Link {...linkProps}>
 								<a
 									className="blockchain-tracker"
 									style={{ display: 'block', textDecoration: 'none' }}>
