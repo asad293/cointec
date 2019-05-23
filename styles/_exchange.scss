@@ -221,6 +221,9 @@
 .order-summary-wrapper {
 	.field-label {
 		margin-bottom: 14px;
+		&.field-external-wallet {
+			margin-bottom: 9px;
+		}
 	}
 	.field-value {
 		font-weight: normal;
@@ -243,7 +246,7 @@
 		}
 		p {
 			font-weight: normal;
-			line-height: 12px;
+			line-height: normal;
 			font-size: 16px;
 			color: #515c61;
 			max-width: 328px;

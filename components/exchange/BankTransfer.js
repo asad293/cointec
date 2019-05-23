@@ -219,7 +219,7 @@ class BankTransfer extends Component {
 							</div>
 							<div className="col-6 text-left text-nowrap">
 								<label className="field-label">Amount</label>
-								<p className="field-value m-0">{sendAmount.toFixed(8)} GBP</p>
+								<p className="field-value m-0">{sendAmount.toFixed(2)} GBP</p>
 							</div>
 						</div>
 						<div className="row">

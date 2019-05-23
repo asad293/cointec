@@ -87,7 +87,7 @@ class TransactionTracker extends Component {
 				)}
 
 				<Header background="solid">
-					<Nav heading="Transaction tracker" />
+					<Nav heading="Transaction tracker" cancelLink="/dashboard" />
 				</Header>
 
 				<div className="container">
@@ -196,7 +196,7 @@ const TransactionStatus = ({
 				/>
 			)}
 			{!(cancelled || (TERMINATED && !CLEARING)) && (
-				<PaymentSent CLEARING={CLEARING} />
+				<PaymentSent CLEARING={CLEARING} FAILED={FAILED} />
 			)}
 			{!(cancelled || (TERMINATED && !CLEARING)) && (
 				<PaymentReceived
@@ -263,8 +263,9 @@ const TransactionCancelled = ({ ABANDONED, EXPIRED, TERMINATED }) => (
 		</div>
 		{ABANDONED && (
 			<div className="description">
-				We have recieved your refund request. We will be in touch within 24
-				hours to arrange payment.
+				{/* We have recieved your refund request. We will be in touch within 24
+				hours to arrange payment. */}
+				You have cancelled the transaction.
 			</div>
 		)}
 		{TERMINATED && (
@@ -288,14 +289,18 @@ const TransactionCancelled = ({ ABANDONED, EXPIRED, TERMINATED }) => (
 	</div>
 )
 
-const PaymentSent = ({ CLEARING }) => {
+const PaymentSent = ({ CLEARING, FAILED }) => {
 	const iconClass = cn(
 		'far',
 		'fa-lg mr-3',
-		CLEARING ? 'fa-check' : 'fa-spinner-third fa-spin'
+		FAILED ? 'fa-times' : CLEARING ? 'fa-check' : 'fa-spinner-third fa-spin'
 	)
 	return (
-		<div className="d-flex justify-content-between card-tracking">
+		<div
+			className={cn(
+				'd-flex justify-content-between card-tracking',
+				FAILED ? 'error' : ''
+			)}>
 			<div>
 				<i className={iconClass} />
 				You sent payment
@@ -476,7 +481,7 @@ const CoinSent = ({
 	)
 }
 
-const Nav = ({ heading }) => (
+const Nav = ({ heading, cancelLink = '/' }) => (
 	<div className="container">
 		<nav className="navbar navbar-custom navbar-expand-lg navbar-dark px-0 py-3 py-md-3">
 			<div className="col-8 d-none d-md-flex">
@@ -496,7 +501,7 @@ const Nav = ({ heading }) => (
 
 			<ul className="col-4 navbar-nav justify-content-end align-items-lg-center text-right">
 				<li className="nav-item">
-					<Link href="/">
+					<Link href={cancelLink}>
 						<a className="nav-link">
 							<i className="far fa-times" />
 						</a>

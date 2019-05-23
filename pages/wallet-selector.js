@@ -12,16 +12,39 @@ import Footer from '../components/Footer'
 
 const walletLogo = {
 	MEW: '/static/images/my-ether-wallet.png',
-	MetaMask: '/static/images/meta-mask-wallet.svg',
+	MetaMask: '/static/images/meta-mask-wallet.png',
 	Exodus: '/static/images/exodus-wallet.svg',
 	Jaxx: '/static/images/jaxx-wallet.png'
 }
 
 const walletLinks = {
-    MEW: 'https://www.myetherwallet.com/create-wallet',
+	MEW: 'https://www.myetherwallet.com/create-wallet',
 	MetaMask: 'https://metamask.io/',
 	Exodus: 'https://www.exodus.io/download/',
 	Jaxx: 'https://jaxx.io/downloads.html'
+}
+
+const walletProps = {
+	MEW: {
+		line1: 'Launched July 2015',
+		line2: 'On iOS, Android and Web',
+		line3: 'Store ETH and ERC-20 tokens'
+	},
+	MetaMask: {
+		line1: '1 million+ downloads',
+		line2: 'Chrome, Firefox and Opera',
+		line3: 'Store ETH and ERC-20 tokens'
+	},
+	Exodus: {
+		line1: 'User friendly design',
+		line2: 'Desktop, iOS and Android',
+		line3: 'Supports 100+ assets'
+	},
+	Jaxx: {
+		line1: 'All-in-one wallet',
+		line2: 'iOS, Android, Web and Desktop',
+		line3: 'Supports 80+ assets'
+	}
 }
 
 class WalletSelector extends Component {
@@ -112,7 +135,8 @@ class WalletSelector extends Component {
 					return {
 						name: key,
 						assets: wallets[key],
-						logo: walletLogo[key]
+						logo: walletLogo[key],
+						walletProps: walletProps[key]
 					}
 				})
 				.filter(wallet =>
@@ -141,7 +165,8 @@ class WalletSelector extends Component {
 										Choosing a wallet
 									</h1>
 									<h6 className="page-sub-heading d-none d-sm-block">
-										None of our recommended wallets take control of user's private keys.
+										None of our recommended wallets take control of your private
+										keys.
 									</h6>
 									<div className="search-bar">
 										<input
@@ -193,9 +218,7 @@ class WalletSelector extends Component {
 												<WalletSelection
 													name={wallet.name}
 													logo={wallet.logo}
-													prop1={'2 million downloads'}
-													prop2={'Created in 2015'}
-													prop3={'Store 20+ coins'}
+													walletProps={wallet.walletProps}
 													onCreate={() =>
 														this.setState({
 															addWalletModal: true,
@@ -236,31 +259,27 @@ class WalletSelector extends Component {
 			</div>
 		)
 	}
-
-	componentWillReceiveProps(props) {
-		// console.log(props.assets)
-	}
 }
 
-const WalletSelection = ({ name, logo, prop1, prop2, prop3, onCreate }) => (
+const WalletSelection = ({ name, logo, walletProps, onCreate }) => (
 	<div className="wallet-selection">
 		<div className="header">
 			<img src={logo} alt="Meta Mask" />
 		</div>
 		<div className="wallet-body">
 			<div className="wallet-prop">
-				<i className="far fa-arrow-to-bottom fa-lg" />
-				{prop1}
+				<i className="far fa-plus" />
+				{walletProps.line1}
 			</div>
 			<hr className="m-0" />
 			<div className="wallet-prop">
-				<i className="far fa-arrow-to-bottom fa-lg" />
-				{prop2}
+				<i className="far fa-plus" />
+				{walletProps.line2}
 			</div>
 			<hr className="m-0" />
 			<div className="wallet-prop">
-				<i className="far fa-arrow-to-bottom fa-lg" />
-				{prop3}
+				<i className="far fa-plus" />
+				{walletProps.line3}
 				<a onClick={onCreate}>
 					<i className="fas fa-eye" />
 				</a>

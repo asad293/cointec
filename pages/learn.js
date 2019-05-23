@@ -23,7 +23,7 @@ class Learn extends Component {
 							<div className="row">
 								<div className="col-md-12">
 									<h1 className="learn-heading d-none d-md-block">
-										Learn about digital currency
+										Learn about cryptoassets
 									</h1>
 									<h1 className="learn-heading d-block d-md-none">
 										Learning portal
@@ -64,7 +64,7 @@ class Learn extends Component {
 
 						<div className="col-sm-12 col-md-6 col-lg-4">
 							<Card
-								title="Storing Cryptossets"
+								title="Storing Cryptoassets"
 								description="Familiarize yourself with how to store cryptoassets and the different wallet options available."
 								image="/static/images/storing-cryptoassets.svg"
 								linkText="Learn about wallets"

@@ -298,15 +298,18 @@ const TransactionTable = ({
 												src={assets[order.destCurrency]}
 											/>
 											<span className="d-inline d-md-none pl-3">
-												+{order.destAmount}
+												+{order.destAmount.toFixed(8)}
 											</span>
 										</td>
 									)}
 									<td width="20%" className="d-none d-md-table-cell">
-										{order.destAmount}
+										{order.destAmount.toFixed(8)}
 									</td>
 									<td width="20%" className="d-none d-lg-table-cell">
-										{order.sourceAmount} {order.sourceCurrency}
+										{order.sourceAmount.toFixed(
+											order.sourceCurrency === 'GBP' ? 2 : 8
+										)}{' '}
+										{order.sourceCurrency}
 									</td>
 									<td width="20%" className="d-none d-md-table-cell">
 										<Moment format="DD MMM hh:mmA">
@@ -361,7 +364,7 @@ const TransactionTable = ({
 												src={assets[order.destCurrency]}
 											/>
 											<span className="d-inline d-md-none pl-3">
-												+{order.destAmount}
+												+{order.destAmount.toFixed(8)}
 											</span>
 										</td>
 									)}

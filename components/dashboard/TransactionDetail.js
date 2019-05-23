@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Link from 'next/link'
 import Clipboard from 'react-clipboard.js'
-// import ReactTooltip from 'react-tooltip'
 import cn from 'classnames'
 
 class TransactionDetail extends Component {
@@ -15,6 +14,7 @@ class TransactionDetail extends Component {
 	}
 
 	onClose() {
+		console.log('object')
 		this.setState(
 			{
 				closed: true
@@ -66,6 +66,15 @@ class TransactionDetail extends Component {
 
 	render() {
 		const { transaction } = this.props
+		const linkProps =
+			transaction.status === 'COMPLETED'
+				? {
+						href: transaction.ledgerTxnId
+				  }
+				: {
+						href: `/transaction-tracker?txnID=${transaction.ctTransactionId}`,
+						as: `/transaction-tracker/${transaction.ctTransactionId}`
+				  }
 		return (
 			<div
 				className="modal fade show"
@@ -104,13 +113,17 @@ class TransactionDetail extends Component {
 								<div className="transaction-field">
 									<h6 className="field-label">Send amount</h6>
 									<p className="field-value">
-										{transaction.sourceAmount} {transaction.sourceCurrency}
+										{transaction.sourceAmount.toFixed(
+											transaction.sourceCurrency === 'GBP' ? 2 : 8
+										)}{' '}
+										{transaction.sourceCurrency}
 									</p>
 								</div>
 								<div className="transaction-field">
 									<h6 className="field-label">Receive amount</h6>
 									<p className="field-value">
-										{transaction.destAmount} {transaction.destCurrency}
+										{transaction.destAmount.toFixed(8)}{' '}
+										{transaction.destCurrency}
 									</p>
 								</div>
 								<div className="transaction-field position-relative">
@@ -131,11 +144,6 @@ class TransactionDetail extends Component {
 												})
 											}>
 											<i className="far fa-clone" />
-											{/* <i
-												className="far fa-clone"
-												data-tip="Copied!"
-												data-event="click focus"
-											/> */}
 										</Clipboard>
 										<Tooltip visible={this.state.showTooltip} data="Copied!" />
 									</p>
@@ -149,31 +157,23 @@ class TransactionDetail extends Component {
 								</div>
 								<div className="transaction-field">
 									<h6 className="field-label">Identifier</h6>
-									<p className="field-value">{transaction.orderReference}</p>
+									<p className="field-value">{transaction.ctTransactionId}</p>
 								</div>
 							</div>
 
-							<Link
-								href={`/transaction-tracker?txnID=${
-									transaction.ctTransactionId
-								}`}
-								as={`/transaction-tracker/${transaction.ctTransactionId}`}>
+							<Link {...linkProps}>
 								<a
 									className="blockchain-tracker"
 									style={{ display: 'block', textDecoration: 'none' }}>
-									{/* <Clipboard data-clipboard-text={transaction.dest}> */}
 									{transaction.status === 'COMPLETED'
 										? 'Blockchain tracker'
 										: 'Transaction tracker'}
-									{/* <i className="far fa-clone" /> */}
 									<i className="far fa-external-link" />
-									{/* </Clipboard> */}
 								</a>
 							</Link>
 						</div>
 					</div>
 				</div>
-				{/* <ReactTooltip globalEventOff="click" /> */}
 			</div>
 		)
 	}
