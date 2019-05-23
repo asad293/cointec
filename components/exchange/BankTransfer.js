@@ -134,7 +134,7 @@ class BankTransfer extends Component {
 						'btn-primary'
 					)}
 					disabled={!this.state.sourceAccount}>
-					Proceed to payment
+					I have made payment
 				</button>
 			)
 		else
@@ -146,7 +146,7 @@ class BankTransfer extends Component {
 						'btn-primary'
 					)}
 					disabled={!this.props.depositAddress}>
-					Proceed to payment
+					I have made payment
 				</button>
 			)
 	}

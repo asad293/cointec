@@ -14,7 +14,6 @@ class TransactionDetail extends Component {
 	}
 
 	onClose() {
-		console.log('object')
 		this.setState(
 			{
 				closed: true
@@ -151,8 +150,8 @@ class TransactionDetail extends Component {
 								<div className="transaction-field">
 									<h6 className="field-label">Exchange rate</h6>
 									<p className="field-value">
-										{transaction.exchangeRate} {transaction.sourceCurrency}/
-										{transaction.destCurrency}
+										{parseFloat(transaction.exchangeRate).toFixed(4)}{' '}
+										{transaction.sourceCurrency}/{transaction.destCurrency}
 									</p>
 								</div>
 								<div className="transaction-field">

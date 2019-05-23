@@ -603,9 +603,6 @@
 .check-click-outside {
 	margin-left: auto;
 	margin-bottom: 0.5rem;
-	@include media-breakpoint-down(sm) {
-		margin-left: 18px;
-	}
 }
 
 .chart-time-interval {

@@ -182,7 +182,6 @@ const TransactionStatus = ({
 		Data &&
 		Object.keys(Data).length &&
 		Data[Object.keys(Data).find(txn => txn.includes(exchangeName))]
-	console.log(Exchange)
 	// const Exchange =
 	// 	Data && Object.keys(Data).length && Data[Object.keys(Data).reverse()[0]]
 	const cancelled = ABANDONED || EXPIRED
