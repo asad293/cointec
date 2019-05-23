@@ -157,7 +157,7 @@ class OrderSummary extends Component {
 						</div>
 						<div className="row">
 							<div className="col-md-12 text-left">
-								<label className="field-label d-flex">
+								<label className="field-label field-external-wallet d-flex">
 									External wallet address
 								</label>
 								<Clipboard

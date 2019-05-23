@@ -30,7 +30,10 @@ class Calculator extends Component {
 			coins: props.assets.list.Receive,
 			currencies: props.assets.list.Send,
 			coinSearch: '',
-			coinSelected: false,
+			coinSelected:
+				props.assets.list.Receive.find(
+					asset => asset.Name === props.assets.currentAsset
+				) || false,
 			currencySelected: props.assets.list.Send[0],
 			toggleCurrency: false,
 			toggleCoin: false,
@@ -362,7 +365,8 @@ class Calculator extends Component {
 				if (assetPair.startsWith(this.state.currencySelected.Name)) {
 					const asset = props.assets.status[assetPair]
 					const coin = props.assets.list.Receive.find(
-						coin => assetPair.indexOf(coin.Name) === 3
+						coin =>
+							assetPair === `${this.state.currencySelected.Name}${coin.Name}`
 					)
 					if (coin) {
 						coin.DefaultQuoteAmount = asset.Send.DefaultQuoteAmount
