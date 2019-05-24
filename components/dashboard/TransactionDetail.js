@@ -162,6 +162,7 @@ class TransactionDetail extends Component {
 
 							<Link {...linkProps}>
 								<a
+									target={transaction.status === 'COMPLETED' ? '_blank' : ''}
 									className="blockchain-tracker"
 									style={{ display: 'block', textDecoration: 'none' }}>
 									{transaction.status === 'COMPLETED'

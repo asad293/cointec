@@ -45,7 +45,6 @@ export const fetchTickers = () => async dispatch => {
 		if (!response.ok) throw new Error(response.statusText)
 
 		const payload = await response.json()
-		console.log(payload)
 		return dispatch({
 			type: FETCH_TICKERS,
 			payload

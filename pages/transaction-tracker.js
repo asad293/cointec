@@ -203,9 +203,10 @@ const TransactionStatus = ({
 					REVIEW={REVIEW}
 					TERMINATED={TERMINATED}
 					SETTLED={SETTLED}
+					FAILED={FAILED}
 				/>
 			)}
-			{!(cancelled || (TERMINATED && !CLEARING)) && (
+			{!(cancelled || (TERMINATED && !CLEARING)) && (CLEARING && !FAILED) && (
 				<CoinSent
 					Exchange={Exchange}
 					DestinationWallet={DestinationWallet}
@@ -292,14 +293,10 @@ const PaymentSent = ({ CLEARING, FAILED }) => {
 	const iconClass = cn(
 		'far',
 		'fa-lg mr-3',
-		FAILED ? 'fa-times' : CLEARING ? 'fa-check' : 'fa-spinner-third fa-spin'
+		FAILED || CLEARING ? 'fa-check' : 'fa-spinner-third fa-spin'
 	)
 	return (
-		<div
-			className={cn(
-				'd-flex justify-content-between card-tracking',
-				FAILED ? 'error' : ''
-			)}>
+		<div className={cn('d-flex justify-content-between card-tracking')}>
 			<div>
 				<i className={iconClass} />
 				You sent payment
@@ -311,7 +308,7 @@ const PaymentSent = ({ CLEARING, FAILED }) => {
 	)
 }
 
-const PaymentReceived = ({ CLEARING, REVIEW, TERMINATED, SETTLED }) => {
+const PaymentReceived = ({ CLEARING, REVIEW, TERMINATED, SETTLED, FAILED }) => {
 	return CLEARING ? (
 		<div
 			className={cn(
@@ -363,6 +360,25 @@ const PaymentReceived = ({ CLEARING, REVIEW, TERMINATED, SETTLED }) => {
 			) : (
 				''
 			)}
+		</div>
+	) : FAILED && !CLEARING ? (
+		<div className="coin-sent-wrapper mt-3 error">
+			<div className="d-flex justify-content-between card-tracking error">
+				<div>
+					<i className="far fa-times fa-lg mr-3" />
+					No payment received
+				</div>
+			</div>
+			<div className="description">
+				Sorry, your order has been cancelled as we have not received your
+				payment. If you have made a payment,{' '}
+				<Link href="/">
+					<a style={{ fontWeight: 600 }}>contact us.</a>
+				</Link>
+			</div>
+			<Link href="/dashboard">
+				<a className="btn-follow-blockchain">Return to dashboard</a>
+			</Link>
 		</div>
 	) : (
 		<div className="d-flex justify-content-between card-tracking disabled mt-3">
