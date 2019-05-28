@@ -158,10 +158,10 @@ class Calculator extends Component {
 		// fetch call the first time component mounts
 		this.fetchCalls()
 
-		this.setState({
-			coinSelected: coin
-			// currencySelected: coin
-		})
+		// this.setState({
+		// 	coinSelected: coin
+		// 	// currencySelected: coin
+		// })
 
 		addEventListener('keyup', this.onEscape)
 		addEventListener('click', this.onClickOutside)
