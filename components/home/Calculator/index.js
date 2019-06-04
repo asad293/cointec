@@ -377,15 +377,15 @@ class Calculator extends Component {
 			const nextCoin = coinParam
 				? updatedCoins.find(coin => coin.Name === coinParam)
 				: updatedCoins.find(
-						coin =>
-							coin.SeoURL.toLowerCase() ===
-							this.props.router.asPath.toLowerCase()
-				  )
+					coin =>
+						coin.SeoURL.toLowerCase() ===
+						this.props.router.asPath.toLowerCase()
+				)
 			const coinSelected = nextCoin
 				? nextCoin
 				: updatedCoins.length
-				? updatedCoins[0]
-				: false
+					? updatedCoins[0]
+					: false
 
 			this.setState(
 				{
@@ -589,7 +589,7 @@ class Calculator extends Component {
 									name="receiveAmount"
 									component={this.renderField}
 									normalize={this.normalizeReceiveAmount}
-									placeholder={this.toReceiveAmount(
+									placeholder={!this.state.rate || Message ? '0.00000000' : this.toReceiveAmount(
 										this.state.placeholderSendAmount
 									).toFixed(8)}
 								/>
@@ -657,8 +657,8 @@ class Calculator extends Component {
 														/>
 													))
 												) : (
-													<div className="px-3">No results</div>
-												)}
+														<div className="px-3">No results</div>
+													)}
 											</div>
 										</div>
 									)}
@@ -670,19 +670,19 @@ class Calculator extends Component {
 							{!this.state.rate || Message
 								? '-/-'
 								: this.state.rate.toFixed(
-										this.state.currencySelected
-											? this.state.currencySelected.Dp
-											: 2
-								  ) +
-								  ' ' +
-								  (this.state.currencySelected
-										? this.state.currencySelected.Name
-										: 'GBP') +
-								  '/' +
-								  (this.state.coinSelected
-										? this.state.coinSelected.Name
-										: 'BTC') +
-								  ' '}
+									this.state.currencySelected
+										? this.state.currencySelected.Dp
+										: 2
+								) +
+								' ' +
+								(this.state.currencySelected
+									? this.state.currencySelected.Name
+									: 'GBP') +
+								'/' +
+								(this.state.coinSelected
+									? this.state.coinSelected.Name
+									: 'BTC') +
+								' '}
 							{/* </b> */}
 						</h6>
 						<div className="am row">
@@ -695,6 +695,7 @@ class Calculator extends Component {
 	}
 
 	toReceiveAmount(amount) {
+		console.log(this.state.rate);
 		return !amount || !this.state.rate ? 0 : amount / this.state.rate
 	}
 }
