@@ -15,7 +15,7 @@ class WrongPayee extends Component {
 			.abandonOrder({
 				orderId: this.props.txnID,
 				ctUser: this.props.ctUser,
-				reason: 'WRONGPAYEE'
+				reason: this.props.reason
 			})
 			.then(() => {
 				this.props.getStatus({

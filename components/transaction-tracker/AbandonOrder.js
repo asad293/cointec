@@ -95,6 +95,7 @@ class AbandonOrder extends Component {
 									<WrongPayment
 										txnID={this.props.txnID}
 										ctUser={this.props.ctUser}
+										reason={'WRONGAMOUNT'}
 										addRefundAccount={this.state.addRefundAccount}
 										handleRefundAccount={this.handleRefundAccount}
 										onSubmit={this.onClose}
@@ -104,6 +105,7 @@ class AbandonOrder extends Component {
 								))}
 							{this.state.reason === 'WRONGPAYEE' && (
 								<WrongPayee
+									reason={'WRONGPAYEE'}
 									txnID={this.props.txnID}
 									ctUser={this.props.ctUser}
 									onSubmit={this.onClose}
