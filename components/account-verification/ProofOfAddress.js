@@ -110,35 +110,35 @@ class ProofOfAddress extends Component {
 						<ul className="document-list">
 							<li>
 								<i className="fas fa-check-circle fa-xs" />
-								Passport
+								Mortgage statement
 							</li>
 							<li>
 								<i className="fas fa-check-circle fa-xs" />
-								Full driving licence (photocard)
+								Bank statement
 							</li>
 							<li>
 								<i className="fas fa-check-circle fa-xs" />
-								Provisional driving license (photocard)
+								Rent statement
 							</li>
 							<li>
 								<i className="fas fa-check-circle fa-xs" />
-								Passport
+								Utility bill
 							</li>
 							<li>
 								<i className="fas fa-check-circle fa-xs" />
-								Full driving licence (photocard)
+								Council tax bill
 							</li>
 							<li>
 								<i className="fas fa-check-circle fa-xs" />
-								Provisional driving license (photocard)
+								TV provider bill
 							</li>
 							<li>
 								<i className="fas fa-check-circle fa-xs" />
-								Passport
+								Landline phone bill
 							</li>
 							<li>
 								<i className="fas fa-check-circle fa-xs" />
-								Full driving licence (photocard)
+								Internet services bill
 							</li>
 						</ul>
 					</div>
@@ -146,9 +146,8 @@ class ProofOfAddress extends Component {
 				<div className="row">
 					<div className="col-12">
 						<p className="upload-info">
-							IDs must be in date at the time of upload. For passports, upload
-							the entire photo page, for all other forms of ID a scan of just
-							the front is acceptable.
+							Documents must not be older than 3 months. The name and address
+							should be displayed clearly and match the details of your account.
 						</p>
 					</div>
 				</div>

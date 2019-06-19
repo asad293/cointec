@@ -126,9 +126,9 @@ class ProofOfID extends Component {
 				<div className="row">
 					<div className="col-12">
 						<p className="upload-info">
-							IDs must be in date at the time of upload. For passports, upload
-							the entire photo page, for all other forms of ID a scan of just
-							the front is acceptable.
+							IDs must be in date at the time of upload and the name must match
+							the details on your account. For passports, the entire photo page
+							should be uploaded.
 						</p>
 					</div>
 				</div>
