@@ -16,7 +16,8 @@ import {
 	GET_REHIVE_TOKEN_END,
 	DELETE_REHIVE_TOKEN,
 	DELETE_REHIVE_TOKEN_START,
-	DELETE_REHIVE_TOKEN_END
+	DELETE_REHIVE_TOKEN_END,
+	SIGN_OUT_SESSION
 } from '../actions'
 
 const INITIAL_STATE = {
@@ -64,6 +65,9 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 		case GET_REHIVE_TOKEN_END:
 		case DELETE_REHIVE_TOKEN_END:
 			return { ...state, loading: false, error: payload }
+
+		case SIGN_OUT_SESSION:
+			return INITIAL_STATE
 
 		default:
 			return state
