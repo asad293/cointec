@@ -223,7 +223,7 @@ class AccountSettings extends Component {
 												) : (
 													<div>
 														<p className="d-none d-md-block">
-															Get verified to buy digital currency with GBP
+															Complete verification to increase your limits.
 														</p>
 														<p className="d-block d-md-none mb-4">
 															Get verified to buy with GBP
