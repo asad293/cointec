@@ -310,11 +310,10 @@ class AccountSettings extends Component {
 											<div>
 												<h6 className="setting-name">Close account</h6>
 												<p className="d-none d-lg-block">
-													You will loose access to all cointec services if you
-													close your account.
+													You will lose access to all cointec services
 												</p>
 												<p className="d-block d-lg-none mb-4 mb-md-0">
-													You will loose access to all cointec services
+													You will lose access to all cointec services
 												</p>
 											</div>
 											<div className="ml-md-auto">

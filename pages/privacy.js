@@ -21,13 +21,12 @@ import StickyFooter from '../components/StickyFooter'
 
 const preferenceDetail = {
 	Orders: {
-		name: 'My transfers',
-		description: 'notifications about where your coins are.'
+		name: 'My orders',
+		description: 'notifications for completed orders.'
 	},
 	Marketing: {
 		name: 'New coins and features',
-		description: 'our latest and greatest work, sent monthly at most.',
-		shortDescription: 'latest product information'
+		description: 'latest product information.'
 	}
 }
 
@@ -263,11 +262,10 @@ class Privacy extends Component {
 											<div>
 												<h6 className="setting-name">Data request</h6>
 												<p className="d-none d-lg-block">
-													Request access to all your personal information stored
-													on our system.
+													Request your data in a human-readable file.
 												</p>
 												<p className="mb-4 mb-md-0 d-block d-lg-none">
-													Request access to your personal data.
+													Request your data in a human-readable file.
 												</p>
 											</div>
 											<div className="ml-md-auto">
@@ -290,10 +288,10 @@ class Privacy extends Component {
 											<div>
 												<h6 className="setting-name">Export Data</h6>
 												<p className="d-none d-lg-block">
-													Export your data in a text foile
+													Export your data in a machine-readable format.
 												</p>
 												<p className="mb-4 mb-md-0 d-block d-lg-none">
-													Export your data in a text foile
+													Export your data in a machine-readable file.
 												</p>
 											</div>
 											<div className="ml-md-auto">
