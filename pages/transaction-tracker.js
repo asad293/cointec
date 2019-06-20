@@ -6,6 +6,7 @@ import Router, { withRouter } from 'next/router'
 import Moment from 'react-moment'
 import cn from 'classnames'
 import PropTypes from 'prop-types'
+import { get } from 'lodash'
 import {
 	abandonOrder,
 	getStatus,
@@ -152,6 +153,10 @@ class TransactionTracker extends Component {
 	componentWillReceiveProps(props) {
 		if (props.order.error) {
 			clearInterval(this.state.timerId)
+		}
+		const Status = get(props.order.status, 'Order.Status')
+		if (Status === 'PAYMENT') {
+			Router.push('/exchange')
 		}
 	}
 }
