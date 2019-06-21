@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Router, { withRouter } from 'next/router'
 import { connect } from 'react-redux'
+import { min } from 'lodash'
 import {
 	toggleVerificationAlert,
 	fetchVerificationStatus,
@@ -12,7 +13,7 @@ import {
 } from '../store/actions'
 
 import Nav from '../components/dashboard/Nav'
-import AlertMessage from '../components/dashboard/AlertMessage'
+// import AlertMessage from '../components/dashboard/AlertMessage'
 import TabsGroup from '../components/account-settings/TabsGroup'
 import SettingsMenu from '../components/account-settings/SettingsMenu'
 import StickyFooter from '../components/StickyFooter'
@@ -100,7 +101,10 @@ class TransactionLimits extends Component {
 												<span className="beta-user">
 													{currentTier.TierName}
 												</span>{' '}
-												| <Link href="/account-verification"><a className="link-setting">upgrade</a></Link>
+												|{' '}
+												<Link href="/account-verification">
+													<a className="link-setting">upgrade</a>
+												</Link>
 											</p>
 										)}
 									</div>
@@ -118,7 +122,7 @@ class TransactionLimits extends Component {
 													style={{
 														width: `${
 															limits.vDaily
-																? _.min([
+																? min([
 																		(limits.vDaily * 100) / limits.lDaily,
 																		100
 																  ])
@@ -143,7 +147,7 @@ class TransactionLimits extends Component {
 													style={{
 														width: `${
 															limits.vWeekly
-																? _.min([
+																? min([
 																		(limits.vWeekly * 100) / limits.lWeekly,
 																		100
 																  ])
@@ -154,7 +158,7 @@ class TransactionLimits extends Component {
 											</div>
 										</div>
 									)}
-									<p className="coming-soon">Increased limits coming soon</p>
+									{/* <p className="coming-soon">Increased limits coming soon</p> */}
 								</div>
 							</div>
 						</div>
