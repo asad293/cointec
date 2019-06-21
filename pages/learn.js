@@ -22,25 +22,13 @@ class Learn extends Component {
 						<div className="hero-wrapper hero-wrapper-inner learn">
 							<div className="row">
 								<div className="col-md-12">
-									<h1 className="learn-heading d-none d-md-block">
-										Learn about cryptoassets
-									</h1>
-									<h1 className="learn-heading d-block d-md-none">
+									<h1 className="learn-heading">Learn about cryptoassets</h1>
+									{/* <h1 className="learn-heading d-block d-md-none">
 										Learning portal
-									</h1>
-									<p className="d-none d-md-block">
-										Our learning portal brings you up to speed with crypto.
-									</p>
-									<p className="d-block d-md-none">
+									</h1> */}
+									<p>Our learning portal brings you up to speed with crypto.</p>
+									{/* <p className="d-block d-md-none">
 										Digital currency made simple
-									</p>
-									{/* <p>
-										Buy 20 digital currencies using Bank
-										<br className="d-block d-md-none" /> Transfer or Bitcoin.
-										<br className="d-none d-md-block" />
-										<span className="d-none d-md-block">
-											Create an account and get started in minutes.
-										</span>
 									</p> */}
 								</div>
 							</div>
@@ -54,7 +42,7 @@ class Learn extends Component {
 						<div className="col-sm-12 col-md-6 col-lg-4">
 							<Card
 								title="Cryptoasset Basics"
-                                description="This is a guide to learn the basics of the cryptoasset space if you're just getting started."
+								description="This is a guide to learn the basics of the cryptoasset space if you're just getting started."
 								image="/static/images/cryptoasset-basics.svg"
 								linkText="Learn the basics"
 								href="/digital-currency-basics"
@@ -76,7 +64,7 @@ class Learn extends Component {
 						<div className="col-sm-12 col-md-6 col-lg-4">
 							<Card
 								title="Blockchain technology"
-                                description="Learn about the key concepts of blockchain technology and how it works."
+								description="Learn about the key concepts of blockchain technology and how it works."
 								image="/static/images/blockchain-technology.svg"
 								linkText="Learn about blockchain"
 								href="/blockchain"
@@ -87,8 +75,8 @@ class Learn extends Component {
 						<div className="col-sm-12 col-md-6 col-lg-4">
 							<Card
 								title="Glossary of terms"
-                                description="Lookup common terms, fintech acronyms and investment jargon."
-                                image="/static/images/glossary-of-terms.svg"
+								description="Lookup common terms, fintech acronyms and investment jargon."
+								image="/static/images/glossary-of-terms.svg"
 								linkText="Lookup terms"
 								href="/glossary-of-terms"
 								asLink="/learn/glossary-of-terms"
@@ -131,7 +119,15 @@ class Learn extends Component {
 	}
 }
 
-const Card = ({ title, description, image, linkText, href, noPrefix, asLink }) => (
+const Card = ({
+	title,
+	description,
+	image,
+	linkText,
+	href,
+	noPrefix,
+	asLink
+}) => (
 	<div className="learn-card text-center">
 		<img src={image} alt={title} />
 		<h5>{title}</h5>
