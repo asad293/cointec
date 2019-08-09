@@ -184,7 +184,9 @@ class BankTransfer extends Component {
 	renderScreen() {
 		const { sendAmount, accounts, order } = this.props
 		const { owner, sortCode, accountNumber } =
-			(order.create && order.create.BrokerAccount) || {}
+			order.pendingStatus && order.pendingStatus.BrokerAccount
+				? order.pendingStatus.BrokerAccount
+				: (order.create && order.create.BrokerAccount) || {}
 
 		return (
 			<div>
@@ -214,7 +216,10 @@ class BankTransfer extends Component {
 							<div className="col-6 text-left text-nowrap">
 								<label className="field-label">Reference</label>
 								<p className="field-value m-0">
-									{(order.create && order.create.OrderReference) || 'XXXXXXXX'}
+									{order.pendingStatus && order.pendingStatus.OrderReference
+										? order.pendingStatus.OrderReference
+										: (order.create && order.create.OrderReference) ||
+										  'XXXXXXXX'}
 								</p>
 							</div>
 							<div className="col-6 text-left text-nowrap">
