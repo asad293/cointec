@@ -23,29 +23,16 @@ import { fetchAssetsList } from '../store/actions'
 class Home extends Component {
 	render() {
 		const coinName = this.props.router.query.buy
-		const [coin] = this.props.assets.list.Receive.filter(
-			asset => _.kebabCase(asset.FullName) === coinName
-		)
-		const title = coin
-			? `Buy ${coin.FullName} | Cointec`
-			: 'Crypto Asset Investing | Cointec'
+		const [coin] = this.props.assets.list.Receive.filter(asset => _.kebabCase(asset.FullName) === coinName)
+		const title = coin ? `Buy ${coin.FullName} | Cointec` : 'Crypto Asset Investing | Cointec'
 		return (
 			<div>
 				<Head>
 					<meta name="twitter:card" content="summary" />
 					<meta name="twitter:site" content="@Cointec" />
-					<meta
-						name="twitter:title"
-						content="Say hello to a new kind of money."
-					/>
-					<meta
-						name="twitter:description"
-						content="Buy 30 digital currencies using Bank Transfer or GBP."
-					/>
-					<meta
-						name="twitter:image"
-						content="../static/images/twitterCard.png"
-					/>
+					<meta name="twitter:title" content="Say hello to a new kind of money." />
+					<meta name="twitter:description" content="Buy 30 digital currencies using Bank Transfer or GBP." />
+					<meta name="twitter:image" content="../static/images/twitterCard.png" />
 					<title>{title}</title>
 				</Head>
 				<Header background="gradient" style={{ overflow: 'initial' }}>
@@ -61,18 +48,10 @@ class Home extends Component {
 										kind of asset.
 									</h1>
 									<h2 className="hero-intro d-block">
-										<span className="d-none d-sm-inline">
-											Invest in 50+ Crypto Assets with UK bank transfer.
-										</span>
-										<span className="d-inline d-sm-none">
-											Invest in 50+ Crypto Assets. Simple. Secure.
-										</span>{' '}
-										{/* Buy 20 digital currencies using Bank Transfer or Bitcoin. */}
+										<span className="d-none d-sm-inline">Invest in 20+ Crypto Assets with UK bank transfer.</span>
+										<span className="d-inline d-sm-none">Invest in 20+ Crypto Assets. Simple. Secure.</span>{' '}
 										<br className="d-none d-md-inline" />
-										<span className="d-none d-sm-inline">
-											Simple. Secure. Create an account today to get started.
-										</span>
-										{/* Create an account and get started in minutes. */}
+										<span className="d-none d-sm-inline">Simple. Secure. Create an account today to get started.</span>
 									</h2>
 									<div className="hero-link my-md-0">
 										<Link href="/learn">
@@ -81,10 +60,7 @@ class Home extends Component {
 									</div>
 								</div>
 								<div className="d-none d-lg-flex col-lg-1 col-xl-2" />
-								<div
-									id="main-calc"
-									className="col-12 col-lg-5 col-xl-4 hero-calculator pl-xl-0">
-									{/* pt-lg-3 */}
+								<div id="main-calc" className="col-12 col-lg-5 col-xl-4 hero-calculator pl-xl-0">
 									<div className="calculator-wrapper">
 										<Calculator />
 									</div>
