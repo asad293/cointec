@@ -10,7 +10,7 @@
 		"@zeit/next-sass": "^1.0.1",
 		"axios": "^0.18.0",
 		"bootstrap": "^4.1.3",
-		"chart.js": "^2.7.3",
+		"chart.js": "^2.9.4",
 		"classnames": "^2.2.6",
 		"cryptocurrency-address-validator": "^0.1.3",
 		"es6-promise": "^4.2.5",
