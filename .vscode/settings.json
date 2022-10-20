@@ -1,7 +1,3 @@
 {
-	"editor.formatOnSave": true,
-	"files.associations": {
-		"**/pages/*.js": "javascriptreact",
-		"**/components/**/*.js": "javascriptreact"
-	}
+    "dotenv.enableAutocloaking": false
 }

@@ -1,36 +1,45 @@
 {
-	"name": "cointec",
-	"scripts": {
-		"dev": "node server",
-		"build": "next build",
-		"start": "NODE_ENV=production node server -p $PORT",
-		"heroku-postbuild": "npm run build"
-	},
-	"dependencies": {
-		"@zeit/next-sass": "^1.0.1",
-		"axios": "^0.18.0",
-		"bootstrap": "^4.1.3",
-		"chart.js": "^2.7.3",
-		"classnames": "^2.2.6",
-		"express": "^4.16.4",
-		"file-saver": "^2.0.0",
-		"js-cookie": "^2.2.0",
-		"next": "^7.0.1",
-		"node-sass": "^4.9.3",
-		"react": "^16.5.2",
-		"react-chartjs-2": "^2.7.4",
-		"react-clipboard.js": "^2.0.1",
-		"react-dom": "^16.5.2",
-		"react-grecaptcha": "^1.2.5",
-		"react-moment": "^0.8.1",
-		"react-redux": "^5.0.7",
-		"redux": "^4.0.0",
-		"redux-form": "^7.4.2",
-		"redux-promise": "^0.6.0",
-		"redux-thunk": "^2.3.0"
-	},
-	"devDependencies": {
-		"@types/next": "^7.0.1",
-		"cross-env": "^5.2.0"
-	}
+  "name": "cointec-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^2.3.1",
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@fontsource/open-sans": "^4.5.11",
+    "@prisma/client": "4.3.1",
+    "@trpc/client": "^9.27.2",
+    "@trpc/next": "^9.27.2",
+    "@trpc/react": "^9.27.2",
+    "@trpc/server": "^9.27.2",
+    "framer-motion": "^7.2.1",
+    "lodash": "^4.17.21",
+    "next": "12.2.5",
+    "nodemailer": "^6.7.8",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.34.2",
+    "react-icons": "^4.4.0",
+    "react-query": "3",
+    "superjson": "^1.9.1",
+    "trpc-playground": "^0.3.2",
+    "zod": "^3.19.0",
+    "zustand": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "18.7.15",
+    "@types/nodemailer": "^6.4.5",
+    "@types/react": "18.0.18",
+    "@types/react-dom": "18.0.6",
+    "eslint": "8.23.0",
+    "eslint-config-next": "12.2.5",
+    "prisma": "4.3.1",
+    "typescript": "4.8.2"
+  }
 }

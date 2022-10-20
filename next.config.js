@@ -1,12 +1,7 @@
-const withSass = require('@zeit/next-sass')
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+}
 
-module.exports = withSass({
-	webpack: config => {
-		// Fixes npm packages that depend on `fs` module
-		config.node = {
-			fs: 'empty'
-		}
-
-		return config
-	}
-})
+module.exports = nextConfig
